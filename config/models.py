@@ -18,9 +18,14 @@ class SiteConfig(models.Model):
                                                 blank=True,
                                                 choices=TEMPLATES._CHOICES,
                                                 default=TEMPLATES.TEMP)
+
     site = models.OneToOneField(Site, verbose_name='сайт',
                                 on_delete=models.CASCADE,
                                 related_name='site_config')
+
+    def get_template(self):
+        choices = dict(SiteConfig.TEMPLATES._CHOICES)
+        return choices[self.template]
 
     def __unicode__(self):
         return self.site.domain
