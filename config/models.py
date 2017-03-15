@@ -9,15 +9,15 @@ from django.dispatch import receiver
 
 class SiteConfig(models.Model):
     class TEMPLATES:
-        TEMP = 0
-        _CHOICES = ((TEMP, '/path/to/template'),
+        DEFRO = 0
+        _CHOICES = ((DEFRO, 'defro'),
                     )
 
     template = models.PositiveSmallIntegerField(verbose_name='шаблон',
                                                 null=True,
                                                 blank=True,
                                                 choices=TEMPLATES._CHOICES,
-                                                default=TEMPLATES.TEMP)
+                                                default=TEMPLATES.DEFRO)
 
     site = models.OneToOneField(Site, verbose_name='сайт',
                                 on_delete=models.CASCADE,
