@@ -6,7 +6,7 @@ from django.views.generic.base import TemplateResponseMixin, TemplateView
 
 class SiteTemplateResponseMixin(TemplateResponseMixin):
     def get_template_names(self):
-        template = get_current_site(self.request).site_config.get_template()
+        template = get_current_site(self.request).config.template
         return [os.path.join(template, x) for x in super(SiteTemplateResponseMixin, self).get_template_names()]
 
 

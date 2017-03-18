@@ -18,5 +18,5 @@ def get_static(context, filename, *args, **kwargs):
     """
     request = context['request']
     site = SimpleLazyObject(lambda: get_current_site(request))
-    path = static(site.site_config.get_template() + '/' + filename)
-    return path
+    path = os.path.join(site.config.template, filename)
+    return static(path)

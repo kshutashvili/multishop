@@ -9,23 +9,20 @@ from django.dispatch import receiver
 
 class SiteConfig(models.Model):
     class TEMPLATES:
-        DEFRO = 0
-        _CHOICES = ((DEFRO, 'defro'),
+        DEFRO = 'defro'
+        _CHOICES = ((DEFRO, 'Defro'),
                     )
 
-    template = models.PositiveSmallIntegerField(verbose_name='шаблон',
-                                                null=True,
-                                                blank=True,
-                                                choices=TEMPLATES._CHOICES,
-                                                default=TEMPLATES.DEFRO)
+    template = models.CharField(verbose_name='шаблон',
+                                max_length=20,
+                                null=True,
+                                blank=True,
+                                choices=TEMPLATES._CHOICES,
+                                default=TEMPLATES.DEFRO)
 
     site = models.OneToOneField(Site, verbose_name='сайт',
                                 on_delete=models.CASCADE,
-                                related_name='site_config')
-
-    def get_template(self):
-        choices = dict(SiteConfig.TEMPLATES._CHOICES)
-        return choices[self.template]
+                                related_name='config')
 
     def __unicode__(self):
         return self.site.domain
@@ -35,4 +32,4 @@ class SiteConfig(models.Model):
 def create_or_update_site_config(sender, instance, created, **kwargs):
     if created:
         SiteConfig.objects.create(site=instance)
-    instance.site_config.save()
+    instance.config.save()
