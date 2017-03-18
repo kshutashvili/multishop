@@ -10,9 +10,6 @@ register = template.Library()
 def get_static(context, filename, *args, **kwargs):
     """
     template tag, that allows to get staticfiles depending on site
-    The SimpleLazyObject wrapper makes sure the DB call only happens when
-    the template actually uses the site object.
-    This removes the query from the admin pages. It also caches the result
     """
     request = context['request']
     site = request.site
