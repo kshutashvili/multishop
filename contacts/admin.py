@@ -2,10 +2,10 @@
 
 from django.contrib import admin
 
-from .models import PhoneNumber
+from contacts.models import PhoneNumber
 
 
 @admin.register(PhoneNumber)
 class PhoneNumberAdmin(admin.ModelAdmin):
-    list_display = ('phone', 'operator')
-    list_filter = ('operator',)
+    list_display = ('phone', 'operator', 'site')
+    list_filter = ('operator', 'site',)
