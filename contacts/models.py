@@ -41,8 +41,7 @@ class PhoneNumber(models.Model):
     sign = models.CharField(max_length=1, choices=SIGN_TYPE, default='c')
     site = models.ForeignKey(
         Site,
-        verbose_name='Сайт',
-        on_delete=models.CASCADE,
+        verbose_name=_('Сайт'),
         related_name='phonenumbers'
     )
 
