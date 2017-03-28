@@ -5,10 +5,14 @@ from oscar.apps.dashboard.catalogue.forms import ProductForm as OscarProductForm
     ProductAttributesForm as OscarProductAttributes, ProductClassForm as OscarProductClassForm
 from treebeard.forms import movenodeform_factory
 
-from shop.catalogue.models import Product, ProductClass, ProductAttribute, Category
+from shop.catalogue.models import Product, ProductClass, ProductAttribute, Category, ExtraImage, ProductAttributeValue
 
 
 def _attr_textarea_field_uk(attribute):
+    """
+    django-oscar use factory to create attribute fields, attribute fields that will be
+    displayed are hardcoded, so we need to define our owns
+    """
     return forms.CharField(label=attribute.name_uk,
                            widget=forms.Textarea(),
                            required=attribute.required)
@@ -20,7 +24,7 @@ def _attr_text_field_uk(attribute):
 
 
 class ProductForm(OscarProductForm):
-    _localizable = ["text", "richtext"]
+    _localizable = ["text", "richtext"]  # types of fields, that need to be localized
     OscarProductForm.FIELD_FACTORIES['text_uk'] = _attr_text_field_uk
     OscarProductForm.FIELD_FACTORIES['richtext_uk'] = _attr_textarea_field_uk
     title_uk = forms.CharField(label='Назва (українською)')
@@ -29,9 +33,9 @@ class ProductForm(OscarProductForm):
     class Meta:
         model = Product
         fields = [
-            'title', 'title_uk', 'upc', 'description', 'description_uk', 'is_discountable', 'structure', 'site']
+            'title', 'title_uk', 'upc', 'description', 'description_uk', 'is_discountable', 'structure', ]
         widgets = {
-            'structure': forms.HiddenInput()
+            'structure': forms.HiddenInput(),
         }
 
     def add_attribute_fields(self, product_class, is_parent=False):
