@@ -14,6 +14,7 @@ import os
 
 from oscar.defaults import *
 from oscar import get_core_apps
+from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -47,11 +48,13 @@ INSTALLED_APPS = [
 
     'compressor',
     'widget_tweaks',
-] + get_core_apps(['shop.catalogue', 'shop.promotions'])
+    'modeltranslation',
+] + get_core_apps(['shop.catalogue', 'shop.promotions', 'shop.dashboard.catalogue'])
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -135,7 +138,12 @@ AUTHENTICATION_BACKENDS = (
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
+
+LANGUAGES = [
+    ('ru', _('Russian')),
+    ('uk', _('Ukrainian')),
+]
 
 TIME_ZONE = 'UTC'
 
@@ -170,6 +178,8 @@ OSCAR_ORDER_STATUS_PIPELINE = {
     'Being processed': ('Processed', 'Cancelled',),
     'Cancelled': (),
 }
+
+OSCAR_MISSING_IMAGE_URL = os.path.join(MEDIA_URL,'image_not_found.jpg')
 
 try:
     from local_settings import *
