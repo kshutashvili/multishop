@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.contrib.sites.models import Site
 from django.db import models
 from django.core.validators import RegexValidator
 from django.utils.translation import ugettext as _
@@ -38,6 +39,12 @@ class PhoneNumber(models.Model):
         default=OPERATOR.KIEVSTAR
     )
     sign = models.CharField(max_length=1, choices=SIGN_TYPE, default='c')
+    site = models.ForeignKey(
+        Site,
+        verbose_name='Сайт',
+        on_delete=models.CASCADE,
+        related_name='phonenumbers'
+    )
 
     def __unicode__(self):
         return self.phone
