@@ -106,7 +106,7 @@ class ProductForm(OscarProductForm):
                 setattr(self.instance.attr, attribute.code, value)
             if field_name_uk in self.cleaned_data:
                 try:
-                    attr = ProductAttributeValue.objects.get(attribute=attribute)
+                    attr = ProductAttributeValue.objects.get(attribute=attribute, product=self.instance)
                     value = self.cleaned_data[field_name_uk]
                     setattr(attr, '_'.join(('value', attribute.type, 'uk',)), value)
                     attr.save()
