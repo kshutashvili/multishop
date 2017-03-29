@@ -183,6 +183,18 @@ OSCAR_ORDER_STATUS_PIPELINE = {
 
 OSCAR_MISSING_IMAGE_URL = os.path.join(MEDIA_URL,'image_not_found.jpg')
 
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+
+location = lambda x: os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', x)
+from oscar import OSCAR_MAIN_TEMPLATE_DIR
+TEMPLATE_DIRS = (
+    location('templates'),
+    OSCAR_MAIN_TEMPLATE_DIR,
+)
+
 try:
     from local_settings import *
 except ImportError:

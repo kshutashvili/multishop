@@ -13,14 +13,26 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls import url, include
-from django.contrib import admin
-from oscar.app import application
 from django.conf.urls.i18n import i18n_patterns
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.contrib.staticfiles import views
+from django.shortcuts import redirect
+from oscar.app import application
 
-
-urlpatterns = i18n_patterns(
+urlpatterns = [
+    url(r'^$', lambda r: redirect('/{}/'.format(r.LANGUAGE_CODE)), name="home"),
     url(r'^admin/', admin.site.urls),
-    url(r'', include(application.urls)),
     url(r'^', include('website.urls')),
+]
+
+urlpatterns += [
+                   url(r'^static/(?P<path>.*)$', views.serve),
+               ] + static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+
+urlpatterns += i18n_patterns(
+    url(r'', include(application.urls)),
 )

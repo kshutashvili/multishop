@@ -1,6 +1,7 @@
 {% extends 'defro/base.html' %}
 {% load site_static %}
 {% load staticfiles %}
+{% load thumbnail %}
 {% block content %}
     <div class="first_block">
 			<div class="container">
@@ -393,38 +394,15 @@
 			<div class="container">
 				<h2><span>Наши</span> продукты</h2>
 				<div class="owl-carousel owl-theme">
-					<div class="item">
-						<p>Котлы</p>
-						<img src="{% get_static 'img/slider_item.png' %}" alt="">
-					</div>
-					<div class="item">
-						<p>Котлы</p>
-						<img src="{% get_static 'img/slider_item.png' %}" alt="">
-					</div>
-					<div class="item">
-						<p>Котлы</p>
-						<img src="{% get_static 'img/slider_item.png' %}" alt="">
-					</div>
-					<div class="item">
-						<p>Котлы</p>
-						<img src="{% get_static 'img/slider_item.png' %}" alt="">
-					</div>
-					<div class="item">
-						<p>Котлы</p>
-						<img src="{% get_static 'img/slider_item.png' %}" alt="">
-					</div>
-					<div class="item">
-						<p>Котлы</p>
-						<img src="{% get_static 'img/slider_item.png' %}" alt="">
-					</div>
-					<div class="item">
-						<p>Котлы</p>
-						<img src="{% get_static 'img/slider_item.png' %}" alt="">
-					</div>
-					<div class="item">
-						<p>Котлы</p>
-						<img src="{% get_static 'img/slider_item.png' %}" alt="">
-					</div>
+
+                    {% for product in our_products %}
+                        <div class="item">
+						   <p>{{ product.title }}</p>
+                            {% thumbnail product.images.first.original "155" as img %}
+                                    <img src="{{ img.url }}">
+                            {% endthumbnail %}
+					    </div>
+                    {% endfor %}
 
 				</div>
 
