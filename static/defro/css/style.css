@@ -2414,6 +2414,56 @@ a.basket_button_none{
 	pointer-events: none;
 	margin-bottom: 10px;
 }
+
+
+
+button.basket_button{
+	color: #fff;
+	background: url("../img/basket_white.png") no-repeat left 30px center;
+	padding: 10px 10px 10px 100px;
+	background-color: #ed1b24;
+	display: block;
+	max-width: 222px;
+	font-size: 24px;
+	text-align: center;
+	text-decoration: none;
+	border: 1px solid #ed1b24;
+	margin-bottom: 10px;
+}
+button.basket_button:hover{
+	background-color: #f8545b;
+}
+button.basket_button_in{
+	color: #ed1b24;
+	background: url("../img/basket_in.png") no-repeat right 30px center;
+	padding: 10px 50px 10px 10px;
+	background-color: #fceded;
+	display: block;
+	max-width: 222px;
+	font-size: 24px;
+	text-align: center;
+	text-decoration: none;
+	border: 1px solid #ed1b24;
+	margin-bottom: 10px;
+}
+button.basket_button_none{
+	display: block;
+	color: #fff;
+	max-width: 222px;
+	font-size: 24px;
+	text-align: center;
+	text-decoration: none;
+	background-color: #828081;
+	border: 1px solid #828081;
+	padding: 10px;
+	cursor: default;
+	pointer-events: none;
+	margin-bottom: 10px;
+}
+
+
+
+
 a.buy_credit{
 	color: #3bb854;
 	background: url("../img/credit.png") no-repeat left 15px center;
@@ -2776,6 +2826,33 @@ a.otziv_polezen_net span{
 	color: #6c6c6d;
 	margin-left: 5px;
 }
+
+
+button.otziv_polezen_da{
+	color: #3bb854;
+	display: inline-block;
+	vertical-align: top;
+	border-right: 1px solid #c4c3c3;
+	padding-right: 5px;
+	margin-right: 4px;
+	text-decoration: none;
+}
+button.otziv_polezen_da span{
+	color: #6c6c6d;
+	margin-left: 5px;
+}
+button.otziv_polezen_net{
+	color: #ed1b24;
+	display: inline-block;
+	vertical-align: top;
+	text-decoration: none;
+}
+button.otziv_polezen_net span{
+	color: #6c6c6d;
+	margin-left: 5px;
+}
+
+
 a.otvetit{
 	float: right;
 	padding: 3px 0;

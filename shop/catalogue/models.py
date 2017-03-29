@@ -2,6 +2,8 @@
 from django.contrib.sites.models import Site
 from django.db import models
 from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractProductAttributeValue
+from django.utils.translation import get_language
+import six
 
 
 class Product(AbstractProduct):
@@ -17,6 +19,23 @@ class ProductAttributeValue(AbstractProductAttributeValue):
                                                                                'value_%s_uk' % self.attribute.type)
         else:
             return getattr(self, 'value_%s' % self.attribute.type)
+
+    @property
+    def value_as_html(self):
+        """
+        Returns a HTML representation of the attribute's value. To customise
+        e.g. image attribute values, declare a _image_as_html property and
+        return e.g. an <img> tag.  Defaults to the _as_text representation.
+        """
+        if self.attribute.type not in ProductAttributeValue._localizable:
+            property_name = '_%s_as_html' % self.attribute.type
+            return getattr(self, property_name, self.value_as_text)
+        else:
+            property_name = '_%s_as_html' % self.attribute.type
+            locales = {'ru': 0, 'uk': 1}
+            index = locales[get_language()]
+            value = eval(getattr(self, property_name, self.value_as_text))[index]
+            return value
 
     value = property(_get_value, AbstractProductAttributeValue._set_value)
 

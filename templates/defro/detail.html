@@ -1,0 +1,788 @@
+{% extends 'defro/base.html' %}
+
+{% load history_tags %}
+{% load currency_filters %}
+{% load reviews_tags %}
+{% load staticfiles %}
+{% load product_tags %}
+{% load display_tags %}
+{% load i18n %}
+{% load purchase_info_tags %}
+{% load site_static %}
+{% load thumbnail %}
+{% load basket_tags %}
+
+{% block title %}
+    {{ product.title }} | {{ block.super }}
+{% endblock %}
+
+{% block description %}
+    {{ product.description|default:""|striptags }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+        </li>
+        {% with category=product.categories.all.0 %}
+            {% for c in category.get_ancestors_and_self %}
+                <li>
+                    <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                </li>
+            {% endfor %}
+            <li class="active">{{ product.title }}</li>
+
+            {% get_back_button as backbutton %}
+            {% if backbutton %}
+                <li class="pull-right">
+                    <a href="{{ backbutton.url }}">
+                        <i class="icon-arrow-left"></i> {{ backbutton.title }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endwith %}
+    </ul>
+{% endblock %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+    <div class="container">
+        <div class="main_block clear_fix">
+            <div class="main_content">
+                <p class="acticle_tov">Артикул: <span>{{ product.upc }}</span></p>
+                <p class="category_block_caption often_caption">
+                    <span>{{ product.product_class.name }}</span> {{ product.title }}</p>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#tovar" aria-controls="tovar" role="tab"
+                                                              data-toggle="tab">Все о товаре</a></li>
+                    <li role="presentation"><a href="#desc" aria-controls="desc" role="tab" data-toggle="tab">Характеристики</a>
+                    </li>
+                    <li role="presentation"><a href="#photo" aria-controls="photo" role="tab" data-toggle="tab">Фото и
+                        видео</a></li>
+                    <li role="presentation"><a href="#review" aria-controls="review" role="tab" data-toggle="tab">Отзывы
+                        <span class="otzivi_after">{{ product.num_approved_reviews }}</span></a></li>
+                    <li role="presentation"><a href="#delivery" aria-controls="delivery" role="tab" data-toggle="tab">Доставка</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="tovar">
+
+                        <div class="tovar_main_info clear_fix">
+                            <div class="slider_two">
+                                <ul class="bxslider_two">
+                                    {% for img in product.images.all %}
+                                        <li class="before_akcia free_shipping">
+
+                                            <img src="{{ img.original.url }}" alt="">
+                                        </li>
+
+                                    {% endfor %}
+
+                                </ul>
+                                <div id="bx-pager">
+                                    {% for img in product.images.all %}
+                                        {% thumbnail img.original "155" as thumb %}
+                                            <a data-slide-index="{{ forloop.counter0 }}" href=""><img
+                                                    src="{{ thumb.url }}"
+                                                    alt=""></a>
+                                        {% endthumbnail %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% purchase_info_for_product request product as session %}
+                            <div class="tovar_buy_block">
+                                <select class="rating_photo">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <p class="rating_number"><span>{% if product.rating %}{{ product.rating }}{% else %}0{% endif %}</span>/5 ( голосов <span>{{ product.num_approved_reviews }}</span>)</p>
+                                {% if session.availability.is_available_to_buy %}
+                                    <p class="nalichie ">Есть в наличии</p>
+                                    <p class="line_through">{% if session.price.is_tax_known %}
+                                        {{ session.price.incl_tax|currency:session.price.currency }}
+                                    {% else %}
+                                        {{ session.price.excl_tax|currency:session.price.currency }} +
+                                        налоги
+                                    {% endif %} </p>
+                                    <p class="catalog_item_price">{% if session.price.is_tax_known %}
+                                        {{ session.price.incl_tax|currency:session.price.currency }}
+                                    {% else %}
+                                        {{ session.price.excl_tax|currency:session.price.currency }} +
+                                        налоги
+                                    {% endif %}</p>
+                                {% else %}
+                                    <p class="nalichie dpn naliche_net">Нет в наличии</p>
+                                    <p class="catalog_item_price naliche_net dpn">{% if session.price.is_tax_known %}
+                                        {{ session.price.incl_tax|currency:session.price.currency }}
+                                    {% else %}
+                                        {{ session.price.excl_tax|currency:session.price.currency }} +
+                                        налоги
+                                    {% endif %}</p>
+
+                                {% endif %}
+                                {% basket_form request product as basket_form %}
+                                <form id="add_to_basket_form" action="{% url 'basket:add' pk=product.pk %}"
+                                      method="post" class="add-to-basket">{% csrf_token %}
+                                    {% include "partials/form_fields.html" with form=basket_form %}
+                                    <button type="submit" class="basket_button" value="{% trans "Add to basket" %}"
+                                            data-loading-text="Добавляем">В корзину
+                                    </button>
+                                </form>
+                                <a href="#" class="basket_button_in dpn">В корзине</a>
+                                <a href="#" class="basket_button_none dpn">Нет в наличии</a>
+                                <a href="#" class="buy_credit">Купить в кредит</a>
+
+                                <input type="text" class="zakaz_one_click" placeholder="(0XX) XXX - XX - XX">
+                                <button class="zakaz_one_click">Заказать в один клик</button>
+
+                                <a href="#" class="elipse_button">Сравнить</a>
+                                <a href="#" class="elipse_button_question">Задать вопрос</a>
+
+                                <div class="social_block">
+                                    <a href="#"></a>
+                                    <a href="#"></a>
+                                    <a href="#"></a>
+                                    <a href="#"></a>
+                                    <a href="#"></a>
+                                    <a href="#"></a>
+                                    <a href="#"></a>
+                                </div>
+                            </div>
+
+                            <div class="fast_delivery_block">
+                                <p class="fast_delivery_caption">Быстрая доставка</p>
+                                <p class="fast_delivery_text">
+                                    В любой уголок Украины: <br>
+                                    - Самовывоз из нашего магазина, <br>
+                                    - Самовывоз со службы доставки <br>
+                                    - Доставка по адресу
+                                </p>
+                                <p class="fast_delivery_caption">14 ДНЕЙ НА ОБМЕН</p>
+                                <p class="fast_delivery_text">
+                                    Обмен/возврат товара в течении <br> 14 дней
+                                </p>
+                                <p class="fast_delivery_caption">ОФИЦИАЛЬНАЯ ГАРАНТИЯ</p>
+                                <p class="fast_delivery_text">
+                                    Гарантия от производителя
+                                </p>
+                                <p class="fast_delivery_caption">Оплата</p>
+                                <p class="fast_delivery_text">
+                                    Наличными, безналичными, <br> кредит, Visa/MasterCard
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="tovar_second_info">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+
+                                    <div class="left_filter_collapse">
+                                        <a class="left_filter_captions" role="button" data-toggle="collapse"
+                                           href="#collapseFilter1" aria-expanded="false"
+                                           aria-controls="collapseFilter1">
+                                            Все о товаре
+                                        </a>
+                                        <div class="collapse in" id="collapseFilter1">
+                                            <div class="well">
+                                                <p class="tovar_second_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                                                <p class="tovar_second_text">
+                                                    <span>{{ product.product_class.name }} {{ product.title }}</span>{{ product.description|safe }}
+                                                </p>
+                                                <div style="height:'100%'">
+                                                    <div id="tovar_desc">
+                                                        <p>Твердотопливные котлы в сегодняшних условиях являются, чуть
+                                                            ли не самым оптимальным вариантом для организации системы
+                                                            автономного отопления и горячего водоснабжения. Учитывая
+                                                            постоянно растущие цены на газ и электроэнергию, а также
+                                                            нестабильную поставку указанных теплоносителей, аппараты на
+                                                            твердом топливе становятся хорошей альтернативной
+                                                            классическим котлам на газу или электричестве. За счет
+                                                            широкого диапазона предлагаемой мощности они способны
+                                                            отапливать помещения практически любых размеров. Одна из
+                                                            первых причин, из-за которой выбирают такие котлы – это
+                                                            значительно меньшая стоимость и доступность топлива.</p>
+
+
+                                                    </div>
+                                                    <a class="read-next" href="#">Читать далее</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="left_filter_collapse photo_video_fix">
+                                        <a class="left_filter_captions" role="button" data-toggle="collapse"
+                                           href="#collapseFilter3" aria-expanded="false"
+                                           aria-controls="collapseFilter3">
+                                            Фото и видео
+                                        </a>
+                                        <div class="collapse in" id="collapseFilter3">
+                                            <div class="well">
+                                                <iframe width="540" height="335"
+                                                        src="https://www.youtube.com/embed/Hr1-SFxziws" frameborder="0"
+                                                        allowfullscreen></iframe>
+                                                <img src="{% get_static 'img/kotel.png' %}" alt="" class="tovar_second_info_photo_video">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="left_filter_collapse">
+                                        <a class="left_filter_captions" role="button" data-toggle="collapse"
+                                           href="#collapseFilter2" aria-expanded="false"
+                                           aria-controls="collapseFilter2">
+                                            Основные характеристики
+                                        </a>
+                                        <div class="collapse in" id="collapseFilter2">
+                                            <div class="well">
+                                                <table class="table_main_har">
+                                                    {% for av in product.attribute_values.all %}
+                                                        <tr>
+                                                            <th>{{ av.attribute.name }}</th>
+                                                            <td>{{ av.value_as_html|safe }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="left_filter_collapse">
+                                        <a class="left_filter_captions" role="button" data-toggle="collapse"
+                                           href="#collapseFilter3" aria-expanded="false"
+                                           aria-controls="collapseFilter3">
+                                            Отзывы <span class="otzivi_after">{{ product.num_approved_reviews }}</span>
+                                        </a>
+                                        <a href="#" class="comment_button_uniq">Оставить отзыв о товаре</a>
+                                        <div class="collapse in" id="collapseFilter3">
+                                            <div class="well">
+                                                <div style="height:'100%'">
+                                                    <div id="comment_range">
+
+
+                                                        {% block product_review %}
+                                                            <section>
+
+                                                                {% if product.num_approved_reviews == 0 %}
+                                                                    <p>У этого твара еще нет отзывов.</p>
+                                                                {% else %}
+                                                                    <ol class="list-unstyled review-list">
+                                                                        {% for review in product.reviews.approved.all|slice:":3" %}
+                                                                            <div class="user_comment_block">
+                                                                                <select class="rating_photo">
+                                                                                    <option {% if review.score == 1 %}selected="selected"{% endif %}
+                                                                                            value="1">1
+                                                                                    </option>
+                                                                                    <option {% if review.score == 2 %}selected="selected"{% endif %}
+                                                                                            value="2">2
+                                                                                    </option>
+                                                                                    <option {% if review.score == 3 %}selected="selected"{% endif %}
+                                                                                            value="3">3
+                                                                                    </option>
+                                                                                    <option {% if review.score == 4 %}selected="selected"{% endif %}
+                                                                                            value="4">4
+                                                                                    </option>
+                                                                                    <option {% if review.score == 5 %}selected="selected"{% endif %}
+                                                                                            value="5">5
+                                                                                    </option>
+                                                                                </select>
+                                                                                <span class="user_name">
+                                                                                    {% if review.user == user %}Вы
+                                                                                    {% else %}
+                                                                                        {{ name }}
+                                                                                    {% endif %}</span>
+                                                                                <span class="user_comment_date">{{ review_date }}</span>
+
+                                                                                <div style="height:'100%'">
+                                                                                    <div class="user_comment">
+                                                                                        <p>{{ review.body|striptags|truncatechars:100 }}.</p>
+                                                                                    </div>
+                                                                                    <a class="read-next-comment"
+                                                                                       href="#">Читать далее</a>
+                                                                                </div>
+                                                                                {% if review|may_vote:user %}
+                                                                                    <div class="user_comment_bottom">
+                                                                                    <span class="otziv_polezen">Отзыв полезен?</span>
+                                                                                    <a href="#"></a>
+                                                                                    <form action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                          method="post"
+                                                                                          class="vote_agree">
+                                                                                        {% csrf_token %}
+                                                                                        <input type="hidden"
+                                                                                               name="delta"
+                                                                                               value="1"/>
+                                                                                        <button type="submit"
+                                                                                                class="otziv_polezen_da"
+                                                                                                data-loading-text="{% trans 'Submitting...' %}">
+                                                                                            Да
+                                                                                        </button>
+                                                                                    </form>
+                                                                                        <a href="#"
+                                                                                           class="otziv_polezen_da">Да<span>review.num_up_votes</span></a>
+                                                                                    <form action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                          method="post">
+                                                                                        {% csrf_token %}
+                                                                                        <input type="hidden"
+                                                                                               name="delta" value="-1"/>
+                                                                                        <button type="submit"
+                                                                                                class="otziv_polezen_net"
+                                                                                                data-loading-text="{% trans 'Submitting...' %}">
+                                                                                            Нет
+                                                                                        </button>
+                                                                                    </form>
+                                                                                    <a href="#"
+                                                                                       class="otziv_polezen_net">Нет<span>review.num_down_votes</span></a>
+                                                                                    <p class="otvetilo">Ответов:
+                                                                                        <span>1</span></p>
+                                                                                    <a href="#"
+                                                                                       class="otvetit">Ответить</a>
+                                                                                {% endif %}
+
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    </ol>
+                                                                {% endif %}
+                                                            </section>
+                                                        {% endblock product_review %}
+
+
+
+
+                                                    </div>
+                                                {% if product.num_approved_reviews > 0 %}
+                                                    <a class="read-next-fullcomment" href="#">Читать все отзывы</a>
+                                                {% endif %}
+                                                </div>
+
+                                                <div class="add_own_comment">
+                                                    <p class="add_own_comment_caption">Добавьте свой отзыв</p>
+                                                    <form action="">
+                                                        <div class="add_own_comment_input">
+                                                            <label for="">Ваше имя <span
+                                                                    class="red_star">*</span>:</label>
+                                                            <input type="text">
+                                                            <label for="">Ваш Email <span
+                                                                    class="red_star">*</span>:</label>
+                                                            <input type="text">
+                                                        </div>
+                                                        <div class="add_own_comment_rate">
+                                                            <p>Оцените этот товар:</p>
+                                                            <select class="rating_photo">
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                            </select>
+
+                                                            <div class="checkbox_check">
+                                                                <input id="check1" type="checkbox" name="check"
+                                                                       value="check1">
+                                                                <label for="check1">- Получать уведомления об
+                                                                    ответах</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="add_own_comment_text">
+                                                            <label for="">Комментарий <span
+                                                                    class="red_star">*</span>:</label>
+                                                            <textarea name="" id="" cols="30" rows="10"></textarea>
+                                                            <a href="#" class="add_wide_comment">Расширенный отзыв</a>
+                                                            <label for="">Достоинства:</label>
+                                                            <textarea name="" id="" cols="30" rows="10"></textarea>
+
+                                                            <label for="">Недостатки:</label>
+                                                            <textarea name="" id="" cols="30" rows="10"></textarea>
+
+                                                            <a href="#" class="add_own_new_comment">Добавить отзыв</a>
+                                                            <p class="add_own_comment_pole"><span
+                                                                    class="red_star">*</span> - поля обязательные для
+                                                                заполнения</p>
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="desc">{{ product.description|safe }}</div>
+                    <div role="tabpanel" class="tab-pane" id="photo">
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="review">
+                        <section>
+                            {% if product.num_approved_reviews == 0 %}
+                                <p>Этот товар еще не имеет отзывов.</p>
+                            {% else %}
+                                <ol class="list-unstyled review-list">
+                                    <li>
+                                        {% include 'catalogue/partials/review.html' %}
+                                    </li>
+                                </ol>
+                            {% endif %}
+                        </section>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="delivery">...</div>
+                </div>
+
+
+                <p class="category_block_caption before_owl margin_fix">Вас также могут заинтересовать</p>
+
+                <div class="owl-carousel owl-theme catalog_owl">
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <p class="category_block_caption before_owl">Недавно просмотренные</p>
+
+                <div class="owl-carousel owl-theme catalog_owl">
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="catalog_item_block">
+                            <img src="{% get_static 'img/category_item.png' %}" alt="">
+                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
+                            <select class="rating_photo">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <p class="rating_number">Отзывов: <span>343</span></p>
+                            <hr>
+                            <p class="catalog_item_price">119 800 <span>грн</span></p>
+                            <a href="#" class="buy_button">Нет в наличии</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+{% block extrascripts %}
+    <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
+    <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
+    <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
+    <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.rating_photo').barrating({
+                theme: 'fontawesome-stars'
+            });
+        });
+    </script>
+    <script src="{% get_static 'js/more-button.js' %}"></script>
+    {{ block.super }}
+{% endblock %}
