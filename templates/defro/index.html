@@ -397,10 +397,12 @@
 
                     {% for product in our_products %}
                         <div class="item">
-						   <p>{{ product.title }}</p>
+                        <a href="{{ product.get_absolute_url }}">
+                            <p>{{ product.title }}</p>
                             {% thumbnail product.images.first.original "155" as img %}
                                     <img src="{{ img.url }}">
                             {% endthumbnail %}
+                        </a>
 					    </div>
                     {% endfor %}
 
