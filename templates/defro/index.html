@@ -399,7 +399,7 @@
                         <div class="item">
                         <a href="{{ product.get_absolute_url }}">
                             <p>{{ product.title }}</p>
-                            {% thumbnail product.images.first.original "155" as img %}
+                            {% thumbnail product.primary_image.original "155" as img %}
                                     <img src="{{ img.url }}">
                             {% endthumbnail %}
                         </a>
