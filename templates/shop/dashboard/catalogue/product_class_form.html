@@ -92,7 +92,7 @@
                                     <col width="20%">
                                     <thead>
                                         <tr>
-                                            <th>{% trans "Name" %} (по-русски)</th>
+                                            <th>{% trans "Name" %} (на русском)</th>
                                             <th>{% trans "Name" %} (українською)</th>
                                             <th>{% trans "Code" %}</th>
                                             <th>{% trans "Type" %}</th>
@@ -106,7 +106,7 @@
                                                 {% for hidden_field in attribute_form.hidden_fields %}
                                                  {{ hidden_field }}
                                                 {% endfor %}
-                                                <td>{% include 'dashboard/partials/form_field.html' with field=attribute_form.name nolabel=True %}</td>
+                                                <td>{% include 'dashboard/partials/form_field.html' with field=attribute_form.name_ru nolabel=True %}</td>
                                                 <td>{% include 'dashboard/partials/form_field.html' with field=attribute_form.name_uk nolabel=True %}</td>
                                                 <td>{% include 'dashboard/partials/form_field.html' with field=attribute_form.code nolabel=True %}</td>
                                                 <td>

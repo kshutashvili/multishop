@@ -5,7 +5,8 @@ from oscar.apps.dashboard.catalogue.forms import ProductForm as OscarProductForm
     ProductAttributesForm as OscarProductAttributes, ProductClassForm as OscarProductClassForm
 from treebeard.forms import movenodeform_factory
 
-from shop.catalogue.models import Product, ProductClass, ProductAttribute, Category, ExtraImage, ProductAttributeValue
+from shop.catalogue.models import Product, ProductClass, ProductAttribute, Category, ProductAttributeValue
+from django.core import exceptions
 
 
 def _attr_textarea_field_uk(attribute):
@@ -23,17 +24,36 @@ def _attr_text_field_uk(attribute):
                            required=attribute.required)
 
 
+def _attr_textarea_field_ru(attribute):
+    """
+    django-oscar use factory to create attribute fields, attribute fields that will be
+    displayed are hardcoded, so we need to define our owns
+    """
+    return forms.CharField(label=attribute.name_ru,
+                           widget=forms.Textarea(),
+                           required=attribute.required)
+
+
+def _attr_text_field_ru(attribute):
+    return forms.CharField(label=attribute.name_ru,
+                           required=attribute.required)
+
+
 class ProductForm(OscarProductForm):
     _localizable = ["text", "richtext"]  # types of fields, that need to be localized
     OscarProductForm.FIELD_FACTORIES['text_uk'] = _attr_text_field_uk
     OscarProductForm.FIELD_FACTORIES['richtext_uk'] = _attr_textarea_field_uk
+    OscarProductForm.FIELD_FACTORIES['text_ru'] = _attr_text_field_ru
+    OscarProductForm.FIELD_FACTORIES['richtext_ru'] = _attr_textarea_field_ru
+    title_ru = forms.CharField(label='Название (на русском)')
+    description_ru = forms.CharField(label='Описание (на русском)', widget=forms.Textarea(), required=False)
     title_uk = forms.CharField(label='Назва (українською)')
     description_uk = forms.CharField(label='Опис (українською)', widget=forms.Textarea(), required=False)
 
     class Meta:
         model = Product
         fields = [
-            'title', 'title_uk', 'upc', 'description', 'description_uk', 'is_discountable', 'structure', ]
+            'title_ru', 'title_uk', 'upc', 'description_ru', 'description_uk', 'is_discountable', 'structure', ]
         widgets = {
             'structure': forms.HiddenInput(),
         }
@@ -44,20 +64,30 @@ class ProductForm(OscarProductForm):
         dynamically adds form fields to the product form.
         """
         for attribute in product_class.attributes.all():
-            field = self.get_attribute_field(attribute)
-            if field:
-                self.fields['attr_%s' % attribute.code] = field
-                # Attributes are not required for a parent product
-                if is_parent:
-                    self.fields['attr_%s' % attribute.code].required = False
             if attribute.type in ProductForm._localizable:
-                attribute.type = ''.join((attribute.type, '_uk'))
+
+                attr_type = attribute.type
+                attribute.type = '_'.join((attr_type, 'ru',))
+                field = self.get_attribute_field(attribute)
+                if field:
+                    self.fields['attr_%s' % attribute.code] = field
+                    # Attributes are not required for a parent product
+                    if is_parent:
+                        self.fields['attr_%s' % attribute.code].required = False
+                attribute.type = '_'.join((attr_type, 'uk'))
                 field_uk = self.get_attribute_field(attribute)
                 if field_uk:
                     self.fields['attr_%s_uk' % attribute.code] = field_uk
                     # Attributes are not required for a parent product
                     if is_parent:
                         self.fields['attr_%s_uk' % attribute.code].required = False
+            else:
+                field = self.get_attribute_field(attribute)
+                if field:
+                    self.fields['attr_%s' % attribute.code] = field
+                    # Attributes are not required for a parent product
+                    if is_parent:
+                        self.fields['attr_%s' % attribute.code].required = False
 
     def get_attribute_field(self, attribute):
         """
@@ -65,24 +95,68 @@ class ProductForm(OscarProductForm):
         """
         return self.FIELD_FACTORIES[attribute.type](attribute)
 
+    def _post_clean(self):
+        self.instance.attr.initiate_attributes()
+        for attribute in self.instance.attr.get_all_attributes():
+            field_name = 'attr_%s' % attribute.code
+            field_name_uk = 'attr_%s_uk' % attribute.code
+            # An empty text field won't show up in cleaned_data.
+            if field_name in self.cleaned_data:
+                value = self.cleaned_data[field_name]
+                setattr(self.instance.attr, attribute.code, value)
+            if field_name_uk in self.cleaned_data:
+                try:
+                    attr = ProductAttributeValue.objects.get(attribute=attribute)
+                    value = self.cleaned_data[field_name_uk]
+                    setattr(attr, '_'.join(('value', attribute.type, 'uk',)), value)
+                    attr.save()
+                except ProductAttributeValue.DoesNotExist:
+                    pass
+        super(ProductForm, self)._post_clean()
+
+    def set_initial_attribute_values(self, product_class, kwargs):
+        """
+        Update the kwargs['initial'] value to have the initial values based on
+        the product instance's attributes
+        """
+        instance = kwargs.get('instance')
+        if instance is None:
+            return
+        for attribute in product_class.attributes.all():
+            try:
+                value = instance.attribute_values.get(
+                    attribute=attribute).value
+            except exceptions.ObjectDoesNotExist:
+                pass
+            else:
+                if attribute.type in ProductForm._localizable:
+                    kwargs['initial']['attr_%s' % attribute.code], kwargs['initial'][
+                        'attr_%s_uk' % attribute.code] = value  # now returns tuple
+                else:
+                    kwargs['initial']['attr_%s' % attribute.code] = value
+
 
 class ProductAttributesForm(OscarProductAttributes):
+    name_uk = forms.CharField(label='Назва (українською)')
+    name_ru = forms.CharField(label='Название (на русском)')
+
     class Meta:
         model = ProductAttribute
-        fields = ["name", "name_uk", "code", "type", "option_group", "required"]
+        fields = ["name_ru", "name_uk", "code", "type", "option_group", "required"]
 
 
 class ProductClassForm(OscarProductClassForm):
     name_uk = forms.CharField(label='Назва (українською)')
+    name_ru = forms.CharField(label='Название (на русском)')
 
     class Meta:
         model = ProductClass
-        fields = ['name', 'name_uk', 'requires_shipping', 'track_stock', 'options']
+        fields = ['name_ru', 'name_uk', 'requires_shipping', 'track_stock', 'options']
 
 
 CategoryForm = movenodeform_factory(
     Category,
-    fields=['name', 'name_uk', 'description', 'description_uk', 'image'])
+    fields=['name_ru', 'name_uk', 'description_ru', 'description_uk', 'image'])
 
 ProductAttributesFormSet = inlineformset_factory(ProductClass,
                                                  ProductAttribute,

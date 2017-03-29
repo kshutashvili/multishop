@@ -1,20 +1,18 @@
+from django.contrib.sites.shortcuts import get_current_site
 from oscar.apps.dashboard.catalogue.views import ProductCreateUpdateView as OscarProductCreateUpdateView, \
     ProductClassCreateView as OscarProductClassCreateView, ProductClassUpdateView as OscarProductClassUpdateView, \
     CategoryCreateView as OscarCategoryCreateView, CategoryUpdateView as OscarCategoryUpdateView
 
 from shop.dashboard.catalogue.forms import ProductForm, ProductAttributesFormSet, ProductClassForm, CategoryForm
-from django.contrib.sites.shortcuts import get_current_site
 
 
 class ProductCreateUpdateView(OscarProductCreateUpdateView):
     form_class = ProductForm
 
-
     def clean(self, form, formsets):
         self.object.site = get_current_site(self.request)
         self.object.save()
         return super(ProductCreateUpdateView, self).clean(form, formsets)
-
 
 
 class ProductClassCreateView(OscarProductClassCreateView):
