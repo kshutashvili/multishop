@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'users',
     'config',
     'website',
+    'contacts',
 
     'compressor',
     'widget_tweaks',
