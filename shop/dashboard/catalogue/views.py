@@ -40,11 +40,16 @@ class ProductClassUpdateView(OscarProductClassUpdateView):
 class CategoryCreateView(OscarCategoryCreateView):
     form_class = CategoryForm
 
-    def clean(self, *args, **kwargs):
+    def form_valid(self, *args, **kwargs):
         self.object.site = get_current_site(self.request)
         self.object.save()
-        return super(CategoryCreateView, self).clean(*args, **kwargs)
+        return super(CategoryCreateView, self).form_valid(*args, **kwargs)
 
 
 class CategoryUpdateView(OscarCategoryUpdateView):
     form_class = CategoryForm
+
+    def form_valid(self, *args, **kwargs):
+        self.object.site = get_current_site(self.request)
+        self.object.save()
+        return super(CategoryUpdateView, self).form_valid(*args, **kwargs)
