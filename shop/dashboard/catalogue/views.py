@@ -22,7 +22,7 @@ class ProductClassCreateView(OscarProductClassCreateView):
     form_class = ProductClassForm
 
     def forms_valid(self, form, attributes_formset):
-        form.cleaned_data['site'] = self.object.site = get_current_site(self.request)
+        form.cleaned_data['site'] = get_current_site(self.request)
         form.save()
         attributes_formset.save()
         return HttpResponseRedirect(self.get_success_url())
@@ -42,10 +42,9 @@ class ProductClassUpdateView(OscarProductClassUpdateView):
 class CategoryCreateView(OscarCategoryCreateView):
     form_class = CategoryForm
 
-    def form_valid(self, *args, **kwargs):
-        self.object.site = get_current_site(self.request)
-        self.object.save()
-        return super(CategoryCreateView, self).form_valid(*args, **kwargs)
+    def form_valid(self, form, *args, **kwargs):
+        form.cleaned_data['site'] = get_current_site(self.request)
+        return super(CategoryCreateView, self).form_valid(form, *args, **kwargs)
 
 
 class CategoryUpdateView(OscarCategoryUpdateView):
