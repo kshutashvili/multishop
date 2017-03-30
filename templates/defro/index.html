@@ -20,9 +20,12 @@
 											    {{ productClass.name }}
 										    </a>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{ forloop.counter0|add:"3" }}">
-                                            {% for category in categories %}
+                                            {% if categories %}
+                                                {% for category in categories %}
                                                 <li class="clear_fix">
-												<img src="{{ category.image.url }}" alt="">
+                                                {% if category.image %}
+                                                    <img src="{{ category.image.url }}" alt="">
+                                                {% endif %}
 												<div class="menu_item_links">
                                                     <a href="{{ category.get_absolute_url }}" class="menu_item_caption">{{ category.name }}</a>
                                                     {% for product in productClass.products.all %}
@@ -33,6 +36,7 @@
 												</div>
 											</li>
                                             {% endfor %}
+                                            {% endif %}
                                             </ul>
 									</div>
                                 {% endfor %}
