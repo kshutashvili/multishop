@@ -4,6 +4,7 @@ from oscar.apps.dashboard.catalogue.views import ProductCreateUpdateView as Osca
     CategoryCreateView as OscarCategoryCreateView, CategoryUpdateView as OscarCategoryUpdateView
 
 from shop.dashboard.catalogue.forms import ProductForm, ProductAttributesFormSet, ProductClassForm, CategoryForm
+from django.http.response import HttpResponseRedirect
 
 
 class ProductCreateUpdateView(OscarProductCreateUpdateView):
@@ -20,10 +21,11 @@ class ProductClassCreateView(OscarProductClassCreateView):
     product_attributes_formset = ProductAttributesFormSet
     form_class = ProductClassForm
 
-    def form_valid(self, *args, **kwargs):
-        self.object.site = get_current_site(self.request)
-        self.object.save()
-        return super(ProductClassCreateView, self).form_valid(*args, **kwargs)
+    def forms_valid(self, form, attributes_formset):
+        form.cleaned_data['site'] = self.object.site = get_current_site(self.request)
+        form.save()
+        attributes_formset.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ProductClassUpdateView(OscarProductClassUpdateView):
