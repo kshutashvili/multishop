@@ -196,23 +196,14 @@
                                             <div class="well">
                                                 <p class="tovar_second_caption">{{ product.product_class.name }} {{ product.title }}</p>
                                                 <p class="tovar_second_text">
-                                                    <span>{{ product.product_class.name }} {{ product.title }}</span>{{ product.description|safe }}
+                                                    <span>{{ product.product_class.name }} {{ product.title }}</span>
                                                 </p>
                                                 <div style="height:'100%'">
+                                                    <div id="short_desc">
+                                                        <p>{{ product.description|truncatechars_html:300|safe }}</p>
+                                                    </div>
                                                     <div id="tovar_desc">
-                                                        <p>Твердотопливные котлы в сегодняшних условиях являются, чуть
-                                                            ли не самым оптимальным вариантом для организации системы
-                                                            автономного отопления и горячего водоснабжения. Учитывая
-                                                            постоянно растущие цены на газ и электроэнергию, а также
-                                                            нестабильную поставку указанных теплоносителей, аппараты на
-                                                            твердом топливе становятся хорошей альтернативной
-                                                            классическим котлам на газу или электричестве. За счет
-                                                            широкого диапазона предлагаемой мощности они способны
-                                                            отапливать помещения практически любых размеров. Одна из
-                                                            первых причин, из-за которой выбирают такие котлы – это
-                                                            значительно меньшая стоимость и доступность топлива.</p>
-
-
+                                                        <p>{{ product.description|safe }}</p>
                                                     </div>
                                                     <a class="read-next" href="#">Читать далее</a>
                                                 </div>
