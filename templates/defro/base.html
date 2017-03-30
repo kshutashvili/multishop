@@ -1,6 +1,7 @@
 {% extends 'oscar/base.html' %}
 {% load site_static %}
 {% load i18n %}
+{% load lang_url %}
 
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% get_static 'css/jquery.bxslider.css' %}">
@@ -26,9 +27,9 @@
                 </div>
                 <div class="header_right">
                     <div class="lang">
-                        <a href="#">RU</a>
+                        <a href="{% change_lang 'ru' %}">RU</a>
                         <span>|</span>
-                        <a href="#">UA</a>
+                        <a href="{% change_lang 'uk' %}">UA</a>
                     </div>
                     <div class="search">
                         <input type="text" placeholder="поиск">
