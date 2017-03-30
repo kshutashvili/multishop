@@ -1,12 +1,20 @@
 # -*- coding: utf-8 -*-
 from django.contrib.sites.models import Site
 from django.db import models
-from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractProductAttributeValue
+from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractProductAttributeValue, AbstractProductClass, \
+    AbstractProductCategory
 from django.utils.translation import get_language
-import six
 
 
 class Product(AbstractProduct):
+    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+
+
+class ProductClass(AbstractProductClass):
+    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+
+
+class ProductCategory(AbstractProductCategory):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
 

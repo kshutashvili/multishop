@@ -20,15 +20,30 @@ class ProductClassCreateView(OscarProductClassCreateView):
     product_attributes_formset = ProductAttributesFormSet
     form_class = ProductClassForm
 
+    def form_valid(self, *args, **kwargs):
+        self.object.site = get_current_site(self.request)
+        self.object.save()
+        return super(ProductClassCreateView, self).form_valid(*args, **kwargs)
+
 
 class ProductClassUpdateView(OscarProductClassUpdateView):
     template_name = 'shop/dashboard/catalogue/product_class_form.html'
     product_attributes_formset = ProductAttributesFormSet
     form_class = ProductClassForm
 
+    def form_valid(self, *args, **kwargs):
+        self.object.site = get_current_site(self.request)
+        self.object.save()
+        return super(ProductClassUpdateView, self).form_valid(*args, **kwargs)
+
 
 class CategoryCreateView(OscarCategoryCreateView):
     form_class = CategoryForm
+
+    def clean(self, *args, **kwargs):
+        self.object.site = get_current_site(self.request)
+        self.object.save()
+        return super(CategoryCreateView, self).clean(*args, **kwargs)
 
 
 class CategoryUpdateView(OscarCategoryUpdateView):
