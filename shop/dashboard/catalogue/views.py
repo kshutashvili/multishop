@@ -22,8 +22,9 @@ class ProductClassCreateView(OscarProductClassCreateView):
     form_class = ProductClassForm
 
     def forms_valid(self, form, attributes_formset):
-        form.cleaned_data['site'] = get_current_site(self.request)
-        form.save()
+        obj = form.save(commit=False)
+        obj.site = get_current_site(self.request)
+        obj.save()
         attributes_formset.save()
         return HttpResponseRedirect(self.get_success_url())
 
