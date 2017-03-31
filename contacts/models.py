@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.contrib.sites.models import Site
 from django.db import models
+import phonenumbers
 from django.core.validators import RegexValidator
 from django.utils.translation import ugettext as _
 
@@ -23,14 +24,13 @@ class PhoneNumber(models.Model):
                     (VODAFONE, _('Vodafone')))
 
     phone_regex = RegexValidator(
-        regex=r'^\+?1?\d{9,15}$',
-        message=_("Номер телефона должен быть введен в формате: '+999999999'. "
-                  "Допускается до 15 цифр в номере")
+        regex=r'^\+?1?\d{12,15}$',
+        message=_("Номер телефона должен быть введен в формате:"
+                  "'+999999999999'. Допускается до 15 цифр в номере")
     )
     phone = models.CharField(
         max_length=20,
         validators=[phone_regex],
-        blank=True
     )
     operator = models.CharField(
         _('Оператор'),
@@ -45,5 +45,14 @@ class PhoneNumber(models.Model):
         related_name='phonenumbers'
     )
 
+    class Meta:
+        verbose_name = _('Номер телефона')
+        verbose_name_plural = _('Номера телефонов')
+
     def __unicode__(self):
         return self.phone
+
+    def get_national_format(self, country=None):
+        phone_obj = phonenumbers.parse(self.phone, country)
+        return phonenumbers.format_number(
+            phone_obj, phonenumbers.PhoneNumberFormat.NATIONAL)

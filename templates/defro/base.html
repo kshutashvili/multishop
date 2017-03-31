@@ -42,9 +42,15 @@
                     <a href="#"><img src="{% get_static 'img/logo.png' %}" alt=""></a>
                 </div>
                 <div class="contacts">
-                    <a href="tel:+380988598880"><span>(098)</span>859-88-80</a>
-                    <a href="tel:+380995598880"><span>(099)</span>559-88-80</a>
-                    <a href="tel:+380931498880"><span>(093)</span>149-88-80</a>
+                    {% if phone_numbers.kievstar %}
+                        <a href="tel:+380988598880"><span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}</a>
+                    {% endif %}
+                    {% if phone_numbers.vodafone %}
+                        <a href="tel:+380995598880"><span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}</a>
+                    {% endif %}
+                    {% if phone_numbers.life %}
+                        <a href="tel:+380931498880"><span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}</a>
+                    {% endif %}
                     <a href="#" class="zakaz_zvon">Заказать звонок</a>
                 </div>
                 <div class="basket">

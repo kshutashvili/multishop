@@ -815,9 +815,15 @@
 						<div class="menu_block">
 							<p class="menu_block_caption">Как связаться</p>
 							<ul class="contact_ul">
-								<li><a href="tel:+0988598880">(098) 859-88-80</a></li>
-								<li><a href="tel:+0995598880">(099) 559-88-80</a></li>
-								<li><a href="tel:+0931498880">(093) 149-88-80</a></li>
+                                {% if phone_numbers.kievstar %}
+                                    <li><a href="tel:+0988598880">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a></li>
+                                {% endif %}
+                                {% if phone_numbers.vodafone %}
+                                    <li><a href="tel:+0995598880">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a></li>
+                                {% endif %}
+                                {% if phone_numbers.life %}
+                                    <li><a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a></li>
+                                {% endif %}
 								<li><a href="#" class="predstav">Наши представительства</a></li>
 							</ul>
 
