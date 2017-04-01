@@ -7,6 +7,7 @@ from django.db import models
 from django.utils.translation import get_language
 from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractProductAttributeValue, AbstractProductClass, \
     AbstractProductCategory, AbstractCategory
+from collections import defaultdict
 
 
 class Product(AbstractProduct):
@@ -16,19 +17,16 @@ class Product(AbstractProduct):
         recent_product_ids = [p.id for p in recent_products]
         products = cache.get('{}_similar_products'.format(self.id))
         if products:
+            similar_products = defaultdict(int)
             for product in recent_product_ids:
-                if product in products:
-                    products[product] += 1
-                else:
-                    products[product] = 1
+                similar_products[product] += 1
         else:
-            products = {p: 1 for p in recent_product_ids}
-        cache.set('{}_similar_products'.format(self.id), products, None)
+            similar_products = dict.fromkeys(recent_product_ids, 1)
+        cache.set('{}_similar_products'.format(self.id), similar_products, None)
 
     def get_similar_products(self):
         products = cache.get('{}_similar_products'.format(self.id))
         if products:
-            print sorted(products.items(), key=operator.itemgetter(1), reverse=True)
             products = [k for k, v in sorted(products.items(), key=operator.itemgetter(1), reverse=True)][
                        :10]  # 10 the most popular products similar to current one
             return Product.objects.filter(id__in=products)
