@@ -15,8 +15,7 @@ class ProductDetailView(SiteTemplateResponseMixin, OscarProductDetailView):
             products = [p for p in products if p != current_product]
         context['recently_viewed_products'] = products
         similar_products = current_product.get_similar_products()
-        if similar_products:
-            context['similar_products'] = similar_products
+        context['similar_products'] = similar_products
         return context
 
     def get_object(self, **kwargs):
