@@ -18,8 +18,8 @@ class ProductDetailView(SiteTemplateResponseMixin, OscarProductDetailView):
         context['similar_products'] = similar_products
         return context
 
-    def get_object(self, **kwargs):
-        obj = super(ProductDetailView, self).get_object()
+    def render_to_response(self, context, **response_kwargs):
+        obj = self.get_object()
         recent_products = [p for p in history.get(self.request) if p != obj]
         obj.change_similar_products(recent_products)
-        return obj
+        return super(ProductDetailView, self).render_to_response(context, **response_kwargs)

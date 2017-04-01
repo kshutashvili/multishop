@@ -6,6 +6,7 @@ django-extra-views==0.6.4
 django-haystack==2.5.1
 django-modeltranslation==0.12
 django-oscar==1.4
+django-redis==4.7.0
 django-tables2==1.4.2
 django-treebeard==4.1.0
 django-widget-tweaks==1.4.1
@@ -24,8 +25,8 @@ pycountry==17.1.8
 python-dateutil==2.6.0
 pytz==2016.10
 rcssmin==1.0.6
+redis==2.10.5
 rjsmin==1.0.12
 six==1.10.0
 sorl-thumbnail==12.4a1
 Unidecode==0.4.20
-python-memcached==1.58
