@@ -424,166 +424,40 @@
                     <div role="tabpanel" class="tab-pane" id="delivery">...</div>
                 </div>
 
-
-                <p class="category_block_caption before_owl margin_fix">Вас также могут заинтересовать</p>
-
-                <div class="owl-carousel owl-theme catalog_owl">
-                    <div class="item">
-                        <div class="catalog_item_block">
-                            <img src="{% get_static 'img/category_item.png' %}" alt="">
-                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
-                            <select class="rating_photo">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <p class="rating_number">Отзывов: <span>343</span></p>
-                            <hr>
-                            <p class="catalog_item_price">119 800 <span>грн</span></p>
-                            <a href="#" class="buy_button">Нет в наличии</a>
-                        </div>
+                {% if similar_products %}
+                    <p class="category_block_caption before_owl margin_fix">Вас также могут заинтересовать</p>
+                    <div class="owl-carousel owl-theme catalog_owl">
+                        {% for product in similar_products %}
+                            <div class="item">
+                                <div class="catalog_item_block">
+                                    <a href="{{ product.get_absolute_url }}">
+                                        {% thumbnail product.primary_image.original "155" as img %}
+                                            <img src="{{ img.url }}">
+                                        {% endthumbnail %}
+                                        <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                                        <select class="rating_photo">
+                                            {% for num in "12345" %}
+                                                <option {% if product.rating == num %}selected="selected"{% endif %}
+                                                        value="{{ num }}">{{ num }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <p class="rating_number">Отзывов:
+                                            <span>{{ product.num_approved_reviews }}</span></p>
+                                        <hr>
+                                        {% purchase_info_for_product request product as session %}
+                                        <p class="catalog_item_price">{{ session.price.incl_tax|currency:session.price.currency }}</p>
+                                        {% if session.availability.is_available_to_buy %}
+                                            <a href="{{ product.get_absolute_url }}" class="buy_button">Купить</a>
+                                        {% else %}
+                                            <a href="{{ product.get_absolute_url }}" class="buy_button">Нет в
+                                                наличии</a>
+                                        {% endif %}
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class="item">
-                        <div class="catalog_item_block">
-                            <img src="{% get_static 'img/category_item.png' %}" alt="">
-                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
-                            <select class="rating_photo">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <p class="rating_number">Отзывов: <span>343</span></p>
-                            <hr>
-                            <p class="catalog_item_price">119 800 <span>грн</span></p>
-                            <a href="#" class="buy_button">Нет в наличии</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="catalog_item_block">
-                            <img src="{% get_static 'img/category_item.png' %}" alt="">
-                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
-                            <select class="rating_photo">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <p class="rating_number">Отзывов: <span>343</span></p>
-                            <hr>
-                            <p class="catalog_item_price">119 800 <span>грн</span></p>
-                            <a href="#" class="buy_button">Нет в наличии</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="catalog_item_block">
-                            <img src="{% get_static 'img/category_item.png' %}" alt="">
-                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
-                            <select class="rating_photo">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <p class="rating_number">Отзывов: <span>343</span></p>
-                            <hr>
-                            <p class="catalog_item_price">119 800 <span>грн</span></p>
-                            <a href="#" class="buy_button">Нет в наличии</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="catalog_item_block">
-                            <img src="{% get_static 'img/category_item.png' %}" alt="">
-                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
-                            <select class="rating_photo">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <p class="rating_number">Отзывов: <span>343</span></p>
-                            <hr>
-                            <p class="catalog_item_price">119 800 <span>грн</span></p>
-                            <a href="#" class="buy_button">Нет в наличии</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="catalog_item_block">
-                            <img src="{% get_static 'img/category_item.png' %}" alt="">
-                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
-                            <select class="rating_photo">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <p class="rating_number">Отзывов: <span>343</span></p>
-                            <hr>
-                            <p class="catalog_item_price">119 800 <span>грн</span></p>
-                            <a href="#" class="buy_button">Нет в наличии</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="catalog_item_block">
-                            <img src="{% get_static 'img/category_item.png' %}" alt="">
-                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
-                            <select class="rating_photo">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <p class="rating_number">Отзывов: <span>343</span></p>
-                            <hr>
-                            <p class="catalog_item_price">119 800 <span>грн</span></p>
-                            <a href="#" class="buy_button">Нет в наличии</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="catalog_item_block">
-                            <img src="{% get_static 'img/category_item.png' %}" alt="">
-                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
-                            <select class="rating_photo">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <p class="rating_number">Отзывов: <span>343</span></p>
-                            <hr>
-                            <p class="catalog_item_price">119 800 <span>грн</span></p>
-                            <a href="#" class="buy_button">Нет в наличии</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="catalog_item_block">
-                            <img src="{% get_static 'img/category_item.png' %}" alt="">
-                            <p class="catalog_item_block_caption">Твердотопливный котел Defro Komfort Eko 20</p>
-                            <select class="rating_photo">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <p class="rating_number">Отзывов: <span>343</span></p>
-                            <hr>
-                            <p class="catalog_item_price">119 800 <span>грн</span></p>
-                            <a href="#" class="buy_button">Нет в наличии</a>
-                        </div>
-                    </div>
-
-                </div>
-
+                {% endif %}
 
                 {% if recently_viewed_products %}
                     <p class="category_block_caption before_owl">Недавно просмотренные</p>
@@ -618,8 +492,6 @@
                                 {% endfor %}
                             {% endif %}
                         {% endwith %}
-
-
                     </div>
                 {% endif %}
 

@@ -1,13 +1,39 @@
 # -*- coding: utf-8 -*-
+import operator
+
 from django.contrib.sites.models import Site
+from django.core.cache import cache
 from django.db import models
+from django.utils.translation import get_language
 from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractProductAttributeValue, AbstractProductClass, \
     AbstractProductCategory, AbstractCategory
-from django.utils.translation import get_language
 
 
 class Product(AbstractProduct):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+
+    def change_similar_products(self, recent_products):
+        recent_product_ids = [p.id for p in recent_products]
+        products = cache.get('{}_similar_products'.format(self.id))
+        if products:
+            for product in recent_product_ids:
+                if product in products:
+                    products[product] += 1
+                else:
+                    products[product] = 1
+        else:
+            products = {p: 1 for p in recent_product_ids}
+        cache.set('{}_similar_products'.format(self.id), products, None)
+
+    def get_similar_products(self):
+        products = cache.get('{}_similar_products'.format(self.id))
+        if products:
+            print sorted(products.items(), key=operator.itemgetter(1), reverse=True)
+            products = [k for k, v in sorted(products.items(), key=operator.itemgetter(1), reverse=True)][
+                       :10]  # 10 the most popular products similar to current one
+            return Product.objects.filter(id__in=products)
+        else:
+            return None
 
 
 class ProductClass(AbstractProductClass):
@@ -16,6 +42,7 @@ class ProductClass(AbstractProductClass):
 
 class ProductCategory(AbstractProductCategory):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+
 
 class Category(AbstractCategory):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)

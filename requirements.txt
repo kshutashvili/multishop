@@ -28,3 +28,4 @@ rjsmin==1.0.12
 six==1.10.0
 sorl-thumbnail==12.4a1
 Unidecode==0.4.20
+python-memcached==1.58
