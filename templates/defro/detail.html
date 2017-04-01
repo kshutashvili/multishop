@@ -467,26 +467,28 @@
                                 {% for p in products_sliced %}
                                     <div class="item">
                                         <div class="catalog_item_block">
-                                            {% thumbnail p.primary_image.original "155" as img %}
-                                                <img src="{{ img.url }}">
-                                            {% endthumbnail %}
-                                            <p class="catalog_item_block_caption">{{ p.product_class.name }} {{ p.title }}</p>
-                                            <select class="rating_photo">
-                                                {% for num in "12345" %}
-                                                    <option {% if p.rating == num %}selected="selected"{% endif %}
-                                                            value="{{ num }}">{{ num }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <p class="rating_number">Отзывов:
-                                                <span>{{ p.num_approved_reviews }}</span></p>
-                                            <hr>
-                                            {% purchase_info_for_product request p as session %}
-                                            <p class="catalog_item_price">{{ session.price.incl_tax|currency:session.price.currency }}</p>
-                                            {% if session.availability.is_available_to_buy %}
-                                                <a href="#" class="buy_button">Купить</a>
-                                            {% else %}
-                                                <a href="#" class="buy_button">Нет в наличии</a>
-                                            {% endif %}
+                                            <a href="{{ p.get_absolute_url }}">
+                                                {% thumbnail p.primary_image.original "155" as img %}
+                                                    <img src="{{ img.url }}">
+                                                {% endthumbnail %}
+                                                <p class="catalog_item_block_caption">{{ p.product_class.name }} {{ p.title }}</p>
+                                                <select class="rating_photo">
+                                                    {% for num in "12345" %}
+                                                        <option {% if p.rating == num %}selected="selected"{% endif %}
+                                                                value="{{ num }}">{{ num }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <p class="rating_number">Отзывов:
+                                                    <span>{{ p.num_approved_reviews }}</span></p>
+                                                <hr>
+                                                {% purchase_info_for_product request p as session %}
+                                                <p class="catalog_item_price">{{ session.price.incl_tax|currency:session.price.currency }}</p>
+                                                {% if session.availability.is_available_to_buy %}
+                                                    <a href="#" class="buy_button">Купить</a>
+                                                {% else %}
+                                                    <a href="#" class="buy_button">Нет в наличии</a>
+                                                {% endif %}
+                                            </a>
                                         </div>
                                     </div>
                                 {% endfor %}
