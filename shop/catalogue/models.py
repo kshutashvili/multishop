@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import operator
 
+import redis
 from django.contrib.sites.models import Site
-from django.core.cache import cache
 from django.db import models
 from django.utils.translation import get_language
 from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractProductAttributeValue, AbstractProductClass, \
@@ -13,21 +13,30 @@ class Product(AbstractProduct):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
     def change_similar_products(self, recent_products):
+        pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
+        r = redis.Redis(connection_pool=pool)
+        key = self.get_product_key()
         recent_product_ids = [p.id for p in recent_products]
-        for product in recent_product_ids:
-            key = '{}_similar_products_{}'.format(self.id, product)
-            if not cache.set(key, 1, None, nx=True):
-                cache.incr(key)
+        if r.exists(key):
+            for product in recent_product_ids:
+                r.hincrby(key, product, 1)  # if there is no key, it will be created
+        else:
+            r.hmset(key, dict.fromkeys(recent_product_ids, 1))
 
     def get_similar_products(self):
-        products = Product.objects.values_list('id', flat=True).all()
+        pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
+        r = redis.Redis(connection_pool=pool)
+        key = self.get_product_key()
+        products = r.hgetall(key)
         if products:
-            products = {p: cache.get(p) for p in products if '{}_similar_products_{}'.format(self.id, p) in cache}
             products = [k for k, v in sorted(products.items(), key=operator.itemgetter(1), reverse=True)][
                        :10]  # 10 the most popular products similar to current one
             return Product.objects.filter(id__in=products)
         else:
             return None
+
+    def get_product_key(self):
+        return '{}_similar_products'.format(self.id)
 
 
 class ProductClass(AbstractProductClass):

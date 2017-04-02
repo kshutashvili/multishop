@@ -6,7 +6,6 @@ django-extra-views==0.6.4
 django-haystack==2.5.1
 django-modeltranslation==0.12
 django-oscar==1.4
-django-redis==4.7.0
 django-tables2==1.4.2
 django-treebeard==4.1.0
 django-widget-tweaks==1.4.1
