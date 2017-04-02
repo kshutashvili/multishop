@@ -13,8 +13,7 @@ class Product(AbstractProduct):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
     def change_similar_products(self, recent_products):
-        pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
-        r = redis.Redis(connection_pool=pool)
+        r = self.get_or_create_redis_connection()
         key = self.get_product_key()
         recent_product_ids = [p.id for p in recent_products]
         if r.exists(key):
@@ -24,8 +23,7 @@ class Product(AbstractProduct):
             r.hmset(key, dict.fromkeys(recent_product_ids, 1))
 
     def get_similar_products(self):
-        pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
-        r = redis.Redis(connection_pool=pool)
+        r = self.get_or_create_redis_connection()
         key = self.get_product_key()
         products = r.hgetall(key)
         if products:
@@ -37,6 +35,15 @@ class Product(AbstractProduct):
 
     def get_product_key(self):
         return '{}_similar_products'.format(self.id)
+
+    def get_or_create_redis_connection(self):
+        try:
+            connection = Product.redis
+            return connection
+        except AttributeError:
+            Product.pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
+            Product.redis = redis.Redis(connection_pool=Product.pool)
+            return Product.redis
 
 
 class ProductClass(AbstractProductClass):
