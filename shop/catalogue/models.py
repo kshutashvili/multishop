@@ -7,25 +7,32 @@ from django.db import models
 from django.utils.translation import get_language
 from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractProductAttributeValue, AbstractProductClass, \
     AbstractProductCategory, AbstractCategory
+from redis.exceptions import ConnectionError
 
 
 class Product(AbstractProduct):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
     def change_similar_products(self, recent_products):
-        r = self.get_or_create_redis_connection()
-        key = self.get_product_key()
-        recent_product_ids = [p.id for p in recent_products]
-        if r.exists(key):
-            for product in recent_product_ids:
-                r.hincrby(key, product, 1)  # if there is no key, it will be created
-        else:
-            r.hmset(key, dict.fromkeys(recent_product_ids, 1))
+        try:
+            r = self.get_or_create_redis_connection()
+            key = self.get_product_key()
+            recent_product_ids = [p.id for p in recent_products]
+            if r.exists(key):
+                for product in recent_product_ids:
+                    r.hincrby(key, product, 1)  # if there is no key, it will be created
+            else:
+                r.hmset(key, dict.fromkeys(recent_product_ids, 1))
+        except ConnectionError:
+            return
 
     def get_similar_products(self):
-        r = self.get_or_create_redis_connection()
-        key = self.get_product_key()
-        products = r.hgetall(key)
+        try:
+            r = self.get_or_create_redis_connection()
+            key = self.get_product_key()
+            products = r.hgetall(key)
+        except ConnectionError:
+            return None
         if products:
             products = [k for k, v in sorted(products.items(), key=operator.itemgetter(1), reverse=True)][
                        :10]  # 10 the most popular products similar to current one
