@@ -51,7 +51,10 @@ INSTALLED_APPS = [
     'compressor',
     'widget_tweaks',
     'modeltranslation',
-] + get_core_apps(['shop.catalogue', 'shop.promotions', 'shop.dashboard.catalogue'])
+] + get_core_apps(['shop.catalogue',
+                   'shop.promotions',
+                   'shop.dashboard.catalogue',
+                   'shop.catalogue.reviews', ])
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
