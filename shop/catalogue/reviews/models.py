@@ -10,4 +10,7 @@ class ProductReview(AbstractProductReview):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
 
+class ProductReview(AbstractProductReview):
+    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+
 from oscar.apps.catalogue.reviews.models import *  # noqa
