@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from django import forms
-from django.utils.translation import ugettext_lazy as _
-
 from django.forms import HiddenInput
 from oscar.apps.catalogue.reviews.forms import ProductReviewForm as \
     CoreProductReviewForm
-from oscar.core.compat import user_is_authenticated
 
 from shop.catalogue.reviews.models import ProductReview
 
