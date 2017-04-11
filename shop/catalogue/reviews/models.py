@@ -34,17 +34,12 @@ class ProductReview(AbstractProductReview):
 def on_review_create(sender, instance, created, **kwargs):
     if not created:
         return
-
     try:
         review = sender.objects.get(pk=instance.reply_to,
                                     get_notification=True)
     except ObjectDoesNotExist:
         return
-
-    if review.email:
-        to_email = review.email
-    else:
-        to_email = review.user.email
+    to_email = review.email or review.user.email
     message = 'Your review has been commented, please follow the reference' \
               'to see the the comment http://{0}/{1}'.format(
                   instance.site, instance.product.get_absolute_url)
