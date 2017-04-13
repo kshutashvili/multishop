@@ -62,6 +62,7 @@ class SocialNetRef(models.Model):
     class REFTYPES:
         FACEBOOK = 'facebook'
         VKONTAKTE = 'vkontakte'
+        MAILRU = 'mailru'
         TWITTER = 'twitter'
         ODNOKLASSNIKI = 'odnoklassniki'
         PINTEREST = 'pinterest'
@@ -69,6 +70,7 @@ class SocialNetRef(models.Model):
         YOUTUBE = 'youtube'
         _CHOICES = ((FACEBOOK, _('facebook')),
                     (VKONTAKTE, _('ВКонтакте')),
+                    (MAILRU, _('mail.ru')),
                     (TWITTER, _('Twitter')),
                     (ODNOKLASSNIKI, _('Одноклассники')),
                     (PINTEREST, _('Pinterest')),
