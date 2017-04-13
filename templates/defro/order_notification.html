@@ -1,0 +1,103 @@
+{% load staticfiles %}
+{% load site_static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="{% get_static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% get_static 'css/style.css' %}">
+
+
+
+</head>
+<body>
+	<div class="container-fluid bgc_change">
+		<div class="container">
+			<div class="letter_container">
+				<img class="letter_logo" src="{% get_static 'img/logo.png' %}" alt="">
+				<div class="letter_content">
+					<p class="letter_caption">Здравствуйте, <span>{{ order.user.get_full_name }}</span>!</p>
+					<p class="letter_thx">Спасибо, Ваш заказ принят!</p>
+					<p class="letter_confirm">Наш менеджер обязательно свяжется с Вами для уточнения всех деталей и подтверждения заказа.</p>
+
+					<div class="letter_details">
+						<p class="letter_details_caption">Детали заказа № {{ order.number }} <a href="#">Распечатать</a></p>
+						<div class="letter_details_tovar">
+							<ul>
+                                {% for line in lines %}
+                                    <li>
+                                        <img src="{{ line.product.primary_image.url }}" alt="">
+                                        <div class="letter_details_name_number">
+                                            <p class="letter_details_name">{{ line.product.product_class.name }} {{ line.product.title }} </p>
+                                            <span>{{ line.quantity }} шт.</span>
+                                        </div>
+                                        <p class="letter_details_price">{{ line.line_price_incl_tax }} {{ order.currency }}</p>
+                                    </li>
+                                {% endfor %}
+							</ul>
+							<p class="letter_details_sum">Итого: <span>{{ order.total_incl_tax }} {{ order.currency }}</span></p>
+						</div>
+					</div>
+					<div class="letter_details">
+						<p class="letter_details_caption letter_details_caption_contact">Контактные данные</p>
+						<div class="letter_icon_info">
+							<p>Имя: <span>{{ order.user.get_full_name }}</span></p>
+							<p>Адрес: <span>{{ order.shipping_address }}</span></p>
+							<p>Телефон: <span>?? 098 859-88-80 ??</span></p>
+							<p>E-mail: <span>{{ order.user.email }}</span></p>
+						</div>
+					</div>
+					<div class="letter_details">
+						<p class="letter_details_caption letter_details_caption_delivery">Доставка и оплата</p>
+						<div class="letter_icon_info letter_icon_second">
+							<p>Способ оплаты: <span>{{ order.sources.source_type.name }} </span></p>
+							<p>Способ доставки: <span>{{ order.shipping_method }}</span></p>
+                            {% if order.notes %}
+                                <p>Комментарий к заказу: <span>{{ order.notes.message }}</span></p>
+                            {% else %}
+							    <p>Комментарий к заказу: <span>Нет</span></p>
+                            {% endif %}
+						</div>
+					</div>
+
+
+				</div>
+
+
+				<div class="letter_content_second">
+					<div class="letter_contacts_block">
+						<p>04073, г.Киев, ул Сирецкая, 9 оф..15</p>
+						<p>(044) 383-06-30, (098) 859-88-80, <br> (099) 859-88-80, (093) 149-88-80</p>
+						<p>defro.com.ua@mail.ua</p>
+					</div>
+					<div class="letter_contacts_block">
+						<p>18000, г. Черкассы, ул Смелянская, 159/3</p>
+						<p>(0472) 50-03-60, (067) 377-27-92,<br> (066) 583-35-28, (063) 025-97-88</p>
+						<p>info@defro.com.ua</p>
+					</div>
+				</div>
+
+				<div class="letter_social_groups">
+					<p class="letter_social_groups_caption">Мы в сети. Присоединяйтесь!</p>
+					<a href="#"></a>
+					<a href="#"></a>
+					<a href="#"></a>
+					<a href="#"></a>
+					<a href="#"></a>
+					<a href="#"></a>
+					<a href="#"></a>
+					<p class="letter_avto">Это письмо создано автоматически, пожалуйста, не отвечайте на него.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="{% get_static 'js/jquery-2-0-0.js' %}"></script>
+<script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
+<script src="{% get_static 'js/bootstrap.min.js' %}"></script>
+
+
+</html>

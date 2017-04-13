@@ -3,11 +3,20 @@ import operator
 
 import redis
 from django.contrib.sites.models import Site
+from django.core.mail import EmailMultiAlternatives
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.template import Context
+from django.template.loader import get_template
 from django.utils.translation import get_language
+
 from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractProductAttributeValue, AbstractProductClass, \
     AbstractProductCategory, AbstractCategory
+from oscar.apps.order.models import Order as OscarOrder
 from redis.exceptions import ConnectionError
+
+from local_settings import DEFAULT_FROM_EMAIL
 
 
 class Product(AbstractProduct):
@@ -128,6 +137,26 @@ class Video(models.Model):
 
     def __unicode__(self):
         return self.video
+
+
+@receiver(post_save, sender=OscarOrder)
+def on_order_create(sender, instance, created, **kwargs):
+    if not created:
+        return
+
+    template = get_template('defro/order_notification.html')
+    context_dict = Context({
+        'order': instance,
+        'lines': instance.basket.lines.all()
+    })
+    subject = 'Order notification'
+    from_email = DEFAULT_FROM_EMAIL
+    to = instance.user.email
+    text_content = ''
+    html_content = template.render(context_dict)
+    email = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    email.attach_alternative(html_content, "text/html")
+    email.send(fail_silently=True)
 
 
 from oscar.apps.catalogue.models import *
