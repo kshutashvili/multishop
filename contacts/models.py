@@ -56,3 +56,41 @@ class PhoneNumber(models.Model):
         phone_obj = phonenumbers.parse(self.phone, country)
         return phonenumbers.format_number(
             phone_obj, phonenumbers.PhoneNumberFormat.NATIONAL)
+
+
+class SocialNetRef(models.Model):
+    class REFTYPES:
+        FACEBOOK = 'facebook'
+        VKONTAKTE = 'vkontakte'
+        TWITTER = 'twitter'
+        ODNOKLASSNIKI = 'odnoklassniki'
+        PINTEREST = 'pinterest'
+        GOOGLE = 'google'
+        YOUTUBE = 'youtube'
+        _CHOICES = ((FACEBOOK, _('facebook')),
+                    (VKONTAKTE, _('ВКонтакте')),
+                    (TWITTER, _('Twitter')),
+                    (ODNOKLASSNIKI, _('Одноклассники')),
+                    (PINTEREST, _('Pinterest')),
+                    (GOOGLE, _('Google+')),
+                    (YOUTUBE, _('YouTube')))
+
+    ref_type = models.CharField(
+        _('Оператор'),
+        max_length=20,
+        choices=REFTYPES._CHOICES,
+        default=REFTYPES.FACEBOOK
+    )
+    reference = models.URLField(_('Ссылка'))
+    site = models.ForeignKey(
+        Site,
+        verbose_name=_('Сайт'),
+        related_name='socialnetrefs'
+    )
+
+    class Meta:
+        verbose_name = _('Ссылка на социальную сеть')
+        verbose_name_plural = _('Ссылки на социальные сети')
+
+    def __unicode__(self):
+        return '{} {}'.format(self.ref_type, self.reference)
