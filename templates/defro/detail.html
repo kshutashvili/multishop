@@ -50,21 +50,44 @@
 
 {% block content %}
     <div class="container">
+        {% basket_form request product as basket_form %}
+        <form id="add_to_basket_form_{{ product.id }}" name="add_to_basket_form" style="display: none;"
+              action="{% url 'basket:add' pk=product.pk %}"
+              method="post"
+              class="add-to-basket">{% csrf_token %}
+            {% include "partials/form_fields.html" with form=basket_form %}
+        </form>
+
+
         <div class="main_block clear_fix">
             <div class="main_content">
-                <p class="acticle_tov">Артикул: <span>{{ product.upc }}</span></p>
+                <p class="acticle_tov">Артикул: <span>{{ product.upc }}</span>
+                </p>
                 <p class="category_block_caption often_caption">
-                    <span>{{ product.product_class.name }}</span> {{ product.title }}</p>
+                    <span>{{ product.product_class.name }}</span> {{ product.title }}
+                </p>
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#tovar" aria-controls="tovar" role="tab"
-                                                              data-toggle="tab">Все о товаре</a></li>
-                    <li role="presentation"><a href="#desc" aria-controls="desc" role="tab" data-toggle="tab">Характеристики</a>
+                    <li role="presentation" class="active"><a href="#tovar"
+                                                              aria-controls="tovar"
+                                                              role="tab"
+                                                              data-toggle="tab">Все
+                        о товаре</a></li>
+                    <li role="presentation"><a href="#desc" aria-controls="desc"
+                                               role="tab"
+                                               data-toggle="tab">Характеристики</a>
                     </li>
-                    <li role="presentation"><a href="#photo" aria-controls="photo" role="tab" data-toggle="tab">Фото и
+                    <li role="presentation"><a href="#photo"
+                                               aria-controls="photo" role="tab"
+                                               data-toggle="tab">Фото и
                         видео</a></li>
-                    <li role="presentation"><a href="#review" aria-controls="review" role="tab" data-toggle="tab">Отзывы
-                        <span class="otzivi_after">{{ product.num_approved_reviews }}</span></a></li>
-                    <li role="presentation"><a href="#delivery" aria-controls="delivery" role="tab" data-toggle="tab">Доставка</a>
+                    <li role="presentation"><a href="#review"
+                                               aria-controls="review" role="tab"
+                                               data-toggle="tab">Отзывы
+                        <span class="otzivi_after">{{ product.num_approved_reviews }}</span></a>
+                    </li>
+                    <li role="presentation"><a href="#delivery"
+                                               aria-controls="delivery"
+                                               role="tab" data-toggle="tab">Доставка</a>
                     </li>
                 </ul>
 
@@ -78,7 +101,8 @@
                                     {% for img in product.images.all %}
                                         <li class="before_akcia free_shipping">
 
-                                            <img src="{{ img.original.url }}" alt="">
+                                            <img src="{{ img.original.url }}"
+                                                 alt="">
                                         </li>
 
                                     {% endfor %}
@@ -87,7 +111,8 @@
                                 <div id="bx-pager">
                                     {% for img in product.images.all %}
                                         {% thumbnail img.original "155" as thumb %}
-                                            <a data-slide-index="{{ forloop.counter0 }}" href=""><img
+                                            <a data-slide-index="{{ forloop.counter0 }}"
+                                               href=""><img
                                                     src="{{ thumb.url }}"
                                                     alt=""></a>
                                         {% endthumbnail %}
@@ -101,50 +126,70 @@
                                                 value="{{ num }}">{{ num }}</option>
                                     {% endfor %}
                                 </select>
-                                <p class="rating_number"><span>{% if product.rating %}{{ product.rating }}{% else %}
-                                    0{% endif %}</span>/5 ( голосов <span>{{ product.num_approved_reviews }}</span>)</p>
+                                <p class="rating_number"><span>{% if product.rating %}
+                                    {{ product.rating }}{% else %}
+                                    0{% endif %}</span>/5 ( голосов
+                                    <span>{{ product.num_approved_reviews }}</span>)
+                                </p>
                                 {% purchase_info_for_product request product as session %}
                                 {% if session.availability.is_available_to_buy %}
                                     <p class="nalichie ">Есть в наличии</p>
-                                    <p class="line_through">{% if session.price.is_tax_known %}
-                                        {{ session.price.incl_tax|currency:session.price.currency }}
-                                    {% else %}
-                                        {{ session.price.excl_tax|currency:session.price.currency }} +
-                                        налоги
-                                    {% endif %} </p>
-                                    <p class="catalog_item_price">{% if session.price.is_tax_known %}
-                                        {{ session.price.incl_tax|currency:session.price.currency }}
-                                    {% else %}
-                                        {{ session.price.excl_tax|currency:session.price.currency }} +
-                                        налоги
-                                    {% endif %}</p>
+                                    <p class="line_through">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %} </p>
+                                    <p class="catalog_item_price">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %}</p>
                                 {% else %}
-                                    <p class="nalichie dpn naliche_net">Нет в наличии</p>
-                                    <p class="catalog_item_price naliche_net dpn">{% if session.price.is_tax_known %}
-                                        {{ session.price.incl_tax|currency:session.price.currency }}
-                                    {% else %}
-                                        {{ session.price.excl_tax|currency:session.price.currency }} +
-                                        налоги
-                                    {% endif %}</p>
+                                    <p class="nalichie dpn naliche_net">Нет в
+                                        наличии</p>
+                                    <p class="catalog_item_price naliche_net dpn">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %}</p>
 
                                 {% endif %}
-                                {% basket_form request product as basket_form %}
-                                <form id="add_to_basket_form" action="{% url 'basket:add' pk=product.pk %}"
-                                      method="post" class="add-to-basket">{% csrf_token %}
-                                    {% include "partials/form_fields.html" with form=basket_form %}
-                                    <button type="submit" class="basket_button" value="{% trans "Add to basket" %}"
-                                            data-loading-text="Добавляем">В корзину
-                                    </button>
-                                </form>
-                                <a href="#" class="basket_button_in dpn">В корзине</a>
-                                <a href="#" class="basket_button_none dpn">Нет в наличии</a>
-                                <a href="#" class="buy_credit">Купить в кредит</a>
+                                <button type="submit" id="submit_btn"
+                                        class="basket_button show_popup"
+                                        value="{% trans "Add to basket" %}"
+                                        data-loading-text="Добавляем"
+                                        rel="buy_button_modal" data-product-id="{{ product.id }}">В корзину
+                                </button>
+                                <a href="#" class="basket_button_in dpn">В
+                                    корзине</a>
+                                <a href="#" class="basket_button_none dpn">Нет в
+                                    наличии</a>
+                                <a href="#" class="buy_credit show_popup"
+                                   rel="credit_button_modal">Купить в кредит</a>
 
-                                <input type="text" class="zakaz_one_click" placeholder="(0XX) XXX - XX - XX">
-                                <button class="zakaz_one_click">Заказать в один клик</button>
+                                <input type="text" class="zakaz_one_click"
+                                       placeholder="(0XX) XXX - XX - XX">
+                                <button class="zakaz_one_click show_popup"
+                                        rel="request_button_modal_third">
+                                    Заказать в
+                                    один
+                                    клик
+                                </button>
 
                                 <a href="#" class="elipse_button">Сравнить</a>
-                                <a href="#" class="elipse_button_question">Задать вопрос</a>
+                                <a href="#"
+                                   class="elipse_button_question show_popup"
+                                   rel="ask_button_modal">Задать
+                                    вопрос</a>
 
                                 <div class="social_block">
                                     <a href="#"></a>
@@ -158,24 +203,28 @@
                             </div>
 
                             <div class="fast_delivery_block">
-                                <p class="fast_delivery_caption">Быстрая доставка</p>
+                                <p class="fast_delivery_caption">Быстрая
+                                    доставка</p>
                                 <p class="fast_delivery_text">
                                     В любой уголок Украины: <br>
                                     - Самовывоз из нашего магазина, <br>
                                     - Самовывоз со службы доставки <br>
                                     - Доставка по адресу
                                 </p>
-                                <p class="fast_delivery_caption">14 ДНЕЙ НА ОБМЕН</p>
+                                <p class="fast_delivery_caption">14 ДНЕЙ НА
+                                    ОБМЕН</p>
                                 <p class="fast_delivery_text">
                                     Обмен/возврат товара в течении <br> 14 дней
                                 </p>
-                                <p class="fast_delivery_caption">ОФИЦИАЛЬНАЯ ГАРАНТИЯ</p>
+                                <p class="fast_delivery_caption">ОФИЦИАЛЬНАЯ
+                                    ГАРАНТИЯ</p>
                                 <p class="fast_delivery_text">
                                     Гарантия от производителя
                                 </p>
                                 <p class="fast_delivery_caption">Оплата</p>
                                 <p class="fast_delivery_text">
-                                    Наличными, безналичными, <br> кредит, Visa/MasterCard
+                                    Наличными, безналичными, <br> кредит,
+                                    Visa/MasterCard
                                 </p>
                             </div>
 
@@ -187,12 +236,15 @@
 
 
                                     <div class="left_filter_collapse">
-                                        <a class="left_filter_captions" role="button" data-toggle="collapse"
-                                           href="#collapseFilter1" aria-expanded="false"
+                                        <a class="left_filter_captions"
+                                           role="button" data-toggle="collapse"
+                                           href="#collapseFilter1"
+                                           aria-expanded="false"
                                            aria-controls="collapseFilter1">
                                             Все о товаре
                                         </a>
-                                        <div class="collapse in" id="collapseFilter1">
+                                        <div class="collapse in"
+                                             id="collapseFilter1">
                                             <div class="well">
                                                 <p class="tovar_second_caption">{{ product.product_class.name }} {{ product.title }}</p>
                                                 <p class="tovar_second_text">
@@ -205,24 +257,30 @@
                                                     <div id="tovar_desc">
                                                         <p>{{ product.description|safe }}</p>
                                                     </div>
-                                                    <a class="read-next" href="#">Читать далее</a>
+                                                    <a class="read-next"
+                                                       href="#">Читать далее</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="left_filter_collapse photo_video_fix">
-                                        <a class="left_filter_captions" role="button" data-toggle="collapse"
-                                           href="#collapseFilter3" aria-expanded="false"
+                                        <a class="left_filter_captions"
+                                           role="button" data-toggle="collapse"
+                                           href="#collapseFilter3"
+                                           aria-expanded="false"
                                            aria-controls="collapseFilter3">
                                             Фото и видео
                                         </a>
-                                        <div class="collapse in" id="collapseFilter3">
+                                        <div class="collapse in"
+                                             id="collapseFilter3">
                                             <div class="well">
                                                 <iframe width="540" height="335"
-                                                        src="https://www.youtube.com/embed/Hr1-SFxziws" frameborder="0"
+                                                        src="https://www.youtube.com/embed/Hr1-SFxziws"
+                                                        frameborder="0"
                                                         allowfullscreen></iframe>
-                                                <img src="{% get_static 'img/kotel.png' %}" alt=""
+                                                <img src="{% get_static 'img/kotel.png' %}"
+                                                     alt=""
                                                      class="tovar_second_info_photo_video">
                                             </div>
                                         </div>
@@ -232,12 +290,15 @@
 
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                     <div class="left_filter_collapse">
-                                        <a class="left_filter_captions" role="button" data-toggle="collapse"
-                                           href="#collapseFilter2" aria-expanded="false"
+                                        <a class="left_filter_captions"
+                                           role="button" data-toggle="collapse"
+                                           href="#collapseFilter2"
+                                           aria-expanded="false"
                                            aria-controls="collapseFilter2">
                                             Основные характеристики
                                         </a>
-                                        <div class="collapse in" id="collapseFilter2">
+                                        <div class="collapse in"
+                                             id="collapseFilter2">
                                             <div class="well">
                                                 <table class="table_main_har">
                                                     {% for av in product.attribute_values.all %}
@@ -252,23 +313,32 @@
                                     </div>
 
                                     <div class="left_filter_collapse">
-                                        <a class="left_filter_captions" role="button" data-toggle="collapse"
-                                           href="#collapseFilter3" aria-expanded="false"
+                                        <a class="left_filter_captions"
+                                           role="button" data-toggle="collapse"
+                                           href="#collapseFilter3"
+                                           aria-expanded="false"
                                            aria-controls="collapseFilter3">
-                                            Отзывы <span class="otzivi_after">{{ product.num_approved_reviews }}</span>
+                                            Отзывы <span
+                                                class="otzivi_after">{{ product.num_approved_reviews }}</span>
                                         </a>
-                                        <a href="#" class="comment_button_uniq">Оставить отзыв о товаре</a>
-                                        <div class="collapse in" id="collapseFilter3">
+                                        <a href="#" class="comment_button_uniq">Оставить
+                                            отзыв о товаре</a>
+                                        <div class="collapse in"
+                                             id="collapseFilter3">
                                             <div class="well">
                                                 <div style="height:100%">
-                                                    <div id="comment_range" style="height: auto">
+                                                    <div id="comment_range"
+                                                         style="height: auto">
 
 
                                                         {% block product_review %}
                                                             <section>
 
                                                                 {% if product.num_approved_reviews == 0 %}
-                                                                    <p>У этого твара еще нет отзывов.</p>
+                                                                    <p>У этого
+                                                                        твара
+                                                                        еще нет
+                                                                        отзывов.</p>
                                                                 {% else %}
                                                                     <ol class="list-unstyled review-list">
                                                                         {% for review in product.reviews.approved.all|slice:":3" %}
@@ -292,12 +362,14 @@
                                                                                         <p>{{ review.body|striptags|truncatechars:100 }}.</p>
                                                                                     </div>
                                                                                     <a class="read-next-comment"
-                                                                                       href="#">Читать далее</a>
+                                                                                       href="#">Читать
+                                                                                        далее</a>
                                                                                 </div>
                                                                                 <div class="user_comment_bottom">
                                                                                     {% if review|may_vote:user %}
                                                                                         <span class="otziv_polezen">Отзыв полезен?</span>
-                                                                                        <form style="display: inline-table" action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                        <form style="display: inline-table"
+                                                                                              action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
                                                                                               method="post"
                                                                                               class="vote_agree">
                                                                                             {% csrf_token %}
@@ -306,25 +378,32 @@
                                                                                                    value="1"/>
                                                                                             <button type="submit"
                                                                                                     class="otziv_polezen_da"
-                                                                                                    data-loading-text="{% trans 'Submitting...' %}" style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
+                                                                                                    data-loading-text="{% trans 'Submitting...' %}"
+                                                                                                    style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
                                                                                                 Да<span>{{ review.num_up_votes }}</span>
                                                                                             </button>
                                                                                         </form>
-                                                                                        <form style="display: inline-table" action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                        <form style="display: inline-table"
+                                                                                              action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
                                                                                               method="post">
                                                                                             {% csrf_token %}
                                                                                             <input type="hidden"
-                                                                                                   name="delta" value="-1"/>
+                                                                                                   name="delta"
+                                                                                                   value="-1"/>
                                                                                             <button type="submit"
                                                                                                     class="otziv_polezen_net"
-                                                                                                    data-loading-text="{% trans 'Submitting...' %}" style="border: none; background-color: transparent;">
+                                                                                                    data-loading-text="{% trans 'Submitting...' %}"
+                                                                                                    style="border: none; background-color: transparent;">
                                                                                                 Нет<span>{{ review.num_down_votes }}</span>
                                                                                             </button>
                                                                                         </form>
-                                                                                        <p class="otvetilo">Ответов:
-                                                                                            <span>1</span></p>
+                                                                                        <p class="otvetilo">
+                                                                                            Ответов:
+                                                                                            <span>1</span>
+                                                                                        </p>
                                                                                         <a href="#"
-                                                                                           class="otvetit">Ответить</a>
+                                                                                           class="otvetit show_popup"
+                                                                                           rel="answer_button_modal">Ответить</a>
                                                                                     {% endif %}
                                                                                 </div>
                                                                             </div>
@@ -337,51 +416,95 @@
 
                                                     </div>
                                                     {% if product.num_approved_reviews > 0 %}
-                                                        <a class="read-next-fullcomment" href="#">Читать все отзывы</a>
+                                                        <a class="read-next-fullcomment"
+                                                           href="#">Читать все
+                                                            отзывы</a>
                                                     {% endif %}
                                                 </div>
 
                                                 <div class="add_own_comment">
-                                                    <p class="add_own_comment_caption">Добавьте свой отзыв</p>
-                                                    <form action="{% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.pk %}" method="POST" id="review_form">{% csrf_token %}
+                                                    <p class="add_own_comment_caption">
+                                                        Добавьте свой отзыв</p>
+                                                    <form action="{% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.pk %}"
+                                                          method="POST"
+                                                          id="review_form">{% csrf_token %}
                                                         <div class="add_own_comment_input">
-                                                            <label for="">Ваше имя <span
-                                                                    class="red_star">*</span>:</label>
-                                                            <input type="text" name="name" value="{{ user.username}}">
-                                                            <label for="">Ваш Email <span
-                                                                    class="red_star">*</span>:</label>
-                                                            <input type="text" name="email" value="{{ user.email }}">
+                                                            <label for="">Ваше
+                                                                имя <span
+                                                                        class="red_star">*</span>:</label>
+                                                            <input type="text"
+                                                                   name="name"
+                                                                   value="{{ user.username }}">
+                                                            <label for="">Ваш
+                                                                Email <span
+                                                                        class="red_star">*</span>:</label>
+                                                            <input type="text"
+                                                                   name="email"
+                                                                   value="{{ user.email }}">
                                                         </div>
                                                         <div class="add_own_comment_rate">
-                                                            <p>Оцените этот товар:</p>
-                                                            <select name="score" class="rating_photo">
+                                                            <p>Оцените этот
+                                                                товар:</p>
+                                                            <select name="score"
+                                                                    class="rating_photo">
                                                                 {% for i in "12345" %}
                                                                     <option value={{ forloop.counter }} {% if score == forloop.counter %}selected="selected"{% endif %}>{{ forloop.counter }}</option>
                                                                 {% endfor %}
                                                             </select>
 
                                                             <div class="checkbox_check">
-                                                                <input id="id_get_notification" type="checkbox" name="get_notification">
-                                                                <label for="id_get_notification">- Получать уведомления об
+                                                                <input id="id_get_notification"
+                                                                       type="checkbox"
+                                                                       name="get_notification">
+                                                                <label for="id_get_notification">-
+                                                                    Получать
+                                                                    уведомления
+                                                                    об
                                                                     ответах</label>
                                                             </div>
                                                         </div>
 
                                                         <div class="add_own_comment_text">
-                                                            <input type='hidden' name="site" value="{{ product.site.id }}" />
-                                                            <label for="">Комментарий <span
-                                                                    class="red_star">*</span>:</label>
-                                                            <textarea name="body" id="" cols="30" rows="10" form="review_form">{{ body }}</textarea>
-{#                                                            <a href="#" class="add_wide_comment">Расширенный отзыв</a>#}
+                                                            <input type='hidden'
+                                                                   name="site"
+                                                                   value="{{ product.site.id }}"/>
+                                                            <label for="">Комментарий
+                                                                <span
+                                                                        class="red_star">*</span>:</label>
+                                                            <textarea
+                                                                    name="body"
+                                                                    id=""
+                                                                    cols="30"
+                                                                    rows="10"
+                                                                    form="review_form">{{ body }}</textarea>
+                                                            {#                                                            <a href="#" class="add_wide_comment">Расширенный отзыв</a>#}
                                                             <label for="">Достоинства:</label>
-                                                            <textarea name="advantage" id="" cols="30" rows="10" form="review_form">{{ advantage }}</textarea>
+                                                            <textarea
+                                                                    name="advantage"
+                                                                    id=""
+                                                                    cols="30"
+                                                                    rows="10"
+                                                                    form="review_form">{{ advantage }}</textarea>
 
                                                             <label for="">Недостатки:</label>
-                                                            <textarea name="disadvantage" id="" cols="30" rows="10" form="review_form">{{ disadvantage }}</textarea>
+                                                            <textarea
+                                                                    name="disadvantage"
+                                                                    id=""
+                                                                    cols="30"
+                                                                    rows="10"
+                                                                    form="review_form">{{ disadvantage }}</textarea>
 
-                                                            <button type="submit" class="add_own_new_comment" style="display: inline-block; color: #fff; background-color: #ed1b24; padding: 10px 50px; text-decoration: none; margin-top: 20px; border: none">Добавить отзыв</button>
+                                                            <button type="submit"
+                                                                    id="submit_comment"
+                                                                    class="add_own_new_comment"
+                                                                    rel="request_button_modal_second"
+                                                                    style="display: inline-block; color: #fff; background-color: #ed1b24; padding: 10px 50px; text-decoration: none; margin-top: 20px; border: none">
+                                                                Добавить отзыв
+                                                            </button>
                                                             <p class="add_own_comment_pole"><span
-                                                                    class="red_star">*</span> - поля обязательные для
+                                                                    class="red_star">*</span>
+                                                                - поля
+                                                                обязательные для
                                                                 заполнения</p>
                                                         </div>
                                                     </form>
@@ -398,92 +521,506 @@
 
 
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="desc">{{ product.description|safe }}</div>
+                    <div role="tabpanel" class="tab-pane" id="desc">
+                        <div class="catalog_item_block before_new free_shipping">
+                            <div class="before_gift"></div>
+                            <div class="before_free"></div>
+                            {% thumbnail product.primary_image.original "155" as thumb %}
+                                <a data-slide-index="{{ forloop.counter0 }}"
+                                   href=""><img
+                                        src="{{ thumb.url }}"
+                                        alt=""></a>
+                            {% endthumbnail %}
+                            <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                            <div class="for_list_block">
+                                <select class="rating_photo">
+                                    {% for num in "12345" %}
+                                        <option {% if product.rating == num %}selected="selected"{% endif %}
+                                                value="{{ num }}">{{ num }}</option>
+                                    {% endfor %}
+                                </select>
+                                <p class="rating_number"><span>{% if product.rating %}
+                                    {{ product.rating }}{% else %}
+                                    0{% endif %}</span>/5 ( голосов
+                                    <span>{{ product.num_approved_reviews }}</span>)
+                                </p>
+                                <hr>
+                                {% purchase_info_for_product request product as session %}
+                                {% if session.availability.is_available_to_buy %}
+                                    <p class="nalichie ">Есть в наличии</p>
+                                    <p class="line_through">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %} </p>
+                                    <p class="catalog_item_price">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %}</p>
+                                {% else %}
+                                    <p class="nalichie dpn naliche_net">Нет в
+                                        наличии</p>
+                                    <p class="catalog_item_price naliche_net dpn">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %}</p>
+
+                                {% endif %}
+                                <a href="#" class="compare_button">Сравнить</a>
+                                <a type="submit" class="buy_button show_popup"
+                                   value="{% trans "Add to basket" %}"
+                                   data-loading-text="Добавляем"
+                                   rel="buy_button_modal" href="#!" data-product-id="{{ product.id }}">В корзину
+                                </a>
+
+                                <a href="#"
+                                   class="elipse_button elipse_button_kred show_popup"
+                                   rel="credit_button_modal">Купить
+                                    в кредит</a>
+                                <a href="#"
+                                   class="elipse_button_question show_popup"
+                                   rel="ask_button_modal">Задать
+                                    вопрос</a>
+                            </div>
+
+
+                        </div>
+                        <div class="desc_id_block">
+                            <div class="left_filter_collapse">
+                                <a class="left_filter_captions" role="button"
+                                   data-toggle="collapse"
+                                   href="#collapseFilter6"
+                                   aria-expanded="false"
+                                   aria-controls="collapseFilter6">
+                                    Основные характеристики
+                                </a>
+                                <div class="collapse in" id="collapseFilter6">
+                                    <div class="well">
+                                        <table class="table_main_har">
+                                            {% for av in product.attribute_values.all %}
+                                                <tr>
+                                                    <th>{{ av.attribute.name }}</th>
+                                                    <td>{{ av.value_as_html|safe }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div role="tabpanel" class="tab-pane" id="photo">
+                        <div class="catalog_item_block before_new free_shipping">
+                            <div class="before_gift"></div>
+                            <div class="before_free"></div>
+                            {% thumbnail product.primary_image.original "155" as thumb %}
+                                <a data-slide-index="{{ forloop.counter0 }}"
+                                   href=""><img
+                                        src="{{ thumb.url }}"
+                                        alt=""></a>
+                            {% endthumbnail %}
+                            <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                            <div class="for_list_block">
+                                <select class="rating_photo">
+                                    {% for num in "12345" %}
+                                        <option {% if product.rating == num %}selected="selected"{% endif %}
+                                                value="{{ num }}">{{ num }}</option>
+                                    {% endfor %}
+                                </select>
+                                <p class="rating_number"><span>{% if product.rating %}
+                                    {{ product.rating }}{% else %}
+                                    0{% endif %}</span>/5 ( голосов
+                                    <span>{{ product.num_approved_reviews }}</span>)
+                                </p>
+                                <hr>
+                                {% purchase_info_for_product request product as session %}
+                                {% if session.availability.is_available_to_buy %}
+                                    <p class="nalichie ">Есть в наличии</p>
+                                    <p class="line_through">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %} </p>
+                                    <p class="catalog_item_price">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %}</p>
+                                {% else %}
+                                    <p class="nalichie dpn naliche_net">Нет в
+                                        наличии</p>
+                                    <p class="catalog_item_price naliche_net dpn">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %}</p>
+
+                                {% endif %}
+                                <a href="#" class="compare_button">Сравнить</a>
+                                <a type="submit" class="buy_button show_popup"
+                                   value="{% trans "Add to basket" %}"
+                                   data-loading-text="Добавляем"
+                                   rel="buy_button_modal" href="#!" data-product-id="{{ product.id }}">В корзину
+                                </a>
+
+                                <a href="#"
+                                   class="elipse_button elipse_button_kred show_popup"
+                                   rel="credit_button_modal">Купить
+                                    в кредит</a>
+                                <a href="#"
+                                   class="elipse_button_question show_popup"
+                                   rel="ask_button_modal">Задать
+                                    вопрос</a>
+                            </div>
+
+
+                        </div>
+                        <div class="photo_id_block">
+                            <div class="left_filter_collapse photo_video_fix">
+                                <a class="left_filter_captions" role="button"
+                                   data-toggle="collapse"
+                                   href="#collapseFilter7"
+                                   aria-expanded="false"
+                                   aria-controls="collapseFilter7">
+                                    Фото и видео
+                                </a>
+                                <div class="collapse in" id="collapseFilter7">
+                                    <div class="well">
+                                        <iframe width="540" height="335"
+                                                src="https://www.youtube.com/embed/Hr1-SFxziws"
+                                                frameborder="0"
+                                                allowfullscreen></iframe>
+                                        <img src="{% get_static 'img/kotel.png' %}"
+                                             alt=""
+                                             class="tovar_second_info_photo_video">
+                                        <img src="{% get_static 'img/kotel.png' %}"
+                                             alt=""
+                                             class="tovar_second_info_photo_video">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="review">
-                        <div class="left_filter_collapse">
-                            <a class="left_filter_captions" role="button" data-toggle="collapse" style="border: 1px solid #e0e0e0; background-color: #f8f8f8; padding: 7px 25px; font-size: 24px;"
-                               href="#collapseFilter3" aria-expanded="false"
-                               aria-controls="collapseFilter3" >
-                                Отзывы <span class="otzivi_after">{{ product.num_approved_reviews }}</span>
-                            </a>
-                            <a href="#" class="comment_button_uniq">Оставить отзыв о товаре</a>
-                            <div class="collapse in" id="collapseFilter3">
-                            {% if product.num_approved_reviews == 0 %}
-                                <p>Этот товар еще не имеет отзывов.</p>
-                            {% else %}
-                                <ol class="list-unstyled review-list" style="margin-bottom: 0px" >
-                                    {% for review in product.reviews.approved.all %}
-                                        <li class="user_comment_block" style="margin-top: 16px; padding:0px 18px; border-bottom: " >
-                                            <select class="rating_photo">
-                                                {% for num in "12345" %}
-                                                    <option {% if review.score == num %}selected="selected"{% endif %}
-                                                            value="{{ num }}">{{ num }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <span class="user_name">
+                        <div class="catalog_item_block before_new free_shipping">
+                            <div class="before_gift"></div>
+                            <div class="before_free"></div>
+                            {% thumbnail product.primary_image.original "155" as thumb %}
+                                <a data-slide-index="{{ forloop.counter0 }}"
+                                   href=""><img
+                                        src="{{ thumb.url }}"
+                                        alt=""></a>
+                            {% endthumbnail %}
+                            <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                            <div class="for_list_block">
+                                <select class="rating_photo">
+                                    {% for num in "12345" %}
+                                        <option {% if product.rating == num %}selected="selected"{% endif %}
+                                                value="{{ num }}">{{ num }}</option>
+                                    {% endfor %}
+                                </select>
+                                <p class="rating_number"><span>{% if product.rating %}
+                                    {{ product.rating }}{% else %}
+                                    0{% endif %}</span>/5 ( голосов
+                                    <span>{{ product.num_approved_reviews }}</span>)
+                                </p>
+                                <hr>
+                                {% purchase_info_for_product request product as session %}
+                                {% if session.availability.is_available_to_buy %}
+                                    <p class="nalichie ">Есть в наличии</p>
+                                    <p class="line_through">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %} </p>
+                                    <p class="catalog_item_price">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %}</p>
+                                {% else %}
+                                    <p class="nalichie dpn naliche_net">Нет в
+                                        наличии</p>
+                                    <p class="catalog_item_price naliche_net dpn">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %}</p>
+
+                                {% endif %}
+                                <a href="#" class="compare_button">Сравнить</a>
+                                <a type="submit" class="buy_button show_popup"
+                                   value="{% trans "Add to basket" %}"
+                                   data-loading-text="Добавляем"
+                                   rel="buy_button_modal" href="#!" data-product-id="{{ product.id }}">В корзину
+                                </a>
+
+                                <a href="#"
+                                   class="elipse_button elipse_button_kred show_popup"
+                                   rel="credit_button_modal">Купить
+                                    в кредит</a>
+                                <a href="#"
+                                   class="elipse_button_question show_popup"
+                                   rel="ask_button_modal">Задать
+                                    вопрос</a>
+                            </div>
+
+
+                        </div>
+
+                        <div class="review_comment_block">
+                            <div class="left_filter_collapse">
+                                <a class="left_filter_captions" role="button"
+                                   data-toggle="collapse"
+                                   style="border: 1px solid #e0e0e0; background-color: #f8f8f8; padding: 7px 25px; font-size: 24px;"
+                                   href="#collapseFilter3" aria-expanded="false"
+                                   aria-controls="collapseFilter3">
+                                    Отзывы <span
+                                        class="otzivi_after">{{ product.num_approved_reviews }}</span>
+                                </a>
+                                <a href="#" class="comment_button_uniq">Оставить
+                                    отзыв о товаре</a>
+                                <div class="collapse in" id="collapseFilter3">
+                                    {% if product.num_approved_reviews == 0 %}
+                                        <p>Этот товар еще не имеет отзывов.</p>
+                                    {% else %}
+                                        <ol class="list-unstyled review-list"
+                                            style="margin-bottom: 0px">
+                                            {% for review in product.reviews.approved.all %}
+                                                <li class="user_comment_block"
+                                                    style="margin-top: 16px; padding:0px 18px; border-bottom: ">
+                                                    <select class="rating_photo">
+                                                        {% for num in "12345" %}
+                                                            <option {% if review.score == num %}selected="selected"{% endif %}
+                                                                    value="{{ num }}">{{ num }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <span class="user_name">
                                                 {% if review.user == user %}
                                                     Вы
                                                 {% else %}
                                                     {{ review.name }}
                                                 {% endif %}</span>
-                                            <span class="user_comment_date">{{ review.date_created|date:"j E Y" }}</span>
+                                                    <span class="user_comment_date">{{ review.date_created|date:"j E Y" }}</span>
 
-                                            <div>
-                                                <div class="user_comment">
-                                                    <p>{{ review.body|striptags }}.</p>
-                                                </div>
-{#                                                <a class="read-next-comment"#}
-{#                                                   href="#">Читать далее</a>#}
-                                            </div>
-                                            <div class="user_comment_bottom">
-                                                {% if review|may_vote:user %}
-                                                    <span class="otziv_polezen">Отзыв полезен?</span>
-                                                    <form style="display: inline-table" action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
-                                                          method="post"
-                                                          class="vote_agree">
-                                                        {% csrf_token %}
-                                                        <input type="hidden"
-                                                               name="delta"
-                                                               value="1"/>
-                                                        <button type="submit"
-                                                                class="otziv_polezen_da"
-                                                                data-loading-text="{% trans 'Submitting...' %}" style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                            Да<span>{{ review.num_up_votes }}</span>
-                                                        </button>
-                                                    </form>
-                                                    <form style="display: inline-table" action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
-                                                          method="post">
-                                                        {% csrf_token %}
-                                                        <input type="hidden"
-                                                               name="delta" value="-1"/>
-                                                        <button type="submit"
-                                                                class="otziv_polezen_net"
-                                                                data-loading-text="{% trans 'Submitting...' %}" style="border: none; background-color: transparent;">
-                                                            Нет<span>{{ review.num_down_votes }}</span>
-                                                        </button>
-                                                    </form>
-                                                    <p class="otvetilo">Ответов:
-                                                        <span>1</span></p>
-                                                    <a href="#"
-                                                       class="otvetit">Ответить</a>
-                                                {% endif %}
-                                            </div>
-                                        </li>
-                                    {% endfor %}
-                                </ol>
-                            {% endif %}
+                                                    <div>
+                                                        <div class="user_comment">
+                                                            <p>{{ review.body|striptags }}.</p>
+                                                        </div>
+                                                        {# <a class="read-next-comment"#}
+                                                        {# href="#">Читать далее</a>#}
+                                                    </div>
+                                                    <div class="user_comment_bottom">
+                                                        {% if review|may_vote:user %}
+                                                            <span class="otziv_polezen">Отзыв полезен?</span>
+                                                            <form style="display: inline-table"
+                                                                  action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                  method="post"
+                                                                  class="vote_agree">
+                                                                {% csrf_token %}
+                                                                <input type="hidden"
+                                                                       name="delta"
+                                                                       value="1"/>
+                                                                <button type="submit"
+                                                                        class="otziv_polezen_da"
+                                                                        data-loading-text="{% trans 'Submitting...' %}"
+                                                                        style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
+                                                                    Да<span>{{ review.num_up_votes }}</span>
+                                                                </button>
+                                                            </form>
+                                                            <form style="display: inline-table"
+                                                                  action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                  method="post">
+                                                                {% csrf_token %}
+                                                                <input type="hidden"
+                                                                       name="delta"
+                                                                       value="-1"/>
+                                                                <button type="submit"
+                                                                        class="otziv_polezen_net"
+                                                                        data-loading-text="{% trans 'Submitting...' %}"
+                                                                        style="border: none; background-color: transparent;">
+                                                                    Нет<span>{{ review.num_down_votes }}</span>
+                                                                </button>
+                                                            </form>
+                                                            <p class="otvetilo">
+                                                                Ответов:
+                                                                <span>1</span>
+                                                            </p>
+                                                            <a href="#"
+                                                               class="otvetit show_popup"
+                                                               rel="answer_button_modal">Ответить</a>
+                                                        {% endif %}
+                                                    </div>
+                                                </li>
+                                            {% endfor %}
+                                        </ol>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="delivery">...</div>
+
+                    <div role="tabpanel" class="tab-pane" id="delivery">
+                        <div class="catalog_item_block before_new free_shipping">
+                            <div class="before_gift"></div>
+                            <div class="before_free"></div>
+                            {% thumbnail product.primary_image.original "155" as thumb %}
+                                <a data-slide-index="{{ forloop.counter0 }}"
+                                   href=""><img
+                                        src="{{ thumb.url }}"
+                                        alt=""></a>
+                            {% endthumbnail %}
+                            <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                            <div class="for_list_block">
+                                <select class="rating_photo">
+                                    {% for num in "12345" %}
+                                        <option {% if product.rating == num %}selected="selected"{% endif %}
+                                                value="{{ num }}">{{ num }}</option>
+                                    {% endfor %}
+                                </select>
+                                <p class="rating_number"><span>{% if product.rating %}
+                                    {{ product.rating }}{% else %}
+                                    0{% endif %}</span>/5 ( голосов
+                                    <span>{{ product.num_approved_reviews }}</span>)
+                                </p>
+                                <hr>
+                                {% purchase_info_for_product request product as session %}
+                                {% if session.availability.is_available_to_buy %}
+                                    <p class="nalichie ">Есть в наличии</p>
+                                    <p class="line_through">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %} </p>
+                                    <p class="catalog_item_price">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %}</p>
+                                {% else %}
+                                    <p class="nalichie dpn naliche_net">Нет в
+                                        наличии</p>
+                                    <p class="catalog_item_price naliche_net dpn">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %}</p>
+
+                                {% endif %}
+                                <a href="#" class="compare_button">Сравнить</a>
+                                <a type="submit" class="buy_button show_popup"
+                                   value="{% trans "Add to basket" %}"
+                                   data-loading-text="Добавляем"
+                                   rel="buy_button_modal" href="#!" data-product-id="{{ product.id }}">В корзину
+                                </a>
+
+                                <a href="#"
+                                   class="elipse_button elipse_button_kred show_popup"
+                                   rel="credit_button_modal">Купить
+                                    в кредит</a>
+                                <a href="#"
+                                   class="elipse_button_question show_popup"
+                                   rel="ask_button_modal">Задать
+                                    вопрос</a>
+                            </div>
+                        </div>
+
+                        <div class="tovar_buy_block">
+                            <p class="category_block_caption">Доставка</p>
+                            <p class="delivery_text_p">Доставка товаров по Киеву
+                                и пригородам:</p>
+
+                            <p class="delivery_text_p">— товар можно получить
+                                самостоятельно по адресу: г. Киев, ул.
+                                Ярославская, 57 после предварительного
+                                согласования заказа с менеджером; <br>
+                                — товары весом более 150 кг доставляются к
+                                адресу получателя без заноса; <br>
+                                — доставка заказов на сумму свыше 1500 гривен по
+                                Киеву и соседним населенным пунктам
+                                бесплатная, стоимость доставки до 1500 грн
+                                составляет 35 гривен;</p>
+
+                            <p class="delivery_text_p">(Список населенных
+                                пунктов с бесплатной доставкой) <br>
+                                — время и условия доставки Вы можете согласовать
+                                с сотрудниками нашего магазина; <br>
+                                — подъем габаритных грузов вручную оплачивается
+                                отдельно. Стоимость подъёма: 20–100
+                                грн./этаж в зависимости от размеров, веса товара
+                                и сложности подъема; <br>
+                                — стоимость доставки за пределы Киева от 5 до 7
+                                грн/км в зависимости от удаленности,
+                                доставка малогабаритной техники - 50 грн; <br>
+                                — при получении покупаемого Вами товара
+                                убедитесь в его полной комплектности и
+                                отсутствии механических повреждений; <br>
+                                — прежде чем начать эксплуатацию, убедительно
+                                рекомендуем Вам внимательно ознакомиться с
+                                руководством по эксплуатации; <br>
+                                — стоимость доставки малогабаритной бытовой
+                                техники по Киевской области составляет 50
+                                грн. </p>
+                        </div>
+
+                    </div>
+
                 </div>
 
                 {% if similar_products %}
-                    <p class="category_block_caption before_owl margin_fix">Вас также могут заинтересовать</p>
+                    <p class="category_block_caption before_owl margin_fix">Вас
+                        также могут заинтересовать</p>
                     <div class="owl-carousel owl-theme catalog_owl">
                         {% for product in similar_products %}
                             <div class="item">
+                                {% basket_form request product as basket_form %}
+                                <form id="add_to_basket_form_{{ product.id }}" name="add_to_basket_form"
+                                      style="display: none;"
+                                      action="{% url 'basket:add' pk=product.pk %}"
+                                      method="post"
+                                      class="add-to-basket">{% csrf_token %}
+                                    {% include "partials/form_fields.html" with form=basket_form %}
+                                </form>
                                 <div class="catalog_item_block">
                                     <a href="{{ product.get_absolute_url }}">
                                         {% thumbnail product.primary_image.original "155" as img %}
@@ -497,14 +1034,19 @@
                                             {% endfor %}
                                         </select>
                                         <p class="rating_number">Отзывов:
-                                            <span>{{ product.num_approved_reviews }}</span></p>
+                                            <span>{{ product.num_approved_reviews }}</span>
+                                        </p>
                                         <hr>
                                         {% purchase_info_for_product request product as session %}
                                         <p class="catalog_item_price">{{ session.price.incl_tax|currency:session.price.currency }}</p>
                                         {% if session.availability.is_available_to_buy %}
-                                            <a href="{{ product.get_absolute_url }}" class="buy_button">Купить</a>
+                                            <a href="{{ product.get_absolute_url }}"
+                                               class="buy_button show_popup"
+                                               rel="buy_button_modal" data-product-id="{{ product.id }}">Купить</a>
                                         {% else %}
-                                            <a href="{{ product.get_absolute_url }}" class="buy_button">Нет в
+                                            <a href="{{ product.get_absolute_url }}"
+                                               class="buy_button show_popup"
+                                               rel="buy_button_modal">Нет в
                                                 наличии</a>
                                         {% endif %}
                                     </a>
@@ -515,12 +1057,21 @@
                 {% endif %}
 
                 {% if recently_viewed_products %}
-                    <p class="category_block_caption before_owl">Недавно просмотренные</p>
+                    <p class="category_block_caption before_owl">Недавно
+                        просмотренные</p>
                     <div class="owl-carousel owl-theme catalog_owl">
                         {% with products_sliced=recently_viewed_products|slice:":6" %}
                             {% if products_sliced %}
                                 {% for p in products_sliced %}
+                                    {% basket_form request p as basket_form %}
                                     <div class="item">
+                                        <form id="add_to_basket_form_{{ product.id }}" name="add_to_basket_form"
+                                              style="display: none;"
+                                              action="{% url 'basket:add' pk=p.pk %}"
+                                              method="post"
+                                              class="add-to-basket">{% csrf_token %}
+                                            {% include "partials/form_fields.html" with form=basket_form %}
+                                        </form>
                                         <div class="catalog_item_block">
                                             <a href="{{ p.get_absolute_url }}">
                                                 {% thumbnail p.primary_image.original "155" as img %}
@@ -533,15 +1084,22 @@
                                                                 value="{{ num }}">{{ num }}</option>
                                                     {% endfor %}
                                                 </select>
-                                                <p class="rating_number">Отзывов:
-                                                    <span>{{ p.num_approved_reviews }}</span></p>
+                                                <p class="rating_number">
+                                                    Отзывов:
+                                                    <span>{{ p.num_approved_reviews }}</span>
+                                                </p>
                                                 <hr>
                                                 {% purchase_info_for_product request p as session %}
                                                 <p class="catalog_item_price">{{ session.price.incl_tax|currency:session.price.currency }}</p>
                                                 {% if session.availability.is_available_to_buy %}
-                                                    <a href="#" class="buy_button">Купить</a>
+                                                    <a href="#"
+                                                       class="buy_button show_popup"
+                                                       rel="buy_button_modal" data-product-id="{{ p.id }}">Купить</a>
                                                 {% else %}
-                                                    <a href="#" class="buy_button">Нет в наличии</a>
+                                                    <a href="#"
+                                                       class="buy_button show_popup"
+                                                       rel="buy_button_modal">Нет
+                                                        в наличии</a>
                                                 {% endif %}
                                             </a>
                                         </div>
@@ -556,13 +1114,310 @@
         </div>
     </div>
 
+    <div class="popup buy_button_modal" id="basket_modal">
+        <a class="close" href="#">Close</a>
+        <ul>
+            <li>
+                <p class="buy_button_howmuch"><span
+                        class="modal_red_elem">{{ request.basket.num_lines }} товар</span>
+                    на сумму
+                    <span>{{ request.basket.total_incl_tax }}</span><span
+                            class="grn"> грн</span></p>
+            </li>
+            <li>
+                {% if not already_in_basket %}
+                    <div class="modal_basket_elem" id="modal_product_{{ product.id }}" style="display: none;">
+                        {% thumbnail product.primary_image.original "155" as thumb %}
+                            <img src="{{ thumb.url }}" alt="">
+                        {% endthumbnail %}
+                        <p class="modal_article">Артикул:
+                            <span>{{ product.upc }}</span></p>
+                        <p class="modal_item_name">{{ product.product_class.name }} {{ product.title }}</p>
+
+                        <div class="how many many_block">
+                            <div class="plusminus">
+
+                                <input type="text" disabled id="input1"
+                                       value="1"
+                                       class="input_number">
+                                <div class="plusminus_cont">
+                                    <span class="plus">+</span>
+                                    <span class="minus">-</span>
+                                </div>
+                                <div class="how much">
+                                    {% purchase_info_for_product request product as session %}
+                                    {% if session.price.is_tax_known %}
+                                        <input type="text" id="input2"
+                                               value="{{ session.price.incl_tax|currency:session.price.currency }}"
+                                               disabled>
+                                    {% else %}
+                                        <input type="text" id="input2"
+                                               value="{{ session.price.excl_tax|currency:session.price.currency }}"
+                                               disabled>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" data-url="{% url 'delete_item_from_basket' product.id %}"
+                           class="modal_item_delete"></a>
+                    </div>
+
+
+                {% endif %}
+                {% for line in request.basket.lines.all %}
+                    <div class="modal_basket_elem">
+                        {% thumbnail line.product.primary_image.original "155" as thumb %}
+                            <img src="{{ thumb.url }}" alt="">
+                        {% endthumbnail %}
+                        <p class="modal_article">Артикул:
+                            <span>{{ line.product.upc }}</span></p>
+                        <p class="modal_item_name">{{ line.product.product_class.name }} {{ line.product.title }}</p>
+
+                        <div class="how many many_block">
+                            <div class="plusminus">
+
+                                <input type="text" disabled id="input1"
+                                       value="{{ line.quantity }}"
+                                       class="input_number">
+                                <input type="text" class="price_for_one" style="display: none"
+                                       value="{{ line.price_incl_tax }}">
+                                <input type="text" class="item_quantity" style="display: none"
+                                       value="{{ line.quantity }}">
+                                <div class="plusminus_cont">
+                                    <span class="plus">+</span>
+                                    <span class="minus">-</span>
+                                </div>
+                                <div class="how much">
+                                    <input type="text" id="input2" name="price"
+                                           value="{{ line.line_price_excl_tax_incl_discounts }}"
+                                           disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" data-url="{% url 'delete_item_from_basket' line.product.id %}"
+                           class="modal_item_delete"></a>
+                    </div>
+                {% endfor %}
+
+            </li>
+            <li>
+                <p class="basket_how_much">Общая стоимость:
+                    <span>{{ request.basket.total_incl_tax }}</span><span
+                            class="grn"> грн</span></p>
+            </li>
+            <li>
+                <a href="#" class="modal_basket_goback" id="continue_shopping">Продолжить покупки</a>
+                <a href="/basket/" class="modal_basket_button_zakaz">Оформить
+                    заказ</a>
+
+            </li>
+            <li>
+                <input type="text" placeholder="(0XX) XXX - XX - XX"
+                       class="modal_input_goto">
+                <a href="#"
+                   class="modal_basket_goto show_popup close_modal_second"
+                   rel="request_button_modal_third">Заказать
+                    в один клик</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="popup ask_button_modal">
+        <a class="close" href="#">Close</a>
+        <p class="modal_ask_quest">Задать вопрос</p>
+        <form action="" class="modal_form">
+            <label for="">Ваше имя<span>*</span>:</label>
+            <input type="text">
+            <label for="">Ваш Email</label>
+            <input type="text">
+            <label for="">Ваш телефон<span>*</span>:</label>
+            <input type="text">
+            <label for="">Ваш вопрос<span>*</span>:</label>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <a href="#" class="close_modal show_popup"
+               rel="request_button_modal">Отправить</a>
+        </form>
+    </div>
+
+    <div class="popup request_button_modal">
+        <a class="close" href="#">Close</a>
+        <p class="modal_caption">Спасибо за Ваше обращение</p>
+        <p class="modal_text">Наш менеджер обязательно свяжется с Вами</p>
+    </div>
+
+    <div class="popup request_button_modal_second" id="review_modal">
+        <a class="close" href="#">Close</a>
+        <p class="modal_caption">Спасибо за Ваш отзыв!</p>
+        <p class="modal_text">Он будет опубликован после проверки <br>
+            администратором </p>
+    </div>
+
+    <div class="popup request_button_modal_third">
+        <a class="close" href="#">Close</a>
+        <p class="modal_caption">Спасибо, Ваш заказ получен!</p>
+        <p class="modal_text">Наш менеджер обязательно свяжется с Вами</p>
+    </div>
+
+    <div class="popup answer_button_modal">
+        <a class="close" href="#">Close</a>
+        <p class="modal_caption_uniq">Добавьте ответ</p>
+        <form action="" class="modal_form">
+            <div class="modal_lebel_input">
+                <label for="">Ваше имя<span>*</span>:</label>
+                <input type="text">
+            </div>
+            <div class="modal_lebel_input">
+                <label for="">Ваш Email<span>*</span>:</label>
+                <input type="text">
+            </div>
+            <label for="">Комментарий<span>*</span>:</label>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <div class="checkbox_check">
+                <input id="check2" type="checkbox" name="check" value="check2">
+                <label for="check2">- Получать уведомления об ответах</label>
+            </div>
+            <button class="modal_button_answer">Добавить ответ</button>
+            <p class="modal_pole"><span>*</span> - поля обязательные для
+                заполнения</p>
+        </form>
+    </div>
+
+    <div class="popup credit_button_modal">
+        <a class="close" href="#">Close</a>
+        <p class="buy_button_howmuch"><span
+                class="modal_red_elem">{{ request.basket.num_lines }} товар</span>
+            на сумму
+            <span>{{ request.basket.total_incl_tax }}</span><span
+                    class="grn"> грн</span>
+        </p>
+        <p class="credit_modal_caption">Купить в
+            кредит {{ product.product_class.name }}
+            <span>{{ product.title }}</span></p>
+        <div class="table_caption_modal">
+            <span>Банк</span>
+            <span>Вид кредита</span>
+            <span>Срок, мес.</span>
+            <span>Ежемес.платеж</span>
+        </div>
+        <div class="table_cell_modal">
+            <img src="{% get_static 'img/tovar/privat.png' %}" alt="">
+            <div class="table_cell_name_modal">
+                <p class="table_cell_name_modal_first">Приватбанк</p>
+                <p>Мгновенная рассрочка</p>
+            </div>
+            <div class="table_cell_sail">
+                <p>Комиссия</p>
+                <p>1-6 мес - 2,9%</p>
+                <p>Без страховки</p>
+            </div>
+            <div class="table_cell_karetka_modal">
+                <form class="reservation">
+                    <div class="number_of_elems">
+                        <span>6 платежей на </span>
+                        <div class="custom_select">
+                            <select name="minbeds" id="minbeds">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                            </select>
+                        </div>
+                        <span>месяцев</span>
+                    </div>
+                    <div id="slider_month"></div>
+                </form>
+            </div>
+            <p class="credit_price_modal">900 грн</p>
+            <a href="#" class="buy_button">Нет в наличии</a>
+        </div>
+
+        <div class="table_cell_modal">
+            <img src="{% get_static 'img/tovar/otp.png' %}" alt="">
+            <div class="table_cell_name_modal">
+                <p class="table_cell_name_modal_first">ОТР Банк</p>
+                <p>Мгновенная рассрочка</p>
+            </div>
+            <div class="table_cell_sail">
+                <p>Комиссия</p>
+                <p>4-36 мес - 1,5%</p>
+                <p>Без страховки</p>
+                <p>Разовая комиссия 0-3%</p>
+            </div>
+            <div class="table_cell_karetka_modal">
+                <form class="reservation">
+                    <div class="number_of_elems">
+                        <span>6 платежей на </span>
+                        <div class="custom_select">
+                            <select name="minbeds2" id="minbeds2">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                            </select>
+                        </div>
+                        <span>месяцев</span>
+                    </div>
+                    <div id="slider_month2"></div>
+                </form>
+
+            </div>
+            <p class="credit_price_modal">900 грн</p>
+            <a href="#" class="buy_button">Нет в наличии</a>
+        </div>
+
+        <div class="table_cell_modal">
+            <img src="{% get_static 'img/tovar/ukrsib.png' %}" alt="">
+            <div class="table_cell_name_modal">
+                <p class="table_cell_name_modal_first">УкрсибБанк</p>
+                <p>Кредит - до 30 000 грн.</p>
+            </div>
+            <div class="table_cell_sail">
+                <p>Комиссия</p>
+                <p>4-36 мес - 1,5%</p>
+                <p>Без страховки</p>
+                <p>Разовая комиссия 0-1,7%</p>
+            </div>
+            <div class="table_cell_karetka_modal">
+                <form class="reservation">
+                    <div class="number_of_elems">
+                        <span>6 платежей на </span>
+                        <div class="custom_select">
+                            <select name="minbeds3" id="minbeds3">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                            </select>
+                        </div>
+                        <span>месяцев</span>
+                    </div>
+                    <div id="slider_month3"></div>
+                </form>
+
+            </div>
+            <p class="credit_price_modal">900 грн</p>
+            <a href="#" class="buy_button">Нет в наличии</a>
+        </div>
+    </div>
+
 {% endblock content %}
 
 {% block extrascripts %}
+    <script src="{% get_static 'js/basket_script.js' %}"></script>
     <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
     <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
     <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
+    <script src="{% get_static 'js/more-button.js' %}"></script>
+    <script src="{% get_static 'js/popup.js' %}"></script>
+    <script src="{% get_static 'js/script-input-number.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.rating_photo').barrating({
