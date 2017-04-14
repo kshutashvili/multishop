@@ -27,7 +27,6 @@
 
 Имя: {{ order.user.get_full_name }}
 Адрес: {{ order.shipping_address }}
-Телефон: ?? 098 859-88-80 ??
 E-mail: {{ order.user.email }}
 
 
