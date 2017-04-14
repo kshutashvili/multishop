@@ -1,0 +1,53 @@
+Здравствуйте, {{ order.user.get_full_name }}!
+
+Спасибо, Ваш заказ принят!
+
+Наш менеджер обязательно свяжется с Вами для уточнения всех деталей и
+подтверждения заказа.
+
+
+Детали заказа № {{ order.number }}
+
+{% for line in lines %}
+
+{{ line.product.primary_image.url }}
+
+{{ line.product.product_class.name }} {{ line.product.title }}
+
+{{ line.quantity }} шт.
+
+{{ line.line_price_incl_tax }} {{ order.currency }}
+
+{% endfor %}
+
+Итого: {{ order.total_incl_tax }} {{ order.currency }}
+
+
+Контактные данные
+
+Имя: {{ order.user.get_full_name }}
+Адрес: {{ order.shipping_address }}
+Телефон: ?? 098 859-88-80 ??
+E-mail: {{ order.user.email }}
+
+
+Доставка и оплата
+
+Способ оплаты: {{ order.sources.source_type.name }}
+Способ доставки: {{ order.shipping_method }}
+{% if order.notes %}
+    Комментарий к заказу: {{ order.notes.message }}
+{% else %}
+    Комментарий к заказу: Нет
+{% endif %}
+
+
+04073, г.Киев, ул Сирецкая, 9 оф.15
+(044) 383-06-30, (098) 859-88-80, <br> (099) 859-88-80, (093) 149-88-80
+defro.com.ua@mail.ua
+
+18000, г. Черкассы, ул Смелянская, 159/3
+(0472) 50-03-60, (067) 377-27-92,<br> (066) 583-35-28, (063) 025-97-88
+info@defro.com.ua
+
+Это письмо создано автоматически, пожалуйста, не отвечайте на него.
