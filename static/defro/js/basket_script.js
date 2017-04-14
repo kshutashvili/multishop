@@ -21,6 +21,54 @@ function csrfSafeMethod(method) {
 }
 
 
+    function change_numbers() {
+        $('.minus').click(function () {
+        var $input = $(this).parent().parent().find('.input_number');  // quantity
+        var $input2 = $(this).parent().parent().find('.how.much input'); // price
+
+        var price_for_item = parseInt($(this).parent().parent().find('.price_for_one').val());
+
+        var quantity = parseInt($input.val());
+        var price;
+
+        if (quantity > 1) {
+            quantity--;
+            price = price_for_item * quantity;
+            $input.val(quantity);
+            $input2.val(price);
+            $input.change();
+            $input2.change();
+        }
+        update_modal_lines_info();
+        return false;
+    });
+
+    $('.plus').click(function () {
+        var $input = $(this).parent().parent().find('.input_number');
+        var $input2 = $(this).parent().parent().find('.how.much input');
+
+        var price_for_item = parseInt($(this).parent().parent().find('.price_for_one').val());
+
+        var quantity = parseInt($input.val());
+        var price;
+
+        quantity++;
+        price = price_for_item * quantity;
+        $input.val(quantity);
+        $input2.val(price);
+        $input.change();
+        $input2.change();
+
+        update_modal_lines_info();
+
+        return false;
+    });
+    }
+
+    change_numbers();
+
+
+
 function modal_item_factory(img, upc, name, price, id) {
     var $container = $('<div class="modal_basket_elem"></div>');
     var $img = img;
@@ -41,6 +89,23 @@ function modal_item_factory(img, upc, name, price, id) {
     $container.append($img, $modal_article, $name, $many_block, $delete);
 
     return $container;
+}
+
+function update_modal_lines_info() {
+    var $basket_items = $('.modal_basket_elem');
+    var $modal_line_count = $('#modal_line_count');
+    var $modal_lines_price = $('.how.much input');
+    var $total_sum = $('#total_sum');
+    var $total_sum_bottom = $('#total_sum_bottom');
+    var total = 0;
+    $modal_lines_price.map(function (idx, elem) {
+        total += parseInt($(elem).val());
+    });
+    $modal_line_count.text($basket_items.length + ' товар');
+    $total_sum.text(parseInt(total));
+    $total_sum_bottom.text(parseInt(total));
+
+
 }
 
 
@@ -82,7 +147,10 @@ $(document).ready(function () {
 
                 $('#basket_items').append($new_item);
                 in_basket.push(upc);
+                change_numbers();
             }
+
+            update_modal_lines_info();
 
 
             $('div.' + $(this).attr("rel")).fadeIn(500);

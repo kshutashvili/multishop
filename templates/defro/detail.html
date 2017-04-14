@@ -51,7 +51,8 @@
 {% block content %}
     <div class="container">
         {% basket_form request product as basket_form %}
-        <form id="add_to_basket_form_{{ product.id }}" name="add_to_basket_form" style="display: none;"
+        <form id="add_to_basket_form_{{ product.id }}" name="add_to_basket_form"
+              style="display: none;"
               action="{% url 'basket:add' pk=product.pk %}"
               method="post"
               class="add-to-basket">{% csrf_token %}
@@ -61,7 +62,8 @@
 
         <div class="main_block clear_fix">
             <div class="main_content">
-                <p class="acticle_tov">Артикул: <span name="product_upc">{{ product.upc }}</span>
+                <p class="acticle_tov">Артикул: <span
+                        name="product_upc">{{ product.upc }}</span>
                 </p>
                 <p class="category_block_caption often_caption">
                     <span>{{ product.product_class.name }}</span> {{ product.title }}
@@ -167,7 +169,9 @@
                                         class="basket_button show_popup"
                                         value="{% trans "Add to basket" %}"
                                         data-loading-text="Добавляем"
-                                        rel="buy_button_modal" data-product-id="{{ product.id }}">В корзину
+                                        rel="buy_button_modal"
+                                        data-product-id="{{ product.id }}">В
+                                    корзину
                                 </button>
                                 <a href="#" class="basket_button_in dpn">В
                                     корзине</a>
@@ -581,7 +585,8 @@
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
-                                   rel="buy_button_modal" href="#!" data-product-id="{{ product.id }}">В корзину
+                                   rel="buy_button_modal" href="#!"
+                                   data-product-id="{{ product.id }}">В корзину
                                 </a>
 
                                 <a href="#"
@@ -680,7 +685,8 @@
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
-                                   rel="buy_button_modal" href="#!" data-product-id="{{ product.id }}">В корзину
+                                   rel="buy_button_modal" href="#!"
+                                   data-product-id="{{ product.id }}">В корзину
                                 </a>
 
                                 <a href="#"
@@ -783,7 +789,8 @@
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
-                                   rel="buy_button_modal" href="#!" data-product-id="{{ product.id }}">В корзину
+                                   rel="buy_button_modal" href="#!"
+                                   data-product-id="{{ product.id }}">В корзину
                                 </a>
 
                                 <a href="#"
@@ -951,7 +958,8 @@
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
-                                   rel="buy_button_modal" href="#!" data-product-id="{{ product.id }}">В корзину
+                                   rel="buy_button_modal" href="#!"
+                                   data-product-id="{{ product.id }}">В корзину
                                 </a>
 
                                 <a href="#"
@@ -1014,7 +1022,8 @@
                         {% for product in similar_products %}
                             <div class="item">
                                 {% basket_form request product as basket_form %}
-                                <form id="add_to_basket_form_{{ product.id }}" name="add_to_basket_form"
+                                <form id="add_to_basket_form_{{ product.id }}"
+                                      name="add_to_basket_form"
                                       style="display: none;"
                                       action="{% url 'basket:add' pk=product.pk %}"
                                       method="post"
@@ -1022,8 +1031,10 @@
                                     {% include "partials/form_fields.html" with form=basket_form %}
                                 </form>
                                 <div class="catalog_item_block">
-                                <input type="text" style="display: none;" value="{{ product.upc }}" name="upc">
-                                <input type="text" style="display: none;" value="{{ product.id }}" name="id">
+                                    <input type="text" style="display: none;"
+                                           value="{{ product.upc }}" name="upc">
+                                    <input type="text" style="display: none;"
+                                           value="{{ product.id }}" name="id">
                                     <a href="{{ product.get_absolute_url }}">
                                         {% thumbnail product.primary_image.original "155" as img %}
                                             <img src="{{ img.url }}">
@@ -1040,11 +1051,12 @@
                                         </p>
                                         <hr>
                                         {% purchase_info_for_product request product as session %}
-                                        <p class="catalog_item_price">{{ session.price.incl_tax|currency:session.price.currency }}</p>
+                                        <p class="catalog_item_price">{{ session.price.incl_tax }}</p> грн
                                         {% if session.availability.is_available_to_buy %}
                                             <a href="{{ product.get_absolute_url }}"
                                                class="buy_button show_popup"
-                                               rel="buy_button_modal" data-product-id="{{ product.id }}">Купить</a>
+                                               rel="buy_button_modal"
+                                               data-product-id="{{ product.id }}">Купить</a>
                                         {% else %}
                                             <a href="{{ product.get_absolute_url }}"
                                                class="buy_button show_popup"
@@ -1067,7 +1079,8 @@
                                 {% for p in products_sliced %}
                                     {% basket_form request p as basket_form %}
                                     <div class="item">
-                                        <form id="add_to_basket_form_{{ product.id }}" name="add_to_basket_form"
+                                        <form id="add_to_basket_form_{{ p.id }}"
+                                              name="add_to_basket_form"
                                               style="display: none;"
                                               action="{% url 'basket:add' pk=p.pk %}"
                                               method="post"
@@ -1075,8 +1088,14 @@
                                             {% include "partials/form_fields.html" with form=basket_form %}
                                         </form>
                                         <div class="catalog_item_block">
-                                        <input type="text" style="display: none;" value="{{ p.upc }}" name="upc">
-                                        <input type="text" style="display: none;" value="{{ product.id }}" name="id">
+                                            <input type="text"
+                                                   style="display: none;"
+                                                   value="{{ p.upc }}"
+                                                   name="upc">
+                                            <input type="text"
+                                                   style="display: none;"
+                                                   value="{{ product.id }}"
+                                                   name="id">
                                             <a href="{{ p.get_absolute_url }}">
                                                 {% thumbnail p.primary_image.original "155" as img %}
                                                     <img src="{{ img.url }}">
@@ -1094,11 +1113,12 @@
                                                 </p>
                                                 <hr>
                                                 {% purchase_info_for_product request p as session %}
-                                                <p class="catalog_item_price">{{ session.price.incl_tax|currency:session.price.currency }}</p>
+                                                <p class="catalog_item_price">{{ session.price.incl_tax }}</p> грн
                                                 {% if session.availability.is_available_to_buy %}
                                                     <a href="#"
                                                        class="buy_button show_popup"
-                                                       rel="buy_button_modal" data-product-id="{{ p.id }}">Купить</a>
+                                                       rel="buy_button_modal"
+                                                       data-product-id="{{ p.id }}">Купить</a>
                                                 {% else %}
                                                     <a href="#"
                                                        class="buy_button show_popup"
@@ -1123,46 +1143,64 @@
         <ul>
             <li>
                 <p class="buy_button_howmuch"><span
-                        class="modal_red_elem">{{ request.basket.num_lines }} товар</span>
+                        class="modal_red_elem" id="modal_line_count">{{ request.basket.num_lines }} товар</span>
                     на сумму
-                    <span>{{ request.basket.total_incl_tax }}</span><span
+                    <span id="total_sum">{{ request.basket.total_incl_tax }}</span><span
                             class="grn"> грн</span></p>
             </li>
             <li id="basket_items">
                 {% if not already_in_basket %}
-                    <div class="modal_basket_elem" id="modal_product_{{ product.id }}" style="display: none;">
+                    <div class="modal_basket_elem"
+                         id="modal_product_{{ product.id }}"
+                         style="display: none;">
                         {% thumbnail product.primary_image.original "155" as thumb %}
                             <img src="{{ thumb.url }}" alt="">
                         {% endthumbnail %}
                         <p class="modal_article">Артикул:
-                            <span name="product_upc">{{ product.upc }}</span></p>
+                            <span name="product_upc">{{ product.upc }}</span>
+                        </p>
                         <p class="modal_item_name">{{ product.product_class.name }} {{ product.title }}</p>
 
                         <div class="how many many_block">
                             <div class="plusminus">
-
+                                {% purchase_info_for_product request product as session %}
                                 <input type="text" disabled id="input1"
                                        value="1"
                                        class="input_number">
+                                {% if session.price.is_tax_known %}
+                                    <input type="text" class="price_for_one"
+                                           style="display: none"
+                                           value="{{ session.price.incl_tax }}">
+                                {% else %}
+                                    <input type="text" class="item_quantity"
+                                           style="display: none"
+                                           value="{{ session.price.excl_tax }}">
+                                {% endif %}
+                                <input type="text" class="price_for_one"
+                                       style="display: none"
+                                       value="{{ line.price_incl_tax }}">
+                                <input type="text" class="item_quantity"
+                                       style="display: none"
+                                       value="{{ line.quantity }}">
                                 <div class="plusminus_cont">
                                     <span class="plus">+</span>
                                     <span class="minus">-</span>
                                 </div>
                                 <div class="how much">
-                                    {% purchase_info_for_product request product as session %}
                                     {% if session.price.is_tax_known %}
                                         <input type="text" id="input2"
-                                               value="{{ session.price.incl_tax|currency:session.price.currency }}"
+                                               value="{{ session.price.incl_tax }}"
                                                disabled>
                                     {% else %}
                                         <input type="text" id="input2"
-                                               value="{{ session.price.excl_tax|currency:session.price.currency }}"
+                                               value="{{ session.price.excl_tax }}"
                                                disabled>
                                     {% endif %}
                                 </div>
                             </div>
                         </div>
-                        <a href="#" data-url="{% url 'delete_item_from_basket' product.id %}"
+                        <a href="#"
+                           data-url="{% url 'delete_item_from_basket' product.id %}"
                            class="modal_item_delete"></a>
                     </div>
 
@@ -1174,7 +1212,8 @@
                             <img src="{{ thumb.url }}" alt="">
                         {% endthumbnail %}
                         <p class="modal_article">Артикул:
-                            <span name="product_upc">{{ line.product.upc }}</span></p>
+                            <span name="product_upc">{{ line.product.upc }}</span>
+                        </p>
                         <p class="modal_item_name">{{ line.product.product_class.name }} {{ line.product.title }}</p>
 
                         <div class="how many many_block">
@@ -1183,9 +1222,11 @@
                                 <input type="text" disabled id="input1"
                                        value="{{ line.quantity }}"
                                        class="input_number">
-                                <input type="text" class="price_for_one" style="display: none"
+                                <input type="text" class="price_for_one"
+                                       style="display: none"
                                        value="{{ line.price_incl_tax }}">
-                                <input type="text" class="item_quantity" style="display: none"
+                                <input type="text" class="item_quantity"
+                                       style="display: none"
                                        value="{{ line.quantity }}">
                                 <div class="plusminus_cont">
                                     <span class="plus">+</span>
@@ -1198,7 +1239,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" data-url="{% url 'delete_item_from_basket' line.product.id %}"
+                        <a href="#"
+                           data-url="{% url 'delete_item_from_basket' line.product.id %}"
                            class="modal_item_delete"></a>
                     </div>
                 {% endfor %}
@@ -1206,11 +1248,12 @@
             </li>
             <li>
                 <p class="basket_how_much">Общая стоимость:
-                    <span>{{ request.basket.total_incl_tax }}</span><span
+                    <span id="total_sum_bottom">{{ request.basket.total_incl_tax }}</span><span
                             class="grn"> грн</span></p>
             </li>
             <li>
-                <a href="#" class="modal_basket_goback" id="continue_shopping">Продолжить покупки</a>
+                <a href="#" class="modal_basket_goback" id="continue_shopping">Продолжить
+                    покупки</a>
                 <a href="/basket/" class="modal_basket_button_zakaz">Оформить
                     заказ</a>
 
@@ -1421,7 +1464,6 @@
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
     <script src="{% get_static 'js/more-button.js' %}"></script>
     <script src="{% get_static 'js/popup.js' %}"></script>
-    <script src="{% get_static 'js/script-input-number.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.rating_photo').barrating({
