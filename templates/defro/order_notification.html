@@ -68,7 +68,7 @@
 				<div class="letter_content_second">
 					<div class="letter_contacts_block">
 						<p>04073, г.Киев, ул Сирецкая, 9 оф.15</p>
-						<p>(044) 383-06-30, (098) 859-88-80, <br> (099) 859-88-80, (093) 149-88-80</p>
+						<p>(044) 383-06-30, ({{ phone_numbers.kievstar|first|slice:':3' }})) {{ phone_numbers.kievstar|first|slice:'4:' }}, <br> ({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}, ({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</p>
 						<p>defro.com.ua@mail.ua</p>
 					</div>
 					<div class="letter_contacts_block">
@@ -80,13 +80,13 @@
 
 				<div class="letter_social_groups">
 					<p class="letter_social_groups_caption">Мы в сети. Присоединяйтесь!</p>
-					<a href="#"></a>
-					<a href="#"></a>
-					<a href="#"></a>
-					<a href="#"></a>
-					<a href="#"></a>
-					<a href="#"></a>
-					<a href="#"></a>
+					<a href="{{ social_networks_refs.facebook|first }}"></a>
+					<a href="{{ social_networks_refs.vkontakte|first }}"></a>
+					<a href="{{ social_networks_refs.mailru|first }}"></a>
+					<a href="{{ social_networks_refs.twitter|first }}"></a>
+					<a href="{{ social_networks_refs.odnoklassniki|first }}"></a>
+					<a href="{{ social_networks_refs.pinterest|first }}"></a>
+					<a href="{{ social_networks_refs.google|first }}"></a>
 					<p class="letter_avto">Это письмо создано автоматически, пожалуйста, не отвечайте на него.</p>
 				</div>
 			</div>

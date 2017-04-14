@@ -42,11 +42,19 @@ E-mail: {{ order.user.email }}
 
 
 04073, г.Киев, ул Сирецкая, 9 оф.15
-(044) 383-06-30, (098) 859-88-80, <br> (099) 859-88-80, (093) 149-88-80
+(044) 383-06-30, ({{ phone_numbers.kievstar|first|slice:':3' }})) {{ phone_numbers.kievstar|first|slice:'4:' }}, ({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}, ({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}
 defro.com.ua@mail.ua
 
 18000, г. Черкассы, ул Смелянская, 159/3
-(0472) 50-03-60, (067) 377-27-92,<br> (066) 583-35-28, (063) 025-97-88
+(0472) 50-03-60, (067) 377-27-92, (066) 583-35-28, (063) 025-97-88
 info@defro.com.ua
+
+Мы в сети. Присоединяйтесь!
+{{ social_networks_refs.facebook|first }}
+{{ social_networks_refs.vkontakte|first }}
+{{ social_networks_refs.mailru|first }}
+{{ social_networks_refs.twitter|first }}
+{{ social_networks_refs.pinterest|first }}
+{{ social_networks_refs.google|first }}
 
 Это письмо создано автоматически, пожалуйста, не отвечайте на него.
