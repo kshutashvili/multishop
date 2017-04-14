@@ -1,9 +1,11 @@
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
+from django.views.decorators.http import require_POST
 from oscar.apps.catalogue.views import ProductDetailView as OscarProductDetailView
 from oscar.apps.customer import history
-from django.http import HttpResponse
-from django.core.exceptions import ObjectDoesNotExist
-from django.views.decorators.http import require_POST
 
+from shop.catalogue.models import Product, ProductClass, Category
 from website.views import SiteTemplateResponseMixin
 
 
@@ -21,6 +23,10 @@ class ProductDetailView(SiteTemplateResponseMixin, OscarProductDetailView):
         products_in_basket = [line.product for line in self.request.basket.lines.all()]
         context['already_in_basket'] = current_product in products_in_basket
         context['similar_products'] = similar_products
+        site = get_current_site(self.request)
+        context['our_products'] = Product.objects.filter(site=site)
+        context['product_classes'] = ProductClass.objects.filter(site=site)
+        context['categories'] = Category.objects.filter(site=site)
 
         return context
 
