@@ -98,7 +98,7 @@ class ProductAttributeValue(AbstractProductAttributeValue):
             property_name = '_%s_as_html' % self.attribute.type
             locales = {'ru': 0, 'uk': 1}
             index = locales[get_language()]
-            value = eval(getattr(self, property_name, self.value_as_text))[index]
+            value = getattr(self, property_name, self.value_as_text)[index]
             return value
 
     value = property(_get_value, AbstractProductAttributeValue._set_value)
