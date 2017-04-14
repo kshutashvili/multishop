@@ -61,7 +61,7 @@
 
         <div class="main_block clear_fix">
             <div class="main_content">
-                <p class="acticle_tov">Артикул: <span>{{ product.upc }}</span>
+                <p class="acticle_tov">Артикул: <span name="product_upc">{{ product.upc }}</span>
                 </p>
                 <p class="category_block_caption often_caption">
                     <span>{{ product.product_class.name }}</span> {{ product.title }}
@@ -1022,6 +1022,8 @@
                                     {% include "partials/form_fields.html" with form=basket_form %}
                                 </form>
                                 <div class="catalog_item_block">
+                                <input type="text" style="display: none;" value="{{ product.upc }}" name="upc">
+                                <input type="text" style="display: none;" value="{{ product.id }}" name="id">
                                     <a href="{{ product.get_absolute_url }}">
                                         {% thumbnail product.primary_image.original "155" as img %}
                                             <img src="{{ img.url }}">
@@ -1073,6 +1075,8 @@
                                             {% include "partials/form_fields.html" with form=basket_form %}
                                         </form>
                                         <div class="catalog_item_block">
+                                        <input type="text" style="display: none;" value="{{ p.upc }}" name="upc">
+                                        <input type="text" style="display: none;" value="{{ product.id }}" name="id">
                                             <a href="{{ p.get_absolute_url }}">
                                                 {% thumbnail p.primary_image.original "155" as img %}
                                                     <img src="{{ img.url }}">
@@ -1124,14 +1128,14 @@
                     <span>{{ request.basket.total_incl_tax }}</span><span
                             class="grn"> грн</span></p>
             </li>
-            <li>
+            <li id="basket_items">
                 {% if not already_in_basket %}
                     <div class="modal_basket_elem" id="modal_product_{{ product.id }}" style="display: none;">
                         {% thumbnail product.primary_image.original "155" as thumb %}
                             <img src="{{ thumb.url }}" alt="">
                         {% endthumbnail %}
                         <p class="modal_article">Артикул:
-                            <span>{{ product.upc }}</span></p>
+                            <span name="product_upc">{{ product.upc }}</span></p>
                         <p class="modal_item_name">{{ product.product_class.name }} {{ product.title }}</p>
 
                         <div class="how many many_block">
@@ -1170,7 +1174,7 @@
                             <img src="{{ thumb.url }}" alt="">
                         {% endthumbnail %}
                         <p class="modal_article">Артикул:
-                            <span>{{ line.product.upc }}</span></p>
+                            <span name="product_upc">{{ line.product.upc }}</span></p>
                         <p class="modal_item_name">{{ line.product.product_class.name }} {{ line.product.title }}</p>
 
                         <div class="how many many_block">
