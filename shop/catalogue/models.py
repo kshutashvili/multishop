@@ -144,16 +144,17 @@ def on_order_create(sender, instance, created, **kwargs):
     if not created:
         return
 
+    plaintext = get_template('defro/order_notification.txt')
     template = get_template('defro/order_notification.html')
-    context_dict = Context({
+    context = Context({
         'order': instance,
         'lines': instance.basket.lines.all()
     })
     subject = 'Order notification'
     from_email = DEFAULT_FROM_EMAIL
     to = instance.user.email
-    text_content = ''
-    html_content = template.render(context_dict)
+    text_content = plaintext.render(context)
+    html_content = template.render(context)
     email = EmailMultiAlternatives(subject, text_content, from_email, [to])
     email.attach_alternative(html_content, "text/html")
     email.send(fail_silently=True)
