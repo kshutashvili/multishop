@@ -32,7 +32,7 @@
                         <a href="{% change_lang 'uk' %}">UA</a>
                     </div>
                     <div class="search">
-                        <input type="text" placeholder="поиск">
+                        {% include 'defro/partials/search.html' %}
                     </div>
                 </div>
 
@@ -44,13 +44,16 @@
                 </div>
                 <div class="contacts">
                     {% if phone_numbers.kievstar %}
-                        <a href="tel:+380988598880"><span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}</a>
+                        <a href="tel:+380988598880"><span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}
+                        </a>
                     {% endif %}
                     {% if phone_numbers.vodafone %}
-                        <a href="tel:+380995598880"><span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}</a>
+                        <a href="tel:+380995598880"><span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}
+                        </a>
                     {% endif %}
                     {% if phone_numbers.life %}
-                        <a href="tel:+380931498880"><span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}</a>
+                        <a href="tel:+380931498880"><span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}
+                        </a>
                     {% endif %}
                     <a href="#" class="zakaz_zvon">Заказать звонок</a>
                 </div>
@@ -117,7 +120,71 @@
         {% block content %}
 
         {% endblock %}
+        <div class="above_footer_block">
+            <div class="bottom_menu_bg">
+                <div class="container">
+                    <div class="bottom_menu">
+                        <div class="menu_block">
+                            <p class="menu_block_caption">Помощь</p>
+                            <ul class="menu_block_items">
+                                <li><a href="#">Вопросы и ответы</a></li>
+                                <li><a href="#">Проблемы с заказом</a></li>
+                                <li><a href="#">Обратная связь</a></li>
+                                <li><a href="#">Монтаж и сервис</a></li>
+                            </ul>
+                        </div>
+                        <div class="menu_block">
+                            <p class="menu_block_caption">О нас</p>
+                            <ul class="menu_block_items">
+                                <li><a href="#">О компании</a></li>
+                                <li><a href="#">Сотрудничество</a></li>
+                                <li><a href="#">Условия использования сайта</a></li>
+                            </ul>
+                        </div>
+                        <div class="menu_block">
+							<p class="menu_block_caption">Как связаться</p>
+							<ul class="contact_ul">
+                                {% if phone_numbers.kievstar %}
+                                    <li><a href="tel:+0988598880">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a></li>
+                                {% endif %}
+                                {% if phone_numbers.vodafone %}
+                                    <li><a href="tel:+0995598880">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a></li>
+                                {% endif %}
+                                {% if phone_numbers.life %}
+                                    <li><a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a></li>
+                                {% endif %}
+								<li><a href="#" class="predstav">Наши представительства</a></li>
+							</ul>
 
+							<div class="time_work">
+								<p>Пн.-Пт.: <span> с 9:00 до 18:00</span></p>
+								<p>Сб:<span> с 9:00 до 15:00</span></p>
+								<a href="mailto:info@defro.org.ua/">info@defro.org.ua/</a>
+							</div>
+						</div>
+                        <div class="menu_block">
+                            <p class="menu_block_caption">Принимаем к оплате</p>
+                            <img src="{% get_static 'img/footer/master.png' %}" alt="">
+                            <img src="{% get_static 'img/footer/visa.png' %}" alt="">
+                        </div>
+                        <div class="grafik">
+                            <div class="time_work">
+                                <p class="grafik_caption">График работы call-центра</p>
+                                <p>Пн.-Пт.: <span> с 9:00 до 18:00</span></p>
+                                <p>Сб:<span> с 9:00 до 15:00</span></p>
+                                <p>Вс: <span> выходной</span></p>
+                            </div>
+                            <div class="time_work">
+                                <p class="grafik_caption">Заказ через корзину 24/7/365</p>
+                                <p class="grafik_special">Ночные заказы обрабатываются</p>
+                                <p>с 9:00 до 11:00</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="footer">
             <div class="container">
                 <div class="logo_footer">
@@ -131,14 +198,22 @@
                 </div>
                 <div class="social">
                     <p>Мы в соцсетях, <br> присоединяйтесь!</p>
-                    <a href="{{ social_networks_refs.facebook|first }}"><img src="{% get_static 'img/footer/fb.png' %}" alt=""></a>
-                    <a href="{{ social_networks_refs.vkontakte|first }}"><img src="{% get_static 'img/footer/vk.png' %}" alt=""></a>
-                    <a href="{{ social_networks_refs.mailru|first }}"><img src="{% get_static 'img/footer/mail.png' %}" alt=""></a>
-                    <a href="{{ social_networks_refs.twitter|first }}"><img src="{% get_static 'img/footer/tw.png' %}" alt=""></a>
-                    <a href="{{ social_networks_refs.odnoklassniki|first }}"><img src="{% get_static 'img/footer/od.png' %}" alt=""></a>
-                    <a href="{{ social_networks_refs.pinterest|first }}"><img src="{% get_static 'img/footer/p.png' %}" alt=""></a>
-                    <a href="{{ social_networks_refs.google|first }}"><img src="{% get_static 'img/footer/google.png' %}" alt=""></a>
-                    <a href="{{ social_networks_refs.youtube|first }}"><img src="{% get_static 'img/footer/youtube.png' %}" alt=""></a>
+                    <a href="{{ social_networks_refs.facebook|first }}"><img src="{% get_static 'img/footer/fb.png' %}"
+                                                                             alt=""></a>
+                    <a href="{{ social_networks_refs.vkontakte|first }}"><img src="{% get_static 'img/footer/vk.png' %}"
+                                                                              alt=""></a>
+                    <a href="{{ social_networks_refs.mailru|first }}"><img src="{% get_static 'img/footer/mail.png' %}"
+                                                                           alt=""></a>
+                    <a href="{{ social_networks_refs.twitter|first }}"><img src="{% get_static 'img/footer/tw.png' %}"
+                                                                            alt=""></a>
+                    <a href="{{ social_networks_refs.odnoklassniki|first }}"><img
+                            src="{% get_static 'img/footer/od.png' %}" alt=""></a>
+                    <a href="{{ social_networks_refs.pinterest|first }}"><img src="{% get_static 'img/footer/p.png' %}"
+                                                                              alt=""></a>
+                    <a href="{{ social_networks_refs.google|first }}"><img
+                            src="{% get_static 'img/footer/google.png' %}" alt=""></a>
+                    <a href="{{ social_networks_refs.youtube|first }}"><img
+                            src="{% get_static 'img/footer/youtube.png' %}" alt=""></a>
                 </div>
             </div>
         </div>
