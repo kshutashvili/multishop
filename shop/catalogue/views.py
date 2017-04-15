@@ -24,7 +24,6 @@ class ProductDetailView(SiteTemplateResponseMixin, OscarProductDetailView):
         context['already_in_basket'] = current_product in products_in_basket
         context['similar_products'] = similar_products
         site = get_current_site(self.request)
-        context['our_products'] = Product.objects.filter(site=site)
         context['product_classes'] = ProductClass.objects.filter(site=site)
         context['categories'] = Category.objects.filter(site=site)
 
