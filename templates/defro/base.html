@@ -2,6 +2,7 @@
 {% load site_static %}
 {% load i18n %}
 {% load lang_url %}
+{% load static %}
 
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% get_static 'css/jquery.bxslider.css' %}">
@@ -221,9 +222,24 @@
 {% endblock %}
 
 {% block scripts %}
+     <!-- Oscar -->
+    <script src="{% static "oscar/js/oscar/ui.js" %}" type="text/javascript" charset="utf-8"></script>
+
     <script src="{% get_static 'js/jquery-2-0-0.js' %}"></script>
     <script src="{% get_static 'js/bootstrap.min.js' %}"></script>
     <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% get_static 'js/jquery.bxslider.min.js' %}"></script>
     <script src="{% get_static 'js/script.js' %}"></script>
 {% endblock %}
+
+
+
+{# Additional JS scripts #}
+{% block extrascripts %}{% endblock %}
+
+{# Block for body onload functions #}
+<script type="text/javascript">
+    $(function() {
+        {% block onbodyload %}{% endblock %}
+    });
+</script>

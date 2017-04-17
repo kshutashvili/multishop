@@ -1,31 +1,35 @@
 $(document).ready(function () {
-    var h = 300, t = $('#tovar_desc'), max = t[0].scrollHeight, min = 0, scoreA = 0;
-    $short_desc = $('#short_desc');
-    $('.read-next').on('click', function (event) {
-        var H = t.height();
-        if (scoreA == 0) {
-            $('.read-next').addClass("read-next-arrow");
-            scoreA = 1;
-            $short_desc.hide();
-        } else {
-            $('.read-next').removeClass("read-next-arrow");
-            scoreA = 0;
-            $short_desc.show();
-        }
+    try {
+        var h = 300, t = $('#tovar_desc'), max = t[0].scrollHeight, min = 0, scoreA = 0;
+        $short_desc = $('#short_desc');
+        $('.read-next').on('click', function (event) {
+            var H = t.height();
+            if (scoreA == 0) {
+                $('.read-next').addClass("read-next-arrow");
+                scoreA = 1;
+                $short_desc.hide();
+            } else {
+                $('.read-next').removeClass("read-next-arrow");
+                scoreA = 0;
+                $short_desc.show();
+            }
 
-        if (H == max) {
-            H = min
-        }
-        else if (H + h > max) {
-            H = max
-        }
-        else {
-            H += h
-        }
-        t.height(H);
-        $(this).text(H == max ? 'Свернуть' : 'Читать далее');
-        return false
-    })
+            if (H == max) {
+                H = min
+            }
+            else if (H + h > max) {
+                H = max
+            }
+            else {
+                H += h
+            }
+            t.height(H);
+            $(this).text(H == max ? 'Свернуть' : 'Читать далее');
+            return false
+        })
+    }
+    catch (e) {
+    }
 });
 $(document).ready(function () {
     try {

@@ -1,0 +1,258 @@
+{% extends 'defro/base.html' %}
+
+
+{% load currency_filters %}
+{% load thumbnail %}
+{% load product_tags %}
+{% load i18n %}
+{% load site_static %}
+{% load purchase_info_tags %}
+{% load dict_filters %}
+
+{% block title %}
+    "{{ query }}" | {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="main_block clear_fix">
+            {% include 'defro/partials/side_menu.html' %}
+            <ol class="breadcrumb">
+                <li><a href="/"><img src="{% get_static 'img/home.png' %}" alt="" class="solo_img"></a></li>
+                <li class="active">Поиск</li>
+            </ol>
+            <div class="main_content">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-3 cold-lg-3">
+                        <div class="left_filter">
+                            <div class="parameters search_parameters">
+                                <p class="caption">Все результаты <span>({{ paginator.count }})</span></p>
+                            </div>
+                            {% for productClass, count in search_product_classes %}
+                                <div class="parameters search_parameters">
+                                    <div class="parameters_block clear_fix">
+                                        <p class="search_caption">{{ productClass.name }}</p>
+
+                                        {% for productClass, categories in category_class %}
+                                            {% for cat in categories %}
+                                                <a href="{{ cat.get_absolute_url }}" class="search_category_name">{{ cat.name }}
+                                                    <span>{{ search_categories|get_item:cat }}</span></a>
+                                            {% endfor %}
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-9 cold-lg-9">
+                        <div class="right_content">
+
+                            {% if page.object_list %}
+                                <form method="get" action="." class="form-horizontal">
+                                    {# Render other search params in a hidden block #}
+                                    <div style="display:none">
+                                        {% for value in selected_facets %}
+                                            <input name="selected_facets" value="{{ value }}"/>
+                                        {% endfor %}
+                                        {{ search_form.q }}
+                                    </div>
+                                    {% if paginator.count %}
+                                        {% if paginator.num_pages > 1 %}
+                                            {% blocktrans with start=page.start_index end=page.end_index num_results=paginator.count %}
+                                                <p class="category_block_caption search_text_smaller">
+                                                    Found <strong>{{ num_results }}</strong> results, showing
+                                                    <strong>{{ start }}</strong> to <strong>{{ end }}</strong>.
+                                                </p>
+                                            {% endblocktrans %}
+                                        {% else %}
+                                            {% blocktrans count num_results=paginator.count %}
+                                                <p class="category_block_caption search_text_smaller">По запросу
+                                                    “{{ query }}” найден {{ num_results }}
+                                                    товар </p>
+                                            {% plural %}
+                                                <p class="category_block_caption search_text_smaller">По запросу
+                                                    “{{ query }}” найдено {{ num_results }}
+                                                    товаров </p>
+                                            {% endblocktrans %}
+                                        {% endif %}
+                                    {% else %}
+                                        <p>
+                                            {% trans "Found <strong>0</strong> results." %}
+                                            {% if suggestion %}
+                                                {% url 'search:search' as search_url %}
+                                                {% blocktrans %}
+                                                    Did you mean
+                                                    <a href="{{ search_url }}?q={{ suggestion }}">"{{ suggestion }}"</a>
+                                                    ?
+                                                {% endblocktrans %}
+                                            {% endif %}
+                                        </p>
+                                    {% endif %}
+                                    <div class="sort_vid">
+                                        <div class="custom_select">
+                                            {% include "partials/form_field.html" with field=search_form.sort_by %}
+                                        </div>
+                                        <div class="search_look_float">
+                                            <span>Вид:</span>
+                                            <span class="change_look plitka plitka_red"></span>
+                                            <span class="change_look spisok"></span>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="catalog_items">
+                                    <ul>
+                                        {% for result in page.object_list %}
+                                            <li>
+                                                <div class="catalog_item_block before_akcia">
+                                                    <div class="before_gift"></div>
+                                                    <div class="before_free"></div>
+                                                    <img src="{{ result.object.primary_image.original.url }}" alt="">
+                                                    <p class="catalog_item_block_caption">{{ result.object.title }}</p>
+                                                    <div class="for_list_block">
+                                                        <select class="rating_photo">
+                                                            {% for num in "12345" %}
+                                                                <option {% if result.object.rating == num %}selected="selected"{% endif %}
+                                                                        value="{{ num }}">{{ num }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                        <p class="rating_number"><span>{% if product.rating %}
+                                                            {{ result.object.rating }}{% else %}
+                                                            0{% endif %}
+                                                            /</span>5 ( голосов
+                                                            <span>{{ result.object.num_approved_reviews }}</span>)
+                                                        </p>
+                                                        <hr>
+                                                        {% purchase_info_for_product request result.object as session %}
+
+
+                                                        {% if session.availability.is_available_to_buy %}
+                                                            <p class="line_through">
+                                                                {% if session.price.is_tax_known %}
+                                                                    {{ session.price.incl_tax|currency:session.price.currency }}
+                                                                {% else %}
+                                                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                                                    +
+                                                                    налоги
+                                                                {% endif %} </p>
+                                                            <p class="catalog_item_price">
+                                                                {% if session.price.is_tax_known %}
+                                                                    {{ session.price.incl_tax|currency:session.price.currency }}
+                                                                {% else %}
+                                                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                                                    +
+                                                                    налоги
+                                                                {% endif %}</p>
+                                                            <a href="#" class="compare_button">Сравнить</a>
+                                                            <a href="#" class="buy_button">Нет в наличии</a>
+                                                        {% else %}
+                                                            <p class="catalog_item_price not_active_price">
+                                                                {% if session.price.is_tax_known %}
+                                                                    {{ session.price.incl_tax|currency:session.price.currency }}
+                                                                {% else %}
+                                                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                                                    +
+                                                                    налоги
+                                                                {% endif %}</p>
+                                                            <a href="#" class="compare_button">Сравнить</a>
+                                                            <a href="#" class="buy_button but_button_sold">Нет в
+                                                                наличии</a>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="catalog_item_info">
+                                                        {% for av in result.object.attribute_values.all %}
+                                                            <p>{{ av.attribute.name }}:
+                                                                <span>{{ av.value_as_html }}</span>.
+                                                            </p>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% else %}
+
+                                <p class="category_block_caption">“{{ query }}”</p>
+                                <p class="search_nothing_here">По запросу “{{ query }}” ничего не найдено, попробуйте
+                                    изменить запрос</p>
+                            {% endif %}
+
+
+                            {% if paginator.count > 1 %}
+                                <nav aria-label="Page navigation" class="page_nav">
+                                    <ul class="pagination">
+                                        {% if page.has_previous %}
+
+                                            <li>
+                                                <a href="?page={{ page.previous_page_number }}" aria-label="Previous">
+                                                    <span aria-hidden="true" class="marker_prev">.</span>
+                                                </a>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a href="#" aria-label="Previous">
+                                                    <span aria-hidden="true" class="marker_prev">.</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% for i in paginator.page_range %}
+                                            {% if page.number == i %}
+                                                <li class="active"><a href="#!">{{ i }} <span
+                                                        class="sr-only">(current)</span></a></li>
+                                            {% else %}
+                                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if page.has_next %}
+                                            <li>
+                                                <a href="?page={{ page.next_page_number }}" aria-label="Next">
+                                                    <span aria-hidden="true" class="marker_next">.</span>
+                                                </a>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a href="#" aria-label="Next">
+                                                    <span aria-hidden="true" class="marker_next">.</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                            {% endif %}
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="scrollup"><img alt="Прокрутить вверх" src="{% get_static 'img/button_up.png' %}"></div>
+{% endblock %}
+
+{% block extrascripts %}
+    <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
+    <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
+    <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
+    <script src="{% get_static 'js/more-button.js' %}"></script>
+    <script src="{% get_static 'js/popup.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.rating_photo').barrating({
+                theme: 'fontawesome-stars'
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block onbodyload %}
+    {{ block.super }}
+    oscar.search.init();
+{% endblock %}
