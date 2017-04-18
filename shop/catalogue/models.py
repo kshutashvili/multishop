@@ -30,7 +30,7 @@ class Product(AbstractProduct):
             if r.exists(key):
                 for product in recent_product_ids:
                     r.hincrby(key, product, 1)  # if there is no key, it will be created
-            else:
+            elif recent_products:
                 r.hmset(key, dict.fromkeys(recent_product_ids, 1))
         except ConnectionError:
             return
