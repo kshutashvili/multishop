@@ -14,7 +14,7 @@ from django.utils.translation import get_language
 from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractProductAttributeValue, AbstractProductClass, \
     AbstractProductCategory, AbstractCategory
 from oscar.apps.order.models import Order as OscarOrder
-from redis.exceptions import ConnectionError
+from redis.exceptions import ConnectionError, DataError
 
 from local_settings import DEFAULT_FROM_EMAIL
 
@@ -33,6 +33,8 @@ class Product(AbstractProduct):
             else:
                 r.hmset(key, dict.fromkeys(recent_product_ids, 1))
         except ConnectionError:
+            return
+        except DataError:  # if it is a first product viewed by user and recent_products - empty list
             return
 
     def get_similar_products(self):
