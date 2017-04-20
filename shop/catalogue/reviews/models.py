@@ -2,6 +2,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.db import models
+from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import pgettext_lazy
@@ -9,8 +10,6 @@ from django.utils.translation import pgettext_lazy
 from oscar.apps.catalogue.reviews.abstract_models import AbstractProductReview
 from django.contrib.sites.models import Site
 from oscar.core import validators
-
-from local_settings import DEFAULT_FROM_EMAIL
 
 
 class ProductReview(AbstractProductReview):
@@ -45,7 +44,7 @@ def on_review_create(sender, instance, created, **kwargs):
                   instance.site, instance.product.get_absolute_url)
     send_mail('Notification about your review',
               message,
-              DEFAULT_FROM_EMAIL,
+              settings.DEFAULT_FROM_EMAIL,
               [to_email],
               fail_silently=True)
 
