@@ -200,6 +200,8 @@ TEMPLATE_DIRS = (
     OSCAR_MAIN_TEMPLATE_DIR,
 )
 
+DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+
 try:
     from local_settings import *
 except ImportError:
