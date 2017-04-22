@@ -92,8 +92,9 @@
                                         </p>
                                     {% endif %}
                                     <div class="sort_vid">
+                                        <span>Сортировать:</span>
                                         <div class="custom_select">
-                                            {% include "partials/form_field.html" with field=search_form.sort_by %}
+                                            {% include "partials/form_field.html" with field=search_form.sort_by nolabel=True %}
                                         </div>
                                         <div class="search_look_float">
                                             <span>Вид:</span>
@@ -182,7 +183,7 @@
                             {% endif %}
 
 
-                            {% if paginator.count > 1 %}
+                            {% if paginator.num_pages > 1 %}
                                 <nav aria-label="Page navigation" class="page_nav">
                                     <ul class="pagination">
                                         {% if page.has_previous %}
