@@ -184,6 +184,17 @@ $(document).ready(function () {
             $('div.' + $(outer_this).attr("rel")).fadeIn(500);
             $("body").append("<div id='overlay'></div>");
             $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+        }).fail(function () {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
         });
     });
 
@@ -194,6 +205,17 @@ $(document).ready(function () {
             $('div.' + $(outer_this).attr("rel")).fadeIn(500);
             $("body").append("<div id='overlay'></div>");
             $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+        }).fail(function () {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
         });
     });
 });
