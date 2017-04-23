@@ -21,7 +21,7 @@ from django.contrib import admin
 from django.contrib.staticfiles import views
 from django.shortcuts import redirect
 from oscar.app import application
-from shop.catalogue.views import delete_item_from_basket
+from shop.catalogue.views import delete_item_from_basket, get_search_count
 
 urlpatterns = [
     url(r'^$', lambda r: redirect('/{}/'.format(r.LANGUAGE_CODE)), name="home"),
@@ -36,5 +36,8 @@ urlpatterns += [
 
 urlpatterns += i18n_patterns(
     url(r'', include(application.urls)),
-    url(r'^delete_item_from_basket/(?P<id>[0-9]+)/$', delete_item_from_basket, name='delete_item_from_basket'),
+    url(r'^delete_item_from_basket/(?P<id>[0-9]+)/$', delete_item_from_basket,
+        name='delete_item_from_basket'),
+    url(r'^catalugue/get_search_count/$', get_search_count,
+        name='get_search_count'),
 )

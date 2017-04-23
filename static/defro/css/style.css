@@ -4651,3 +4651,12 @@ button.otziv_polezen_net span{
 	color: #6c6c6d;
 	margin-left: 5px;
 }
+
+.clear {
+	clear: both;
+	padding-top: 20px;
+}
+
+label.disabled {
+	cursor: not-allowed;
+}

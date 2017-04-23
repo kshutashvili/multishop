@@ -1,0 +1,490 @@
+{% extends 'defro/base.html' %}
+
+
+{% load basket_tags %}
+{% load promotion_tags %}
+{% load category_tags %}
+{% load product_tags %}
+{% load purchase_info_tags %}
+{% load currency_filters %}
+{% load i18n %}
+{% load site_static %}
+{% load thumbnail %}
+
+
+{% block title %}
+    {% if summary %}{{ summary }} |{% endif %} {{ block.super }}
+{% endblock %}
+
+{% block headertext %}{{ summary }}{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="main_block clear_fix">
+            {% include 'defro/partials/side_menu.html' %}
+            <ul class="breadcrumb">
+                <li>
+                    <a href="/"><img src="{% get_static 'img/home.png' %}"
+                                     alt="" class="solo_img"></a>
+                </li>
+                <li class="active">Каталог</li>
+            </ul>
+
+
+            <div class="main_content">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-3 cold-lg-3">
+                        <div class="left_filter">
+                            <div class="parameters">
+                                <p class="caption">Выбор параметров</p>
+                                <div class="parameters_block clear_fix"
+                                     id="applied_filters">
+                                    <p class="filter_labels">Найдено
+                                        товаров:
+                                        <span>{{ paginator.count }}</span>
+                                    </p>
+                                    {% for field, data in facet_data.items %}
+                                        {% if data.results %}
+                                            {% with name=data.name items=data.results %}
+                                                {% for item in items %}
+                                                    {% if item.selected %}
+                                                        <p class="filter_labels">{{ name }}</p>
+                                                        <p class="parameter_holder">{{ item.name }}
+                                                            <a
+                                                                    href="#"></a>
+                                                        </p>
+                                                        <input class="facet_checkbox parameter_holder"
+                                                               type="checkbox"
+                                                               name="{{ item.name }}"
+                                                               checked
+                                                               style="display: none"/>
+                                                        <input class="facet_url"
+                                                               type="hidden"
+                                                               name="url_for_{{ item.name }}"
+                                                               value="{{ item.deselect_url }}"/>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endwith %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <a href="#"
+                                       class="filter_labels float_right"
+                                       id="reset_filters">Сбросить
+                                        все фильтры</a>
+                                </div>
+                            </div>
+                            {% for field, data in facet_data.items %}
+                                {% if data.results %}
+
+                                    {% with name=data.name items=data.results %}
+                                        <div class="left_filter_collapse">
+                                            <a class="left_filter_captions"
+                                               role="button"
+                                               data-toggle="collapse"
+                                               href="#collapseFilter{{ forloop.counter }}"
+                                               aria-expanded="false"
+                                               aria-controls="collapseFilter{{ forloop.counter }}">
+                                                {{ name }}
+                                            </a>
+                                            <div class="collapse in"
+                                                 id="collapseFilter{{ forloop.counter }}">
+                                                <div class="well">
+                                                    <div class="checkbox">
+                                                        {% for item in items %}
+                                                            {% if item.selected %}
+                                                                <input class="facet_checkbox"
+                                                                       type="checkbox"
+                                                                       name="{{ item.name }}"
+                                                                       id="check_{{ item.name }}_{{ forloop.counter }}"
+                                                                       value="check_{{ item.name }}_{{ forloop.counter }}"
+                                                                       checked/>
+                                                                <label for="check_{{ item.name }}_{{ forloop.counter }}">{{ item.name }}
+                                                                    ({{ item.count }})</label>
+                                                                <input class="facet_url"
+                                                                       type="hidden"
+                                                                       name="url_for_{{ item.name }}"
+                                                                       value="{{ item.deselect_url }}"/>
+                                                            {% else %}
+                                                                {% if item.disabled %}
+                                                                    <input
+                                                                            type="checkbox"
+                                                                            name="{{ item.name }}"
+                                                                            id="check_{{ item.name }}_{{ forloop.counter }}"
+                                                                            value="check_{{ item.name }}_{{ forloop.counter }}"
+                                                                            disabled
+                                                                            class="disabled"/>
+                                                                    <label for="check_{{ item.name }}_{{ forloop.counter }}"
+                                                                           class="disabled">{{ item.name }}
+                                                                        ({{ item.count }})</label>
+                                                                {% else %}
+
+                                                                    <input class="facet_checkbox"
+                                                                           type="checkbox"
+                                                                           name="{{ item.name }}"
+                                                                           id="check_{{ item.name }}_{{ forloop.counter }}"
+                                                                           value="check_{{ item.name }}_{{ forloop.counter }}"/>
+                                                                    <label for="check_{{ item.name }}_{{ forloop.counter }}">{{ item.name }}
+                                                                        <span>({{ item.count }})</span></label>
+                                                                    <input class="facet_url"
+                                                                           type="hidden"
+                                                                           name="url_for_{{ item.name }}"
+                                                                           value="{{ item.select_url }}"/>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    {% endwith %}
+
+
+                                {% endif %}
+                            {% endfor %}
+
+
+                            <p class="social_groups">Присоединяйтесь к
+                                нам</p>
+                            <!-- VK Widget -->
+                            <div id="vk_groups"></div>
+
+                            <script type="text/javascript">
+                                VK.Widgets.Group("vk_groups", {
+                                    mode: 3,
+                                    width: "265",
+                                    color2: '5E81A8'
+                                }, 20003922);
+                            </script>
+                            <div style="margin-top: 20px;">
+                                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook&width=265&height=180&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+                                        width="265" height="180"
+                                        style="border:none;overflow:hidden"
+                                        scrolling="no" frameborder="0"
+                                        allowTransparency="true"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-9 cold-lg-9">
+                        <div class="right_content">
+                            <p class="category_block_caption">Котлы
+                                твердотопливные</p>
+                            <div class="sort_vid">
+                                {% if form %}
+                                    <span>Сортировать:</span>
+                                    <div class="custom_select">
+                                        <form method="get">
+                                            {% include "partials/form_field.html" with field=form.sort_by nolabel=True %}
+                                        </form>
+                                    </div>
+                                {% endif %}
+                                <div class="number_of_elems">
+                                    <span>Показывать по</span>
+                                    <div class="custom_select">
+                                        <select id="paginate_by">
+                                            <option>12</option>
+                                            <option>8</option>
+                                            <option>6</option>
+                                        </select>
+                                    </div>
+                                    <span>на странице</span>
+                                </div>
+                                <span>Вид:</span>
+                                <span class="change_look plitka plitka_red"></span>
+                                <span class="change_look spisok"></span>
+                            </div>
+
+                            <div class="catalog_items">
+                                <ul>
+                                    {% for product in products %}
+                                        <li>
+                                            <div class="catalog_item_block">
+                                                <div class="before_gift"></div>
+                                                <div class="before_free"></div>
+                                                {% thumbnail product.primary_image.original "155" as thumb %}
+                                                    <img src="{{ thumb.url }}">
+                                                {% endthumbnail %}
+                                                <p class="catalog_item_block_caption">{{ product.title }}</p>
+                                                <div class="for_list_block">
+                                                    <select class="rating_photo">
+                                                        {% for num in "12345" %}
+                                                            <option {% if product.rating == num %}selected="selected"{% endif %}
+                                                                    value="{{ num }}">{{ num }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <p class="rating_number"><span>{% if product.rating %}
+                                                        {{ product.rating }}{% else %}
+                                                        0{% endif %}
+                                                        /</span>5 ( голосов
+                                                        <span>{{ product.num_approved_reviews }}</span>)
+                                                    </p>
+                                                    <hr>
+                                                    {% purchase_info_for_product request product as session %}
+
+
+                                                    {% if session.availability.is_available_to_buy %}
+                                                        <p class="line_through">
+                                                            {% if session.price.is_tax_known %}
+                                                                {{ session.price.incl_tax|currency:session.price.currency }}
+                                                            {% else %}
+                                                                {{ session.price.excl_tax|currency:session.price.currency }}
+                                                                +
+                                                                налоги
+                                                            {% endif %} </p>
+                                                        <p class="catalog_item_price">
+                                                            {% if session.price.is_tax_known %}
+                                                                {{ session.price.incl_tax|currency:session.price.currency }}
+                                                            {% else %}
+                                                                {{ session.price.excl_tax|currency:session.price.currency }}
+                                                                +
+                                                                налоги
+                                                            {% endif %}</p>
+                                                        <a href="#"
+                                                           class="compare_button">Сравнить</a>
+                                                        <a href="#"
+                                                           class="buy_button">Нет
+                                                            в наличии</a>
+                                                    {% else %}
+                                                        <p class="catalog_item_price not_active_price">
+                                                            {% if session.price.is_tax_known %}
+                                                                {{ session.price.incl_tax|currency:session.price.currency }}
+                                                            {% else %}
+                                                                {{ session.price.excl_tax|currency:session.price.currency }}
+                                                                +
+                                                                налоги
+                                                            {% endif %}</p>
+                                                        <a href="#"
+                                                           class="compare_button">Сравнить</a>
+                                                        <a href="#"
+                                                           class="buy_button but_button_sold">Нет
+                                                            в
+                                                            наличии</a>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="catalog_item_info">
+                                                    {% for av in product.attribute_values.all %}
+                                                        <p>{{ av.attribute.name }}:
+                                                            <span>{{ av.value_as_html }}</span>.
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% if paginator.num_pages > 1 %}
+                                <nav aria-label="Page navigation"
+                                     class="page_nav">
+                                    <ul class="pagination">
+                                        {% if page.has_previous %}
+
+                                            <li>
+                                                <a href="?page={{ page.previous_page_number }}"
+                                                   aria-label="Previous">
+                                                <span aria-hidden="true"
+                                                      class="marker_prev">.</span>
+                                                </a>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a href="#"
+                                                   aria-label="Previous">
+                                                <span aria-hidden="true"
+                                                      class="marker_prev">.</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% for i in paginator.page_range %}
+                                            {% if page.number == i %}
+                                                <li class="active"><a
+                                                        href="#!">{{ i }} <span
+                                                        class="sr-only">(current)</span></a>
+                                                </li>
+                                            {% else %}
+                                                <li>
+                                                    <a href="?page={{ i }}">{{ i }}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if page.has_next %}
+                                            <li>
+                                                <a href="?page={{ page.next_page_number }}"
+                                                   aria-label="Next">
+                                                <span aria-hidden="true"
+                                                      class="marker_next">.</span>
+                                                </a>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a href="#" aria-label="Next">
+                                                <span aria-hidden="true"
+                                                      class="marker_next">.</span>
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                            {% endif %}
+
+
+                        </div>
+
+                    </div>
+                    {% if similar_products %}
+                        <p class="category_block_caption before_owl margin_fix clear">
+                            Вас
+                            также могут заинтересовать</p>
+                        <div class="owl-carousel owl-theme catalog_owl">
+                            {% for product in similar_products %}
+                                <div class="item">
+                                    {% basket_form request product as basket_form %}
+                                    <form id="add_to_basket_form_{{ product.id }}"
+                                          name="add_to_basket_form"
+                                          style="display: none;"
+                                          action="{% url 'basket:add' pk=product.pk %}"
+                                          method="post"
+                                          class="add-to-basket">{% csrf_token %}
+                                        {% include "partials/form_fields.html" with form=basket_form %}
+                                    </form>
+                                    <div class="catalog_item_block">
+                                        <input type="text"
+                                               style="display: none;"
+                                               value="{{ product.upc }}"
+                                               name="upc">
+                                        <input type="text"
+                                               style="display: none;"
+                                               value="{{ product.id }}"
+                                               name="id">
+                                        <a href="{{ product.get_absolute_url }}">
+                                            {% thumbnail product.primary_image.original "155" as img %}
+                                                <img src="{{ img.url }}">
+                                            {% endthumbnail %}
+                                            <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                                            <select class="rating_photo">
+                                                {% for num in "12345" %}
+                                                    <option {% if product.rating == num %}selected="selected"{% endif %}
+                                                            value="{{ num }}">{{ num }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <p class="rating_number">Отзывов:
+                                                <span>{{ product.num_approved_reviews }}</span>
+                                            </p>
+                                            <hr>
+                                            {% purchase_info_for_product request product as session %}
+                                            <p class="catalog_item_price">{{ session.price.incl_tax }}</p>
+                                            грн
+                                            {% if session.availability.is_available_to_buy %}
+                                                <a href="{{ product.get_absolute_url }}"
+                                                   class="buy_button show_popup"
+                                                   rel="buy_button_modal"
+                                                   data-product-id="{{ product.id }}">Купить</a>
+                                            {% else %}
+                                                <a href="{{ product.get_absolute_url }}"
+                                                   class="buy_button show_popup"
+                                                   rel="buy_button_modal">Нет в
+                                                    наличии</a>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if recently_viewed_products %}
+                        <p class="category_block_caption before_owl clear">
+                            Недавно
+                            просмотренные</p>
+                        <div class="owl-carousel owl-theme catalog_owl">
+                            {% with products_sliced=recently_viewed_products|slice:":6" %}
+                                {% if products_sliced %}
+                                    {% for p in products_sliced %}
+                                        {% basket_form request p as basket_form %}
+                                        <div class="item">
+                                            <form id="add_to_basket_form_{{ p.id }}"
+                                                  name="add_to_basket_form"
+                                                  style="display: none;"
+                                                  action="{% url 'basket:add' pk=p.pk %}"
+                                                  method="post"
+                                                  class="add-to-basket">{% csrf_token %}
+                                                {% include "partials/form_fields.html" with form=basket_form %}
+                                            </form>
+                                            <div class="catalog_item_block">
+                                                <input type="text"
+                                                       style="display: none;"
+                                                       value="{{ p.upc }}"
+                                                       name="upc">
+                                                <input type="text"
+                                                       style="display: none;"
+                                                       value="{{ product.id }}"
+                                                       name="id">
+                                                <a href="{{ p.get_absolute_url }}">
+                                                    {% thumbnail p.primary_image.original "155" as img %}
+                                                        <img src="{{ img.url }}">
+                                                    {% endthumbnail %}
+                                                    <p class="catalog_item_block_caption">{{ p.product_class.name }} {{ p.title }}</p>
+                                                    <select class="rating_photo">
+                                                        {% for num in "12345" %}
+                                                            <option {% if p.rating == num %}selected="selected"{% endif %}
+                                                                    value="{{ num }}">{{ num }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <p class="rating_number">
+                                                        Отзывов:
+                                                        <span>{{ p.num_approved_reviews }}</span>
+                                                    </p>
+                                                    <hr>
+                                                    {% purchase_info_for_product request p as session %}
+                                                    <p class="catalog_item_price">{{ session.price.incl_tax }}</p>
+                                                    грн
+                                                    {% if session.availability.is_available_to_buy %}
+                                                        <a href="#"
+                                                           class="buy_button show_popup"
+                                                           rel="buy_button_modal"
+                                                           data-product-id="{{ p.id }}">Купить</a>
+                                                    {% else %}
+                                                        <a href="#"
+                                                           class="buy_button show_popup"
+                                                           rel="buy_button_modal">Нет
+                                                            в наличии</a>
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block extrascripts %}
+    <script src="{% get_static 'js/basket_script.js' %}"></script>
+    <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
+    <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
+    <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
+    <script src="{% get_static 'js/more-button.js' %}"></script>
+    <script src="{% get_static 'js/popup.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.rating_photo').barrating({
+                theme: 'fontawesome-stars'
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block onbodyload %}
+    {{ block.super }}
+    oscar.search.init();
+{% endblock %}
