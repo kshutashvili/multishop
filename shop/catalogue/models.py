@@ -5,6 +5,7 @@ import redis
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.db import models
+from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.template import Context
@@ -15,8 +16,6 @@ from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractProduc
     AbstractProductCategory, AbstractCategory
 from oscar.apps.order.models import Order as OscarOrder
 from redis.exceptions import ConnectionError
-
-from local_settings import DEFAULT_FROM_EMAIL
 
 
 class Product(AbstractProduct):
@@ -151,7 +150,7 @@ def on_order_create(sender, instance, created, **kwargs):
         'lines': instance.basket.lines.all()
     })
     subject = 'Order notification'
-    from_email = DEFAULT_FROM_EMAIL
+    from_email = settings.DEFAULT_FROM_EMAIL
     to = instance.user.email
     text_content = plaintext.render(context)
     html_content = template.render(context)
