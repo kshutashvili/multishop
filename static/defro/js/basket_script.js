@@ -21,8 +21,8 @@ function csrfSafeMethod(method) {
 }
 
 
-    function change_numbers() {
-        $('.minus').click(function () {
+function change_numbers() {
+    $('.minus').click(function () {
         var $input = $(this).parent().parent().find('.input_number');  // quantity
         var $input2 = $(this).parent().parent().find('.how.much input'); // price
 
@@ -63,10 +63,9 @@ function csrfSafeMethod(method) {
 
         return false;
     });
-    }
+}
 
-    change_numbers();
-
+change_numbers();
 
 
 function modal_item_factory(img, upc, name, price, id) {
@@ -175,6 +174,26 @@ $(document).ready(function () {
         e.preventDefault();
         $.post($(this).attr('data-url'), function () {
             location.reload();
+        });
+    });
+
+    $('#one_click_btn').click(function (e) {
+        e.preventDefault();
+        var outer_this = this;
+        $.post($(this).attr('data-oneclick-url'), $('#buy_one_click').serialize(), function () {
+            $('div.' + $(outer_this).attr("rel")).fadeIn(500);
+            $("body").append("<div id='overlay'></div>");
+            $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+        });
+    });
+
+    $('#one_click_btn_modal').click(function (e) {
+        e.preventDefault();
+        var outer_this = this;
+        $.post($(this).attr('data-oneclick-url'), $('#buy_one_click_modal').serialize(), function () {
+            $('div.' + $(outer_this).attr("rel")).fadeIn(500);
+            $("body").append("<div id='overlay'></div>");
+            $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
         });
     });
 });

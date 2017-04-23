@@ -61,29 +61,30 @@
 
 
         <div class="main_block clear_fix">
-        {% include 'defro/partials/side_menu.html' %}
+            {% include 'defro/partials/side_menu.html' %}
             <ul class="breadcrumb">
-        <li>
-            <a href="/"><img src="{% get_static 'img/home.png' %}" alt="" class="solo_img"></a>
-        </li>
-        {% with category=product.categories.all.0 %}
-            {% for c in category.get_ancestors_and_self %}
                 <li>
-                    <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                    <a href="/"><img src="{% get_static 'img/home.png' %}"
+                                     alt="" class="solo_img"></a>
                 </li>
-            {% endfor %}
-            <li class="active">{{ product.title }}</li>
+                {% with category=product.categories.all.0 %}
+                    {% for c in category.get_ancestors_and_self %}
+                        <li>
+                            <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                        </li>
+                    {% endfor %}
+                    <li class="active">{{ product.title }}</li>
 
-            {% get_back_button as backbutton %}
-            {% if backbutton %}
-                <li class="pull-right">
-                    <a href="{{ backbutton.url }}">
-                        <i class="icon-arrow-left"></i> {{ backbutton.title }}
-                    </a>
-                </li>
-            {% endif %}
-        {% endwith %}
-    </ul>
+                    {% get_back_button as backbutton %}
+                    {% if backbutton %}
+                        <li class="pull-right">
+                            <a href="{{ backbutton.url }}">
+                                <i class="icon-arrow-left"></i> {{ backbutton.title }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endwith %}
+            </ul>
             <div class="main_content">
                 <p class="acticle_tov">Артикул: <span
                         name="product_upc">{{ product.upc }}</span>
@@ -203,14 +204,21 @@
                                 <a href="#" class="buy_credit show_popup"
                                    rel="credit_button_modal">Купить в кредит</a>
 
-                                <input type="text" class="zakaz_one_click"
-                                       placeholder="(0XX) XXX - XX - XX">
-                                <button class="zakaz_one_click show_popup"
-                                        rel="request_button_modal_third">
-                                    Заказать в
-                                    один
-                                    клик
-                                </button>
+                                <form id="buy_one_click" method="POST"
+                                      action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
+                                    <input type="text" class="zakaz_one_click"
+                                           placeholder="(0XX) XXX - XX - XX"
+                                           name="phone">
+                                    <button class="zakaz_one_click"
+                                            id="one_click_btn"
+                                            rel="request_button_modal_third"
+                                            data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
+                                        Заказать в
+                                        один
+                                        клик
+                                    </button>
+                                </form>
+
 
                                 <a href="#" class="elipse_button">Сравнить</a>
                                 <a href="#"
@@ -1074,7 +1082,8 @@
                                         </p>
                                         <hr>
                                         {% purchase_info_for_product request product as session %}
-                                        <p class="catalog_item_price">{{ session.price.incl_tax }}</p> грн
+                                        <p class="catalog_item_price">{{ session.price.incl_tax }}</p>
+                                        грн
                                         {% if session.availability.is_available_to_buy %}
                                             <a href="{{ product.get_absolute_url }}"
                                                class="buy_button show_popup"
@@ -1136,7 +1145,8 @@
                                                 </p>
                                                 <hr>
                                                 {% purchase_info_for_product request p as session %}
-                                                <p class="catalog_item_price">{{ session.price.incl_tax }}</p> грн
+                                                <p class="catalog_item_price">{{ session.price.incl_tax }}</p>
+                                                грн
                                                 {% if session.availability.is_available_to_buy %}
                                                     <a href="#"
                                                        class="buy_button show_popup"
@@ -1166,7 +1176,8 @@
         <ul>
             <li>
                 <p class="buy_button_howmuch"><span
-                        class="modal_red_elem" id="modal_line_count">{{ request.basket.num_lines }} товар</span>
+                        class="modal_red_elem"
+                        id="modal_line_count">{{ request.basket.num_lines }} товар</span>
                     на сумму
                     <span id="total_sum">{{ request.basket.total_incl_tax }}</span><span
                             class="grn"> грн</span></p>
@@ -1282,12 +1293,16 @@
 
             </li>
             <li>
-                <input type="text" placeholder="(0XX) XXX - XX - XX"
-                       class="modal_input_goto">
-                <a href="#"
-                   class="modal_basket_goto show_popup close_modal_second"
-                   rel="request_button_modal_third">Заказать
-                    в один клик</a>
+                <form id="buy_one_click_modal">
+                    <input type="text" placeholder="(0XX) XXX - XX - XX"
+                           class="modal_input_goto" name="phone">
+                    <a href="#"
+                       class="modal_basket_goto close_modal_second"
+                       rel="request_button_modal_third" type="submit"
+                       id="one_click_btn_modal"
+                       data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">Заказать
+                        в один клик</a>
+                </form>
             </li>
         </ul>
     </div>
