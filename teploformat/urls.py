@@ -23,6 +23,7 @@ from django.shortcuts import redirect
 from oscar.app import application
 from shop.catalogue.views import delete_item_from_basket, get_search_count, \
     OneClickOrderCreateView
+from shop.catalogue.reviews.views import ProductQuestionView
 
 urlpatterns = [
     url(r'^$', lambda r: redirect('/{}/'.format(r.LANGUAGE_CODE)), name="home"),
@@ -44,4 +45,7 @@ urlpatterns += i18n_patterns(
     url(
         r'^catalugue/(/[\w-]+)*/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/oneclick/$',
         OneClickOrderCreateView.as_view(), name='oneclick'),
+    url(
+        r'^catalogue/(/[\w-]+)*/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/question/$',
+        ProductQuestionView.as_view(), name='question'),
 )

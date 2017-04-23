@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
+from django import forms
 from django.forms import CheckboxInput
 from django.forms import HiddenInput
 from oscar.apps.catalogue.reviews.forms import ProductReviewForm as \
     CoreProductReviewForm
 
-from shop.catalogue.reviews.models import ProductReview
+from shop.catalogue.reviews.models import ProductReview, ProductQuestion
 
 
 class ProductReviewForm(CoreProductReviewForm):
@@ -23,3 +24,9 @@ class ProductReviewForm(CoreProductReviewForm):
         self.fields['advantage'].required = False
         self.fields['disadvantage'].required = False
         self.fields['get_notification'].required = False
+
+
+class ProductQuestionForm(forms.ModelForm):
+    class Meta:
+        model = ProductQuestion
+        fields = ['name', 'email', 'phone', 'text']

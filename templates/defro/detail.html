@@ -1311,24 +1311,24 @@
     <div class="popup ask_button_modal">
         <a class="close" href="#">Close</a>
         <p class="modal_ask_quest">Задать вопрос</p>
-        <form action="" class="modal_form">
+
+        <form id="question" action="{% url 'question' product_slug=product.slug pk=product.pk %}" class="modal_form">
             <label for="">Ваше имя<span>*</span>:</label>
-            <input type="text">
+            <input id="name" name="name" type="text">
             <label for="">Ваш Email</label>
-            <input type="text">
+            <input id="email" name="email" type="text">
             <label for="">Ваш телефон<span>*</span>:</label>
-            <input type="text">
+            <input id="phone" name="phone" type="text">
             <label for="">Ваш вопрос<span>*</span>:</label>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <a href="#" class="close_modal show_popup"
-               rel="request_button_modal">Отправить</a>
+            <textarea id="text" name="text" cols="30" rows="10"></textarea>
+            <a href="#" id="submit">Отправить</a>   
         </form>
     </div>
 
     <div class="popup request_button_modal">
         <a class="close" href="#">Close</a>
-        <p class="modal_caption">Спасибо за Ваше обращение</p>
-        <p class="modal_text">Наш менеджер обязательно свяжется с Вами</p>
+        <p id="question_result1" class="modal_caption">Спасибо за Ваше обращение</p>
+        <p id="question_result2" class="modal_text">Наш менеджер обязательно свяжется с Вами</p>
     </div>
 
     <div class="popup request_button_modal_second" id="review_modal">
@@ -1509,7 +1509,53 @@
             $('.rating_photo').barrating({
                 theme: 'fontawesome-stars'
             });
+
         });
+        $('#submit').on('click', function(e) {
+                const validate_question = () => {
+                    let flag = true;
+                    if ($('#name').val() === ''){
+                        flag = false;
+                        $('#name').attr('placeholder', 'Введите имя!')
+                    }
+                    const re  = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    const mail = $('#mail').val()
+                    if (!re.test(mail) && mail != undefined) {
+                        flag = false;
+                        $('#email').attr('placeholder', 'Введите почту правильно!')
+                    }
+                    const re_p = /^[0-9]{10}$/;
+                    const phone = $('#phone').val()
+                    if (!re_p.test(phone)) {
+                        flag = false;
+                        $('#phone').attr('placeholder', 'Введите телефон!')
+                    }
+                    if ($('#text').val() === ''){ 
+                        flag = false;
+                        $('#text').attr('placeholder', 'Введите вопрос!')
+                    }
+                    return flag
+                }
+                const form = $("#question") 
+                const url = form.attr('action');
+                if (validate_question()) {
+                    const data = form.serialize();
+                    $.ajax({
+                       type: "POST",
+                       url: url,
+                       data: data,
+                       success: function () {
+                        $(".popup.ask_button_modal").append($('#question_result1'))
+                            $(".popup.ask_button_modal").append($('#question_result2'))
+                            $(".popup.ask_button_modal").attr('class', "popup request_button_modal")
+                            $('.modal_ask_quest').empty()
+                            $('#question').empty()
+                       }
+                     });
+                }
+                e.preventDefault();
+            })
+
     </script>
     <script src="{% get_static 'js/more-button.js' %}"></script>
     {{ block.super }}
