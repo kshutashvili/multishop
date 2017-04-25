@@ -22,7 +22,8 @@ from django.contrib.staticfiles import views
 from django.shortcuts import redirect
 from oscar.app import application
 from shop.catalogue.views import delete_item_from_basket, get_search_count, \
-    OneClickOrderCreateView
+    OneClickOrderCreateView, CompareView, remove_item_from_compare_list, \
+    remove_category_from_compare_list, CompareCategoryView
 
 urlpatterns = [
     url(r'^$', lambda r: redirect('/{}/'.format(r.LANGUAGE_CODE)), name="home"),
@@ -44,4 +45,13 @@ urlpatterns += i18n_patterns(
     url(
         r'^catalugue/(/[\w-]+)*/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/oneclick/$',
         OneClickOrderCreateView.as_view(), name='oneclick'),
+    url(r'^catalogue/compare/$', CompareView.as_view(),
+        name='compare'),
+    url(r'^catalogue/compare/(?P<category>\d+)$', CompareCategoryView.as_view(),
+        name='compare_category'),
+    url(r'^catalogue/compare/remove/$', remove_item_from_compare_list,
+        name='remove_from_compare_list'),
+    url(r'^catalogue/compare/remove_category/$',
+        remove_category_from_compare_list,
+        name='remove_category_from_compare_list'),
 )

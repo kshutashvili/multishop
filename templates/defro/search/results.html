@@ -147,7 +147,7 @@
                                                                     +
                                                                     налоги
                                                                 {% endif %}</p>
-                                                            <a href="#" class="compare_button">Сравнить</a>
+                                                            <a href="#" class="compare_button" data-compare-url="{% url 'compare' %}" data-product-id="{{ result.object.id }}">Сравнить</a>
                                                             <a href="#" class="buy_button">Нет в наличии</a>
                                                         {% else %}
                                                             <p class="catalog_item_price not_active_price">
@@ -158,7 +158,7 @@
                                                                     +
                                                                     налоги
                                                                 {% endif %}</p>
-                                                            <a href="#" class="compare_button">Сравнить</a>
+                                                            <a href="#" class="compare_button" data-compare-url="{% url 'compare' %}" data-product-id="{{ result.object.id }}">Сравнить</a>
                                                             <a href="#" class="buy_button but_button_sold">Нет в
                                                                 наличии</a>
                                                         {% endif %}
@@ -236,6 +236,7 @@
 
 
     <div id="scrollup"><img alt="Прокрутить вверх" src="{% get_static 'img/button_up.png' %}"></div>
+    <div class="snackbar" id="compare_success">Товар добавлен в список сравнения</div>
 {% endblock %}
 
 {% block extrascripts %}
@@ -244,6 +245,7 @@
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
     <script src="{% get_static 'js/more-button.js' %}"></script>
     <script src="{% get_static 'js/popup.js' %}"></script>
+    <script src="{% get_static 'js/basket_script.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.rating_photo').barrating({

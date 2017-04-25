@@ -1,0 +1,176 @@
+{% extends 'defro/base.html' %}
+{% load thumbnail %}
+{% load site_static %}
+{% load history_tags %}
+{% load currency_filters %}
+{% load reviews_tags %}
+{% load staticfiles %}
+{% load product_tags %}
+{% load display_tags %}
+{% load i18n %}
+{% load purchase_info_tags %}
+{% load basket_tags %}
+
+{% block title %}Таблица сравнений{% endblock %}
+
+{% block content %}
+    <div class="shadow_block">
+        <div class="container">
+            <div class="main_block clear_fix">
+                {% include 'defro/partials/side_menu.html' %}
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="/"><img src="{% get_static 'img/home.png' %}"
+                                         alt="" class="solo_img"></a>
+                    <li class=""><a href="{% url 'compare' %}">Сравнение
+                        товаров</a></li>
+                    <li class="active">{{ category }}</li>
+                    </li>
+                </ul>
+
+                <div class="compare_block_table">
+                    <p class="category_block_caption">Вы
+                        сравниваете {{ category.name }}</p>
+                    <ul>
+                        <li>
+                            <div class="compare_table_add">
+                                <p class="compare_table_number">Добавлено
+                                    товаров:
+                                    <span>{{ products|length }}</span></p>
+                                <a href="{% url 'catalogue:category' category_slug=category.slug pk=category.pk %}"
+                                   class="compare_table_add_button">Добавить
+                                    еще один товар</a>
+                                <a href="#" class="compare_table_clean_button"
+                                   data-category-pk="{{ category.pk }}"
+                                   data-remove-url="{% url 'remove_category_from_compare_list' %}">Очистить
+                                    все</a>
+
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a
+                                            href="#all_parame"
+                                            aria-controls="all_parame"
+                                            role="tab"
+                                            data-toggle="tab">Все параметры</a>
+                                    </li>
+                                    <li role="presentation"><a href="#only_dif"
+                                                               aria-controls="only_dif"
+                                                               role="tab"
+                                                               data-toggle="tab">Только
+                                        отличия</a></li>
+
+                                </ul>
+
+
+                            </div>
+
+                        </li>
+                        {% for product in products %}
+                            <li>
+                                <div class="catalog_item_block">
+                                    {% thumbnail product.primary_image.original "155" as thumb %}
+                                        <img src="{{ thumb.url }}" alt="">
+                                    {% endthumbnail %}
+                                    <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                                    <div class="for_list_block">
+                                        <select class="rating_photo">
+                                            {% for num in "12345" %}
+                                                <option {% if product.rating == num %}selected="selected"{% endif %}
+                                                        value="{{ num }}">{{ num }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <p class="rating_number"><span>{% if product.rating %}
+                                            {{ product.rating }}{% else %}
+                                            0{% endif %}</span>/5 ( голосов
+                                            <span>{{ product.num_approved_reviews }}</span>)
+                                        </p>
+                                        <hr>
+                                        {% purchase_info_for_product request product as session %}
+                                        {% if session.availability.is_available_to_buy %}
+                                            <p class="line_through">
+                                                {% if session.price.is_tax_known %}
+                                                    {{ session.price.incl_tax|currency:session.price.currency }}
+                                                {% else %}
+                                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                                {% endif %} </p>
+                                            <p class="catalog_item_price">
+                                                {% if session.price.is_tax_known %}
+                                                    {{ session.price.incl_tax|currency:session.price.currency }}
+                                                {% else %}
+                                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                                {% endif %}</p>
+                                        {% else %}
+                                            <p class="nalichie dpn naliche_net">
+                                                Нет в наличии</p>
+                                            <p class="catalog_item_price naliche_net dpn">
+                                                {% if session.price.is_tax_known %}
+                                                    {{ session.price.incl_tax|currency:session.price.currency }}
+                                                {% else %}
+                                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                                {% endif %}</p>
+
+                                        {% endif %}
+                                        <a href="#" class="buy_button">Нет в
+                                            наличии</a>
+                                    </div>
+                                    <a href="#" class="close_compare"
+                                       data-product-id="{{ product.id }}"
+                                       data-remove-url="{% url 'remove_from_compare_list' %}"></a>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="compare_table_tab_content">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="all_parame">
+                    <table class="table_main_har">
+                        {% for attr_name, attr_values in attributes %}
+                            <tr>
+                                <th style="width:300px !important; display: inline-block; float: left">{{ attr_name }} </th>
+                                {% for value in attr_values %}
+                                    <th style="width:260px; display: inline-block; float: left">{{ value }}</th>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="only_dif">
+                    <table class="table_main_har">
+                        {% for attr_name, attr_values in unique_attributes %}
+                            <tr>
+                                <th style="width:300px">{{ attr_name }} </th>
+                                {% for value in attr_values %}
+                                    <th {% if forloop.counter == 1 %}style="width:260px"{% endif %}>{{ value }}</th>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block extrascripts %}
+    <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
+    <script src="{% get_static 'js/basket_script.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.rating_photo').barrating({
+                theme: 'fontawesome-stars'
+            });
+        });
+    </script>
+{% endblock %}

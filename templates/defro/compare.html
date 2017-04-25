@@ -1,0 +1,122 @@
+{% extends 'defro/base.html' %}
+{% load thumbnail %}
+{% load site_static %}
+{% load history_tags %}
+{% load currency_filters %}
+{% load reviews_tags %}
+{% load staticfiles %}
+{% load product_tags %}
+{% load display_tags %}
+{% load i18n %}
+{% load purchase_info_tags %}
+{% load basket_tags %}
+
+{% block title %}Список сравнений{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="main_block clear_fix">
+            {% include 'defro/partials/side_menu.html' %}
+            <ul class="breadcrumb">
+                <li>
+                    <a href="/"><img src="{% get_static 'img/home.png' %}"
+                                     alt="" class="solo_img"></a>
+                <li class="active">Сравнение товаров</li>
+                </li>
+            </ul>
+
+            <div class="category_block compare_block">
+                <p class="category_block_caption">Списки сравнений</p>
+                {% if compare_categories %}
+                    {% for category in compare_categories %}
+                        <div class="category_block compare_block">
+                            <p class="compare_caption_list">{{ category.name }}</p>
+                            <ul>
+                                {% for product in compare_products %}
+                                    {% if category in product.categories.all %}
+                                        <li>
+                                            {% thumbnail product.primary_image.original "155" as thumb %}
+                                                <img src="{{ thumb.url }}"
+                                                     alt="">
+                                            {% endthumbnail %}
+                                            <p class="compare_item_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                                            <select class="rating_photo">
+                                                {% for num in "12345" %}
+                                                    <option {% if product.rating == num %}selected="selected"{% endif %}
+                                                            value="{{ num }}">{{ num }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <p class="rating_number"><span>{% if product.rating %}
+                                                {{ product.rating }}{% else %}
+                                                0{% endif %}</span>/5 ( голосов
+                                                <span>{{ product.num_approved_reviews }}</span>)
+                                            </p>
+
+                                            <hr>
+                                            {% purchase_info_for_product request product as session %}
+                                            {% if session.availability.is_available_to_buy %}
+                                                <p class="line_through">
+                                                    {% if session.price.is_tax_known %}
+                                                        {{ session.price.incl_tax|currency:session.price.currency }}
+                                                    {% else %}
+                                                        {{ session.price.excl_tax|currency:session.price.currency }}
+                                                        +
+                                                        налоги
+                                                    {% endif %} </p>
+                                                <p class="catalog_item_price">
+                                                    {% if session.price.is_tax_known %}
+                                                        {{ session.price.incl_tax|currency:session.price.currency }}
+                                                    {% else %}
+                                                        {{ session.price.excl_tax|currency:session.price.currency }}
+                                                        +
+                                                        налоги
+                                                    {% endif %}</p>
+                                            {% else %}
+                                                <p class="nalichie dpn naliche_net">
+                                                    Нет
+                                                    в
+                                                    наличии</p>
+                                                <p class="catalog_item_price naliche_net dpn">
+                                                    {% if session.price.is_tax_known %}
+                                                        {{ session.price.incl_tax|currency:session.price.currency }}
+                                                    {% else %}
+                                                        {{ session.price.excl_tax|currency:session.price.currency }}
+                                                        +
+                                                        налоги
+                                                    {% endif %}</p>
+
+                                            {% endif %}
+                                            <a href="#" class="close_compare"
+                                               data-product-id="{{ product.id }}"
+                                               data-remove-url="{% url 'remove_from_compare_list' %}"></a>
+                                        </li>
+                                    {% endif %}
+
+                                {% endfor %}
+                            </ul>
+                            <a href="{% url 'compare_category' category=category.pk %}"
+                               class="compare_button_list"
+                               data-category-pk="{{ category.pk }}">Сравнить эти
+                                товары</a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h2>Список сравнения пуст</h2>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block extrascripts %}
+    <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
+    <script src="{% get_static 'js/basket_script.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.rating_photo').barrating({
+                theme: 'fontawesome-stars'
+            });
+        });
+    </script>
+{% endblock %}

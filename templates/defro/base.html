@@ -5,13 +5,18 @@
 {% load static %}
 
 {% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% get_static 'css/jquery.bxslider.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% get_static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% get_static 'css/owl.carousel.min.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% get_static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% get_static 'css/jquery.bxslider.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% get_static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% get_static 'css/owl.carousel.min.css' %}"/>
+    <link rel="stylesheet" type="text/css"
+          href="{% get_static 'css/style.css' %}">
     <link rel="stylesheet" href="{% get_static 'css/fontawesome-stars.css' %}">
 
-    <script src="https://vk.com/js/api/openapi.js?139" type="text/javascript"></script>
+    <script src="https://vk.com/js/api/openapi.js?139"
+            type="text/javascript"></script>
 {% endblock %}
 
 {% block layout %}
@@ -43,7 +48,8 @@
             </div>
             <div class="container">
                 <div class="logo">
-                    <a href="/"><img src="{% get_static 'img/logo.png' %}" alt=""></a>
+                    <a href="/"><img src="{% get_static 'img/logo.png' %}"
+                                     alt=""></a>
                 </div>
                 <div class="contacts">
                     {% if phone_numbers.kievstar %}
@@ -63,56 +69,72 @@
                 <div class="basket">
 
                     <div class="dropdown">
-                        <a href="#" class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"
+                        <a href="#" class="btn btn-default dropdown-toggle"
+                           id="dropdownMenu1" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="true">
                             Сравнение
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li>
-                                <a href="#" class="sravn_items">Название категории</a>
-                                <a href="#" class="sravn_delete"></a>
-                            </li>
-                            <li>
-                                <a href="#" class="sravn_items">Название категории</a>
-                                <a href="#" class="sravn_delete"></a>
-                            </li>
-                            <li>
-                                <a href="#" class="sravn_items">Название категории</a>
-                                <a href="#" class="sravn_delete"></a>
-                            </li>
+                        <ul class="dropdown-menu"
+                            aria-labelledby="dropdownMenu1">
+                            {% if compare_categories %}
+                                {% for category in compare_categories %}
+                                    <li>
+                                        <a href="{% url 'compare_category' category=category.pk %}"
+                                           class="sravn_items">{{ category.name }}</a>
+                                        <a href="#" class="sravn_delete"
+                                           data-category-pk="{{ category.pk }}"
+                                           data-remove-url="{% url 'remove_category_from_compare_list' %}"></a>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li>
+                                    <a href="!#" class="sravn_items">Список
+                                        сравнения пуст</a>
+                                </li>
+                            {% endif %}
 
                         </ul>
                     </div>
                     <div class="dropdown dropdown_2">
-                        <a href="#" class="btn btn-default dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown"
+                        <a href="#" class="btn btn-default dropdown-toggle"
+                           id="dropdownMenu2" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="true">
                             Корзина
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <ul class="dropdown-menu"
+                            aria-labelledby="dropdownMenu2">
                             <li>
-                                <p class="basket_how_many">В <span class="red">Вашей корзине</span> товаров: <span
-                                        class="">2</span></p>
+                                <p class="basket_how_many">В <span class="red">Вашей корзине</span>
+                                    товаров: <span
+                                            class="">2</span></p>
                             </li>
                             <li>
                                 <div class="basket_elem">
-                                    <img src="{% get_static 'img/basket_item_img.png' %}" alt="">
-                                    <p class="basket_item_name">Твердотопливный котел Defro Komfort Eko 20</p>
+                                    <img src="{% get_static 'img/basket_item_img.png' %}"
+                                         alt="">
+                                    <p class="basket_item_name">Твердотопливный
+                                        котел Defro Komfort Eko 20</p>
                                     <p class="basket_item_number">1 шт.</p>
                                     <p class="basket_item_price">22 800 грн.</p>
                                 </div>
                                 <div class="basket_elem">
-                                    <img src="{% get_static 'img/basket_item_img.png' %}" alt="">
-                                    <p class="basket_item_name">Твердотопливный котел Defro Komfort Eko 20</p>
+                                    <img src="{% get_static 'img/basket_item_img.png' %}"
+                                         alt="">
+                                    <p class="basket_item_name">Твердотопливный
+                                        котел Defro Komfort Eko 20</p>
                                     <p class="basket_item_number">1 шт.</p>
                                     <p class="basket_item_price">22 800 грн.</p>
                                 </div>
                             </li>
                             <li>
-                                <p class="basket_how_much">Итого: <span>45 600 грн.</span></p>
+                                <p class="basket_how_much">Итого: <span>45 600 грн.</span>
+                                </p>
                             </li>
                             <li>
-                                <a href="#" class="basket_button_zakaz">Оформить заказ</a>
-                                <a href="#" class="basket_goto">Перейти в корзину</a>
+                                <a href="#" class="basket_button_zakaz">Оформить
+                                    заказ</a>
+                                <a href="#" class="basket_goto">Перейти в
+                                    корзину</a>
                             </li>
                         </ul>
                     </div>
@@ -141,45 +163,58 @@
                             <ul class="menu_block_items">
                                 <li><a href="#">О компании</a></li>
                                 <li><a href="#">Сотрудничество</a></li>
-                                <li><a href="#">Условия использования сайта</a></li>
+                                <li><a href="#">Условия использования сайта</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="menu_block">
-							<p class="menu_block_caption">Как связаться</p>
-							<ul class="contact_ul">
+                            <p class="menu_block_caption">Как связаться</p>
+                            <ul class="contact_ul">
                                 {% if phone_numbers.kievstar %}
-                                    <li><a href="tel:+0988598880">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a></li>
+                                    <li>
+                                        <a href="tel:+0988598880">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a>
+                                    </li>
                                 {% endif %}
                                 {% if phone_numbers.vodafone %}
-                                    <li><a href="tel:+0995598880">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a></li>
+                                    <li>
+                                        <a href="tel:+0995598880">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a>
+                                    </li>
                                 {% endif %}
                                 {% if phone_numbers.life %}
-                                    <li><a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a></li>
+                                    <li>
+                                        <a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a>
+                                    </li>
                                 {% endif %}
-								<li><a href="#" class="predstav">Наши представительства</a></li>
-							</ul>
+                                <li><a href="#" class="predstav">Наши
+                                    представительства</a></li>
+                            </ul>
 
-							<div class="time_work">
-								<p>Пн.-Пт.: <span> с 9:00 до 18:00</span></p>
-								<p>Сб:<span> с 9:00 до 15:00</span></p>
-								<a href="mailto:info@defro.org.ua/">info@defro.org.ua/</a>
-							</div>
-						</div>
+                            <div class="time_work">
+                                <p>Пн.-Пт.: <span> с 9:00 до 18:00</span></p>
+                                <p>Сб:<span> с 9:00 до 15:00</span></p>
+                                <a href="mailto:info@defro.org.ua/">info@defro.org.ua/</a>
+                            </div>
+                        </div>
                         <div class="menu_block">
                             <p class="menu_block_caption">Принимаем к оплате</p>
-                            <img src="{% get_static 'img/footer/master.png' %}" alt="">
-                            <img src="{% get_static 'img/footer/visa.png' %}" alt="">
+                            <img src="{% get_static 'img/footer/master.png' %}"
+                                 alt="">
+                            <img src="{% get_static 'img/footer/visa.png' %}"
+                                 alt="">
                         </div>
                         <div class="grafik">
                             <div class="time_work">
-                                <p class="grafik_caption">График работы call-центра</p>
+                                <p class="grafik_caption">График работы
+                                    call-центра</p>
                                 <p>Пн.-Пт.: <span> с 9:00 до 18:00</span></p>
                                 <p>Сб:<span> с 9:00 до 15:00</span></p>
                                 <p>Вс: <span> выходной</span></p>
                             </div>
                             <div class="time_work">
-                                <p class="grafik_caption">Заказ через корзину 24/7/365</p>
-                                <p class="grafik_special">Ночные заказы обрабатываются</p>
+                                <p class="grafik_caption">Заказ через корзину
+                                    24/7/365</p>
+                                <p class="grafik_special">Ночные заказы
+                                    обрабатываются</p>
                                 <p>с 9:00 до 11:00</p>
                             </div>
 
@@ -192,31 +227,41 @@
             <div class="container">
                 <div class="logo_footer">
                     <a href="#">
-                        <img src="{% get_static 'img/footer/logo.png' %}" alt="">
+                        <img src="{% get_static 'img/footer/logo.png' %}"
+                             alt="">
                     </a>
                 </div>
                 <div class="rights">
-                    <p>© 2017 интернет-магазин <br> твердотопливных котлов Defro тм</p>
+                    <p>© 2017 интернет-магазин <br> твердотопливных котлов Defro
+                        тм</p>
 
                 </div>
                 <div class="social">
                     <p>Мы в соцсетях, <br> присоединяйтесь!</p>
-                    <a href="{{ social_networks_refs.facebook|first }}"><img src="{% get_static 'img/footer/fb.png' %}"
-                                                                             alt=""></a>
-                    <a href="{{ social_networks_refs.vkontakte|first }}"><img src="{% get_static 'img/footer/vk.png' %}"
-                                                                              alt=""></a>
-                    <a href="{{ social_networks_refs.mailru|first }}"><img src="{% get_static 'img/footer/mail.png' %}"
-                                                                           alt=""></a>
-                    <a href="{{ social_networks_refs.twitter|first }}"><img src="{% get_static 'img/footer/tw.png' %}"
-                                                                            alt=""></a>
+                    <a href="{{ social_networks_refs.facebook|first }}"><img
+                            src="{% get_static 'img/footer/fb.png' %}"
+                            alt=""></a>
+                    <a href="{{ social_networks_refs.vkontakte|first }}"><img
+                            src="{% get_static 'img/footer/vk.png' %}"
+                            alt=""></a>
+                    <a href="{{ social_networks_refs.mailru|first }}"><img
+                            src="{% get_static 'img/footer/mail.png' %}"
+                            alt=""></a>
+                    <a href="{{ social_networks_refs.twitter|first }}"><img
+                            src="{% get_static 'img/footer/tw.png' %}"
+                            alt=""></a>
                     <a href="{{ social_networks_refs.odnoklassniki|first }}"><img
-                            src="{% get_static 'img/footer/od.png' %}" alt=""></a>
-                    <a href="{{ social_networks_refs.pinterest|first }}"><img src="{% get_static 'img/footer/p.png' %}"
-                                                                              alt=""></a>
+                            src="{% get_static 'img/footer/od.png' %}"
+                            alt=""></a>
+                    <a href="{{ social_networks_refs.pinterest|first }}"><img
+                            src="{% get_static 'img/footer/p.png' %}"
+                            alt=""></a>
                     <a href="{{ social_networks_refs.google|first }}"><img
-                            src="{% get_static 'img/footer/google.png' %}" alt=""></a>
+                            src="{% get_static 'img/footer/google.png' %}"
+                            alt=""></a>
                     <a href="{{ social_networks_refs.youtube|first }}"><img
-                            src="{% get_static 'img/footer/youtube.png' %}" alt=""></a>
+                            src="{% get_static 'img/footer/youtube.png' %}"
+                            alt=""></a>
                 </div>
             </div>
         </div>
@@ -224,8 +269,9 @@
 {% endblock %}
 
 {% block scripts %}
-     <!-- Oscar -->
-    <script src="{% static "oscar/js/oscar/ui.js" %}" type="text/javascript" charset="utf-8"></script>
+    <!-- Oscar -->
+    <script src="{% static "oscar/js/oscar/ui.js" %}" type="text/javascript"
+            charset="utf-8"></script>
 
     <script src="{% get_static 'js/jquery-2-0-0.js' %}"></script>
     <script src="{% get_static 'js/bootstrap.min.js' %}"></script>
@@ -241,7 +287,7 @@
 
 {# Block for body onload functions #}
 <script type="text/javascript">
-    $(function() {
+    $(function () {
         {% block onbodyload %}{% endblock %}
     });
 </script>
