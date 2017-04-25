@@ -104,52 +104,83 @@
 					<div class="other_blocks">
 						<p>Отапливаемая площадь</p>
 						<div class="right_side">
-							<input type="text" value="100"> <span>м.кв</span>
+							<input id="t_square" type="text" value="100"> <span>м.кв</span>
 						</div>
 					</div>
 					<div class="other_blocks">
 						<p>Теплопотери здания</p>
 						<div class="right_side">
 							<label class="select_box">
-							    <select>
-							        <option>Утепленный</option>
-							        <option>Утепленный1</option>
-							        <option>Утепленный2</option>
+							    <select id="t_lose">
+							        <option id="lose_warm">Утепленный</option>
+							        <option id="lose_cold">Неутепленный</option>
 							    </select>
 							</label>
-							<span>Вт/м.кв</span>
 						</div>
 					</div>
 					<div class="other_blocks">
 						<p class="cpecial">Длительность отопительного сезона</p>
 						<p class="for_ua">для Украины 187</p>
 						<div class="right_side">
-							<input type="text" value="187"> <span>суток</span>
+							<input id="t_period" type="text" value="187"> <span>суток</span>
 						</div>
 					</div>
 					<div class="other_blocks">
 						<p>Высота потолка</p>
 						<div class="right_side">
-							<input type="text" value="100"> <span>м.кв</span>
+							<input id="t_heigth" type="text" value="3"> <span>м</span>
 						</div>
 					</div>
 					<div class="other_blocks">
 						<p>Месторасположение дома</p>
 						<div class="right_side">
 							<label class="select_box">
-							    <select>
-							        <option>Киевская</option>
-							        <option>Киевская1</option>
-							        <option>Киевская2</option>
+							    <select id="t_location">
+							        <option value='zone1'>Киевская</option>
+							        <option value='zone1'>Черкасская</option>
+							        <option value='zone1'>Кирововградская</option>
+							        <option value='zone1'>Винницкая</option>
+							        <option value='zone1'>Хмельницкая</option>
+							        <option value='zone1'>Тернопольская</option>
+							        <option value='zone1'>Ровенская</option>
+							        <option value='zone1'>Житомирская</option>
+							        <option value='zone1'>Черниговская</option>
+							        <option value='zone1'>Полтавская</option>
+							        <option value='zone1'>Сумская</option>
+							        <option value='zone1'>Харковская</option>
+							        <option value='zone1'>Донецкая</option>
+							        <option value='zone1'>Луганская</option>
+							        <option value='zone2'>Волынская</option>
+							        <option value='zone2'>Львовская</option>
+							        <option value='zone2'>Запорожская</option>
+							        <option value='zone2'>Черновецкая</option>
+							        <option value='zone2'>Ивано-Франковская</option>
+							        <option value='zone2'>Днепропетровская</option>
+							        <option value='zone3'>Закарпатская</option>
+							        <option value='zone3'>Николаевская</option>
+							        <option value='zone3'>Херсонская</option>
+							        <option value='zone3'>Одесская</option>
+							        <option value='zone3'>АРК(центральна i пiвнiчна частина)</option>
+							        <option value='zone4'>АРК(пiвденне узбережжя)</option>
 							    </select>
 							</label>
 							 <span>область Украины</span>
 						</div>
 					</div>
-
+					<div class="other_blocks">
+						<p>Система отопления дома</p>
+						<div class="right_side">
+							<label class="select_box">
+							    <select id="t_system">
+							        <option id="system_old">Старая</option>
+							        <option id="system_new">Нового образца</option>
+							    </select>
+							</label>
+						</div>
+					</div>
 					<div class="top_and_bot_block">
-							<p>Итого на весь сезон необходимо:</p><p><span class="calculating">20 550,50</span>кВт/ч тепла</p><br>
-							<p>Необходимая мощность котла:</p> <p><span class="calculating">8,50</span>кВт</p>
+							<p>Итого на весь сезон необходимо:</p><p><span id="t_season" class="calculating">20 550,50</span>кВт/ч тепла</p><br>
+							<p>Необходимая мощность котла:</p> <p><span id="t_power" class="calculating">8,50</span>кВт</p>
 					</div>
 				</div>
 
@@ -175,7 +206,7 @@
 								</div>
 							</div>
 							<div class="other_blocks_cell">
-								<p><span class="calculating">8 626,80</span> грн</p>
+								<p><span id="" class="calculating">8 626,80</span> грн</p>
 							</div>
 						</div>
 						<div class="other_blocks">
