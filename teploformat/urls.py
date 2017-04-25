@@ -21,6 +21,8 @@ from django.contrib import admin
 from django.contrib.staticfiles import views
 from django.shortcuts import redirect
 from oscar.app import application
+
+from shop.catalogue.reviews.views import ProductQuestionView
 from shop.catalogue.views import delete_item_from_basket, get_search_count, \
     OneClickOrderCreateView, CompareView, remove_item_from_compare_list, \
     remove_category_from_compare_list, CompareCategoryView
@@ -45,6 +47,7 @@ urlpatterns += i18n_patterns(
     url(
         r'^catalugue/(/[\w-]+)*/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/oneclick/$',
         OneClickOrderCreateView.as_view(), name='oneclick'),
+
     url(r'^catalogue/compare/$', CompareView.as_view(),
         name='compare'),
     url(r'^catalogue/compare/(?P<category>\d+)$', CompareCategoryView.as_view(),
@@ -54,4 +57,8 @@ urlpatterns += i18n_patterns(
     url(r'^catalogue/compare/remove_category/$',
         remove_category_from_compare_list,
         name='remove_category_from_compare_list'),
+    url(
+        r'^catalogue/(/[\w-]+)*/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/question/$',
+        ProductQuestionView.as_view(), name='question'),
+
 )

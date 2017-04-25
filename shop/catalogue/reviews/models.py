@@ -10,6 +10,7 @@ from django.utils.translation import pgettext_lazy
 from oscar.apps.catalogue.reviews.abstract_models import AbstractProductReview
 from django.contrib.sites.models import Site
 from oscar.core import validators
+from shop.catalogue.models import Product
 
 
 class ProductReview(AbstractProductReview):
@@ -47,5 +48,23 @@ def on_review_create(sender, instance, created, **kwargs):
               settings.DEFAULT_FROM_EMAIL,
               [to_email],
               fail_silently=True)
+
+
+class ProductQuestion(models.Model):
+    class Meta:
+        verbose_name = 'Вопрос о товаре'
+        verbose_name_plural = 'Вопросы о товаре'
+    product = models.ForeignKey(Product,
+                                verbose_name="Товар",
+                                on_delete=models.CASCADE)
+    when_created = models.DateTimeField('Дата и время создания',
+                                        auto_now_add=True)
+    name = models.CharField('Имя', max_length=128)
+    email = models.EmailField('Почта', blank=True, null=True)
+    phone = models.CharField('Телефон', max_length=10)
+    text = models.TextField('Вопрос')
+
+    def __unicode__(self):
+        return u'{} - {}'.format(self.name, self.when_created)
 
 from oscar.apps.catalogue.reviews.models import *  # noqa
