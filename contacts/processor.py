@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 from collections import defaultdict
 from django.contrib.sites.shortcuts import get_current_site
 
-from contacts.models import PhoneNumber, SocialNetRef
+from contacts.models import PhoneNumber, SocialNetRef, WorkSchedule
 
 
 def show_phone_numbers(request):
@@ -45,3 +46,18 @@ def social_networks_ref(request):
         if not limits:
             break
     return {'social_networks_refs': social_networks_refs}
+
+
+def show_work_schedule(request):
+    site_obj = get_current_site(request)
+    schedules_lst = WorkSchedule.objects.filter(
+        site=site_obj).prefetch_related('timetable')
+    work_schedule = defaultdict(list)
+    for schedule in schedules_lst:
+        for table in schedule.timetable.all():
+            work_schedule[schedule.schedule_type].append(table)
+    return {
+        'schedule': work_schedule,
+    }
+
+

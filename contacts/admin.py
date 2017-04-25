@@ -2,7 +2,10 @@
 
 from django.contrib import admin
 
-from contacts.models import PhoneNumber, SocialNetRef
+from contacts.models import PhoneNumber, SocialNetRef, WorkSchedule, Timetable
+
+
+admin.site.register(Timetable)
 
 
 @admin.register(PhoneNumber)
@@ -15,3 +18,10 @@ class PhoneNumberAdmin(admin.ModelAdmin):
 class SocialNetRefAdmin(admin.ModelAdmin):
     list_display = ('ref_type', 'reference', 'site')
     list_filter = ('site',)
+
+
+@admin.register(WorkSchedule)
+class WorkScheduleAdmin(admin.ModelAdmin):
+    filter_horizontal = ('timetable',)
+    list_display = ('schedule_type', 'site')
+    list_filter = ('schedule_type', 'site')
