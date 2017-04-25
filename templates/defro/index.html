@@ -508,9 +508,20 @@
 							</ul>
 
 							<div class="time_work">
+                            {% if schedule.main %}
+                                {% for timetable in schedule.main %}
+                                    <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span></p>
+                                {% endfor %}
+                            {% else %}
 								<p>Пн.-Пт.: <span> с 9:00 до 18:00</span></p>
 								<p>Сб:<span> с 9:00 до 15:00</span></p>
+                            {% endif %}
+                            {% if site_email %}
+                                <a href="mailto:info@defro.org.ua/">{{ site_email }}</a>
+                            {% else %}
 								<a href="mailto:info@defro.org.ua/">info@defro.org.ua/</a>
+                            {% endif %}
+
 							</div>
 						</div>
 						<div class="menu_block">
@@ -521,14 +532,28 @@
 						<div class="grafik">
 							<div class="time_work">
 								<p class="grafik_caption">График работы call-центра</p>
-								<p>Пн.-Пт.: <span> с 9:00 до 18:00</span></p>
-								<p>Сб:<span> с 9:00 до 15:00</span></p>
-								<p>Вс: <span> выходной</span></p>
+                                {% if schedule.callcenter %}
+                                    {% for timetable in schedule.callcenter %}
+                                        <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span></p>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>Пн.-Пт.: <span> с 9:00 до 18:00</span></p>
+                                    <p>Сб:<span> с 9:00 до 15:00</span></p>
+                                    <p>Вс: <span> выходной</span></p>
+                                {% endif %}
+
 							</div>
 							<div class="time_work">
 								<p class="grafik_caption">Заказ через корзину 24/7/365</p>
 								<p class="grafik_special">Ночные заказы обрабатываются</p>
-								<p>с 9:00 до 11:00</p>
+                                {% if schedule.nightorders %}
+                                    {% for timetable in schedule.nightorders %}
+                                        <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span></p>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>с 9:00 до 11:00</p>
+                                {% endif %}
+
 							</div>
 
 						</div>

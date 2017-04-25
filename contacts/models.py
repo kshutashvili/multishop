@@ -96,3 +96,55 @@ class SocialNetRef(models.Model):
 
     def __unicode__(self):
         return '{} {}'.format(self.ref_type, self.reference)
+
+
+class Timetable(models.Model):
+    weekdays = models.CharField(
+        _('Дни недели'),
+        max_length=100
+    )
+    daytime = models.CharField(
+        _('Время дня'),
+        max_length=100
+    )
+
+    class Meta:
+        verbose_name = _('График работы')
+        verbose_name_plural = _('Графики работы')
+
+    def __unicode__(self):
+        return '{} {}'.format(self.weekdays, self.daytime)
+
+
+class WorkSchedule(models.Model):
+    class SCHEDULETYPES:
+        MAIN = 'main'
+        CALLCENTER = 'callcenter'
+        NIGHTORDERS = 'nightorders'
+        _CHOICES = ((MAIN, _('основное')),
+                    (CALLCENTER, _('для call center')),
+                    (NIGHTORDERS, _('для ночных заказов')))
+
+    schedule_type = models.CharField(
+        _('Тип рассписания'),
+        max_length=20,
+        choices=SCHEDULETYPES._CHOICES,
+        default=SCHEDULETYPES.MAIN
+    )
+    timetable = models.ManyToManyField(
+        Timetable,
+        verbose_name=_('Графики'),
+        related_name='workschedules'
+    )
+    site = models.ForeignKey(
+        Site,
+        verbose_name=_('Сайт'),
+        related_name='workschedules'
+    )
+
+    class Meta:
+        verbose_name = _('Рассписание работы компании')
+        verbose_name_plural = _('Рассписания работы компании')
+
+    def __unicode__(self):
+        return '{} {}'.format(self.schedule_type, self.site)
