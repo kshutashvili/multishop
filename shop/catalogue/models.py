@@ -12,7 +12,8 @@ from django.template import Context
 from django.template.loader import get_template
 from django.utils.translation import get_language
 
-from oscar.apps.catalogue.abstract_models import AbstractProduct, AbstractProductAttributeValue, AbstractProductClass, \
+from oscar.apps.catalogue.abstract_models import AbstractProduct, \
+    AbstractProductAttributeValue, AbstractProductClass, \
     AbstractProductCategory, AbstractCategory
 from oscar.apps.order.models import Order as OscarOrder
 from redis.exceptions import ConnectionError
@@ -28,7 +29,8 @@ class Product(AbstractProduct):
             recent_product_ids = [p.id for p in recent_products]
             if r.exists(key):
                 for product in recent_product_ids:
-                    r.hincrby(key, product, 1)  # if there is no key, it will be created
+                    r.hincrby(key, product,
+                              1)  # if there is no key, it will be created
             elif recent_products:
                 r.hmset(key, dict.fromkeys(recent_product_ids, 1))
         except ConnectionError:
@@ -42,7 +44,9 @@ class Product(AbstractProduct):
         except ConnectionError:
             return None
         if products:
-            products = [k for k, v in sorted(products.items(), key=operator.itemgetter(1), reverse=True)][
+            products = [k for k, v in
+                        sorted(products.items(), key=operator.itemgetter(1),
+                               reverse=True)][
                        :10]  # 10 the most popular products similar to current one
             return Product.objects.filter(id__in=products)
         else:
@@ -56,7 +60,8 @@ class Product(AbstractProduct):
             connection = Product.redis
             return connection
         except AttributeError:
-            Product.pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
+            Product.pool = redis.ConnectionPool(host='localhost', port=6379,
+                                                db=0)
             Product.redis = redis.Redis(connection_pool=Product.pool)
             return Product.redis
 
@@ -74,12 +79,14 @@ class Category(AbstractCategory):
 
 
 class ProductAttributeValue(AbstractProductAttributeValue):
-    _localizable = ["text", "richtext"]  # types of fields, that need to be localized
+    _localizable = ["text",
+                    "richtext"]  # types of fields, that need to be localized
 
     def _get_value(self):
         if self.attribute.type in ProductAttributeValue._localizable:
-            return getattr(self, 'value_%s_ru' % self.attribute.type), getattr(self,
-                                                                               'value_%s_uk' % self.attribute.type)
+            return getattr(self, 'value_%s_ru' % self.attribute.type), getattr(
+                self,
+                'value_%s_uk' % self.attribute.type)
         else:
             return getattr(self, 'value_%s' % self.attribute.type)
 
@@ -110,7 +117,7 @@ class ExtraImage(models.Model):
 
     image = models.ImageField(
         'Изображение',
-        upload_to=('products/images')
+        upload_to='products/images'
     )
     product = models.ForeignKey(
         Product,
@@ -127,7 +134,7 @@ class Video(models.Model):
         verbose_name = 'Видео'
         verbose_name_plural = 'Видео'
 
-    video = models.URLField()
+    video = models.URLField('Видео', help_text='Вставьте url')
     product = models.ForeignKey(
         Product,
         verbose_name='Товар',
