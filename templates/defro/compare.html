@@ -39,7 +39,7 @@
                                                 <img src="{{ thumb.url }}"
                                                      alt="">
                                             {% endthumbnail %}
-                                            <p class="compare_item_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                                            <p class="compare_item_caption"><a href="{{ product.get_absolute_url }}">{{ product.product_class.name }} {{ product.title }}</a></p>
                                             <select class="rating_photo">
                                                 {% for num in "12345" %}
                                                     <option {% if product.rating == num %}selected="selected"{% endif %}
