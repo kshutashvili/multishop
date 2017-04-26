@@ -56,7 +56,8 @@ INSTALLED_APPS = [
                    'shop.dashboard.catalogue',
                    'shop.catalogue.reviews',
                    'shop.search',
-                   'shop.order'])
+                   'shop.order',
+                   'shop.basket'])
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

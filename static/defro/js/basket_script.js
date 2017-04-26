@@ -68,18 +68,18 @@ function change_numbers() {
 change_numbers();
 
 
-function modal_item_factory(img, upc, name, price, id) {
-    var $container = $('<div class="modal_basket_elem"></div>');
-    var $img = img;
+function modal_item_factory(img, upc, name, price, id, quantity) {
+    var $container = $('<div class="modal_basket_elem" id="' + id + '"></div>');
+    var $img = $('<img src="' + img + '" />');
     var $modal_article = $('<p class="modal_article">Артикул: <span>' + upc + '</span></p>');
     var $name = $('<p class="modal_item_name">' + name + '</p>');
     var $many_block = $('<div class="how many many_block"></div>');
     var $plusminus = $('<div class="plusminus"></div>');
-    var $input1 = $('<input type="text" disabled id="input1" value="1" class="input_number">');
+    var $input1 = $('<input type="text" disabled id="input1" value="' + quantity + '" class="input_number" data-product-id="' + id + '">');
     var $input2 = $('<input type="text" class="price_for_one" style="display: none" value="' + price + '">');
     var $input3 = $('<input type="text" class="item_quantity" style="display: none" value="1">');
     var $plusminus_cont = $('<div class="plusminus_cont"><span class="plus">+</span><span class="minus">-</span></div>');
-    var $how_much = $('<div class="how much"><input type="text" id="input2" name="price"value="' + price + '" disabled></div>');
+    var $how_much = $('<div class="how much"><input type="text" id="input2" name="price" value="' + price + '" disabled></div>');
     var $delete = $('<a href="" data-url="delete_item_from_basket/' + id + '" class="modal_item_delete"></a>');
 
 
@@ -90,19 +90,36 @@ function modal_item_factory(img, upc, name, price, id) {
     return $container;
 }
 
+function basket_dropdown_item_factory(img, name, quantity, price) {
+    var $container = $('<div class="basket_elem"</div>');
+    var $img = $('<img src="' + img + '" />');
+    var $name = $('<p class="basket_item_name">' + name + '</p>');
+    var $quantity = $('<p class="basket_item_number">' + quantity + ' шт</p>');
+    var $price = $('<p class="basket_item_price">' + price + '</p>');
+
+    $container.append($img, $name, $quantity, $price);
+
+    return $container;
+
+}
+
 function update_modal_lines_info() {
     var $basket_items = $('.modal_basket_elem');
     var $modal_line_count = $('#modal_line_count');
     var $modal_lines_price = $('.how.much input');
     var $total_sum = $('#total_sum');
     var $total_sum_bottom = $('#total_sum_bottom');
+    var $total_in_dropdown = $('#total_in_dropdown');
+    var $dropdown_line_count = $('#dropdown_line_count');
     var total = 0;
     $modal_lines_price.map(function (idx, elem) {
         total += parseInt($(elem).val());
     });
     $modal_line_count.text($basket_items.length + ' товар');
+    $dropdown_line_count.text($basket_items.length + ' товаров');
     $total_sum.text(parseInt(total));
     $total_sum_bottom.text(parseInt(total));
+    $total_in_dropdown.text(parseInt(total) + ' грн.');
 
 
 }
@@ -112,10 +129,29 @@ $(document).ready(function () {
     var $comment_form = $('#review_form');
     var review_url = $comment_form.prop('action');
 
+    var $basket_items = $('#basket_items');
+    var $basket_dropdown = $('#basket_dropdown');
+
     var in_basket = [];
-    $('span[name="product_upc"]').map(function (idx, elem) {
-        in_basket.push($(elem).text());
-    });
+
+    function update_basket_info() {
+        $.get($basket_dropdown.attr('data-basket-url'), function (data) {
+            data['basket_products'].forEach(function (element) {
+                var $new_item = modal_item_factory(element['img'], element['upc'], element['title'], element['price'], element['id'], element['quantity']);
+                var $new_dropdown_element = basket_dropdown_item_factory(element['img'], element['title'], element['quantity'], element['price']);
+
+                $basket_items.append($new_item);
+                $basket_dropdown.append($new_dropdown_element);
+                in_basket.push(element['upc']);
+
+            });
+            change_numbers();
+
+        });
+    }
+
+    update_basket_info();
+
 
     $.ajaxSetup({
         beforeSend: function (xhr, settings) {
@@ -128,30 +164,28 @@ $(document).ready(function () {
 
     $('.buy_button, #submit_btn').click(function (e) {
         e.preventDefault();
-        var $outer_this = $(this);
         var $form_buy = $('form#add_to_basket_form_' + $(this).attr('data-product-id'));
         var url_buy = $form_buy.prop('action');
-        $('#modal_product_' + $(this).attr('data-product-id')).show();
-        $.post(url_buy, $form_buy.serialize(), function () {
+        $.post(url_buy, $form_buy.serialize(), function (data) {
+            if (in_basket.indexOf(data['upc']) == -1) {
+                var $new_item = modal_item_factory(data['img'], data['upc'], data['title'], data['price'], data['id'], 1);
+                var $new_dropdown_element = basket_dropdown_item_factory(data['img'], data['title'], data['quantity'], data['price']);
 
-            upc = $outer_this.parent().find('input[name="upc"]').val();
-
-            if (parseInt(in_basket.indexOf(upc)) == -1 && upc) {
-                $image = $outer_this.parent().find('img').clone();
-
-                name = $outer_this.parent().find('p.catalog_item_block_caption').text();
-                price = $outer_this.parent().find('p.catalog_item_price').text();
-                id = $outer_this.parent().find('input[name="id"]').val();
-                $new_item = modal_item_factory($image, upc, name, price, id);
-
-                $('#basket_items').append($new_item);
-                in_basket.push(upc);
+                $basket_items.append($new_item);
+                $basket_dropdown.append($new_dropdown_element);
+                in_basket.push(data['upc']);
                 change_numbers();
+
+
+                update_modal_lines_info();
+            }
+            else {
+                $('div#' + data['id'] + '.modal_basket_elem').find('#input1').val(function (i, oldval) {
+                    return ++oldval;
+                })
             }
 
-            update_modal_lines_info();
-
-
+            $('#modal_product_' + $(this).attr('data-product-id')).show();
             $('div.' + $(this).attr("rel")).fadeIn(500);
             $("body").append("<div id='overlay'></div>");
             $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
@@ -246,9 +280,24 @@ $(document).ready(function () {
     });
 
     $('.sravn_delete, .compare_table_clean_button').click(function (e) {
-                e.preventDefault();
+        e.preventDefault();
         $.post($(this).attr('data-remove-url'), {'pk': $(this).attr('data-category-pk')}, function () {
             location.reload();
         });
-    })
+    });
+
+    $('#make_order, #continue_shopping').click(function (e) {
+        e.preventDefault();
+        var quanity = {};
+        $.each($('.input_number'), function (index, value) {
+            quanity[$(value).attr('data-product-id')] = $(value).val();
+        });
+
+        $.post($(this).attr('data-checkout-url'), quanity, function () {
+            $basket_dropdown.html('');
+            update_basket_info();
+        });
+
+    });
+
 });

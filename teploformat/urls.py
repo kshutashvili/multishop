@@ -22,8 +22,9 @@ from django.contrib.staticfiles import views
 from django.shortcuts import redirect
 from oscar.app import application
 
+from shop.basket.views import delete_item_from_basket, update_items_quantity
 from shop.catalogue.reviews.views import ProductQuestionView
-from shop.catalogue.views import delete_item_from_basket, get_search_count, \
+from shop.catalogue.views import get_search_count, \
     OneClickOrderCreateView, CompareView, remove_item_from_compare_list, \
     remove_category_from_compare_list, CompareCategoryView
 
@@ -60,5 +61,7 @@ urlpatterns += i18n_patterns(
     url(
         r'^catalogue/(/[\w-]+)*/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/question/$',
         ProductQuestionView.as_view(), name='question'),
+    url(r'^basket/update_items_quantity', update_items_quantity,
+        name='checkout')
 
 )

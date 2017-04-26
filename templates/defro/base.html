@@ -106,34 +106,19 @@
                             <li>
                                 <p class="basket_how_many">В <span class="red">Вашей корзине</span>
                                     товаров: <span
-                                            class="">2</span></p>
+                                            class="" id="dropdown_line_count">{{ request.basket.num_lines }}</span></p>
+                            </li>
+                            <li id="basket_dropdown" data-basket-url="{% url 'basket:summary' %}">
+
                             </li>
                             <li>
-                                <div class="basket_elem">
-                                    <img src="{% get_static 'img/basket_item_img.png' %}"
-                                         alt="">
-                                    <p class="basket_item_name">Твердотопливный
-                                        котел Defro Komfort Eko 20</p>
-                                    <p class="basket_item_number">1 шт.</p>
-                                    <p class="basket_item_price">22 800 грн.</p>
-                                </div>
-                                <div class="basket_elem">
-                                    <img src="{% get_static 'img/basket_item_img.png' %}"
-                                         alt="">
-                                    <p class="basket_item_name">Твердотопливный
-                                        котел Defro Komfort Eko 20</p>
-                                    <p class="basket_item_number">1 шт.</p>
-                                    <p class="basket_item_price">22 800 грн.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <p class="basket_how_much">Итого: <span>45 600 грн.</span>
+                                <p class="basket_how_much">Итого: <span id="total_in_dropdown">{{ request.basket.total_incl_tax }} грн.</span>
                                 </p>
                             </li>
                             <li>
                                 <a href="#" class="basket_button_zakaz">Оформить
                                     заказ</a>
-                                <a href="#" class="basket_goto">Перейти в
+                                <a href="#" class="basket_goto show_popup" rel="buy_button_modal">Перейти в
                                     корзину</a>
                             </li>
                         </ul>
@@ -143,7 +128,48 @@
         </div>
 
         {% block content %}
+            <div class="popup buy_button_modal" id="basket_modal">
+                <a class="close" href="#">Close</a>
+                <ul>
+                    <li>
+                        <p class="buy_button_howmuch"><span
+                                class="modal_red_elem"
+                                id="modal_line_count">{{ request.basket.num_lines }} товар</span>
+                            на сумму
+                            <span id="total_sum">{{ request.basket.total_incl_tax }}</span><span
+                                    class="grn"> грн</span></p>
+                    </li>
+                    <li id="basket_items">
+                    </li>
+                    <li>
+                        <p class="basket_how_much">Общая стоимость:
+                            <span id="total_sum_bottom">{{ request.basket.total_incl_tax }}</span><span
+                                    class="grn"> грн</span></p>
+                    </li>
+                    <li>
+                        <a href="#" class="modal_basket_goback"
+                           id="continue_shopping" data-checkout-url="{% url 'checkout' %}">Продолжить
+                            покупки</a>
+                        <a href="{% url 'basket:summary' %}"
+                           class="modal_basket_button_zakaz" id="make_order"
+                           data-checkout-url="{% url 'checkout' %}">Оформить
+                            заказ</a>
 
+                    </li>
+                    <li>
+                        <form id="buy_one_click_modal">
+                            <input type="text" placeholder="(0XX) XXX - XX - XX"
+                                   class="modal_input_goto" name="phone">
+                            <a href="#"
+                               class="modal_basket_goto close_modal_second"
+                               rel="request_button_modal_third" type="submit"
+                               id="one_click_btn_modal"
+                               data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">Заказать
+                                в один клик</a>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         {% endblock %}
         <div class="above_footer_block">
             <div class="bottom_menu_bg">

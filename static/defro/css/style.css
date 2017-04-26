@@ -1801,14 +1801,14 @@ a.buy_button{
 	text-align: center;
 }
 a.buy_button.but_button_sold{
-	background: #828081;
-	color: #fff;
+	background: #828081 !important;
+	color: #fff !important;
 	cursor: default;
 	pointer-events: none;
 	border: 1px solid #dfdede;
 }
 a.buy_button.but_button_sold:hover{
-	background: #828081;
+	background: #828081 !important;
 }
 a.buy_button:hover{
 	background-color: #f8545b;
@@ -4600,6 +4600,23 @@ button.basket_button{
 button.basket_button:hover{
 	background-color: #f8545b;
 }
+
+
+button.basket_button_sold{
+	background: #828081;
+	color: #fff;
+	padding: 10px 10px 10px 100px;
+	display: block;
+	max-width: 222px;
+	font-size: 18px;
+	text-align: center;
+	text-decoration: none;
+	margin-bottom: 10px;
+}
+button.basket_button_sold:hover{
+	background: #828081;
+}
+
 button.basket_button_in{
 	color: #ed1b24;
 	background: url("../img/basket_in.png") no-repeat right 30px center;
@@ -4719,4 +4736,13 @@ table.table_main_har > tr > th:first-child{
 	width:300px !important;
 	display: inline-block !important;
 	float: left !important;
+}
+
+.catalog_item_block p a {
+	color: #424141;
+	text-decoration: none;
+}
+
+.catalog_item_block p a:hover {
+    color: #ed1b24;
 }

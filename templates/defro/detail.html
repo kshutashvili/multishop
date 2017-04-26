@@ -176,36 +176,48 @@
                                             +
                                             налоги
                                         {% endif %}</p>
+                                    <button type="submit" id="submit_btn"
+                                            class="basket_button show_popup"
+                                            value="{% trans "Add to basket" %}"
+                                            data-loading-text="Добавляем"
+                                            rel="buy_button_modal"
+                                            data-product-id="{{ product.id }}">В
+                                        корзину
+                                    </button>
+                                    <a href="#" class="basket_button_in dpn">В
+                                        корзине</a>
+                                    <a href="#" class="buy_credit show_popup"
+                                       rel="credit_button_modal">Купить в
+                                        кредит</a>
+
+                                    <form id="buy_one_click" method="POST"
+                                          action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
+                                        <input type="text"
+                                               class="zakaz_one_click"
+                                               placeholder="(0XX) XXX - XX - XX"
+                                               name="phone">
+                                        <button class="zakaz_one_click"
+                                                id="one_click_btn"
+                                                rel="request_button_modal_third"
+                                                data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
+                                            Заказать в
+                                            один
+                                            клик
+                                        </button>
+                                    </form>
                                 {% else %}
-                                    <p class="nalichie dpn naliche_net">Нет в
-                                        наличии</p>
-                                    <p class="catalog_item_price naliche_net dpn">
-                                        {% if session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|currency:session.price.currency }}
-                                        {% else %}
-                                            {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
-                                        {% endif %}</p>
+                                    <button
+                                            class="basket_button_sold">В
+                                        Нет в наличии
+                                    </button>
+                                    <a href="#" class="basket_button_in dpn">В
+                                        корзине</a>
+                                    <a href="#" class="buy_credit show_popup"
+                                       rel="credit_button_modal">Купить в
+                                        кредит</a>
 
-                                {% endif %}
-                                <button type="submit" id="submit_btn"
-                                        class="basket_button show_popup"
-                                        value="{% trans "Add to basket" %}"
-                                        data-loading-text="Добавляем"
-                                        rel="buy_button_modal"
-                                        data-product-id="{{ product.id }}">В
-                                    корзину
-                                </button>
-                                <a href="#" class="basket_button_in dpn">В
-                                    корзине</a>
-                                <a href="#" class="basket_button_none dpn">Нет в
-                                    наличии</a>
-                                <a href="#" class="buy_credit show_popup"
-                                   rel="credit_button_modal">Купить в кредит</a>
-
-                                <form id="buy_one_click" method="POST"
-                                      action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
+                                    <form id="buy_one_click" method="POST"
+                                          action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
                                     <input type="text" class="zakaz_one_click"
                                            placeholder="(0XX) XXX - XX - XX"
                                            name="phone">
@@ -217,10 +229,26 @@
                                         один
                                         клик
                                     </button>
-                                </form>
+                                    <p class="nalichie dpn naliche_net">Нет в
+                                        наличии</p>
+                                    <a href="#" class="basket_button_none dpn">Нет
+                                        в
+                                        наличии</a>
+                                    <p class="catalog_item_price naliche_net dpn">
+                                        {% if session.price.is_tax_known %}
+                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                        {% else %}
+                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            +
+                                            налоги
+                                        {% endif %}</p>
+
+                                {% endif %}
 
 
-                                <a href="#" class="elipse_button" id="comp" data-compare-url="{% url 'compare' %}" data-product-id="{{ product.id }}">Сравнить</a>
+                                <a href="#" class="elipse_button" id="comp"
+                                   data-compare-url="{% url 'compare' %}"
+                                   data-product-id="{{ product.id }}">Сравнить</a>
                                 <a href="#"
                                    class="elipse_button_question show_popup"
                                    rel="ask_button_modal">Задать
@@ -612,7 +640,10 @@
                                         {% endif %}</p>
 
                                 {% endif %}
-                                <a href="#!" data-compare-url="{% url 'compare' %}" class="compare_button" data-product-id="{{ product.id }}">Сравнить</a>
+                                <a href="#!"
+                                   data-compare-url="{% url 'compare' %}"
+                                   class="compare_button"
+                                   data-product-id="{{ product.id }}">Сравнить</a>
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
@@ -712,7 +743,10 @@
                                         {% endif %}</p>
 
                                 {% endif %}
-                                <a href="#" class="compare_button" data-compare-url="{% url 'compare' %}" class="compare_button" data-product-id="{{ product.id }}">Сравнить</a>
+                                <a href="#" class="compare_button"
+                                   data-compare-url="{% url 'compare' %}"
+                                   class="compare_button"
+                                   data-product-id="{{ product.id }}">Сравнить</a>
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
@@ -816,7 +850,10 @@
                                         {% endif %}</p>
 
                                 {% endif %}
-                                <a href="#" class="compare_button" data-compare-url="{% url 'compare' %}" class="compare_button" data-product-id="{{ product.id }}">Сравнить</a>
+                                <a href="#" class="compare_button"
+                                   data-compare-url="{% url 'compare' %}"
+                                   class="compare_button"
+                                   data-product-id="{{ product.id }}">Сравнить</a>
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
@@ -985,7 +1022,10 @@
                                         {% endif %}</p>
 
                                 {% endif %}
-                                <a href="#" class="compare_button" data-compare-url="{% url 'compare' %}" class="compare_button" data-product-id="{{ product.id }}">Сравнить</a>
+                                <a href="#" class="compare_button"
+                                   data-compare-url="{% url 'compare' %}"
+                                   class="compare_button"
+                                   data-product-id="{{ product.id }}">Сравнить</a>
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
@@ -1091,8 +1131,8 @@
                                                data-product-id="{{ product.id }}">Купить</a>
                                         {% else %}
                                             <a href="{{ product.get_absolute_url }}"
-                                               class="buy_button show_popup"
-                                               rel="buy_button_modal">Нет в
+                                               class="buy_button but_button_sold">Нет
+                                                в
                                                 наличии</a>
                                         {% endif %}
                                     </a>
@@ -1154,8 +1194,7 @@
                                                        data-product-id="{{ p.id }}">Купить</a>
                                                 {% else %}
                                                     <a href="#"
-                                                       class="buy_button show_popup"
-                                                       rel="buy_button_modal">Нет
+                                                       class="buy_button but_button_sold">Нет
                                                         в наличии</a>
                                                 {% endif %}
                                             </a>
@@ -1171,148 +1210,14 @@
         </div>
     </div>
 
-    <div class="popup buy_button_modal" id="basket_modal">
-        <a class="close" href="#">Close</a>
-        <ul>
-            <li>
-                <p class="buy_button_howmuch"><span
-                        class="modal_red_elem"
-                        id="modal_line_count">{{ request.basket.num_lines }} товар</span>
-                    на сумму
-                    <span id="total_sum">{{ request.basket.total_incl_tax }}</span><span
-                            class="grn"> грн</span></p>
-            </li>
-            <li id="basket_items">
-                {% if not already_in_basket %}
-                    <div class="modal_basket_elem"
-                         id="modal_product_{{ product.id }}"
-                         style="display: none;">
-                        {% thumbnail product.primary_image.original "155" as thumb %}
-                            <img src="{{ thumb.url }}" alt="">
-                        {% endthumbnail %}
-                        <p class="modal_article">Артикул:
-                            <span name="product_upc">{{ product.upc }}</span>
-                        </p>
-                        <p class="modal_item_name">{{ product.product_class.name }} {{ product.title }}</p>
-
-                        <div class="how many many_block">
-                            <div class="plusminus">
-                                {% purchase_info_for_product request product as session %}
-                                <input type="text" disabled id="input1"
-                                       value="1"
-                                       class="input_number">
-                                {% if session.price.is_tax_known %}
-                                    <input type="text" class="price_for_one"
-                                           style="display: none"
-                                           value="{{ session.price.incl_tax }}">
-                                {% else %}
-                                    <input type="text" class="item_quantity"
-                                           style="display: none"
-                                           value="{{ session.price.excl_tax }}">
-                                {% endif %}
-                                <input type="text" class="price_for_one"
-                                       style="display: none"
-                                       value="{{ line.price_incl_tax }}">
-                                <input type="text" class="item_quantity"
-                                       style="display: none"
-                                       value="{{ line.quantity }}">
-                                <div class="plusminus_cont">
-                                    <span class="plus">+</span>
-                                    <span class="minus">-</span>
-                                </div>
-                                <div class="how much">
-                                    {% if session.price.is_tax_known %}
-                                        <input type="text" id="input2"
-                                               value="{{ session.price.incl_tax }}"
-                                               disabled>
-                                    {% else %}
-                                        <input type="text" id="input2"
-                                               value="{{ session.price.excl_tax }}"
-                                               disabled>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#"
-                           data-url="{% url 'delete_item_from_basket' product.id %}"
-                           class="modal_item_delete"></a>
-                    </div>
-
-
-                {% endif %}
-                {% for line in request.basket.lines.all %}
-                    <div class="modal_basket_elem">
-                        {% thumbnail line.product.primary_image.original "155" as thumb %}
-                            <img src="{{ thumb.url }}" alt="">
-                        {% endthumbnail %}
-                        <p class="modal_article">Артикул:
-                            <span name="product_upc">{{ line.product.upc }}</span>
-                        </p>
-                        <p class="modal_item_name">{{ line.product.product_class.name }} {{ line.product.title }}</p>
-
-                        <div class="how many many_block">
-                            <div class="plusminus">
-
-                                <input type="text" disabled id="input1"
-                                       value="{{ line.quantity }}"
-                                       class="input_number">
-                                <input type="text" class="price_for_one"
-                                       style="display: none"
-                                       value="{{ line.price_incl_tax }}">
-                                <input type="text" class="item_quantity"
-                                       style="display: none"
-                                       value="{{ line.quantity }}">
-                                <div class="plusminus_cont">
-                                    <span class="plus">+</span>
-                                    <span class="minus">-</span>
-                                </div>
-                                <div class="how much">
-                                    <input type="text" id="input2" name="price"
-                                           value="{{ line.line_price_excl_tax_incl_discounts }}"
-                                           disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#"
-                           data-url="{% url 'delete_item_from_basket' line.product.id %}"
-                           class="modal_item_delete"></a>
-                    </div>
-                {% endfor %}
-
-            </li>
-            <li>
-                <p class="basket_how_much">Общая стоимость:
-                    <span id="total_sum_bottom">{{ request.basket.total_incl_tax }}</span><span
-                            class="grn"> грн</span></p>
-            </li>
-            <li>
-                <a href="#" class="modal_basket_goback" id="continue_shopping">Продолжить
-                    покупки</a>
-                <a href="/basket/" class="modal_basket_button_zakaz">Оформить
-                    заказ</a>
-
-            </li>
-            <li>
-                <form id="buy_one_click_modal">
-                    <input type="text" placeholder="(0XX) XXX - XX - XX"
-                           class="modal_input_goto" name="phone">
-                    <a href="#"
-                       class="modal_basket_goto close_modal_second"
-                       rel="request_button_modal_third" type="submit"
-                       id="one_click_btn_modal"
-                       data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">Заказать
-                        в один клик</a>
-                </form>
-            </li>
-        </ul>
-    </div>
-
 
     <div class="popup ask_button_modal">
         <a class="close" href="#">Close</a>
         <p class="modal_ask_quest">Задать вопрос</p>
 
-        <form id="question" action="{% url 'question' product_slug=product.slug pk=product.pk %}" class="modal_form">
+        <form id="question"
+              action="{% url 'question' product_slug=product.slug pk=product.pk %}"
+              class="modal_form">
             <label for="">Ваше имя<span>*</span>:</label>
             <input id="name" name="name" type="text">
             <label for="">Ваш Email</label>
@@ -1321,14 +1226,16 @@
             <input id="phone" name="phone" type="text">
             <label for="">Ваш вопрос<span>*</span>:</label>
             <textarea id="text" name="text" cols="30" rows="10"></textarea>
-            <a href="#" id="submit">Отправить</a>   
+            <a href="#" id="submit">Отправить</a>
         </form>
     </div>
 
     <div class="popup request_button_modal">
         <a class="close" href="#">Close</a>
-        <p id="question_result1" class="modal_caption">Спасибо за Ваше обращение</p>
-        <p id="question_result2" class="modal_text">Наш менеджер обязательно свяжется с Вами</p>
+        <p id="question_result1" class="modal_caption">Спасибо за Ваше
+            обращение</p>
+        <p id="question_result2" class="modal_text">Наш менеджер обязательно
+            свяжется с Вами</p>
     </div>
 
     <div class="popup request_button_modal_second" id="review_modal">
@@ -1493,7 +1400,11 @@
     </div>
 
     <div id="snackbar" class="snackbar">Укажите правильный номер!</div>
-    <div class="snackbar" id="compare_success">Товар добавлен в список сравнения</div>
+    <div class="snackbar" id="compare_success">Товар добавлен в список
+        сравнения
+    </div>
+
+    {{ block.super }}
 
 {% endblock content %}
 
@@ -1512,50 +1423,50 @@
             });
 
         });
-        $('#submit').on('click', function(e) {
-                const validate_question = () => {
-                    let flag = true;
-                    if ($('#name').val() === ''){
-                        flag = false;
-                        $('#name').attr('placeholder', 'Введите имя!')
-                    }
-                    const re  = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                    const mail = $('#mail').val()
-                    if (!re.test(mail) && mail != undefined) {
-                        flag = false;
-                        $('#email').attr('placeholder', 'Введите почту правильно!')
-                    }
-                    const re_p = /^[0-9]{10}$/;
-                    const phone = $('#phone').val()
-                    if (!re_p.test(phone)) {
-                        flag = false;
-                        $('#phone').attr('placeholder', 'Введите телефон!')
-                    }
-                    if ($('#text').val() === ''){ 
-                        flag = false;
-                        $('#text').attr('placeholder', 'Введите вопрос!')
-                    }
-                    return flag
+        $('#submit').on('click', function (e) {
+            const validate_question = () =>{
+                let flag = true;
+                if ($('#name').val() === '') {
+                    flag = false;
+                    $('#name').attr('placeholder', 'Введите имя!')
                 }
-                const form = $("#question") 
-                const url = form.attr('action');
-                if (validate_question()) {
-                    const data = form.serialize();
-                    $.ajax({
-                       type: "POST",
-                       url: url,
-                       data: data,
-                       success: function () {
+                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                const mail = $('#mail').val()
+                if (!re.test(mail) && mail != undefined) {
+                    flag = false;
+                    $('#email').attr('placeholder', 'Введите почту правильно!')
+                }
+                const re_p = /^[0-9]{10}$/;
+                const phone = $('#phone').val()
+                if (!re_p.test(phone)) {
+                    flag = false;
+                    $('#phone').attr('placeholder', 'Введите телефон!')
+                }
+                if ($('#text').val() === '') {
+                    flag = false;
+                    $('#text').attr('placeholder', 'Введите вопрос!')
+                }
+                return flag
+            }
+            const form = $("#question")
+            const url = form.attr('action');
+            if (validate_question()) {
+                const data = form.serialize();
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function () {
                         $(".popup.ask_button_modal").append($('#question_result1'))
-                            $(".popup.ask_button_modal").append($('#question_result2'))
-                            $(".popup.ask_button_modal").attr('class', "popup request_button_modal")
-                            $('.modal_ask_quest').empty()
-                            $('#question').empty()
-                       }
-                     });
-                }
-                e.preventDefault();
-            })
+                        $(".popup.ask_button_modal").append($('#question_result2'))
+                        $(".popup.ask_button_modal").attr('class', "popup request_button_modal")
+                        $('.modal_ask_quest').empty()
+                        $('#question').empty()
+                    }
+                });
+            }
+            e.preventDefault();
+        })
 
     </script>
     <script src="{% get_static 'js/more-button.js' %}"></script>

@@ -4,7 +4,6 @@ from collections import Iterable
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import EmailMultiAlternatives
 from django.http import HttpResponse
 from django.http.response import JsonResponse, HttpResponseBadRequest
@@ -18,7 +17,8 @@ from oscar.apps.catalogue.search_handlers import \
     get_product_search_handler_class
 from oscar.apps.catalogue.views import \
     ProductDetailView as OscarProductDetailView, \
-    CatalogueView as OscarCatalogueView
+    CatalogueView as OscarCatalogueView, \
+    ProductCategoryView as OscarProductCategoryView
 from oscar.apps.customer import history
 
 from shop.catalogue.models import Product, ProductClass, Category
@@ -129,7 +129,7 @@ class CompareView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         if product:  # we have to use list and do check, because set is not JSON serializable
             if hasattr(self.request.session,
                        'compare_list') and product in self.request.session.get(
-                    'compare_list'):
+                'compare_list'):
                 return HttpResponse(status=409)
             self.request.session.setdefault('compare_list', []).append(
                 product.id)
@@ -169,6 +169,11 @@ class CompareCategoryView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         return context
 
 
+class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
+                          OscarProductCategoryView):
+    template_name = 'category.html'
+
+
 @require_POST
 def remove_item_from_compare_list(request):
     request.session['compare_list'].remove(int(request.POST.get('id')))
@@ -196,12 +201,3 @@ def get_search_count(request):
     search_hendler = get_product_search_handler_class()(request.POST,
                                                         request.get_full_path)
     return JsonResponse({'count': search_hendler.results.count()})
-
-
-@require_POST
-def delete_item_from_basket(request, *args, **kwargs):
-    try:
-        request.basket.lines.get(product__id=kwargs['id']).delete()
-    except ObjectDoesNotExist:
-        pass
-    return HttpResponse(status=204)
