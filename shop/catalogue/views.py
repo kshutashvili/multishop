@@ -205,3 +205,6 @@ def delete_item_from_basket(request, *args, **kwargs):
     except ObjectDoesNotExist:
         pass
     return HttpResponse(status=204)
+
+
+# class

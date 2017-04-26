@@ -285,7 +285,7 @@
                                                 <p class="tovar_second_text">
                                                     <span>{{ product.product_class.name }} {{ product.title }}</span>
                                                 </p>
-                                                <div style="height:'100%'">
+                                                <div style="height:100%">
                                                     <div id="short_desc">
                                                         <p>{{ product.description|truncatechars_html:300|safe }}</p>
                                                     </div>
@@ -356,7 +356,7 @@
                                             Отзывы <span
                                                 class="otzivi_after">{{ product.num_approved_reviews }}</span>
                                         </a>
-                                        <a href="#" class="comment_button_uniq">Оставить
+                                        <a href="#add_review" class="comment_button_uniq">Оставить
                                             отзыв о товаре</a>
                                         <div class="collapse in"
                                              id="collapseFilter3">
@@ -377,7 +377,7 @@
                                                                 {% else %}
                                                                     <ol class="list-unstyled review-list">
                                                                         {% for review in product.reviews.approved.all|slice:":3" %}
-                                                                            <div class="user_comment_block">
+                                                                            <div class="user_comment_block" data-pk="{{ review.pk }}">
                                                                                 <select class="rating_photo">
                                                                                     {% for num in "12345" %}
                                                                                         <option {% if review.score == forloop.counter %}selected="selected"{% endif %}
@@ -393,11 +393,24 @@
                                                                                 <span class="user_comment_date">{{ review.date_created|date:"j E Y" }}</span>
 
                                                                                 <div>
-                                                                                    <div class="user_comment">
+                                                                                    <div class="short" id="user_comment">
                                                                                         <p>{{ review.body|striptags|truncatechars:100 }}.</p>
                                                                                     </div>
+                                                                                    <div class="full" id="user_comment" style="display:none">
+                                                                                        <p>{{ review.body|striptags }}.</p>
+                                                                                        <div class="advantages">
+                                                                                            {% if review.advantage %}
+                                                                                                <p class="positive_comment"><span>+</span> Достоинства; </p>
+                                                                                                <p>{{ review.advantage|striptags }}.</p>
+                                                                                            {% endif %}
+                                                                                            {% if review.disadvantage %}
+                                                                                                <p class="negative_comment"><span>-</span> Недостатки; </p>
+                                                                                                <p>{{ review.disadvantage|striptags }}.</p>
+                                                                                            {% endif %}
+                                                                                        </div>
+                                                                                    </div>
                                                                                     <a class="read-next-comment"
-                                                                                       href="#">Читать
+                                                                                       onclick="show_full(this, {{ review.id }});">Читать
                                                                                         далее</a>
                                                                                 </div>
                                                                                 <div class="user_comment_bottom">
@@ -458,7 +471,7 @@
                                                 </div>
 
                                                 <div class="add_own_comment">
-                                                    <p class="add_own_comment_caption">
+                                                    <p class="add_own_comment_caption" id="add_review">
                                                         Добавьте свой отзыв</p>
                                                     <form action="{% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.pk %}"
                                                           method="POST"
