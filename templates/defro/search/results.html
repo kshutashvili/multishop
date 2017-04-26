@@ -8,6 +8,7 @@
 {% load site_static %}
 {% load purchase_info_tags %}
 {% load dict_filters %}
+{% load basket_tags %}
 
 {% block title %}
     "{{ query }}" | {{ block.super }}
@@ -20,7 +21,8 @@
         <div class="main_block clear_fix">
             {% include 'defro/partials/side_menu.html' %}
             <ol class="breadcrumb">
-                <li><a href="/"><img src="{% get_static 'img/home.png' %}" alt="" class="solo_img"></a></li>
+                <li><a href="/"><img src="{% get_static 'img/home.png' %}"
+                                     alt="" class="solo_img"></a></li>
                 <li class="active">Поиск</li>
             </ol>
             <div class="main_content">
@@ -28,7 +30,8 @@
                     <div class="col-xs-12 col-sm-12 col-md-3 cold-lg-3">
                         <div class="left_filter">
                             <div class="parameters search_parameters">
-                                <p class="caption">Все результаты <span>({{ paginator.count }})</span></p>
+                                <p class="caption">Все результаты
+                                    <span>({{ paginator.count }})</span></p>
                             </div>
                             {% for productClass, count in search_product_classes %}
                                 <div class="parameters search_parameters">
@@ -37,7 +40,8 @@
 
                                         {% for productClass, categories in category_class %}
                                             {% for cat in categories %}
-                                                <a href="{{ cat.get_absolute_url }}" class="search_category_name">{{ cat.name }}
+                                                <a href="{{ cat.get_absolute_url }}"
+                                                   class="search_category_name">{{ cat.name }}
                                                     <span>{{ search_categories|get_item:cat }}</span></a>
                                             {% endfor %}
                                         {% endfor %}
@@ -51,11 +55,13 @@
                         <div class="right_content">
 
                             {% if page.object_list %}
-                                <form method="get" action="." class="form-horizontal">
+                                <form method="get" action="."
+                                      class="form-horizontal">
                                     {# Render other search params in a hidden block #}
                                     <div style="display:none">
                                         {% for value in selected_facets %}
-                                            <input name="selected_facets" value="{{ value }}"/>
+                                            <input name="selected_facets"
+                                                   value="{{ value }}"/>
                                         {% endfor %}
                                         {{ search_form.q }}
                                     </div>
@@ -63,18 +69,26 @@
                                         {% if paginator.num_pages > 1 %}
                                             {% blocktrans with start=page.start_index end=page.end_index num_results=paginator.count %}
                                                 <p class="category_block_caption search_text_smaller">
-                                                    Found <strong>{{ num_results }}</strong> results, showing
-                                                    <strong>{{ start }}</strong> to <strong>{{ end }}</strong>.
+                                                    Found
+                                                    <strong>{{ num_results }}</strong>
+                                                    results, showing
+                                                    <strong>{{ start }}</strong>
+                                                    to
+                                                    <strong>{{ end }}</strong>.
                                                 </p>
                                             {% endblocktrans %}
                                         {% else %}
                                             {% blocktrans count num_results=paginator.count %}
-                                                <p class="category_block_caption search_text_smaller">По запросу
-                                                    “{{ query }}” найден {{ num_results }}
+                                                <p class="category_block_caption search_text_smaller">
+                                                    По запросу
+                                                    “{{ query }}”
+                                                    найден {{ num_results }}
                                                     товар </p>
                                             {% plural %}
-                                                <p class="category_block_caption search_text_smaller">По запросу
-                                                    “{{ query }}” найдено {{ num_results }}
+                                                <p class="category_block_caption search_text_smaller">
+                                                    По запросу
+                                                    “{{ query }}”
+                                                    найдено {{ num_results }}
                                                     товаров </p>
                                             {% endblocktrans %}
                                         {% endif %}
@@ -107,12 +121,24 @@
                                 <div class="catalog_items">
                                     <ul>
                                         {% for result in page.object_list %}
+                                            {% basket_form request result.object as basket_form %}
+                                            <form id="add_to_basket_form_{{ result.object.id }}"
+                                                  name="add_to_basket_form"
+                                                  style="display: none;"
+                                                  action="{% url 'basket:add' pk=result.object.pk %}"
+                                                  method="post"
+                                                  class="add-to-basket">{% csrf_token %}
+                                                {% include "partials/form_fields.html" with form=basket_form %}
+                                            </form>
                                             <li>
                                                 <div class="catalog_item_block before_akcia">
                                                     <div class="before_gift"></div>
                                                     <div class="before_free"></div>
-                                                    <img src="{{ result.object.primary_image.original.url }}" alt="">
-                                                    <p class="catalog_item_block_caption">{{ result.object.title }}</p>
+                                                    <img src="{{ result.object.primary_image.original.url }}"
+                                                         alt="">
+                                                    <p class="catalog_item_block_caption">
+                                                        <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
+                                                    </p>
                                                     <div class="for_list_block">
                                                         <select class="rating_photo">
                                                             {% for num in "12345" %}
@@ -147,8 +173,15 @@
                                                                     +
                                                                     налоги
                                                                 {% endif %}</p>
-                                                            <a href="#" class="compare_button" data-compare-url="{% url 'compare' %}" data-product-id="{{ result.object.id }}">Сравнить</a>
-                                                            <a href="#" class="buy_button">Нет в наличии</a>
+                                                            <a href="#"
+                                                               class="compare_button"
+                                                               data-compare-url="{% url 'compare' %}"
+                                                               data-product-id="{{ result.object.id }}">Сравнить</a>
+                                                            <a href="#"
+                                                               class="buy_button show_popup"
+                                                               data-product-id="{{ result.object.id }}"
+                                                               rel="buy_button_modal">Нет
+                                                                в наличии</a>
                                                         {% else %}
                                                             <p class="catalog_item_price not_active_price">
                                                                 {% if session.price.is_tax_known %}
@@ -158,8 +191,13 @@
                                                                     +
                                                                     налоги
                                                                 {% endif %}</p>
-                                                            <a href="#" class="compare_button" data-compare-url="{% url 'compare' %}" data-product-id="{{ result.object.id }}">Сравнить</a>
-                                                            <a href="#" class="buy_button but_button_sold">Нет в
+                                                            <a href="#"
+                                                               class="compare_button"
+                                                               data-compare-url="{% url 'compare' %}"
+                                                               data-product-id="{{ result.object.id }}">Сравнить</a>
+                                                            <a href="#"
+                                                               class="buy_button but_button_sold">Нет
+                                                                в
                                                                 наличии</a>
                                                         {% endif %}
                                                     </div>
@@ -177,47 +215,61 @@
                                 </div>
                             {% else %}
 
-                                <p class="category_block_caption">“{{ query }}”</p>
-                                <p class="search_nothing_here">По запросу “{{ query }}” ничего не найдено, попробуйте
+                                <p class="category_block_caption">
+                                    “{{ query }}”</p>
+                                <p class="search_nothing_here">По запросу
+                                    “{{ query }}” ничего не найдено, попробуйте
                                     изменить запрос</p>
                             {% endif %}
 
 
                             {% if paginator.num_pages > 1 %}
-                                <nav aria-label="Page navigation" class="page_nav">
+                                <nav aria-label="Page navigation"
+                                     class="page_nav">
                                     <ul class="pagination">
                                         {% if page.has_previous %}
 
                                             <li>
-                                                <a href="?page={{ page.previous_page_number }}" aria-label="Previous">
-                                                    <span aria-hidden="true" class="marker_prev">.</span>
+                                                <a href="?page={{ page.previous_page_number }}"
+                                                   aria-label="Previous">
+                                                    <span aria-hidden="true"
+                                                          class="marker_prev">.</span>
                                                 </a>
                                             </li>
                                         {% else %}
                                             <li>
-                                                <a href="#" aria-label="Previous">
-                                                    <span aria-hidden="true" class="marker_prev">.</span>
+                                                <a href="#"
+                                                   aria-label="Previous">
+                                                    <span aria-hidden="true"
+                                                          class="marker_prev">.</span>
                                                 </a>
                                             </li>
                                         {% endif %}
                                         {% for i in paginator.page_range %}
                                             {% if page.number == i %}
-                                                <li class="active"><a href="#!">{{ i }} <span
-                                                        class="sr-only">(current)</span></a></li>
+                                                <li class="active"><a
+                                                        href="#!">{{ i }} <span
+                                                        class="sr-only">(current)</span></a>
+                                                </li>
                                             {% else %}
-                                                <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                                <li>
+                                                    <a href="?page={{ i }}">{{ i }}</a>
+                                                </li>
                                             {% endif %}
                                         {% endfor %}
                                         {% if page.has_next %}
                                             <li>
-                                                <a href="?page={{ page.next_page_number }}" aria-label="Next">
-                                                    <span aria-hidden="true" class="marker_next">.</span>
+                                                <a href="?page={{ page.next_page_number }}"
+                                                   aria-label="Next">
+                                                    <span aria-hidden="true"
+                                                          class="marker_next">.</span>
                                                 </a>
                                             </li>
                                         {% else %}
                                             <li>
                                                 <a href="#" aria-label="Next">
-                                                    <span aria-hidden="true" class="marker_next">.</span>
+                                                    <span aria-hidden="true"
+                                                          class="marker_next">.</span>
                                                 </a>
                                             </li>
                                         {% endif %}
@@ -235,17 +287,22 @@
     </div>
 
 
-    <div id="scrollup"><img alt="Прокрутить вверх" src="{% get_static 'img/button_up.png' %}"></div>
-    <div class="snackbar" id="compare_success">Товар добавлен в список сравнения</div>
+    <div id="scrollup"><img alt="Прокрутить вверх"
+                            src="{% get_static 'img/button_up.png' %}"></div>
+    <div class="snackbar" id="compare_success">Товар добавлен в список
+        сравнения
+    </div>
+
+    {{ block.super }}
 {% endblock %}
 
 {% block extrascripts %}
+    <script src="{% get_static 'js/basket_script.js' %}"></script>
     <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
     <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
     <script src="{% get_static 'js/more-button.js' %}"></script>
     <script src="{% get_static 'js/popup.js' %}"></script>
-    <script src="{% get_static 'js/basket_script.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.rating_photo').barrating({

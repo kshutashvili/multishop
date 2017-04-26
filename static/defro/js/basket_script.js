@@ -184,7 +184,6 @@ $(document).ready(function () {
                 })
             }
 
-            $('#modal_product_' + $(this).attr('data-product-id')).show();
             $('div.' + $(this).attr("rel")).fadeIn(500);
             $("body").append("<div id='overlay'></div>");
             $('#overlay').show().css({'filter': 'alpha(opacity=80)'});

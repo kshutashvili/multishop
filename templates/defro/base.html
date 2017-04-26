@@ -148,15 +148,16 @@
                     </li>
                     <li>
                         <a href="#" class="modal_basket_goback"
-                           id="continue_shopping" data-checkout-url="{% url 'checkout' %}">Продолжить
+                           id="continue_shopping" data-checkout-url="{% url 'update_items_quantity' %}">Продолжить
                             покупки</a>
                         <a href="{% url 'basket:summary' %}"
                            class="modal_basket_button_zakaz" id="make_order"
-                           data-checkout-url="{% url 'checkout' %}">Оформить
+                           data-checkout-url="{% url 'update_items_quantity' %}">Оформить
                             заказ</a>
 
                     </li>
                     <li>
+                        {% if product.slug and product.pk %}
                         <form id="buy_one_click_modal">
                             <input type="text" placeholder="(0XX) XXX - XX - XX"
                                    class="modal_input_goto" name="phone">
@@ -167,6 +168,7 @@
                                data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">Заказать
                                 в один клик</a>
                         </form>
+                        {% endif %}
                     </li>
                 </ul>
             </div>
