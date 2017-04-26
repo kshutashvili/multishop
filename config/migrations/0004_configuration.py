@@ -9,7 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('catalogue', '0017_auto_20170426_1728'),
+        ('catalogue', '0016_category_site'),
         ('config', '0003_siteconfig_email'),
     ]
 
