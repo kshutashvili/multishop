@@ -26,10 +26,10 @@ const estimate_power = () => {
 		region = 0.9
 	} 
 	const system = ($('#t_system').val() === $('#system_new').val()) ? 1 : 1.35
-	const power = ((square*heigth)/30)*lose*system*region
+	const power = Math.ceil(((square*heigth)/30)*lose*system*region)
 	const season_heat = (power*24*period)/2
-	$('#t_power').html(power.toFixed(1))
-	$('#t_season').html(season_heat.toFixed(2))
+	$('#t_power').html(power)
+	$('#t_season').html(season_heat.toFixed(0))
 }
 
 const calculate_fuel = () => {
