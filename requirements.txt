@@ -31,3 +31,4 @@ rjsmin==1.0.12
 six==1.10.0
 sorl-thumbnail==12.4a1
 Unidecode==0.4.20
+django-solo==1.1.2

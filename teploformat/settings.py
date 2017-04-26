@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'compressor',
     'widget_tweaks',
     'modeltranslation',
+    'solo',
 ] + get_core_apps(['shop.catalogue',
                    'shop.promotions',
                    'shop.dashboard.catalogue',
