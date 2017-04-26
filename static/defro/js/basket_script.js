@@ -263,21 +263,23 @@ $(document).ready(function () {
 
     $('a.elipse_button#comp, a.compare_button').click(function (e) {
         e.preventDefault();
-        $.post($(this).attr('data-compare-url'), {'id': $(this).attr('data-product-id')}, function () {
-            var x = document.getElementById("compare_success");
+        if ($(this).attr('data-compare-url')) {
+            $.post($(this).attr('data-compare-url'), {'id': $(this).attr('data-product-id')}, function () {
+                var x = document.getElementById("compare_success");
 
-            // Add the "show" class to DIV
-            x.className += " show";
+                // Add the "show" class to DIV
+                x.className += " show";
 
-            // After 3 seconds, remove the show class from DIV
-            setTimeout(function () {
-                x.className = x.className.replace("show", "");
-            }, 3000);
-            setTimeout(function () {
-                location.reload();
-            }, 3000);
+                // After 3 seconds, remove the show class from DIV
+                setTimeout(function () {
+                    x.className = x.className.replace("show", "");
+                }, 3000);
+                setTimeout(function () {
+                    location.reload();
+                }, 3000);
 
-        });
+            });
+        }
     });
 
     $('.close_compare').click(function (e) {
