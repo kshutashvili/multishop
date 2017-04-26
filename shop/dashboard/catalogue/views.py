@@ -1,14 +1,27 @@
 from django.contrib.sites.shortcuts import get_current_site
-from oscar.apps.dashboard.catalogue.views import ProductCreateUpdateView as OscarProductCreateUpdateView, \
-    ProductClassCreateView as OscarProductClassCreateView, ProductClassUpdateView as OscarProductClassUpdateView, \
-    CategoryCreateView as OscarCategoryCreateView, CategoryUpdateView as OscarCategoryUpdateView
-
-from shop.dashboard.catalogue.forms import ProductForm, ProductAttributesFormSet, ProductClassForm, CategoryForm
 from django.http.response import HttpResponseRedirect
+from oscar.apps.dashboard.catalogue.views import \
+    ProductCreateUpdateView as OscarProductCreateUpdateView, \
+    ProductClassCreateView as OscarProductClassCreateView, \
+    ProductClassUpdateView as OscarProductClassUpdateView, \
+    CategoryCreateView as OscarCategoryCreateView, \
+    CategoryUpdateView as OscarCategoryUpdateView
+
+from shop.dashboard.catalogue.forms import ProductForm, \
+    ProductAttributesFormSet, ProductClassForm, CategoryForm, \
+    ExtraProductImageFormSet, ProductVideoFormSet
 
 
 class ProductCreateUpdateView(OscarProductCreateUpdateView):
+    template_name = 'shop/dashboard/catalogue/product_update.html'
     form_class = ProductForm
+    extra_product_image_formset = ExtraProductImageFormSet
+    video_formset = ProductVideoFormSet
+
+    def __init__(self, *args, **kwargs):
+        super(ProductCreateUpdateView, self).__init__(*args, **kwargs)
+        self.formsets['extra_image_formset'] = self.extra_product_image_formset
+        self.formsets['video_formset'] = self.video_formset
 
     def clean(self, form, formsets):
         self.object.site = get_current_site(self.request)

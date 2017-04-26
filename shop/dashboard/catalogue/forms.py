@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.core import exceptions
 from django.forms.models import inlineformset_factory
-from oscar.apps.dashboard.catalogue.forms import ProductForm as OscarProductForm, \
-    ProductAttributesForm as OscarProductAttributes, ProductClassForm as OscarProductClassForm
+from oscar.apps.dashboard.catalogue.forms import \
+    ProductForm as OscarProductForm, \
+    ProductAttributesForm as OscarProductAttributes, \
+    ProductClassForm as OscarProductClassForm, \
+    ProductImageForm as OscarProductImageForm
+from oscar.forms.widgets import ImageInput
 from treebeard.forms import movenodeform_factory
 
-from shop.catalogue.models import Product, ProductClass, ProductAttribute, Category, ProductAttributeValue
-from django.core import exceptions
+from shop.catalogue.models import Product, ProductClass, ProductAttribute, \
+    Category, ProductAttributeValue, ExtraImage, Video
 
 
 def _attr_textarea_field_uk(attribute):
@@ -40,20 +45,24 @@ def _attr_text_field_ru(attribute):
 
 
 class ProductForm(OscarProductForm):
-    _localizable = ["text", "richtext"]  # types of fields, that need to be localized
+    _localizable = ["text",
+                    "richtext"]  # types of fields, that need to be localized
     OscarProductForm.FIELD_FACTORIES['text_uk'] = _attr_text_field_uk
     OscarProductForm.FIELD_FACTORIES['richtext_uk'] = _attr_textarea_field_uk
     OscarProductForm.FIELD_FACTORIES['text_ru'] = _attr_text_field_ru
     OscarProductForm.FIELD_FACTORIES['richtext_ru'] = _attr_textarea_field_ru
     title_ru = forms.CharField(label='Название (на русском)')
-    description_ru = forms.CharField(label='Описание (на русском)', widget=forms.Textarea(), required=False)
+    description_ru = forms.CharField(label='Описание (на русском)',
+                                     widget=forms.Textarea(), required=False)
     title_uk = forms.CharField(label='Назва (українською)')
-    description_uk = forms.CharField(label='Опис (українською)', widget=forms.Textarea(), required=False)
+    description_uk = forms.CharField(label='Опис (українською)',
+                                     widget=forms.Textarea(), required=False)
 
     class Meta:
         model = Product
         fields = [
-            'title_ru', 'title_uk', 'upc', 'description_ru', 'description_uk', 'is_discountable', 'structure', ]
+            'title_ru', 'title_uk', 'upc', 'description_ru', 'description_uk',
+            'is_discountable', 'structure', ]
         widgets = {
             'structure': forms.HiddenInput(),
         }
@@ -80,7 +89,8 @@ class ProductForm(OscarProductForm):
                     self.fields['attr_%s_uk' % attribute.code] = field_uk
                     # Attributes are not required for a parent product
                     if is_parent:
-                        self.fields['attr_%s_uk' % attribute.code].required = False
+                        self.fields[
+                            'attr_%s_uk' % attribute.code].required = False
             else:
                 field = self.get_attribute_field(attribute)
                 if field:
@@ -106,9 +116,11 @@ class ProductForm(OscarProductForm):
                 setattr(self.instance.attr, attribute.code, value)
             if field_name_uk in self.cleaned_data:
                 try:
-                    attr = ProductAttributeValue.objects.get(attribute=attribute, product=self.instance)
+                    attr = ProductAttributeValue.objects.get(
+                        attribute=attribute, product=self.instance)
                     value = self.cleaned_data[field_name_uk]
-                    setattr(attr, '_'.join(('value', attribute.type, 'uk',)), value)
+                    setattr(attr, '_'.join(('value', attribute.type, 'uk',)),
+                            value)
                     attr.save()
                 except ProductAttributeValue.DoesNotExist:
                     pass
@@ -130,7 +142,8 @@ class ProductForm(OscarProductForm):
                 pass
             else:
                 if attribute.type in ProductForm._localizable:
-                    kwargs['initial']['attr_%s' % attribute.code], kwargs['initial'][
+                    kwargs['initial']['attr_%s' % attribute.code], \
+                    kwargs['initial'][
                         'attr_%s_uk' % attribute.code] = value  # now returns tuple
                 else:
                     kwargs['initial']['attr_%s' % attribute.code] = value
@@ -142,7 +155,8 @@ class ProductAttributesForm(OscarProductAttributes):
 
     class Meta:
         model = ProductAttribute
-        fields = ["name_ru", "name_uk", "code", "type", "option_group", "required"]
+        fields = ["name_ru", "name_uk", "code", "type", "option_group",
+                  "required"]
 
 
 class ProductClassForm(OscarProductClassForm):
@@ -151,14 +165,56 @@ class ProductClassForm(OscarProductClassForm):
 
     class Meta:
         model = ProductClass
-        fields = ['name_ru', 'name_uk', 'requires_shipping', 'track_stock', 'options']
+        fields = ['name_ru', 'name_uk', 'requires_shipping', 'track_stock',
+                  'options']
 
 
 CategoryForm = movenodeform_factory(
     Category,
     fields=['name_ru', 'name_uk', 'description_ru', 'description_uk', 'image'])
 
+
+class ExtraProductImageForm(OscarProductImageForm):
+    class Meta:
+        model = ExtraImage
+        fields = ['product', 'image', ]
+        # use ImageInput widget to create HTML displaying the
+        # actual uploaded image and providing the upload dialog
+        # when clicking on the actual image.
+        widgets = {
+            'image': ImageInput(),
+        }
+
+
+class ProductVideoForm(OscarProductImageForm):
+    class Meta:
+        model = Video
+        fields = ['product', 'video', ]
+        # use ImageInput widget to create HTML displaying the
+        # actual uploaded image and providing the upload dialog
+        # when clicking on the actual image.
+        widgets = {
+            'video': forms.URLInput(),
+        }
+
+
 ProductAttributesFormSet = inlineformset_factory(ProductClass,
                                                  ProductAttribute,
                                                  form=ProductAttributesForm,
                                                  extra=3)
+
+BaseExtraProductImageFormSet = inlineformset_factory(
+    Product, ExtraImage, form=ExtraProductImageForm, extra=2)
+
+BaseProductVideoFormSet = inlineformset_factory(
+    Product, Video, form=ProductVideoForm, extra=2)
+
+
+class ExtraProductImageFormSet(BaseExtraProductImageFormSet):
+    def __init__(self, product_class, user, *args, **kwargs):
+        super(ExtraProductImageFormSet, self).__init__(*args, **kwargs)
+
+
+class ProductVideoFormSet(BaseProductVideoFormSet):
+    def __init__(self, product_class, user, *args, **kwargs):
+        super(ProductVideoFormSet, self).__init__(*args, **kwargs)

@@ -104,52 +104,83 @@
 					<div class="other_blocks">
 						<p>Отапливаемая площадь</p>
 						<div class="right_side">
-							<input type="text" value="100"> <span>м.кв</span>
+							<input id="t_square" type="text" value="100"> <span>м.кв</span>
 						</div>
 					</div>
 					<div class="other_blocks">
 						<p>Теплопотери здания</p>
 						<div class="right_side">
 							<label class="select_box">
-							    <select>
-							        <option>Утепленный</option>
-							        <option>Утепленный1</option>
-							        <option>Утепленный2</option>
+							    <select id="t_lose">
+							        <option id="lose_warm">Утепленный</option>
+							        <option id="lose_cold">Неутепленный</option>
 							    </select>
 							</label>
-							<span>Вт/м.кв</span>
 						</div>
 					</div>
 					<div class="other_blocks">
 						<p class="cpecial">Длительность отопительного сезона</p>
 						<p class="for_ua">для Украины 187</p>
 						<div class="right_side">
-							<input type="text" value="187"> <span>суток</span>
+							<input id="t_period" type="text" value="187"> <span>суток</span>
 						</div>
 					</div>
 					<div class="other_blocks">
 						<p>Высота потолка</p>
 						<div class="right_side">
-							<input type="text" value="100"> <span>м.кв</span>
+							<input id="t_heigth" type="text" value="3"> <span>м</span>
 						</div>
 					</div>
 					<div class="other_blocks">
 						<p>Месторасположение дома</p>
 						<div class="right_side">
 							<label class="select_box">
-							    <select>
-							        <option>Киевская</option>
-							        <option>Киевская1</option>
-							        <option>Киевская2</option>
+							    <select id="t_location">
+							        <option value='zone1'>Киевская</option>
+							        <option value='zone1'>Черкасская</option>
+							        <option value='zone1'>Кирововградская</option>
+							        <option value='zone1'>Винницкая</option>
+							        <option value='zone1'>Хмельницкая</option>
+							        <option value='zone1'>Тернопольская</option>
+							        <option value='zone1'>Ровенская</option>
+							        <option value='zone1'>Житомирская</option>
+							        <option value='zone1'>Черниговская</option>
+							        <option value='zone1'>Полтавская</option>
+							        <option value='zone1'>Сумская</option>
+							        <option value='zone1'>Харковская</option>
+							        <option value='zone1'>Донецкая</option>
+							        <option value='zone1'>Луганская</option>
+							        <option value='zone2'>Волынская</option>
+							        <option value='zone2'>Львовская</option>
+							        <option value='zone2'>Запорожская</option>
+							        <option value='zone2'>Черновецкая</option>
+							        <option value='zone2'>Ивано-Франковская</option>
+							        <option value='zone2'>Днепропетровская</option>
+							        <option value='zone3'>Закарпатская</option>
+							        <option value='zone3'>Николаевская</option>
+							        <option value='zone3'>Херсонская</option>
+							        <option value='zone3'>Одесская</option>
+							        <option value='zone3'>АРК(центральна i пiвнiчна частина)</option>
+							        <option value='zone4'>АРК(пiвденне узбережжя)</option>
 							    </select>
 							</label>
 							 <span>область Украины</span>
 						</div>
 					</div>
-
+					<div class="other_blocks">
+						<p>Система отопления дома</p>
+						<div class="right_side">
+							<label class="select_box">
+							    <select id="t_system">
+							        <option id="system_old">Старая</option>
+							        <option id="system_new">Нового образца</option>
+							    </select>
+							</label>
+						</div>
+					</div>
 					<div class="top_and_bot_block">
-							<p>Итого на весь сезон необходимо:</p><p><span class="calculating">20 550,50</span>кВт/ч тепла</p><br>
-							<p>Необходимая мощность котла:</p> <p><span class="calculating">8,50</span>кВт</p>
+							<p>Итого на весь сезон необходимо:</p><p><span id="t_season" class="calculating">20 550,50</span>кВт/ч тепла</p><br>
+							<p>Необходимая мощность котла:</p> <p><span id="t_power" class="calculating">8,50</span>кВт</p>
 					</div>
 				</div>
 
@@ -167,15 +198,15 @@
 								<p>Дрова</p>
 							</div>
 							<div class="other_blocks_cell">
-								<p>20,54 скл.м</p>
+								<p id="wood_volume">20,54 скл.м</p>
 							</div>
 							<div class="other_blocks_cell">
 								<div class="right_side">
-									<input type="text" value="420"> <span>грн/скл.м</span>
+									<input id="wood_cost" type="text" value="420"> <span>грн/скл.м</span>
 								</div>
 							</div>
 							<div class="other_blocks_cell">
-								<p><span class="calculating">8 626,80</span> грн</p>
+								<p><span id="wood_sum" class="calculating">8 626,80</span> грн</p>
 							</div>
 						</div>
 						<div class="other_blocks">
@@ -184,15 +215,15 @@
 								<p>Пеллеты</p>
 							</div>
 							<div class="other_blocks_cell">
-								<p>20,54 скл.м</p>
+								<p id="pellets_volume">20,54 скл.м</p>
 							</div>
 							<div class="other_blocks_cell">
 								<div class="right_side">
-									<input type="text" value="2600"> <span>грн/тонна</span>
+									<input id="pellets_cost" type="text" value="2600"> <span>грн/тонна</span>
 								</div>
 							</div>
 							<div class="other_blocks_cell">
-								<p><span class="calculating">8 626,80</span> грн</p>
+								<p><span id="pellets_sum" class="calculating">8 626,80</span> грн</p>
 							</div>
 						</div>
 						<div class="other_blocks">
@@ -201,15 +232,15 @@
 								<p>Каменный уголь</p>
 							</div>
 							<div class="other_blocks_cell">
-								<p>20,54 скл.м</p>
+								<p id="coal_volume">20,54 скл.м</p>
 							</div>
 							<div class="other_blocks_cell">
 								<div class="right_side">
-									<input type="text" value="4700"> <span>грн/тонна</span>
+									<input id="coal_cost" type="text" value="4700"> <span>грн/тонна</span>
 								</div>
 							</div>
 							<div class="other_blocks_cell">
-								<p><span class="calculating">8 626,80</span> грн</p>
+								<p><span id="coal_sum" class="calculating">8 626,80</span> грн</p>
 							</div>
 						</div>
 						<div class="other_blocks">
@@ -218,15 +249,15 @@
 								<p>Бурый уголь</p>
 							</div>
 							<div class="other_blocks_cell">
-								<p>20,54 скл.м</p>
+								<p id="brown_coal_volume">20,54 скл.м</p>
 							</div>
 							<div class="other_blocks_cell">
 								<div class="right_side">
-									<input type="text" value="1230"> <span>грн/тонна</span>
+									<input id="brown_coal_cost" type="text" value="1230"> <span>грн/тонна</span>
 								</div>
 							</div>
 							<div class="other_blocks_cell">
-								<p><span class="calculating">8 626,80</span> грн</p>
+								<p><span id="brown_coal_sum" class="calculating">8 626,80</span> грн</p>
 							</div>
 						</div>
 						<div class="other_blocks">
@@ -235,15 +266,15 @@
 								<p>Газ</p>
 							</div>
 							<div class="other_blocks_cell">
-								<p>20,54 скл.м</p>
+								<p id="gas_volume">20,54 скл.м</p>
 							</div>
 							<div class="other_blocks_cell">
 								<div class="right_side">
-									<input type="text" value="6,88"> <span>грн/м.куб</span>
+									<input id="gas_cost" type="text" value="6.88"> <span>грн/м.куб</span>
 								</div>
 							</div>
 							<div class="other_blocks_cell">
-								<p><span class="calculating">8 626,80</span> грн</p>
+								<p><span id="gas_sum" class="calculating">8 626,80</span> грн</p>
 							</div>
 						</div>
 						<div class="other_blocks">
@@ -252,15 +283,15 @@
 								<p>Электроэнергия</p>
 							</div>
 							<div class="other_blocks_cell">
-								<p>20,54 скл.м</p>
+								<p id="electricity_volume">20,54 скл.м</p>
 							</div>
 							<div class="other_blocks_cell">
 								<div class="right_side">
-									<input type="text" value="1,48"> <span>грн/кВт.ч</span>
+									<input id="electricity_cost" type="text" value="1,48"> <span>грн/кВт.ч</span>
 								</div>
 							</div>
 							<div class="other_blocks_cell">
-								<p><span class="calculating">8 626,80</span> грн</p>
+								<p><span id="eletricity_sum" class="calculating">8 626,80</span> грн</p>
 							</div>
 						</div>
 						<div class="other_blocks">
@@ -269,15 +300,15 @@
 								<p>Дизельное топливо</p>
 							</div>
 							<div class="other_blocks_cell">
-								<p>20,54 скл.м</p>
+								<p id="diesel_volume">20,54 скл.м</p>
 							</div>
 							<div class="other_blocks_cell">
 								<div class="right_side">
-									<input type="text" value="20"> <span>грн</span>
+									<input id="diesel_cost" type="text" value="20"> <span>грн</span>
 								</div>
 							</div>
 							<div class="other_blocks_cell">
-								<p><span class="calculating">8 626,80</span> грн</p>
+								<p><span id="diesel_sum" class="calculating">8 626,80</span> грн</p>
 							</div>
 						</div>
 				</div>
@@ -471,6 +502,6 @@
 		<div class="ninth_block">
 			<p class="caption">Как с нами связаться</p>
 
-			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10152.64201863653!2d30.464266675051782!3d50.493970452650935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cd9276a07ab5%3A0xc636f250e41964f2!2z0LLRg9C70LjRhtGPINCh0LjRgNC10YbRjNC60LAsIDksINCa0LjRl9Cy!5e0!3m2!1sru!2sua!4v1487162479886" width="100%" height="700" frameborder="0" style="box-shadow: 0px -3px 10px -7px #000;" allowfullscreen></iframe>
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10152.64201863653!2d30.464266675051782!3d50.493970452650935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cd9276a07ab5%3A0xc636f250e41964f2!2z0LLRg9C70LjRhtGPINCh0LjRgNC10YbRjNC60LAsIDksINCa0LjRl9Cy!5e0!3m2!1sru!2sua!4v1487162479886" width="100%" height="400px" frameborder="0" style="box-shadow: 0px -3px 10px -7px #000;" allowfullscreen></iframe>
 		</div>
 {% endblock %}

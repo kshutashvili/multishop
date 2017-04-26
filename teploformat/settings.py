@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'compressor',
     'widget_tweaks',
     'modeltranslation',
+    'solo',
 ] + get_core_apps(['shop.catalogue',
                    'shop.promotions',
                    'shop.dashboard.catalogue',
@@ -98,7 +99,9 @@ TEMPLATES = [
                 'oscar.apps.customer.notifications.context_processors.notifications',
                 'oscar.core.context_processors.metadata',
                 'contacts.processor.show_phone_numbers',
-                'contacts.processor.social_networks_ref'
+                'contacts.processor.social_networks_ref',
+                'contacts.processor.show_work_schedule',
+                'config.processor.show_site_email',
             ],
         },
     },

@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.sites.models import Site
+from solo.admin import SingletonModelAdmin
 
-from .models import SiteConfig
+from .models import SiteConfig, Configuration
 
 
 class SiteConfigInline(admin.StackedInline):
@@ -20,3 +21,8 @@ class SiteConfigAdmin(admin.ModelAdmin):
 
 admin.site.unregister(Site)
 admin.site.register(Site, SiteConfigAdmin)
+
+
+@admin.register(Configuration)
+class SiteConfigurationAdmin(SingletonModelAdmin):
+    list_display = ('power_attribute',)
