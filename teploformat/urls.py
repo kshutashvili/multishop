@@ -62,6 +62,6 @@ urlpatterns += i18n_patterns(
         r'^catalogue/(/[\w-]+)*/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/question/$',
         ProductQuestionView.as_view(), name='question'),
     url(r'^basket/update_items_quantity', update_items_quantity,
-        name='checkout')
+        name='update_items_quantity')
 
 )

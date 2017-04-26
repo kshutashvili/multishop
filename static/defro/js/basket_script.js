@@ -166,27 +166,37 @@ $(document).ready(function () {
         var $form_buy = $('form#add_to_basket_form_' + $(this).attr('data-product-id'));
         var url_buy = $form_buy.prop('action');
         $.post(url_buy, $form_buy.serialize(), function (data) {
-            if (in_basket.indexOf(data['upc']) == -1) {
-                var $new_item = modal_item_factory(data['img'], data['upc'], data['title'], data['price'], data['id'], 1);
-                var $new_dropdown_element = basket_dropdown_item_factory(data['img'], data['title'], 1, data['price']);
+            if (!data['errors']) {
+                if (in_basket.indexOf(data['upc']) == -1) {
+                    var $new_item = modal_item_factory(data['img'], data['upc'], data['title'], data['price'], data['id'], 1);
+                    var $new_dropdown_element = basket_dropdown_item_factory(data['img'], data['title'], 1, data['price']);
 
-                $basket_items.append($new_item);
-                $basket_dropdown.append($new_dropdown_element);
-                in_basket.push(data['upc']);
-                change_numbers();
+                    $basket_items.append($new_item);
+                    $basket_dropdown.append($new_dropdown_element);
+                    in_basket.push(data['upc']);
+                    change_numbers();
 
 
-                update_modal_lines_info();
+                    update_modal_lines_info();
+                }
+                else {
+                    $('div#' + data['id'] + '.modal_basket_elem').find('#input1').val(function (i, oldval) {
+                        return ++oldval;
+                    })
+                }
+
+                $('div.' + $(this).attr("rel")).fadeIn(500);
+                $("body").append("<div id='overlay'></div>");
+                $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
             }
             else {
-                $('div#' + data['id'] + '.modal_basket_elem').find('#input1').val(function (i, oldval) {
-                    return ++oldval;
-                })
+                var $errors = $('#basket_error');
+                $errors.text(data['errors']);
+                $errors.addClass('show');
+                setTimeout(function () {
+                    $errors.removeClass("show");
+                }, 3000);
             }
-
-            $('div.' + $(this).attr("rel")).fadeIn(500);
-            $("body").append("<div id='overlay'></div>");
-            $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
         });
     });
 
