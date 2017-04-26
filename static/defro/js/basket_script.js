@@ -121,7 +121,6 @@ function update_modal_lines_info() {
     $total_sum_bottom.text(parseInt(total));
     $total_in_dropdown.text(parseInt(total) + ' грн.');
 
-
 }
 
 
@@ -169,7 +168,7 @@ $(document).ready(function () {
         $.post(url_buy, $form_buy.serialize(), function (data) {
             if (in_basket.indexOf(data['upc']) == -1) {
                 var $new_item = modal_item_factory(data['img'], data['upc'], data['title'], data['price'], data['id'], 1);
-                var $new_dropdown_element = basket_dropdown_item_factory(data['img'], data['title'], data['quantity'], data['price']);
+                var $new_dropdown_element = basket_dropdown_item_factory(data['img'], data['title'], 1, data['price']);
 
                 $basket_items.append($new_item);
                 $basket_dropdown.append($new_dropdown_element);
