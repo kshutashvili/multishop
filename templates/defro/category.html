@@ -1,0 +1,74 @@
+{% extends 'defro/base.html' %}
+
+{% load staticfiles %}
+{% load i18n %}
+{% load purchase_info_tags %}
+{% load site_static %}
+{% load thumbnail %}
+{% load basket_tags %}
+
+{% block title %}
+    {{ category.name }} | {{ block.super }}
+{% endblock %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+    <div class="container">
+			<div class="main_block clear_fix">
+                {% include 'defro/partials/side_menu.html' %}
+				<ol class="breadcrumb">
+					<li><a href="#"><img src="{% get_static 'img/home.png' %}" alt="">Главная</a></li>
+					<li class="active">Список статей</li>
+				</ol>
+                {% if category.get_parent %}
+                    {% for parent_category in category.get_parent.get_siblings %}
+                        <div class="category_block">
+                            <p class="category_block_caption">{{ category.get_parent.name }}</p>
+                            <ul>
+                                {% for child_category in parent_category.get_children %}
+                                    <li>
+                                        <a href="#">
+                                            {% if child_category.image %}
+                                                <img src="{{ child_category.image.url }}" alt="">
+                                            {% endif %}
+                                            <p>{{ child_category.name }}</p>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                {% elif category.get_siblings %}
+                    <div class="category_block">
+                        <ul>
+                            {% for sibling_category in category.get_siblings %}
+                                <li>
+                                    <a href="#">
+                                        {% if sibling_category.image %}
+                                            <img src="{{ sibling_category.image.url }}" alt="">
+                                        {% endif %}
+                                        <p>{{ sibling_category.name }}</p>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="category_block">
+                        <p class="category_block_caption">{{ category.name }}</p>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <img src="{{ category.image.url }}" alt="">
+                                    <p>{{ category.name }}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+		</div>
+    {{ block.super }}
+{% endblock content %}

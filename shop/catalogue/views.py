@@ -173,6 +173,13 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
                           OscarProductCategoryView):
     template_name = 'category.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(ProductCategoryView, self).get_context_data()
+        products_in_basket = [line.product for line in
+                              self.request.basket.lines.all()]
+        context['already_in_basket'] = products_in_basket
+        return context
+
 
 @require_POST
 def remove_item_from_compare_list(request):
