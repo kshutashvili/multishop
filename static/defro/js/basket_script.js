@@ -80,7 +80,7 @@ function modal_item_factory(img, upc, name, price, id, quantity) {
     var $input3 = $('<input type="text" class="item_quantity" style="display: none" value="1">');
     var $plusminus_cont = $('<div class="plusminus_cont"><span class="plus">+</span><span class="minus">-</span></div>');
     var $how_much = $('<div class="how much"><input type="text" id="input2" name="price" value="' + price + '" disabled></div>');
-    var $delete = $('<a href="" data-url="delete_item_from_basket/' + id + '" class="modal_item_delete"></a>');
+    var $delete = $('<a href="#!" data-url="/basket/delete_item_from_basket/' + id + '/" class="modal_item_delete"></a>');
 
 
     $plusminus.append($input1, $input2, $input3, $plusminus_cont, $how_much);
@@ -145,6 +145,7 @@ $(document).ready(function () {
 
             });
             change_numbers();
+            modal_item_delete();
 
         });
     }
@@ -175,6 +176,7 @@ $(document).ready(function () {
                     $basket_dropdown.append($new_dropdown_element);
                     in_basket.push(data['upc']);
                     change_numbers();
+                    modal_item_delete();
 
 
                     update_modal_lines_info();
@@ -211,13 +213,15 @@ $(document).ready(function () {
             return false;
         });
     });
-
-    $('.modal_item_delete').click(function (e) {
-        e.preventDefault();
-        $.post($(this).attr('data-url'), function () {
-            location.reload();
+    function modal_item_delete() {
+        $('.modal_item_delete').click(function (e) {
+            e.preventDefault();
+            $.post($(this).attr('data-url'), function () {
+                location.reload();
+            });
         });
-    });
+    }
+
 
     $('#one_click_btn').click(function (e) {
         e.preventDefault();
@@ -298,14 +302,25 @@ $(document).ready(function () {
 
     $('#make_order, #continue_shopping').click(function (e) {
         e.preventDefault();
-        var quanity = {};
+        var quantity = {};
         $.each($('.input_number'), function (index, value) {
-            quanity[$(value).attr('data-product-id')] = $(value).val();
+            quantity[$(value).attr('data-product-id')] = $(value).val();
         });
 
-        $.post($(this).attr('data-checkout-url'), quanity, function () {
-            $basket_dropdown.html('');
-            update_basket_info();
+        $.post($(this).attr('data-checkout-url'), quantity, function (data) {
+            if (!data['errors']) {
+                $basket_dropdown.html('');
+                $basket_items.html('');
+                update_basket_info();
+            }
+            else {
+                var $errors = $('#basket_error');
+                $errors.text(data['errors']);
+                $errors.addClass('show');
+                setTimeout(function () {
+                    $errors.removeClass("show");
+                }, 3000);
+            }
         });
 
     });

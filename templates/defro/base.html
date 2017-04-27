@@ -329,7 +329,10 @@
 
 
 {# Additional JS scripts #}
-{% block extrascripts %}{% endblock %}
+{% block extrascripts %}
+        <script src="{% get_static 'js/basket_script.js' %}"></script>
+        <script src="{% get_static 'js/popup.js' %}"></script>
+{% endblock %}
 
 {# Block for body onload functions #}
 <script type="text/javascript">

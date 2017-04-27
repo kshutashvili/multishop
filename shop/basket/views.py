@@ -1,7 +1,7 @@
+# -*-coding:utf8-*-
 from django.db.models import ObjectDoesNotExist
 from django.http.response import HttpResponse
 from django.http.response import JsonResponse
-from django.shortcuts import redirect
 from django.views.decorators.http import require_POST
 from oscar.apps.basket.models import Line
 from oscar.apps.basket.views import BasketAddView as OscarBasketAddView, \
@@ -49,7 +49,7 @@ class BasketView(OscarBasketView):
                     img_url = img['original'].name
                 data = {'id': line.product.id, 'upc': line.product.upc,
                         'title': line.product.title, 'img': img_url,
-                        'price': line.line_price_excl_tax_incl_discounts,
+                        'price': line.line_price_excl_tax_incl_discounts / line.quantity,
                         'quantity': line.quantity}
                 basket_products.append(data)
             return JsonResponse({'basket_products': basket_products})
@@ -75,6 +75,10 @@ def update_items_quantity(request):
     """
     for product, quantity in request.POST.items():
         line = Line.objects.get(basket=request.basket, product__id=product)
-        line.quantity = quantity
-        line.save()
-    return redirect('home')
+        if request.basket.is_quantity_allowed(quantity):
+            line.quantity = quantity
+            line.save()
+            return HttpResponse(status=200)
+        else:
+            return JsonResponse(
+                {'errors': 'Превышено максимально доступное число товаров'})
