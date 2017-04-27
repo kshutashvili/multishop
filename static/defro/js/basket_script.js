@@ -306,22 +306,24 @@ $(document).ready(function () {
         $.each($('.input_number'), function (index, value) {
             quantity[$(value).attr('data-product-id')] = $(value).val();
         });
+        if (in_basket.length) {
+            $.post($(this).attr('data-checkout-url'), quantity, function (data) {
+                if (!data['errors']) {
+                    $basket_dropdown.html('');
+                    $basket_items.html('');
+                    update_basket_info();
+                }
+                else {
+                    var $errors = $('#basket_error');
+                    $errors.text(data['errors']);
+                    $errors.addClass('show');
+                    setTimeout(function () {
+                        $errors.removeClass("show");
+                    }, 3000);
+                }
+            });
+        }
 
-        $.post($(this).attr('data-checkout-url'), quantity, function (data) {
-            if (!data['errors']) {
-                $basket_dropdown.html('');
-                $basket_items.html('');
-                update_basket_info();
-            }
-            else {
-                var $errors = $('#basket_error');
-                $errors.text(data['errors']);
-                $errors.addClass('show');
-                setTimeout(function () {
-                    $errors.removeClass("show");
-                }, 3000);
-            }
-        });
 
     });
 
