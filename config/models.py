@@ -28,7 +28,7 @@ class SiteConfig(models.Model):
     site = models.OneToOneField(Site, verbose_name='сайт',
                                 on_delete=models.CASCADE,
                                 related_name='config')
-    email = models.EmailField('email address', unique=True)
+    email = models.EmailField('email адрес')
 
     def __unicode__(self):
         return self.site.domain
