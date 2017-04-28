@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 from solo.models import SingletonModel
 
-from oscar.apps.catalogue.models import ProductAttribute
+from shop.catalogue.models import ProductAttribute
 
 
 class SiteConfig(models.Model):
