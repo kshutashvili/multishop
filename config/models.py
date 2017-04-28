@@ -8,7 +8,6 @@ from django.dispatch import receiver
 
 from solo.models import SingletonModel
 
-from shop.catalogue.models import ProductAttributeValue
 from oscar.apps.catalogue.models import ProductAttribute
 
 
