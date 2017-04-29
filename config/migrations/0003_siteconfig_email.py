@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='siteconfig',
             name='email',
-            field=models.EmailField(default='info@defro.org.ua', max_length=254, unique=True, verbose_name='email address'),
+            field=models.EmailField(default='info@defro.org.ua', max_length=254, verbose_name='email address'),
             preserve_default=False,
         ),
     ]
