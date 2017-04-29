@@ -300,18 +300,24 @@ $(document).ready(function () {
         });
     });
 
-    $('#make_order, #continue_shopping').click(function (e) {
+    $('#make_order, #continue_shopping, #checkout_dropdown').click(function (e) {
         e.preventDefault();
+        var outer_this = this;
         var quantity = {};
         $.each($('.input_number'), function (index, value) {
             quantity[$(value).attr('data-product-id')] = $(value).val();
         });
         if (in_basket.length) {
-            $.post($(this).attr('data-checkout-url'), quantity, function (data) {
+            $.post($(this).attr('data-update-url'), quantity, function (data) {
                 if (!data['errors']) {
-                    $basket_dropdown.html('');
+                    if ($(outer_this).attr('id') == 'continue_shopping'){
+                        $basket_dropdown.html('');
                     $basket_items.html('');
                     update_basket_info();
+                    }
+                    else {
+                        location.href = $(outer_this).attr('data-checkout-url');
+                    }
                 }
                 else {
                     var $errors = $('#basket_error');
