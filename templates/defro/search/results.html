@@ -173,15 +173,16 @@
                                                                     +
                                                                     налоги
                                                                 {% endif %}</p>
-                                                            {% if result.object.id not in request.session.compare_list %}
+                                                            {% if request.session.compare_list and result.object.id in request.session.compare_list %}
+                                                                <a href="#!"
+                                                                   class="compare_button compare_button_added">В
+                                                                    сравнении</a>
+                                                            {% else %}
                                                                 <a href="#!"
                                                                    data-compare-url="{% url 'compare' %}"
                                                                    class="compare_button"
                                                                    data-product-id="{{ result.object.id }}">Сравнить</a>
-                                                            {% else %}
-                                                                <a href="#!"
-                                                                   class="compare_button compare_button_added">В
-                                                                    сравнении</a>
+
 
                                                             {% endif %}
                                                             <a href="#"
@@ -198,15 +199,16 @@
                                                                     +
                                                                     налоги
                                                                 {% endif %}</p>
-                                                            {% if result.object.id not in request.session.compare_list %}
+                                                            {% if request.session.compare_list and result.object.id in request.session.compare_list %}
+                                                                <a href="#!"
+                                                                   class="compare_button compare_button_added">В
+                                                                    сравнении</a>
+                                                            {% else %}
                                                                 <a href="#!"
                                                                    data-compare-url="{% url 'compare' %}"
                                                                    class="compare_button"
                                                                    data-product-id="{{ result.object.id }}">Сравнить</a>
-                                                            {% else %}
-                                                                <a href="#!"
-                                                                   class="compare_button compare_button_added">В
-                                                                    сравнении</a>
+
 
                                                             {% endif %}
                                                             <a href="#"
