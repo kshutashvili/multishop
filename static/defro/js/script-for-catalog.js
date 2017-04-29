@@ -71,6 +71,10 @@ $(document).ready(function () {
         e.preventDefault();
         window.location.href = window.location.href.substring(0, window.location.href.indexOf('?'));
 
+    });
+
+    $('.checkbox input').change(function () {
+        $('#filter_form').submit();
     })
 });
 

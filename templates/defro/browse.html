@@ -51,8 +51,7 @@
                                                     {% if item.selected %}
                                                         <p class="filter_labels">{{ name }}</p>
                                                         <p class="parameter_holder">{{ item.name }}
-                                                            <a
-                                                                    href="#"></a>
+                                                            <a href="{{ item.deselect_url }}"></a>
                                                         </p>
                                                         <input class="facet_checkbox parameter_holder"
                                                                type="checkbox"
@@ -144,7 +143,12 @@
 
                                 {% endif %}
                             {% endfor %}
-                        
+
+                            {% block filters %}
+                                {% include 'defro/partials/filters.html' with form=filter_form %}
+                            {% endblock %}
+
+
                             <p class="social_groups">Присоединяйтесь к
                                 нам</p>
                             <!-- VK Widget -->

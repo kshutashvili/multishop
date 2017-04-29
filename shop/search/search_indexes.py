@@ -25,6 +25,9 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
     num_in_stock = indexes.IntegerField(null=True, faceted=True)
     rating = indexes.IntegerField(null=True, faceted=True)
 
+    attributes = indexes.MultiValueField()
+    attribute_values = indexes.MultiValueField()
+
     # Spelling suggestions
     suggestions = indexes.FacetCharField()
 
@@ -37,6 +40,12 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
     def index_queryset(self, using=None):
         # Only index browsable products (not each individual child product)
         return self.get_model().browsable.order_by('-date_updated')
+
+    def prepare_attributes(self, obj):
+        return [attribute.name for attribute in obj.attributes.all()]
+
+    def prepare_attribute_values(self, obj):
+        return [val.value_option.pk for val in obj.attribute_values.all() if val.value_option is not None]
 
     def read_queryset(self, using=None):
         return self.get_model().browsable.base_queryset()

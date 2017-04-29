@@ -1,13 +1,16 @@
 # -*-coding:utf8-*-
 import os
 from collections import Iterable
+from collections import defaultdict
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.checks import messages
 from django.core.mail import EmailMultiAlternatives
+from django.core.paginator import InvalidPage
 from django.http import HttpResponse
 from django.http.response import JsonResponse, HttpResponseBadRequest
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import get_template
 from django.views.decorators.http import require_POST
 from django.views.generic.base import ContextMixin
@@ -25,6 +28,7 @@ from shop.catalogue.models import Product, ProductClass, Category
 from shop.catalogue.models import ProductAttributeValue
 from shop.order.forms import OneClickOrderForm
 from website.views import SiteTemplateResponseMixin
+from .forms import FilterForm
 
 
 class CompareAndMenuContextMixin(ContextMixin):
@@ -82,11 +86,34 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                     OscarCatalogueView):
     template_name = 'browse.html'
 
+    def get(self, request, *args, **kwargs):
+        self.form = FilterForm(request.GET)
+        options = []
+        if self.form.is_valid():
+            options = self.form.cleaned_data
+        try:
+            self.search_handler = self.get_search_handler(
+                self.request.GET, request.get_full_path(), [], options)
+            print 'call'
+        except InvalidPage:
+            # Redirect to page one.
+            messages.error(request, _('The given page number was invalid.'))
+            return redirect('catalogue:index')
+        return super(OscarCatalogueView, self).get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(CatalogueView, self).get_context_data()
         context['recently_viewed_products'] = history.get(self.request)
+        context['filter_form'] = self.form
 
         return context
+
+    def get_filters(self):
+        a = ProductAttributeValue.objects.all()
+        filters = defaultdict(list)
+        for av in a:
+            filters[av.attribute].append(av)
+        return filters
 
 
 class OneClickOrderCreateView(CreateView):

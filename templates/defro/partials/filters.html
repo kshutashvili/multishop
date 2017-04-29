@@ -1,0 +1,26 @@
+<form id="filter_form" method="get" action="">
+    {% for field in form %}
+        <div class="left_filter_collapse">
+            <a class="left_filter_captions"
+               role="button"
+               data-toggle="collapse"
+               href="#collapseFilter{{ forloop.counter|add:'3' }}"
+               aria-expanded="false"
+               aria-controls="collapseFilter{{ forloop.counter|add:'3' }}">
+                {{ field.label }}
+            </a>
+            <div class="collapse in"
+                 id="collapseFilter{{ forloop.counter|add:'3' }}">
+                <div class="well">
+                    <div class="checkbox">
+                        {% for choice in field %}
+                            {{ choice.tag }}
+                            <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+</form>
