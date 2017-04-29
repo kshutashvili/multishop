@@ -22,6 +22,7 @@ function csrfSafeMethod(method) {
 
 
 function change_numbers() {
+    $('.minus, .plus').off();
     $('.minus').click(function () {
         var $input = $(this).parent().parent().find('.input_number');  // quantity
         var $input2 = $(this).parent().parent().find('.how.much input'); // price
