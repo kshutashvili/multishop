@@ -1,7 +1,6 @@
 # -*-coding:utf8-*-
 import os
 from collections import Iterable
-from collections import defaultdict
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
@@ -12,6 +11,7 @@ from django.http import HttpResponse
 from django.http.response import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import get_template
+from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
 from django.views.generic.base import ContextMixin
 from django.views.generic.base import TemplateView
@@ -94,7 +94,6 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         try:
             self.search_handler = self.get_search_handler(
                 self.request.GET, request.get_full_path(), [], options)
-            print 'call'
         except InvalidPage:
             # Redirect to page one.
             messages.error(request, _('The given page number was invalid.'))
@@ -107,13 +106,6 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         context['filter_form'] = self.form
 
         return context
-
-    def get_filters(self):
-        a = ProductAttributeValue.objects.all()
-        filters = defaultdict(list)
-        for av in a:
-            filters[av.attribute].append(av)
-        return filters
 
 
 class OneClickOrderCreateView(CreateView):
