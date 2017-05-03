@@ -1,43 +1,47 @@
 <div class="left_side">
-    <a class="left_side_caption" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false"
+    <a class="left_side_caption" role="button" data-toggle="collapse"
+       href="#collapseExample" aria-expanded="false"
        aria-controls="collapseExample">
         Каталог товаров
     </a>
-    <div class="collapse" id="collapseExample">
+    <div class="collapse {% if expand %}in{% endif %}" id="collapseExample">
         <div class="well">
-
             <ul class="left_menu">
                 <li>
-                    {% for productClass in product_classes %}
-                        <div class="dropdown">
-                            <a href="#" class="btn btn-default dropdown-toggle"
-                               id="dropdownMenu{{ forloop.counter0|add:"3" }}" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="true">
-                                {{ productClass.name }}
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{ forloop.counter0|add:"3" }}">
-                                {% if categories %}
-                                    {% for category in categories %}
+                    {% if categories %}
+                        {% for category in categories %}
+                            <div class="dropdown">
+                                <a href="#"
+                                   class="btn btn-default dropdown-toggle"
+                                   id="dropdownMenu{{ forloop.counter0|add:"3" }}"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="true">
+                                    {{ category.name }}
+                                </a>
+                                <ul class="dropdown-menu"
+                                    aria-labelledby="dropdownMenu{{ forloop.counter0|add:"3" }}">
+                                    {% for productClass in product_classes %}
+                                        {% if productClass.image %}
+                                            <img src="{{ productClass.image.url }}"
+                                                 alt="">
+                                        {% endif %}
                                         <li class="clear_fix">
-                                            {% if category.image %}
-                                                <img src="{{ category.image.url }}" alt="">
-                                            {% endif %}
                                             <div class="menu_item_links">
-                                                <a href="{{ category.get_absolute_url }}"
-                                                   class="menu_item_caption">{{ category.name }}</a>
-                                                {% for product in productClass.products.all %}
-                                                    {% if category in product.categories.all %}
-                                                        <a href="{{ product.get_absolute_url }}"
-                                                           class="menu_item_list">{{ product.title }}</a>
-                                                    {% endif %}
-                                                {% endfor %}
+                                                <a href="{{ productClass.get_absolute_url }}"
+                                                   class="menu_item_caption">{{ productClass.name }}</a>
                                             </div>
+                                            {% for product in productClass.products.all %}
+                                                {% if category in product.categories.all %}
+                                                    <a href="{{ product.get_absolute_url }}"
+                                                       class="menu_item_list">{{ product.title }}</a>
+                                                {% endif %}
+                                            {% endfor %}
                                         </li>
                                     {% endfor %}
-                                {% endif %}
-                            </ul>
-                        </div>
-                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </li>
             </ul>
         </div>

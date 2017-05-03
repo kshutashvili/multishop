@@ -2,16 +2,16 @@
 import operator
 
 import redis
+from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
 from django.db import models
-from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.template import Context
 from django.template.loader import get_template
+from django.urls import reverse
 from django.utils.translation import get_language
-
 from oscar.apps.catalogue.abstract_models import AbstractProduct, \
     AbstractProductAttributeValue, AbstractProductClass, \
     AbstractProductCategory, AbstractCategory
@@ -68,6 +68,10 @@ class Product(AbstractProduct):
 
 class ProductClass(AbstractProductClass):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+
+    def get_absolute_url(self):
+        return ''.join((reverse('catalogue:index'),
+                        '?selected_facets=product_class_exact:', self.name))
 
 
 class ProductCategory(AbstractProductCategory):
