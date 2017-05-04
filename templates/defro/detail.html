@@ -151,7 +151,7 @@
                             <div class="tovar_buy_block">
                                 <select class="rating_photo">
                                     {% for num in "12345" %}
-                                        <option {% if product.rating == num %}selected="selected"{% endif %}
+                                        <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
                                                 value="{{ num }}">{{ num }}</option>
                                     {% endfor %}
                                 </select>
@@ -636,7 +636,7 @@
                             <div class="for_list_block">
                                 <select class="rating_photo">
                                     {% for num in "12345" %}
-                                        <option {% if product.rating == num %}selected="selected"{% endif %}
+                                        <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
                                                 value="{{ num }}">{{ num }}</option>
                                     {% endfor %}
                                 </select>
@@ -747,7 +747,7 @@
                             <div class="for_list_block">
                                 <select class="rating_photo">
                                     {% for num in "12345" %}
-                                        <option {% if product.rating == num %}selected="selected"{% endif %}
+                                        <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
                                                 value="{{ num }}">{{ num }}</option>
                                     {% endfor %}
                                 </select>
@@ -863,7 +863,7 @@
                             <div class="for_list_block">
                                 <select class="rating_photo">
                                     {% for num in "12345" %}
-                                        <option {% if product.rating == num %}selected="selected"{% endif %}
+                                        <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
                                                 value="{{ num }}">{{ num }}</option>
                                     {% endfor %}
                                 </select>
@@ -960,7 +960,7 @@
                                                     style="margin-top: 16px; padding:0px 18px; border-bottom: ">
                                                     <select class="rating_photo">
                                                         {% for num in "12345" %}
-                                                            <option {% if review.score == num %}selected="selected"{% endif %}
+                                                            <option {% if review.score|floatformat:0 == num %}selected="selected"{% endif %}
                                                                     value="{{ num }}">{{ num }}</option>
                                                         {% endfor %}
                                                     </select>
@@ -1043,7 +1043,7 @@
                             <div class="for_list_block">
                                 <select class="rating_photo">
                                     {% for num in "12345" %}
-                                        <option {% if product.rating == num %}selected="selected"{% endif %}
+                                        <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
                                                 value="{{ num }}">{{ num }}</option>
                                     {% endfor %}
                                 </select>
@@ -1184,7 +1184,7 @@
                                         <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
                                         <select class="rating_photo">
                                             {% for num in "12345" %}
-                                                <option {% if product.rating == num %}selected="selected"{% endif %}
+                                                <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
                                                         value="{{ num }}">{{ num }}</option>
                                             {% endfor %}
                                         </select>
@@ -1246,7 +1246,7 @@
                                                 <p class="catalog_item_block_caption">{{ p.product_class.name }} {{ p.title }}</p>
                                                 <select class="rating_photo">
                                                     {% for num in "12345" %}
-                                                        <option {% if p.rating == num %}selected="selected"{% endif %}
+                                                        <option {% if p.rating|floatformat:0 == num %}selected="selected"{% endif %}
                                                                 value="{{ num }}">{{ num }}</option>
                                                     {% endfor %}
                                                 </select>
