@@ -315,6 +315,9 @@ $(document).ready(function () {
                         $basket_dropdown.html('');
                     $basket_items.html('');
                     update_basket_info();
+                    if (~location.href.indexOf('basket')){
+                        location.href = $(outer_this).attr('data-catalogue-url');
+                    }
                     }
                     else {
                         location.href = $(outer_this).attr('data-checkout-url');
@@ -333,5 +336,10 @@ $(document).ready(function () {
 
 
     });
+
+    $("#print").click(function (e) {
+        e.preventDefault();
+        window.print();
+    })
 
 });

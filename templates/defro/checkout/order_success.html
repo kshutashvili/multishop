@@ -8,7 +8,7 @@
                 для уточнения всех деталей и подтверждения заказа.</p>
             <div class="letter_details bottom_border_details">
                 <p class="letter_details_caption">Детали заказа № {{ order.pk }}
-                    <a href="#">Распечатать</a></p>
+                    <a href="#" id="print">Распечатать</a></p>
                 <div class="letter_details_tovar zakaz_letter_details_inline">
                     <ul>
                         {% for line in order.basket.lines.all %}
