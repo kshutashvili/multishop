@@ -56,7 +56,7 @@
                                 <span>{{ order.shipping_method.name }}</span>
                             </p>
                             <p>Комментарий к заказу:
-                                <span>{{ order.comment }}</span></p>
+                                <span>{{ order.comment|default:"Нет" }}</span></p>
                         </div>
                     </div>
                 </div>
