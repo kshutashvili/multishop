@@ -116,7 +116,7 @@
                                 </p>
                             </li>
                             <li>
-                                <a href="#" id="checkout_dropdown" class="basket_button_zakaz" data-checkout-url="{% url 'checkout:index' %}" data-update-url="{% url 'update_items_quantity' %}">Оформить
+                                <a href="#" id="checkout_dropdown" class="basket_button_zakaz" data-checkout-url="{% url 'order:create_order' %}" data-update-url="{% url 'update_items_quantity' %}">Оформить
                                     заказ</a>
                                 <a href="#" class="basket_goto show_popup" rel="buy_button_modal">Перейти в
                                     корзину</a>
@@ -152,7 +152,7 @@
                             покупки</a>
                         <a href="{% url 'basket:summary' %}"
                            class="modal_basket_button_zakaz" id="make_order"
-                           data-update-url="{% url 'update_items_quantity' %}" data-checkout-url="{% url 'checkout:index' %}">Оформить
+                           data-update-url="{% url 'update_items_quantity' %}" data-checkout-url="{% url 'order:create_order' %}">Оформить
                             заказ</a>
 
                     </li>

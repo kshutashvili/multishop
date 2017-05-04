@@ -1,0 +1,68 @@
+{% extends 'defro/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="make_zakaz_container clear_fix made_zakaz_container">
+            <p class="category_block_caption">Спасибо, Ваш заказ принят!</p>
+            <p class="made_zakaz_desc">Наш менеджер обязательно свяжется с Вами
+                для уточнения всех деталей и подтверждения заказа.</p>
+            <div class="letter_details bottom_border_details">
+                <p class="letter_details_caption">Детали заказа № {{ order.pk }}
+                    <a href="#">Распечатать</a></p>
+                <div class="letter_details_tovar zakaz_letter_details_inline">
+                    <ul>
+                        {% for line in order.basket.lines.all %}
+                            <li>
+                                <img src="{{ line.product.primary_image.original.url }}"
+                                     alt="">
+                                <div class="letter_details_name_number">
+                                    <p class="letter_details_name">
+                                        {{ line.product.product_class.name }}{{ line.product.title }}</p>
+                                    <span>{{ line.quantity }} шт.</span>
+                                    <p class="letter_details_price">{{ line.line_price_excl_tax_incl_discounts }}
+                                        грн.</p>
+                                </div>
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <p class="letter_details_sum">Итого:
+                        <span>{{ order.basket.total_incl_tax }} грн.</span></p>
+                </div>
+
+                <div class="zakaz_letter_details_container">
+                    <div class="letter_details">
+                        <p class="letter_details_caption letter_details_caption_contact">
+                            Контактные данные</p>
+                        <div class="letter_icon_info">
+                            <p>Имя: <span>{{ order.name }}</span></p>
+                            <p>Адрес:
+                                <span>{{ order.city }} {{ order.address }}</span>
+                            </p>
+                            <p>Телефон: <span>{{ order.phone }}</span></p>
+                            {% if order.emal %}
+                                <p>E-mail: <span>{{ order.email }}</span></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="letter_details">
+                        <p class="letter_details_caption letter_details_caption_delivery">
+                            Доставка и оплата</p>
+                        <div class="letter_icon_info letter_icon_second">
+                            <p>Способ оплаты:
+                                <span>{{ order.payment_method.name }} </span>
+                            </p>
+                            <p>Способ доставки:
+                                <span>{{ order.shipping_method.name }}</span>
+                            </p>
+                            <p>Комментарий к заказу:
+                                <span>{{ order.comment }}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ block.super }}
+{% endblock %}

@@ -47,7 +47,7 @@ urlpatterns += i18n_patterns(
     url(r'^catalugue/get_search_count/$', get_search_count,
         name='get_search_count'),
     url(
-        r'^catalugue/(/[\w-]+)*/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/oneclick/$',
+        r'^catalogue/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/oneclick/$',
         OneClickOrderCreateView.as_view(), name='oneclick'),
 
     url(r'^catalogue/compare/$', CompareView.as_view(),
@@ -63,6 +63,7 @@ urlpatterns += i18n_patterns(
         r'^catalogue/(/[\w-]+)*/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/question/$',
         ProductQuestionView.as_view(), name='question'),
     url(r'^basket/update_items_quantity', update_items_quantity,
-        name='update_items_quantity')
+        name='update_items_quantity'),
+    url(r'^basket/', include('shop.order.urls', namespace='order')),
 
 )

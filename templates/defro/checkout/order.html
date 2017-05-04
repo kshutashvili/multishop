@@ -1,0 +1,74 @@
+{% extends 'defro/base.html' %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="make_zakaz_container clear_fix">
+            <p class="category_block_caption">Оформление заказа</p>
+            <div class="letter_details zakaz_details_tovar">
+                <p class="letter_details_caption">Корзина</p>
+                <div class="letter_details_tovar">
+                    <ul>
+                        {% for line in request.basket.lines.all %}
+                            <li>
+                                <img src="{{ line.product.primary_image.original.url }}"
+                                     alt="">
+                                <div class="letter_details_name_number">
+                                    <p class="letter_details_name">
+                                        {{ line.product.product_class.name }}{{ line.product.title }}</p>
+                                    <span>{{ line.quantity }} шт.</span>
+                                    <p class="letter_details_price">{{ line.line_price_excl_tax_incl_discounts }}
+                                        грн.</p>
+                                </div>
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <p class="letter_details_sum">Итого:
+                        <span>{{ request.basket.total_incl_tax }} грн.</span>
+                    </p>
+                    <a href="#" class="zakaz_change_zakaz">Редактировать
+                        заказ</a>
+                </div>
+            </div>
+            <form action="" method="post" style="display: inline">
+                {% csrf_token %}
+                <div class="letter_details zakaz_details_tovar letter_details_contact">
+                    <p class="letter_details_caption">Контактные данные</p>
+                    <div class="letter_details_tovar">
+                        {{ form.name.errors }}
+                        {{ form.name }}
+                        {{ form.phone.errors }}
+                        {{ form.phone }}
+                        {{ form.email.errors }}
+                        {{ form.email }}
+                        {{ form.comment }}
+
+                        <p class="important_fields_form"><span>*</span>Поля
+                            обязательные к заполнению</p>
+                    </div>
+                </div>
+                <div class="letter_details zakaz_details_tovar letter_details_payment">
+                    <p class="letter_details_caption">Доставка и оплата</p>
+                    <div class="letter_details_tovar">
+
+                        {{ form.city.errors }}
+                        {{ form.city }}
+                        <div class="custom_select">
+                            {{ form.payment_method }}
+                        </div>
+                        <div class="custom_select">
+                            {{ form.shipping_method }}
+                        </div>
+
+                    </div>
+                </div>
+                <button type="submit" href="#" class="make_zakaz_button">Заказ подтверждаю</button>
+            </form>
+
+
+        </div>
+    </div>
+
+    {{ block.super }}
+{% endblock %}
