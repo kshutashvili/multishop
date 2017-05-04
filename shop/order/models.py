@@ -75,12 +75,6 @@ class SimpleOrder(models.Model):
         blank=True,
         null=True
     )
-    address = models.CharField(
-        max_length=100,
-        verbose_name=u'Адрес',
-        blank=True,
-        null=True
-    )
     shipping_method = models.ForeignKey(
         'ShippingMethod',
         verbose_name='Способ доставки',
