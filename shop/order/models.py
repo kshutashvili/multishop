@@ -35,6 +35,10 @@ class SimpleOrder(models.Model):
         (5, u'Выполнен'),
     )
 
+    class Meta:
+        verbose_name = u'Заказ'
+        verbose_name_plural = u'Заказы'
+
     when_created = models.DateTimeField(
         verbose_name=u'Время создания',
         auto_now_add=True,
