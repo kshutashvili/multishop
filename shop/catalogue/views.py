@@ -132,7 +132,7 @@ class OneClickOrderCreateView(CreateView):
                                      settings.DEFAULT_FROM_EMAIL,
                                      [settings.DEFAULT_FROM_EMAIL, ])
         msg.attach_alternative(message, "text/html")
-        msg.send()
+        msg.send(fail_silently=True)
         return HttpResponse(self.product.get_absolute_url())
 
     def form_invalid(self, form):
