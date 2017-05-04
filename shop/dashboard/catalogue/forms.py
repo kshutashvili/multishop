@@ -166,7 +166,10 @@ class ProductClassForm(OscarProductClassForm):
     class Meta:
         model = ProductClass
         fields = ['name_ru', 'name_uk', 'requires_shipping', 'track_stock',
-                  'options']
+                  'options', 'image']
+        widgets = {
+            'image': ImageInput(),
+        }
 
 
 CategoryForm = movenodeform_factory(

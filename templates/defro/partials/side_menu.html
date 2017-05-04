@@ -21,21 +21,21 @@
                                 <ul class="dropdown-menu"
                                     aria-labelledby="dropdownMenu{{ forloop.counter0|add:"3" }}">
                                     {% for productClass in product_classes %}
-                                        {% if productClass.image %}
-                                            <img src="{{ productClass.image.url }}"
-                                                 alt="">
-                                        {% endif %}
                                         <li class="clear_fix">
+                                            {% if productClass.image %}
+                                                <img src="{{ productClass.image.url }}"
+                                                     alt="">
+                                            {% endif %}
                                             <div class="menu_item_links">
                                                 <a href="{{ productClass.get_absolute_url }}"
                                                    class="menu_item_caption">{{ productClass.name }}</a>
+                                                {% for product in productClass.products.all %}
+                                                    {% if category in product.categories.all %}
+                                                        <a href="{{ product.get_absolute_url }}"
+                                                           class="menu_item_list">{{ product.title }}</a>
+                                                    {% endif %}
+                                                {% endfor %}
                                             </div>
-                                            {% for product in productClass.products.all %}
-                                                {% if category in product.categories.all %}
-                                                    <a href="{{ product.get_absolute_url }}"
-                                                       class="menu_item_list">{{ product.title }}</a>
-                                                {% endif %}
-                                            {% endfor %}
                                         </li>
                                     {% endfor %}
                                 </ul>

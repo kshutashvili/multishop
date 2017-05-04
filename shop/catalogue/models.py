@@ -12,6 +12,7 @@ from django.template import Context
 from django.template.loader import get_template
 from django.urls import reverse
 from django.utils.translation import get_language
+from django.utils.translation import ugettext_lazy as _
 from oscar.apps.catalogue.abstract_models import AbstractProduct, \
     AbstractProductAttributeValue, AbstractProductClass, \
     AbstractProductCategory, AbstractCategory
@@ -68,6 +69,8 @@ class Product(AbstractProduct):
 
 class ProductClass(AbstractProductClass):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+    image = models.ImageField(_('Image'), upload_to='product_classes', blank=True,
+                              null=True, max_length=255)
 
     def get_absolute_url(self):
         return ''.join((reverse('catalogue:index'),
