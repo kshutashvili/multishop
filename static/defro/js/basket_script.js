@@ -80,7 +80,7 @@ function modal_item_factory(img, upc, name, price, id, quantity) {
     var $input2 = $('<input type="text" class="price_for_one" style="display: none" value="' + price + '">');
     var $input3 = $('<input type="text" class="item_quantity" style="display: none" value="1">');
     var $plusminus_cont = $('<div class="plusminus_cont"><span class="plus">+</span><span class="minus">-</span></div>');
-    var $how_much = $('<div class="how much"><input type="text" id="input2" name="price" value="' + price + '" disabled></div>');
+    var $how_much = $('<div class="how much"><input type="text" id="input2" name="price" value="' + price*quantity + '" disabled></div>');
     var $delete = $('<a href="#!" data-url="/basket/delete_item_from_basket/' + id + '/" class="modal_item_delete"></a>');
 
 
@@ -96,7 +96,7 @@ function basket_dropdown_item_factory(img, name, quantity, price) {
     var $img = $('<img src="' + img + '" />');
     var $name = $('<p class="basket_item_name">' + name + '</p>');
     var $quantity = $('<p class="basket_item_number">' + quantity + ' шт</p>');
-    var $price = $('<p class="basket_item_price">' + price + '</p>');
+    var $price = $('<p class="basket_item_price">' + price*quantity + 'грн</p>');
 
     $container.append($img, $name, $quantity, $price);
 
@@ -183,9 +183,7 @@ $(document).ready(function () {
                     update_modal_lines_info();
                 }
                 else {
-                    $('div#' + data['id'] + '.modal_basket_elem').find('#input1').val(function (i, oldval) {
-                        return ++oldval;
-                    })
+                    $('div#' + data['id'] + '.modal_basket_elem').find('.plus').trigger('click');
                 }
 
                 $('div.' + $(this).attr("rel")).fadeIn(500);
