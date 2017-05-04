@@ -247,6 +247,7 @@ $(document).ready(function () {
         e.preventDefault();
         var outer_this = this;
         $.post($(this).attr('data-oneclick-url'), $('#buy_one_click_modal').serialize(), function () {
+            $('.close').trigger('click');
             $('div.' + $(outer_this).attr("rel")).fadeIn(500);
             $("body").append("<div id='overlay'></div>");
             $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
@@ -261,6 +262,7 @@ $(document).ready(function () {
             setTimeout(function () {
                 x.className = x.className.replace("show", "");
             }, 3000);
+            return false;
         });
     });
 
