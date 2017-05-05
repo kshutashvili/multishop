@@ -45,8 +45,7 @@
     </ul>
 {% endblock %}
 
-{% block header %}
-{% endblock header %}
+
 
 {% block content %}
     <div class="container">
@@ -1194,7 +1193,8 @@
                                         <hr>
                                         {% purchase_info_for_product request product as session %}
                                         <p class="catalog_item_price">{{ session.price.incl_tax|default_if_none:"" }}</p>
-                                        {% if session.price.incl_tax %}грн{% endif %}
+                                        {% if session.price.incl_tax %}
+                                            грн{% endif %}
                                         {% if session.availability.is_available_to_buy %}
                                             <a href="{{ product.get_absolute_url }}"
                                                class="buy_button show_popup"

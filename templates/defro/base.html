@@ -18,114 +18,124 @@
     <script src="https://vk.com/js/api/openapi.js?139"
             type="text/javascript"></script>
 {% endblock %}
-
 {% block layout %}
     <div class="container-fluid">
-        <div class="header">
-            <div class="container">
+        {% block header %}
+            <div class="header">
+                <div class="container">
 
-                <div class="top_menu">
-                    <ul>
-                        <li><a href="#">О компании</a></li>
-                        <li><a href="#">Доставка и оплата</a></li>
-                        <li><a href="#">Гарантия</a></li>
-                        <li><a href="#">Кредит</a></li>
-                        <li><a href="#">Контакты</a></li>
-                    </ul>
-                </div>
-                <div class="header_right">
-                    <div class="lang">
-                        <a href="{% change_lang 'ru' %}">RU</a>
-                        <span>|</span>
-                        <a href="{% change_lang 'uk' %}">UA</a>
+                    <div class="top_menu">
+                        <ul>
+                            <li><a href="#">О компании</a></li>
+                            <li><a href="#">Доставка и оплата</a></li>
+                            <li><a href="#">Гарантия</a></li>
+                            <li><a href="#">Кредит</a></li>
+                            <li><a href="#">Контакты</a></li>
+                        </ul>
                     </div>
-                    <div class="search">
-                        {% include 'defro/partials/search.html' %}
+                    <div class="header_right">
+                        <div class="lang">
+                            <a href="{% change_lang 'ru' %}">RU</a>
+                            <span>|</span>
+                            <a href="{% change_lang 'uk' %}">UA</a>
+                        </div>
+                        <div class="search">
+                            {% include 'defro/partials/search.html' %}
+                        </div>
                     </div>
-                </div>
 
 
-            </div>
-            <div class="container">
-                <div class="logo">
-                    <a href="/"><img src="{% get_static 'img/logo.png' %}"
-                                     alt=""></a>
                 </div>
-                <div class="contacts">
-                    {% if phone_numbers.kievstar %}
-                        <a href="tel:+380988598880"><span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}
-                        </a>
-                    {% endif %}
-                    {% if phone_numbers.vodafone %}
-                        <a href="tel:+380995598880"><span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}
-                        </a>
-                    {% endif %}
-                    {% if phone_numbers.life %}
-                        <a href="tel:+380931498880"><span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}
-                        </a>
-                    {% endif %}
-                    <a href="#" class="zakaz_zvon">Заказать звонок</a>
-                </div>
-                <div class="basket">
+                <div class="container">
+                    <div class="logo">
+                        <a href="/"><img src="{% get_static 'img/logo.png' %}"
+                                         alt=""></a>
+                    </div>
+                    <div class="contacts">
+                        {% if phone_numbers.kievstar %}
+                            <a href="tel:+380988598880"><span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}
+                            </a>
+                        {% endif %}
+                        {% if phone_numbers.vodafone %}
+                            <a href="tel:+380995598880"><span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}
+                            </a>
+                        {% endif %}
+                        {% if phone_numbers.life %}
+                            <a href="tel:+380931498880"><span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}
+                            </a>
+                        {% endif %}
+                        <a href="#" class="zakaz_zvon">Заказать звонок</a>
+                    </div>
+                    <div class="basket">
 
-                    <div class="dropdown">
-                        <a href="#" class="btn btn-default dropdown-toggle"
-                           id="dropdownMenu1" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="true">
-                            Сравнение
-                        </a>
-                        <ul class="dropdown-menu"
-                            aria-labelledby="dropdownMenu1">
-                            {% if compare_categories %}
-                                {% for category in compare_categories %}
+                        <div class="dropdown">
+                            <a href="#" class="btn btn-default dropdown-toggle"
+                               id="dropdownMenu1" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="true">
+                                Сравнение
+                            </a>
+                            <ul class="dropdown-menu"
+                                aria-labelledby="dropdownMenu1">
+                                {% if compare_categories %}
+                                    {% for category in compare_categories %}
+                                        <li>
+                                            <a href="{% url 'compare_category' category=category.pk %}"
+                                               class="sravn_items">{{ category.name }}</a>
+                                            <a href="#" class="sravn_delete"
+                                               data-category-pk="{{ category.pk }}"
+                                               data-remove-url="{% url 'remove_category_from_compare_list' %}"></a>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
                                     <li>
-                                        <a href="{% url 'compare_category' category=category.pk %}"
-                                           class="sravn_items">{{ category.name }}</a>
-                                        <a href="#" class="sravn_delete"
-                                           data-category-pk="{{ category.pk }}"
-                                           data-remove-url="{% url 'remove_category_from_compare_list' %}"></a>
+                                        <a href="!#" class="sravn_items">Список
+                                            сравнения пуст</a>
                                     </li>
-                                {% endfor %}
-                            {% else %}
+                                {% endif %}
+
+                            </ul>
+                        </div>
+                        <div class="dropdown dropdown_2">
+                            <a href="#" class="btn btn-default dropdown-toggle"
+                               id="dropdownMenu2" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="true">
+                                Корзина
+                            </a>
+                            <ul class="dropdown-menu"
+                                aria-labelledby="dropdownMenu2">
                                 <li>
-                                    <a href="!#" class="sravn_items">Список
-                                        сравнения пуст</a>
+                                    <p class="basket_how_many">В <span
+                                            class="red">Вашей корзине</span>
+                                        товаров: <span
+                                                class=""
+                                                id="dropdown_line_count">{{ request.basket.num_lines }}</span>
+                                    </p>
                                 </li>
-                            {% endif %}
+                                <li id="basket_dropdown"
+                                    data-basket-url="{% url 'basket:summary' %}">
 
-                        </ul>
-                    </div>
-                    <div class="dropdown dropdown_2">
-                        <a href="#" class="btn btn-default dropdown-toggle"
-                           id="dropdownMenu2" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="true">
-                            Корзина
-                        </a>
-                        <ul class="dropdown-menu"
-                            aria-labelledby="dropdownMenu2">
-                            <li>
-                                <p class="basket_how_many">В <span class="red">Вашей корзине</span>
-                                    товаров: <span
-                                            class="" id="dropdown_line_count">{{ request.basket.num_lines }}</span></p>
-                            </li>
-                            <li id="basket_dropdown" data-basket-url="{% url 'basket:summary' %}">
-
-                            </li>
-                            <li>
-                                <p class="basket_how_much">Итого: <span id="total_in_dropdown">{{ request.basket.total_incl_tax }} грн.</span>
-                                </p>
-                            </li>
-                            <li>
-                                <a href="#" id="checkout_dropdown" class="basket_button_zakaz" data-checkout-url="{% url 'order:create_order' %}" data-update-url="{% url 'update_items_quantity' %}">Оформить
-                                    заказ</a>
-                                <a href="#" class="basket_goto show_popup" rel="buy_button_modal">Перейти в
-                                    корзину</a>
-                            </li>
-                        </ul>
+                                </li>
+                                <li>
+                                    <p class="basket_how_much">Итого: <span
+                                            id="total_in_dropdown">{{ request.basket.total_incl_tax }} грн.</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <a href="#" id="checkout_dropdown"
+                                       class="basket_button_zakaz"
+                                       data-checkout-url="{% url 'order:create_order' %}"
+                                       data-update-url="{% url 'update_items_quantity' %}">Оформить
+                                        заказ</a>
+                                    <a href="#" class="basket_goto show_popup"
+                                       rel="buy_button_modal">Перейти в
+                                        корзину</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endblock %}
 
         {% block content %}
             <div class="popup buy_button_modal" id="basket_modal">
@@ -148,167 +158,195 @@
                     </li>
                     <li>
                         <a href="#" class="modal_basket_goback"
-                           id="continue_shopping" data-update-url="{% url 'update_items_quantity' %}" data-catalogue-url="{% url 'catalogue:index' %}">Продолжить
+                           id="continue_shopping"
+                           data-update-url="{% url 'update_items_quantity' %}"
+                           data-catalogue-url="{% url 'catalogue:index' %}">Продолжить
                             покупки</a>
                         <a href="{% url 'basket:summary' %}"
                            class="modal_basket_button_zakaz" id="make_order"
-                           data-update-url="{% url 'update_items_quantity' %}" data-checkout-url="{% url 'order:create_order' %}">Оформить
+                           data-update-url="{% url 'update_items_quantity' %}"
+                           data-checkout-url="{% url 'order:create_order' %}">Оформить
                             заказ</a>
 
                     </li>
                     <li>
                         {% if product.slug and product.pk %}
-                        <form id="buy_one_click_modal">
-                            <input type="text" placeholder="(0XX) XXX - XX - XX"
-                                   class="modal_input_goto" name="phone">
-                            <a href="#"
-                               class="modal_basket_goto"
-                               rel="request_button_modal_third" type="submit"
-                               id="one_click_btn_modal"
-                               data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">Заказать
-                                в один клик</a>
-                        </form>
+                            <form id="buy_one_click_modal">
+                                <input type="text"
+                                       placeholder="(0XX) XXX - XX - XX"
+                                       class="modal_input_goto" name="phone">
+                                <a href="#"
+                                   class="modal_basket_goto"
+                                   rel="request_button_modal_third"
+                                   type="submit"
+                                   id="one_click_btn_modal"
+                                   data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">Заказать
+                                    в один клик</a>
+                            </form>
                         {% endif %}
                     </li>
                 </ul>
             </div>
 
-                <div class="snackbar" id="compare_success" style="display: none">Товар добавлен в список
-        сравнения
-    </div>
-                       <div class="snackbar" id="basket_error" style="display: none"></div>
+            <div class="snackbar" id="compare_success" style="display: none">
+                Товар добавлен в список
+                сравнения
+            </div>
+            <div class="snackbar" id="basket_error" style="display: none"></div>
         {% endblock %}
-        <div class="above_footer_block">
-            <div class="bottom_menu_bg">
+        {% block footer %}
+            <div class="above_footer_block">
+                <div class="bottom_menu_bg">
+                    <div class="container">
+                        <div class="bottom_menu">
+                            <div class="menu_block">
+                                <p class="menu_block_caption">Помощь</p>
+                                <ul class="menu_block_items">
+                                    <li><a href="#">Вопросы и ответы</a></li>
+                                    <li><a href="#">Проблемы с заказом</a></li>
+                                    <li><a href="#">Обратная связь</a></li>
+                                    <li><a href="#">Монтаж и сервис</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu_block">
+                                <p class="menu_block_caption">О нас</p>
+                                <ul class="menu_block_items">
+                                    <li><a href="#">О компании</a></li>
+                                    <li><a href="#">Сотрудничество</a></li>
+                                    <li><a href="#">Условия использования
+                                        сайта</a></li>
+                                </ul>
+                            </div>
+                            <div class="menu_block">
+                                <p class="menu_block_caption">Как связаться</p>
+                                <ul class="contact_ul">
+                                    {% if phone_numbers.kievstar %}
+                                        <li>
+                                            <a href="tel:+0988598880">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if phone_numbers.vodafone %}
+                                        <li>
+                                            <a href="tel:+0995598880">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if phone_numbers.life %}
+                                        <li>
+                                            <a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a>
+                                        </li>
+                                    {% endif %}
+                                    <li><a href="#" class="predstav">Наши
+                                        представительства</a></li>
+                                </ul>
+
+                                <div class="time_work">
+                                    {% if schedule.main %}
+                                        {% for timetable in schedule.main %}
+                                            <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span>
+                                            </p>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p>Пн.-Пт.:
+                                            <span> с 9:00 до 18:00</span></p>
+                                        <p>Сб:<span> с 9:00 до 15:00</span></p>
+                                    {% endif %}
+                                    {% if site_email %}
+                                        <a href="mailto:info@defro.org.ua/">{{ site_email }}</a>
+                                    {% else %}
+                                        <a href="mailto:info@defro.org.ua/">info@defro.org.ua/</a>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                            <div class="menu_block">
+                                <p class="menu_block_caption">Принимаем к
+                                    оплате</p>
+                                <img src="{% get_static 'img/footer/master.png' %}"
+                                     alt="">
+                                <img src="{% get_static 'img/footer/visa.png' %}"
+                                     alt="">
+                            </div>
+                            <div class="grafik">
+                                <div class="time_work">
+                                    <p class="grafik_caption">График работы
+                                        call-центра</p>
+                                    {% if schedule.callcenter %}
+                                        {% for timetable in schedule.callcenter %}
+                                            <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span>
+                                            </p>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p>Пн.-Пт.:
+                                            <span> с 9:00 до 18:00</span></p>
+                                        <p>Сб:<span> с 9:00 до 15:00</span></p>
+                                        <p>Вс: <span> выходной</span></p>
+                                    {% endif %}
+
+                                </div>
+                                <div class="time_work">
+                                    <p class="grafik_caption">Заказ через
+                                        корзину 24/7/365</p>
+                                    <p class="grafik_special">Ночные заказы
+                                        обрабатываются</p>
+                                    {% if schedule.nightorders %}
+                                        {% for timetable in schedule.nightorders %}
+                                            <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span>
+                                            </p>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p>с 9:00 до 11:00</p>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
                 <div class="container">
-					<div class="bottom_menu">
-						<div class="menu_block">
-							<p class="menu_block_caption">Помощь</p>
-							<ul class="menu_block_items">
-								<li><a href="#">Вопросы и ответы</a></li>
-								<li><a href="#">Проблемы с заказом</a></li>
-								<li><a href="#">Обратная связь</a></li>
-								<li><a href="#">Монтаж и сервис</a></li>
-							</ul>
-						</div>
-						<div class="menu_block">
-							<p class="menu_block_caption">О нас</p>
-							<ul class="menu_block_items">
-								<li><a href="#">О компании</a></li>
-								<li><a href="#">Сотрудничество</a></li>
-								<li><a href="#">Условия использования сайта</a></li>
-							</ul>
-						</div>
-						<div class="menu_block">
-							<p class="menu_block_caption">Как связаться</p>
-							<ul class="contact_ul">
-                                {% if phone_numbers.kievstar %}
-                                    <li><a href="tel:+0988598880">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a></li>
-                                {% endif %}
-                                {% if phone_numbers.vodafone %}
-                                    <li><a href="tel:+0995598880">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a></li>
-                                {% endif %}
-                                {% if phone_numbers.life %}
-                                    <li><a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a></li>
-                                {% endif %}
-								<li><a href="#" class="predstav">Наши представительства</a></li>
-							</ul>
+                    <div class="logo_footer">
+                        <a href="#">
+                            <img src="{% get_static 'img/footer/logo.png' %}"
+                                 alt="">
+                        </a>
+                    </div>
+                    <div class="rights">
+                        <p>© 2017 интернет-магазин <br> твердотопливных котлов
+                            Defro
+                            тм</p>
 
-							<div class="time_work">
-                            {% if schedule.main %}
-                                {% for timetable in schedule.main %}
-                                    <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span></p>
-                                {% endfor %}
-                            {% else %}
-								<p>Пн.-Пт.: <span> с 9:00 до 18:00</span></p>
-								<p>Сб:<span> с 9:00 до 15:00</span></p>
-                            {% endif %}
-                            {% if site_email %}
-                                <a href="mailto:info@defro.org.ua/">{{ site_email }}</a>
-                            {% else %}
-								<a href="mailto:info@defro.org.ua/">info@defro.org.ua/</a>
-                            {% endif %}
-
-							</div>
-						</div>
-						<div class="menu_block">
-							<p class="menu_block_caption">Принимаем к оплате</p>
-							<img src="{% get_static 'img/footer/master.png' %}" alt="">
-							<img src="{% get_static 'img/footer/visa.png' %}" alt="">
-						</div>
-						<div class="grafik">
-							<div class="time_work">
-								<p class="grafik_caption">График работы call-центра</p>
-                                {% if schedule.callcenter %}
-                                    {% for timetable in schedule.callcenter %}
-                                        <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span></p>
-                                    {% endfor %}
-                                {% else %}
-                                    <p>Пн.-Пт.: <span> с 9:00 до 18:00</span></p>
-                                    <p>Сб:<span> с 9:00 до 15:00</span></p>
-                                    <p>Вс: <span> выходной</span></p>
-                                {% endif %}
-
-							</div>
-							<div class="time_work">
-								<p class="grafik_caption">Заказ через корзину 24/7/365</p>
-								<p class="grafik_special">Ночные заказы обрабатываются</p>
-                                {% if schedule.nightorders %}
-                                    {% for timetable in schedule.nightorders %}
-                                        <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span></p>
-                                    {% endfor %}
-                                {% else %}
-                                    <p>с 9:00 до 11:00</p>
-                                {% endif %}
-
-							</div>
-						</div>
-					</div>
-			    </div>
-            </div>
-        </div>
-        <div class="footer">
-            <div class="container">
-                <div class="logo_footer">
-                    <a href="#">
-                        <img src="{% get_static 'img/footer/logo.png' %}"
-                             alt="">
-                    </a>
-                </div>
-                <div class="rights">
-                    <p>© 2017 интернет-магазин <br> твердотопливных котлов Defro
-                        тм</p>
-
-                </div>
-                <div class="social">
-                    <p>Мы в соцсетях, <br> присоединяйтесь!</p>
-                    <a href="{{ social_networks_refs.facebook|first }}"><img
-                            src="{% get_static 'img/footer/fb.png' %}"
-                            alt=""></a>
-                    <a href="{{ social_networks_refs.vkontakte|first }}"><img
-                            src="{% get_static 'img/footer/vk.png' %}"
-                            alt=""></a>
-                    <a href="{{ social_networks_refs.mailru|first }}"><img
-                            src="{% get_static 'img/footer/mail.png' %}"
-                            alt=""></a>
-                    <a href="{{ social_networks_refs.twitter|first }}"><img
-                            src="{% get_static 'img/footer/tw.png' %}"
-                            alt=""></a>
-                    <a href="{{ social_networks_refs.odnoklassniki|first }}"><img
-                            src="{% get_static 'img/footer/od.png' %}"
-                            alt=""></a>
-                    <a href="{{ social_networks_refs.pinterest|first }}"><img
-                            src="{% get_static 'img/footer/p.png' %}"
-                            alt=""></a>
-                    <a href="{{ social_networks_refs.google|first }}"><img
-                            src="{% get_static 'img/footer/google.png' %}"
-                            alt=""></a>
-                    <a href="{{ social_networks_refs.youtube|first }}"><img
-                            src="{% get_static 'img/footer/youtube.png' %}"
-                            alt=""></a>
+                    </div>
+                    <div class="social">
+                        <p>Мы в соцсетях, <br> присоединяйтесь!</p>
+                        <a href="{{ social_networks_refs.facebook|first }}"><img
+                                src="{% get_static 'img/footer/fb.png' %}"
+                                alt=""></a>
+                        <a href="{{ social_networks_refs.vkontakte|first }}"><img
+                                src="{% get_static 'img/footer/vk.png' %}"
+                                alt=""></a>
+                        <a href="{{ social_networks_refs.mailru|first }}"><img
+                                src="{% get_static 'img/footer/mail.png' %}"
+                                alt=""></a>
+                        <a href="{{ social_networks_refs.twitter|first }}"><img
+                                src="{% get_static 'img/footer/tw.png' %}"
+                                alt=""></a>
+                        <a href="{{ social_networks_refs.odnoklassniki|first }}"><img
+                                src="{% get_static 'img/footer/od.png' %}"
+                                alt=""></a>
+                        <a href="{{ social_networks_refs.pinterest|first }}"><img
+                                src="{% get_static 'img/footer/p.png' %}"
+                                alt=""></a>
+                        <a href="{{ social_networks_refs.google|first }}"><img
+                                src="{% get_static 'img/footer/google.png' %}"
+                                alt=""></a>
+                        <a href="{{ social_networks_refs.youtube|first }}"><img
+                                src="{% get_static 'img/footer/youtube.png' %}"
+                                alt=""></a>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endblock %}
     </div>
 {% endblock %}
 
@@ -330,8 +368,8 @@
 
 {# Additional JS scripts #}
 {% block extrascripts %}
-        <script src="{% get_static 'js/basket_script.js' %}"></script>
-        <script src="{% get_static 'js/popup.js' %}"></script>
+    <script src="{% get_static 'js/basket_script.js' %}"></script>
+    <script src="{% get_static 'js/popup.js' %}"></script>
 {% endblock %}
 
 {# Block for body onload functions #}
