@@ -1193,8 +1193,8 @@
                                         </p>
                                         <hr>
                                         {% purchase_info_for_product request product as session %}
-                                        <p class="catalog_item_price">{{ session.price.incl_tax }}</p>
-                                        грн
+                                        <p class="catalog_item_price">{{ session.price.incl_tax|default_if_none:"" }}</p>
+                                        {% if session.price.incl_tax %}грн{% endif %}
                                         {% if session.availability.is_available_to_buy %}
                                             <a href="{{ product.get_absolute_url }}"
                                                class="buy_button show_popup"
@@ -1214,67 +1214,7 @@
                 {% endif %}
 
                 {% if recently_viewed_products %}
-                    <p class="category_block_caption before_owl">Недавно
-                        просмотренные</p>
-                    <div class="owl-carousel owl-theme catalog_owl">
-                        {% with products_sliced=recently_viewed_products|slice:":6" %}
-                            {% if products_sliced %}
-                                {% for p in products_sliced %}
-                                    {% basket_form request p as basket_form %}
-                                    <div class="item">
-                                        <form id="add_to_basket_form_{{ p.id }}"
-                                              name="add_to_basket_form"
-                                              style="display: none;"
-                                              action="{% url 'basket:add' pk=p.pk %}"
-                                              method="post"
-                                              class="add-to-basket">{% csrf_token %}
-                                            {% include "partials/form_fields.html" with form=basket_form %}
-                                        </form>
-                                        <div class="catalog_item_block">
-                                            <input type="text"
-                                                   style="display: none;"
-                                                   value="{{ p.upc }}"
-                                                   name="upc">
-                                            <input type="text"
-                                                   style="display: none;"
-                                                   value="{{ product.id }}"
-                                                   name="id">
-                                            <a href="{{ p.get_absolute_url }}">
-                                                {% thumbnail p.primary_image.original "155" as img %}
-                                                    <img src="{{ img.url }}">
-                                                {% endthumbnail %}
-                                                <p class="catalog_item_block_caption">{{ p.product_class.name }} {{ p.title }}</p>
-                                                <select class="rating_photo">
-                                                    {% for num in "12345" %}
-                                                        <option {% if p.rating|floatformat:0 == num %}selected="selected"{% endif %}
-                                                                value="{{ num }}">{{ num }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                                <p class="rating_number">
-                                                    Отзывов:
-                                                    <span>{{ p.num_approved_reviews }}</span>
-                                                </p>
-                                                <hr>
-                                                {% purchase_info_for_product request p as session %}
-                                                <p class="catalog_item_price">{{ session.price.incl_tax }}</p>
-                                                грн
-                                                {% if session.availability.is_available_to_buy %}
-                                                    <a href="#"
-                                                       class="buy_button show_popup"
-                                                       rel="buy_button_modal"
-                                                       data-product-id="{{ p.id }}">Купить</a>
-                                                {% else %}
-                                                    <a href="#"
-                                                       class="buy_button but_button_sold">Нет
-                                                        в наличии</a>
-                                                {% endif %}
-                                            </a>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                        {% endwith %}
-                    </div>
+                    {% include 'defro/recently_viewed_products.html' %}
                 {% endif %}
 
             </div>
