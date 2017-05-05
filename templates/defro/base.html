@@ -170,20 +170,27 @@
 
                     </li>
                     <li>
-                            <form id="buy_one_click_modal">
-                                <input type="text"
-                                       placeholder="(0XX) XXX - XX - XX"
-                                       class="modal_input_goto" name="phone">
-                                <a href="#"
-                                   class="modal_basket_goto"
-                                   rel="request_button_modal_third"
-                                   type="submit"
-                                   id="one_click_btn_modal"
-                                   data-oneclick-url="{% url 'oneclick_basket' %}">Заказать
-                                    в один клик</a>
-                            </form>
+                        <form id="buy_one_click_modal">
+                            <input type="text"
+                                   placeholder="(0XX) XXX - XX - XX"
+                                   class="modal_input_goto" name="phone">
+                            <a href="#"
+                               class="modal_basket_goto"
+                               rel="request_button_modal_third"
+                               type="submit"
+                               id="one_click_btn_modal"
+                               data-oneclick-url="{% url 'oneclick_basket' %}">Заказать
+                                в один клик</a>
+                        </form>
                     </li>
                 </ul>
+            </div>
+
+            <div class="popup request_button_modal_third">
+                <a class="close" href="#">Close</a>
+                <p class="modal_caption">Спасибо, Ваш заказ получен!</p>
+                <p class="modal_text">Наш менеджер обязательно свяжется с
+                    Вами</p>
             </div>
 
             <div class="snackbar" id="compare_success" style="display: none">

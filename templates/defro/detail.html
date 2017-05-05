@@ -127,7 +127,7 @@
                             <div class="slider_two">
                                 <ul class="bxslider_two">
                                     {% for img in product.images.all %}
-                                        <li class="before_akcia free_shipping">
+                                        <li class="{% if product.is_discountable %}before_akcia {% endif %}{% if product.is_latest %}before_new {% endif %}{% if pass %} free_shipping {% endif %}">
 
                                             <img src="{{ img.original.url }}"
                                                  alt="">
@@ -167,16 +167,12 @@
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %} </p>
                                     <p class="catalog_item_price">
                                         {% if session.price.is_tax_known %}
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %}</p>
                                     <button type="submit" id="submit_btn"
                                             class="basket_button show_popup"
@@ -241,8 +237,6 @@
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %}</p>
 
                                 {% endif %}
@@ -653,16 +647,12 @@
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %} </p>
                                     <p class="catalog_item_price">
                                         {% if session.price.is_tax_known %}
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %}</p>
                                 {% else %}
                                     <p class="nalichie dpn naliche_net">Нет в
@@ -672,8 +662,6 @@
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %}</p>
 
                                 {% endif %}
@@ -764,16 +752,12 @@
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %} </p>
                                     <p class="catalog_item_price">
                                         {% if session.price.is_tax_known %}
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %}</p>
                                 {% else %}
                                     <p class="nalichie dpn naliche_net">Нет в
@@ -783,8 +767,6 @@
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %}</p>
 
                                 {% endif %}
@@ -880,16 +862,12 @@
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %} </p>
                                     <p class="catalog_item_price">
                                         {% if session.price.is_tax_known %}
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %}</p>
                                 {% else %}
                                     <p class="nalichie dpn naliche_net">Нет в
@@ -899,8 +877,6 @@
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %}</p>
 
                                 {% endif %}
@@ -1060,16 +1036,12 @@
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %} </p>
                                     <p class="catalog_item_price">
                                         {% if session.price.is_tax_known %}
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %}</p>
                                 {% else %}
                                     <p class="nalichie dpn naliche_net">Нет в
@@ -1079,8 +1051,6 @@
                                             {{ session.price.incl_tax|currency:session.price.currency }}
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
-                                            +
-                                            налоги
                                         {% endif %}</p>
 
                                 {% endif %}
@@ -1254,12 +1224,6 @@
         <p class="modal_caption">Спасибо за Ваш отзыв!</p>
         <p class="modal_text">Он будет опубликован после проверки <br>
             администратором </p>
-    </div>
-
-    <div class="popup request_button_modal_third">
-        <a class="close" href="#">Close</a>
-        <p class="modal_caption">Спасибо, Ваш заказ получен!</p>
-        <p class="modal_text">Наш менеджер обязательно свяжется с Вами</p>
     </div>
 
     <div class="popup answer_button_modal">
