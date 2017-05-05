@@ -111,16 +111,24 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
 class OneClickOrderCreateView(CreateView):
     form_class = OneClickOrderForm
     product_model = Product
+    success_url = '/'
 
     def dispatch(self, request, *args, **kwargs):
-        self.product = get_object_or_404(
-            self.product_model, pk=kwargs['pk'])
+        if kwargs.get('pk'):
+            self.product = get_object_or_404(
+                self.product_model, pk=kwargs['pk'])
+        self.basket = self.request.basket
         return super(OneClickOrderCreateView, self).dispatch(request, *args,
                                                              **kwargs)
 
     def form_valid(self, form):
         instance = form.save(commit=False)
-        instance.product = self.product
+        if hasattr(self, 'product'):
+            instance.product = self.product
+            self.success_url = self.product.get_absolute_url()
+        elif self.basket.num_lines:
+            instance.basket = self.basket
+            self.request.basket.submit()
         instance.save()
 
         template = os.path.join(get_current_site(self.request).config.template,
@@ -133,7 +141,7 @@ class OneClickOrderCreateView(CreateView):
                                      [settings.DEFAULT_FROM_EMAIL, ])
         msg.attach_alternative(message, "text/html")
         msg.send(fail_silently=True)
-        return HttpResponse(self.product.get_absolute_url())
+        return HttpResponse(self.success_url)
 
     def form_invalid(self, form):
         return HttpResponseBadRequest(form.errors.as_json())

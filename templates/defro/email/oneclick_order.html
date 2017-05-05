@@ -5,8 +5,19 @@
     <title>Новый заказ в один клик!</title>
 </head>
 <body>
-    <p>Заказ в один клик- {{ instance.id }}, на продукт {{ instance.product.get_title }}, артикул: {{ instance.product.upc }}</p>
+
+{% if instance.product %}
+    <p>Заказ в один клик- {{ instance.id }}, на
+        товар {{ instance.product.get_title }},
+        артикул: {{ instance.product.upc }}</p>
     <p>Номер клиента: {{ instance.phone }}</p>
+{% elif instance.basket %}
+    <p>Заказ в один клик- {{ instance.id }}, на товары
+        {% for line in instance.basket.lines.all %}{{ line.product.get_title }}
+            (артикул: {{ line.product.upc }}) - {{ line.quantity }}
+            шт, {% endfor %}</p>
+    <p>Номер клиента: {{ instance.phone }}</p>
+{% endif %}
 
 </body>
 </html>

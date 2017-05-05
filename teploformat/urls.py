@@ -49,6 +49,9 @@ urlpatterns += i18n_patterns(
     url(
         r'^catalogue/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/oneclick/$',
         OneClickOrderCreateView.as_view(), name='oneclick'),
+    url(
+        r'^catalogue/oneclick/$',
+        OneClickOrderCreateView.as_view(), name='oneclick_basket'),
 
     url(r'^catalogue/compare/$', CompareView.as_view(),
         name='compare'),

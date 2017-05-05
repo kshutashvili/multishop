@@ -20,6 +20,13 @@ class OneClickOrder(models.Model):
         on_delete=models.SET_NULL
     )
 
+    basket = models.ForeignKey(
+        'basket.Basket',
+        verbose_name='Корзина',
+        null=True, blank=True,
+        on_delete=models.SET_NULL
+    )
+
     phone = models.CharField(
         max_length=12,
         verbose_name=u'Телефон'

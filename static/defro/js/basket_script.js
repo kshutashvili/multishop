@@ -251,11 +251,14 @@ $(document).ready(function () {
     $('#one_click_btn_modal').click(function (e) {
         e.preventDefault();
         var outer_this = this;
-        $.post($(this).attr('data-oneclick-url'), $('#buy_one_click_modal').serialize(), function () {
+        $.post($(this).attr('data-oneclick-url'), $('#buy_one_click_modal').serialize(), function (data) {
             $('.close').trigger('click');
             $('div.' + $(outer_this).attr("rel")).fadeIn(500);
             $("body").append("<div id='overlay'></div>");
             $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            setTimeout(function () {
+                location.href = data;
+            }, 3000);
         }).fail(function () {
             // Get the snackbar DIV
             var x = document.getElementById("snackbar");
