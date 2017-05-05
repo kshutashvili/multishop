@@ -5,8 +5,8 @@ from django.db import models
 
 class OneClickOrder(models.Model):
     class Meta:
-        verbose_name = u'Заказ'
-        verbose_name_plural = u'Заказы'
+        verbose_name = u'Заказ в один клик'
+        verbose_name_plural = u'Заказы в один клик'
 
     when_created = models.DateTimeField(
         verbose_name=u'Когда создан',
