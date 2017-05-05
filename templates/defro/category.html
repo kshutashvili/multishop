@@ -26,7 +26,7 @@
                             <ul>
                                 {% for child_category in parent_category.get_children %}
                                     <li>
-                                        <a href="#">
+                                        <a href="{% url 'catalogue:index' %}?selected_facets=category_exact:{{ child_category.name }}">
                                             {% if child_category.image %}
                                                 <img src="{{ child_category.image.url }}" alt="">
                                             {% endif %}
@@ -42,7 +42,7 @@
                         <ul>
                             {% for sibling_category in category.get_siblings %}
                                 <li>
-                                    <a href="#">
+                                    <a href="{% url 'catalogue:index' %}?selected_facets=category_exact:{{ sibling_category.name }}">
                                         {% if sibling_category.image %}
                                             <img src="{{ sibling_category.image.url }}" alt="">
                                         {% endif %}
@@ -57,7 +57,7 @@
                         <p class="category_block_caption">{{ category.name }}</p>
                         <ul>
                             <li>
-                                <a href="#">
+                                <a href="{% url 'catalogue:index' %}?selected_facets=category_exact:{{ category.name }}">
                                     <img src="{{ category.image.url }}" alt="">
                                     <p>{{ category.name }}</p>
                                 </a>
