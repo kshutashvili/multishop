@@ -16,7 +16,7 @@ class FacetedSearchView(OscarFacetedSearchView):
         site = get_current_site(request)
         template = site.config.template
         self.template = os.path.join(template, FacetedSearchView.template)
-        self.searchqueryset = self.searchqueryset.models(Product)
+        self.searchqueryset = self.searchqueryset.models(Product).filter(site=site.pk)
         return super(FacetedSearchView, self).__call__(request)
 
     def extra_context(self, **kwargs):

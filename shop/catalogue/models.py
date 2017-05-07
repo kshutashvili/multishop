@@ -15,7 +15,7 @@ from django.utils.translation import get_language
 from django.utils.translation import ugettext_lazy as _
 from oscar.apps.catalogue.abstract_models import AbstractProduct, \
     AbstractProductAttributeValue, AbstractProductClass, \
-    AbstractProductCategory, AbstractCategory
+    AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup
 from oscar.apps.order.models import Order as OscarOrder
 from redis.exceptions import ConnectionError
 
@@ -69,7 +69,8 @@ class Product(AbstractProduct):
 
 class ProductClass(AbstractProductClass):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
-    image = models.ImageField(_('Image'), upload_to='product_classes', blank=True,
+    image = models.ImageField(_('Image'), upload_to='product_classes',
+                              blank=True,
                               null=True, max_length=255)
 
     def get_absolute_url(self):
@@ -150,6 +151,10 @@ class Video(models.Model):
 
     def __unicode__(self):
         return self.video
+
+
+class AttributeOptionGroup(AbstractAttributeOptionGroup):
+    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
 
 @receiver(post_save, sender=OscarOrder)

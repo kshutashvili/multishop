@@ -5,11 +5,15 @@ from oscar.apps.dashboard.catalogue.views import \
     ProductClassCreateView as OscarProductClassCreateView, \
     ProductClassUpdateView as OscarProductClassUpdateView, \
     CategoryCreateView as OscarCategoryCreateView, \
-    CategoryUpdateView as OscarCategoryUpdateView
+    CategoryUpdateView as OscarCategoryUpdateView, \
+    ProductListView as OscarProductListView, \
+    CategoryListView as OscarCategoryListView, \
+    ProductClassListView as OscarProductClassListView
 
 from shop.dashboard.catalogue.forms import ProductForm, \
     ProductAttributesFormSet, ProductClassForm, CategoryForm, \
-    ExtraProductImageFormSet, ProductVideoFormSet
+    ExtraProductImageFormSet, ProductVideoFormSet, ProductClassSelectForm
+from website.views import SiteMultipleObjectMixin
 
 
 class ProductCreateUpdateView(OscarProductCreateUpdateView):
@@ -68,3 +72,22 @@ class CategoryUpdateView(OscarCategoryUpdateView):
         self.object.site = get_current_site(self.request)
         self.object.save()
         return super(CategoryUpdateView, self).form_valid(*args, **kwargs)
+
+
+class ProductListView(SiteMultipleObjectMixin, OscarProductListView):
+    productclass_form_class = ProductClassSelectForm
+    def get_context_data(self, **kwargs):
+        ctx = super(ProductListView, self).get_context_data(**kwargs)
+        site = get_current_site(self.request)
+        ctx['productclass_form'] = self.productclass_form_class(site)
+        return ctx
+
+
+class CategoryListView(SiteMultipleObjectMixin, OscarCategoryListView):
+    pass
+
+
+class ProductClassListView(SiteMultipleObjectMixin, OscarProductClassListView):
+    pass
+
+

@@ -28,6 +28,8 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
     attributes = indexes.MultiValueField()
     attribute_values = indexes.MultiValueField()
 
+    site = indexes.CharField(null=True, faceted=True)
+
     # Spelling suggestions
     suggestions = indexes.FacetCharField()
 
@@ -46,6 +48,9 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare_attribute_values(self, obj):
         return [val.value_option.pk for val in obj.attribute_values.all() if val.value_option is not None]
+
+    def prepare_site(self, obj):
+        return obj.site.pk
 
     def read_queryset(self, using=None):
         return self.get_model().browsable.base_queryset()

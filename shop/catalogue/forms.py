@@ -4,13 +4,14 @@ from shop.catalogue.models import AttributeOptionGroup, Product
 
 
 class FilterForm(forms.Form):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, site, *args, **kwargs):
+        self.site = site
         super(FilterForm, self).__init__(*args, **kwargs)
 
         self.make_filter()
 
     def make_filter(self):
-        for group in AttributeOptionGroup.objects.all():
+        for group in AttributeOptionGroup.objects.filter(site=self.site):
             self.fields[u'filter_%s' % group.name] = \
                 forms.MultipleChoiceField(
                     widget=forms.CheckboxSelectMultiple(),

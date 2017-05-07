@@ -6,7 +6,8 @@ from oscar.apps.dashboard.catalogue.forms import \
     ProductForm as OscarProductForm, \
     ProductAttributesForm as OscarProductAttributes, \
     ProductClassForm as OscarProductClassForm, \
-    ProductImageForm as OscarProductImageForm
+    ProductImageForm as OscarProductImageForm, \
+    ProductClassSelectForm as OscarProductClassSelectForm
 from oscar.forms.widgets import ImageInput
 from treebeard.forms import movenodeform_factory
 
@@ -221,3 +222,10 @@ class ExtraProductImageFormSet(BaseExtraProductImageFormSet):
 class ProductVideoFormSet(BaseProductVideoFormSet):
     def __init__(self, product_class, user, *args, **kwargs):
         super(ProductVideoFormSet, self).__init__(*args, **kwargs)
+
+
+class ProductClassSelectForm(OscarProductClassSelectForm):
+    def __init__(self, site=None, *args, **kwargs):
+        super(ProductClassSelectForm, self).__init__(*args, **kwargs)
+        self.fields['product_class'].queryset = ProductClass.objects.filter(
+            site=site)
