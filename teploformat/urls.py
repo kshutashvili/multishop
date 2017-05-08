@@ -18,6 +18,7 @@ from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps import views as sitemap_view
 from django.contrib.staticfiles import views
 from django.shortcuts import redirect
 from oscar.app import application
@@ -27,6 +28,7 @@ from shop.catalogue.reviews.views import ProductQuestionView
 from shop.catalogue.views import get_search_count, \
     OneClickOrderCreateView, CompareView, remove_item_from_compare_list, \
     remove_category_from_compare_list, CompareCategoryView
+from website.sitemaps import base_sitemaps
 
 urlpatterns = [
     url(r'^$', lambda r: redirect('/{}/'.format(r.LANGUAGE_CODE)), name="home"),
@@ -35,6 +37,13 @@ urlpatterns = [
     url(r'^basket/delete_item_from_basket/(?P<id>[0-9]+)/$',
         delete_item_from_basket,
         name='delete_item_from_basket'),
+
+    # include a basic sitemap
+    url(r'^sitemap\.xml$', sitemap_view.index,
+        {'sitemaps': base_sitemaps}),
+    url(r'^sitemap-(?P<section>.+)\.xml$', sitemap_view.sitemap,
+        {'sitemaps': base_sitemaps},
+        name='django.contrib.sitemaps.views.sitemap')
 ]
 
 urlpatterns += [
