@@ -11,7 +11,7 @@
                     {% if categories %}
                         {% for category in categories %}
                             <div class="dropdown">
-                                <a href="#"
+                                <a href="{{ category.get_absolute_url }}"
                                    class="btn btn-default dropdown-toggle"
                                    id="dropdownMenu{{ forloop.counter0|add:"3" }}"
                                    data-toggle="dropdown"
