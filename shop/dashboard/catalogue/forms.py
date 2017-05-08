@@ -63,7 +63,8 @@ class ProductForm(OscarProductForm):
         model = Product
         fields = [
             'title_ru', 'title_uk', 'upc', 'description_ru', 'description_uk',
-            'is_discountable', 'structure', ]
+            'is_discountable', 'structure', 'new', 'top_sale', 'recommended',
+            'super_price', 'special_offer', 'gift', 'free_shipping']
         widgets = {
             'structure': forms.HiddenInput(),
         }
@@ -225,7 +226,9 @@ class ProductVideoFormSet(BaseProductVideoFormSet):
 
 
 class ProductClassSelectForm(OscarProductClassSelectForm):
-    def __init__(self, site=None, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        site = kwargs.pop('site') if 'site' in kwargs else None
         super(ProductClassSelectForm, self).__init__(*args, **kwargs)
-        self.fields['product_class'].queryset = ProductClass.objects.filter(
-            site=site)
+        if site:
+            self.fields['product_class'].queryset = ProductClass.objects.filter(
+                site=site)

@@ -79,7 +79,7 @@ class ProductListView(SiteMultipleObjectMixin, OscarProductListView):
     def get_context_data(self, **kwargs):
         ctx = super(ProductListView, self).get_context_data(**kwargs)
         site = get_current_site(self.request)
-        ctx['productclass_form'] = self.productclass_form_class(site)
+        ctx['productclass_form'] = self.productclass_form_class(site=site)
         return ctx
 
 

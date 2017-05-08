@@ -23,6 +23,15 @@ from redis.exceptions import ConnectionError
 class Product(AbstractProduct):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
+    new = models.BooleanField(verbose_name='Новинка', default=True)
+    top_sale = models.BooleanField(verbose_name='Хит продаж', default=False)
+    recommended = models.BooleanField(verbose_name='Рекомендуем', default=False)
+    super_price = models.BooleanField(verbose_name='Суперцена', default=False)
+    special_offer = models.BooleanField(verbose_name='Акция', default=False)
+    gift = models.BooleanField(verbose_name='+Подарок', default=False)
+    free_shipping = models.BooleanField(verbose_name='Бесплатная доставка',
+                                        default=False)
+
     def change_similar_products(self, recent_products):
         try:
             r = self.get_or_create_redis_connection()

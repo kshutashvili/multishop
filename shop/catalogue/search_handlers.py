@@ -8,7 +8,7 @@ def get_product_search_handler_class():
 
 
 class SolrProductSearchHandler(OscarSolrProductSearchHandler):
-    def __init__(self, request_data, full_path, request, categories=None,
+    def __init__(self, request_data, full_path, request=None, categories=None,
                  options=[]):
         self.options = options
         self.request = request

@@ -127,10 +127,16 @@
                             <div class="slider_two">
                                 <ul class="bxslider_two">
                                     {% for img in product.images.all %}
-                                        <li class="{% if product.is_discountable %}before_akcia {% endif %}{% if product.is_latest %}before_new {% endif %}{% if pass %} free_shipping {% endif %}">
-
-                                            <img src="{{ img.original.url }}"
-                                                 alt="">
+                                        <li class="{% if product.is_discountable or product.special_offer %}before_akcia {% elif product.new %}before_new {% elif product.top_sale %} before_hit{% elif product.recommended %} before_rec{% elif product.super_price %} before_superprice{% endif %} free_shipping"
+                                        ">
+                                        {% if product.gift %}
+                                            <div class="before_gift"></div>
+                                        {% endif %}
+                                        {% if product.free_shipping %}
+                                            <div class="before_free"></div>
+                                        {% endif %}
+                                        <img src="{{ img.original.url }}"
+                                             alt="">
                                         </li>
 
                                     {% endfor %}
@@ -216,17 +222,18 @@
 
                                     <form id="buy_one_click" method="POST"
                                           action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
-                                    <input type="text" class="zakaz_one_click"
-                                           placeholder="(0XX) XXX - XX - XX"
-                                           name="phone">
-                                    <button class="zakaz_one_click"
-                                            id="one_click_btn"
-                                            rel="request_button_modal_third"
-                                            data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
-                                        Заказать в
-                                        один
-                                        клик
-                                    </button>
+                                        <input type="text"
+                                               class="zakaz_one_click"
+                                               placeholder="(0XX) XXX - XX - XX"
+                                               name="phone">
+                                        <button class="zakaz_one_click"
+                                                id="one_click_btn"
+                                                rel="request_button_modal_third"
+                                                data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
+                                            Заказать в
+                                            один
+                                            клик
+                                        </button>
                                     </form>
                                     <p class="nalichie dpn naliche_net">Нет в
                                         наличии</p>
@@ -617,9 +624,13 @@
 
                     </div>
                     <div role="tabpanel" class="tab-pane" id="desc">
-                        <div class="catalog_item_block before_new free_shipping">
-                            <div class="before_gift"></div>
-                            <div class="before_free"></div>
+                        <div class="catalog_item_block {% if product.is_discountable or product.special_offer %}before_akcia {% elif product.new %}before_new {% elif product.top_sale %} before_hit{% elif product.recommended %} before_rec{% elif product.super_price %} before_superprice{% endif %} free_shipping">
+                            {% if product.gift %}
+                                <div class="before_gift"></div>
+                            {% endif %}
+                            {% if product.free_shipping %}
+                                <div class="before_free"></div>
+                            {% endif %}
                             {% thumbnail product.primary_image.original "155" as thumb %}
                                 <a data-slide-index="{{ forloop.counter0 }}"
                                    href=""><img
@@ -722,9 +733,13 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="photo">
-                        <div class="catalog_item_block before_new free_shipping">
-                            <div class="before_gift"></div>
-                            <div class="before_free"></div>
+                        <div class="catalog_item_block {% if product.is_discountable or product.special_offer %}before_akcia {% elif product.new %}before_new {% elif product.top_sale %} before_hit{% elif product.recommended %} before_rec{% elif product.super_price %} before_superprice{% endif %} free_shipping">
+                            {% if product.gift %}
+                                <div class="before_gift"></div>
+                            {% endif %}
+                            {% if product.free_shipping %}
+                                <div class="before_free"></div>
+                            {% endif %}
                             {% thumbnail product.primary_image.original "155" as thumb %}
                                 <a data-slide-index="{{ forloop.counter0 }}"
                                    href=""><img
@@ -832,9 +847,13 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="review">
-                        <div class="catalog_item_block before_new free_shipping">
-                            <div class="before_gift"></div>
-                            <div class="before_free"></div>
+                        <div class="catalog_item_block {% if product.is_discountable or product.special_offer %}before_akcia {% elif product.new %}before_new {% elif product.top_sale %} before_hit{% elif product.recommended %} before_rec{% elif product.super_price %} before_superprice{% endif %} free_shipping">
+                            {% if product.gift %}
+                                <div class="before_gift"></div>
+                            {% endif %}
+                            {% if product.free_shipping %}
+                                <div class="before_free"></div>
+                            {% endif %}
                             {% thumbnail product.primary_image.original "155" as thumb %}
                                 <a data-slide-index="{{ forloop.counter0 }}"
                                    href=""><img
@@ -1006,9 +1025,13 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="delivery">
-                        <div class="catalog_item_block before_new free_shipping">
-                            <div class="before_gift"></div>
-                            <div class="before_free"></div>
+                        <div class="catalog_item_block {% if product.is_discountable or product.special_offer %}before_akcia {% elif product.new %}before_new {% elif product.top_sale %} before_hit{% elif product.recommended %} before_rec{% elif product.super_price %} before_superprice{% endif %} free_shipping">
+                            {% if product.gift %}
+                                <div class="before_gift"></div>
+                            {% endif %}
+                            {% if product.free_shipping %}
+                                <div class="before_free"></div>
+                            {% endif %}
                             {% thumbnail product.primary_image.original "155" as thumb %}
                                 <a data-slide-index="{{ forloop.counter0 }}"
                                    href=""><img

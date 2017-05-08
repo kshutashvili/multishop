@@ -216,9 +216,13 @@
                                                 {% include "partials/form_fields.html" with form=basket_form %}
                                             </form>
                                             <li>
-                                                <div class="catalog_item_block">
-                                                    <div class="before_gift"></div>
-                                                    <div class="before_free"></div>
+                                                <div class="catalog_item_block {% if product.is_discountable or product.special_offer %}before_akcia {% elif product.new %}before_new {% elif product.top_sale %} before_hit{% elif product.recommended %} before_rec{% elif product.super_price %} before_superprice{% endif %} free_shipping">
+                                                    {% if product.gift %}
+                                                        <div class="before_gift"></div>
+                                                    {% endif %}
+                                                    {% if product.free_shipping %}
+                                                        <div class="before_free"></div>
+                                                    {% endif %}
                                                     {% thumbnail product.primary_image.original "155" as thumb %}
                                                         <img src="{{ thumb.url }}">
                                                     {% endthumbnail %}
