@@ -103,6 +103,7 @@ TEMPLATES = [
                 'contacts.processor.social_networks_ref',
                 'contacts.processor.show_work_schedule',
                 'config.processor.show_site_email',
+                'config.processor.menu_processor',
             ],
         },
     },

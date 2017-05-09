@@ -47,3 +47,59 @@ class Configuration(SingletonModel):
                                             on_delete=models.SET_NULL,
                                             verbose_name="Мощность котла",
                                             null=True)
+
+
+class MenuCategory(models.Model):
+    class Meta:
+        verbose_name = 'Категория меню'
+        verbose_name_plural = 'Категории меню'
+    name = models.CharField('Название', max_length=50)
+    order = models.IntegerField('Порядок', default=0)
+
+    def __unicode__(self):
+        return self.name
+
+
+class MenuItemQuerySet(models.QuerySet):
+    def active(self, *args, **kwargs):
+        kwargs['is_active'] = True
+        return self.filter(*args, **kwargs).order_by('order')
+
+    def in_header(self, *args, **kwargs):
+        kwargs['position'] = MenuItem.POSITION.HEADER
+        return self.filter(*args, **kwargs)
+
+    def in_footer(self, *args, **kwargs):
+        kwargs['position'] = MenuItem.POSITION.FOOTER
+        return self.filter(*args, **kwargs)
+
+
+class MenuItem(models.Model):
+    class Meta:
+        verbose_name = 'Пункт меню'
+        verbose_name_plural = 'Пункты меню'
+
+    class POSITION:
+        HEADER = 'header'
+        FOOTER = 'footer'
+        _CHOICES = ((HEADER, 'Header'),
+                    (FOOTER, 'Footer'))
+
+    position = models.CharField('Расположение', max_length=128,
+                                default=POSITION.HEADER,
+                                choices=POSITION._CHOICES)
+    name = models.CharField('Название', max_length=50)
+    link = models.CharField('Ссылка', max_length=255, blank=True)
+    order = models.IntegerField('Порядок', default=0)
+    category = models.ForeignKey(MenuCategory, verbose_name='Категория',
+                                 on_delete=models.CASCADE,
+                                 max_length=255, blank=True, null=True)
+    site = models.ForeignKey(Site, verbose_name='Сайт',
+                             on_delete=models.CASCADE,
+                             max_length=255, blank=True, null=True)
+    is_active = models.BooleanField('Отображается на сайте', default=True)
+
+    objects = MenuItemQuerySet.as_manager()
+
+    def __unicode__(self):
+        return self.name
