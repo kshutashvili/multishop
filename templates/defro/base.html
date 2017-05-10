@@ -33,10 +33,10 @@
                         </ul>
                     </div>
                     <div class="header_right">
-                        <div class="lang">
-                            <a href="{% change_lang 'ru' %}">RU</a>
+                        <div class="lang">{% get_current_language as LANGUAGE_CODE %}
+                            <a href="{% change_lang 'ru' %}" {% if LANGUAGE_CODE == 'ru' %}class="active_lang" {% endif %}>RU</a>
                             <span>|</span>
-                            <a href="{% change_lang 'uk' %}">UA</a>
+                            <a href="{% change_lang 'uk' %}" {% if LANGUAGE_CODE == 'uk' %}class="active_lang" {% endif %}>UA</a>
                         </div>
                         <div class="search">
                             {% include 'defro/partials/search.html' %}
