@@ -194,7 +194,7 @@ ul{
 	border-radius: 50%;
 }
 .basket .open #dropdownMenu1:before{
-	content: "\2714";
+	content: attr(data-content);
 }
 .basket .open #dropdownMenu2:before{
 	content: attr(data-content);
