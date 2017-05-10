@@ -115,6 +115,11 @@ ul{
 	border: 1px solid #000;
 	background: url("../img/loop.png") no-repeat right 7px center;
 }
+@media (min-width: 768px) {
+	.search input.form-control{
+		width: 320px;
+	}
+}
 .search input:active, .search input:focus{
 	border-color: #ed1b24;
 	background: url("../img/active_loop.png") no-repeat right 7px center;
