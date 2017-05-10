@@ -197,7 +197,7 @@ ul{
 	content: "\2714";
 }
 .basket .open #dropdownMenu2:before{
-	content: "1";
+	content: attr(data-content);
 }
 #dropdownMenu1{
 	background: url("../img/sravn.png") no-repeat center top 5px;

@@ -121,6 +121,7 @@ function update_modal_lines_info() {
     $total_sum.text(parseInt(total));
     $total_sum_bottom.text(parseInt(total));
     $total_in_dropdown.text(parseInt(total) + ' грн.');
+    $('#dropdownMenu2').attr('data-content', $basket_items.length);  // count on basket icon in header
 
 }
 
