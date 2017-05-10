@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load lang_url %}
 {% load static %}
+{% load url_tags %}
 
 {% block styles %}
     <link rel="stylesheet" type="text/css"
@@ -26,11 +27,9 @@
 
                     <div class="top_menu">
                         <ul>
-                            <li><a href="#">О компании</a></li>
-                            <li><a href="#">Доставка и оплата</a></li>
-                            <li><a href="#">Гарантия</a></li>
-                            <li><a href="#">Кредит</a></li>
-                            <li><a href="#">Контакты</a></li>
+                        {% for item in header_menu %}
+                            <li><a href="{% url_format item.link %}">{{ item }}</a></li>
+                        {% endfor %}
                         </ul>
                     </div>
                     <div class="header_right">
@@ -204,24 +203,16 @@
                 <div class="bottom_menu_bg">
                     <div class="container">
                         <div class="bottom_menu">
+                        {% for category  in footer_menu %}
                             <div class="menu_block">
-                                <p class="menu_block_caption">Помощь</p>
+                                <p class="menu_block_caption">{{ category.0 }}</p>
                                 <ul class="menu_block_items">
-                                    <li><a href="#">Вопросы и ответы</a></li>
-                                    <li><a href="#">Проблемы с заказом</a></li>
-                                    <li><a href="#">Обратная связь</a></li>
-                                    <li><a href="#">Монтаж и сервис</a></li>
+                                {% for item in category.1 %}
+                                    <li><a href="{% url_format item.link %}">{{ item }}</a></li>
+                                {% endfor %}
                                 </ul>
                             </div>
-                            <div class="menu_block">
-                                <p class="menu_block_caption">О нас</p>
-                                <ul class="menu_block_items">
-                                    <li><a href="#">О компании</a></li>
-                                    <li><a href="#">Сотрудничество</a></li>
-                                    <li><a href="#">Условия использования
-                                        сайта</a></li>
-                                </ul>
-                            </div>
+                        {% endfor %}
                             <div class="menu_block">
                                 <p class="menu_block_caption">Как связаться</p>
                                 <ul class="contact_ul">
