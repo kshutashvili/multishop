@@ -1356,6 +1356,9 @@ a.choose_kotel:hover{
     left: -11px;
 	position: absolute;
 }
+.breadcrumb> li > a:hover {
+    color: #ed1b24;
+}
 .category_block{
 	clear: both;
 	margin-bottom: 35px;
