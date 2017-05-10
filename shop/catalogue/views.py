@@ -16,6 +16,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic.base import ContextMixin
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
+from haystack.query import SearchQuerySet
 from oscar.apps.catalogue.search_handlers import \
     get_product_search_handler_class
 from oscar.apps.catalogue.views import \
@@ -212,9 +213,12 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
 
     def get_context_data(self, **kwargs):
         context = super(ProductCategoryView, self).get_context_data()
+        category = self.get_category()
+        product_classes = ProductClass.objects.filter(products__categories=category)
         products_in_basket = [line.product for line in
                               self.request.basket.lines.all()]
         context['already_in_basket'] = products_in_basket
+        context['product_classes'] = product_classes
         return context
 
     def get(self, request, *args, **kwargs):

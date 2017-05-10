@@ -4785,3 +4785,7 @@ button.make_zakaz_button:hover{
     opacity:0.4;
     z-index: 10000;
 }
+
+.active_lang {
+	color: #ed1b24 !important;
+}
