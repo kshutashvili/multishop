@@ -16,9 +16,14 @@
         <div class="main_block clear_fix">
             {% include 'defro/partials/side_menu.html' %}
             <ol class="breadcrumb">
-                <li><a href="#"><img src="{% get_static 'img/home.png' %}"
-                                     alt="">Главная</a></li>
-                <li class="active">Список статей</li>
+                <li><a href="/"><img src="{% get_static 'img/home.png' %}"
+                                     alt=""></a></li>
+                <li class="active"><a href="/catalogue/">Каталог</a></li>
+                    {% for c in category.get_ancestors_and_self %}
+                        <li>
+                            <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                        </li>
+                    {% endfor %}
             </ol>
             {% if product_classes %}
                 <div class="category_block">
