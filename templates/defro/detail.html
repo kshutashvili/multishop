@@ -22,26 +22,33 @@
 
 {% block breadcrumbs %}
     <ul class="breadcrumb">
-        <li>
-            <a href="{{ homepage_url }}">{% trans "Home" %}</a>
-        </li>
-        {% with category=product.categories.all.0 %}
-            {% for c in category.get_ancestors_and_self %}
                 <li>
-                    <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                    <a href="/"><img src="{% get_static 'img/home.png' %}"
+                                     alt="" class="solo_img"></a>
                 </li>
-            {% endfor %}
-            <li class="active">{{ product.title }}</li>
+                <li>
+                    <a href="/catalogue/">Каталог</a>
+                </li>
+                {% with category=product.categories.all.0 %}
+                    {% for c in category.get_ancestors_and_self %}
+                        <li>
+                            <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                        </li>
+                    {% endfor %}
+                    <li>
+                        <a href="/catalogue/?selected_facets=product_class_exact:{{product.product_class}}">{{product.product_class}}</a>
+                    </li>
+                    <li class="active">{{ product.title }}</li>
 
-            {% get_back_button as backbutton %}
-            {% if backbutton %}
-                <li class="pull-right">
-                    <a href="{{ backbutton.url }}">
-                        <i class="icon-arrow-left"></i> {{ backbutton.title }}
-                    </a>
-                </li>
-            {% endif %}
-        {% endwith %}
+                    {% get_back_button as backbutton %}
+                    {% if backbutton %}
+                        <li class="pull-right">
+                            <a href="{{ backbutton.url }}">
+                                <i class="icon-arrow-left"></i> {{ backbutton.title }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endwith %}
     </ul>
 {% endblock %}
 
@@ -67,7 +74,7 @@
                                      alt="" class="solo_img"></a>
                 </li>
                 <li>
-                    <a href="/catalogue">Каталог</a>
+                    <a href="/catalogue/">Каталог</a>
                 </li>
                 {% with category=product.categories.all.0 %}
                     {% for c in category.get_ancestors_and_self %}
