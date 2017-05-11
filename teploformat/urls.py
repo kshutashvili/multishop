@@ -20,7 +20,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemap_view
 from django.contrib.staticfiles import views
-from django.shortcuts import redirect
 from oscar.app import application
 
 from shop.basket.views import delete_item_from_basket, update_items_quantity
@@ -31,7 +30,6 @@ from shop.catalogue.views import get_search_count, \
 from website.sitemaps import base_sitemaps
 
 urlpatterns = [
-    url(r'^$', lambda r: redirect('/{}/'.format(r.LANGUAGE_CODE)), name="home"),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('website.urls')),
     url(r'^basket/delete_item_from_basket/(?P<id>[0-9]+)/$',
@@ -43,7 +41,7 @@ urlpatterns = [
         {'sitemaps': base_sitemaps}),
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemap_view.sitemap,
         {'sitemaps': base_sitemaps},
-        name='django.contrib.sitemaps.views.sitemap')
+        name='django.contrib.sitemaps.views.sitemap'),
 ]
 
 urlpatterns += [
@@ -77,5 +75,6 @@ urlpatterns += i18n_patterns(
     url(r'^basket/update_items_quantity', update_items_quantity,
         name='update_items_quantity'),
     url(r'^basket/', include('shop.order.urls', namespace='order')),
+    prefix_default_language=False
 
 )
