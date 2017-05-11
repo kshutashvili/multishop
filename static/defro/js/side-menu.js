@@ -1,6 +1,6 @@
 var timeout;
 
-$('.dropdown').hover(function () {
+$('.dropdown.side-menu').hover(function () {
     $(this).addClass('open');
 
 }, function () {
@@ -12,12 +12,12 @@ $('a.dropdown-toggle').click(function () {
     location.href = $(this).attr('href');
 });
 
-$('.left_side').hover(function () {
+$('.left_side.side-menu').hover(function () {
     clearTimeout(timeout);
-    $('div.collapse').addClass('in');
+    $('div.collapse').first().addClass('in');
 }, function () {
     timeout = setTimeout(function () {
-        $('div.collapse').removeClass('in');
+        $('div.collapse').first().removeClass('in');
     }, 500);
 
 });

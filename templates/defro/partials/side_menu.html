@@ -1,4 +1,4 @@
-<div class="{% if not is_main_page %}left_side{% endif %}">
+<div class="side-menu {% if not is_main_page %}left_side{% endif %}">
     <a class="left_side_caption" role="button" data-toggle="collapse"
        href="#collapseExample" aria-expanded="false"
        aria-controls="collapseExample">
@@ -10,7 +10,7 @@
                 <li>
                     {% if categories %}
                         {% for category in categories %}
-                            <div class="dropdown">
+                            <div class="dropdown side-menu">
                                 <a href="{{ category.get_absolute_url }}"
                                    class="btn btn-default dropdown-toggle"
                                    id="dropdownMenu{{ forloop.counter0|add:"3" }}"
