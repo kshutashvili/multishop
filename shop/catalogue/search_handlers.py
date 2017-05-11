@@ -12,6 +12,12 @@ class SolrProductSearchHandler(OscarSolrProductSearchHandler):
                  options=[]):
         self.options = options
         self.request = request
+        if request_data.get('price_range_min') and request_data.get(
+                'price_range_max'):
+            self.price_range = {'min': request_data.get('price_range_min'),
+                                'max': request_data.get('price_range_max')}
+        else:
+            self.price_range = None
         super(SolrProductSearchHandler, self).__init__(request_data, full_path,
                                                        categories)
 
@@ -19,6 +25,9 @@ class SolrProductSearchHandler(OscarSolrProductSearchHandler):
         site = get_current_site(self.request)
         sqs = super(SolrProductSearchHandler,
                     self).get_search_queryset().filter(site=site.pk)
+        if self.price_range:
+            sqs = sqs.filter(
+                price__range=[self.price_range['min'], self.price_range['max']])
         if self.options:
             for k in self.options:
                 if k.startswith('filter_') and self.options[k]:

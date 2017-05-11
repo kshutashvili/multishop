@@ -196,6 +196,15 @@ OSCAR_ORDER_STATUS_PIPELINE = {
     'Cancelled': (),
 }
 
+OSCAR_SEARCH_FACETS = {
+    'fields': OrderedDict([
+        ('product_class', {'name': _('Type'), 'field': 'product_class'}),
+        ('rating', {'name': _('Rating'), 'field': 'rating'}),
+    ]),
+    'queries': OrderedDict([
+        ]),
+}
+
 OSCAR_MISSING_IMAGE_URL = os.path.join(MEDIA_URL,'image_not_found.jpg')
 
 TEMPLATE_LOADERS = (

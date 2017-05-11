@@ -11,6 +11,7 @@ from django.http import HttpResponse
 from django.http.response import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import get_template
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
 from django.views.generic.base import ContextMixin
@@ -24,6 +25,7 @@ from oscar.apps.catalogue.views import \
     CatalogueView as OscarCatalogueView, \
     ProductCategoryView as OscarProductCategoryView
 from oscar.apps.customer import history
+from oscar.core.loading import get_model
 
 from shop.catalogue.models import Product, ProductClass, Category
 from shop.catalogue.models import ProductAttributeValue
@@ -88,8 +90,8 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
     template_name = 'browse.html'
 
     def get(self, request, *args, **kwargs):
-        site = get_current_site(request)
-        self.form = FilterForm(site, request.GET)
+        self.site = get_current_site(request)
+        self.form = FilterForm(self.site, request.GET)
         options = []
         if self.form.is_valid():
             options = self.form.cleaned_data
@@ -106,6 +108,10 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         context = super(CatalogueView, self).get_context_data()
         context['recently_viewed_products'] = history.get(self.request)
         context['filter_form'] = self.form
+        price_range = [x.price for x in SearchQuerySet().models(Product).filter(
+            site=self.site.pk)]
+        context['min_price'] = int(min(price_range))
+        context['max_price'] = int(max(price_range))
 
         facet_data = context['facet_data']
 
@@ -214,7 +220,8 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
     def get_context_data(self, **kwargs):
         context = super(ProductCategoryView, self).get_context_data()
         category = self.get_category()
-        product_classes = ProductClass.objects.filter(products__categories=category)
+        product_classes = ProductClass.objects.filter(
+            products__categories=category)
         products_in_basket = [line.product for line in
                               self.request.basket.lines.all()]
         context['already_in_basket'] = products_in_basket
@@ -231,12 +238,14 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
 
         try:
             self.search_handler = self.get_search_handler(
-                request.GET, request.get_full_path(), request, self.get_categories(), [])
+                request.GET, request.get_full_path(), request,
+                self.get_categories(), [])
         except InvalidPage:
             messages.error(request, _('The given page number was invalid.'))
             return redirect(self.category.get_absolute_url())
 
-        return super(OscarProductCategoryView, self).get(request, *args, **kwargs)
+        return super(OscarProductCategoryView, self).get(request, *args,
+                                                         **kwargs)
 
 
 @require_POST
