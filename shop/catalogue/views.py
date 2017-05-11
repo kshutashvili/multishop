@@ -11,7 +11,6 @@ from django.http import HttpResponse
 from django.http.response import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import get_template
-from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
 from django.views.generic.base import ContextMixin
@@ -31,7 +30,6 @@ from shop.catalogue.models import ProductAttributeValue
 from shop.order.forms import OneClickOrderForm
 from website.views import SiteTemplateResponseMixin
 from .forms import FilterForm
-from oscar.core.loading import get_model
 
 
 class CompareAndMenuContextMixin(ContextMixin):
@@ -109,7 +107,7 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         context['recently_viewed_products'] = history.get(self.request)
         context['filter_form'] = self.form
         price_range = [x.price for x in SearchQuerySet().models(Product).filter(
-            site=self.site.pk)]
+            site=self.site.pk) if x.price is not None]
         context['min_price'] = int(min(price_range))
         context['max_price'] = int(max(price_range))
 
