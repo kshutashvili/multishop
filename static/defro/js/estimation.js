@@ -61,11 +61,17 @@ const calculate_fuel = () => {
 }
 
 $(document).ready(function(){
-	estimate_power()
-	calculate_fuel()
+	estimate_power();
+	calculate_fuel();
 	$('.calculator').on('change', function() {
-		estimate_power()
-		calculate_fuel()
+		estimate_power();
+		calculate_fuel();
 	});
-})
+});
+
+
+$('#choose_kotel_btn').click(function (e) {
+	e.preventDefault();
+	location.href = $(this).attr('data-catalogue-url') + '?power=' + $('#t_power').text();
+});
 

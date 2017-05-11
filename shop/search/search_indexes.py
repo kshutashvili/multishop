@@ -27,6 +27,7 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
 
     attributes = indexes.MultiValueField()
     attribute_values = indexes.MultiValueField()
+    attribute_option_values = indexes.MultiValueField()
 
     site = indexes.CharField(null=True, faceted=True)
 
@@ -47,7 +48,11 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
         return [attribute.name for attribute in obj.attributes.all()]
 
     def prepare_attribute_values(self, obj):
-        return [val.value_option.pk for val in obj.attribute_values.all() if val.value_option is not None]
+        return [val.value for val in obj.attribute_values.all()]
+
+    def prepare_attribute_option_values(self, obj):
+        return [val.value_option.pk for val in obj.attribute_values.all() if
+                val.value_option is not None]
 
     def prepare_site(self, obj):
         return obj.site.pk
