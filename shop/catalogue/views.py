@@ -25,13 +25,13 @@ from oscar.apps.catalogue.views import \
     CatalogueView as OscarCatalogueView, \
     ProductCategoryView as OscarProductCategoryView
 from oscar.apps.customer import history
-from oscar.core.loading import get_model
 
 from shop.catalogue.models import Product, ProductClass, Category
 from shop.catalogue.models import ProductAttributeValue
 from shop.order.forms import OneClickOrderForm
 from website.views import SiteTemplateResponseMixin
 from .forms import FilterForm
+from oscar.core.loading import get_model
 
 
 class CompareAndMenuContextMixin(ContextMixin):
@@ -221,7 +221,7 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
         context = super(ProductCategoryView, self).get_context_data()
         category = self.get_category()
         product_classes = ProductClass.objects.filter(
-            products__categories=category)
+            products__categories=category).distinct()
         products_in_basket = [line.product for line in
                               self.request.basket.lines.all()]
         context['already_in_basket'] = products_in_basket
