@@ -181,7 +181,7 @@ ul{
 	right: 1px;
 	z-index: 10;
 }
-.basket .open .btn-default:before{
+.basket .btn-default:before{
 	content: "";
 	position: absolute;
 	width: 18px;
@@ -193,10 +193,10 @@ ul{
 	left: 15px;
 	border-radius: 50%;
 }
-.basket .open #dropdownMenu1:before{
+.basket #dropdownMenu1:before{
 	content: attr(data-content);
 }
-.basket .open #dropdownMenu2:before{
+.basket #dropdownMenu2:before{
 	content: attr(data-content);
 }
 #dropdownMenu1{

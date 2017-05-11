@@ -153,6 +153,7 @@ $(document).ready(function () {
 
             change_numbers();
             modal_item_delete();
+            update_modal_lines_info();
 
         });
     }
