@@ -108,8 +108,11 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         context['filter_form'] = self.form
         price_range = [x.price for x in SearchQuerySet().models(Product).filter(
             site=self.site.pk) if x.price is not None]
-        context['min_price'] = int(min(price_range))
-        context['max_price'] = int(max(price_range))
+        try:
+            context['min_price'] = int(min(price_range))
+            context['max_price'] = int(max(price_range))
+        except ValueError:
+            pass
 
         facet_data = context['facet_data']
 
