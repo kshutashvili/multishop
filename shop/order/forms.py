@@ -2,8 +2,8 @@
 
 from django import forms
 
-from shop.order.models import SimpleOrder, ShippingMethod, PaymentMethod
-from .models import OneClickOrder
+from shop.order.models import SimpleOrder, ShippingMethod, PaymentMethod, \
+    OneClickOrder, CallRequest
 
 
 class OneClickOrderForm(forms.ModelForm):
@@ -42,3 +42,17 @@ class SimpleOrderForm(forms.ModelForm):
             'city': forms.TextInput(attrs={'placeholder': u'Город'}),
             'address': forms.TextInput(attrs={'placeholder': u'Адрес'}),
         }
+
+
+class CallRequestForm(forms.ModelForm):
+    phone = forms.RegexField(
+        regex=r'^\+?1?\d{9,15}$',
+        error_message=(
+            "Phone number must be entered in the format: '+999999999'. "
+            "Up to 15 digits allowed."),
+        label=''
+    )
+
+    class Meta:
+        model = CallRequest
+        fields = ['name', 'phone']

@@ -347,6 +347,18 @@ $(document).ready(function () {
     $("#print").click(function (e) {
         e.preventDefault();
         window.print();
-    })
+    });
+
+    $('#submit_call_request').click(function (e) {
+        e.preventDefault();
+        var outer_this = this;
+        $.post($('#call_request_form').attr('action'), $('#call_request_form').serialize(), function () {
+            $('.close').trigger('click');
+            $('div.' + $(outer_this).attr("rel")).fadeIn(500);
+            $("body").append("<div id='overlay'></div>");
+            $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            return false;
+        });
+    });
 
 });

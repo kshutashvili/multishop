@@ -27,6 +27,7 @@ from shop.catalogue.reviews.views import ProductQuestionView
 from shop.catalogue.views import get_search_count, \
     OneClickOrderCreateView, CompareView, remove_item_from_compare_list, \
     remove_category_from_compare_list, CompareCategoryView
+from shop.order.views import CallRequestCreateView
 from website.sitemaps import base_sitemaps
 
 urlpatterns = [
@@ -75,6 +76,7 @@ urlpatterns += i18n_patterns(
     url(r'^basket/update_items_quantity', update_items_quantity,
         name='update_items_quantity'),
     url(r'^basket/', include('shop.order.urls', namespace='order')),
+    url('^call_request', CallRequestCreateView.as_view(), name='call_request'),
     prefix_default_language=False
 
 )

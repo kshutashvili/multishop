@@ -4789,3 +4789,14 @@ button.make_zakaz_button:hover{
 .active_lang {
 	color: #ed1b24 !important;
 }
+
+.call_request {
+    margin-left:-230px;
+    max-width:405px;
+    width: 100%;
+    padding: 15px 0;
+}
+
+input[name='phone']{
+	margin-bottom: 35px;
+}

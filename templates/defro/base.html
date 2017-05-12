@@ -27,16 +27,20 @@
 
                     <div class="top_menu">
                         <ul>
-                        {% for item in header_menu %}
-                            <li><a href="{% url_format item.link %}">{{ item }}</a></li>
-                        {% endfor %}
+                            {% for item in header_menu %}
+                                <li>
+                                    <a href="{% url_format item.link %}">{{ item }}</a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="header_right">
                         <div class="lang">{% get_current_language as LANGUAGE_CODE %}
-                            <a href="{% change_lang 'ru' %}" {% if LANGUAGE_CODE == 'ru' %}class="active_lang" {% endif %}>RU</a>
+                            <a href="{% change_lang 'ru' %}"
+                               {% if LANGUAGE_CODE == 'ru' %}class="active_lang" {% endif %}>RU</a>
                             <span>|</span>
-                            <a href="{% change_lang 'uk' %}" {% if LANGUAGE_CODE == 'uk' %}class="active_lang" {% endif %}>UA</a>
+                            <a href="{% change_lang 'uk' %}"
+                               {% if LANGUAGE_CODE == 'uk' %}class="active_lang" {% endif %}>UA</a>
                         </div>
                         <div class="search">
                             {% include 'defro/partials/search.html' %}
@@ -63,14 +67,16 @@
                             <a href="tel:+380931498880"><span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}
                             </a>
                         {% endif %}
-                        <a href="#" class="zakaz_zvon">Заказать звонок</a>
+                        <a href="#" class="zakaz_zvon show_popup"
+                           rel="call_request">Заказать звонок</a>
                     </div>
                     <div class="basket">
 
                         <div class="dropdown">
                             <a href="#" class="btn btn-default dropdown-toggle"
                                id="dropdownMenu1" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="true" data-content="{{ compare_categories|length }}">
+                               aria-haspopup="true" aria-expanded="true"
+                               data-content="{{ compare_categories|length }}">
                                 Сравнение
                             </a>
                             <ul class="dropdown-menu"
@@ -97,7 +103,8 @@
                         <div class="dropdown dropdown_2">
                             <a href="#" class="btn btn-default dropdown-toggle"
                                id="dropdownMenu2" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="true" data-content="0">
+                               aria-haspopup="true" aria-expanded="true"
+                               data-content="0">
                                 Корзина
                             </a>
                             <ul class="dropdown-menu"
@@ -192,6 +199,32 @@
                     Вами</p>
             </div>
 
+
+            <div class="popup call_request">
+                <a class="close" href="#">Close</a>
+                <p class="modal_ask_quest">Заказ звонка</p>
+
+                <form id="call_request_form"
+                      action="{% url 'call_request' %}"
+                      class="modal_form">
+                    <label for="">Ваше имя<span>*</span>:</label>
+                    <input id="name" name="name" type="text">
+                    <label for="">Ваш телефон<span>*</span>:</label>
+                    <input id="phone" name="phone" type="text">
+                    <a href="#" id="submit_call_request"
+                       rel="request_button_modal">Отправить</a>
+                </form>
+            </div>
+
+            <div class="popup request_button_modal">
+                <a class="close" href="#">Close</a>
+                <p id="question_result1" class="modal_caption">Спасибо за Ваше
+                    обращение</p>
+                <p id="question_result2" class="modal_text">Наш менеджер
+                    обязательно
+                    свяжется с Вами</p>
+            </div>
+
             <div class="snackbar" id="compare_success" style="display: none">
                 Товар добавлен в список
                 сравнения
@@ -203,16 +236,18 @@
                 <div class="bottom_menu_bg">
                     <div class="container">
                         <div class="bottom_menu">
-                        {% for category  in footer_menu %}
-                            <div class="menu_block">
-                                <p class="menu_block_caption">{{ category.0 }}</p>
-                                <ul class="menu_block_items">
-                                {% for item in category.1 %}
-                                    <li><a href="{% url_format item.link %}">{{ item }}</a></li>
-                                {% endfor %}
-                                </ul>
-                            </div>
-                        {% endfor %}
+                            {% for category  in footer_menu %}
+                                <div class="menu_block">
+                                    <p class="menu_block_caption">{{ category.0 }}</p>
+                                    <ul class="menu_block_items">
+                                        {% for item in category.1 %}
+                                            <li>
+                                                <a href="{% url_format item.link %}">{{ item }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endfor %}
                             <div class="menu_block">
                                 <p class="menu_block_caption">Как связаться</p>
                                 <ul class="contact_ul">

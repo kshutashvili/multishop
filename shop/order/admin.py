@@ -1,6 +1,7 @@
 from oscar.apps.order.admin import *  # noqa
 
-from .models import SimpleOrder, ShippingMethod, PaymentMethod, OneClickOrder
+from .models import SimpleOrder, ShippingMethod, PaymentMethod, OneClickOrder, \
+    CallRequest
 
 
 class SimpleOrderAdmin(admin.ModelAdmin):
@@ -11,10 +12,16 @@ class OneClickAdmin(admin.ModelAdmin):
     list_display = ('phone', 'when_created',)
 
 
+class CallRequestAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'when_created', 'site')
+
+
 admin.site.register(SimpleOrder, SimpleOrderAdmin)
 admin.site.register(ShippingMethod)
 admin.site.register(PaymentMethod)
 admin.site.register(OneClickOrder, OneClickAdmin)
+
+admin.site.register(CallRequest, CallRequestAdmin)
 
 admin.site.unregister(Order)
 admin.site.unregister(Line)
