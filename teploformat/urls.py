@@ -32,7 +32,6 @@ from website.sitemaps import base_sitemaps
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('website.urls')),
     url(r'^basket/delete_item_from_basket/(?P<id>[0-9]+)/$',
         delete_item_from_basket,
         name='delete_item_from_basket'),
