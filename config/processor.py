@@ -3,7 +3,8 @@ from collections import defaultdict
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
 
-from config.models import SiteConfig, MenuItem
+from config.models import (SiteConfig, MenuItem, Configuration,
+                           TextOne, TextTwo, TextThree, TextFour)
 
 
 def show_site_email(request):
@@ -24,3 +25,15 @@ def menu_processor(request):
         menu_by_cat[item.category].append(item)
     footer_menu = sorted(menu_by_cat.items(), key=lambda item: item[0].order)
     return {'header_menu': header_menu, 'footer_menu': footer_menu}
+
+
+def show_undercat_block(request):
+    site_obj = get_current_site(request)
+    text_one = TextOne.get_solo().to_show(site_obj)
+    text_two = TextTwo.get_solo().to_show(site_obj)
+    text_three = TextThree.get_solo().to_show(site_obj)
+    text_four = TextFour.get_solo().to_show(site_obj)
+    text_url = Configuration.get_solo().undercat_block_url
+    return {'text_one': text_one, 'text_two': text_two,
+            'text_three': text_three, 'text_four': text_four,
+            'text_url': text_url}

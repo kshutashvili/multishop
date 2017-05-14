@@ -10,21 +10,14 @@
                 <div class="left_side">
 						{% include 'defro/partials/side_menu.html' with expand=True is_main_page=True %}
                 <ul class="under_left_menu">
-							 	<li>Тщательно продуманная автоматическая
-								система сжигания угля позволяет
-								экономить до 50% топлива</li>
-								<li>Котел требует обслуживания не чаще
-								1-2 раз в неделю, при этом обслуживание
-								занимает не более 10 минут</li>
-								<li>Автоматика и конструкция котла
-								обеспечивают максимальную
-								безопасность при эксплуатации котла
-								и его обслуживании</li>
-								<li>Комнатный контроллер позволит задать
-								нужную температуру в доме не заходя
-								в котельное помещение</li>
-							 </ul>
-                <a href="#" class="under_left_menu_more">Узнать подробнее</a>
+							 	<li>{{ text_one|linebreaksbr }}</li>
+								<li>{{ text_two|linebreaksbr }}</li>
+								<li>{{ text_three|linebreaksbr }}</li>
+								<li>{{ text_four|linebreaksbr }}</li>
+				</ul>
+				{% if text_url %}
+                <a href="{{ text_url }}" class="under_left_menu_more">Узнать подробнее</a>
+                {% endif %}
                 </div>
                 <div class="right_side">
 							<h1>Высокое качество</h1>

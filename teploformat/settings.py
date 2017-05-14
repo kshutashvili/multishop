@@ -104,6 +104,7 @@ TEMPLATES = [
                 'contacts.processor.show_work_schedule',
                 'config.processor.show_site_email',
                 'config.processor.menu_processor',
+                'config.processor.show_undercat_block',
             ],
         },
     },
