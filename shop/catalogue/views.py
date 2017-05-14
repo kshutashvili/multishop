@@ -36,10 +36,9 @@ class CompareAndMenuContextMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super(CompareAndMenuContextMixin, self).get_context_data()
         site = get_current_site(self.request)
-        context['side_menu'] = {cat: [clss for clss in
-                                      ProductClass.objects.filter(site=site,
-                                                                  products__categories=cat).distinct()]
-                                for cat in Category.objects.filter(site=site)}
+        context['side_menu'] = {
+            cat: [descendant for descendant in cat.get_descendants()] for cat in
+            Category.objects.filter(site=site)}
         compare_list = self.request.session.get('compare_list')
         if compare_list:
             compare_products = Product.objects.filter(
