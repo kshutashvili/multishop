@@ -41,6 +41,7 @@
                         <div class="item">
                         <a href="{{ category.get_absolute_url }}">
                             <p>{{ category.name }}</p>
+                            <img src="{{ category.image.url }}">
                         </a>
 					    </div>
                     {% endfor %}
