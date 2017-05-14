@@ -167,7 +167,6 @@
 
 {% block extrascripts %}
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
-    <script src="{% get_static 'js/basket_script.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.rating_photo').barrating({
@@ -175,4 +174,5 @@
             });
         });
     </script>
+    {{ block.super }}
 {% endblock %}
