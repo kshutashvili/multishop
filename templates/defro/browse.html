@@ -484,7 +484,7 @@
     <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
     <script src="{% get_static 'js/more-button.js' %}"></script>
-        <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('.rating_photo').barrating({
@@ -494,6 +494,7 @@
     </script>
 
     {{ block.super }}
+    <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
 {% endblock %}
 
 {% block onbodyload %}
