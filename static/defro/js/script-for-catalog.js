@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+    var params = [];
+    var filter_params = {};
+
     $('#myTabs a').click(function (e) {
         e.preventDefault();
         $(this).tab('show')
@@ -73,8 +76,60 @@ $(document).ready(function () {
 
     });
 
-    $('.checkbox input').change(function () {
+    $('input.checkbox_filter.checkbox').change(function () {
         $('#filter_form').submit();
+    });
+
+    $('.facet').change(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var full_url = $('input[name=url_for_' + $(this).attr('name')).val();
+        params.push(full_url.split('/')[full_url.split('/').length - 1]);
+        var val = $(this).next('.facet_label').attr('data-filter-val');
+        var name = $(this).next('.facet_label').attr('data-filter-name') + '__in';
+        if (name in filter_params && !$(this).prop('checked')) {
+            delete filter_params[name];
+        }
+        else {
+            filter_params[name] = val;
+        }
+    });
+
+    $('.facet_label').hover(function () {
+        if (!$(this).prev('input.facet').prop('checked')) {
+            var val = $(this).attr('data-filter-val');
+            name = $(this).attr('data-filter-name') + '__in';
+            filter_params[name] = val;
+            $.get('/catalugue/get_search_count/', filter_params,
+                function (data) {
+                    $('.filter_item_count').text(data['count']);
+                });
+        }
+        else {
+            $.get('/catalugue/get_search_count/', filter_params,
+                function (data) {
+                    $('.filter_item_count').text(data['count']);
+                });
+        }
+
+    }, function () {
+        if (!$(this).prev('input.facet').prop('checked')) {
+            delete filter_params[name];
+        }
+    });
+
+
+    $('.apply_filters').click(function () {
+        var url = '';
+        for (var i = 0; i < params.length; i++) {
+            if (i != 0) {
+                url += params[i].replace('?', '&')
+            }
+            else {
+                url += params[i]
+            }
+        }
+        location.href = '/catalogue/' + url;
     })
 });
 
