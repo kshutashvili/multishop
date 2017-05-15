@@ -38,7 +38,7 @@ class CompareAndMenuContextMixin(ContextMixin):
         site = get_current_site(self.request)
         context['side_menu'] = {
             cat: [descendant for descendant in cat.get_descendants()] for cat in
-            Category.objects.filter(site=site)}
+            Category.objects.filter(site=site) if cat.is_root()}
         compare_list = self.request.session.get('compare_list')
         if compare_list:
             compare_products = Product.objects.filter(
