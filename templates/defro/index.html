@@ -30,14 +30,16 @@
 			<div class="container">
 				<h2><span>Наши</span> продукты</h2>
 				<div class="owl-carousel owl-theme">
-                    {% for category in categories %}
+				{% if side_menu %}
+                    {% for category in side_menu %}
                         <div class="item">
                         <a href="{{ category.get_absolute_url }}">
                             <p>{{ category.name }}</p>
-                            <img src="{{ category.image.url }}">
+                            <img src="{{ category.image }}">
                         </a>
 					    </div>
                     {% endfor %}
+                {% endif %}
 				</div>
 			</div>
 		</div>
