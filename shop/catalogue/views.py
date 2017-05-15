@@ -36,8 +36,9 @@ class CompareAndMenuContextMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super(CompareAndMenuContextMixin, self).get_context_data()
         site = get_current_site(self.request)
-        context['product_classes'] = ProductClass.objects.filter(site=site)
-        context['categories'] = Category.objects.filter(site=site)
+        context['side_menu'] = {
+            cat: [descendant for descendant in cat.get_descendants()] for cat in
+            Category.objects.filter(site=site) if cat.is_root()}
         compare_list = self.request.session.get('compare_list')
         if compare_list:
             compare_products = Product.objects.filter(
@@ -108,8 +109,11 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         context['filter_form'] = self.form
         price_range = [x.price for x in SearchQuerySet().models(Product).filter(
             site=self.site.pk) if x.price is not None]
-        context['min_price'] = int(min(price_range))
-        context['max_price'] = int(max(price_range))
+        try:
+            context['min_price'] = int(min(price_range))
+            context['max_price'] = int(max(price_range))
+        except ValueError:
+            pass
 
         facet_data = context['facet_data']
 

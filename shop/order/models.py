@@ -1,5 +1,5 @@
 # -*-coding:utf8-*-
-
+from django.contrib.sites.models import Site
 from django.db import models
 
 
@@ -147,6 +147,24 @@ class PaymentMethod(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.name
+
+
+class CallRequest(models.Model):
+    class Meta:
+        verbose_name = u'Заявка на звонок'
+        verbose_name_plural = u'Заявки на звонки'
+
+    name = models.CharField(max_length=120, verbose_name='Имя')
+    phone = models.CharField(
+        max_length=12,
+        verbose_name=u'Телефон'
+    )
+    when_created = models.DateTimeField(
+        verbose_name=u'Время создания',
+        auto_now_add=True,
+        null=True
+    )
+    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
 
 from oscar.apps.order.models import *  # noqa

@@ -4,7 +4,8 @@ from django.utils.html import format_html
 from django.contrib.sites.models import Site
 from solo.admin import SingletonModelAdmin
 
-from .models import SiteConfig, Configuration, MenuItem, MenuCategory
+from .models import (SiteConfig, Configuration, MenuItem, MenuCategory,
+                     TextOne, TextTwo, TextThree, TextFour)
 
 
 class SiteConfigInline(admin.StackedInline):
@@ -28,6 +29,26 @@ admin.site.register(Site, SiteConfigAdmin)
 @admin.register(Configuration)
 class SiteConfigurationAdmin(SingletonModelAdmin):
     list_display = ('power_attribute',)
+
+
+@admin.register(TextOne)
+class TextOneAdmin(SingletonModelAdmin):
+    list_display = ('text', 'site', 'is_active')
+
+
+@admin.register(TextTwo)
+class TextTwoAdmin(SingletonModelAdmin):
+    list_display = ('text', 'site', 'is_active')
+
+
+@admin.register(TextThree)
+class TextThreeAdmin(SingletonModelAdmin):
+    list_display = ('text', 'site', 'is_active')
+
+
+@admin.register(TextFour)
+class TextFourAdmin(SingletonModelAdmin):
+    list_display = ('text', 'site', 'is_active')
 
 
 @admin.register(MenuCategory)

@@ -20,39 +20,6 @@
     {{ product.description|default:""|striptags }}
 {% endblock %}
 
-{% block breadcrumbs %}
-    <ul class="breadcrumb">
-                <li>
-                    <a href="/"><img src="{% get_static 'img/home.png' %}"
-                                     alt="" class="solo_img"></a>
-                </li>
-                <li>
-                    <a href="/catalogue/">Каталог</a>
-                </li>
-                {% with category=product.categories.all.0 %}
-                    {% for c in category.get_ancestors_and_self %}
-                        <li>
-                            <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-                        </li>
-                    {% endfor %}
-                    <li>
-                        <a href="/catalogue/?selected_facets=product_class_exact:{{product.product_class}}">{{product.product_class}}</a>
-                    </li>
-                    <li class="active">{{ product.title }}</li>
-
-                    {% get_back_button as backbutton %}
-                    {% if backbutton %}
-                        <li class="pull-right">
-                            <a href="{{ backbutton.url }}">
-                                <i class="icon-arrow-left"></i> {{ backbutton.title }}
-                            </a>
-                        </li>
-                    {% endif %}
-                {% endwith %}
-    </ul>
-{% endblock %}
-
-
 
 {% block content %}
     <div class="container">
@@ -73,18 +40,12 @@
                     <a href="/"><img src="{% get_static 'img/home.png' %}"
                                      alt="" class="solo_img"></a>
                 </li>
-                <li>
-                    <a href="/catalogue/">Каталог</a>
-                </li>
                 {% with category=product.categories.all.0 %}
                     {% for c in category.get_ancestors_and_self %}
                         <li>
                             <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
                         </li>
                     {% endfor %}
-                    <li>
-                        <a href="/catalogue/?selected_facets=product_class_exact:{{product.product_class}}">{{product.product_class}}</a>
-                    </li>
                     <li class="active">{{ product.title }}</li>
 
                     {% get_back_button as backbutton %}
@@ -1246,14 +1207,6 @@
             <textarea id="text" name="text" cols="30" rows="10"></textarea>
             <a href="#" id="submit">Отправить</a>
         </form>
-    </div>
-
-    <div class="popup request_button_modal">
-        <a class="close" href="#">Close</a>
-        <p id="question_result1" class="modal_caption">Спасибо за Ваше
-            обращение</p>
-        <p id="question_result2" class="modal_text">Наш менеджер обязательно
-            свяжется с Вами</p>
     </div>
 
     <div class="popup request_button_modal_second" id="review_modal">

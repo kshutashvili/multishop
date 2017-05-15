@@ -18,7 +18,6 @@
             <ol class="breadcrumb">
                 <li><a href="/"><img src="{% get_static 'img/home.png' %}"
                                      alt=""></a></li>
-                <li class="active"><a href="/catalogue/">Каталог</a></li>
                     {% for c in category.get_ancestors_and_self %}
                         <li>
                             <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>

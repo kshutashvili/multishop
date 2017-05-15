@@ -47,6 +47,9 @@ class Configuration(SingletonModel):
                                             on_delete=models.SET_NULL,
                                             verbose_name="Мощность котла",
                                             null=True)
+        undercat_block_url = models.CharField('Ссылка под каталогом',
+                                              max_length=128,
+                                              blank=True)
 
 
 class MenuCategory(models.Model):
@@ -103,3 +106,42 @@ class MenuItem(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class UndercatText(SingletonModel):
+    class Meta:
+        abstract = True
+    text = models.TextField('Текст')
+    site = models.ForeignKey(Site, verbose_name='Сайт',
+                             on_delete=models.CASCADE,
+                             max_length=255, blank=True, null=True)
+    is_active = models.BooleanField('Отображается на сайте', default=True)
+
+    def __unicode__(self):
+        return self.text
+
+    def to_show(self, site_obj):
+        if self.is_active and ((self.site == site_obj) or self.site is None):
+            return self.text
+        else:
+            return ''
+
+
+class TextOne(UndercatText):
+    class Meta:
+        verbose_name = 'Текст 1'
+
+
+class TextTwo(UndercatText):
+    class Meta:
+        verbose_name = 'Текст 2'
+
+
+class TextThree(UndercatText):
+    class Meta:
+        verbose_name = 'Текст 3'
+
+
+class TextFour(UndercatText):
+    class Meta:
+        verbose_name = 'Текст 4'
