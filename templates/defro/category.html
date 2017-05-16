@@ -27,7 +27,7 @@
                 <div class="category_block">
                     <p class="category_block_caption">{{ category.name }}</p>
                     <ul>
-                        {% for cat in subcat %}
+                        {% for cat in category.get_children.all %}
                             <li>
                                 <a href="{{ cat.get_absolute_url }}">
                                     {% if cat.image %}

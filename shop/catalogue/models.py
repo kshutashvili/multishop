@@ -18,6 +18,7 @@ from oscar.apps.catalogue.abstract_models import AbstractProduct, \
     AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup
 from oscar.apps.order.models import Order as OscarOrder
 from redis.exceptions import ConnectionError
+from urllib import urlencode
 
 
 class Product(AbstractProduct):
@@ -93,6 +94,12 @@ class ProductCategory(AbstractProductCategory):
 
 class Category(AbstractCategory):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+
+    def get_absolute_url(self):
+        if self.get_children().exists():
+            return super(Category, self).get_absolute_url()
+        return '?'.join((reverse('catalogue:index'),
+                         urlencode({'cat': self.slug})))
 
 
 class ProductAttributeValue(AbstractProductAttributeValue):
