@@ -92,7 +92,7 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         self.site = get_current_site(request)
         self.form = FilterForm(self.site, request.GET)
         try:
-            category = Category.objects.filter(slug=request.GET['slug'])
+            category = Category.objects.filter(slug=request.GET['cat'])
         except KeyError:
             category = Category.objects.none()
         options = []
