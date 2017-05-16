@@ -31,7 +31,7 @@
                             <li>
                                 <a href="{{ cat.get_absolute_url }}">
                                     {% if cat.image %}
-                                        <img src="{{ cat.image.url }}" alt="">
+                                        <img src="{{ cat.image.url }}" alt="{{ cat.name }}">
                                     {% endif %}
                                     <p>{{ cat.name }}</p>
                                 </a>
