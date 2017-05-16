@@ -91,12 +91,17 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
     def get(self, request, *args, **kwargs):
         self.site = get_current_site(request)
         self.form = FilterForm(self.site, request.GET)
+        try:
+            category = Category.objects.filter(slug=request.GET['slug'])
+        except KeyError:
+            category = Category.objects.none()
         options = []
         if self.form.is_valid():
             options = self.form.cleaned_data
         try:
             self.search_handler = self.get_search_handler(
-                self.request.GET, request.get_full_path(), request, [], options)
+                self.request.GET, request.get_full_path(), request,
+                options=options, categories=category)
         except InvalidPage:
             # Redirect to page one.
             messages.error(request, _('The given page number was invalid.'))
@@ -123,7 +128,6 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                                         facet_dict['count'] != 0]
 
         context['facet_data'] = facet_data
-
         return context
 
 
