@@ -35,7 +35,11 @@
                         <div class="item">
                         <a href="{{ category.get_absolute_url }}">
                             <p>{{ category.name }}</p>
-                            {% if category.image %}<img src="{{ category.image.url }}">{% endif %}
+                            {% if category.image %}
+							{% thumbnail category.image "74" as img %}
+								<img src="{{ img.url }}">
+							{% endthumbnail %}
+							{% endif %}
                         </a>
 					    </div>
                     {% endfor %}
