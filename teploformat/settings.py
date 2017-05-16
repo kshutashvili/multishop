@@ -208,6 +208,8 @@ OSCAR_SEARCH_FACETS = {
 
 OSCAR_MISSING_IMAGE_URL = os.path.join(MEDIA_URL,'image_not_found.jpg')
 
+THUMBNAIL_PRESERVE_FORMAT=True
+
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
