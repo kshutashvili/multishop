@@ -92,16 +92,16 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         self.site = get_current_site(request)
         self.form = FilterForm(self.site, request.GET)
         try:
-            category = Category.objects.filter(slug=request.GET['cat'])
+            self.category = Category.objects.filter(slug=request.GET['cat'])
         except KeyError:
-            category = Category.objects.none()
+            self.category = Category.objects.none()
         options = []
         if self.form.is_valid():
             options = self.form.cleaned_data
         try:
             self.search_handler = self.get_search_handler(
                 self.request.GET, request.get_full_path(), request,
-                options=options, categories=category)
+                options=options, categories=self.category)
         except InvalidPage:
             # Redirect to page one.
             messages.error(request, _('The given page number was invalid.'))
@@ -112,6 +112,8 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         context = super(CatalogueView, self).get_context_data()
         context['recently_viewed_products'] = history.get(self.request)
         context['filter_form'] = self.form
+        if hasattr(self, 'category'):
+            context['category'] = self.category.first()
         price_range = [x.price for x in SearchQuerySet().models(Product).filter(
             site=self.site.pk) if x.price is not None]
         try:
