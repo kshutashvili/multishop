@@ -222,12 +222,14 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
     def get_context_data(self, **kwargs):
         context = super(ProductCategoryView, self).get_context_data()
         category = self.get_category()
-        product_classes = ProductClass.objects.filter(
-            products__categories=category).distinct()
         products_in_basket = [line.product for line in
                               self.request.basket.lines.all()]
         context['already_in_basket'] = products_in_basket
-        context['product_classes'] = product_classes
+        subcat = category.get_children()
+        if subcat.exists():
+            context['children'] = subcat
+        else:
+            context['products'] = category.product_set.all()
         return context
 
     def get(self, request, *args, **kwargs):
