@@ -36,7 +36,7 @@
                         <a href="{{ category.get_absolute_url }}">
                             <p>{{ category.name }}</p>
                             {% if category.image %}
-							{% thumbnail category.image "74" as img %}
+							{% thumbnail category.image "74x155" crop="center" as img %}
 								<img src="{{ img.url }}">
 							{% endthumbnail %}
 							{% endif %}
