@@ -1,0 +1,592 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-17 14:59+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: contacts/models.py:12
+msgid "Бесцветный значок"
+msgstr ""
+
+#: contacts/models.py:13
+msgid "Цветной значок"
+msgstr ""
+
+#: contacts/models.py:22
+msgid "Kievstar"
+msgstr ""
+
+#: contacts/models.py:23
+msgid "Life"
+msgstr ""
+
+#: contacts/models.py:24
+msgid "Vodafone"
+msgstr ""
+
+#: contacts/models.py:28
+msgid ""
+"Номер телефона должен быть введен в формате:'+999999999999'. Допускается до "
+"15 цифр в номере"
+msgstr ""
+
+#: contacts/models.py:36 contacts/models.py:81
+msgid "Оператор"
+msgstr ""
+
+#: contacts/models.py:44 contacts/models.py:89 contacts/models.py:141
+msgid "Сайт"
+msgstr ""
+
+#: contacts/models.py:49
+msgid "Номер телефона"
+msgstr ""
+
+#: contacts/models.py:50
+msgid "Номера телефонов"
+msgstr ""
+
+#: contacts/models.py:71
+msgid "facebook"
+msgstr ""
+
+#: contacts/models.py:72
+msgid "ВКонтакте"
+msgstr ""
+
+#: contacts/models.py:73
+msgid "mail.ru"
+msgstr ""
+
+#: contacts/models.py:74
+msgid "Twitter"
+msgstr ""
+
+#: contacts/models.py:75
+msgid "Одноклассники"
+msgstr ""
+
+#: contacts/models.py:76
+msgid "Pinterest"
+msgstr ""
+
+#: contacts/models.py:77
+msgid "Google+"
+msgstr ""
+
+#: contacts/models.py:78
+msgid "YouTube"
+msgstr ""
+
+#: contacts/models.py:86
+msgid "Ссылка"
+msgstr ""
+
+#: contacts/models.py:94
+msgid "Ссылка на социальную сеть"
+msgstr ""
+
+#: contacts/models.py:95
+msgid "Ссылки на социальные сети"
+msgstr ""
+
+#: contacts/models.py:103
+msgid "Дни недели"
+msgstr ""
+
+#: contacts/models.py:107
+msgid "Время дня"
+msgstr ""
+
+#: contacts/models.py:112
+msgid "График работы"
+msgstr ""
+
+#: contacts/models.py:113
+msgid "Графики работы"
+msgstr ""
+
+#: contacts/models.py:124
+msgid "основное"
+msgstr ""
+
+#: contacts/models.py:125
+msgid "для call center"
+msgstr ""
+
+#: contacts/models.py:126
+msgid "для ночных заказов"
+msgstr ""
+
+#: contacts/models.py:129
+msgid "Тип рассписания"
+msgstr ""
+
+#: contacts/models.py:136
+msgid "Графики"
+msgstr ""
+
+#: contacts/models.py:146
+msgid "Рассписание работы компании"
+msgstr ""
+
+#: contacts/models.py:147
+msgid "Рассписания работы компании"
+msgstr ""
+
+#: shop/catalogue/models.py:82
+msgid "Image"
+msgstr ""
+
+#: shop/catalogue/reviews/models.py:18
+msgctxt "Product review title"
+msgid "Title"
+msgstr ""
+
+#: shop/catalogue/views.py:110 shop/catalogue/views.py:259
+msgid "The given page number was invalid."
+msgstr ""
+
+#: shop/dashboard/catalogue/config.py:8
+msgid "Catalogue"
+msgstr ""
+
+#: templates/defro/detail.html:159 templates/defro/detail.html:667
+#: templates/defro/detail.html:776 templates/defro/detail.html:890
+#: templates/defro/detail.html:1068
+msgid "Add to basket"
+msgstr ""
+
+#: templates/defro/detail.html:456 templates/defro/detail.html:470
+#: templates/defro/detail.html:964 templates/defro/detail.html:978
+msgid "Submitting..."
+msgstr ""
+
+#: templates/defro/index.html:72
+msgid "Утепленный"
+msgstr ""
+
+#: templates/defro/index.html:73
+msgid "Неутепленный"
+msgstr ""
+
+#: templates/defro/index.html:96
+msgid "Киевская"
+msgstr ""
+
+#: templates/defro/index.html:97
+msgid "Черкасская"
+msgstr ""
+
+#: templates/defro/index.html:98
+msgid "Кирововградская"
+msgstr ""
+
+#: templates/defro/index.html:99
+msgid "Винницкая"
+msgstr ""
+
+#: templates/defro/index.html:100
+msgid "Хмельницкая"
+msgstr ""
+
+#: templates/defro/index.html:101
+msgid "Тернопольская"
+msgstr ""
+
+#: templates/defro/index.html:102
+msgid "Ровенская"
+msgstr ""
+
+#: templates/defro/index.html:103
+msgid "Житомирская"
+msgstr ""
+
+#: templates/defro/index.html:104
+msgid "Черниговская"
+msgstr ""
+
+#: templates/defro/index.html:105
+msgid "Полтавская"
+msgstr ""
+
+#: templates/defro/index.html:106
+msgid "Сумская"
+msgstr ""
+
+#: templates/defro/index.html:107
+msgid "Харковская"
+msgstr ""
+
+#: templates/defro/index.html:108
+msgid "Луганская"
+msgstr ""
+
+#: templates/defro/index.html:109
+msgid "Донецкая"
+msgstr ""
+
+#: templates/defro/index.html:110
+msgid "Волынская"
+msgstr ""
+
+#: templates/defro/index.html:111
+msgid "Львовская"
+msgstr ""
+
+#: templates/defro/index.html:112
+msgid "Запорожская"
+msgstr ""
+
+#: templates/defro/index.html:113
+msgid "Черновецкая"
+msgstr ""
+
+#: templates/defro/index.html:114
+msgid "Ивано-Франковская"
+msgstr ""
+
+#: templates/defro/index.html:115
+msgid "Днепропетровская"
+msgstr ""
+
+#: templates/defro/index.html:116
+msgid "Закарпатская"
+msgstr ""
+
+#: templates/defro/index.html:117
+msgid "Николаевская"
+msgstr ""
+
+#: templates/defro/index.html:118
+msgid "Херсонская"
+msgstr ""
+
+#: templates/defro/index.html:119
+msgid "Одесская"
+msgstr ""
+
+#: templates/defro/index.html:120
+msgid "АРК(центральна i пiвнiчна частина)"
+msgstr ""
+
+#: templates/defro/index.html:121
+msgid "АРК(пiвденне узбережжя)"
+msgstr ""
+
+#: templates/defro/index.html:132
+msgid "Старая"
+msgstr ""
+
+#: templates/defro/index.html:133
+msgid "Нового образца"
+msgstr ""
+
+#: templates/defro/partials/search.html:7
+msgid "Search"
+msgstr ""
+
+#: templates/defro/search/results.html:70
+#, python-format
+msgid ""
+"\n"
+"                                                <p class="
+"\"category_block_caption search_text_smaller\">\n"
+"                                                    Found\n"
+"                                                    <strong>%(num_results)s</"
+"strong>\n"
+"                                                    results, showing\n"
+"                                                    <strong>%(start)s</"
+"strong>\n"
+"                                                    to\n"
+"                                                    <strong>%(end)s</"
+"strong>.\n"
+"                                                </p>\n"
+"                                            "
+msgstr ""
+
+#: templates/defro/search/results.html:81
+#, python-format
+msgid ""
+"\n"
+"                                                <p class="
+"\"category_block_caption search_text_smaller\">\n"
+"                                                    По запросу\n"
+"                                                    “%(query)s”\n"
+"                                                    найден %(num_results)s\n"
+"                                                    товар </p>\n"
+"                                            "
+msgid_plural ""
+"\n"
+"                                                <p class="
+"\"category_block_caption search_text_smaller\">\n"
+"                                                    По запросу\n"
+"                                                    “%(query)s”\n"
+"                                                    найдено %(num_results)s\n"
+"                                                    товаров </p>\n"
+"                                            "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/defro/search/results.html:97
+msgid "Found <strong>0</strong> results."
+msgstr ""
+
+#: templates/defro/search/results.html:100
+#, python-format
+msgid ""
+"\n"
+"                                                    Did you mean\n"
+"                                                    <a href=\"%(search_url)s?"
+"q=%(suggestion)s\">\"%(suggestion)s\"</a>\n"
+"                                                    ?\n"
+"                                                "
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:5
+msgid "Create product type"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:13
+#: templates/shop/dashboard/catalogue/product_update.html:17
+msgid "Dashboard"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:16
+msgid "Product Type"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:34
+#: templates/shop/dashboard/catalogue/product_update.html:63
+msgid "Sections"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:39
+#: templates/shop/dashboard/catalogue/product_class_form.html:53
+msgid "Product Class details"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:40
+#: templates/shop/dashboard/catalogue/product_class_form.html:85
+msgid "Product attributes"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:96
+#: templates/shop/dashboard/catalogue/product_class_form.html:97
+msgid "Name"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:98
+msgid "Code"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:99
+#: teploformat/settings.py:204
+msgid "Type"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:100
+msgid "Required"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:101
+#: templates/shop/dashboard/catalogue/product_update.html:226
+msgid "Delete?"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:136
+#: templates/shop/dashboard/catalogue/product_update.html:391
+msgid "Cancel"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:138
+#: templates/shop/dashboard/catalogue/product_update.html:393
+msgid "or"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_class_form.html:140
+#: templates/shop/dashboard/catalogue/product_update.html:409
+msgid "Save"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:11
+#: templates/shop/dashboard/catalogue/product_update.html:20
+msgid "Products"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:47
+#, python-format
+msgid ""
+"\n"
+"                            You are currently editing a product variant of\n"
+"                            <a href=\"%(parent_url)s\">%(title)s</a>.\n"
+"                        "
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:77
+#: templates/shop/dashboard/catalogue/product_update.html:125
+msgid "Product details"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:81
+msgid "Categories"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:86
+#: templates/shop/dashboard/catalogue/product_update.html:168
+#: templates/shop/dashboard/catalogue/product_update.html:283
+msgid "Attributes"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:91
+msgid "Images"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:96
+#: templates/shop/dashboard/catalogue/product_update.html:210
+msgid "Stock and pricing"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:101
+#: templates/shop/dashboard/catalogue/product_update.html:271
+msgid "Variants"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:106
+msgid "Upselling"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:148
+msgid "Category"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:170
+msgid "Product Type:"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:191
+#: templates/shop/dashboard/catalogue/product_update.html:346
+msgid "Upload, change or remove images"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:215
+msgid "Partner"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:216
+msgid "SKU"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:218
+msgid "Num in stock"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:219
+msgid "Num allocated"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:220
+msgid "Low stock threshold"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:222
+msgid "Currency"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:223
+msgid "Cost price"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:224
+msgid "Price (excl tax)"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:225
+msgid "Retail price"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:275
+msgid "Adding..."
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:277
+msgid "Add variant"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:282
+msgid "Title"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:284
+msgid "Stock records"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:295
+msgid "Edit"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:299
+msgid "Delete"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:308
+msgid "This product does not have any variants."
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:310
+msgid "One can't add variants to this product at this point."
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:312
+msgid "This is likely because this product still has stock records."
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:328
+msgid "Recommended products"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:397
+#: templates/shop/dashboard/catalogue/product_update.html:403
+#: templates/shop/dashboard/catalogue/product_update.html:408
+msgid "Saving..."
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:398
+msgid "Save and add another variant"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:404
+msgid "Save and continue editing"
+msgstr ""
+
+#: templates/shop/dashboard/catalogue/product_update.html:414
+msgid "View on site"
+msgstr ""
+
+#: teploformat/settings.py:160
+msgid "Russian"
+msgstr ""
+
+#: teploformat/settings.py:161
+msgid "Ukrainian"
+msgstr ""
+
+#: teploformat/settings.py:205
+msgid "Rating"
+msgstr ""

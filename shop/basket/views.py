@@ -1,4 +1,4 @@
-# -*-coding:utf8-*-
+# -*- coding: utf-8 -*-
 from django.db.models import ObjectDoesNotExist
 from django.http.response import HttpResponse
 from django.http.response import JsonResponse
