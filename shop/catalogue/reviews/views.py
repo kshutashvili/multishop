@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, HttpResponse
 from django.views import View
 
 from oscar.core.utils import redirect_to_referrer
@@ -18,6 +18,9 @@ class CreateProductReview(View):
     def post(self, request, *args, **kwargs):
         product = get_object_or_404(Product, pk=self.kwargs['product_pk'])
         form = self.form_class(product, request.user, request.POST)
+        if ProductReview.objects.filter(
+                user=request.user, product=product).exists():
+            return HttpResponse(status=409)
         if form.is_valid():
             review = form.save(commit=False)
             review.save()
