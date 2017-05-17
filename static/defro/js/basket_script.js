@@ -217,6 +217,15 @@ $(document).ready(function () {
             $("body").append("<div id='overlay'></div>");
             $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
             return false;
+        }).fail(function (xhr) {
+            if (parseInt(xhr.status) == 409) {
+                var $errors = $('#basket_error');
+                $errors.text('Вы можете оставить только один отзыв!');
+                $errors.addClass('show');
+                setTimeout(function () {
+                    $errors.removeClass("show");
+                }, 3000);
+            }
         });
     });
     function modal_item_delete() {

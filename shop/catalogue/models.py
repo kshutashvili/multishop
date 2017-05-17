@@ -95,12 +95,6 @@ class ProductCategory(AbstractProductCategory):
 class Category(AbstractCategory):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
-    def get_absolute_url(self):
-        if self.get_children().exists():
-            return super(Category, self).get_absolute_url()
-        return '?'.join((reverse('catalogue:index'),
-                         urlencode({'cat': self.slug})))
-
 
 class ProductAttributeValue(AbstractProductAttributeValue):
     _localizable = ["text",
