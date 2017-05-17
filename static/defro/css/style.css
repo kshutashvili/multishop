@@ -2033,9 +2033,16 @@ a.look_more:hover{
     border: 1px solid #ed1b24;
     background-color: #fff;
 }
+.block150h {
+	height: 150px;
+}
+img + .block150h {
+	height: 0px;
+}
 .owl-carousel.catalog_owl .owl-item img{
 	display: inline-block;
-	max-width: 155px;
+	width: 150px;
+	max-height: 150px;
 }
 .owl-carousel.catalog_owl .catalog_item_block{
 	max-width: 100%;
@@ -2044,6 +2051,7 @@ a.look_more:hover{
 .owl-carousel.catalog_owl .catalog_item_block_caption{
 	font-size: 14px;
 	margin: 15px 20px 10px;
+	height: 48px;
 }
 .owl-carousel.catalog_owl .rating_number{
 	margin-left: 0px;

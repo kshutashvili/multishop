@@ -36,9 +36,10 @@
                                value="{{ product.id }}"
                                name="id">
                         <a href="{{ p.get_absolute_url }}">
-                            {% thumbnail p.primary_image.original "155" as img %}
+                            {% thumbnail p.primary_image.original "150" as img %}
                                 <img src="{{ img.url }}">
                             {% endthumbnail %}
+                            <div class="block150h"></div>
                             <p class="catalog_item_block_caption">{{ p.product_class.name }} {{ p.title }}</p>
                             <select class="rating_photo">
                                 {% for num in "12345" %}
