@@ -71,6 +71,29 @@ ul{
 	position: relative;
 	z-index: 10;
 }
+.header.fixed {
+	position: fixed;
+	width: 100%;
+	z-index: 99;
+}
+.header.fixed + div {
+		margin-top: 245px;
+	}
+@media (min-width: 768px) {
+	.header.fixed + div {
+		margin-top: 205px;
+	}
+}
+@media (min-width: 992px) {
+	.header.fixed + div {
+		margin-top: 185px;
+	}
+}
+@media (min-width: 1200px) {
+	.header.fixed + div {
+		margin-top: 130px;
+	}
+}
 .top_menu, .lang, .search, .logo, .contacts, .basket{
 	display: inline-block;
 	vertical-align: middle;

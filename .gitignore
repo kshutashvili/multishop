@@ -4,3 +4,4 @@ local_settings.py
 .env/
 media/
 .DS_Store
+django.mo

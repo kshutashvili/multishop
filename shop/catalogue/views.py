@@ -1,4 +1,4 @@
-# -*-coding:utf8-*-
+# -*- coding: utf-8 -*-
 import os
 from collections import Iterable
 
@@ -92,16 +92,19 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         self.site = get_current_site(request)
         self.form = FilterForm(self.site, request.GET)
         try:
-            category = Category.objects.filter(slug=request.GET['cat'])
-        except KeyError:
-            category = Category.objects.none()
+            self.category = Category.objects.get(pk=kwargs['cat_pk'])
+        except (KeyError, Category.DoesNotExist):
+            self.category = None
+            categories = Category.objects.none()
+        else:
+            categories = (self.category,)
         options = []
         if self.form.is_valid():
             options = self.form.cleaned_data
         try:
             self.search_handler = self.get_search_handler(
                 self.request.GET, request.get_full_path(), request,
-                options=options, categories=category)
+                options=options, categories=categories)
         except InvalidPage:
             # Redirect to page one.
             messages.error(request, _('The given page number was invalid.'))
@@ -112,6 +115,8 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         context = super(CatalogueView, self).get_context_data()
         context['recently_viewed_products'] = history.get(self.request)
         context['filter_form'] = self.form
+        if hasattr(self, 'category'):
+            context['category'] = self.category
         price_range = [x.price for x in SearchQuerySet().models(Product).filter(
             site=self.site.pk) if x.price is not None]
         try:
@@ -218,6 +223,8 @@ class CompareCategoryView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
 
         return context
 
+product_category_view = CatalogueView.as_view()
+
 
 class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
                           OscarProductCategoryView):
@@ -233,6 +240,12 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
     def get(self, request, *args, **kwargs):
         # Fetch the category; return 404 or redirect as needed
         self.category = self.get_category()
+        if not self.category.get_children().exists():
+            # Crutch oriented programming: we show products on the category url
+            # with a catalog view
+            kwargs['cat_pk'] = kwargs.pop('pk')
+            return product_category_view(request, *args, **kwargs)
+
         potential_redirect = self.redirect_if_necessary(
             request.path, self.category)
         if potential_redirect is not None:
