@@ -92,7 +92,7 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         self.site = get_current_site(request)
         self.form = FilterForm(self.site, request.GET)
         try:
-            category = Category.objects.filter(slug=request.GET['cat'])
+            category = Category.objects.filter(pk=kwargs['cat_pk'])
         except KeyError:
             category = Category.objects.none()
         options = []
@@ -218,6 +218,8 @@ class CompareCategoryView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
 
         return context
 
+product_category_view = CatalogueView.as_view()
+
 
 class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
                           OscarProductCategoryView):
@@ -233,6 +235,12 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
     def get(self, request, *args, **kwargs):
         # Fetch the category; return 404 or redirect as needed
         self.category = self.get_category()
+        if not self.category.get_children().exists():
+            # Crutch oriented programming: we show products on the category url
+            # with a catalog view
+            kwargs['cat_pk'] = kwargs.pop('pk')
+            return product_category_view(request, *args, **kwargs)
+
         potential_redirect = self.redirect_if_necessary(
             request.path, self.category)
         if potential_redirect is not None:
