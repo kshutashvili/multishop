@@ -22,10 +22,9 @@ class FacetedSearchView(OscarFacetedSearchView):
     def extra_context(self, **kwargs):
         context = super(FacetedSearchView, self).extra_context()
         site = get_current_site(self.request)
-        product_classes = ProductClass.objects.filter(site=site)
-        categories = Category.objects.filter(site=site)
-        context['product_classes'] = product_classes
-        context['categories'] = categories
+        context['side_menu'] = {
+            cat: [descendant for descendant in cat.get_descendants()] for cat in
+            Category.objects.filter(site=site) if cat.is_root()}
 
         result = self.get_results().all()
         search_categories = []
