@@ -28,14 +28,17 @@
                     <a href="/"><img src="{% get_static 'img/home.png' %}"
                                      alt="" class="solo_img"></a>
                 </li>
+                {% if category %}
+                {% for cat in category.get_ancestors_and_self %}
+                    {% if cat == category %}
+                        <li>{{ cat.name }}</li>
+                        {% else %}
+                        <li><a href="{{ cat.get_absolute_url }}" class="active">{{ cat.name }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% else %}
                 <li {% if not category %}class="active"{% endif %}>Каталог</li>
-            {% for cat in category.get_ancestors_and_self %}
-                {% if cat == category %}
-                    <li>{{ cat.name }}</li>
-                    {% else %}
-                    <li><a href="{{ cat.get_absolute_url }}" class="active">{{ cat.name }}</a></li>
                 {% endif %}
-            {% endfor %}
             </ul>
 
 
