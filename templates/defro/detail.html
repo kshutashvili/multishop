@@ -1193,17 +1193,20 @@
     <div class="popup ask_button_modal">
         <a class="close" href="#">Close</a>
         <p class="modal_ask_quest">Задать вопрос</p>
-
+        <p id="q_result1" class="modal_ask_quest">Спасибо за Ваш вопрос!</p>
+        <p id="q_result2" class="modal_form">
+        Наш менеджер обязательно свяжется с Вами
+        </p>
         <form id="question"
               action="{% url 'question' product_slug=product.slug pk=product.pk %}"
               class="modal_form">
-            <label for="">Ваше имя<span>*</span>:</label>
+            <label for="">Ваше имя<span id="name-err">*</span>:</label>
             <input id="name" name="name" type="text">
-            <label for="">Ваш Email</label>
+            <label for="">Ваш Email<span id="email-err"></span>:</label>
             <input id="email" name="email" type="text">
-            <label for="">Ваш телефон<span>*</span>:</label>
+            <label for="">Ваш телефон<span id="phone-err">*</span>:</label>
             <input id="phone" name="phone" type="text">
-            <label for="">Ваш вопрос<span>*</span>:</label>
+            <label for="">Ваш вопрос<span id="text-err">*</span>:</label>
             <textarea id="text" name="text" cols="30" rows="10"></textarea>
             <a href="#" id="submit">Отправить</a>
         </form>
@@ -1382,6 +1385,7 @@
             $('.rating_photo').barrating({
                 theme: 'fontawesome-stars'
             });
+            $('#q_result1, #q_result2').hide()
 
         });
         $('#submit').on('click', function (e) {
@@ -1389,27 +1393,45 @@
             const validate_question = () =>{
 
                 let flag = true;
-                if ($('#name').val() === '') {
+                if ($('#name').val() == "") {
+                    $('#name-err').html('* Обязательное поле!');
+                    $('#name').css({'border': '1px solid red'});
                     flag = false;
-                    $('#name').attr('placeholder', 'Введите имя!')
-                }
+                } else {
+                    $('#name-err').html('');
+                    $('#name').css({'border': '1px solid green'});
+                } 
                 const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                const mail = $('#mail').val()
-                if (!re.test(mail) && mail != undefined) {
+                const mail = $('#email').val()
+                if (!re.test(mail) && mail != '') {
                     flag = false;
-                    $('#email').attr('placeholder', 'Введите почту правильно!')
-                }
-                const re_p = /^[0-9]{10}$/;
+                    $('#email-err').html('* Неправильный email!');
+                    $('#email').css({'border': '1px solid red'});
+                } else {
+                    $('#email-err').html('');
+                    $('#email').css({'border': '1px solid green'});
+                } 
+                const re_p = /^[0-9]{8,10}$/;
                 const phone = $('#phone').val()
                 if (!re_p.test(phone)) {
                     flag = false;
-                    $('#phone').attr('placeholder', 'Введите телефон!')
-                }
+                    $('#phone-err').html('* Обязательное поле!');
+                    $('#phone').css({'border': '1px solid red'});
+                } else {
+                    $('#phone-err').html('');
+                    $('#phone').css({'border': '1px solid green'});
+                } 
                 if ($('#text').val() === '') {
                     flag = false;
-                    $('#text').attr('placeholder', 'Введите вопрос!')
-                }
+                    $('#text-err').html('* Обязательное поле!');
+                    $('#text').css({'border': '1px solid red'});
+                } else {
+                    $('#text-err').html('');
+                    $('#text').css({'border': '1px solid green'});
+                } 
                 return flag
+
+                
             }
             const form = $("#question")
             const url = form.attr('action');
@@ -1420,11 +1442,11 @@
                     url: url,
                     data: data,
                     success: function () {
-                        $(".popup.ask_button_modal").append($('#question_result1'))
-                        $(".popup.ask_button_modal").append($('#question_result2'))
-                        $(".popup.ask_button_modal").attr('class', "popup request_button_modal")
-                        $('.modal_ask_quest').empty()
-                        $('#question').empty()
+                        $('.modal_ask_quest').hide()
+                        $('#question').hide()
+                        $('#q_result1').show()
+                        $('#q_result2').css({'font-size':'18px'})
+                        $('#q_result2').show()
                     }
                 });
             }
