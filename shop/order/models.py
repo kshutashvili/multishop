@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib.sites.models import Site
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+from oscar.apps.order.abstract_models import AbstractOrder
 
 
 class OneClickOrder(models.Model):
@@ -31,87 +33,6 @@ class OneClickOrder(models.Model):
         max_length=12,
         verbose_name=u'Телефон'
     )
-
-
-class SimpleOrder(models.Model):
-    STATUS_CHOICES = (
-        (1, u'Отменен'),
-        (2, u'В стадии обработки'),
-        (3, u'На производстве'),
-        (4, u'Огружен'),
-        (5, u'Выполнен'),
-    )
-
-    class Meta:
-        verbose_name = u'Заказ'
-        verbose_name_plural = u'Заказы'
-
-    when_created = models.DateTimeField(
-        verbose_name=u'Время создания',
-        auto_now_add=True,
-    )
-    basket = models.ForeignKey(
-        'basket.Basket',
-        verbose_name=u'Корзина',
-        null=True, blank=True,
-        on_delete=models.SET_NULL
-    )
-
-    order_status = models.IntegerField(
-        verbose_name=u'Статус',
-        choices=STATUS_CHOICES,
-        default=2
-    )
-
-    name = models.CharField(
-        max_length=50,
-        verbose_name=u'Имя'
-    )
-    phone = models.CharField(
-        max_length=12,
-        verbose_name=u'Телефон',
-    )
-    comment = models.TextField(blank=True, null=True,
-                               verbose_name=u'Коментарий')
-
-    email = models.EmailField(
-        max_length=50,
-        verbose_name=u'E-mail',
-        blank=True,
-        null=True
-    )
-    city = models.CharField(
-        max_length=60,
-        verbose_name=u'Город',
-        blank=True,
-        null=True
-    )
-    shipping_method = models.ForeignKey(
-        'ShippingMethod',
-        verbose_name='Способ доставки',
-        null=True,
-        on_delete=models.SET_NULL
-    )
-    payment_method = models.ForeignKey(
-        'PaymentMethod',
-        verbose_name='Способ оплаты',
-        null=True,
-        on_delete=models.SET_NULL
-    )
-
-    @property
-    def shipping_price(self):
-        return self.shipping_method.shipping_price
-
-    @property
-    def total_price(self):
-        if self.basket.is_tax_known:
-            return self.basket.total_incl_tax + self.shipping_price
-        else:
-            return self.basket.total_excl_tax + self.shipping_price
-
-    def __unicode__(self):
-        return '%s %s' % (self.when_created, self.order_status)
 
 
 class ShippingMethod(models.Model):
@@ -149,6 +70,80 @@ class PaymentMethod(models.Model):
         return u'%s' % self.name
 
 
+class Order(AbstractOrder):
+    number = models.CharField(
+        "Order number", max_length=128, db_index=True, unique=True, blank=True,
+        null=True, )
+    name = models.CharField(
+        max_length=120,
+        verbose_name=u'Имя',
+    )
+
+    phone = models.CharField(
+        max_length=12,
+        verbose_name=u'Телефон',
+    )
+
+    comment = models.CharField(max_length=500, verbose_name=u'Комментарий',
+                               blank=True, null=True)
+
+    shipping_method = models.ForeignKey(
+        'ShippingMethod',
+        verbose_name='Способ доставки',
+        null=True,
+        on_delete=models.SET_NULL
+    )
+    payment_method = models.ForeignKey(
+        'PaymentMethod',
+        verbose_name='Способ оплаты',
+        null=True,
+        on_delete=models.SET_NULL
+    )
+
+    city = models.CharField(
+        max_length=60,
+        verbose_name=u'Город',
+        blank=True,
+        null=True
+    )
+
+    currency = models.CharField(
+        "Currency", max_length=12, default='UAH', blank=True, null=True)
+
+    total_excl_tax = models.DecimalField(
+        _("Order total (excl. tax)"), decimal_places=2, max_digits=12,
+        blank=True, null=True)
+
+    total_incl_tax = models.DecimalField(
+        _("Order total (inc. tax)"), decimal_places=2, max_digits=12,
+        blank=True, null=True)
+
+    shipping_incl_tax = models.DecimalField(
+        _("Shipping charge (inc. tax)"), decimal_places=2, max_digits=12,
+        default=0, blank=True, null=True)
+
+    shipping_excl_tax = models.DecimalField(
+        _("Shipping charge (excl. tax)"), decimal_places=2, max_digits=12,
+        default=0, blank=True, null=True)
+
+    site = models.ForeignKey(
+        'sites.Site', verbose_name="Site", null=True, blank=True,
+        on_delete=models.SET_NULL)
+
+    date_placed = models.DateTimeField(db_index=True, blank=True, null=True)
+
+    @property
+    def shipping_price(self):
+        return self.shipping_method.shipping_price
+
+    @property
+    def total_price(self):
+        if self.basket.is_tax_known:
+            return self.basket.total_incl_tax + self.shipping_price
+        else:
+            return self.basket.total_excl_tax + self.shipping_price
+
+
 class CallRequest(models.Model):
     class Meta:
         verbose_name = u'Заявка на звонок'
@@ -167,4 +162,3 @@ class CallRequest(models.Model):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
 
-from oscar.apps.order.models import *  # noqa

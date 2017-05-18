@@ -1,13 +1,12 @@
-{% load staticfiles %}
-{% load site_static %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<link rel="stylesheet" type="text/css" href="{% get_static 'css/bootstrap.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% get_static 'css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'defro/css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'defro/css/style.css' %}">
 
 
 
@@ -16,7 +15,7 @@
 	<div class="container-fluid bgc_change">
 		<div class="container">
 			<div class="letter_container">
-				<img class="letter_logo" src="{% get_static 'img/logo.png' %}" alt="">
+				<img class="letter_logo" src="{% static 'defro/img/logo.png' %}" alt="">
 				<div class="letter_content">
 					<p class="letter_caption">Здравствуйте, <span>{{ order.user.get_full_name }}</span>!</p>
 					<p class="letter_thx">Спасибо, Ваш заказ принят!</p>
@@ -94,9 +93,9 @@
 	</div>
 </body>
 
-<script src="{% get_static 'js/jquery-2-0-0.js' %}"></script>
-<script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
-<script src="{% get_static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'defro/js/jquery-2-0-0.js' %}"></script>
+<script src="{% static 'defro/js/jquery.ui-slider.js' %}"></script>
+<script src="{% static 'defro/js/bootstrap.min.js' %}"></script>
 
 
 </html>

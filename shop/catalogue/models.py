@@ -16,7 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 from oscar.apps.catalogue.abstract_models import AbstractProduct, \
     AbstractProductAttributeValue, AbstractProductClass, \
     AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup
-from oscar.apps.order.models import Order as OscarOrder
+from shop.order.models import Order
 from redis.exceptions import ConnectionError
 from urllib import urlencode
 
@@ -167,7 +167,7 @@ class AttributeOptionGroup(AbstractAttributeOptionGroup):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
 
-@receiver(post_save, sender=OscarOrder)
+@receiver(post_save, sender=Order)
 def on_order_create(sender, instance, created, **kwargs):
     if not created:
         return

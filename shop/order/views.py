@@ -6,13 +6,14 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
+from oscar.apps.order.utils import OrderNumberGenerator
 
 from website.views import SiteTemplateResponseMixin
-from .forms import SimpleOrderForm, CallRequestForm
+from .forms import OrderForm, CallRequestForm
 
 
 class SimpleOrderView(SiteTemplateResponseMixin, CreateView):
-    form_class = SimpleOrderForm
+    form_class = OrderForm
     template_name = 'checkout/order.html'
     success_template_name = 'checkout/order_success.html'
 
@@ -20,6 +21,10 @@ class SimpleOrderView(SiteTemplateResponseMixin, CreateView):
         if self.request.basket.num_lines:
             instance = form.save(commit=False)
             instance.basket = self.request.basket
+            instance.user = self.request.user
+            instance.number = OrderNumberGenerator().order_number(
+                instance.basket)
+            instance.site = get_current_site(self.request)
             instance.save()
             self.request.basket.submit()
             return render(self.request, self.get_success_template_name(),

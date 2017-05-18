@@ -2,8 +2,8 @@
 
 from django import forms
 
-from shop.order.models import SimpleOrder, ShippingMethod, PaymentMethod, \
-    OneClickOrder, CallRequest
+from shop.order.models import Order, \
+    OneClickOrder, CallRequest, ShippingMethod, PaymentMethod
 
 
 class OneClickOrderForm(forms.ModelForm):
@@ -20,7 +20,7 @@ class OneClickOrderForm(forms.ModelForm):
         fields = ['phone']
 
 
-class SimpleOrderForm(forms.ModelForm):
+class OrderForm(forms.ModelForm):
     phone = forms.RegexField(
         widget=forms.TextInput(attrs={'placeholder': u'Телефон*'}),
         regex=r'^\+?1?\d{9,15}$',
@@ -32,15 +32,15 @@ class SimpleOrderForm(forms.ModelForm):
         queryset=PaymentMethod.objects.all(), empty_label='Способ оплаты')
 
     class Meta:
-        model = SimpleOrder
-        exclude = ('basket', 'check_blank', 'order_status')
+        model = Order
+        exclude = ('basket', 'check_blank', 'order_status', 'number',)
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': u'Имя и фамилия*'}),
             'comment': forms.Textarea(
                 attrs={'placeholder': u'Комментарий к заказу'}),
-            'email': forms.TextInput(attrs={'placeholder': u'E-mail'}),
-            'city': forms.TextInput(attrs={'placeholder': u'Город'}),
-            'address': forms.TextInput(attrs={'placeholder': u'Адрес'}),
+            'guest_email': forms.TextInput(attrs={'placeholder': u'E-mail'}),
+            'city': forms.TextInput(
+                attrs={'placeholder': u'Город'}),
         }
 
 
