@@ -16,7 +16,8 @@ class FacetedSearchView(OscarFacetedSearchView):
         site = get_current_site(request)
         template = site.config.template
         self.template = os.path.join(template, FacetedSearchView.template)
-        self.searchqueryset = self.searchqueryset.models(Product).filter(site=site.pk)
+        self.searchqueryset = self.searchqueryset.models(Product).filter(
+            site=site.pk)
         return super(FacetedSearchView, self).__call__(request)
 
     def extra_context(self, **kwargs):
@@ -26,21 +27,20 @@ class FacetedSearchView(OscarFacetedSearchView):
             cat: [descendant for descendant in cat.get_descendants()] for cat in
             Category.objects.filter(site=site) if cat.is_root()}
 
-        result = self.get_results().all()
-        search_categories = []
-        search_product_classes = []
-        category_class = {}
+        cats = []
+        for p in self.results.all():
+            cats.extend(p.object.categories.all())
 
-        for res in result:
-            search_categories.extend(res.object.categories.all())
-            search_product_classes.append(res.object.product_class)
-            category_class[res.object.product_class] = {cat for cat in
-                                                        res.object.categories.all()}
+        leafs = [x for x in cats if x.is_leaf()]
+        roots = [x if x.is_root() else x.get_root() for x in cats]
 
-        context['search_categories'] = Counter(search_categories)
-        context['search_product_classes'] = Counter(
-            search_product_classes).items()
-        context['category_class'] = category_class.items()
+        categories_count = {
+            root: [(leaf, self.results.filter(category=leaf.full_name).count())
+                   for
+                   leaf in leafs if leaf.is_descendant_of(root)] for root in
+        roots}
+
+        context['categories_count'] = categories_count
 
         compare_list = self.request.session.get('compare_list')
         if compare_list:

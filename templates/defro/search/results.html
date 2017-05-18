@@ -33,17 +33,15 @@
                                 <p class="caption">Все результаты
                                     <span>({{ paginator.count }})</span></p>
                             </div>
-                            {% for productClass, count in search_product_classes %}
+                            {% for root, leaf_count in categories_count.items %}
                                 <div class="parameters search_parameters">
                                     <div class="parameters_block clear_fix">
-                                        <p class="search_caption">{{ productClass.name }}</p>
-
-                                        {% for productClass, categories in category_class %}
-                                            {% for cat in categories %}
-                                                <a href="{{ cat.get_absolute_url }}"
-                                                   class="search_category_name">{{ cat.name }}
-                                                    <span>{{ search_categories|get_item:cat }}</span></a>
-                                            {% endfor %}
+                                        <p class="search_caption">{{ root.name }}</p>
+                                        {% for leaf, count in leaf_count %}
+                                            <a href="{{ leaf.get_absolute_url }}"
+                                               class="search_category_name">{{ leaf.name }}
+                                                <span>{{ count }}</span></a>
+                                            <br>
                                         {% endfor %}
 
                                     </div>
