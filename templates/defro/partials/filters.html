@@ -12,10 +12,26 @@
             <div class="collapse in"
                  id="collapseFilter{{ forloop.counter|add:'3' }}">
                 <div class="well">
-                    <div class="checkbox">
+                    <div class="checkbox checkbox_filter">
                         {% for choice in field %}
                             {{ choice.tag }}
-                            <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                            <label for="{{ choice.id_for_label }}"
+                                   data-filter-val="{{ choice.choice_label }}"
+                                   data-filter-name="{{ field.label }}"
+                                   class="facet_label">{{ choice.choice_label }}
+                                <div class="label_after">
+                                    <p>
+                                        <span class="filter_item_count">0</span>
+                                        товаров
+                                    </p>
+                                    <a href="#"
+                                       class="apply_filters">Посмотреть</a>
+                                </div>
+                            </label>
+                            <input class="facet_url"
+                                   type="hidden"
+                                   name="url_for_{{ choice.id_for_label }}"
+                                   value="{{ item.select_url }}"/>
                         {% endfor %}
                     </div>
                 </div>
