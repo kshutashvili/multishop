@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'modeltranslation',
     'solo',
+    'ckeditor',
 ] + get_core_apps(['shop.catalogue',
                    'shop.promotions',
                    'shop.dashboard.catalogue',
@@ -225,6 +226,8 @@ TEMPLATE_DIRS = (
 )
 
 DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
 try:
     from local_settings import *

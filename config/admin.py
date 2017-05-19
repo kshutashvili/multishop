@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+from ckeditor.widgets import CKEditorWidget
+from django import forms
 from django.contrib import admin
-from django.utils.html import format_html
 from django.contrib.sites.models import Site
+from django.utils.html import format_html
 from solo.admin import SingletonModelAdmin
 
 from .models import (SiteConfig, Configuration, MenuItem, MenuCategory,
@@ -26,6 +28,42 @@ admin.site.unregister(Site)
 admin.site.register(Site, SiteConfigAdmin)
 
 
+class TextOneAdminForm(forms.ModelForm):
+    class Meta:
+        model = TextOne
+        widgets = {
+            'text': CKEditorWidget(),
+        }
+        fields = '__all__'
+
+
+class TextTwoAdminForm(forms.ModelForm):
+    class Meta:
+        model = TextTwo
+        widgets = {
+            'text': CKEditorWidget(),
+        }
+        fields = '__all__'
+
+
+class TextThreeAdminForm(forms.ModelForm):
+    class Meta:
+        model = TextThree
+        widgets = {
+            'text': CKEditorWidget(),
+        }
+        fields = '__all__'
+
+
+class TextFourAdminForm(forms.ModelForm):
+    class Meta:
+        model = TextFour
+        widgets = {
+            'text': CKEditorWidget(),
+        }
+        fields = '__all__'
+
+
 @admin.register(Configuration)
 class SiteConfigurationAdmin(SingletonModelAdmin):
     list_display = ('power_attribute',)
@@ -34,21 +72,25 @@ class SiteConfigurationAdmin(SingletonModelAdmin):
 @admin.register(TextOne)
 class TextOneAdmin(SingletonModelAdmin):
     list_display = ('text', 'site', 'is_active')
+    form = TextOneAdminForm
 
 
 @admin.register(TextTwo)
 class TextTwoAdmin(SingletonModelAdmin):
     list_display = ('text', 'site', 'is_active')
+    form = TextTwoAdminForm
 
 
 @admin.register(TextThree)
 class TextThreeAdmin(SingletonModelAdmin):
     list_display = ('text', 'site', 'is_active')
+    form = TextThreeAdminForm
 
 
 @admin.register(TextFour)
 class TextFourAdmin(SingletonModelAdmin):
     list_display = ('text', 'site', 'is_active')
+    form = TextFourAdminForm
 
 
 @admin.register(MenuCategory)
@@ -64,4 +106,5 @@ class MenuItemAdmin(admin.ModelAdmin):
     def show_link(self, obj):
         return format_html('<a href="{href}" target="_blank">{href}</a>',
                            href=obj.link)
+
     show_link.short_description = 'Ссылка'
