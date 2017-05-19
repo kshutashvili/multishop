@@ -37,22 +37,6 @@
                                             </div>
                                         </li>
                                     {% endfor %}
-                                    {% if category.product_set.exists %}
-                                        <li class="clear_fix">
-                                            {% if category.image %}
-                                                <img src="{{ category.image.url }}"
-                                                     alt="">
-                                            {% endif %}
-                                            <div class="menu_item_links">
-                                                <a href="{{ category.get_absolute_url }}"
-                                                   class="menu_item_caption">{{ category.name }}</a>
-                                                {% for product in category.product_set.all %}
-                                                    <a href="{{ product.get_absolute_url }}"
-                                                       class="menu_item_list">{{ product.title }}</a>
-                                                {% endfor %}
-                                            </div>
-                                        </li>
-                                    {% endif %}
                                 </ul>
                             </div>
                         {% endfor %}
