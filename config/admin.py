@@ -64,6 +64,13 @@ class TextFourAdminForm(forms.ModelForm):
         fields = '__all__'
 
 
+class MenuItemAdminForm(forms.ModelForm):
+    class Meta:
+        model = MenuItem
+
+        exclude = ('name',)
+
+
 @admin.register(Configuration)
 class SiteConfigurationAdmin(SingletonModelAdmin):
     list_display = ('power_attribute',)
@@ -102,6 +109,7 @@ class MenuCategoryAdmin(admin.ModelAdmin):
 class MenuItemAdmin(admin.ModelAdmin):
     list_display = ('name', 'position', 'show_link', 'is_active', 'site')
     list_filter = ('is_active', 'site', 'position')
+    form = MenuItemAdminForm
 
     def show_link(self, obj):
         return format_html('<a href="{href}" target="_blank">{href}</a>',
