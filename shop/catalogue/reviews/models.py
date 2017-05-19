@@ -35,14 +35,14 @@ def on_review_create(sender, instance, created, **kwargs):
     if not created:
         return
     try:
-        review = sender.objects.get(pk=instance.reply_to,
+        review = sender.objects.get(pk=instance.reply_to.pk,
                                     get_notification=True)
     except ObjectDoesNotExist:
         return
     to_email = review.email or review.user.email
     message = 'Your review has been commented, please follow the reference' \
               'to see the the comment http://{0}/{1}'.format(
-                  instance.site, instance.product.get_absolute_url)
+        instance.site.domain, instance.product.get_absolute_url())
     send_mail('Notification about your review',
               message,
               settings.DEFAULT_FROM_EMAIL,
@@ -54,6 +54,7 @@ class ProductQuestion(models.Model):
     class Meta:
         verbose_name = 'Вопрос о товаре'
         verbose_name_plural = 'Вопросы о товаре'
+
     product = models.ForeignKey(Product,
                                 verbose_name="Товар",
                                 on_delete=models.CASCADE)
@@ -66,5 +67,6 @@ class ProductQuestion(models.Model):
 
     def __unicode__(self):
         return u'{} - {}'.format(self.name, self.when_created)
+
 
 from oscar.apps.catalogue.reviews.models import *  # noqa
