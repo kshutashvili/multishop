@@ -18,7 +18,7 @@ class CreateProductReview(View):
     def post(self, request, *args, **kwargs):
         product = get_object_or_404(Product, pk=self.kwargs['product_pk'])
         form = self.form_class(product, request.user, request.POST)
-        if ProductReview.objects.filter(
+        if self.request.user.is_authenticated() and ProductReview.objects.filter(
                 user=request.user, product=product).exists():
             return HttpResponse(status=409)
         if form.is_valid():

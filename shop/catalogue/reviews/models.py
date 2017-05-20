@@ -32,7 +32,7 @@ class ProductReview(AbstractProductReview):
 
 @receiver(post_save, sender=ProductReview)
 def on_review_create(sender, instance, created, **kwargs):
-    if not created:
+    if not created or not instance.reply_to:
         return
     try:
         review = sender.objects.get(pk=instance.reply_to.pk,
