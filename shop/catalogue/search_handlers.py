@@ -25,7 +25,7 @@ class SolrProductSearchHandler(OscarSolrProductSearchHandler):
 
     def get_search_queryset(self):
         site = get_current_site(self.request)
-        sqs = super(SolrProductSearchHandler,
+        sqs = super(OscarSolrProductSearchHandler,
                     self).get_search_queryset().filter(site=site.pk)
         if self.price_range:
             sqs = sqs.filter(
@@ -41,5 +41,10 @@ class SolrProductSearchHandler(OscarSolrProductSearchHandler):
                     sqs = sqs.filter(attributes=name,
                                      attribute_option_values__in=self.options[
                                          k])
-
+        if self.categories:
+            # We use 'narrow' API to ensure Solr's 'fq' filtering is used as
+            # opposed to filtering using 'q'.
+            pattern = ' OR '.join([
+                '"%s"' % c.pk for c in self.categories])
+            sqs = sqs.narrow('category_exact:(%s)' % pattern)
         return sqs
