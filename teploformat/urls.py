@@ -70,7 +70,7 @@ urlpatterns += i18n_patterns(
         remove_category_from_compare_list,
         name='remove_category_from_compare_list'),
     url(
-        r'^catalogue/(/[\w-]+)*/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/question/$',
+        r'^catalogue/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/question/$',
         ProductQuestionView.as_view(), name='question'),
     url(r'^basket/update_items_quantity', update_items_quantity,
         name='update_items_quantity'),
