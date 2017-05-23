@@ -7,7 +7,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.checks import messages
 from django.core.mail import EmailMultiAlternatives
 from django.core.paginator import InvalidPage
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.http.response import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import get_template
@@ -106,9 +106,7 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                 self.request.GET, request.get_full_path(), request,
                 options=options, categories=categories)
         except InvalidPage:
-            # Redirect to page one.
-            messages.error(request, _('The given page number was invalid.'))
-            return redirect('catalogue:index')
+            raise Http404
         return super(OscarCatalogueView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

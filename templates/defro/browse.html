@@ -13,7 +13,25 @@
 
 
 {% block title %}
-    {% if summary %}{{ summary }} |{% endif %} {{ block.super }}
+    {% if summary %}{{ summary }} {% if paginator.num_pages > 1%}, стр. {{ paginator.number }} {% endif %} |{% endif %} {{ block.super }}
+{% endblock %}
+
+{% block description %}{% if paginator.num_pages > 1 %}Страница {{ paginator.number }}.{% else %}Страница 1{% endif %}{% endblock %}
+
+{% block favicon %}
+  {% if paginator.number == 1 %}
+    {% if paginator.has_next %}
+      <link rel="next" href="?page={{ paginator.next_page_number }}">
+    {% endif %}
+  {% else %}
+    <link rel="canonical" href="{% url 'catalogue:index' %}">
+    {% if paginator.has_next %}
+      <link rel="next" href="?page={{ paginator.next_page_number }}">
+    {% endif %}
+    {% if paginator.has_previous %}
+      <link rel="prev" href="?page={{ paginator.previous_page_number }}">
+    {% endif %}
+  {% endif %}
 {% endblock %}
 
 {% block headertext %}{{ summary }}{% endblock %}
@@ -387,14 +405,14 @@
                                 {% endif %}
 
                             </div>
-                            {% if paginator.num_pages > 1 %}
+                            
                                 <nav aria-label="Page navigation"
                                      class="page_nav">
                                     <ul class="pagination">
-                                        {% if page.has_previous %}
+                                        {% if paginator.has_previous %}
 
                                             <li>
-                                                <a href="?page={{ page.previous_page_number }}"
+                                                <a href="?page={{ paginator.previous_page_number }}"
                                                    aria-label="Previous">
                                                 <span aria-hidden="true"
                                                       class="marker_prev">.</span>
@@ -410,7 +428,7 @@
                                             </li>
                                         {% endif %}
                                         {% for i in paginator.page_range %}
-                                            {% if page.number == i %}
+                                            {% if paginator.number == i %}
                                                 <li class="active"><a
                                                         href="#!">{{ i }} <span
                                                         class="sr-only">(current)</span></a>
@@ -421,9 +439,9 @@
                                                 </li>
                                             {% endif %}
                                         {% endfor %}
-                                        {% if page.has_next %}
+                                        {% if paginator.has_next %}
                                             <li>
-                                                <a href="?page={{ page.next_page_number }}"
+                                                <a href="?page={{ paginator.next_page_number }}"
                                                    aria-label="Next">
                                                 <span aria-hidden="true"
                                                       class="marker_next">.</span>
@@ -439,7 +457,7 @@
                                         {% endif %}
                                     </ul>
                                 </nav>
-                            {% endif %}
+                            
 
 
                         </div>
