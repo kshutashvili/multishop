@@ -189,4 +189,4 @@ class CallRequest(models.Model):
     )
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
-
+from oscar.apps.order.models import *
