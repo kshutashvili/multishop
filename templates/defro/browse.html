@@ -13,13 +13,20 @@
 
 
 {% block title %}
-    {% if summary %}{{ summary }} {% if paginator.num_pages > 1%}, стр. {{ paginator.number }} {% endif %} |{% endif %} {{ block.super }}
+    {% if summary %}{{ summary }} |{% endif %} {{ block.super }} {% if paginator.num_pages > 1%}, стр. {{ page_obj.number }} {% endif %}
 {% endblock %}
 
-{% block description %}{% if paginator.num_pages > 1 %}Страница {{ paginator.number }}.{% else %}Страница 1{% endif %}{% endblock %}
+{% block description %}
+  {{ block.super }}
+  {% if paginator.num_pages > 1 %}
+     - Страница {{ page_obj.number }}.
+  {% else %}
+     - Страница 1
+  {% endif %}
+{% endblock %}
 
 {% block favicon %}
-  {% if paginator.number == 1 %}
+  {% if page_obj.number == 1 %}
     {% if paginator.has_next %}
       <link rel="next" href="?page={{ paginator.next_page_number }}">
     {% endif %}
@@ -405,7 +412,7 @@
                                 {% endif %}
 
                             </div>
-                            
+                            {% if paginator.num_pages > 1 %}
                                 <nav aria-label="Page navigation"
                                      class="page_nav">
                                     <ul class="pagination">
@@ -428,7 +435,7 @@
                                             </li>
                                         {% endif %}
                                         {% for i in paginator.page_range %}
-                                            {% if paginator.number == i %}
+                                            {% if page_obj.number == i %}
                                                 <li class="active"><a
                                                         href="#!">{{ i }} <span
                                                         class="sr-only">(current)</span></a>
@@ -457,7 +464,7 @@
                                         {% endif %}
                                     </ul>
                                 </nav>
-                            
+                            {% endif %}
 
 
                         </div>

@@ -101,9 +101,14 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         options = []
         if self.form.is_valid():
             options = self.form.cleaned_data
+        full_path = request.get_full_path()
+        if int(request.GET.get('page', 0)) == 1:
+            path_to_request = full_path.split('?')[0]
+        else:
+            path_to_request = full_path
         try:
             self.search_handler = self.get_search_handler(
-                self.request.GET, request.get_full_path(), request,
+                self.request.GET, path_to_request, request,
                 options=options, categories=categories)
         except InvalidPage:
             raise Http404
