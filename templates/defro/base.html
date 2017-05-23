@@ -265,7 +265,7 @@
                                             <a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a>
                                         </li>
                                     {% endif %}
-                                    <li><a href="#" class="predstav">Наши
+                                    <li><a href="{% url 'contacts' %}" class="predstav">Наши
                                         представительства</a></li>
                                 </ul>
 

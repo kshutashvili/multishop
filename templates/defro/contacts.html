@@ -1,0 +1,314 @@
+{% extends 'defro/base.html' %}
+
+{% load site_static %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="main_block clear_fix">
+            <ol class="breadcrumb">
+                <li><a href="#"><img src="{% get_static 'img/home.png' %}"
+                                     alt=""
+                                     class="solo_img"></a></li>
+                <li class="active">Контакты</li>
+            </ol>
+            <div class="main_content contact_content">
+                <div class="row">
+                    <h1>Наши контакты</h1>
+                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                        <ul class="nav nav-tabs contact_tab" role="tablist">
+                            <li role="presentation" class="active"><a
+                                    href="#kiev"
+                                    role="tab"
+                                    data-toggle="tab">Киев</a>
+                            </li>
+                            <li role="presentation"><a href="#uzhgorod"
+                                                       role="tab"
+                                                       data-toggle="tab">Ужгород</a>
+                            </li>
+                            <li role="presentation"><a href="#cherkasy"
+                                                       role="tab"
+                                                       data-toggle="tab">Черкасы</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 contacts_main_info">
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active"
+                                 id="kiev">
+                                <div class="contacts_info_block col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <p class="contacts_info_caption">Адрес
+                                        нашего
+                                        офиса</p>
+                                    <p class="contacts_info_text contacts_adress">
+                                        г. Киев, ул. Смелянская 159/3
+                                    </p>
+                                    <p class="contacts_info_caption phone_caption">
+                                        Наши телефоны</p>
+                                    <div class="contacts contacts_info_phone">
+                                        {% if phone_numbers.kievstar %}
+                                            <li>
+                                                <a href="tel:+0988598880">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if phone_numbers.vodafone %}
+                                            <li>
+                                                <a href="tel:+0995598880">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if phone_numbers.life %}
+                                            <li>
+                                                <a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a>
+                                            </li>
+                                        {% endif %}
+                                    </div>
+                                    <p class="contacts_info_caption">График
+                                        работы</p>
+                                    <p class="contacts_info_text contacts_grafik">
+                                        {% if schedule.main %}
+                                            {% for timetable in schedule.main %}
+                                                <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span>
+                                                </p>
+                                            {% endfor %}
+                                        {% else %}
+                                            <p>Пн.-Пт.:
+                                                <span> с 9:00 до 18:00</span>
+                                            </p>
+                                            <p>Сб:<span> с 9:00 до 15:00</span>
+                                            </p>
+                                        {% endif %}
+                                    </p>
+                                    <p class="contacts_info_caption">Заказ через
+                                        корзину 24/7/365:</p>
+                                    <p class="fast_delivery_text">
+                                        Ночные заказы обрабатываются с 9:00 до
+                                        11:00
+                                    </p>
+                                </div>
+                                <div class="contacts_form col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <p class="contacts_info_caption">Форма
+                                        обратной
+                                        связи</p>
+                                    <form action="">
+                                        <label for="">Ваше имя <span
+                                                class="red_star">*</span></label>
+                                        <input type="text">
+                                        <label for="">Ваш email <span
+                                                class="red_star">*</span></label>
+                                        <input type="email">
+                                        <label for="">Ваш телефон <span
+                                                class="red_star">*</span></label>
+                                        <input type="text">
+                                        <label for="">Сообщение <span
+                                                class="red_star">*</span></label>
+                                        <textarea></textarea>
+                                        <p class="contact_comment_pole"><span
+                                                class="red_star">*</span> -поля
+                                            обязательные для заполнения</p>
+                                        <input type="submit"
+                                               value="Отправить сообщение">
+                                    </form>
+                                </div>
+                                <div class="contacts_map col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <p>Доставка в любой город Украины
+                                        перевозчиком
+                                        "Интайм" или "Новая почта", оплата после
+                                        получения!</p>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2594.92150610534!2d32.04408631531436!3d49.42929797934753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d14b8884da97b7%3A0xb175142e6ab3a376!2z0LLRg9C70LjRhtGPINCh0LzRltC70Y_QvdGB0YzQutCwLCA5NC8zLCDQp9C10YDQutCw0YHQuCwg0KfQtdGA0LrQsNGB0YzQutCwINC-0LHQu9Cw0YHRgtGMLCDQo9C60YDQsNC40L3QsA!5e0!3m2!1sru!2s!4v1494377839057"
+                                            width="880" height="580"
+                                            frameborder="0"
+                                            style="border:0"
+                                            allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="uzhgorod">
+                                <div class="contacts_info_block col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <p class="contacts_info_caption">Адрес
+                                        нашего
+                                        офиса</p>
+                                    <p class="contacts_info_text contacts_adress">
+                                        г. Ужгород, ул. Смелянская 159/3
+                                    </p>
+                                    <p class="contacts_info_caption phone_caption">
+                                        Наши телефоны</p>
+                                    <div class="contacts contacts_info_phone">
+                                        {% if phone_numbers.kievstar %}
+                                            <li>
+                                                <a href="tel:+0988598880">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if phone_numbers.vodafone %}
+                                            <li>
+                                                <a href="tel:+0995598880">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if phone_numbers.life %}
+                                            <li>
+                                                <a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a>
+                                            </li>
+                                        {% endif %}
+                                    </div>
+                                    <p class="contacts_info_caption">График
+                                        работы</p>
+                                    <p class="contacts_info_text contacts_grafik">
+                                        {% if schedule.main %}
+                                            {% for timetable in schedule.main %}
+                                                <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span>
+                                                </p>
+                                            {% endfor %}
+                                        {% else %}
+                                            <p>Пн.-Пт.:
+                                                <span> с 9:00 до 18:00</span>
+                                            </p>
+                                            <p>Сб:<span> с 9:00 до 15:00</span>
+                                            </p>
+                                        {% endif %}
+                                    </p>
+                                    <p class="contacts_info_caption">Заказ через
+                                        корзину 24/7/365:</p>
+                                    <p class="fast_delivery_text">
+                                        Ночные заказы обрабатываются с 9:00 до
+                                        11:00
+                                    </p>
+                                </div>
+                                <div class="contacts_form col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <p class="contacts_info_caption">Форма
+                                        обратной
+                                        связи</p>
+                                    <form action="">
+                                        <label for="">Ваше имя <span
+                                                class="red_star">*</span></label>
+                                        <input type="text">
+                                        <label for="">Ваш email <span
+                                                class="red_star">*</span></label>
+                                        <input type="email">
+                                        <label for="">Ваш телефон <span
+                                                class="red_star">*</span></label>
+                                        <input type="text">
+                                        <label for="">Сообщен6ие <span
+                                                class="red_star">*</span></label>
+                                        <textarea></textarea>
+                                        <p class="contact_comment_pole"><span
+                                                class="red_star">*</span> -поля
+                                            обязательные для заполнения</p>
+                                        <input type="submit"
+                                               value="Отправить сообщение">
+                                    </form>
+                                </div>
+                                <div class="contacts_map col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <p>Доставка в любой город Украины
+                                        перевозчиком
+                                        "Интайм" или "Новая почта", оплата после
+                                        получения!</p>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2594.92150610534!2d32.04408631531436!3d49.42929797934753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d14b8884da97b7%3A0xb175142e6ab3a376!2z0LLRg9C70LjRhtGPINCh0LzRltC70Y_QvdGB0YzQutCwLCA5NC8zLCDQp9C10YDQutCw0YHQuCwg0KfQtdGA0LrQsNGB0YzQutCwINC-0LHQu9Cw0YHRgtGMLCDQo9C60YDQsNC40L3QsA!5e0!3m2!1sru!2s!4v1494377839057"
+                                            width="880" height="580"
+                                            frameborder="0"
+                                            style="border:0"
+                                            allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="cherkasy">
+                                <div class="contacts_info_block col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <p class="contacts_info_caption">Адрес
+                                        нашего
+                                        офиса</p>
+                                    <p class="contacts_info_text contacts_adress">
+                                        г. Черкассы, ул. Смелянская 159/3
+                                    </p>
+                                    <p class="contacts_info_caption phone_caption">
+                                        Наши телефоны</p>
+                                    <div class="contacts contacts_info_phone">
+                                        {% if phone_numbers.kievstar %}
+                                            <li>
+                                                <a href="tel:+0988598880">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if phone_numbers.vodafone %}
+                                            <li>
+                                                <a href="tel:+0995598880">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if phone_numbers.life %}
+                                            <li>
+                                                <a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a>
+                                            </li>
+                                        {% endif %}
+                                    </div>
+                                    <p class="contacts_info_caption">График
+                                        работы</p>
+                                    <p class="contacts_info_text contacts_grafik">
+                                        {% if schedule.main %}
+                                            {% for timetable in schedule.main %}
+                                                <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span>
+                                                </p>
+                                            {% endfor %}
+                                        {% else %}
+                                            <p>Пн.-Пт.:
+                                                <span> с 9:00 до 18:00</span>
+                                            </p>
+                                            <p>Сб:<span> с 9:00 до 15:00</span>
+                                            </p>
+                                        {% endif %}
+                                    </p>
+                                    <p class="contacts_info_caption">Заказ через
+                                        корзину 24/7/365:</p>
+                                    <p class="fast_delivery_text">
+                                        Ночные заказы обрабатываются с 9:00 до
+                                        11:00
+                                    </p>
+                                </div>
+                                <div class="contacts_form col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <p class="contacts_info_caption">Форма
+                                        обратной
+                                        связи</p>
+                                    <form action="">
+                                        <label for="">Ваше имя <span
+                                                class="red_star">*</span></label>
+                                        <input type="text">
+                                        <label for="">Ваш email <span
+                                                class="red_star">*</span></label>
+                                        <input type="email">
+                                        <label for="">Ваш телефон <span
+                                                class="red_star">*</span></label>
+                                        <input type="text">
+                                        <label for="">Сообщен6ие <span
+                                                class="red_star">*</span></label>
+                                        <textarea></textarea>
+                                        <p class="contact_comment_pole"><span
+                                                class="red_star">*</span> -поля
+                                            обязательные для заполнения</p>
+                                        <input type="submit"
+                                               value="Отправить сообщение">
+                                    </form>
+                                </div>
+                                <div class="contacts_map col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <p>Доставка в любой город Украины
+                                        перевозчиком
+                                        "Интайм" или "Новая почта", оплата после
+                                        получения!</p>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2594.92150610534!2d32.04408631531436!3d49.42929797934753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d14b8884da97b7%3A0xb175142e6ab3a376!2z0LLRg9C70LjRhtGPINCh0LzRltC70Y_QvdGB0YzQutCwLCA5NC8zLCDQp9C10YDQutCw0YHQuCwg0KfQtdGA0LrQsNGB0YzQutCwINC-0LHQu9Cw0YHRgtGMLCDQo9C60YDQsNC40L3QsA!5e0!3m2!1sru!2s!4v1494377839057"
+                                            width="880" height="580"
+                                            frameborder="0"
+                                            style="border:0"
+                                            allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+{% block extrascripts %}
+    <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
+    <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
+    <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
+    <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
+    <script src="{% get_static 'js/more-button.js' %}"></script>
+    {{ block.super }}
+{% endblock %}
