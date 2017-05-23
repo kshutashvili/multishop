@@ -7,7 +7,6 @@ import phonenumbers
 from django.core.validators import RegexValidator
 from django.utils.translation import ugettext as _
 
-
 SIGN_TYPE = (
     ('w', _('Бесцветный значок')),
     ('c', _('Цветной значок')),
@@ -148,3 +147,25 @@ class WorkSchedule(models.Model):
 
     def __unicode__(self):
         return '{} {}'.format(self.schedule_type, self.site)
+
+
+class ContactMessage(models.Model):
+    created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    name = models.CharField(max_length=120)
+    email = models.EmailField()
+    phone_regex = RegexValidator(
+        regex=r'^\+?1?\d{12,15}$',
+        message=_("Номер телефона должен быть введен в формате:"
+                  "'+999999999999'. Допускается до 15 цифр в номере")
+    )
+    phone = models.CharField(
+        max_length=20,
+        validators=[phone_regex],
+    )
+    message = models.TextField()
+
+    site = models.ForeignKey(
+        Site,
+        verbose_name=_('Сайт'),
+        blank=True, null=True
+    )

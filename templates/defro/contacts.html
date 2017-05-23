@@ -90,19 +90,28 @@
                                     <p class="contacts_info_caption">Форма
                                         обратной
                                         связи</p>
-                                    <form action="">
+                                    <form action="{% url 'contact_message' %}"
+                                          method="post">{% csrf_token %}
                                         <label for="">Ваше имя <span
                                                 class="red_star">*</span></label>
-                                        <input type="text">
+                                        {% if form.name.errors %}<p>
+                                            {{ form.name.errors }}{% endif %}</p>
+                                        <input type="text" name="name">
                                         <label for="">Ваш email <span
                                                 class="red_star">*</span></label>
-                                        <input type="email">
+                                        {% if form.email.errors %}<p>
+                                            {{ form.email.errors }}{% endif %}</p>
+                                        <input type="email" name="email">
                                         <label for="">Ваш телефон <span
                                                 class="red_star">*</span></label>
-                                        <input type="text">
+                                        {% if form.phone.errors %}<p>
+                                            {{ form.phone.errors }}{% endif %}</p>
+                                        <input type="text" name="phone">
                                         <label for="">Сообщение <span
                                                 class="red_star">*</span></label>
-                                        <textarea></textarea>
+                                        {% if form.message.errors %}<p>
+                                            {{ form.message.errors }}{% endif %}</p>
+                                        <textarea name="message"></textarea>
                                         <p class="contact_comment_pole"><span
                                                 class="red_star">*</span> -поля
                                             обязательные для заполнения</p>

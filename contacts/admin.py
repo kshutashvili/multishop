@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 
-from contacts.models import PhoneNumber, SocialNetRef, WorkSchedule, Timetable
+from contacts.models import PhoneNumber, SocialNetRef, WorkSchedule, Timetable, ContactMessage
 
 
 admin.site.register(Timetable)
@@ -25,3 +25,8 @@ class WorkScheduleAdmin(admin.ModelAdmin):
     filter_horizontal = ('timetable',)
     list_display = ('schedule_type', 'site')
     list_filter = ('schedule_type', 'site')
+
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ('created', 'phone', 'site', )
