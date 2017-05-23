@@ -16,8 +16,7 @@
           href="{% get_static 'css/style.css' %}">
     <link rel="stylesheet" href="{% get_static 'css/fontawesome-stars.css' %}">
 
-    <script src="https://vk.com/js/api/openapi.js?139"
-            type="text/javascript"></script>
+
 {% endblock %}
 {% block layout %}
     <div class="container-fluid">
@@ -72,8 +71,8 @@
                     </div>
                     <div class="basket">
 
-                        <div class="dropdown">
-                            <a href="#" class="btn btn-default dropdown-toggle"
+                        <div class="dropdown" id="compare_dropdown">
+                            <a href="{% url 'compare' %}" class="btn btn-default dropdown-toggle"
                                id="dropdownMenu1" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="true"
                                data-content="{{ compare_categories|length }}">

@@ -1,6 +1,6 @@
 var timeout;
 
-$('.dropdown.side-menu').hover(function () {
+$('.dropdown.side-menu, #compare_dropdown').hover(function () {
     $(this).addClass('open');
 
 }, function () {
