@@ -52,6 +52,14 @@ class ShippingMethod(models.Model):
         verbose_name = u'Способ доставки'
         verbose_name_plural = u'Способы доставки'
 
+    @property
+    def shipping_incl_tax(self):
+        return self.shipping_price
+
+    @property
+    def shipping_excl_tax(self):
+        return self.shipping_price
+
     def __unicode__(self):
         return u'%s' % self.name
 
@@ -137,11 +145,31 @@ class Order(AbstractOrder):
         return self.shipping_method.shipping_price
 
     @property
+    def shipping_incl_tax(self):
+        return self.shipping_method.shipping_price
+
+    @property
+    def shipping_excl_tax(self):
+        return self.shipping_method.shipping_price
+
+    @property
     def total_price(self):
         if self.basket.is_tax_known:
             return self.basket.total_incl_tax + self.shipping_price
         else:
             return self.basket.total_excl_tax + self.shipping_price
+
+    @property
+    def basket_total_incl_tax(self):
+        return self.basket.total_incl_tax
+
+    @property
+    def basket_total_excl_tax(self):
+        return self.basket.total_incl_tax
+
+    @property
+    def total_excl_tax(self):
+        return self.total_price
 
 
 class CallRequest(models.Model):
@@ -161,7 +189,4 @@ class CallRequest(models.Model):
     )
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
-
 from oscar.apps.order.models import *
-
-

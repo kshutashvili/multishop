@@ -58,6 +58,7 @@ INSTALLED_APPS = [
                    'shop.promotions',
                    'shop.dashboard.catalogue',
                    'shop.catalogue.reviews',
+                   'shop.dashboard.orders',
                    'shop.search',
                    'shop.order',
                    'shop.basket'])
