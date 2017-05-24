@@ -20,7 +20,7 @@ class BaseCatalogueApplication(DefaultApp):
 
 
 class CatalogueApplication(ReviewsApplication, BaseCatalogueApplication):
-    pass
+    name = 'catalogue'
 
 
 application = CatalogueApplication()
