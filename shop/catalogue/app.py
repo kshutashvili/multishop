@@ -19,7 +19,7 @@ class BaseCatalogueApplication(DefaultApp):
         return self.post_process_urls(urlpatterns)
 
 
-class CatalogueApplication(BaseCatalogueApplication, ReviewsApplication):
+class CatalogueApplication(ReviewsApplication, BaseCatalogueApplication):
     pass
 
 
