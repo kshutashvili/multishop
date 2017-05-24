@@ -1,5 +1,4 @@
 from django.conf.urls import url
-
 from oscar.apps.catalogue.app import (
     BaseCatalogueApplication as DefaultApp, ReviewsApplication
 )

@@ -13,20 +13,21 @@
 
 
 {% block title %}
-    {% if summary %}{{ summary }} |{% endif %} {{ block.super }} {% if paginator.num_pages > 1%}, стр. {{ page_obj.number }} {% endif %}
+    {% if summary %}{{ summary }} |{% endif %} {{ block.super }}
+    {% if paginator.num_pages > 1 %}, стр. {{ page_obj.number }} {% endif %}
 {% endblock %}
 
 {% block description %}
-  {{ block.super }}
-  {% if paginator.num_pages > 1 %}
-     - Страница {{ page_obj.number }}.
-  {% else %}
-     - Страница 1
-  {% endif %}
+    {{ block.super }}
+    {% if paginator.num_pages > 1 %}
+        - Страница {{ page_obj.number }}.
+    {% else %}
+        - Страница 1
+    {% endif %}
 {% endblock %}
 
 {% block favicon %}
-  {% if page_obj.number == 1 %}
+    {% if page_obj.number == 1 %}
     {% if paginator.has_next %}
       <link rel="next" href="?page={{ paginator.next_page_number }}">
     {% endif %}
@@ -44,8 +45,8 @@
 {% block headertext %}{{ summary }}{% endblock %}
 
 {% block mobile_menu %}
-  {{ block.super }}
-  <p class="name_page">Каталог</p>
+    {{ block.super }}
+    <p class="name_page">Каталог</p>
 {% endblock %}
 
 {% block content %}
@@ -552,21 +553,21 @@
 {% endblock content %}
 
 {% block shadow %}
-<div class='modal_mobile_sort'>
-      <h2>Сортировать:<span class="close"></span></h2>
-      <ul>
-          <li class="active"><a>по популярности</a></li>
-          <li><a>акционные</a></li>
-          <li><a>от дешевых к дорогим</a></li>
-          <li><a>от дорогих к дешевым</a></li>
-      </ul>
-  </div>
-  {{ block.super }}
+    <div class='modal_mobile_sort'>
+        <h2>Сортировать:<span class="close"></span></h2>
+        <ul>
+            <li class="active"><a>по популярности</a></li>
+            <li><a>акционные</a></li>
+            <li><a>от дешевых к дорогим</a></li>
+            <li><a>от дорогих к дешевым</a></li>
+        </ul>
+    </div>
+    {{ block.super }}
 {% endblock %}
 
 {% block scripts %}
-<script src="{% get_static 'js/headhesive.min.js' %}"></script>
-{{ block.super }}
+    <script src="{% get_static 'js/headhesive.min.js' %}"></script>
+    {{ block.super }}
 {% endblock %}
 
 {% block extrascripts %}

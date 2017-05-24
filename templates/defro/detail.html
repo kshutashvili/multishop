@@ -22,7 +22,7 @@
 
 
 {% block mobile_menu %}
-  {{ block.super }}
+    {{ block.super }}
 {% endblock %}
 
 {% block content %}
@@ -253,8 +253,19 @@
                                        data-related="twitterapi,twitter"
                                        data-via="defro"></a>
                                     <a href="#" id="ok_shareWidget"></a>
-                                    <a data-pin-do="buttonPin" href="https://www.pinterest.com/pin/create/button/" data-pin-custom="true" data-pin-do="buttonBookmark"><img src="{% get_static 'img/tovar/p_a.png' %}" width="25" height="25" style="margin-top: -17px; cursor: pointer"></a>
-                                    <a href="https://plus.google.com/share?url={{ request.build_absolute_uri|urlencode }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img src="{% get_static 'img/tovar/google_a.png' %}" alt="Share on Google+" style="margin-top: -17px;" width="25" height="25"/></a>
+                                    <a data-pin-do="buttonPin"
+                                       href="https://www.pinterest.com/pin/create/button/"
+                                       data-pin-custom="true"
+                                       data-pin-do="buttonBookmark"><img
+                                            src="{% get_static 'img/tovar/p_a.png' %}"
+                                            width="25" height="25"
+                                            style="margin-top: -17px; cursor: pointer"></a>
+                                    <a href="https://plus.google.com/share?url={{ request.build_absolute_uri|urlencode }}"
+                                       onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img
+                                            src="{% get_static 'img/tovar/google_a.png' %}"
+                                            alt="Share on Google+"
+                                            style="margin-top: -17px;"
+                                            width="25" height="25"/></a>
                                 </div>
                             </div>
 
@@ -1466,33 +1477,38 @@
 
     </script>
     <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId: '134222270266858',
-          xfbml: true,
-          version: 'v2.9'
-        });
-        FB.AppEvents.logPageView();
-      };
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '134222270266858',
+                xfbml: true,
+                version: 'v2.9'
+            });
+            FB.AppEvents.logPageView();
+        };
 
-      (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
     </script>
     <script>
-      document.getElementById('share_fb').onclick = function() {
-        FB.ui({
-          method: 'share',
-          display: 'popup',
-          href: window.location.href,
-        }, function(response){});
-      }
+        document.getElementById('share_fb').onclick = function () {
+            FB.ui({
+                method: 'share',
+                display: 'popup',
+                href: window.location.href,
+            }, function (response) {
+            });
+        }
     </script>
-    <script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script>
+    <script type="text/javascript" async defer
+            src="//assets.pinterest.com/js/pinit.js"></script>
     <script src="{% get_static 'js/more-button.js' %}"></script>
     {{ block.super }}
 {% endblock %}

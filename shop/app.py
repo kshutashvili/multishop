@@ -2,7 +2,6 @@ from django.conf import settings
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from django.core.urlresolvers import reverse_lazy
-
 from oscar.app import Shop as DefaultShop
 from oscar.views.decorators import login_forbidden
 
@@ -32,10 +31,12 @@ class Shop(DefaultShop):
             url(r'^password-reset/done/$',
                 login_forbidden(auth_views.password_reset_done),
                 name='password-reset-done'),
-            url(r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$',
+            url(
+                r'^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$',
                 login_forbidden(auth_views.password_reset_confirm),
                 {
-                    'post_reset_redirect': reverse_lazy('password-reset-complete'),
+                    'post_reset_redirect': reverse_lazy(
+                        'password-reset-complete'),
                     'set_password_form': self.set_password_form,
                 },
                 name='password-reset-confirm'),
@@ -48,5 +49,6 @@ class Shop(DefaultShop):
             urls.append(url(r'', self.promotions_app.urls))
         urls.append(url(r'^', self.catalogue_app.urls))
         return urls
+
 
 application = Shop()

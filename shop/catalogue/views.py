@@ -18,15 +18,13 @@ from django.views.generic.base import ContextMixin
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
 from haystack.query import SearchQuerySet
-from oscar.apps.catalogue.search_handlers import \
-    get_product_search_handler_class
 from oscar.apps.catalogue.views import \
     ProductDetailView as OscarProductDetailView, \
     CatalogueView as OscarCatalogueView, \
     ProductCategoryView as OscarProductCategoryView
 from oscar.apps.customer import history
 
-from shop.catalogue.models import Product, ProductClass, Category
+from shop.catalogue.models import Product, Category
 from shop.catalogue.models import ProductAttributeValue
 from shop.order.forms import OneClickOrderForm
 from website.views import SiteTemplateResponseMixin
@@ -268,6 +266,7 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
 
 category_view = ProductCategoryView.as_view()
 product_view = ProductDetailView.as_view()
+
 
 def product_or_category(request, *args, **kwargs):
     slug = kwargs['slug']
