@@ -7,6 +7,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.checks import messages
 from django.core.mail import EmailMultiAlternatives
 from django.core.paginator import InvalidPage
+from django.db import connection
 from django.http import HttpResponse, Http404
 from django.http.response import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
@@ -92,7 +93,7 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         self.site = get_current_site(request)
         self.form = FilterForm(self.site, request.GET)
         try:
-            self.category = Category.objects.get(pk=kwargs['cat_pk'])
+            self.category = Category.objects.get(slug=kwargs['slug'])
         except (KeyError, Category.DoesNotExist):
             self.category = None
             categories = Category.objects.none()
@@ -101,9 +102,14 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         options = []
         if self.form.is_valid():
             options = self.form.cleaned_data
+        full_path = request.get_full_path()
+        if int(request.GET.get('page', 0)) == 1:
+            path_to_request = full_path.split('?')[0]
+        else:
+            path_to_request = full_path
         try:
             self.search_handler = self.get_search_handler(
-                self.request.GET, request.get_full_path(), request,
+                self.request.GET, path_to_request, request,
                 options=options, categories=categories)
         except InvalidPage:
             raise Http404
@@ -241,7 +247,6 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
         if not self.category.get_children().exists():
             # Crutch oriented programming: we show products on the category url
             # with a catalog view
-            kwargs['cat_pk'] = kwargs.pop('pk')
             return product_category_view(request, *args, **kwargs)
 
         potential_redirect = self.redirect_if_necessary(
@@ -259,6 +264,38 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
 
         return super(OscarProductCategoryView, self).get(request, *args,
                                                          **kwargs)
+
+
+category_view = ProductCategoryView.as_view()
+product_view = ProductDetailView.as_view()
+
+def product_or_category(request, *args, **kwargs):
+    slug = kwargs['slug']
+    slugs = slug.split(Category._slug_separator)
+    try:
+        last_slug = slugs[-1]
+    except IndexError:
+        raise Http404
+    query = [
+        'SELECT "product" AS ctype FROM {ptable} WHERE slug="{slug}"',
+        'SELECT "category" AS ctype FROM {ctable} WHERE slug="{slug}";'
+    ]
+    query = ' UNION '.join(query)
+    query = query.format(ptable=Product._meta.db_table,
+                         ctable=Category._meta.db_table,
+                         slug=last_slug)
+    with connection.cursor() as cur:
+        cur.execute(query)
+        ctype = cur.fetchone()
+    if ctype is None:
+        raise Http404
+    ctype = ctype[0]
+    if ctype == 'product':
+        kwargs['slug'] = kwargs['slug'].split(Category._slug_separator)[-1]
+        return product_view(request, *args, **kwargs)
+    else:
+        kwargs['category_slug'] = kwargs.pop('slug')
+        return category_view(request, *args, **kwargs)
 
 
 @require_POST

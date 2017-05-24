@@ -40,7 +40,7 @@
                                 <img src="{{ img.url }}">
                             {% endthumbnail %}
                             <div class="block150h"></div>
-                            <p class="catalog_item_block_caption">{{ p.product_class.name }} {{ p.title }}</p>
+                            <p class="catalog_item_block_caption">{{ p.title }}</p>
                             <select class="rating_photo">
                                 {% for num in "12345" %}
                                     <option {% if p.rating == num %}selected="selected"{% endif %}

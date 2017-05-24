@@ -22,11 +22,6 @@ $(function () {
 		$(this).parent().parent().parent().fadeOut(100);
 		return false;
 	});
-	$('#continue_shopping').click(function () {
-		$('#overlay').remove('#overlay');
-		$(this).parent().parent().parent().fadeOut(100);
-		return false;
-    })
 
 });
 });

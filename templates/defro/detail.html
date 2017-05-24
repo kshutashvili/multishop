@@ -21,6 +21,10 @@
 {% endblock %}
 
 
+{% block mobile_menu %}
+  {{ block.super }}
+{% endblock %}
+
 {% block content %}
     <div class="container">
         {% basket_form request product as basket_form %}
@@ -63,7 +67,7 @@
                         name="product_upc">{{ product.upc }}</span>
                 </p>
                 <p class="category_block_caption often_caption">
-                    <span>{{ product.product_class.name }}</span> {{ product.title }}
+                    {{ product.title }}
                 </p>
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#tovar"
@@ -102,7 +106,7 @@
                                 <ul class="bxslider_two">
                                     {% for img in product.images.all %}
                                         <li class="{% if product.is_discountable or product.special_offer %}before_akcia {% elif product.new %}before_new {% elif product.top_sale %} before_hit{% elif product.recommended %} before_rec{% elif product.super_price %} before_superprice{% endif %} free_shipping"
-                                        ">
+                                        >
                                         {% if product.gift %}
                                             <div class="before_gift"></div>
                                         {% endif %}
@@ -184,8 +188,9 @@
                                         </button>
                                     </form>
                                 {% else %}
+                                    <br>
                                     <button
-                                            class="basket_button_sold">В
+                                            class="basket_button_sold">
                                         Нет в наличии
                                     </button>
                                     <a href="#" class="basket_button_in dpn">В
@@ -237,13 +242,19 @@
                                     вопрос</a>
 
                                 <div class="social_block">
+                                    <a href="#" id="share_fb"></a>
+                                    <a href="#">
+                                    </a>
                                     <a href="#"></a>
-                                    <a href="#"></a>
-                                    <a href="#"></a>
-                                    <a href="#"></a>
-                                    <a href="#"></a>
-                                    <a href="#"></a>
-                                    <a href="#"></a>
+                                    <a href="https://twitter.com/share"
+                                       class="twitter-share-button"
+                                       data-text="Купил себе, новый котёл. Очень доволен!"
+                                       data-via="twitterdev"
+                                       data-related="twitterapi,twitter"
+                                       data-via="defro"></a>
+                                    <a href="#" id="ok_shareWidget"></a>
+                                    <a data-pin-do="buttonPin" href="https://www.pinterest.com/pin/create/button/" data-pin-custom="true" data-pin-do="buttonBookmark"><img src="{% get_static 'img/tovar/p_a.png' %}" width="25" height="25" style="margin-top: -17px; cursor: pointer"></a>
+                                    <a href="https://plus.google.com/share?url={{ request.build_absolute_uri|urlencode }}" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img src="{% get_static 'img/tovar/google_a.png' %}" alt="Share on Google+" style="margin-top: -17px;" width="25" height="25"/></a>
                                 </div>
                             </div>
 
@@ -291,9 +302,9 @@
                                         <div class="collapse in"
                                              id="collapseFilter1">
                                             <div class="well">
-                                                <p class="tovar_second_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                                                <p class="tovar_second_caption">{{ product.title }}</p>
                                                 <p class="tovar_second_text">
-                                                    <span>{{ product.product_class.name }} {{ product.title }}</span>
+                                                    <span>{{ product.title }}</span>
                                                 </p>
                                                 <div style="height:100%">
                                                     <div id="short_desc">
@@ -611,7 +622,7 @@
                                         src="{{ thumb.url }}"
                                         alt=""></a>
                             {% endthumbnail %}
-                            <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                            <p class="catalog_item_block_caption">{{ product.title }}</p>
                             <div class="for_list_block">
                                 <select class="rating_photo">
                                     {% for num in "12345" %}
@@ -720,7 +731,7 @@
                                         src="{{ thumb.url }}"
                                         alt=""></a>
                             {% endthumbnail %}
-                            <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                            <p class="catalog_item_block_caption">{{ product.title }}</p>
                             <div class="for_list_block">
                                 <select class="rating_photo">
                                     {% for num in "12345" %}
@@ -834,7 +845,7 @@
                                         src="{{ thumb.url }}"
                                         alt=""></a>
                             {% endthumbnail %}
-                            <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                            <p class="catalog_item_block_caption">{{ product.title }}</p>
                             <div class="for_list_block">
                                 <select class="rating_photo">
                                     {% for num in "12345" %}
@@ -1012,7 +1023,7 @@
                                         src="{{ thumb.url }}"
                                         alt=""></a>
                             {% endthumbnail %}
-                            <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                            <p class="catalog_item_block_caption">{{ product.title }}</p>
                             <div class="for_list_block">
                                 <select class="rating_photo">
                                     {% for num in "12345" %}
@@ -1148,7 +1159,7 @@
                                         {% thumbnail product.primary_image.original "155" as img %}
                                             <img src="{{ img.url }}">
                                         {% endthumbnail %}
-                                        <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                                        <p class="catalog_item_block_caption">{{ product.title }}</p>
                                         <select class="rating_photo">
                                             {% for num in "12345" %}
                                                 <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
@@ -1454,6 +1465,34 @@
         })
 
     </script>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: '134222270266858',
+          xfbml: true,
+          version: 'v2.9'
+        });
+        FB.AppEvents.logPageView();
+      };
+
+      (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
+      document.getElementById('share_fb').onclick = function() {
+        FB.ui({
+          method: 'share',
+          display: 'popup',
+          href: window.location.href,
+        }, function(response){});
+      }
+    </script>
+    <script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script>
     <script src="{% get_static 'js/more-button.js' %}"></script>
     {{ block.super }}
 {% endblock %}
