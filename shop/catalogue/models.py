@@ -78,7 +78,7 @@ class Product(AbstractProduct):
 
     def get_absolute_url(self):
         cat = self.categories.all().first()
-        slug = cat._slug_separator.join((cat.full_slug, self.slug))
+        slug = cat._slug_separator.join((cat.slug, self.slug))
         return reverse('catalogue:product_or_category',
                        kwargs={'slug': slug})
 
