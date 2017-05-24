@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemap_view
 from django.contrib.staticfiles import views
-from oscar.app import application
+from shop.app import application
 
 from shop.basket.views import delete_item_from_basket, update_items_quantity
 from shop.catalogue.reviews.views import ProductQuestionView
@@ -51,7 +51,6 @@ urlpatterns += [
                           document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
-    url(r'', include(application.urls)),
     url(r'^catalugue/get_search_count/$', get_search_count,
         name='get_search_count'),
     url(
@@ -77,6 +76,7 @@ urlpatterns += i18n_patterns(
         name='update_items_quantity'),
     url(r'^basket/', include('shop.order.urls', namespace='order')),
     url('^call_request', CallRequestCreateView.as_view(), name='call_request'),
+    url(r'', include(application.urls)),
     prefix_default_language=False
 
 )
