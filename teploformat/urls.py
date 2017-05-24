@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemap_view
 from django.contrib.staticfiles import views
-from oscar.app import application
+from shop.app import application
 
 from shop.basket.views import delete_item_from_basket, update_items_quantity
 from shop.catalogue.reviews.views import ProductQuestionView
