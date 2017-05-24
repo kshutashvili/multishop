@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib import admin
-from django.contrib.flatpages.admin import FlatPageAdmin as DjangoFlatPageAdmin
 from django.contrib.flatpages.models import FlatPage as DjangoFlatPage
 
 from contacts.models import PhoneNumber, SocialNetRef, WorkSchedule, Timetable, \
-    ContactMessage, FlatPage
-from .forms import FlatpageForm
+    ContactMessage
+from .models import FlatPage
 
 admin.site.register(Timetable)
 
@@ -35,9 +34,5 @@ class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ('created', 'phone', 'site',)
 
 
-class FlatPageAdmin(DjangoFlatPageAdmin):
-    form = FlatpageForm
-
-
 admin.site.unregister(DjangoFlatPage)
-admin.site.register(FlatPage, FlatPageAdmin)
+admin.site.register(FlatPage)

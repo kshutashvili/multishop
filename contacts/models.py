@@ -2,12 +2,11 @@
 from __future__ import unicode_literals
 
 import phonenumbers
-from django.contrib.flatpages.models import FlatPage as DjangoFlatPage
+from ckeditor.fields import RichTextField
 from django.contrib.sites.models import Site
-from django.core.exceptions import ValidationError
-from django.core.urlresolvers import resolve, Resolver404
 from django.core.validators import RegexValidator
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 
 SIGN_TYPE = (
@@ -174,15 +173,21 @@ class ContactMessage(models.Model):
     )
 
 
-class FlatPage(DjangoFlatPage):
-    class Meta:
-        proxy = True
+class FlatPage(models.Model):
+    title = models.CharField('Название', max_length=80)
+    content = RichTextField('Текст')
+    slug = models.SlugField(unique=True)
+    when_created = models.DateTimeField('Дата создания', auto_now_add=True)
+    site = models.ManyToManyField(Site, verbose_name='Сайт', blank=True,
+                                  null=True, related_name='flatpages')
 
-    def clean(self):
-        super(FlatPage, self).clean()
-        try:
-            url = resolve(self.url)
-            if url.view_name != u'django.contrib.flatpages.views.flatpage':
-                raise ValidationError('Такой url уже существует!')
-        except Resolver404:
-            pass
+    class Meta:
+        verbose_name = 'Статическая страница'
+        verbose_name_plural = 'Статические страницы'
+        db_table = 'contacts_flatpages'
+
+    def __unicode__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('flatpage_detail', kwargs={'url': self.slug})

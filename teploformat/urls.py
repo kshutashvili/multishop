@@ -80,7 +80,3 @@ urlpatterns += i18n_patterns(
     prefix_default_language=False
 
 )
-
-urlpatterns += [
-    url(r'', include('django.contrib.flatpages.urls')),
-]

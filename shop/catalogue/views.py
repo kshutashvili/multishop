@@ -24,6 +24,8 @@ from oscar.apps.catalogue.views import \
     ProductCategoryView as OscarProductCategoryView
 from oscar.apps.customer import history
 
+from contacts.models import FlatPage
+from contacts.views import FlatPageView
 from shop.catalogue.models import Product, Category
 from shop.catalogue.models import ProductAttributeValue
 from shop.order.forms import OneClickOrderForm
@@ -225,6 +227,7 @@ class CompareCategoryView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
 
         return context
 
+
 product_category_view = CatalogueView.as_view()
 
 
@@ -266,6 +269,7 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
 
 category_view = ProductCategoryView.as_view()
 product_view = ProductDetailView.as_view()
+flatpage_view = FlatPageView.as_view()
 
 
 def product_or_category(request, *args, **kwargs):
@@ -277,11 +281,13 @@ def product_or_category(request, *args, **kwargs):
         raise Http404
     query = [
         'SELECT "product" AS ctype FROM {ptable} WHERE slug="{slug}"',
-        'SELECT "category" AS ctype FROM {ctable} WHERE slug="{slug}";'
+        'SELECT "category" AS ctype FROM {ctable} WHERE slug="{slug}"',
+        'SELECT "flatpage" AS ctype FROM {ftable} WHERE slug="{slug}";'
     ]
     query = ' UNION '.join(query)
     query = query.format(ptable=Product._meta.db_table,
                          ctable=Category._meta.db_table,
+                         ftable=FlatPage._meta.db_table,
                          slug=last_slug)
     with connection.cursor() as cur:
         cur.execute(query)
@@ -292,6 +298,9 @@ def product_or_category(request, *args, **kwargs):
     if ctype == 'product':
         kwargs['slug'] = kwargs['slug'].split(Category._slug_separator)[-1]
         return product_view(request, *args, **kwargs)
+    elif ctype == 'flatpage':
+        kwargs['slug'] = kwargs.pop('slug')
+        return flatpage_view(request, *args, **kwargs)
     else:
         kwargs['category_slug'] = kwargs.pop('slug')
         return category_view(request, *args, **kwargs)
