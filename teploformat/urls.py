@@ -51,7 +51,6 @@ urlpatterns += [
                           document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
-    url(r'', include(application.urls)),
     url(r'^catalugue/get_search_count/$', get_search_count,
         name='get_search_count'),
     url(
@@ -77,6 +76,7 @@ urlpatterns += i18n_patterns(
         name='update_items_quantity'),
     url(r'^basket/', include('shop.order.urls', namespace='order')),
     url('^call_request', CallRequestCreateView.as_view(), name='call_request'),
+    url(r'', include(application.urls)),
     prefix_default_language=False
 
 )
