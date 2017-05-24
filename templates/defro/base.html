@@ -33,6 +33,9 @@
                             {% endfor %}
                         </ul>
                     </div>
+                    {% block mobile_menu %}
+                    <div class="mobile_menu" role="button"></div>
+                    {% endblock %}
                     <div class="header_right">
                         <div class="lang">{% get_current_language as LANGUAGE_CODE %}
                             <a href="{% change_lang 'ru' %}"
@@ -53,7 +56,7 @@
                         <a href="/"><img src="{% get_static 'img/logo.png' %}"
                                          alt=""></a>
                     </div>
-                    <div class="contacts">
+                    <div class="contacts header_contacts">
                         {% if phone_numbers.kievstar %}
                             <a href="tel:+380988598880"><span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}
                             </a>
@@ -232,69 +235,78 @@
         {% endblock %}
         {% block above_footer_block %}
             <div class="above_footer_block">
-                <div class="bottom_menu_bg">
+                <div class="bottom_menu_bg default_bottom_menu">
                     <div class="container">
                         <div class="bottom_menu">
                             {% for category  in footer_menu %}
                                 <div class="menu_block">
                                     <p class="menu_block_caption">{{ category.0 }}</p>
-                                    <ul class="menu_block_items">
-                                        {% for item in category.1 %}
-                                            <li>
-                                                <a href="{% url_format item.link %}">{{ item }}</a>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
+                                    <div class="footer_close"></div>
+                                    <div class="footer_info">
+                                        <ul class="menu_block_items">
+                                            {% for item in category.1 %}
+                                                <li>
+                                                    <a href="{% url_format item.link %}">{{ item }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
                                 </div>
                             {% endfor %}
                             <div class="menu_block">
                                 <p class="menu_block_caption">Как связаться</p>
-                                <ul class="contact_ul">
-                                    {% if phone_numbers.kievstar %}
-                                        <li>
-                                            <a href="tel:+0988598880">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a>
-                                        </li>
-                                    {% endif %}
-                                    {% if phone_numbers.vodafone %}
-                                        <li>
-                                            <a href="tel:+0995598880">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a>
-                                        </li>
-                                    {% endif %}
-                                    {% if phone_numbers.life %}
-                                        <li>
-                                            <a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a>
-                                        </li>
-                                    {% endif %}
-                                    <li><a href="{% url 'contacts' %}" class="predstav">Наши
-                                        представительства</a></li>
-                                </ul>
+                                <div class="footer_close"></div>
+                                <div class="footer_info">
+                                    <ul class="contact_ul">
+                                        {% if phone_numbers.kievstar %}
+                                            <li>
+                                                <a href="tel:+0988598880">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if phone_numbers.vodafone %}
+                                            <li>
+                                                <a href="tel:+0995598880">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if phone_numbers.life %}
+                                            <li>
+                                                <a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a>
+                                            </li>
+                                        {% endif %}
+                                        <li><a href="{% url 'contacts' %}" class="predstav">Наши
+                                            представительства</a></li>
+                                    </ul>
 
-                                <div class="time_work">
-                                    {% if schedule.main %}
-                                        {% for timetable in schedule.main %}
-                                            <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span>
-                                            </p>
-                                        {% endfor %}
-                                    {% else %}
-                                        <p>Пн.-Пт.:
-                                            <span> с 9:00 до 18:00</span></p>
-                                        <p>Сб:<span> с 9:00 до 15:00</span></p>
-                                    {% endif %}
-                                    {% if site_email %}
-                                        <a href="mailto:info@defro.org.ua/">{{ site_email }}</a>
-                                    {% else %}
-                                        <a href="mailto:info@defro.org.ua/">info@defro.org.ua/</a>
-                                    {% endif %}
-
+                                    <div class="time_work">
+                                        {% if schedule.main %}
+                                            {% for timetable in schedule.main %}
+                                                <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span>
+                                                </p>
+                                            {% endfor %}
+                                        {% else %}
+                                            <p>Пн.-Пт.:
+                                                <span> с 9:00 до 18:00</span></p>
+                                            <p>Сб:<span> с 9:00 до 15:00</span></p>
+                                        {% endif %}
+                                        {% if site_email %}
+                                            <a href="mailto:info@defro.org.ua/">{{ site_email }}</a>
+                                        {% else %}
+                                            <a href="mailto:info@defro.org.ua/">info@defro.org.ua/</a>
+                                        {% endif %}
+                            
+                                    </div>
                                 </div>
                             </div>
                             <div class="menu_block">
                                 <p class="menu_block_caption">Принимаем к
                                     оплате</p>
-                                <img src="{% get_static 'img/footer/master.png' %}"
-                                     alt="">
-                                <img src="{% get_static 'img/footer/visa.png' %}"
-                                     alt="">
+                                <div class="footer_close"></div>
+                                <div class="footer_info">
+                                    <img src="{% get_static 'img/footer/master.png' %}"
+                                         alt="">
+                                    <img src="{% get_static 'img/footer/visa.png' %}"
+                                         alt="">
+                                </div>
                             </div>
                             <div class="grafik">
                                 <div class="time_work">
@@ -380,6 +392,9 @@
             </div>
         {% endblock %}
     </div>
+    {% block shadow %}
+    <div class="shadow"></div>
+    {% endblock %}
 {% endblock %}
 
 {% block scripts %}
@@ -391,6 +406,7 @@
     <script src="{% get_static 'js/bootstrap.min.js' %}"></script>
     <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% get_static 'js/jquery.bxslider.min.js' %}"></script>
+    <script src="{% get_static 'js/jquery.scrollbar.js' %}"></script>
     <script src="{% get_static 'js/script.js' %}"></script>
     <script src="{% get_static 'js/estimation.js' %}"></script>
     <script src="{% get_static 'js/script-full-short.js' %}"></script>

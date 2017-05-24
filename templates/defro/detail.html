@@ -21,6 +21,10 @@
 {% endblock %}
 
 
+{% block mobile_menu %}
+  {{ block.super }}
+{% endblock %}
+
 {% block content %}
     <div class="container">
         {% basket_form request product as basket_form %}
@@ -184,8 +188,9 @@
                                         </button>
                                     </form>
                                 {% else %}
+                                    <br>
                                     <button
-                                            class="basket_button_sold">В
+                                            class="basket_button_sold">
                                         Нет в наличии
                                     </button>
                                     <a href="#" class="basket_button_in dpn">В

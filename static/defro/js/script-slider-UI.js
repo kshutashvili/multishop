@@ -1,29 +1,13 @@
 $(document).ready(function(){
 
-    var min_price = getParameterByName('price_range_min');
-    var max_price = getParameterByName('price_range_max');
-    if (min_price && max_price){
-        $("input#minCost").val(min_price);
-        $("input#maxCost").val(max_price);
-    }
-    else {
-        $("input#minCost").val(function () {
-            return $(this).attr('data-min-price');
-        });
-        $("input#maxCost").val(function () {
-            return $(this).attr('data-max-price');
-        });
-    }
-
 jQuery("#slider_price").slider({
-  min: parseInt($('#minCost').attr('data-min-price')),
-  max: parseInt($('#maxCost').attr('data-max-price')),
-  values: [$('#minCost').val(), $('#maxCost').val()],
+  min: 0,
+  max: 30000,
+  values: [5000,20000],
   range: true,
       stop: function(event, ui) {
           jQuery("input#minCost").val(jQuery("#slider_price").slider("values",0));
           jQuery("input#maxCost").val(jQuery("#slider_price").slider("values",1));
-          $('#price_range_form').submit();
       },
       slide: function(event, ui){
           jQuery("input#minCost").val(jQuery("#slider_price").slider("values",0));
@@ -58,7 +42,6 @@ jQuery("input#maxCost").change(function(){
 
 jQuery('input#maxCost').keypress(function(event){
     var key, keyChar;
-    console.log(1);
     if(!event) var event = window.event;
     
     if (event.keyCode) key = event.keyCode;
@@ -137,14 +120,3 @@ jQuery('input#minCost').keypress(function(event){
 
 
 });
-
-
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
