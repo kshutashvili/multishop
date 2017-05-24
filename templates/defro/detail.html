@@ -63,7 +63,7 @@
                         name="product_upc">{{ product.upc }}</span>
                 </p>
                 <p class="category_block_caption often_caption">
-                    <span>{{ product.product_class.name }}</span> {{ product.title }}
+                    {{ product.title }}
                 </p>
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#tovar"
@@ -291,9 +291,9 @@
                                         <div class="collapse in"
                                              id="collapseFilter1">
                                             <div class="well">
-                                                <p class="tovar_second_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                                                <p class="tovar_second_caption">{{ product.title }}</p>
                                                 <p class="tovar_second_text">
-                                                    <span>{{ product.product_class.name }} {{ product.title }}</span>
+                                                    <span>{{ product.title }}</span>
                                                 </p>
                                                 <div style="height:100%">
                                                     <div id="short_desc">
@@ -611,7 +611,7 @@
                                         src="{{ thumb.url }}"
                                         alt=""></a>
                             {% endthumbnail %}
-                            <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                            <p class="catalog_item_block_caption">{{ product.title }}</p>
                             <div class="for_list_block">
                                 <select class="rating_photo">
                                     {% for num in "12345" %}
@@ -720,7 +720,7 @@
                                         src="{{ thumb.url }}"
                                         alt=""></a>
                             {% endthumbnail %}
-                            <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                            <p class="catalog_item_block_caption">{{ product.title }}</p>
                             <div class="for_list_block">
                                 <select class="rating_photo">
                                     {% for num in "12345" %}
@@ -834,7 +834,7 @@
                                         src="{{ thumb.url }}"
                                         alt=""></a>
                             {% endthumbnail %}
-                            <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                            <p class="catalog_item_block_caption">{{ product.title }}</p>
                             <div class="for_list_block">
                                 <select class="rating_photo">
                                     {% for num in "12345" %}
@@ -1012,7 +1012,7 @@
                                         src="{{ thumb.url }}"
                                         alt=""></a>
                             {% endthumbnail %}
-                            <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                            <p class="catalog_item_block_caption">{{ product.title }}</p>
                             <div class="for_list_block">
                                 <select class="rating_photo">
                                     {% for num in "12345" %}
@@ -1148,7 +1148,7 @@
                                         {% thumbnail product.primary_image.original "155" as img %}
                                             <img src="{{ img.url }}">
                                         {% endthumbnail %}
-                                        <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                                        <p class="catalog_item_block_caption">{{ product.title }}</p>
                                         <select class="rating_photo">
                                             {% for num in "12345" %}
                                                 <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
