@@ -2528,22 +2528,22 @@ a.elipse_button_question{
 	background: url("../img/tovar/od_a.png") no-repeat center center;
 	background-size: 100%;
 }
-.social_block a:nth-child(6){
+/*.social_block a:nth-child(6){
 	background: url("../img/tovar/p.png") no-repeat center center;
 	background-size: 100%;
 }
 .social_block a:nth-child(6):hover{
 	background: url("../img/tovar/p_a.png") no-repeat center center;
 	background-size: 100%;
-}
-.social_block a:nth-child(7){
+}*/
+/*.social_block a:nth-child(7){
 	background: url("../img/tovar/google.png") no-repeat center center;
 	background-size: 100%;
 }
 .social_block a:nth-child(7):hover{
 	background: url("../img/tovar/google_a.png") no-repeat center center;
 	background-size: 100%;
-}
+}*/
 .fast_delivery_block{
 	background: url("../img/piktograma_delivery.png") no-repeat left top;
 	padding-left: 75px;
