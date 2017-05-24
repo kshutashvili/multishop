@@ -4,6 +4,13 @@ $(document).ready(function () {
         $short_desc = $('#short_desc');
         $('.read-next').on('click', function (event) {
             var H = t.height();
+
+            var tables = $('#tovar_desc table');
+            var tables_height = 0;
+            for (var i = 0; i < tables.length; i++) {
+                tables_height += tables[i].scrollHeight;
+            }
+
             if (scoreA == 0) {
                 $('.read-next').addClass("read-next-arrow");
                 scoreA = 1;
@@ -23,6 +30,9 @@ $(document).ready(function () {
             else {
                 H += h
             }
+
+            H += tables_height/1.5;
+
             t.height(H);
             $(this).text(H == max ? 'Свернуть' : 'Читать далее');
             return false
