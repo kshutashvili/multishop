@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.contrib.sites.models import Site
-from django.db import models
 import phonenumbers
+from django.contrib.flatpages.models import FlatPage as DjangoFlatPage
+from django.contrib.sites.models import Site
+from django.core.exceptions import ValidationError
+from django.core.urlresolvers import resolve, Resolver404
 from django.core.validators import RegexValidator
+from django.db import models
 from django.utils.translation import ugettext as _
 
 SIGN_TYPE = (
@@ -169,3 +172,17 @@ class ContactMessage(models.Model):
         verbose_name=_('Сайт'),
         blank=True, null=True
     )
+
+
+class FlatPage(DjangoFlatPage):
+    class Meta:
+        proxy = True
+
+    def clean(self):
+        super(FlatPage, self).clean()
+        try:
+            url = resolve(self.url)
+            if url.view_name != u'django.contrib.flatpages.views.flatpage':
+                raise ValidationError('Такой url уже существует!')
+        except Resolver404:
+            pass
