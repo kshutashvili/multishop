@@ -76,6 +76,12 @@ class Product(AbstractProduct):
             Product.redis = redis.Redis(connection_pool=Product.pool)
             return Product.redis
 
+    def get_absolute_url(self):
+        cat = self.categories.all().first()
+        slug = cat._slug_separator.join((cat.full_slug, self.slug))
+        return reverse('catalogue:product_or_category',
+                       kwargs={'slug': slug})
+
 
 class ProductClass(AbstractProductClass):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
@@ -94,6 +100,10 @@ class ProductCategory(AbstractProductCategory):
 
 class Category(AbstractCategory):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse('catalogue:product_or_category',
+                       kwargs={'slug': self.full_slug})
 
 
 class ProductAttributeValue(AbstractProductAttributeValue):
