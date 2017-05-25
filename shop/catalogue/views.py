@@ -93,7 +93,8 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         self.site = get_current_site(request)
         self.form = FilterForm(self.site, request.GET)
         try:
-            self.category = Category.objects.get(slug=kwargs['slug'])
+            slug = kwargs.get('category_slug') or kwargs['slug']
+            self.category = Category.objects.get(slug=slug)
         except (KeyError, Category.DoesNotExist):
             self.category = None
             categories = Category.objects.none()
