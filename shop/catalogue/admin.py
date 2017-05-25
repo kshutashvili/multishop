@@ -3,7 +3,8 @@ from django import forms
 from django.contrib import admin
 from oscar.apps.catalogue.admin import ProductAdmin as OscarProductAdmin, \
     CategoryAdmin as OscarCategoryAdmin, \
-    ProductAttributeValueAdmin as OscarProductAttributeValueAdmin
+    ProductAttributeValueAdmin as OscarProductAttributeValueAdmin, \
+    CategoryInline, ProductRecommendationInline
 
 from .models import ExtraImage, Product, Video, Category, ProductAttributeValue
 
@@ -53,10 +54,16 @@ class ProductAttributeValueAdminForm(forms.ModelForm):
         exclude = ('value_text', 'value_richtext')
 
 
+class AttributeInline(admin.TabularInline):
+    model = ProductAttributeValue
+    form = ProductAttributeValueAdminForm
+
+
 @admin.register(Product)
 class ProductAdmin(OscarProductAdmin):
     form = ProductAdminForm
-    inlines = OscarProductAdmin.inlines + [ExtraImageInline, VideoInline]
+    inlines = [AttributeInline, CategoryInline, ProductRecommendationInline,
+               ExtraImageInline, VideoInline]
 
 
 @admin.register(Category)

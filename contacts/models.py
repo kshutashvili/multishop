@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.contrib.sites.models import Site
-from django.db import models
 import phonenumbers
+from ckeditor.fields import RichTextField
+from django.contrib.sites.models import Site
 from django.core.validators import RegexValidator
+from django.db import models
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 
 SIGN_TYPE = (
@@ -169,3 +171,23 @@ class ContactMessage(models.Model):
         verbose_name=_('Сайт'),
         blank=True, null=True
     )
+
+
+class FlatPage(models.Model):
+    title = models.CharField('Название', max_length=80)
+    content = RichTextField('Текст')
+    slug = models.SlugField(unique=True)
+    when_created = models.DateTimeField('Дата создания', auto_now_add=True)
+    site = models.ManyToManyField(Site, verbose_name='Сайт', blank=True,
+                                  null=True, related_name='flatpages')
+
+    class Meta:
+        verbose_name = 'Статическая страница'
+        verbose_name_plural = 'Статические страницы'
+        db_table = 'contacts_flatpages'
+
+    def __unicode__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('flatpage_detail', kwargs={'url': self.slug})

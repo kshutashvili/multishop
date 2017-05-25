@@ -16,9 +16,9 @@ from django.utils.translation import ugettext_lazy as _
 from oscar.apps.catalogue.abstract_models import AbstractProduct, \
     AbstractProductAttributeValue, AbstractProductClass, \
     AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup
-from shop.order.models import Order
 from redis.exceptions import ConnectionError
-from urllib import urlencode
+
+from shop.order.models import Order
 
 
 class Product(AbstractProduct):
@@ -77,8 +77,11 @@ class Product(AbstractProduct):
             return Product.redis
 
     def get_absolute_url(self):
-        cat = self.categories.all().first()
-        slug = cat._slug_separator.join((cat.slug, self.slug))
+        if self.categories.all().exists():
+            cat = self.categories.all().first()
+            slug = cat._slug_separator.join((cat.slug, self.slug))
+        else:
+            slug = self.slug
         return reverse('catalogue:product_or_category',
                        kwargs={'slug': slug})
 

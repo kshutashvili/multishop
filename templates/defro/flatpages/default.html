@@ -1,0 +1,29 @@
+{% extends 'defro/base.html' %}
+
+{% load site_static %}
+
+{% block title %}{{ flatpage.title }}{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="container main_container">
+            <div class="main_block clear_fix">
+                <ol class="breadcrumb">
+                    <li><a href="#"><img src="{% get_static 'img/home.png' %}"
+                                         alt="" class="solo_img"></a></li>
+                    <li class="active">{{ flatpage.title }}</li>
+                </ol>
+
+                <div class="main_content contact_content">
+                    <div class="row">
+                        <h1>{{ flatpage.title }}</h1>
+                        <div class='garantees_block'>
+                            {{ flatpage.content|safe }}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

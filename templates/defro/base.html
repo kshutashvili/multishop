@@ -5,6 +5,10 @@
 {% load static %}
 {% load url_tags %}
 
+{% block title %}
+{{ site_display_name }}
+{% endblock %}
+
 {% block styles %}
     <link rel="stylesheet" type="text/css"
           href="{% get_static 'css/jquery.bxslider.css' %}">
@@ -34,7 +38,7 @@
                         </ul>
                     </div>
                     {% block mobile_menu %}
-                    <div class="mobile_menu" role="button"></div>
+                        <div class="mobile_menu" role="button"></div>
                     {% endblock %}
                     <div class="header_right">
                         <div class="lang">{% get_current_language as LANGUAGE_CODE %}
@@ -273,7 +277,8 @@
                                                 <a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a>
                                             </li>
                                         {% endif %}
-                                        <li><a href="{% url 'contacts' %}" class="predstav">Наши
+                                        <li><a href="{% url 'contacts' %}"
+                                               class="predstav">Наши
                                             представительства</a></li>
                                     </ul>
 
@@ -285,15 +290,17 @@
                                             {% endfor %}
                                         {% else %}
                                             <p>Пн.-Пт.:
-                                                <span> с 9:00 до 18:00</span></p>
-                                            <p>Сб:<span> с 9:00 до 15:00</span></p>
+                                                <span> с 9:00 до 18:00</span>
+                                            </p>
+                                            <p>Сб:<span> с 9:00 до 15:00</span>
+                                            </p>
                                         {% endif %}
                                         {% if site_email %}
                                             <a href="mailto:info@defro.org.ua/">{{ site_email }}</a>
                                         {% else %}
                                             <a href="mailto:info@defro.org.ua/">info@defro.org.ua/</a>
                                         {% endif %}
-                            
+
                                     </div>
                                 </div>
                             </div>
@@ -393,7 +400,7 @@
         {% endblock %}
     </div>
     {% block shadow %}
-    <div class="shadow"></div>
+        <div class="shadow"></div>
     {% endblock %}
 {% endblock %}
 

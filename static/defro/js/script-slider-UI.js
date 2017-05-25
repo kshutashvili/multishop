@@ -1,9 +1,9 @@
 $(document).ready(function(){
 
 jQuery("#slider_price").slider({
-  min: 0,
-  max: 30000,
-  values: [5000,20000],
+    min: 0,
+    max: 30000,
+    values: [5000, 20000],
   range: true,
       stop: function(event, ui) {
           jQuery("input#minCost").val(jQuery("#slider_price").slider("values",0));
