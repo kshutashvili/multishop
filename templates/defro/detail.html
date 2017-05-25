@@ -435,6 +435,9 @@
                                                                                 <div>
                                                                                     <div class="short"
                                                                                          id="user_comment">
+                                                                                         {% if review.reply_to.body %}
+                                                                                         <p>Repty to: {{ review.reply_to.body|striptags }}</p>
+                                                                                         {% endif %}
                                                                                         <p>{{ review.body|striptags|truncatechars:100 }}.</p>
                                                                                     </div>
                                                                                     <div class="full"
@@ -463,10 +466,10 @@
                                                                                         далее</a>
                                                                                 </div>
                                                                                 <div class="user_comment_bottom">
-                                                                                    {% if review|may_vote:user %}
+                                                                                    
                                                                                         <span class="otziv_polezen">Отзыв полезен?</span>
                                                                                         <form style="display: inline-table"
-                                                                                              action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                              action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
                                                                                               method="post"
                                                                                               class="vote_agree">
                                                                                             {% csrf_token %}
@@ -481,7 +484,7 @@
                                                                                             </button>
                                                                                         </form>
                                                                                         <form style="display: inline-table"
-                                                                                              action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                              action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
                                                                                               method="post">
                                                                                             {% csrf_token %}
                                                                                             <input type="hidden"
@@ -496,12 +499,12 @@
                                                                                         </form>
                                                                                         <p class="otvetilo">
                                                                                             Ответов:
-                                                                                            <span>1</span>
+                                                                                            <span>{{ review.reply_to|length }}</span>
                                                                                         </p>
                                                                                         <a href="#"
                                                                                            class="otvetit show_popup"
                                                                                            rel="answer_button_modal">Ответить</a>
-                                                                                    {% endif %}
+                                                                                    
                                                                                 </div>
                                                                             </div>
                                                                         {% endfor %}
@@ -974,7 +977,7 @@
                                                         {% if review|may_vote:user %}
                                                             <span class="otziv_polezen">Отзыв полезен?</span>
                                                             <form style="display: inline-table"
-                                                                  action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                  action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
                                                                   method="post"
                                                                   class="vote_agree">
                                                                 {% csrf_token %}
@@ -989,7 +992,7 @@
                                                                 </button>
                                                             </form>
                                                             <form style="display: inline-table"
-                                                                  action="{% url 'catalogue:reviews-vote' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                  action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
                                                                   method="post">
                                                                 {% csrf_token %}
                                                                 <input type="hidden"
