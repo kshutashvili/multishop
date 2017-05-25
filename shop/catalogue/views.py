@@ -254,6 +254,8 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
         if not self.category.get_children().exists():
             # Crutch oriented programming: we show products on the category url
             # with a catalog view
+            slug = kwargs.pop('category_slug')
+            kwargs['slug'] = slug.split(Category._slug_separator)[-1]
             return product_category_view(request, *args, **kwargs)
 
         potential_redirect = self.redirect_if_necessary(
