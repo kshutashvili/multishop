@@ -15,7 +15,8 @@ class BaseCatalogueApplication(DefaultCatApp):
             url(r'^catalogue/$', self.catalogue_view.as_view(), name='index'),
             url(r'^category/(?P<category_slug>[\w-]+(/[\w-]+)*)_(?P<pk>\d+)/$',
                 RedirectView.as_view(permanent=True,
-                                     pattern_name='product_or_category')
+                                     pattern_name='product_or_category'),
+                name='category'
             ),
             url(r'^catalogue/ranges/(?P<slug>[\w-]+)/$',
                 self.range_view.as_view(), name='range'),
