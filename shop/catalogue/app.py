@@ -1,12 +1,13 @@
 from django.conf.urls import url
 from oscar.apps.catalogue.app import (
-    BaseCatalogueApplication as DefaultApp, ReviewsApplication
+    BaseCatalogueApplication as DefaultCatApp,
+    ReviewsApplication as DefaultReviewsApp
 )
 
 from shop.catalogue.views import product_or_category
 
 
-class BaseCatalogueApplication(DefaultApp):
+class BaseCatalogueApplication(DefaultCatApp):
     def get_urls(self):
         urlpatterns = [
             url(r'^catalogue/$', self.catalogue_view.as_view(), name='index'),
@@ -15,6 +16,16 @@ class BaseCatalogueApplication(DefaultApp):
             url(r'^catalogue/ranges/(?P<slug>[\w-]+)/$',
                 self.range_view.as_view(), name='range')
         ]
+        return self.post_process_urls(urlpatterns)
+
+
+class ReviewsApplication(DefaultReviewsApp):
+    def get_urls(self):
+        urlpatterns = [
+            url(r'^(?P<product_slug>[\w-]*)_(?P<product_pk>\d+)/reviews/',
+                self.reviews_app.urls)
+        ]
+        urlpatterns += super(ReviewsApplication, self).get_urls()
         return self.post_process_urls(urlpatterns)
 
 
