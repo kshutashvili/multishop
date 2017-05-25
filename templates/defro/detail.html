@@ -243,29 +243,16 @@
 
                                 <div class="social_block">
                                     <a href="#" id="share_fb"></a>
-                                    <a href="#">
-                                    </a>
-                                    <a href="#"></a>
-                                    <a href="https://twitter.com/share"
-                                       class="twitter-share-button"
-                                       data-text="Купил себе, новый котёл. Очень доволен!"
-                                       data-via="twitterdev"
-                                       data-related="twitterapi,twitter"
-                                       data-via="defro"></a>
-                                    <a href="#" id="ok_shareWidget"></a>
+                                    <a href="https://vk.com/share.php?url={{ request.build_absolute_uri|urlencode }}&title={{ product.title }}" target="_blank"></a>
+                                    <a href="https://connect.mail.ru/share?url={{ request.build_absolute_uri|urlencode }}&title={{ product.title }}" target="_blank"></a>
+                                    <a href="https://twitter.com/share?text={{ product.title }}&hashtags=defro" class="twitter-share-button" data-dnt="false" target="_blank"></a>
+                                    <a href="https://www.odnoklassniki.ru/dk?st.cmd=addShare&st._surl={{ request.build_absolute_uri|urlencode }}&title={{ product.title }}" target="_blank"></a>
                                     <a data-pin-do="buttonPin"
                                        href="https://www.pinterest.com/pin/create/button/"
                                        data-pin-custom="true"
-                                       data-pin-do="buttonBookmark"><img
-                                            src="{% get_static 'img/tovar/p_a.png' %}"
-                                            width="25" height="25"
-                                            style="margin-top: -17px; cursor: pointer"></a>
+                                       data-pin-do="buttonBookmark"></a>
                                     <a href="https://plus.google.com/share?url={{ request.build_absolute_uri|urlencode }}"
-                                       onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><img
-                                            src="{% get_static 'img/tovar/google_a.png' %}"
-                                            alt="Share on Google+"
-                                            style="margin-top: -17px;"
-                                            width="25" height="25"/></a>
+                                       onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"></a>
                                 </div>
                             </div>
 
