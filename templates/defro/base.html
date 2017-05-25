@@ -5,6 +5,10 @@
 {% load static %}
 {% load url_tags %}
 
+{% block title %}
+{{ site_display_name }}
+{% endblock %}
+
 {% block styles %}
     <link rel="stylesheet" type="text/css"
           href="{% get_static 'css/jquery.bxslider.css' %}">
