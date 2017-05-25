@@ -108,7 +108,7 @@ class MenuItem(models.Model):
         return self.name
 
 
-class UndercatText(SingletonModel):
+class UndercatText(models.Model):
     class Meta:
         abstract = True
     text = models.TextField('Текст')
