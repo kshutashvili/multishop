@@ -108,7 +108,7 @@ class MenuItem(models.Model):
         return self.name
 
 
-class UndercatText(SingletonModel):
+class UndercatText(models.Model):
     class Meta:
         abstract = True
     text = models.TextField('Текст')
@@ -130,18 +130,22 @@ class UndercatText(SingletonModel):
 class TextOne(UndercatText):
     class Meta:
         verbose_name = 'Текст 1'
+        verbose_name_plural = 'Тексты 1'
 
 
 class TextTwo(UndercatText):
     class Meta:
         verbose_name = 'Текст 2'
+        verbose_name_plural = 'Тексты 2'
 
 
 class TextThree(UndercatText):
     class Meta:
         verbose_name = 'Текст 3'
+        verbose_name_plural = 'Тексты 3'
 
 
 class TextFour(UndercatText):
     class Meta:
         verbose_name = 'Текст 4'
+        verbose_name_plural = 'Тексты 4'

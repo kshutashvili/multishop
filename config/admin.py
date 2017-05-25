@@ -72,30 +72,30 @@ class MenuItemAdminForm(forms.ModelForm):
 
 
 @admin.register(Configuration)
-class SiteConfigurationAdmin(SingletonModelAdmin):
+class ConfigurationAdmin(SingletonModelAdmin):
     list_display = ('power_attribute',)
 
 
 @admin.register(TextOne)
-class TextOneAdmin(SingletonModelAdmin):
+class TextOneAdmin(admin.ModelAdmin):
     list_display = ('text', 'site', 'is_active')
     form = TextOneAdminForm
 
 
 @admin.register(TextTwo)
-class TextTwoAdmin(SingletonModelAdmin):
+class TextTwoAdmin(admin.ModelAdmin):
     list_display = ('text', 'site', 'is_active')
     form = TextTwoAdminForm
 
 
 @admin.register(TextThree)
-class TextThreeAdmin(SingletonModelAdmin):
+class TextThreeAdmin(admin.ModelAdmin):
     list_display = ('text', 'site', 'is_active')
     form = TextThreeAdminForm
 
 
 @admin.register(TextFour)
-class TextFourAdmin(SingletonModelAdmin):
+class TextFourAdmin(admin.ModelAdmin):
     list_display = ('text', 'site', 'is_active')
     form = TextFourAdminForm
 

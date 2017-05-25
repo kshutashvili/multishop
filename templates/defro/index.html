@@ -10,10 +10,10 @@
                 <div class="left_side">
 						{% include 'defro/partials/side_menu.html' with expand=True is_main_page=True %}
                 <ul class="under_left_menu">
-							 	<li>{{ text_one|linebreaksbr }}</li>
-								<li>{{ text_two|linebreaksbr }}</li>
-								<li>{{ text_three|linebreaksbr }}</li>
-								<li>{{ text_four|linebreaksbr }}</li>
+							 	<li>{{ text_one|safe }}</li>
+								<li>{{ text_two|safe }}</li>
+								<li>{{ text_three|safe }}</li>
+								<li>{{ text_four|safe }}</li>
 				</ul>
 				{% if text_url %}
                 <a href="{{ text_url }}" class="under_left_menu_more">Узнать подробнее</a>

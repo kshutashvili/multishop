@@ -29,11 +29,17 @@ def menu_processor(request):
 
 def show_undercat_block(request):
     site_obj = get_current_site(request)
-    text_one = TextOne.get_solo().to_show(site_obj)
-    text_two = TextTwo.get_solo().to_show(site_obj)
-    text_three = TextThree.get_solo().to_show(site_obj)
-    text_four = TextFour.get_solo().to_show(site_obj)
+    text_one = TextOne.objects.filter(
+        (Q(site=None) | Q(site=site_obj) & Q(is_active=True))).first()
+    text_two = TextTwo.objects.filter(
+        (Q(site=None) | Q(site=site_obj) & Q(is_active=True))).first()
+    text_three = TextThree.objects.filter(
+        (Q(site=None) | Q(site=site_obj) & Q(is_active=True))).first()
+    text_four = TextFour.objects.filter(
+        (Q(site=None) | Q(site=site_obj) & Q(is_active=True))).first()
     text_url = Configuration.get_solo().undercat_block_url
-    return {'text_one': text_one, 'text_two': text_two,
-            'text_three': text_three, 'text_four': text_four,
+    return {'text_one': text_one if text_one else '',
+            'text_two': text_two if text_one else '',
+            'text_three': text_three if text_three else '',
+            'text_four': text_four if text_four else '',
             'text_url': text_url}
