@@ -204,8 +204,13 @@ class CompareCategoryView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         context = super(CompareCategoryView, self).get_context_data()
         category = get_object_or_404(Category, pk=kwargs['category'])
         context['category'] = category
-        products = Product.objects.filter(
-            id__in=self.request.session['compare_list'], categories=category)
+        try:
+            products = self.request.session['compare_list']
+        except KeyError:
+            products = Product.objects.none()
+        else:
+            products = Product.objects.filter(id__in=products,
+                                              categories=category)
         context['products'] = products
         attrs = ProductAttributeValue.objects.filter(product__in=products)
         attr_vals = {}
