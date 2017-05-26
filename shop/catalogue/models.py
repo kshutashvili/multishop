@@ -5,6 +5,7 @@ import redis
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
+from django.core.management import call_command
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -199,6 +200,13 @@ def on_order_create(sender, instance, created, **kwargs):
     email = EmailMultiAlternatives(subject, text_content, from_email, [to])
     email.attach_alternative(html_content, "text/html")
     email.send(fail_silently=True)
+
+
+def update_catalogue(sender, instance, created, **kwargs):
+    call_command('rebuild_index', interactive=False)
+post_save.connect(update_catalogue, Product)
+post_save.connect(update_catalogue, ProductCategory)
+post_save.connect(update_catalogue, Category)
 
 
 from oscar.apps.catalogue.models import *
