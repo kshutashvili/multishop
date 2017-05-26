@@ -203,7 +203,8 @@ def on_order_create(sender, instance, created, **kwargs):
 
 
 def update_catalogue(sender, instance, created, **kwargs):
-    call_command('rebuild_index', interactive=False)
+    if created:
+        call_command('rebuild_index', interactive=False)
 post_save.connect(update_catalogue, Product)
 post_save.connect(update_catalogue, ProductCategory)
 post_save.connect(update_catalogue, Category)
