@@ -8,6 +8,7 @@ from oscar.core.loading import get_model
 Product = get_model('catalogue', 'Product')
 Category = get_model('catalogue', 'Category')
 ProductClass = get_model('catalogue', 'ProductClass')
+FlatPages = get_model('contacts', 'FlatPage')
 
 
 class I18nSitemap(Sitemap):
@@ -30,7 +31,10 @@ class I18nSitemap(Sitemap):
         return location
 
 
-class StaticSitemap(I18nSitemap):
+class LandingSitemap(I18nSitemap):
+    changefreq = 'always'
+    priority = 1.0
+
     def items(self):
         return ['promotions:home', ]
 
@@ -39,25 +43,56 @@ class StaticSitemap(I18nSitemap):
 
 
 class ProductSitemap(I18nSitemap):
+    changefreq = 'monthly'
+    priority = 0.6
+
     def items(self):
         return Product.browsable.all()
 
 
 class CategorySitemap(I18nSitemap):
+    changefreq = 'daily'
+    priority = 0.8
+
     def items(self):
         return Category.objects.all()
 
 
 class ProductClassSitemap(I18nSitemap):
+    changefreq = 'monthly'
+    priority = 0.6
+
     def items(self):
         return ProductClass.objects.all()
 
 
+class FlatPageSitemap(I18nSitemap):
+    changefreq = 'monthly'
+    priority = 0.5
+
+    def items(self):
+        return FlatPages.objects.all()
+
+
+class ContactsSitemap(I18nSitemap):
+    changefreq = 'monthly'
+    priority = 0.5
+
+    def items(self):
+        return ['contacts',]
+
+    def location(self, item):
+        return reverse(item)
+
+
+
 language_neutral_sitemaps = {
-    'static': StaticSitemap,
+    'landing': LandingSitemap,
     'products': ProductSitemap,
     'categories': CategorySitemap,
     'product_classes': ProductClassSitemap,
+    'static_pages': FlatPageSitemap,
+    'contacts': ContactsSitemap
 }
 
 # Construct the sitemaps for every language
