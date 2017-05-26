@@ -942,7 +942,7 @@
                                     Отзывы <span
                                         class="otzivi_after">{{ product.num_approved_reviews }}</span>
                                 </a>
-                                <a href="#" class="comment_button_uniq">Оставить
+                                <a href="#add_review" class="comment_button_uniq" onclick="$('a[href=\'#tovar\']').trigger('click');">Оставить
                                     отзыв о товаре</a>
                                 <div class="collapse in" id="collapseFilter3">
                                     {% if product.num_approved_reviews == 0 %}
