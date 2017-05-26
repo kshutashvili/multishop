@@ -975,6 +975,7 @@
                                                         {# href="#">Читать далее</a>#}
                                                     </div>
                                                     <div class="user_comment_bottom">
+                                                        <span class="otziv_polezen">Отзыв полезен?</span>
                                                         {% if review|may_vote:user %}
                                                             <span class="otziv_polezen">Отзыв полезен?</span>
                                                             <form style="display: inline-table"
@@ -1013,6 +1014,17 @@
                                                             <a href="#"
                                                                class="otvetit show_popup"
                                                                rel="answer_button_modal">Ответить</a>
+                                                        {% else %}
+                                                            <button type="submit"
+                                                                    class="otziv_polezen_da"
+                                                                    style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
+                                                                Да<span>{{ review.num_up_votes }}</span>
+                                                            </button>
+                                                            <button type="submit"
+                                                                    class="otziv_polezen_net"
+                                                                    style="border: none; background-color: transparent;">
+                                                                Нет<span>{{ review.num_down_votes }}</span>
+                                                            </button>
                                                         {% endif %}
                                                     </div>
                                                 </li>
