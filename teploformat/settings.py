@@ -29,7 +29,7 @@ SECRET_KEY = '0v35y0yuajh))*w**m^f2uj8^xrc52ek=-(l70im7c_o70@hr7'
 DEBUG = False
 TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
