@@ -190,4 +190,4 @@ class FlatPage(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('flatpage_detail', kwargs={'url': self.slug})
+        return reverse('flatpage_detail', kwargs={'flatpage_slug': self.slug})
