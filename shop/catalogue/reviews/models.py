@@ -13,6 +13,12 @@ from oscar.core import validators
 from shop.catalogue.models import Product
 
 
+def preview_text(value, length=116, ending='...'):
+    if len(value) > length:
+        return ''.join((value[:length - len(ending)].rsplit(' ', 1)[0], ending))
+    return value
+
+
 class ProductReview(AbstractProductReview):
     title = models.CharField(
         verbose_name=pgettext_lazy(u"Product review title", u"Title"),
@@ -67,6 +73,29 @@ class ProductQuestion(models.Model):
 
     def __unicode__(self):
         return u'{} - {}'.format(self.name, self.when_created)
+
+
+class ReviewAnswer(models.Model):
+    review = models.ForeignKey(ProductReview,
+                               related_name="answers",
+                               blank=True,
+                               null=True)
+    name = models.CharField("Имя", max_length=255)
+    email = models.EmailField("Email")
+    body = models.TextField("Комментарий")
+    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+    get_notification = models.BooleanField(
+        'Получать уведомления об ответах',
+        default=False
+    )
+    date_created = models.DateTimeField("Дата создания", auto_now_add=True)
+    reply_to = models.ForeignKey('self',
+                                 blank=True,
+                                 null=True,
+                                 related_name='answer_to_answer')
+
+    def __unicode__(self):
+        return preview_text(self.body)
 
 
 from oscar.apps.catalogue.reviews.models import *  # noqa

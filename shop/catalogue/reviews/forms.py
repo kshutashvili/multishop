@@ -5,7 +5,7 @@ from django.forms import HiddenInput
 from oscar.apps.catalogue.reviews.forms import ProductReviewForm as \
     CoreProductReviewForm
 
-from shop.catalogue.reviews.models import ProductReview, ProductQuestion
+from shop.catalogue.reviews.models import ProductReview, ProductQuestion, ReviewAnswer
 
 
 class ProductReviewForm(CoreProductReviewForm):
@@ -30,3 +30,18 @@ class ProductQuestionForm(forms.ModelForm):
     class Meta:
         model = ProductQuestion
         fields = ['name', 'email', 'phone', 'text']
+
+
+class ReviewAnswerForm(forms.ModelForm):
+
+    class Meta:
+        model = ReviewAnswer
+        fields = ('name', 'email', 'body', 'site', 'get_notification')
+        widgets = {
+            'site': HiddenInput(),
+            'get_notification': CheckboxInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ReviewAnswerForm, self).__init__(*args, **kwargs)
+        self.fields['get_notification'].required = False

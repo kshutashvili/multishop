@@ -23,7 +23,7 @@ from django.contrib.staticfiles import views
 
 from shop.app import application
 from shop.basket.views import delete_item_from_basket, update_items_quantity
-from shop.catalogue.reviews.views import ProductQuestionView, AddVoteView
+from shop.catalogue.reviews.views import ProductQuestionView, AddVoteView, CreateReviewAnswer
 from shop.catalogue.views import get_search_count, \
     OneClickOrderCreateView, CompareView, remove_item_from_compare_list, \
     remove_category_from_compare_list, CompareCategoryView
@@ -83,6 +83,9 @@ urlpatterns += i18n_patterns(
     url(r'^(?P<product_slug>[\w-]*)_(?P<product_pk>\d+)/reviews/(?P<pk>\d+)/vote',
         AddVoteView.as_view(),
         name="vote_review"),
+    url(r'^(?P<product_slug>[\w-]*)_(?P<product_pk>\d+)/reviews/(?P<pk>\d+)/answer',
+        CreateReviewAnswer.as_view(),
+        name="review_answer"),
     prefix_default_language=False
 
 )
