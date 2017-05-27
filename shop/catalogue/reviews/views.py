@@ -8,8 +8,8 @@ from oscar.core.utils import redirect_to_referrer
 from oscar.apps.catalogue.reviews.forms import VoteForm
 
 from shop.catalogue.models import Product
-from shop.catalogue.reviews.forms import ProductReviewForm, ProductQuestionForm
-from shop.catalogue.reviews.models import ProductReview, ProductQuestion
+from shop.catalogue.reviews.forms import ProductReviewForm, ProductQuestionForm, ReviewAnswerForm
+from shop.catalogue.reviews.models import ProductReview, ProductQuestion, ReviewAnswer
 
 
 class CreateProductReview(View):
@@ -75,3 +75,35 @@ class AddVoteView(View):
                 for msg in error_list:
                     messages.error(request, msg)
         return redirect_to_referrer(request, product.get_absolute_url())
+
+
+class CreateReviewAnswer(View):
+    model = ReviewAnswer
+    form_class = ReviewAnswerForm
+
+    def post(self, request, *args, **kwargs):
+        print(self.kwargs)
+        print(request.POST)
+        reply_answer = None
+        review = None
+        product = get_object_or_404(Product, pk=self.kwargs['product_pk'])
+        review_pk = request.POST.get('review_id', None)
+        if review_pk:
+            review = get_object_or_404(ProductReview, pk=review_pk)
+        else:
+            reply_answer = get_object_or_404(ReviewAnswer, pk=request.POST.get('answer_id', None))
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.review = review
+            answer.reply_to = reply_answer
+            answer.save()
+            return redirect_to_referrer(request, product.get_absolute_url())
+        else:
+            for error_list in form.errors.values():
+                for msg in error_list:
+                    print(msg)
+                    print(request)
+                    messages.error(request, msg)
+            return HttpResponseBadRequest()
+

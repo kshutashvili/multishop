@@ -404,7 +404,7 @@
                                                                     <ol class="list-unstyled review-list">
                                                                         {% for review in product.reviews.approved.all|slice:":3" %}
                                                                             <div class="user_comment_block"
-                                                                                 data-pk="{{ review.pk }}">
+                                                                                 data-reviewpk="{{ review.pk }}">
                                                                                 <select class="rating_photo">
                                                                                     {% for num in "12345" %}
                                                                                         <option {% if review.score == forloop.counter %}selected="selected"{% endif %}
@@ -416,20 +416,26 @@
                                                                                         Вы
                                                                                     {% else %}
                                                                                         {{ review.name }}
-                                                                                    {% endif %}</span>
-                                                                                <span class="user_comment_date">{{ review.date_created|date:"j E Y" }}</span>
+                                                                                    {% endif %}
+                                                                                </span>
+                                                                                <span class="user_comment_date">
+                                                                                    {{ review.date_created|date:"j E Y" }}
+                                                                                </span>
 
                                                                                 <div>
                                                                                     <div class="short"
                                                                                          id="user_comment">
                                                                                          {% if review.reply_to.body %}
-                                                                                         <p>Repty to: {{ review.reply_to.body|striptags }}</p>
+                                                                                         <p>Re: <a href="#review{{review.reply_to.pk}}">{{ review.reply_to.name|striptags }}</a></p>
                                                                                          {% endif %}
                                                                                         <p>{{ review.body|striptags|truncatechars:100 }}.</p>
                                                                                     </div>
                                                                                     <div class="full"
                                                                                          id="user_comment"
                                                                                          style="display:none">
+                                                                                         {% if review.reply_to.body %}
+                                                                                            <p>Re: <a href="#review{{review.reply_to.pk}}">{{ review.reply_to.name|striptags }}</a></p>
+                                                                                         {% endif %}
                                                                                         <p>{{ review.body|striptags }}.</p>
                                                                                         <div class="advantages">
                                                                                             {% if review.advantage %}
@@ -453,9 +459,8 @@
                                                                                         далее</a>
                                                                                 </div>
                                                                                 <div class="user_comment_bottom">
-                                                                                    
-                                                                                        <span class="otziv_polezen">Отзыв полезен?</span>
-                                                                                        {% if review|may_vote:user %}
+                                                                                    <span class="otziv_polezen">Отзыв полезен?</span>
+                                                                                    {% if review|may_vote:user %}
                                                                                         <form style="display: inline-table"
                                                                                               action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
                                                                                               method="post"
@@ -485,36 +490,172 @@
                                                                                                 Нет<span>{{ review.num_down_votes }}</span>
                                                                                             </button>
                                                                                         </form>
-                                                                                        {% else %}
-                                                                                            <button type="button"
-                                                                                                    class="otziv_polezen_da"
-                                                                                                    style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                                Да<span>{{ review.num_up_votes }}</span>
-                                                                                            </button>
-                                                                                            <button type="submit"
-                                                                                                    class="otziv_polezen_net"
-                                                                                                    style="border: none; background-color: transparent;">
-                                                                                                Нет<span>{{ review.num_down_votes }}</span>
-                                                                                            </button>
-                                                                                        {% endif %}
-                                                                                        
-                                                                                        <p class="otvetilo">
-                                                                                            Ответов:
-                                                                                            <span>{{ review.reply_to|length }}</span>
-                                                                                        </p>
-                                                                                        <a href="#"
-                                                                                           class="otvetit show_popup"
-                                                                                           rel="answer_button_modal">Ответить</a>
-                                                                                    
+                                                                                    {% else %}
+                                                                                        <button type="button"
+                                                                                                class="otziv_polezen_da"
+                                                                                                style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
+                                                                                            Да<span>{{ review.num_up_votes }}</span>
+                                                                                        </button>
+                                                                                        <button type="submit"
+                                                                                                class="otziv_polezen_net"
+                                                                                                style="border: none; background-color: transparent;">
+                                                                                            Нет<span>{{ review.num_down_votes }}</span>
+                                                                                        </button>
+                                                                                    {% endif %}
+                                                                                    <p class="otvetilo">
+                                                                                        Ответов:
+                                                                                        <span>{{ review.answers.all|length }}</span>
+                                                                                    </p>
+                                                                                    <a href="#"
+                                                                                       class="otvetit show_popup"
+                                                                                       rel="answer_button_modal">Ответить</a>
                                                                                 </div>
                                                                             </div>
+                                                                            {% if review.answers %}
+                                                                                {% for answer in review.answers.all|slice:":1" %}
+                                                                                    <div class="user_answer_block" data-answerpk="{{ answer.pk }}">
+                                                                                        <span class="user_name">
+                                                                                            {{ answer.name }}
+                                                                                        </span>
+                                                                                        <span class="user_comment_date">{{ answer.date_created|date:"j E Y" }}</span>
+                                                                                        <div>
+                                                                                            <div class="short" id="user_comment">
+                                                                                                <p>{{ answer.body|striptags|truncatechars:100 }}.</p>
+                                                                                            </div>
+                                                                                            <div class="full" id="user_comment" style="display:none">
+                                                                                                <p>{{ answer.body|striptags }}.</p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="user_comment_bottom">
+                                                                                            <span class="otziv_polezen">Отзыв полезен?</span>
+                                                                                            {% if review|may_vote:user %}
+                                                                                                <form style="display: inline-table"
+                                                                                                      action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                                      method="post"
+                                                                                                      class="vote_agree">
+                                                                                                    {% csrf_token %}
+                                                                                                    <input type="hidden"
+                                                                                                           name="delta"
+                                                                                                           value="1"/>
+                                                                                                    <button type="submit"
+                                                                                                            class="otziv_polezen_da"
+                                                                                                            data-loading-text="{% trans 'Submitting...' %}"
+                                                                                                            style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
+                                                                                                        Да<span>{{ review.num_up_votes }}</span>
+                                                                                                    </button>
+                                                                                                </form>
+                                                                                                <form style="display: inline-table"
+                                                                                                      action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                                      method="post">
+                                                                                                    {% csrf_token %}
+                                                                                                    <input type="hidden"
+                                                                                                           name="delta"
+                                                                                                           value="-1"/>
+                                                                                                    <button type="submit"
+                                                                                                            class="otziv_polezen_net"
+                                                                                                            data-loading-text="{% trans 'Submitting...' %}"
+                                                                                                            style="border: none; background-color: transparent;">
+                                                                                                        Нет<span>{{ review.num_down_votes }}</span>
+                                                                                                    </button>
+                                                                                                </form>
+                                                                                            {% else %}
+                                                                                                <button type="button"
+                                                                                                        class="otziv_polezen_da"
+                                                                                                        style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
+                                                                                                    Да<span>{{ review.num_up_votes }}</span>
+                                                                                                </button>
+                                                                                                <button type="submit"
+                                                                                                        class="otziv_polezen_net"
+                                                                                                        style="border: none; background-color: transparent;">
+                                                                                                    Нет<span>{{ review.num_down_votes }}</span>
+                                                                                                </button>
+                                                                                            {% endif %}
+                                                                                            <p class="otvetilo">
+                                                                                                Ответов:
+                                                                                                <span>{{ answer.answer_to_answer.all|length }}</span>
+                                                                                            </p>
+                                                                                            <a href="#"
+                                                                                               class="otvetit show_popup"
+                                                                                               rel="answer_button_modal">Ответить</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    {% if answer.answer_to_answer %}
+                                                                                        {% for replied_answer in answer.answer_to_answer.all|slice:":0" %}
+                                                                                            <div class="user_answer_block" data-answerpk="{{ replied_answer.pk }}">
+                                                                                                <span class="user_name">
+                                                                                                    {{ replied_answer.name }}
+                                                                                                </span>
+                                                                                                <span class="user_comment_date">{{ replied_answer.date_created|date:"j E Y" }}</span>
+                                                                                                <div>
+                                                                                                    <div class="short" id="user_comment">
+                                                                                                        <p>{{ replied_answer.body|striptags|truncatechars:100 }}.</p>
+                                                                                                    </div>
+                                                                                                    <div class="full" id="user_comment" style="display:none">
+                                                                                                        <p>{{ replied_answer.body|striptags }}.</p>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="user_comment_bottom">
+                                                                                                    <span class="otziv_polezen">Отзыв полезен?</span>
+                                                                                                    {% if review|may_vote:user %}
+                                                                                                        <form style="display: inline-table"
+                                                                                                              action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                                              method="post"
+                                                                                                              class="vote_agree">
+                                                                                                            {% csrf_token %}
+                                                                                                            <input type="hidden"
+                                                                                                                   name="delta"
+                                                                                                                   value="1"/>
+                                                                                                            <button type="submit"
+                                                                                                                    class="otziv_polezen_da"
+                                                                                                                    data-loading-text="{% trans 'Submitting...' %}"
+                                                                                                                    style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
+                                                                                                                Да<span>{{ review.num_up_votes }}</span>
+                                                                                                            </button>
+                                                                                                        </form>
+                                                                                                        <form style="display: inline-table"
+                                                                                                              action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                                              method="post">
+                                                                                                            {% csrf_token %}
+                                                                                                            <input type="hidden"
+                                                                                                                   name="delta"
+                                                                                                                   value="-1"/>
+                                                                                                            <button type="submit"
+                                                                                                                    class="otziv_polezen_net"
+                                                                                                                    data-loading-text="{% trans 'Submitting...' %}"
+                                                                                                                    style="border: none; background-color: transparent;">
+                                                                                                                Нет<span>{{ review.num_down_votes }}</span>
+                                                                                                            </button>
+                                                                                                        </form>
+                                                                                                    {% else %}
+                                                                                                        <button type="button"
+                                                                                                                class="otziv_polezen_da"
+                                                                                                                style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
+                                                                                                            Да<span>{{ review.num_up_votes }}</span>
+                                                                                                        </button>
+                                                                                                        <button type="submit"
+                                                                                                                class="otziv_polezen_net"
+                                                                                                                style="border: none; background-color: transparent;">
+                                                                                                            Нет<span>{{ review.num_down_votes }}</span>
+                                                                                                        </button>
+                                                                                                    {% endif %}
+                                                                                                    <p class="otvetilo">
+                                                                                                        Ответов:
+                                                                                                        <span>{{ replied_answer.answer_to_answer.all|length }}</span>
+                                                                                                    </p>
+                                                                                                    <a href="#"
+                                                                                                       class="otvetit show_popup"
+                                                                                                       rel="answer_button_modal">Ответить</a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        {% endfor %}
+                                                                                    {% endif %}<!-- answer.answer_to_answer -->
+                                                                                {% endfor %}
+                                                                            {% endif %} <!-- review.answers -->
                                                                         {% endfor %}
                                                                     </ol>
                                                                 {% endif %}
                                                             </section>
                                                         {% endblock product_review %}
-
-
                                                     </div>
                                                     {% if product.num_approved_reviews > 0 %}
                                                         <a class="read-next-fullcomment"
@@ -937,22 +1078,25 @@
                                 <a class="left_filter_captions" role="button"
                                    data-toggle="collapse"
                                    style="border: 1px solid #e0e0e0; background-color: #f8f8f8; padding: 7px 25px; font-size: 24px;"
-                                   href="#collapseFilter3" aria-expanded="false"
-                                   aria-controls="collapseFilter3">
+                                   href="#collapseFilter4" aria-expanded="false"
+                                   aria-controls="collapseFilter4">
                                     Отзывы <span
                                         class="otzivi_after">{{ product.num_approved_reviews }}</span>
                                 </a>
-                                <a href="#" class="comment_button_uniq">Оставить
+                                <a href="#add_review2" class="comment_button_uniq">Оставить
                                     отзыв о товаре</a>
-                                <div class="collapse in" id="collapseFilter3">
+                                <div class="collapse in" id="collapseFilter4">
                                     {% if product.num_approved_reviews == 0 %}
                                         <p>Этот товар еще не имеет отзывов.</p>
                                     {% else %}
                                         <ol class="list-unstyled review-list"
                                             style="margin-bottom: 0px">
                                             {% for review in product.reviews.approved.all %}
+
                                                 <li class="user_comment_block"
-                                                    style="margin-top: 16px; padding:0px 18px; border-bottom: ">
+                                                    style="margin-top: 16px; padding:0px 18px;"
+                                                    data-pk="{{ review.pk }}"
+                                                    id="review{{ review.pk }}">
                                                     <select class="rating_photo">
                                                         {% for num in "12345" %}
                                                             <option {% if review.score|floatformat:0 == num %}selected="selected"{% endif %}
@@ -960,65 +1104,327 @@
                                                         {% endfor %}
                                                     </select>
                                                     <span class="user_name">
-                                                {% if review.user == user %}
-                                                    Вы
-                                                {% else %}
-                                                    {{ review.name }}
-                                                {% endif %}</span>
+                                                        {% if review.user == user %}
+                                                            Вы
+                                                        {% else %}
+                                                            {{ review.name }}
+                                                        {% endif %}
+                                                    </span>
                                                     <span class="user_comment_date">{{ review.date_created|date:"j E Y" }}</span>
 
                                                     <div>
                                                         <div class="user_comment">
                                                             <p>{{ review.body|striptags }}.</p>
                                                         </div>
+                                                        <div class="advantages">
+                                                            {% if review.advantage %}
+                                                                <p class="positive_comment">
+                                                                    <span>+</span>
+                                                                    Достоинства;
+                                                                </p>
+                                                                <p>{{ review.advantage|striptags }}.</p>
+                                                            {% endif %}
+                                                            {% if review.disadvantage %}
+                                                                <p class="negative_comment">
+                                                                    <span>-</span>
+                                                                    Недостатки;
+                                                                </p>
+                                                                <p>{{ review.disadvantage|striptags }}.</p>
+                                                            {% endif %}
+                                                        </div>
                                                         {# <a class="read-next-comment"#}
                                                         {# href="#">Читать далее</a>#}
                                                     </div>
                                                     <div class="user_comment_bottom">
-                                                        {% if review|may_vote:user %}
-                                                            <span class="otziv_polezen">Отзыв полезен?</span>
-                                                            <form style="display: inline-table"
-                                                                  action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
-                                                                  method="post"
-                                                                  class="vote_agree">
-                                                                {% csrf_token %}
-                                                                <input type="hidden"
-                                                                       name="delta"
-                                                                       value="1"/>
-                                                                <button type="submit"
+                                                        <span class="otziv_polezen">Отзыв полезен?</span>
+                                                            {% if review|may_vote:user %}
+                                                                <form style="display: inline-table"
+                                                                      action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                      method="post"
+                                                                      class="vote_agree">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden"
+                                                                           name="delta"
+                                                                           value="1"/>
+                                                                    <button type="submit"
+                                                                            class="otziv_polezen_da"
+                                                                            data-loading-text="{% trans 'Submitting...' %}"
+                                                                            style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
+                                                                        Да<span>{{ review.num_up_votes }}</span>
+                                                                    </button>
+                                                                </form>
+                                                                <form style="display: inline-table"
+                                                                      action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                      method="post">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden"
+                                                                           name="delta"
+                                                                           value="-1"/>
+                                                                    <button type="submit"
+                                                                            class="otziv_polezen_net"
+                                                                            data-loading-text="{% trans 'Submitting...' %}"
+                                                                            style="border: none; background-color: transparent;">
+                                                                        Нет<span>{{ review.num_down_votes }}</span>
+                                                                    </button>
+                                                                </form>
+                                                            {% else %}
+                                                                <button type="button"
                                                                         class="otziv_polezen_da"
-                                                                        data-loading-text="{% trans 'Submitting...' %}"
                                                                         style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
                                                                     Да<span>{{ review.num_up_votes }}</span>
                                                                 </button>
-                                                            </form>
-                                                            <form style="display: inline-table"
-                                                                  action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
-                                                                  method="post">
-                                                                {% csrf_token %}
-                                                                <input type="hidden"
-                                                                       name="delta"
-                                                                       value="-1"/>
                                                                 <button type="submit"
                                                                         class="otziv_polezen_net"
-                                                                        data-loading-text="{% trans 'Submitting...' %}"
                                                                         style="border: none; background-color: transparent;">
                                                                     Нет<span>{{ review.num_down_votes }}</span>
                                                                 </button>
-                                                            </form>
+                                                            {% endif %}
                                                             <p class="otvetilo">
                                                                 Ответов:
-                                                                <span>1</span>
+                                                                <span>{{ review.answers.all|length }}</span>
                                                             </p>
                                                             <a href="#"
                                                                class="otvetit show_popup"
                                                                rel="answer_button_modal">Ответить</a>
-                                                        {% endif %}
                                                     </div>
                                                 </li>
+                                                {% if review.answers %}
+                                                    {% for answer in review.answers.all %}
+                                                        <li class="user_answer_block"
+                                                            style="margin-top: 16px; padding:0px 18px;"
+                                                            data-answerpk="{{ answer.pk }}">
+                                                            <span class="user_name">
+                                                                {{ answer.name }}
+                                                            </span>
+                                                            <span class="user_comment_date">{{ answer.date_created|date:"j E Y" }}</span>
+                                                            <div>
+                                                                <div class="short" id="user_comment">
+                                                                    <p>{{ answer.body|striptags|truncatechars:100 }}.</p>
+                                                                </div>
+                                                                <div class="full" id="user_comment" style="display:none">
+                                                                    <p>{{ answer.body|striptags }}.</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="user_comment_bottom">
+                                                                <span class="otziv_polezen">Отзыв полезен?</span>
+                                                                {% if review|may_vote:user %}
+                                                                    <form style="display: inline-table"
+                                                                          action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                          method="post"
+                                                                          class="vote_agree">
+                                                                        {% csrf_token %}
+                                                                        <input type="hidden"
+                                                                               name="delta"
+                                                                               value="1"/>
+                                                                        <button type="submit"
+                                                                                class="otziv_polezen_da"
+                                                                                data-loading-text="{% trans 'Submitting...' %}"
+                                                                                style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
+                                                                            Да<span>{{ review.num_up_votes }}</span>
+                                                                        </button>
+                                                                    </form>
+                                                                    <form style="display: inline-table"
+                                                                          action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                          method="post">
+                                                                        {% csrf_token %}
+                                                                        <input type="hidden"
+                                                                               name="delta"
+                                                                               value="-1"/>
+                                                                        <button type="submit"
+                                                                                class="otziv_polezen_net"
+                                                                                data-loading-text="{% trans 'Submitting...' %}"
+                                                                                style="border: none; background-color: transparent;">
+                                                                            Нет<span>{{ review.num_down_votes }}</span>
+                                                                        </button>
+                                                                    </form>
+                                                                {% else %}
+                                                                    <button type="button"
+                                                                            class="otziv_polezen_da"
+                                                                            style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
+                                                                        Да<span>{{ review.num_up_votes }}</span>
+                                                                    </button>
+                                                                    <button type="submit"
+                                                                            class="otziv_polezen_net"
+                                                                            style="border: none; background-color: transparent;">
+                                                                        Нет<span>{{ review.num_down_votes }}</span>
+                                                                    </button>
+                                                                {% endif %}
+                                                                <p class="otvetilo">
+                                                                    Ответов:
+                                                                    <span>{{ answer.answer_to_answer.all|length }}</span>
+                                                                </p>
+                                                                <a href="#"
+                                                                   class="otvetit show_popup"
+                                                                   rel="answer_button_modal">Ответить</a>
+                                                            </div>
+                                                        </li>
+                                                        {% if answer.answer_to_answer %}
+                                                            {% for replied_answer in answer.answer_to_answer.all %}
+                                                                <li class="user_answer_block"
+                                                                    style="margin-top: 16px; padding:0px 18px;"
+                                                                    data-answerpk="{{ replied_answer.pk }}">
+                                                                    <span class="user_name">
+                                                                        {{ replied_answer.name }}
+                                                                    </span>
+                                                                    <span class="user_comment_date">{{ replied_answer.date_created|date:"j E Y" }}</span>
+                                                                    <div>
+                                                                        <div class="short" id="user_comment">
+                                                                            <p>{{ replied_answer.body|striptags|truncatechars:100 }}.</p>
+                                                                        </div>
+                                                                        <div class="full" id="user_comment" style="display:none">
+                                                                            <p>{{ replied_answer.body|striptags }}.</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="user_comment_bottom">
+                                                                        <span class="otziv_polezen">Отзыв полезен?</span>
+                                                                        {% if review|may_vote:user %}
+                                                                            <form style="display: inline-table"
+                                                                                  action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                  method="post"
+                                                                                  class="vote_agree">
+                                                                                {% csrf_token %}
+                                                                                <input type="hidden"
+                                                                                       name="delta"
+                                                                                       value="1"/>
+                                                                                <button type="submit"
+                                                                                        class="otziv_polezen_da"
+                                                                                        data-loading-text="{% trans 'Submitting...' %}"
+                                                                                        style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
+                                                                                    Да<span>{{ review.num_up_votes }}</span>
+                                                                                </button>
+                                                                            </form>
+                                                                            <form style="display: inline-table"
+                                                                                  action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                  method="post">
+                                                                                {% csrf_token %}
+                                                                                <input type="hidden"
+                                                                                       name="delta"
+                                                                                       value="-1"/>
+                                                                                <button type="submit"
+                                                                                        class="otziv_polezen_net"
+                                                                                        data-loading-text="{% trans 'Submitting...' %}"
+                                                                                        style="border: none; background-color: transparent;">
+                                                                                    Нет<span>{{ review.num_down_votes }}</span>
+                                                                                </button>
+                                                                            </form>
+                                                                        {% else %}
+                                                                            <button type="button"
+                                                                                    class="otziv_polezen_da"
+                                                                                    style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
+                                                                                Да<span>{{ review.num_up_votes }}</span>
+                                                                            </button>
+                                                                            <button type="submit"
+                                                                                    class="otziv_polezen_net"
+                                                                                    style="border: none; background-color: transparent;">
+                                                                                Нет<span>{{ review.num_down_votes }}</span>
+                                                                            </button>
+                                                                        {% endif %}
+                                                                        <p class="otvetilo">
+                                                                            Ответов:
+                                                                            <span>{{ replied_answer.answer_to_answer.all|length }}</span>
+                                                                        </p>
+                                                                        <a href="#"
+                                                                           class="otvetit show_popup"
+                                                                           rel="answer_button_modal">Ответить</a>
+                                                                    </div>
+                                                                </li>
+                                                            {% endfor %}
+                                                        {% endif %}<!-- answer.answer_to_answer -->
+                                                    {% endfor %}
+                                                {% endif %} <!-- review.answers -->
+
                                             {% endfor %}
                                         </ol>
                                     {% endif %}
+                                    <div class="add_own_comment" style="margin-top: 16px; padding:0px 18px;">
+                                        <p class="add_own_comment_caption"
+                                           id="add_review2">
+                                            Добавьте свой отзыв</p>
+                                        <form action="{% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.pk %}"
+                                              method="POST"
+                                              id="review_form2">{% csrf_token %}
+                                            <div class="add_own_comment_input">
+                                                <label for="">Ваше
+                                                    имя <span
+                                                            class="red_star">*</span>:</label>
+                                                <input type="text"
+                                                       name="name"
+                                                       value="{{ user.username }}">
+                                                <label for="">Ваш
+                                                    Email <span
+                                                            class="red_star">*</span>:</label>
+                                                <input type="text"
+                                                       name="email"
+                                                       value="{{ user.email }}">
+                                            </div>
+                                            <div class="add_own_comment_rate">
+                                                <p>Оцените этот
+                                                    товар:</p>
+                                                <select name="score"
+                                                        class="rating_photo">
+                                                    {% for i in "12345" %}
+                                                        <option value={{ forloop.counter }} {% if score == forloop.counter %}selected="selected"{% endif %}>{{ forloop.counter }}</option>
+                                                    {% endfor %}
+                                                </select>
+
+                                                <div class="checkbox_check">
+                                                    <input id="id_get_notification"
+                                                           type="checkbox"
+                                                           name="get_notification">
+                                                    <label for="id_get_notification">-
+                                                        Получать
+                                                        уведомления
+                                                        об
+                                                        ответах</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="add_own_comment_text">
+                                                <input type='hidden'
+                                                       name="site"
+                                                       value="{{ product.site.id }}"/>
+                                                <label for="">Комментарий
+                                                    <span
+                                                            class="red_star">*</span>:</label>
+                                                <textarea
+                                                        name="body"
+                                                        id=""
+                                                        cols="30"
+                                                        rows="10"
+                                                        form="review_form2">{{ body }}</textarea>
+                                                {#                                                            <a href="#" class="add_wide_comment">Расширенный отзыв</a>#}
+                                                <label for="">Достоинства:</label>
+                                                <textarea
+                                                        name="advantage"
+                                                        id=""
+                                                        cols="30"
+                                                        rows="10"
+                                                        form="review_form2">{{ advantage }}</textarea>
+
+                                                <label for="">Недостатки:</label>
+                                                <textarea
+                                                        name="disadvantage"
+                                                        id=""
+                                                        cols="30"
+                                                        rows="10"
+                                                        form="review_form2">{{ disadvantage }}</textarea>
+
+                                                <button type="submit"
+                                                        id="submit_comment"
+                                                        class="add_own_new_comment"
+                                                        rel="request_button_modal_second"
+                                                        style="display: inline-block; color: #fff; background-color: #ed1b24; padding: 10px 50px; text-decoration: none; margin-top: 20px; border: none">
+                                                    Добавить отзыв
+                                                </button>
+                                                <p class="add_own_comment_pole"><span
+                                                        class="red_star">*</span>
+                                                    - поля
+                                                    обязательные для
+                                                    заполнения</p>
+                                            </div>
+                                        </form>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1248,22 +1654,34 @@
     <div class="popup answer_button_modal">
         <a class="close" href="#">Close</a>
         <p class="modal_caption_uniq">Добавьте ответ</p>
-        <form action="" class="modal_form">
+        <form action="{% url 'review_answer' product_slug=product.slug product_pk=product.pk pk=11 %}" class="modal_form" method="POST">
             <div class="modal_lebel_input">
                 <label for="">Ваше имя<span>*</span>:</label>
-                <input type="text">
+                <input type="text" name="name">
             </div>
             <div class="modal_lebel_input">
                 <label for="">Ваш Email<span>*</span>:</label>
-                <input type="text">
+                <input type="text" name="email">
             </div>
             <label for="">Комментарий<span>*</span>:</label>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <textarea name="body" id="" cols="30" rows="10"></textarea>
             <div class="checkbox_check">
-                <input id="check2" type="checkbox" name="check" value="check2">
+                <input id="check2" type="checkbox" name="get_notification" value="check2">
                 <label for="check2">- Получать уведомления об ответах</label>
             </div>
-            <button class="modal_button_answer">Добавить ответ</button>
+            <input type='hidden'
+                   name="site"
+                   value="{{ product.site.id }}"/>
+            <input type='hidden'
+                   name="review_id"
+                   id='answer_for_review'
+                   value=""/>
+            <input type='hidden'
+                   name="answer_id"
+                   id='answer_for_answer'
+                   value=""/>
+            {% csrf_token %}
+            <button class="modal_button_answer" type="submit">Добавить ответ</button>
             <p class="modal_pole"><span>*</span> - поля обязательные для
                 заполнения</p>
         </form>
@@ -1510,6 +1928,14 @@
             }, function (response) {
             });
         }
+    </script>
+    <script>
+    $('.otvetit.show_popup').click(function(){
+        $('#answer_for_review').val($(this).parent().parent().attr('data-reviewpk'));
+        console.log($(this).parent().parent().attr('data-reviewpk'));
+        $('#answer_for_answer').val($(this).parent().parent().attr('data-answerpk'));
+        console.log($(this).parent().parent().attr('data-answerpk'));
+    })
     </script>
     <script type="text/javascript" async defer
             src="//assets.pinterest.com/js/pinit.js"></script>
