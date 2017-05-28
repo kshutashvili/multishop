@@ -338,6 +338,6 @@ def get_search_count(request):
     {'selected_facets': 'rating_exact:3'}, 
     function(data){//do something with data//});
     """
-    sqs = SearchQuerySet().models(Product)
-    sqs = sqs.filter(**request.GET)
-    return JsonResponse({'count': sqs.count()})
+    search_hendler = get_product_search_handler_class()(request.POST,
+                                                        request.get_full_path)
+    return JsonResponse({'count': search_hendler.results.count()})
