@@ -33,6 +33,7 @@ class SimpleOrderView(SiteTemplateResponseMixin, FormView):
             order.city = form.cleaned_data['city']
             order.phone = form.cleaned_data['phone']
             order.comment = form.cleaned_data['comment']
+            order.guest_email = form.cleaned_data['guest_email']
             order.save()
             return render(self.request, self.get_success_template_name(),
                           {'order': order})

@@ -194,7 +194,7 @@ def on_order_create(sender, instance, created, **kwargs):
     })
     subject = 'Order notification'
     from_email = settings.DEFAULT_FROM_EMAIL
-    to = instance.user.email
+    to = instance.guest_email
     text_content = plaintext.render(context)
     html_content = template.render(context)
     email = EmailMultiAlternatives(subject, text_content, from_email, [to])

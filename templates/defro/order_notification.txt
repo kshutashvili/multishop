@@ -25,9 +25,9 @@
 
 Контактные данные
 
-Имя: {{ order.user.get_full_name }}
+Имя: {{ order.name }}
 Адрес: {{ order.shipping_address }}
-E-mail: {{ order.user.email }}
+E-mail: {{ order.guest_email }}
 
 
 Доставка и оплата

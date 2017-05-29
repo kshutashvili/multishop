@@ -150,6 +150,26 @@ class ReviewAnswer(models.Model):
         return True, ""
 
 
+@receiver(post_save, sender=ReviewAnswer)
+def on_review_answer_create(sender, instance, created, **kwargs):
+    if not created or not instance.review:
+        return
+    try:
+        review = ProductReview.objects.get(pk=instance.review.pk,
+                                    get_notification=True)
+    except ObjectDoesNotExist:
+        return
+    to_email = review.email or review.user.email
+    message = 'Your review has been commented, please follow the reference' \
+              'to see the the comment http://{0}/{1}'.format(
+        instance.site.domain, instance.review.product.get_absolute_url())
+    send_mail('Notification about your review',
+              message,
+              settings.DEFAULT_FROM_EMAIL,
+              [to_email],
+              fail_silently=True)
+
+
 class VoteAnswer(models.Model):
     answer = models.ForeignKey(
         ReviewAnswer,
