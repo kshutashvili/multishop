@@ -8,7 +8,7 @@ from oscar.core.utils import redirect_to_referrer
 from oscar.apps.catalogue.reviews.forms import VoteForm
 
 from shop.catalogue.models import Product
-from shop.catalogue.reviews.forms import ProductReviewForm, ProductQuestionForm, ReviewAnswerForm
+from shop.catalogue.reviews.forms import ProductReviewForm, ProductQuestionForm, ReviewAnswerForm, VoteAnswerForm
 from shop.catalogue.reviews.models import ProductReview, ProductQuestion, ReviewAnswer
 
 
@@ -51,6 +51,7 @@ class ProductQuestionView(View):
                     messages.error(request, msg)
             return HttpResponseBadRequest()
 
+
 class AddVoteView(View):
     """
     Simple view for voting on a review.
@@ -77,13 +78,31 @@ class AddVoteView(View):
         return redirect_to_referrer(request, product.get_absolute_url())
 
 
+class AddVoteAnswerView(View):
+
+    def post(self, request, *args, **kwargs):
+        product = get_object_or_404(Product, pk=self.kwargs['product_pk'])
+        answer = get_object_or_404(ReviewAnswer, pk=self.kwargs['pk'])
+
+        form = VoteAnswerForm(answer, request.user, request.POST)
+        if form.is_valid():
+            if form.is_up_vote:
+                answer.vote_up(request.user)
+            elif form.is_down_vote:
+                answer.vote_down(request.user)
+            messages.success(request, ("Thanks for voting!"))
+        else:
+            for error_list in form.errors.values():
+                for msg in error_list:
+                    messages.error(request, msg)
+        return redirect_to_referrer(request, product.get_absolute_url())
+
+
 class CreateReviewAnswer(View):
     model = ReviewAnswer
     form_class = ReviewAnswerForm
 
     def post(self, request, *args, **kwargs):
-        print(self.kwargs)
-        print(request.POST)
         reply_answer = None
         review = None
         product = get_object_or_404(Product, pk=self.kwargs['product_pk'])
@@ -102,8 +121,6 @@ class CreateReviewAnswer(View):
         else:
             for error_list in form.errors.values():
                 for msg in error_list:
-                    print(msg)
-                    print(request)
                     messages.error(request, msg)
             return HttpResponseBadRequest()
 

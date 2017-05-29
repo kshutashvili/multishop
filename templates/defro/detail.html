@@ -3,6 +3,7 @@
 {% load history_tags %}
 {% load currency_filters %}
 {% load reviews_tags %}
+{% load answer_tags %}
 {% load staticfiles %}
 {% load product_tags %}
 {% load display_tags %}
@@ -402,7 +403,7 @@
                                                                         отзывов.</p>
                                                                 {% else %}
                                                                     <ol class="list-unstyled review-list">
-                                                                        {% for review in product.reviews.approved.all|slice:":3" %}
+                                                                        {% for review in product.reviews.approved.all|slice:":2" %}
                                                                             <div class="user_comment_block"
                                                                                  data-reviewpk="{{ review.pk }}">
                                                                                 <select class="rating_photo">
@@ -528,9 +529,9 @@
                                                                                         </div>
                                                                                         <div class="user_comment_bottom">
                                                                                             <span class="otziv_polezen">Отзыв полезен?</span>
-                                                                                            {% if review|may_vote:user %}
+                                                                                            {% if answer|may_vote_answer:user %}
                                                                                                 <form style="display: inline-table"
-                                                                                                      action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                                      action="{% url 'vote_answer' product_slug=product.slug product_pk=product.pk pk=answer.pk %}"
                                                                                                       method="post"
                                                                                                       class="vote_agree">
                                                                                                     {% csrf_token %}
@@ -541,11 +542,11 @@
                                                                                                             class="otziv_polezen_da"
                                                                                                             data-loading-text="{% trans 'Submitting...' %}"
                                                                                                             style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                                        Да<span>{{ review.num_up_votes }}</span>
+                                                                                                        Да<span>{{ answer.num_up_votes }}</span>
                                                                                                     </button>
                                                                                                 </form>
                                                                                                 <form style="display: inline-table"
-                                                                                                      action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                                      action="{% url 'vote_answer' product_slug=product.slug product_pk=product.pk pk=answer.pk %}"
                                                                                                       method="post">
                                                                                                     {% csrf_token %}
                                                                                                     <input type="hidden"
@@ -555,19 +556,19 @@
                                                                                                             class="otziv_polezen_net"
                                                                                                             data-loading-text="{% trans 'Submitting...' %}"
                                                                                                             style="border: none; background-color: transparent;">
-                                                                                                        Нет<span>{{ review.num_down_votes }}</span>
+                                                                                                        Нет<span>{{ answer.num_down_votes }}</span>
                                                                                                     </button>
                                                                                                 </form>
                                                                                             {% else %}
-                                                                                                <button type="button"
+                                                                                                <button type="submit"
                                                                                                         class="otziv_polezen_da"
                                                                                                         style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                                    Да<span>{{ review.num_up_votes }}</span>
+                                                                                                    Да<span>{{ answer.num_up_votes }}</span>
                                                                                                 </button>
                                                                                                 <button type="submit"
                                                                                                         class="otziv_polezen_net"
                                                                                                         style="border: none; background-color: transparent;">
-                                                                                                    Нет<span>{{ review.num_down_votes }}</span>
+                                                                                                    Нет<span>{{ answer.num_down_votes }}</span>
                                                                                                 </button>
                                                                                             {% endif %}
                                                                                             <p class="otvetilo">
@@ -596,9 +597,9 @@
                                                                                                 </div>
                                                                                                 <div class="user_comment_bottom">
                                                                                                     <span class="otziv_polezen">Отзыв полезен?</span>
-                                                                                                    {% if review|may_vote:user %}
+                                                                                                    {% if replied_answer|may_vote_answer:user %}
                                                                                                         <form style="display: inline-table"
-                                                                                                              action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                                              action="{% url 'vote_answer' product_slug=product.slug product_pk=product.pk pk=replied_answer.pk %}"
                                                                                                               method="post"
                                                                                                               class="vote_agree">
                                                                                                             {% csrf_token %}
@@ -609,11 +610,11 @@
                                                                                                                     class="otziv_polezen_da"
                                                                                                                     data-loading-text="{% trans 'Submitting...' %}"
                                                                                                                     style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                                                Да<span>{{ review.num_up_votes }}</span>
+                                                                                                                Да<span>{{ replied_answer.num_up_votes }}</span>
                                                                                                             </button>
                                                                                                         </form>
                                                                                                         <form style="display: inline-table"
-                                                                                                              action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                                              action="{% url 'vote_answer' product_slug=product.slug product_pk=product.pk pk=replied_answer.pk %}"
                                                                                                               method="post">
                                                                                                             {% csrf_token %}
                                                                                                             <input type="hidden"
@@ -623,19 +624,19 @@
                                                                                                                     class="otziv_polezen_net"
                                                                                                                     data-loading-text="{% trans 'Submitting...' %}"
                                                                                                                     style="border: none; background-color: transparent;">
-                                                                                                                Нет<span>{{ review.num_down_votes }}</span>
+                                                                                                                Нет<span>{{ replied_answer.num_down_votes }}</span>
                                                                                                             </button>
                                                                                                         </form>
                                                                                                     {% else %}
-                                                                                                        <button type="button"
+                                                                                                        <button type="submit"
                                                                                                                 class="otziv_polezen_da"
                                                                                                                 style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                                            Да<span>{{ review.num_up_votes }}</span>
+                                                                                                            Да<span>{{ replied_answer.num_up_votes }}</span>
                                                                                                         </button>
                                                                                                         <button type="submit"
                                                                                                                 class="otziv_polezen_net"
                                                                                                                 style="border: none; background-color: transparent;">
-                                                                                                            Нет<span>{{ review.num_down_votes }}</span>
+                                                                                                            Нет<span>{{ replied_answer.num_down_votes }}</span>
                                                                                                         </button>
                                                                                                     {% endif %}
                                                                                                     <p class="otvetilo">
@@ -1095,7 +1096,7 @@
 
                                                 <li class="user_comment_block"
                                                     style="margin-top: 16px; padding:0px 18px;"
-                                                    data-pk="{{ review.pk }}"
+                                                    data-reviewpk="{{ review.pk }}"
                                                     id="review{{ review.pk }}">
                                                     <select class="rating_photo">
                                                         {% for num in "12345" %}
@@ -1207,9 +1208,9 @@
                                                             </div>
                                                             <div class="user_comment_bottom">
                                                                 <span class="otziv_polezen">Отзыв полезен?</span>
-                                                                {% if review|may_vote:user %}
+                                                                {% if answer|may_vote_answer:user %}
                                                                     <form style="display: inline-table"
-                                                                          action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                          action="{% url 'vote_answer' product_slug=product.slug product_pk=product.pk pk=answer.pk %}"
                                                                           method="post"
                                                                           class="vote_agree">
                                                                         {% csrf_token %}
@@ -1220,11 +1221,11 @@
                                                                                 class="otziv_polezen_da"
                                                                                 data-loading-text="{% trans 'Submitting...' %}"
                                                                                 style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                            Да<span>{{ review.num_up_votes }}</span>
+                                                                            Да<span>{{ answer.num_up_votes }}</span>
                                                                         </button>
                                                                     </form>
                                                                     <form style="display: inline-table"
-                                                                          action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                          action="{% url 'vote_answer' product_slug=product.slug product_pk=product.pk pk=answer.pk %}"
                                                                           method="post">
                                                                         {% csrf_token %}
                                                                         <input type="hidden"
@@ -1234,19 +1235,19 @@
                                                                                 class="otziv_polezen_net"
                                                                                 data-loading-text="{% trans 'Submitting...' %}"
                                                                                 style="border: none; background-color: transparent;">
-                                                                            Нет<span>{{ review.num_down_votes }}</span>
+                                                                            Нет<span>{{ answer.num_down_votes }}</span>
                                                                         </button>
                                                                     </form>
                                                                 {% else %}
-                                                                    <button type="button"
+                                                                    <button type="submit"
                                                                             class="otziv_polezen_da"
                                                                             style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                        Да<span>{{ review.num_up_votes }}</span>
+                                                                        Да<span>{{ answer.num_up_votes }}</span>
                                                                     </button>
                                                                     <button type="submit"
                                                                             class="otziv_polezen_net"
                                                                             style="border: none; background-color: transparent;">
-                                                                        Нет<span>{{ review.num_down_votes }}</span>
+                                                                        Нет<span>{{ answer.num_down_votes }}</span>
                                                                     </button>
                                                                 {% endif %}
                                                                 <p class="otvetilo">
@@ -1277,9 +1278,9 @@
                                                                     </div>
                                                                     <div class="user_comment_bottom">
                                                                         <span class="otziv_polezen">Отзыв полезен?</span>
-                                                                        {% if review|may_vote:user %}
+                                                                        {% if replied_answer|may_vote_answer:user %}
                                                                             <form style="display: inline-table"
-                                                                                  action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                  action="{% url 'vote_answer' product_slug=product.slug product_pk=product.pk pk=replied_answer.pk %}"
                                                                                   method="post"
                                                                                   class="vote_agree">
                                                                                 {% csrf_token %}
@@ -1290,11 +1291,11 @@
                                                                                         class="otziv_polezen_da"
                                                                                         data-loading-text="{% trans 'Submitting...' %}"
                                                                                         style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                    Да<span>{{ review.num_up_votes }}</span>
+                                                                                    Да<span>{{ replied_answer.num_up_votes }}</span>
                                                                                 </button>
                                                                             </form>
                                                                             <form style="display: inline-table"
-                                                                                  action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
+                                                                                  action="{% url 'vote_answer' product_slug=product.slug product_pk=product.pk pk=replied_answer.pk %}"
                                                                                   method="post">
                                                                                 {% csrf_token %}
                                                                                 <input type="hidden"
@@ -1304,19 +1305,19 @@
                                                                                         class="otziv_polezen_net"
                                                                                         data-loading-text="{% trans 'Submitting...' %}"
                                                                                         style="border: none; background-color: transparent;">
-                                                                                    Нет<span>{{ review.num_down_votes }}</span>
+                                                                                    Нет<span>{{ replied_answer.num_down_votes }}</span>
                                                                                 </button>
                                                                             </form>
                                                                         {% else %}
                                                                             <button type="button"
                                                                                     class="otziv_polezen_da"
                                                                                     style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                Да<span>{{ review.num_up_votes }}</span>
+                                                                                Да<span>{{ replied_answer.num_up_votes }}</span>
                                                                             </button>
                                                                             <button type="submit"
                                                                                     class="otziv_polezen_net"
                                                                                     style="border: none; background-color: transparent;">
-                                                                                Нет<span>{{ review.num_down_votes }}</span>
+                                                                                Нет<span>{{ replied_answer.num_down_votes }}</span>
                                                                             </button>
                                                                         {% endif %}
                                                                         <p class="otvetilo">

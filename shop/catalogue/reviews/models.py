@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.mail import send_mail
 from django.db import models
 from django.conf import settings
+from django.db.models import Count, Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.utils.translation import pgettext_lazy
+from django.utils.translation import pgettext_lazy, ugettext_lazy as _
 
 from oscar.apps.catalogue.reviews.abstract_models import AbstractProductReview
 from django.contrib.sites.models import Site
 from oscar.core import validators
+from oscar.core.compat import AUTH_USER_MODEL, user_is_authenticated
 from shop.catalogue.models import Product
 
 
@@ -80,6 +82,12 @@ class ReviewAnswer(models.Model):
                                related_name="answers",
                                blank=True,
                                null=True)
+    user = models.ForeignKey(
+        AUTH_USER_MODEL,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='answers')
     name = models.CharField("Имя", max_length=255)
     email = models.EmailField("Email")
     body = models.TextField("Комментарий")
@@ -93,9 +101,92 @@ class ReviewAnswer(models.Model):
                                  blank=True,
                                  null=True,
                                  related_name='answer_to_answer')
+    total_votes = models.IntegerField(
+        _("Total Votes"), default=0)  # upvotes + down votes
+    delta_votes = models.IntegerField(
+        _("Delta Votes"), default=0, db_index=True)  # upvotes - down votes
+
+    class Meta:
+        verbose_name = 'Ответ на отзыв'
+        verbose_name_plural = 'Ответы на отзывы'
 
     def __unicode__(self):
         return preview_text(self.body)
+
+    def vote_up(self, user):
+        self.votes.create(user=user, delta=VoteAnswer.UP)
+
+    def vote_down(self, user):
+        self.votes.create(user=user, delta=VoteAnswer.DOWN)
+
+    @property
+    def num_up_votes(self):
+        """Returns the total up votes"""
+        return int((self.total_votes + self.delta_votes) / 2)
+
+    @property
+    def num_down_votes(self):
+        """Returns the total down votes"""
+        return int((self.total_votes - self.delta_votes) / 2)
+
+    def update_totals(self):
+        """
+        Update total and delta votes
+        """
+        result = self.votes.aggregate(
+            score=Sum('delta'), total_votes=Count('id'))
+        self.total_votes = result['total_votes'] or 0
+        self.delta_votes = result['score'] or 0
+        self.save()
+
+    def can_user_vote(self, user):
+        if not user_is_authenticated(user):
+            return False, _(u"Only signed in users can vote")
+        vote = self.votes.model(answer=self, user=user, delta=1)
+        try:
+            vote.full_clean()
+        except ValidationError as e:
+            return False, u"%s" % e
+        return True, ""
+
+
+class VoteAnswer(models.Model):
+    answer = models.ForeignKey(
+        ReviewAnswer,
+        on_delete=models.CASCADE,
+        related_name='votes')
+    user = models.ForeignKey(
+        AUTH_USER_MODEL,
+        related_name='answer_votes',
+        on_delete=models.CASCADE)
+    UP, DOWN = 1, -1
+    VOTE_CHOICES = (
+        (UP, _("Up")),
+        (DOWN, _("Down"))
+    )
+    delta = models.SmallIntegerField(_('Delta'), choices=VOTE_CHOICES)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        app_label = 'reviews'
+        ordering = ['-date_created']
+        unique_together = (('user', 'answer'),)
+        verbose_name = _('Vote answer')
+        verbose_name_plural = _('Votes answer')
+
+    def __str__(self):
+        return u"%s vote for %s" % (self.delta, self.answer)
+
+    def clean(self):
+        previous_votes = self.answer.votes.filter(user=self.user)
+        if len(previous_votes) > 0:
+            raise ValidationError(_(
+                "You can only vote once on a answer"))
+
+    def save(self, *args, **kwargs):
+        super(VoteAnswer, self).save(*args, **kwargs)
+        self.answer.update_totals()
+
 
 
 from oscar.apps.catalogue.reviews.models import *  # noqa

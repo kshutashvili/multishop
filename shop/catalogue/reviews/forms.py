@@ -5,7 +5,7 @@ from django.forms import HiddenInput
 from oscar.apps.catalogue.reviews.forms import ProductReviewForm as \
     CoreProductReviewForm
 
-from shop.catalogue.reviews.models import ProductReview, ProductQuestion, ReviewAnswer
+from shop.catalogue.reviews.models import ProductReview, ProductQuestion, ReviewAnswer, VoteAnswer
 
 
 class ProductReviewForm(CoreProductReviewForm):
@@ -45,3 +45,23 @@ class ReviewAnswerForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ReviewAnswerForm, self).__init__(*args, **kwargs)
         self.fields['get_notification'].required = False
+
+
+class VoteAnswerForm(forms.ModelForm):
+
+    class Meta:
+        model = VoteAnswer
+        fields = ('delta',)
+
+    def __init__(self, answer, user, *args, **kwargs):
+        super(VoteAnswerForm, self).__init__(*args, **kwargs)
+        self.instance.answer = answer
+        self.instance.user = user
+
+    @property
+    def is_up_vote(self):
+        return self.cleaned_data['delta'] == VoteAnswer.UP
+
+    @property
+    def is_down_vote(self):
+        return self.cleaned_data['delta'] == VoteAnswer.DOWN
