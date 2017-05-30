@@ -2,13 +2,16 @@
 from django.conf import settings
 from django.contrib.sitemaps import Sitemap
 from django.core.urlresolvers import reverse
+from django.shortcuts import render, get_object_or_404
 from django.utils.translation import get_language, activate
 from oscar.core.loading import get_model
 
 Product = get_model('catalogue', 'Product')
 Category = get_model('catalogue', 'Category')
 ProductClass = get_model('catalogue', 'ProductClass')
-FlatPages = get_model('contacts', 'FlatPage')
+FlatPage = get_model('contacts', 'FlatPage')
+ProductCategory = get_model('catalogue', 'ProductCategory')
+
 
 
 class I18nSitemap(Sitemap):
@@ -71,7 +74,7 @@ class FlatPageSitemap(I18nSitemap):
     priority = 0.5
 
     def items(self):
-        return FlatPages.objects.all()
+        return FlatPage.objects.all()
 
 
 class ContactsSitemap(I18nSitemap):
@@ -84,6 +87,33 @@ class ContactsSitemap(I18nSitemap):
     def location(self, item):
         return reverse(item)
 
+
+def html_sitemap(request):
+    #flat_pages = FlatPage.objects.all()
+    #products = Product.objects.all()
+    #product_classes = ProductClass.objects.all()
+    cat = request.GET.get('category_id', None)
+    if cat:
+        current_category = get_object_or_404(Category, pk=cat)
+        current_category_children = current_category.get_children()
+        if current_category_children:
+            return render(request, "defro/html_sitemap.html", {
+                'products': None,
+                'current_category_children': current_category_children,
+                'categories': None
+        })
+        products = ProductCategory.objects.filter(category__id=cat)
+        return render(request, "defro/html_sitemap.html", {
+            'products': products,
+            'current_category_children': None,
+            'categories': None
+        })
+    categories = Category.objects.all()
+    return render(request, "defro/html_sitemap.html", {
+            'products': None,
+            'current_category_children': None,
+            'categories': categories
+        })
 
 
 language_neutral_sitemaps = {

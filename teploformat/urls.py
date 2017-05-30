@@ -29,7 +29,7 @@ from shop.catalogue.views import get_search_count, \
     remove_category_from_compare_list, CompareCategoryView
 from shop.order.views import CallRequestCreateView
 from contacts.views import FlatPageView
-from website.sitemaps import base_sitemaps
+from website.sitemaps import base_sitemaps, html_sitemap
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -43,7 +43,7 @@ urlpatterns = [
     url(r'^sitemap-(?P<section>.+)\.xml$', sitemap_view.sitemap,
         {'sitemaps': base_sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),
-    #url(r'^sitemap/', html_sitemap),
+    url(r'^sitemap/', html_sitemap),
     url(r'^contacts/', include('contacts.urls'))
 ]
 

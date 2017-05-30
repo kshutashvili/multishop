@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+
+<ul>
+{% if categories %}
+{% for category in categories %}
+{% if category.depth == 1 %}
+  <li><a href="{{ request.path }}?category_id={{ category.pk }}" class="cat">{{ category }}</a></li>
+{% endif %}
+{% endfor %}
+{% endif %}
+</ul>
+
+<ul>
+{% if current_category_children %}
+{% for cat_child in current_category_children %}
+  <li><a href="{{ request.path }}?category_id={{ cat_child.pk }}" class="child">{{ cat_child }}</a></li>
+{% endfor %}
+{% endif %}
+</ul>
+
+<ul>
+{% if products %}
+{% for product in products %}
+  <li><a href="{{ product.product.get_absolute_url }}" class="product">{{ product.product.title }}</a></li>
+{% endfor %}
+{% endif %}
+</ul>
+
+</body>
+</html>
