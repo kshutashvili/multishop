@@ -11,7 +11,7 @@ def show_site_email(request):
     site_obj = get_current_site(request)
     site_conf = SiteConfig.objects.get(site=site_obj)
     site_email = site_conf.email
-    return {'site_email': site_email, 'site_display_name': site_obj.name}
+    return {'site_email': site_email, 'site_display_name': site_obj.name, 'site_logo': site_conf.logo}
 
 
 def menu_processor(request):

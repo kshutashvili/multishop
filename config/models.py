@@ -29,6 +29,8 @@ class SiteConfig(models.Model):
                                 related_name='config')
     email = models.EmailField('email адрес')
 
+    logo = models.ImageField('Логотип', blank=True, null=True)
+
     def __unicode__(self):
         return self.site.domain
 

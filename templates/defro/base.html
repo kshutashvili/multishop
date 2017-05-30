@@ -57,8 +57,14 @@
                 </div>
                 <div class="container">
                     <div class="logo">
+                        {% if site_logo %}
+                        <a href="/"><img src="{{ site_logo.url }}"
+                                         alt=""></a>
+                        {% else %}
                         <a href="/"><img src="{% get_static 'img/logo.png' %}"
                                          alt=""></a>
+                        {% endif %}
+                        
                     </div>
                     <div class="contacts header_contacts">
                         {% if phone_numbers.kievstar %}
