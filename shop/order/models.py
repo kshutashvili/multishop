@@ -34,6 +34,11 @@ class OneClickOrder(models.Model):
         verbose_name=u'Телефон'
     )
 
+    site = models.ForeignKey(Site,
+                             verbose_name='Сайт',
+                             blank=True,
+                             null=True)
+
 
 class ShippingMethod(models.Model):
     name = models.CharField(

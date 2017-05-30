@@ -162,6 +162,8 @@ class OneClickOrderCreateView(CreateView):
         elif self.basket.num_lines:
             instance.basket = self.basket
             self.request.basket.submit()
+        site_obj = get_current_site(self.request)
+        instance.site = site_obj
         instance.save()
 
         template = os.path.join(get_current_site(self.request).config.template,
