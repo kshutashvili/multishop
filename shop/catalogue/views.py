@@ -129,15 +129,6 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
             context['max_price'] = int(max(price_range))
         except ValueError:
             pass
-
-        facet_data = context['facet_data']
-
-        for i in facet_data.keys():
-            facet_data[i]['results'] = [facet_dict for facet_dict in
-                                        facet_data[i]['results'] if
-                                        facet_dict['count'] != 0]
-
-        context['facet_data'] = facet_data
         return context
 
 
