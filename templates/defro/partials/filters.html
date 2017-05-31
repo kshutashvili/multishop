@@ -9,15 +9,9 @@
                aria-controls="collapseFilter{{ forloop.counter|add:'3' }}">
                 {{ field.label }}
             </a>
-            <div class="collapse in"
-                 id="collapseFilter{{ forloop.counter|add:'3' }}">
+            <div class="collapse in" id="collapseFilter{{ forloop.counter|add:'3' }}">
                 <div class="well">
-                    <div class="checkbox">
-                        {% for choice in field %}
-                            {{ choice.tag }}
-                            <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
-                        {% endfor %}
-                    </div>
+                    {{ field }}
                 </div>
             </div>
         </div>
