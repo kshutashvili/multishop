@@ -6,6 +6,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import FormView, CreateView
+from django.db import transaction
 
 from website.views import SiteTemplateResponseMixin
 from .forms import OrderForm, CallRequestForm
@@ -20,21 +21,21 @@ class SimpleOrderView(SiteTemplateResponseMixin, FormView):
     def form_valid(self, form):
         if self.request.basket.num_lines:
             self.request.basket.submit()
-            order = OrderCreator().place_order(self.request.basket,
-                                               self.request.basket.total_excl_tax,
-                                               form.cleaned_data[
-                                                   'shipping_method'],
-                                               form.cleaned_data[
-                                                   'shipping_method'].shipping_price,
-                                               user=self.request.user,
-                                               request=self.request)
-            order.name = form.cleaned_data['name']
-            order.payment_method = form.cleaned_data['payment_method']
-            order.city = form.cleaned_data['city']
-            order.phone = form.cleaned_data['phone']
-            order.comment = form.cleaned_data['comment']
-            order.guest_email = form.cleaned_data['guest_email']
-            order.save()
+            with transaction.atomic():
+                order = OrderCreator().place_order(
+                    basket=self.request.basket,
+                    total=self.request.basket.total_excl_tax,
+                    shipping_method=form.cleaned_data['shipping_method'],
+                    shipping_charge=form.cleaned_data['shipping_method'].shipping_price,
+                    user=self.request.user,
+                    name=form.cleaned_data['name'],
+                    payment_method=form.cleaned_data['payment_method'],
+                    city=form.cleaned_data['city'],
+                    phone=form.cleaned_data['phone'],
+                    comment=form.cleaned_data['comment'],
+                    guest_email=form.cleaned_data['guest_email'],
+                    request=self.request)
+
             return render(self.request, self.get_success_template_name(),
                           {'order': order})
         else:

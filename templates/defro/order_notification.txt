@@ -20,13 +20,13 @@
 
 {% endfor %}
 
-Итого: {{ order.total_incl_tax }} {{ order.currency }}
+Итого: {{ order.total_price  }} {{ order.currency }}
 
 
 Контактные данные
 
 Имя: {{ order.name }}
-Адрес: {{ order.shipping_address }}
+Адрес: {{ order.city }}
 E-mail: {{ order.guest_email }}
 
 

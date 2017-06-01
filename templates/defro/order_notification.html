@@ -36,14 +36,14 @@
                                     </li>
                                 {% endfor %}
 							</ul>
-							<p class="letter_details_sum">Итого: <span>{{ order.total_incl_tax }} {{ order.currency }}</span></p>
+							<p class="letter_details_sum">Итого: <span>{{ order.total_price  }} {{ order.currency }}</span></p>
 						</div>
 					</div>
 					<div class="letter_details">
 						<p class="letter_details_caption letter_details_caption_contact">Контактные данные</p>
 						<div class="letter_icon_info">
 							<p>Имя: <span>{{ order.name }}</span></p>
-							<p>Адрес: <span>{{ order.shipping_address }}</span></p>
+							<p>Адрес: <span>{{ order.city }}</span></p>
 							<p>E-mail: <span>{{ order.guest_email }}</span></p>
 						</div>
 					</div>

@@ -33,10 +33,22 @@ class OrderCreator(object):
     Places the order by writing out the various models
     """
 
-    def place_order(self, basket, total,  # noqa (too complex (12))
-                    shipping_method, shipping_charge, user=None,
-                    shipping_address=None, billing_address=None,
-                    order_number=None, status=None, **kwargs):
+    def place_order(self,
+                    basket,
+                    total,  # noqa (too complex (12))
+                    shipping_method,
+                    shipping_charge,
+                    user=None,
+                    shipping_address=None,
+                    billing_address=None,
+                    order_number=None,
+                    status=None,
+                    name=None,
+                    payment_method=None,
+                    city=None,
+                    phone=None,
+                    comment=None,
+                    guest_email=None, **kwargs):
         """
         Placing an order involves creating all the relevant models based on the
         basket and session data.
@@ -61,7 +73,9 @@ class OrderCreator(object):
         # Ok - everything seems to be in order, let's place the order
         order = self.create_order_model(
             user, basket, shipping_address, shipping_method, shipping_charge,
-            billing_address, total, order_number, status, **kwargs)
+            billing_address, total, order_number, status, name,
+            payment_method, city, phone, comment, guest_email,
+            **kwargs)
         for line in basket.all_lines():
             self.create_line_models(order, line)
             self.update_stock_records(line)
@@ -96,13 +110,15 @@ class OrderCreator(object):
 
     def create_order_model(self, user, basket, shipping_address,
                            shipping_method, shipping_charge, billing_address,
-                           total, order_number, status, **extra_order_fields):
+                           total, order_number, status, name,
+                           payment_method, city, phone, comment, guest_email,
+                           **extra_order_fields):
         """
         Create an order model.
         """
         order_data = {'basket': basket,
                       'number': order_number,
-                      'shipping_method': shipping_method, }
+                      'shipping_method': shipping_method,}
         if shipping_address:
             order_data['shipping_address'] = shipping_address
         if billing_address:
@@ -111,6 +127,18 @@ class OrderCreator(object):
             order_data['user_id'] = user.id
         if status:
             order_data['status'] = status
+        if name:
+            order_data['name'] = name
+        if payment_method:
+            order_data['payment_method'] = payment_method
+        if city:
+            order_data['city'] = city
+        if phone:
+            order_data['phone'] = phone
+        if comment:
+            order_data['comment'] = comment
+        if guest_email:
+            order_data['guest_email'] = guest_email
         if extra_order_fields:
             order_data.update(extra_order_fields)
         if 'site' not in order_data:
