@@ -205,7 +205,6 @@ OSCAR_ORDER_STATUS_PIPELINE = {
 
 OSCAR_SEARCH_FACETS = {
     'fields': OrderedDict([
-        ('product_class', {'name': _('Type'), 'field': 'product_class'}),
         ('rating', {'name': _('Rating'), 'field': 'rating'}),
     ]),
     'queries': OrderedDict([
