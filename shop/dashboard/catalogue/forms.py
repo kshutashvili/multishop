@@ -7,12 +7,15 @@ from oscar.apps.dashboard.catalogue.forms import \
     ProductAttributesForm as OscarProductAttributes, \
     ProductClassForm as OscarProductClassForm, \
     ProductImageForm as OscarProductImageForm, \
-    ProductClassSelectForm as OscarProductClassSelectForm
+    ProductClassSelectForm as OscarProductClassSelectForm, \
+    StockRecordForm as OscarStockRecordForm, \
+    StockRecordFormSet as OscarStockRecordFormSet
 from oscar.forms.widgets import ImageInput
 from treebeard.forms import movenodeform_factory
 
 from shop.catalogue.models import Product, ProductClass, ProductAttribute, \
     Category, ProductAttributeValue, ExtraImage, Video
+from shop.partner.models import StockRecord
 
 
 def _attr_textarea_field_uk(attribute):
@@ -232,3 +235,34 @@ class ProductClassSelectForm(OscarProductClassSelectForm):
         if site:
             self.fields['product_class'].queryset = ProductClass.objects.filter(
                 site=site)
+
+
+class StockRecordForm(OscarStockRecordForm):
+
+    def __init__(self, product_class, user, *args, **kwargs):
+        # The user kwarg is not used by stock StockRecordForm. We pass it
+        # anyway in case one wishes to customise the partner queryset
+        self.user = user
+        super(StockRecordForm, self).__init__(*args, **kwargs)
+
+        # Restrict accessible partners for non-staff users
+        if not self.user.is_staff:
+            self.fields['partner'].queryset = self.user.partners.all()
+
+        # If not tracking stock, we hide the fields
+        if not product_class.track_stock:
+            for field_name in ['num_in_stock', 'low_stock_treshold']:
+                if field_name in self.fields:
+                    del self.fields[field_name]
+        else:
+            for field_name in ['price_excl_tax', 'num_in_stock']:
+                if field_name in self.fields:
+                    self.fields[field_name].required = True
+
+    class Meta:
+        model = StockRecord
+        fields = [
+            'partner', 'partner_sku',
+            'price_currency', 'price_excl_tax', 'price_retail', 'cost_price',
+            'num_in_stock', 'low_stock_threshold',
+        ]

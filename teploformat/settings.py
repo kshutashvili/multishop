@@ -61,7 +61,9 @@ INSTALLED_APPS = [
                    'shop.dashboard.orders',
                    'shop.search',
                    'shop.order',
-                   'shop.basket'])
+                   'shop.basket',
+                   'shop.partner'
+                   ])
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
