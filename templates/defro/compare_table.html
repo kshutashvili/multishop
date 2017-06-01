@@ -89,11 +89,7 @@
                                         {% purchase_info_for_product request product as session %}
                                         {% if session.availability.is_available_to_buy %}
                                             <p class="line_through">
-                                                {% if session.price.is_tax_known %}
-                                                    {{ session.price.incl_tax|currency:session.price.currency }}
-                                                {% else %}
-                                                    {{ session.price.excl_tax|currency:session.price.currency }}
-                                                {% endif %} </p>
+                                                {{ session.price.previous|currency:session.price.currency }}</p>
                                             <p class="catalog_item_price">
                                                 {% if session.price.is_tax_known %}
                                                     {{ session.price.incl_tax|currency:session.price.currency }}
