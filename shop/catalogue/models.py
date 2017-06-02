@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import operator
 
 import redis
@@ -8,6 +9,7 @@ from django.core.management import call_command
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.shortcuts import reverse
 from django.template import Context
 from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _
