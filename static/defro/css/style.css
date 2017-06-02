@@ -148,9 +148,15 @@ ul{
 	background: url("../img/life.png") no-repeat left center;
 }
 .contacts a.zakaz_zvon{
-	font-size: 16px;
-	text-decoration: underline dashed;
+	font-size: 16px;	
 	background: url("../img/call.png") no-repeat left center;
+    position: relative;
+}
+.contacts a.zakaz_zvon::after{
+    content:'';
+    border-bottom: 1px dashed #ed1b24;
+    display: block;
+    margin-top: 1px;
 }
 .basket{
 	float: right;

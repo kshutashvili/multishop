@@ -623,6 +623,7 @@
         top: 705px;
         left: 50%;
         margin-left: -123px;
+        z-index: 999;
     }
 
     .compare_block_table {
@@ -1545,7 +1546,7 @@
         font-size: 20px;
     }
     .third_block {
-        background-size: 2400px;
+        background-size: 2300px;
     }
     .fourth_block ul li {
         min-height: 185px;
@@ -2454,7 +2455,7 @@
         width: 100%;
     }
     .compare_block_table .nav {
-        top: 740px;
+        top: 725px;
     }
     /*contacts*/
     .contact_tab > li {
@@ -2899,6 +2900,9 @@
         left: 100%;
         margin-left: -182px;
     }
+    .compare_block_table .nav {
+    top: 690px;
+    }
 }
 
 
@@ -3137,7 +3141,7 @@
         width: 160px;
     }
     .compare_block_table .nav {
-        top: 645px;
+            top: 625px;
     }
     .category_block_caption {
         font-size: 20px;
