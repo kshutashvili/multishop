@@ -2,17 +2,14 @@
 import operator
 
 import redis
-from django.conf import settings
 from django.contrib.sites.models import Site
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, mail_admins
 from django.core.management import call_command
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.template import Context
 from django.template.loader import get_template
-from django.urls import reverse
-from django.utils.translation import get_language
 from django.utils.translation import ugettext_lazy as _
 from oscar.apps.catalogue.abstract_models import AbstractProduct, \
     AbstractProductAttributeValue, AbstractProductClass, \
@@ -199,7 +196,10 @@ def on_order_create(sender, instance, created, **kwargs):
     html_content = template.render(context)
     email = EmailMultiAlternatives(subject, text_content, from_email, [to])
     email.attach_alternative(html_content, "text/html")
-    email.send(fail_silently=True)
+    try:
+        email.send(fail_silently=False)
+    except Exception as e:
+        mail_admins('Email error', unicode(e), fail_silently=True)
 
 
 def update_catalogue(sender, instance, created, **kwargs):
