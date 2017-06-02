@@ -9,9 +9,14 @@
 {{ site_display_name }}
 {% endblock %}
 
+{% block viewport %}
+width=device-width, initial-scale=1.0
+{% endblock %}
+
 {% block styles %}
     <link rel="stylesheet" type="text/css"
           href="{% get_static 'css/jquery.bxslider.css' %}">
+    <link rel="stylesheet" href="{% get_static 'css/jquery.scrollbar.css' %}">
     <link rel="stylesheet" type="text/css"
           href="{% get_static 'css/bootstrap.css' %}">
     <link rel="stylesheet" type="text/css"
@@ -19,16 +24,16 @@
     <link rel="stylesheet" type="text/css"
           href="{% get_static 'css/style.css' %}">
     <link rel="stylesheet" href="{% get_static 'css/fontawesome-stars.css' %}">
-
-
+    <link rel="stylesheet" href="{% get_static 'css/media.css' %}">
 {% endblock %}
+
 {% block layout %}
     <div class="container-fluid">
         {% block header %}
-            {% block header_class %}<div class="header">{% endblock %}
+            <div class="header">
                 <div class="container">
 
-                    <div class="top_menu">
+                    <div class="top_menu main_menu">
                         <ul>
                             {% for item in header_menu %}
                                 <li>
@@ -37,10 +42,11 @@
                             {% endfor %}
                         </ul>
                     </div>
-                    {% block mobile_menu %}
-                        <div class="mobile_menu" role="button"></div>
-                    {% endblock %}
-                    <div class="header_right">
+
+                    <div class="mobile_menu" role="button"></div>
+                    <p class="name_page">Каталог</p>
+                    <div class="header_scroll_catalog"></div>
+                    <div class="header_right header_main_right">
                         <div class="lang">{% get_current_language as LANGUAGE_CODE %}
                             <a href="{% change_lang 'ru' %}"
                                {% if LANGUAGE_CODE == 'ru' %}class="active_lang" {% endif %}>RU</a>
@@ -52,8 +58,26 @@
                             {% include 'defro/partials/search.html' %}
                         </div>
                     </div>
-
-
+                    <div class="contacts  header_scroll_contacts">
+                        {% if phone_numbers.kievstar %}
+                            <a href="tel:+380988598880">
+                                <span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}
+                            </a>
+                        {% endif %}
+                        <span class='more' role="button">Еще номера</span>
+                        <div class="more_contacts">
+                            {% if phone_numbers.vodafone %}
+                                <a href="tel:+380995598880">
+                                    <span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}
+                                </a>
+                            {% endif %}
+                            {% if phone_numbers.life %}
+                                <a href="tel:+380931498880">
+                                    <span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
                 <div class="container">
                     <div class="logo">
@@ -65,22 +89,25 @@
                                          alt=""></a>
                         {% endif %}
                     </div>
-                    <div class="contacts header_contacts">
-                        {% if phone_numbers.kievstar %}
-                            <a href="tel:+380988598880"><span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}
-                            </a>
-                        {% endif %}
-                        {% if phone_numbers.vodafone %}
-                            <a href="tel:+380995598880"><span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}
-                            </a>
-                        {% endif %}
-                        {% if phone_numbers.life %}
-                            <a href="tel:+380931498880"><span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}
-                            </a>
-                        {% endif %}
-                        <a href="#" class="zakaz_zvon show_popup"
-                           rel="call_request">Заказать звонок</a>
+                    <div class="contacts header_contacts main_contacts">
+                        <div>
+                            {% if phone_numbers.kievstar %}
+                                <a href="tel:+380988598880"><span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}
+                                </a>
+                            {% endif %}
+                            {% if phone_numbers.vodafone %}
+                                <a href="tel:+380995598880"><span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}
+                                </a>
+                            {% endif %}
+                            {% if phone_numbers.life %}
+                                <a href="tel:+380931498880"><span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}
+                                </a>
+                            {% endif %}
+                            <a href="#" class="zakaz_zvon show_popup"
+                               rel="call_request">Заказать звонок</a>
+                        </div>
                     </div>
+
                     <div class="basket">
 
                         <div class="dropdown" id="compare_dropdown">
@@ -108,9 +135,9 @@
                                             сравнения пуст</a>
                                     </li>
                                 {% endif %}
-
                             </ul>
                         </div>
+
                         <div class="dropdown dropdown_2">
                             <a href="#" class="btn btn-default dropdown-toggle"
                                id="dropdownMenu2" data-toggle="dropdown"
@@ -149,9 +176,9 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div><!-- .basket -->
                 </div>
-            </div>
+            </div><!-- .header -->
         {% endblock %}
 
         {% block content %}
@@ -407,8 +434,23 @@
             </div>
         {% endblock %}
     </div>
+    <div class="modal_zakaz_zvon">
+         <h2>Заказать звонок<span class="close"></span></h2>
+        <form id="call_request_form"
+              action="{% url 'call_request' %}"
+              class="modal_form">
+            <label>Ваше имя<span class="red_star">*</span>:</label>
+            <input id="name" name="name" type="text">
+            <label>Ваш телефон<span class="red_star">*</span>:</label>
+            <input id="phone" name="phone" type="text">
+            <a href="#"
+               id="submit_call_request"
+               rel="request_button_modal">Отправить</a>
+        </form>
+    </div>
+
     {% block shadow %}
-        <div class="shadow"></div>
+    <div class="shadow"></div>
     {% endblock %}
 {% endblock %}
 
@@ -422,6 +464,7 @@
     <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% get_static 'js/jquery.bxslider.min.js' %}"></script>
     <script src="{% get_static 'js/jquery.scrollbar.js' %}"></script>
+    <script src="{% get_static 'js/headhesive.min.js' %}"></script>
     <script src="{% get_static 'js/script.js' %}"></script>
     <script src="{% get_static 'js/estimation.js' %}"></script>
     <script src="{% get_static 'js/script-full-short.js' %}"></script>
