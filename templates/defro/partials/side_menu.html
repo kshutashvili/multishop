@@ -1,16 +1,16 @@
-<div class="side-menu {% if not is_main_page %}left_side{% endif %}">
-    <a class="left_side_caption" role="button" data-toggle="collapse"
+<div class="left_side {% if not is_main_page %} default_left_side{% endif %}">
+    <a class="left_side_caption {% if not is_main_page %}catalog_left_side_caption{% endif %}" role="button" data-toggle="collapse"
        href="#collapseExample" aria-expanded="false"
        aria-controls="collapseExample">
         Каталог товаров
     </a>
     <div class="collapse {% if expand %}in{% endif %}" id="collapseExample">
         <div class="well">
-            <ul class="left_menu">
+            <ul class="left_menu {% if is_main_page %}main_left_menu{% endif %}">
                 <li>
                     {% if side_menu %}
                         {% for category, descendants in side_menu.items %}
-                            <div class="dropdown side-menu">
+                            <div class="dropdown {% if is_main_page %}side-menu{% endif %}">
                                 <a href="{{ category.get_absolute_url }}"
                                    class="btn btn-default dropdown-toggle"
                                    id="dropdownMenu{{ forloop.counter0|add:"3" }}"

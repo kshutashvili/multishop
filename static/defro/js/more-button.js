@@ -38,52 +38,52 @@ $(document).ready(function () {
 });
 
 
-$('.read-next-fullcomment').on('click', function () {
-    is_parent = $(this).parent();
-    blok = is_parent.find('.comment_range');
-    if (blok.css('max-height') != 'none') {
-        blok.css('max-height', '');
-        $(this).text('Свернуть');
-        $(this).addClass("read-next-arrow");
-    } else {
-        blok.css('max-height', '522px');
-        $(this).text('Читать все отзывы');
-        $(this).removeClass("read-next-arrow");
-    }
-
-    return false;
-});
-
-
-$('.read-next-comment').on('click', function () {
-    is_parent = $(this).parent();
-    blok = is_parent.find('.user_comment');
-    if (blok.css('max-height') != 'none') {
-        blok.css('max-height', '');
-        $(this).text('Свернуть');
-        $(this).addClass("read-next-arrow");
-    } else {
-        blok.css('max-height', '53px');
-        $(this).text('Читать далее');
-        $(this).removeClass("read-next-arrow");
-    }
-
-    return false;
-});
+	 $('.read-next-fullcomment').on('click', function(){
+        is_parent = $(this).parent(); 
+        blok = is_parent.find('.comment_range');
+        if(blok.css('max-height') != 'none'){
+           blok.css('max-height','');
+           $(this).text('Свернуть');
+           $(this).addClass("read-next-arrow");
+        } else {
+           blok.css('max-height','522px');    
+           $(this).text('Читать все отзывы');
+           $(this).removeClass("read-next-arrow");
+        }
+         
+        return false;
+    });
 
 
-$('.read-next-com').on('click', function () {
-    is_parent = $(this).parent();
-    blok = is_parent.find('.user_comment');
-    if (blok.css('max-height') != 'none') {
-        blok.css('max-height', '');
-        $(this).text('Свернуть');
-        $(this).addClass("read-next-arrow");
-    } else {
-        blok.css('max-height', '50px');
-        $(this).text('Читать далее');
-        $(this).removeClass("read-next-arrow");
-    }
+ 		$('.read-next-comment').on('click', function(){
+        is_parent = $(this).parent(); 
+        blok = is_parent.find('.user_comment');
+        if(blok.css('max-height') != 'none'){
+           blok.css('max-height','');
+           $(this).text('Свернуть');
+           $(this).addClass("read-next-arrow");
+        } else {
+           blok.css('max-height','53px');    
+           $(this).text('Читать далее');
+           $(this).removeClass("read-next-arrow");
+        }
+         
+        return false;
+    });
 
-    return false;
-});
+     
+    $('.read-next-com').on('click', function(){
+        is_parent = $(this).parent(); 
+        blok = is_parent.find('.user_comment');
+        if(blok.css('max-height') != 'none'){
+           blok.css('max-height','');
+           $(this).text('Свернуть');
+           $(this).addClass("read-next-arrow");
+        } else {
+           blok.css('max-height','50px');    
+           $(this).text('Читать далее');
+           $(this).removeClass("read-next-arrow");
+        }
+         
+        return false;
+    });

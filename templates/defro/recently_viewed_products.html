@@ -9,7 +9,7 @@
 {% load thumbnail %}
 
 
-<p class="category_block_caption before_owl clear">
+<p class="category_block_caption before_owl">
     Недавно
     просмотренные</p>
 <div class="owl-carousel owl-theme catalog_owl">
@@ -26,7 +26,7 @@
                           class="add-to-basket">{% csrf_token %}
                         {% include "partials/form_fields.html" with form=basket_form %}
                     </form>
-                    <div class="catalog_item_block">
+                    <div class="catalog_item_block catalog_item_block_second">
                         <input type="text"
                                style="display: none;"
                                value="{{ p.upc }}"

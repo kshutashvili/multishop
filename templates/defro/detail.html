@@ -27,7 +27,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container default_container compare_container">
         {% basket_form request product as basket_form %}
         <form id="add_to_basket_form_{{ product.id }}" name="add_to_basket_form"
               style="display: none;"
@@ -38,7 +38,7 @@
         </form>
 
 
-        <div class="main_block clear_fix">
+        <div class="main_block clear_fix compare_main_block">
             {% include 'defro/partials/side_menu.html' %}
             <ul class="breadcrumb">
                 <li>
@@ -63,6 +63,7 @@
                     {% endif %}
                 {% endwith %}
             </ul>
+
             <div class="main_content">
                 <p class="acticle_tov">Артикул: <span
                         name="product_upc">{{ product.upc }}</span>
@@ -70,7 +71,7 @@
                 <p class="category_block_caption often_caption">
                     {{ product.title }}
                 </p>
-                <ul class="nav nav-tabs" role="tablist">
+                <ul class="nav nav-tabs tovar_tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#tovar"
                                                               aria-controls="tovar"
                                                               role="tab"
@@ -155,14 +156,15 @@
                                         {% else %}
                                             {{ session.price.excl_tax|currency:session.price.currency }}
                                         {% endif %}</p>
-                                    <button type="submit" id="submit_btn"
+                                    <a href="#" type="submit"
+                                            id="submit_btn"
                                             class="basket_button show_popup"
                                             value="{% trans "Add to basket" %}"
                                             data-loading-text="Добавляем"
                                             rel="buy_button_modal"
                                             data-product-id="{{ product.id }}">В
                                         корзину
-                                    </button>
+                                    </a>
                                     <a href="#" class="basket_button_in dpn">В
                                         корзине</a>
                                     <a href="#" class="buy_credit show_popup"
