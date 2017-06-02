@@ -12,7 +12,7 @@ from django.dispatch import receiver
 from django.shortcuts import reverse
 from django.template import Context
 from django.template.loader import get_template
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, get_language
 from oscar.apps.catalogue.abstract_models import AbstractProduct, \
     AbstractProductAttributeValue, AbstractProductClass, \
     AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup
