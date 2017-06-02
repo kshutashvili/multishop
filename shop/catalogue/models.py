@@ -182,7 +182,7 @@ class AttributeOptionGroup(AbstractAttributeOptionGroup):
 
 @receiver(post_save, sender=Order)
 def on_order_create(sender, instance, created, **kwargs):
-    if not created:
+    if not created or not instance.guest_email:
         return
 
     plaintext = get_template('defro/order_notification.txt')
@@ -191,7 +191,7 @@ def on_order_create(sender, instance, created, **kwargs):
         'order': instance,
         'lines': instance.basket.lines.all()
     })
-    subject = 'Order notification'
+    subject = _('Order notification')
     from_email = settings.DEFAULT_FROM_EMAIL
     to = instance.guest_email
     text_content = plaintext.render(context)
