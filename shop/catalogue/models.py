@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import operator
 
 import redis
+from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, mail_admins
 from django.core.management import call_command
