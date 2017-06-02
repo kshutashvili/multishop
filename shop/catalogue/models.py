@@ -16,9 +16,10 @@ from django.utils.translation import ugettext_lazy as _
 from oscar.apps.catalogue.abstract_models import AbstractProduct, \
     AbstractProductAttributeValue, AbstractProductClass, \
     AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup
+from oscar.core.loading import get_class
 from redis.exceptions import ConnectionError
 
-from shop.order.models import Order
+order_placed = get_class('order.signals', 'order_placed')
 
 
 class Product(AbstractProduct):
@@ -180,20 +181,20 @@ class AttributeOptionGroup(AbstractAttributeOptionGroup):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
 
-@receiver(post_save, sender=Order)
-def on_order_create(sender, instance, created, **kwargs):
-    if not created or not instance.guest_email:
+@receiver(order_placed)
+def on_order_create(order, user, **kwargs):
+    if not order.guest_email:
         return
 
     plaintext = get_template('defro/order_notification.txt')
     template = get_template('defro/order_notification.html')
     context = Context({
-        'order': instance,
-        'lines': instance.basket.lines.all()
+        'order': order,
+        'lines': order.basket.lines.all()
     })
     subject = _('Order notification')
     from_email = settings.DEFAULT_FROM_EMAIL
-    to = instance.guest_email
+    to = order.guest_email
     text_content = plaintext.render(context)
     html_content = template.render(context)
     email = EmailMultiAlternatives(subject, text_content, from_email, [to])
