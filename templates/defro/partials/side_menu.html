@@ -1,48 +1,46 @@
-<div class="left_side {% if not is_main_page %} default_left_side{% endif %}">
-    <a class="left_side_caption {% if not is_main_page %}catalog_left_side_caption{% endif %}" role="button" data-toggle="collapse"
-       href="#collapseExample" aria-expanded="false"
-       aria-controls="collapseExample">
-        Каталог товаров
-    </a>
-    <div class="collapse {% if expand %}in{% endif %}" id="collapseExample">
-        <div class="well">
-            <ul class="left_menu {% if is_main_page %}main_left_menu{% endif %}">
-                <li>
-                    {% if side_menu %}
-                        {% for category, descendants in side_menu.items %}
-                            <div class="dropdown {% if is_main_page %}side-menu{% endif %}">
-                                <a href="{{ category.get_absolute_url }}"
-                                   class="btn btn-default dropdown-toggle"
-                                   id="dropdownMenu{{ forloop.counter0|add:"3" }}"
-                                   data-toggle="dropdown"
-                                   aria-haspopup="true"
-                                   aria-expanded="true">
-                                    {{ category.name }}
-                                </a>
-                                <ul class="dropdown-menu"
-                                    aria-labelledby="dropdownMenu{{ forloop.counter0|add:"3" }}">
-                                    {% for descendant in descendants %}
-                                        <li class="clear_fix">
-                                            {% if descendant.image %}
-                                                <img src="{{ descendant.image.url }}"
-                                                     alt="">
-                                            {% endif %}
-                                            <div class="menu_item_links">
-                                                <a href="{{ descendant.get_absolute_url }}"
-                                                   class="menu_item_caption">{{ descendant.name }}</a>
-                                                {% for product in descendant.product_set.all %}
-                                                    <a href="{{ product.get_absolute_url }}"
-                                                       class="menu_item_list">{{ product.title }}</a>
-                                                {% endfor %}
-                                            </div>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                </li>
-            </ul>
-        </div>
+<a class="left_side_caption {% if not is_main_page %}catalog_left_side_caption{% endif %}" role="button" data-toggle="collapse"
+   href="#collapseExample" aria-expanded="false"
+   aria-controls="collapseExample">
+    Каталог товаров
+</a>
+<div class="collapse {% if expand %}in{% endif %}" id="collapseExample">
+    <div class="well">
+        <ul class="left_menu {% if is_main_page %}main_left_menu{% endif %}">
+            <li>
+                {% if side_menu %}
+                    {% for category, descendants in side_menu.items %}
+                        <div class="dropdown {% if is_main_page %}side-menu{% endif %}">
+                            <a href="{{ category.get_absolute_url }}"
+                               class="btn btn-default dropdown-toggle"
+                               id="dropdownMenu{{ forloop.counter0|add:"3" }}"
+                               data-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="true">
+                                {{ category.name }}
+                            </a>
+                            <ul class="dropdown-menu"
+                                aria-labelledby="dropdownMenu{{ forloop.counter0|add:"3" }}">
+                                {% for descendant in descendants %}
+                                    <li class="clear_fix">
+                                        {% if descendant.image %}
+                                            <img src="{{ descendant.image.url }}"
+                                                 alt="">
+                                        {% endif %}
+                                        <div class="menu_item_links">
+                                            <a href="{{ descendant.get_absolute_url }}"
+                                               class="menu_item_caption">{{ descendant.name }}</a>
+                                            {% for product in descendant.product_set.all %}
+                                                <a href="{{ product.get_absolute_url }}"
+                                                   class="menu_item_list">{{ product.title }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </li>
+        </ul>
     </div>
 </div>

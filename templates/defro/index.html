@@ -8,7 +8,7 @@
 	<div class="first_block">
 		<div class="container">
 			<div class="left_side">
-				{% include 'defro/partials/side_menu.html' with expand=True is_main_page=True %}
+				{% include 'defro/partials/side_menu.html' with is_main_page=True %}
 				<ul class="under_left_menu">
 					<li>{{ text_one|safe }}</li>
 					<li>{{ text_two|safe }}</li>
@@ -597,4 +597,8 @@
 
 {% block above_footer_block %}
 
+{% endblock %}
+
+{% block extrascripts %}
+<script>colapsehide();</script>
 {% endblock %}

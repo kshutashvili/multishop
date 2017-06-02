@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <form method="get" action="{% url 'search:search' %}">
-    <div class="form-group">
+    <div class="">
         {{ search_form.q }}
     </div>
     <input type="submit" value="{% trans "Search" %}" class="btn btn-default" style="display: none" />

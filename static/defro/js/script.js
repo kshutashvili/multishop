@@ -112,7 +112,7 @@ $(document).ready(function(){
     
     headerScroll ();
     scrolbar_on();
-    colapsehide ();
+    //colapsehide ();
     mobile_menu_construct ();
     searchAppend();
     $('.headhesive .more').click(function(){

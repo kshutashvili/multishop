@@ -12,7 +12,7 @@ $('a.dropdown-toggle').click(function () {
     location.href = $(this).attr('href');
 });
 
-$('.left_side.side-menu').hover(function () {
+$('.left_side').hover(function () {
     clearTimeout(timeout);
     $('div.collapse').first().addClass('in');
 }, function () {
