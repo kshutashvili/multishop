@@ -9,9 +9,7 @@
 {{ site_display_name }}
 {% endblock %}
 
-{% block viewport %}
-width=device-width, initial-scale=1.0
-{% endblock %}
+{% block viewport %}width=device-width, initial-scale=1.0{% endblock %}
 
 {% block styles %}
     <link rel="stylesheet" type="text/css"
@@ -60,19 +58,19 @@ width=device-width, initial-scale=1.0
                     </div>
                     <div class="contacts  header_scroll_contacts">
                         {% if phone_numbers.kievstar %}
-                            <a href="tel:+380988598880">
+                            <a href="tel:+38{{ phone_numbers.kievstar|first }}">
                                 <span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}
                             </a>
                         {% endif %}
                         <span class='more' role="button">Еще номера</span>
                         <div class="more_contacts">
                             {% if phone_numbers.vodafone %}
-                                <a href="tel:+380995598880">
+                                <a href="tel:+38{{ phone_numbers.vodafone|first }}">
                                     <span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}
                                 </a>
                             {% endif %}
                             {% if phone_numbers.life %}
-                                <a href="tel:+380931498880">
+                                <a href="tel:+38{{ phone_numbers.life|first }}">
                                     <span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}
                                 </a>
                             {% endif %}
@@ -92,15 +90,15 @@ width=device-width, initial-scale=1.0
                     <div class="contacts header_contacts main_contacts">
                         <div>
                             {% if phone_numbers.kievstar %}
-                                <a href="tel:+380988598880"><span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}
+                                <a href="tel:+38{{ phone_numbers.kievstar|first }}"><span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}
                                 </a>
                             {% endif %}
                             {% if phone_numbers.vodafone %}
-                                <a href="tel:+380995598880"><span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}
+                                <a href="tel:+38{{ phone_numbers.vodafone|first }}"><span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}
                                 </a>
                             {% endif %}
                             {% if phone_numbers.life %}
-                                <a href="tel:+380931498880"><span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}
+                                <a href="tel:+38{{ phone_numbers.life|first }}"><span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}
                                 </a>
                             {% endif %}
                             <a href="#" class="zakaz_zvon show_popup"
@@ -142,7 +140,7 @@ width=device-width, initial-scale=1.0
                             <a href="#" class="btn btn-default dropdown-toggle"
                                id="dropdownMenu2" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="true"
-                               data-content="0">
+                               data-content="{{ request.basket.num_lines }}">
                                 Корзина
                             </a>
                             <ul class="dropdown-menu"
@@ -237,22 +235,6 @@ width=device-width, initial-scale=1.0
                     Вами</p>
             </div>
 
-
-            <div class="popup call_request">
-                <a class="close" href="#">Close</a>
-                <p class="modal_ask_quest">Заказ звонка</p>
-
-                <form id="call_request_form"
-                      action="{% url 'call_request' %}"
-                      class="modal_form">
-                    <label for="">Ваше имя<span>*</span>:</label>
-                    <input id="name" name="name" type="text">
-                    <label for="">Ваш телефон<span>*</span>:</label>
-                    <input id="phone" name="phone" type="text">
-                    <a href="#" id="submit_call_request"
-                       rel="request_button_modal">Отправить</a>
-                </form>
-            </div>
 
             <div class="popup request_button_modal">
                 <a class="close" href="#">Close</a>
@@ -443,8 +425,8 @@ width=device-width, initial-scale=1.0
             <input id="name" name="name" type="text">
             <label>Ваш телефон<span class="red_star">*</span>:</label>
             <input id="phone" name="phone" type="text">
-            <a href="#"
-               id="submit_call_request"
+            {% csrf_token %}<br><br>
+            <a href="#" id="submit_call_request"
                rel="request_button_modal">Отправить</a>
         </form>
     </div>

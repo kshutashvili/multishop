@@ -39,7 +39,9 @@
 
 
         <div class="main_block clear_fix compare_main_block">
-            {% include 'defro/partials/side_menu.html' %}
+            <div class="left_side default_left_side">
+                {% include 'defro/partials/side_menu.html' %}
+            </div>
             <ul class="breadcrumb">
                 <li>
                     <a href="/"><img src="{% get_static 'img/home.png' %}"
@@ -141,7 +143,7 @@
                                     {% endfor %}
                                 </select>
                                 <p class="rating_number"><span>{% if product.rating %}
-                                    {{ product.rating }}{% else %}
+                                    {{ product.rating|floatformat }}{% else %}
                                     0{% endif %}</span>/5 ( голосов
                                     <span>{{ product.num_approved_reviews }}</span>)
                                 </p>
@@ -786,7 +788,7 @@
                                     {% endfor %}
                                 </select>
                                 <p class="rating_number"><span>{% if product.rating %}
-                                    {{ product.rating }}{% else %}
+                                    {{ product.rating|floatformat }}{% else %}
                                     0{% endif %}</span>/5 ( голосов
                                     <span>{{ product.num_approved_reviews }}</span>)
                                 </p>
@@ -891,7 +893,7 @@
                                     {% endfor %}
                                 </select>
                                 <p class="rating_number"><span>{% if product.rating %}
-                                    {{ product.rating }}{% else %}
+                                    {{ product.rating|floatformat }}{% else %}
                                     0{% endif %}</span>/5 ( голосов
                                     <span>{{ product.num_approved_reviews }}</span>)
                                 </p>
@@ -1001,7 +1003,7 @@
                                     {% endfor %}
                                 </select>
                                 <p class="rating_number"><span>{% if product.rating %}
-                                    {{ product.rating }}{% else %}
+                                    {{ product.rating|floatformat }}{% else %}
                                     0{% endif %}</span>/5 ( голосов
                                     <span>{{ product.num_approved_reviews }}</span>)
                                 </p>
@@ -1440,7 +1442,7 @@
                                     {% endfor %}
                                 </select>
                                 <p class="rating_number"><span>{% if product.rating %}
-                                    {{ product.rating }}{% else %}
+                                    {{ product.rating|floatformat }}{% else %}
                                     0{% endif %}</span>/5 ( голосов
                                     <span>{{ product.num_approved_reviews }}</span>)
                                 </p>
@@ -1915,13 +1917,10 @@
     <script>
     $('.otvetit.show_popup').click(function(){
         $('#answer_for_review').val($(this).parent().parent().attr('data-reviewpk'));
-        console.log($(this).parent().parent().attr('data-reviewpk'));
         $('#answer_for_answer').val($(this).parent().parent().attr('data-answerpk'));
-        console.log($(this).parent().parent().attr('data-answerpk'));
     })
     </script>
     <script type="text/javascript" async defer
             src="//assets.pinterest.com/js/pinit.js"></script>
-    <script src="{% get_static 'js/more-button.js' %}"></script>
     {{ block.super }}
 {% endblock %}

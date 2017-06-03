@@ -16,7 +16,9 @@
 {% block content %}
     <div class="container">
         <div class="main_block clear_fix">
-            {% include 'defro/partials/side_menu.html' %}
+            <div class="left_side default_left_side">
+                {% include 'defro/partials/side_menu.html' %}
+            </div>
             <ul class="breadcrumb">
                 <li>
                     <a href="/"><img src="{% get_static 'img/home.png' %}"
@@ -47,7 +49,7 @@
                                                 {% endfor %}
                                             </select>
                                             <p class="rating_number"><span>{% if product.rating %}
-                                                {{ product.rating }}{% else %}
+                                                {{ product.rating|floatformat }}{% else %}
                                                 0{% endif %}</span>/5 ( голосов
                                                 <span>{{ product.num_approved_reviews }}</span>)
                                             </p>

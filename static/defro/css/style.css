@@ -111,6 +111,9 @@ ul{
 .lang a:focus, .lang a:active, .lang a:hover{
 	color: #ed1b24;
 }
+.lang a.active_lang {
+	color: #ed1b24;
+}
 .search input{
 	width: 320px;
 	margin-left: 30px;
@@ -174,6 +177,30 @@ ul{
 	margin-left: 10px;
 	box-shadow: none;
 }
+.basket #dropdownMenu1:before{
+	content: attr(data-content);
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	background-color: #ed1b24;
+	color: #fff;
+	bottom: 15px;
+	left: 15px;
+	border-radius: 50%;
+}
+.basket #dropdownMenu2:before{
+	content: attr(data-content);
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	background-color: #ed1b24;
+	color: #fff;
+	bottom: 15px;
+	left: 15px;
+	border-radius: 50%;
+}
 .basket .open .btn-default{
 	border: 1px solid #e0e0e0;
 	border-radius: 0;
@@ -201,10 +228,10 @@ ul{
 	border-radius: 50%;
 }
 .basket .open #dropdownMenu1:before{
-	content: "\2714";
+	content: attr(data-content);
 }
 .basket .open #dropdownMenu2:before{
-	content: "1";
+	content: attr(data-content);
 }
 #dropdownMenu1{
 	background: url("../img/sravn.png") no-repeat center top 5px;
@@ -1309,7 +1336,10 @@ a.choose_kotel:hover{
     border-radius: 0;
     width: 264px;
     position: relative;
-    z-index: 10;
+    z-index: 10; /*потому-что фильтры оказываются выше пунктов каталога */
+}
+.left_side .well {
+	z-index: 99;
 }
 .above_footer_block .bottom_menu, .above_footer_block .bottom_menu_bg{
 	position: static;
@@ -1751,6 +1781,12 @@ select::-ms-expand {
 	color: #3e3e3e;
 	font-size: 20px;
 	margin: 19px 0 15px;
+}
+.catalog_item_block_caption a, .catalog_item_block_caption a:hover{
+	color: #3e3e3e;
+	font-size: 20px;
+	margin: 19px 0 15px;
+	text-decoration: none;
 }
 .catalog_items ul{
 	font-size: 0;
