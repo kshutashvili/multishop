@@ -19,8 +19,8 @@
 
 {% block content %}
     <div>
-        <div class="container">
-            <div class="main_block clear_fix">
+        <div class="container compare_container default_container">
+            <div class="main_block clear_fix compare_main_block">
                 <div class="left_side default_left_side">
                     {% include 'defro/partials/side_menu.html' %}
                 </div>
@@ -33,43 +33,36 @@
                 </ul>
 
                 <div class="compare_block_table">
-                    <p class="category_block_caption">Вы
-                        сравниваете {{ category.name }}</p>
-                    <ul>
-                        <li>
-                            <div class="compare_table_add">
-                                <p class="compare_table_number">Добавлено
-                                    товаров:
-                                    <span>{{ products|length }}</span></p>
-                                <a href="{% url 'catalogue:category' category_slug=category.slug pk=category.pk %}"
-                                   class="compare_table_add_button">Добавить
-                                    еще один товар</a>
-                                <a href="#" class="compare_table_clean_button"
-                                   data-category-pk="{{ category.pk }}"
-                                   data-remove-url="{% url 'remove_category_from_compare_list' %}">Очистить
-                                    все</a>
+                    <p class="category_block_caption">Вы сравниваете {{ category.name }}</p>
 
-                                <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation" class="active"><a
-                                            href="#all_parame"
-                                            aria-controls="all_parame"
-                                            role="tab"
-                                            data-toggle="tab">Все параметры</a>
-                                    </li>
-                                    <li role="presentation"><a href="#only_dif"
-                                                               aria-controls="only_dif"
-                                                               role="tab"
-                                                               data-toggle="tab">Только
-                                        отличия</a></li>
+                    <div class="compare_table_add">
+                        <p class="compare_table_number">Добавлено
+                            товаров:
+                            <span>{{ products|length }}</span></p>
+                        <a href="{% url 'catalogue:category' category_slug=category.slug pk=category.pk %}"
+                           class="compare_table_add_button">Добавить
+                            еще один товар</a>
+                        <a href="#" class="compare_table_clean_button"
+                           data-category-pk="{{ category.pk }}"
+                           data-remove-url="{% url 'remove_category_from_compare_list' %}">Очистить
+                            все</a>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a
+                                    href="#all_parame"
+                                    aria-controls="all_parame"
+                                    role="tab"
+                                    data-toggle="tab">Все параметры</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#only_dif" aria-controls="only_dif" role="tab" data-toggle="tab">Только отличия</a>
+                            </li>
+                        </ul>
+                    </div>
 
-                                </ul>
-
-
-                            </div>
-
-                        </li>
-                        {% for product in products %}
-                            <li>
+                    <div class="scroll-inner compare_scroll">
+                        <ul class="compare_ul">
+                            {% for product in products %}
+                                <li>
                                 <div class="catalog_item_block">
                                     {% thumbnail product.primary_image.original "155" as thumb %}
                                         <img src="{{ thumb.url }}" alt="">
@@ -116,51 +109,44 @@
                                        data-product-id="{{ product.id }}"
                                        data-remove-url="{% url 'remove_from_compare_list' %}"></a>
                                 </div>
-                            </li>
-                        {% endfor %}
+                                </li>
+                            {% endfor %}
+                        </ul>
 
-
-                    </ul>
-
+                        <div class="compare_table_tab_content">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="all_parame">
+                                    <table class="table_main_har">
+                                        {% for attr_name, attr_values in attributes %}
+                                            <tr>
+                                                <th style="width:300px !important; display: inline-block; float: left">{{ attr_name }} </th>
+                                                {% for value in attr_values %}
+                                                    <th style="width:260px; display: inline-block; float: left">{{ value }}</th>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="only_dif">
+                                    <table class="table_main_har">
+                                        {% for attr_name, attr_values in unique_attributes %}
+                                            <tr>
+                                                <th style="width:300px">{{ attr_name }} </th>
+                                                {% for value in attr_values %}
+                                                    <th {% if forloop.counter == 1 %}style="width:260px"{% endif %}>{{ value }}</th>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="compare_table_tab_content">
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="all_parame">
-                    <table class="table_main_har">
-                        {% for attr_name, attr_values in attributes %}
-                            <tr>
-                                <th style="width:300px !important; display: inline-block; float: left">{{ attr_name }} </th>
-                                {% for value in attr_values %}
-                                    <th style="width:260px; display: inline-block; float: left">{{ value }}</th>
-                                {% endfor %}
-                            </tr>
-                        {% endfor %}
-
-                    </table>
-                </div>
-
-                <div role="tabpanel" class="tab-pane" id="only_dif">
-                    <table class="table_main_har">
-                        {% for attr_name, attr_values in unique_attributes %}
-                            <tr>
-                                <th style="width:300px">{{ attr_name }} </th>
-                                {% for value in attr_values %}
-                                    <th {% if forloop.counter == 1 %}style="width:260px"{% endif %}>{{ value }}</th>
-                                {% endfor %}
-                            </tr>
-                        {% endfor %}
-
-                    </table>
-                </div>
-            </div>
-
-        </div>
-    </div>
 
     {{ block.super }}
 {% endblock %}

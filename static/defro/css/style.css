@@ -2053,6 +2053,7 @@ a.look_more:hover{
 .owl-carousel.catalog_owl .owl-item img{
 	display: inline-block;
 	max-width: 155px;
+	max-height: 155px;
 }
 .owl-carousel.catalog_owl .catalog_item_block{
 	max-width: 100%;
@@ -2061,6 +2062,7 @@ a.look_more:hover{
 .owl-carousel.catalog_owl .catalog_item_block_caption{
 	font-size: 14px;
 	margin: 15px 20px 10px;
+	height: 32px;
 }
 .owl-carousel.catalog_owl .rating_number{
 	margin-left: 0px;
@@ -4096,23 +4098,23 @@ a.zakaz_change_zakaz{
 	border: 0;
 	margin-left: 70px;
 }
-.letter_details_contact form input{
+.letter_details_contact input{
 	width: 290px;
 	height: 45px;
 	padding-left: 45px;
 	border: 1px solid #999999;
 	margin-bottom: 20px;
 }
-.letter_details_contact form input:first-child{
+.letter_details_contact input:first-child{
 	background: url("../img/letter/ava_gray_mini.png") no-repeat left 12px center;
 }
-.letter_details_contact form input:nth-child(2){
+.letter_details_contact input:nth-child(2){
 	background: url("../img/letter/phone_mini.png") no-repeat left 12px center;
 }
-.letter_details_contact form input:nth-child(3){
+.letter_details_contact input:nth-child(3){
 	background: url("../img/letter/dog_mini.png") no-repeat left 12px center;
 }
-.letter_details_contact form textarea{
+.letter_details_contact textarea{
 	width: 290px;
 	height: 83px;
 	padding-left: 45px;
@@ -4137,7 +4139,7 @@ a.zakaz_change_zakaz{
 	border: 0;
 	margin-left: 70px;
 }
-.letter_details_payment form input{
+.letter_details_payment input{
 	width: 290px;
 	height: 45px;
 	padding-left: 25px;
@@ -4166,7 +4168,7 @@ a.zakaz_change_zakaz{
     background-size: 15%;
     border: 1px solid #999999;
 }
-a.make_zakaz_button{
+.make_zakaz_button{
 	font-size: 20px;
 	color: #fff;
 	background-color: #ed1b24;
@@ -4176,11 +4178,11 @@ a.make_zakaz_button{
 	width: 290px;
 	text-align: center;
 	margin-right: 14px;
-	margin-top: 20px;
-	text-decoration: none;
+	margin-top: 50px;
+	border: none;
 	margin-bottom: 30px;
 }
-a.make_zakaz_button:hover{
+.make_zakaz_button:hover{
 	opacity: 0.7;
 }
 .letter_details_contact{
@@ -5125,7 +5127,12 @@ a.compare_table_clean_button{
     background: none;
     padding-left: 0px;
 }
-
+.block155h {
+    height: 155px;
+}
+img + .block155h {
+    height: 0px;
+}
 .modal_zakaz_zvon
 {
     position: fixed;

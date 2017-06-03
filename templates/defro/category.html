@@ -41,6 +41,14 @@
                         {% endfor %}
                     </ul>
                 </div>
+
+                <p class="category_block_caption before_owl">{{ category.name }}</p>
+                <div style="height:'100%'">
+                    <div id="tovar_desc">
+                        {{ category.description|linebreaksbr }}
+                    </div>
+                    <a class="read-next" href="#">Подробнее</a>
+                </div>
         </div>
     </div>
     {{ block.super }}

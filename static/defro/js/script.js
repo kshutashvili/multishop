@@ -8,18 +8,25 @@ $(document).ready(function(){
 
   $('.owl-carousel').owlCarousel({
     items:3,
-      margin:25,
+      margin:15,
       nav:true, 
       responsive:{
           0:{
               items:1
           },
-          600:{
+          480:{
+              items:2
+          },
+          620:{
               items:3
           },
           1000:{
-              items:6
+              items:4
+          },
+          1200:{
+              items:5
           }
+      }
       }
   });
 
