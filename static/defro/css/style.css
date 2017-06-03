@@ -1858,6 +1858,18 @@ a.buy_button.but_button_sold{
 a.buy_button.but_button_sold:hover{
 	background: #828081;
 }
+.basket_button_sold{
+	background: #828081;
+	color: #fff;
+	cursor: default;
+	pointer-events: none;
+	border: 1px solid #dfdede;
+	font-size: 20px;
+	padding: 10px 10px;
+	margin-bottom: 10px;
+	width: 100%;
+	max-width: 100%;
+}
 a.buy_button:hover{
 	background-color: #f8545b;
 }
