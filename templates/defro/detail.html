@@ -416,7 +416,11 @@
                                                                                     {% if review.user == user %}
                                                                                         Вы
                                                                                     {% else %}
-                                                                                        {{ review.name }}
+                                                                                        {% if review.user %}
+                                                                                            {{ review.user.username }}
+                                                                                        {% else %}
+                                                                                            {{ review.name }}
+                                                                                        {% endif %}
                                                                                     {% endif %}
                                                                                 </span>
                                                                                 <span class="user_comment_date">
@@ -1096,7 +1100,11 @@
                                                         {% if review.user == user %}
                                                             Вы
                                                         {% else %}
-                                                            {{ review.name }}
+                                                            {% if review.user %}
+                                                                {{ review.user.username }}
+                                                            {% else %}
+                                                                {{ review.name }}
+                                                            {% endif %}
                                                         {% endif %}
                                                     </span>
                                                     <span class="user_comment_date">{{ review.date_created|date:"j E Y" }}</span>

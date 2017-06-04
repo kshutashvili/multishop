@@ -3,99 +3,390 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<link rel="stylesheet" type="text/css" href="{{ request.get_host }}{% static 'defro/css/bootstrap.css' %}">
-	<link rel="stylesheet" type="text/css" href="{{ request.get_host }}{% static 'defro/css/style.css' %}">
-
-
-
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ order.site.domain }}{% static 'defro/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{{ order.site.domain }}{% static 'defro/css/style.css' %}">
+    <style>
+        .bgc_change{
+            background-color: #fff;
+        }
+        .container-fluid {
+            padding-right: 0px;
+            padding-left: 0px;
+            background-color: #f5f4f4;
+        }
+        .container {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        .letter_container{
+            max-width: 635px;
+            width: 100%;
+            margin: 15px auto 40px;
+        }
+        .letter_logo{
+            margin-bottom: 10px;
+        }
+        .letter_content{
+            border: 1px solid #dddddd;
+            padding: 20px 33px 10px 40px;
+            background-color: #fff;
+        }
+        .letter_caption{
+            color: #424242;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        .letter_caption span{
+            color: #424242;
+            font-size: 22px;
+        }
+        .letter_thx{
+            color: #424242;
+            font-size: 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dddddd;
+            margin-bottom: 5px;
+        }
+        .letter_confirm{
+            color: #3e3e3e;
+            margin-bottom: 25px;
+        }
+        .letter_details_caption{
+            color: #3e3e3e;
+            font-size: 18px;
+            background-color: #efeff0;
+            padding: 10px;
+            padding-left: 45px;
+            border: 1px solid #e0e0e0;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .letter_details_caption:before{
+            content: "";
+            position: absolute;
+            left: -25px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 1px solid #e0e0e0;
+            background: #fff url("{{ order.site.domain }}/static/defro/img/letter/basket.png") no-repeat center left 18px;
+            top: -10px;
+        }
+        .letter_details_caption:after{
+            content: "";
+            position: absolute;
+            left: 4px;
+            top: 117%;
+            border-left: 1px solid #e0e0e0;
+            height: 330px;
+            width: 1px;
+        }
+        .letter_details_caption a{
+            float: right;
+            color: #3e77aa;
+            padding: 5px 0;
+            padding-left: 35px;
+            background: url("{{ order.site.domain }}/static/defro/img/letter/kser.png") no-repeat left center;
+        }
+        .letter_details_tovar{
+            border: 1px solid #e0e0e0;
+            margin-left: 25px;
+            margin-bottom: 35px;
+        }
+        .letter_details_tovar ul li img{
+            width: 70px;
+            margin-right: 30px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .letter_details_tovar ul li{
+            margin: 25px 20px;
+        }
+        .letter_details_tovar ul li span{
+            color: #9d9d9c;
+            font-size: 13px;
+        }
+        .letter_details_name{
+            color: #3e77aa;
+            margin-top: 6px;
+            font-size: 16px;
+            max-width: 180px;
+            width: 100%;
+            margin-bottom: 0;
+        }
+        .letter_details_name_number{
+            display: inline-block;
+            vertical-align: top;
+        }
+        .letter_details_price{
+            float: right;
+            color: #ed1b24;
+            font-size: 18px;
+            margin-top: 13px;
+        }
+        .letter_details_sum{
+            background-color: #efeff0;
+            border-top: 1px solid #e0e0e0;
+            padding: 20px 20px 12px 15px;
+            margin: 0;
+            color: #3e3e3e;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+        .letter_details_sum span{
+            float: right;
+            color: #ed1b24;
+            text-transform: lowercase;
+            font-size: 20px;
+            position: relative;
+            top: -8px;
+        }
+        .letter_details_caption_contact:before{
+            background: #fff url("{{ order.site.domain }}/static/defro/img/letter/ava.png") no-repeat left 14px center;
+        }
+        .letter_details_caption_contact{
+            margin-bottom: 15px;
+        }
+        .letter_icon_info{
+            margin-left: 38px;
+        }
+        .letter_icon_info p{
+            padding: 4px;
+            padding-left: 35px;
+            color: #6f6f6f;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .letter_icon_info p span{
+            color: #262626;
+            font-size: 17px;
+        }
+        .letter_icon_info p:nth-child(1){
+            background: url("{{ order.site.domain }}/static/defro/img/letter/name.png") no-repeat left center;
+        }
+        .letter_icon_info p:nth-child(2){
+            background: url("{{ order.site.domain }}/static/defro/img/letter/location.png") no-repeat left center;
+        }
+        .letter_icon_info p:nth-child(3){
+            background: url("{{ order.site.domain }}/static/defro/img/letter/phone.png") no-repeat left center;
+        }
+        .letter_icon_info p:nth-child(4){
+            background: url("{{ order.site.domain }}/static/defro/img/letter/dog.png") no-repeat left center;
+        }
+        .letter_icon_info{
+            margin-bottom: 30px;
+        }
+        .letter_details_caption_delivery:before{
+            background: #fff url("{{ order.site.domain }}/static/defro/img/letter/car.png") no-repeat left 14px center;
+        }
+        .letter_details_caption_delivery:after{
+            height: 140px;
+        }
+        .letter_details_caption_delivery{
+            margin-bottom: 15px;
+        }
+        .letter_icon_second p:nth-child(1){
+            background: url("{{ order.site.domain }}/static/defro/img/letter/purse.png") no-repeat left center;
+        }
+        .letter_icon_second p:nth-child(2){
+            background: url("{{ order.site.domain }}/static/defro/img/letter/load.png") no-repeat left center;
+        }
+        .letter_icon_second p:nth-child(3){
+            background: url("{{ order.site.domain }}/static/defro/img/letter/comment.png") no-repeat left center;
+        }
+        .letter_icon_second p{
+            margin-bottom: 10px;
+        }
+        .letter_icon_second{
+            margin-bottom: 40px;
+        }
+        .letter_content{
+            border: 1px solid #dddddd;
+            padding: 20px 33px 10px 40px;
+        }
+        .letter_content_second{
+            border: 1px solid #dddddd;
+            border-top: 0;
+            border-bottom: 0;
+            padding: 30px 15px 50px;
+            background-color: #fff;
+        }
+        .letter_contacts_block p{
+            padding: 6px 0;
+            padding-left: 35px;
+            color: #3e3e3e;
+            margin-bottom: 5px;
+        }
+        .letter_contacts_block p:nth-child(1){
+            background: url("{{ order.site.domain }}/static/defro/img/letter/location.png") no-repeat left center;
+        }
+        .letter_contacts_block p:nth-child(2){
+            background: url("{{ order.site.domain }}/static/defro/img/letter/phone.png") no-repeat left center;
+        }
+        .letter_contacts_block p:nth-child(3){
+            background: url("{{ order.site.domain }}/static/defro/img/letter/dog.png") no-repeat left center;
+        }
+        .letter_contacts_block{
+            display: inline-block;
+        }
+        .letter_contacts_block:nth-child(1){
+            margin-right: 20px;
+        }
+        .letter_social_groups{
+            border: 1px solid #dddddd;
+            text-align: center;
+            color: #343434;
+            background-color: #fff;
+        }
+        .letter_social_groups_caption{
+            margin: 13px 0;
+        }
+        .letter_social_groups a{
+            width: 28px;
+            height: 28px;
+            display: inline-block;
+            margin: 0 1px;
+        }
+        .letter_social_groups a:nth-child(2){
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/fb.png") no-repeat center center;
+        }
+        .letter_social_groups a:nth-child(2):hover{
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/fb_a.png") no-repeat center center;
+        }
+        .letter_social_groups a:nth-child(3){
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/vk.png") no-repeat center center;
+        }
+        .letter_social_groups a:nth-child(3):hover{
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/vk_a.png") no-repeat center center;
+        }
+        .letter_social_groups a:nth-child(4){
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/mail.png") no-repeat center center;
+        }
+        .letter_social_groups a:nth-child(4):hover{
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/mail_a.png") no-repeat center center;
+        }
+        .letter_social_groups a:nth-child(5){
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/tw.png") no-repeat center center;
+        }
+        .letter_social_groups a:nth-child(5):hover{
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/tw_a.png") no-repeat center center;
+        }
+        .letter_social_groups a:nth-child(6){
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/od.png") no-repeat center center;
+        }
+        .letter_social_groups a:nth-child(6):hover{
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/od_a.png") no-repeat center center;
+        }
+        .letter_social_groups a:nth-child(7){
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/p.png") no-repeat center center;
+        }
+        .letter_social_groups a:nth-child(7):hover{
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/p_a.png") no-repeat center center;
+        }
+        .letter_social_groups a:nth-child(8){
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/google.png") no-repeat center center;
+        }
+        .letter_social_groups a:nth-child(8):hover{
+            background: url("{{ order.site.domain }}/static/defro/img/tovar/google_a.png") no-repeat center center;
+        }
+        .letter_avto{
+            border: 1px solid #dddddd;
+            padding: 10px;
+            margin: 20px 10px 10px;
+            font-size: 12px;
+        }
+    </style>
 </head>
+
 <body>
-	<div class="container-fluid bgc_change">
-		<div class="container">
-			<div class="letter_container">
-				<img class="letter_logo" src="{{ request.get_host }}{% static 'defro/img/logo.png' %}" alt="">
-				<div class="letter_content">
-					<p class="letter_caption">Здравствуйте, <span>{{ order.user.get_full_name }}</span>!</p>
-					<p class="letter_thx">Спасибо, Ваш заказ принят!</p>
-					<p class="letter_confirm">Наш менеджер обязательно свяжется с Вами для уточнения всех деталей и подтверждения заказа.</p>
-
-					<div class="letter_details">
-						<p class="letter_details_caption">Детали заказа № {{ order.number }} <a href="#">Распечатать</a></p>
-						<div class="letter_details_tovar">
-							<ul>
-                                {% for line in lines %}
-                                    <li>
-                                        <img src="{{ line.product.primary_image.url }}" alt="">
-                                        <div class="letter_details_name_number">
-                                            <p class="letter_details_name">{{ line.product.product_class.name }} {{ line.product.title }} </p>
-                                            <span>{{ line.quantity }} шт.</span>
-                                        </div>
-                                        <p class="letter_details_price">{{ line.line_price_incl_tax }} {{ order.currency }}</p>
-                                    </li>
-                                {% endfor %}
-							</ul>
-							<p class="letter_details_sum">Итого: <span>{{ order.total_price  }} {{ order.currency }}</span></p>
-						</div>
-					</div>
-					<div class="letter_details">
-						<p class="letter_details_caption letter_details_caption_contact">Контактные данные</p>
-						<div class="letter_icon_info">
-							<p>Имя: <span>{{ order.name }}</span></p>
-							<p>Адрес: <span>{{ order.city }}</span></p>
-							<p>E-mail: <span>{{ order.guest_email }}</span></p>
-						</div>
-					</div>
-					<div class="letter_details">
-						<p class="letter_details_caption letter_details_caption_delivery">Доставка и оплата</p>
-						<div class="letter_icon_info letter_icon_second">
-							<p>Способ оплаты: <span>{{ order.sources.source_type.name }} </span></p>
-							<p>Способ доставки: <span>{{ order.shipping_method }}</span></p>
-                            {% if order.notes %}
-                                <p>Комментарий к заказу: <span>{{ order.notes.message }}</span></p>
+    <div class="container-fluid bgc_change">
+        <div class="container">
+            <div class="letter_container">
+                {% if site_logo %}
+                    <img class="letter_logo" src="{{ order.site.domain }}{{ site_logo.url }}" alt="">
+                {% else %}
+                    <img class="letter_logo" src="{{ order.site.domain }}{% static 'defro/img/logo.png' %}" alt="">
+                {% endif %}
+                <div class="letter_content">
+                    <p class="letter_caption">Здравствуйте, <span>{{ order.user.get_full_name }}</span>!</p>
+                    <p class="letter_thx">Спасибо, Ваш заказ принят!</p>
+                    <p class="letter_confirm">Наш менеджер обязательно свяжется с Вами для уточнения всех деталей и подтверждения заказа.</p>
+                    <div class="letter_details">
+                        <p class="letter_details_caption">Детали заказа № {{ order.number }} <a href="#">Распечатать</a></p>
+                        <div class="letter_details_tovar">
+                            <ul>
+                            {% for line in lines %}
+                                <li>
+                                    <img src="{{ order.site.domain }}{{ line.product.primary_image.original.url }}" alt="">
+                                    <div class="letter_details_name_number">
+                                        <p class="letter_details_name">{{ line.product.product_class.name }} {{ line.product.title }} </p>
+                                        <span>{{ line.quantity }} шт.</span>
+                                    </div>
+                                    <p class="letter_details_price">{{ line.line_price_incl_tax }} {{ order.currency }}</p>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                            <p class="letter_details_sum">Итого: <span>{{ order.total_price  }} {{ order.currency }}</span></p>
+                        </div>
+                    </div>
+                    <div class="letter_details">
+                        <p class="letter_details_caption letter_details_caption_contact">Контактные данные</p>
+                        <div class="letter_icon_info">
+                            <p>Имя: <span>{{ order.name }}</span></p>
+                            <p>Адрес: <span>{{ order.city }}</span></p>
+                            <p>E-mail: <span>{{ order.guest_email }}</span></p>
+                        </div>
+                    </div>
+                    <div class="letter_details">
+                        <p class="letter_details_caption letter_details_caption_delivery">Доставка и оплата</p>
+                        <div class="letter_icon_info letter_icon_second">
+                            <p>Способ оплаты: <span>{{ order.payment_method.name }} </span></p>
+                            <p>Способ доставки: <span>{{ order.shipping_method }}</span></p>
+                            {% if order.comment %}
+                                <p>Комментарий к заказу: <span>{{ order.comment }}</span></p>
                             {% else %}
-							    <p>Комментарий к заказу: <span>Нет</span></p>
+                                <p>Комментарий к заказу: <span>Нет</span></p>
                             {% endif %}
-						</div>
-					</div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="letter_content_second">
+                    <div class="letter_contacts_block">
+                        <p>04073, г.Киев, ул Сирецкая, 9 оф.15</p>
+                        <p>(044) 383-06-30, ({{ phone_numbers.kievstar|first|slice:':3' }})) {{ phone_numbers.kievstar|first|slice:'4:' }}, <br> ({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}, ({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</p>
+                        <p>defro.com.ua@mail.ua</p>
+                    </div>
+                    <div class="letter_contacts_block">
+                        <p>18000, г. Черкассы, ул Смелянская, 159/3</p>
+                        <p>(0472) 50-03-60, (067) 377-27-92,<br> (066) 583-35-28, (063) 025-97-88</p>
+                        <p>info@defro.com.ua</p>
+                    </div>
+                </div>
 
-				</div>
-
-
-				<div class="letter_content_second">
-					<div class="letter_contacts_block">
-						<p>04073, г.Киев, ул Сирецкая, 9 оф.15</p>
-						<p>(044) 383-06-30, ({{ phone_numbers.kievstar|first|slice:':3' }})) {{ phone_numbers.kievstar|first|slice:'4:' }}, <br> ({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}, ({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</p>
-						<p>defro.com.ua@mail.ua</p>
-					</div>
-					<div class="letter_contacts_block">
-						<p>18000, г. Черкассы, ул Смелянская, 159/3</p>
-						<p>(0472) 50-03-60, (067) 377-27-92,<br> (066) 583-35-28, (063) 025-97-88</p>
-						<p>info@defro.com.ua</p>
-					</div>
-				</div>
-
-				<div class="letter_social_groups">
-					<p class="letter_social_groups_caption">Мы в сети. Присоединяйтесь!</p>
-					<a href="{{ social_networks_refs.facebook|first }}"></a>
-					<a href="{{ social_networks_refs.vkontakte|first }}"></a>
-					<a href="{{ social_networks_refs.mailru|first }}"></a>
-					<a href="{{ social_networks_refs.twitter|first }}"></a>
-					<a href="{{ social_networks_refs.odnoklassniki|first }}"></a>
-					<a href="{{ social_networks_refs.pinterest|first }}"></a>
-					<a href="{{ social_networks_refs.google|first }}"></a>
-					<p class="letter_avto">Это письмо создано автоматически, пожалуйста, не отвечайте на него.</p>
-				</div>
-			</div>
-		</div>
-	</div>
+                <div class="letter_social_groups">
+                    <p class="letter_social_groups_caption">Мы в сети. Присоединяйтесь!</p>
+                    <a href="{{ social_networks_refs.facebook|first }}"></a>
+                    <a href="{{ social_networks_refs.vkontakte|first }}"></a>
+                    <a href="{{ social_networks_refs.mailru|first }}"></a>
+                    <a href="{{ social_networks_refs.twitter|first }}"></a>
+                    <a href="{{ social_networks_refs.odnoklassniki|first }}"></a>
+                    <a href="{{ social_networks_refs.pinterest|first }}"></a>
+                    <a href="{{ social_networks_refs.google|first }}"></a>
+                    <p class="letter_avto">Это письмо создано автоматически, пожалуйста, не отвечайте на него.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
-<script src="{{ request.get_host }}{% static 'defro/js/jquery-2-0-0.js' %}"></script>
-<script src="{{ request.get_host }}{% static 'defro/js/jquery.ui-slider.js' %}"></script>
-<script src="{{ request.get_host }}{% static 'defro/js/bootstrap.min.js' %}"></script>
+<script src="{{ order.site.domain }}{% static 'defro/js/jquery-2-0-0.js' %}"></script>
+<script src="{{ order.site.domain }}{% static 'defro/js/jquery.ui-slider.js' %}"></script>
+<script src="{{ order.site.domain }}{% static 'defro/js/bootstrap.min.js' %}"></script>
 
 
 </html>

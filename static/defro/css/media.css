@@ -2837,6 +2837,7 @@
         position: relative;
         left: 110px;
         float: none;
+        width: 150px;
     }
     .tovar_second_info .left_filter_collapse .well {
         padding: 0;
