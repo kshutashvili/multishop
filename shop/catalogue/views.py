@@ -129,6 +129,10 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
             context['max_price'] = int(max(price_range))
         except ValueError:
             pass
+        context['price_range_min'] = int(self.request.GET.get(
+            'price_range_min', context['min_price']))
+        context['price_range_max'] = int(self.request.GET.get(
+            'price_range_max', context['max_price']))
         return context
 
 

@@ -1,9 +1,13 @@
 $(document).ready(function(){
+min = jQuery("#slider_price").data('min-price');
+max = jQuery("#slider_price").data('max-price');
+price_range_min = jQuery("#slider_price").data('price-range-max');
+price_range_max = jQuery("#slider_price").data('price-range-min');
 
 jQuery("#slider_price").slider({
-  min: 0,
-  max: 30000,
-  values: [5000,20000],
+  min: min,
+  max: max,
+  values: [price_range_max, price_range_min],
   range: true,
       stop: function(event, ui) {
           jQuery("input#minCost").val(jQuery("#slider_price").slider("values",0));
