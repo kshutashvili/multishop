@@ -4,14 +4,15 @@ import operator
 import redis
 from django.conf import settings
 from django.contrib.sites.models import Site
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, send_mail
 from django.core.management import call_command
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.template import Context
-from django.template.loader import get_template
+from django.template.loader import get_template, render_to_string
 from django.urls import reverse
+from django.utils.html import strip_tags
 from django.utils.translation import get_language
 from django.utils.translation import ugettext_lazy as _
 from oscar.apps.catalogue.abstract_models import AbstractProduct, \
@@ -20,6 +21,7 @@ from oscar.apps.catalogue.abstract_models import AbstractProduct, \
 from redis.exceptions import ConnectionError
 
 from shop.order.models import Order
+from contacts.models import PhoneNumber, SocialNetRef
 
 
 class Product(AbstractProduct):
@@ -190,16 +192,21 @@ def on_order_create(sender, instance, created, **kwargs):
     template = get_template('defro/order_notification.html')
     context = Context({
         'order': instance,
-        'lines': instance.basket.lines.all()
+        'lines': instance.basket.lines.all(),
+        'phone_numbers': PhoneNumber.objects.filter(site__id=instance.site.id),
+        'social_networks_refs': SocialNetRef.objects.filter(site__id=instance.site.id)
     })
     subject = 'Order notification'
     from_email = settings.DEFAULT_FROM_EMAIL
     to = instance.guest_email
-    text_content = plaintext.render(context)
-    html_content = template.render(context)
-    email = EmailMultiAlternatives(subject, text_content, from_email, [to])
-    email.attach_alternative(html_content, "text/html")
-    email.send(fail_silently=True)
+
+    html_content = render_to_string('defro/order_notification.html', context)
+    text_content = render_to_string('defro/order_notification.txt', context)
+
+    msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+    msg.content_subtype = 'html'
+    msg.mixed_subtype = 'related'
+    msg.send()
 
 
 def update_catalogue(sender, instance, created, **kwargs):
