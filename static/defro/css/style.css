@@ -2825,7 +2825,7 @@ a.comment_button_uniq{
 .user_comment_block .rating_number, .user_comment_block .br-wrapper {
     vertical-align: top;
 }
-a.otziv_polezen_da{
+.otziv_polezen_da{
 	color: #3bb854;
 	display: inline-block;
 	vertical-align: top;
@@ -2834,17 +2834,17 @@ a.otziv_polezen_da{
 	margin-right: 4px;
 	text-decoration: none;
 }
-a.otziv_polezen_da span{
+.otziv_polezen_da span{
 	color: #6c6c6d;
 	margin-left: 5px;
 }
-a.otziv_polezen_net{
+.otziv_polezen_net{
 	color: #ed1b24;
 	display: inline-block;
 	vertical-align: top;
 	text-decoration: none;
 }
-a.otziv_polezen_net span{
+.otziv_polezen_net span{
 	color: #6c6c6d;
 	margin-left: 5px;
 }

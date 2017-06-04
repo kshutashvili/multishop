@@ -45,7 +45,7 @@
                 <p class="category_block_caption before_owl">{{ category.name }}</p>
                 <div style="height:'100%'">
                     <div id="tovar_desc">
-                        {{ category.description|linebreaksbr }}
+                        {{ category.description|safe }}
                     </div>
                     <a class="read-next" href="#">Подробнее</a>
                 </div>

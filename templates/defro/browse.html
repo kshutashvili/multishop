@@ -318,12 +318,12 @@
 
                                                         {% if session.availability.is_available_to_buy %}
                                                             <p class="line_through">
-                                                                {{ session.price.previous|currency:session.price.currency }} </p>
+                                                                {{ session.price.previous|floatformat }} <span>{{ session.price.currency }}</span> </p>
                                                             <p class="catalog_item_price">
                                                                 {% if session.price.is_tax_known %}
-                                                                    {{ session.price.incl_tax|currency:session.price.currency }}
+                                                                    {{ session.price.incl_tax|floatformat }} <span>{{ session.price.currency }}</span>
                                                                 {% else %}
-                                                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                                                    {{ session.price.excl_tax|floatformat }} <span>{{ session.price.currency }}</span>
                                                                 {% endif %}</p>
                                                             {% if request.session.compare_list and product.id in request.session.compare_list %}
                                                                 <a href="#!"
