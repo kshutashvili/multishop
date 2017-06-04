@@ -1,25 +1,26 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import operator
 
 import redis
 from django.conf import settings
 from django.contrib.sites.models import Site
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, mail_admins
 from django.core.management import call_command
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.shortcuts import reverse
 from django.template import Context
 from django.template.loader import get_template
-from django.urls import reverse
-from django.utils.translation import get_language
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, get_language
 from oscar.apps.catalogue.abstract_models import AbstractProduct, \
     AbstractProductAttributeValue, AbstractProductClass, \
     AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup
+from oscar.core.loading import get_class
 from redis.exceptions import ConnectionError
 
-from shop.order.models import Order
+order_placed = get_class('order.signals', 'order_placed')
 
 
 class Product(AbstractProduct):
@@ -181,25 +182,28 @@ class AttributeOptionGroup(AbstractAttributeOptionGroup):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
 
-@receiver(post_save, sender=Order)
-def on_order_create(sender, instance, created, **kwargs):
-    if not created:
+@receiver(order_placed)
+def on_order_create(order, user, **kwargs):
+    if not order.guest_email:
         return
 
     plaintext = get_template('defro/order_notification.txt')
     template = get_template('defro/order_notification.html')
     context = Context({
-        'order': instance,
-        'lines': instance.basket.lines.all()
+        'order': order,
+        'lines': order.basket.lines.all()
     })
-    subject = 'Order notification'
+    subject = _('Order notification')
     from_email = settings.DEFAULT_FROM_EMAIL
-    to = instance.guest_email
+    to = order.guest_email
     text_content = plaintext.render(context)
     html_content = template.render(context)
     email = EmailMultiAlternatives(subject, text_content, from_email, [to])
     email.attach_alternative(html_content, "text/html")
-    email.send(fail_silently=True)
+    try:
+        email.send(fail_silently=False)
+    except Exception as e:
+        mail_admins('Email error', unicode(e), fail_silently=True)
 
 
 def update_catalogue(sender, instance, created, **kwargs):
