@@ -30,7 +30,14 @@
                     <div class="checkbox">
                         {% for item in field %}
                             {{ item.tag }}
-                            <label for="{{ item.id_for_label }}">{{ item.choice_label }}</label>
+                            <label for="{{ item.id_for_label }}">
+                                {{ item.choice_label }}
+                                <span>({{ item.product_count }})</span>
+                                <div class="label_after">
+                                    <p>Товаров: <span>{{ item.product_count }}</span></p>
+                                    <a href="?{{ item.name }}={{ item.choice_value }}">Посмотреть</a>
+                                </div>
+                            </label>
                             <br>
                         {% endfor %}
                     </div>

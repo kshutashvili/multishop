@@ -1,11 +1,11 @@
 from __future__ import unicode_literals
 
-from collections import defaultdict
-
 from django import forms
 
 from shop.catalogue.models import (AttributeOptionGroup, Product,
                                    ProductAttribute)
+from shop.catalogue.widgets import CustomFilterCheckboxSelectMultiple
+from shop.catalogue.fields import CustomFilterMultipleChoiceField
 
 
 class FilterForm(forms.Form):
@@ -24,12 +24,12 @@ class FilterForm(forms.Form):
     def make_filter(self):
         for group in AttributeOptionGroup.objects.filter(site=self.site):
             self.fields[u'filter_%s' % group.name] = \
-                forms.MultipleChoiceField(
-                    widget=forms.CheckboxSelectMultiple(),
+                CustomFilterMultipleChoiceField(
+                    widget=CustomFilterCheckboxSelectMultiple(),
                     label=group.name,
                     choices=[
-                        (i.id, u'%s (%s)' % (i.option, Product.objects.filter(
-                            attribute_values__value_option=i).count()))
+                        (i.id, i.option, Product.objects.filter(
+                            attribute_values__value_option=i).count())
                         for i in group.options.all()],
                     required=False
-                )
+            )
