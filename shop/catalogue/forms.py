@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django import forms
+from unidecode import unidecode
 
 from shop.catalogue.models import (AttributeOptionGroup, Product,
                                    ProductAttribute)
@@ -23,13 +24,13 @@ class FilterForm(forms.Form):
 
     def make_filter(self):
         for group in AttributeOptionGroup.objects.filter(site=self.site):
-            self.fields[u'filter_%s' % group.name] = \
-                CustomFilterMultipleChoiceField(
-                    widget=CustomFilterCheckboxSelectMultiple(),
-                    label=group.name,
-                    choices=[
-                        (i.id, i.option, Product.objects.filter(
-                            attribute_values__value_option=i).count())
-                        for i in group.options.all()],
-                    required=False
+            name = u'filter_%s' % unidecode(group.name).replace(' ', '_')
+            self.fields[name] = CustomFilterMultipleChoiceField(
+                widget=CustomFilterCheckboxSelectMultiple(),
+                label=group.name,
+                choices=[
+                    (i.id, i.option, Product.objects.filter(
+                        attribute_values__value_option=i).count())
+                    for i in group.options.all()],
+                required=False
             )
