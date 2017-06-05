@@ -12,13 +12,16 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import reverse
 from django.template import Context
-from django.template.loader import get_template
 from django.utils.translation import ugettext_lazy as _, get_language
-from oscar.apps.catalogue.abstract_models import AbstractProduct, \
-    AbstractProductAttributeValue, AbstractProductClass, \
+from django.template.loader import get_template
+from oscar.apps.catalogue.abstract_models import (
+    AbstractProduct, AbstractProductAttributeValue, AbstractProductClass,
     AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup
+)
 from oscar.core.loading import get_class
 from redis.exceptions import ConnectionError
+
+from contacts.models import PhoneNumber, SocialNetRef
 
 order_placed = get_class('order.signals', 'order_placed')
 
@@ -191,7 +194,11 @@ def on_order_create(order, user, **kwargs):
     template = get_template('defro/order_notification.html')
     context = Context({
         'order': order,
-        'lines': order.basket.lines.all()
+        'lines': order.basket.lines.all(),
+        'phone_numbers': PhoneNumber.objects.filter(site__id=order.site.id),
+        'social_networks_refs': SocialNetRef.objects.filter(
+            site_id=order.site.id
+        )
     })
     subject = _('Order notification')
     from_email = settings.DEFAULT_FROM_EMAIL

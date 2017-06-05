@@ -2583,7 +2583,9 @@
 
 @media screen and (max-width: 460px) {
 
-
+    .more-info {
+        display: none;
+    }
     .header {
         height: 180px;
         box-shadow: none;
@@ -2634,7 +2636,7 @@
         z-index: 820;
     }
     .third_block {
-        background-size: 2700px;
+        background-size: 2800px;
     }
     .third_block h3 {
         font: 32px "ArialBold";
@@ -2835,6 +2837,7 @@
         position: relative;
         left: 110px;
         float: none;
+        width: 150px;
     }
     .tovar_second_info .left_filter_collapse .well {
         padding: 0;

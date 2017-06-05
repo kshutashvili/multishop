@@ -22,11 +22,6 @@ class FilterForm(forms.Form):
         self.make_filter()
 
     def make_filter(self):
-        for attr in ProductAttribute.objects.filter(type__in=self.attr_fields):
-            self.fields['filter_%s' % attr.code] = self.attr_fields[attr.type](
-                label=attr.name,
-                required=False
-            )
         for group in AttributeOptionGroup.objects.filter(site=self.site):
             self.fields[u'filter_%s' % group.name] = \
                 forms.MultipleChoiceField(

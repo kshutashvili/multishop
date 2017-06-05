@@ -37,10 +37,8 @@ class SolrProductSearchHandler(OscarSolrProductSearchHandler):
         if self.options:
             for k in self.options:
                 if k.startswith('filter_') and self.options[k]:
-                    name = k.replace('filter_', '')
-                    sqs = sqs.filter(attributes=name,
-                                     attribute_option_values__in=self.options[
-                                         k])
+                    sqs = sqs.filter(
+                        attribute_option_values__in=self.options[k])
         if self.categories:
             # We use 'narrow' API to ensure Solr's 'fq' filtering is used as
             # opposed to filtering using 'q'.
