@@ -71,5 +71,7 @@ class FilterForm(forms.Form):
             )
 
     def query(self):
-        return Product.objects.filter(categories__in=self.categories) \
-            if self.categories else Product.objects.all()
+        query = Product.objects.filter(site=self.site)
+        if self.categories:
+            return query.filter(categories__in=self.categories)
+        return query
