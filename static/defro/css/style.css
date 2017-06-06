@@ -4863,7 +4863,7 @@ a.compare_table_clean_button{
 	color: #1b6604;
 	font-family: 'ArialBold';
 }
-.mobile_menu
+.mobile_menu, .head_menu
 {
     display: none;
 }
@@ -5055,7 +5055,6 @@ a.compare_table_clean_button{
 {
     position: absolute;
     top: 65px;
-    left: 3px;
 }
 .headhesive .top_menu
 {
@@ -5078,12 +5077,27 @@ a.compare_table_clean_button{
 .headhesive .contacts {  
     display: none;
 }
-.headhesive .mobile_menu {    
-     background: url("../img/mob_menu.png") no-repeat;
-     height: 14px;
-     width: 33px;
-     margin: 20px 10px;
-    display: block;
+@media (max-width: 611px) {
+    .headhesive .mobile_menu {    
+        background: url("../img/mob_menu.png") no-repeat;
+        height: 14px;
+        width: 33px;
+        margin: 20px 10px;
+        display: block;
+        float: left;
+    }
+}
+.headhesive .head_menu {    
+    color: #ed1b24;
+    border: 1px solid #ed1b24;
+    text-transform: uppercase;
+    font-size: 16px;
+    background: url("../img/lines.png") no-repeat right 15px center;
+    padding: 12px 5px;
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    width: 130px;
     float: left;
 }
 .headhesive .header_right {

@@ -638,7 +638,7 @@
     }
     .table_main_har {
         margin-top: 80px;
-        width: 680px;
+        /*width: 680px;*/
     }
     .table_main_har ul li:first-child {
         width: 100%;
@@ -1342,7 +1342,7 @@
     }
     /*header_scroll*/
     .headhesive .header_right {   
-        width: 290px;
+        width: 260px;
     }
     .headhesive .search input {
         width: 250px;
@@ -1461,7 +1461,7 @@
     }  
     /*header_scroll*/
     .headhesive .header_right {
-        width: 240px;
+        width: 205px;
     }
     .headhesive .search input {
         width: 200px;

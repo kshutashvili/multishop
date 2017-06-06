@@ -41,6 +41,10 @@ $(document).ready(function(){
         $('.top_menu').show();
         $('.shadow').show();
     });
+    // $('.head_menu').click(function () {
+    //     $('.top_menu').show();
+    //     $('.shadow').show();
+    // });
     $('.shadow').click(function () {
         $('.top_menu, .shadow, .modal_zakaz_zvon, .modal_mobile_sort').hide();
     });
@@ -131,7 +135,7 @@ $(document).ready(function(){
                 $('.headhesive .more_contacts').show().addClass('open');      
             }
     }); 
-    $('.headhesive .mobile_menu').click(function(){
+    $('.headhesive .head_menu').click(function(){
         if($('.headhesive .header_scroll_catalog').hasClass('open'))
             {
                 $('.headhesive .header_scroll_catalog').hide().removeClass('open');   
