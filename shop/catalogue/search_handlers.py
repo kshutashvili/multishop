@@ -3,6 +3,8 @@ from oscar.apps.catalogue.search_handlers import \
     SolrProductSearchHandler as OscarSolrProductSearchHandler
 from oscar.core.loading import get_model
 
+from haystack.query import SQ
+
 
 def get_product_search_handler_class():
     return SolrProductSearchHandler
@@ -30,18 +32,32 @@ class SolrProductSearchHandler(OscarSolrProductSearchHandler):
         if self.price_range:
             sqs = sqs.filter(
                 price__range=[self.price_range['min'], self.price_range['max']])
-        if self.power:
-            conf = get_model('config', 'Configuration').get_solo()
-            sqs = sqs.filter(attributes=conf.power_attribute,
-                             attribute_values__gte=self.power)
         if self.options:
+            group_attributes = []
             attributes = []
             for k in self.options:
                 if k.startswith('filter_') and self.options[k]:
-                    attributes += self.options[k]
+                    code = k.replace('filter_', '')
+                    for item in self.options[k]:
+                        values = item.split(',')
+                        attributes.append({
+                            'attribute_codes': code,
+                            'attribute_values__range': (values[0], values[1]),
+                        })
+                if k.startswith('group_filter_') and self.options[k]:
+                    group_attributes += self.options[k]
             if attributes:
-                sqs = sqs.filter(
-                    attribute_option_values__in=attributes)
+                sq_objetcs = SQ()
+                i = 0
+                for attribute in attributes:
+                    if i == 0:
+                        sq_objetcs = SQ(**attribute)
+                    else:
+                        sq_objetcs |= SQ(**attribute)
+                    i += 1
+                sqs = sqs.filter(sq_objetcs)
+            if group_attributes:
+                sqs = sqs.filter(attribute_option_values__in=group_attributes)
         if self.categories:
             # We use 'narrow' API to ensure Solr's 'fq' filtering is used as
             # opposed to filtering using 'q'.

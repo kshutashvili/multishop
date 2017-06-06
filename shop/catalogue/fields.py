@@ -8,7 +8,7 @@ class CustomFilterMultipleChoiceField(MultipleChoiceField):
     def valid_value(self, value):
         "Check to see if the provided value is a valid choice"
         text_value = force_text(value)
-        for k, v, count in self.choices:
+        for k, v, params in self.choices:
             if isinstance(v, (list, tuple)):
                 # This is an optgroup, so look inside the group for options
                 for k2, v2 in v:
@@ -18,3 +18,9 @@ class CustomFilterMultipleChoiceField(MultipleChoiceField):
                 if value == k or text_value == force_text(k):
                     return True
         return False
+
+
+class NonValidationMultipleChoiceField(CustomFilterMultipleChoiceField):
+
+    def validate(self, value):
+        pass

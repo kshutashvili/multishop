@@ -91,7 +91,6 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
 
     def get(self, request, *args, **kwargs):
         self.site = get_current_site(request)
-        self.form = FilterForm(self.site, request.GET)
         try:
             slug = kwargs.get('category_slug') or kwargs['slug']
             self.category = Category.objects.get(slug=slug)
@@ -100,6 +99,8 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
             categories = Category.objects.none()
         else:
             categories = (self.category,)
+        self.form = FilterForm(
+            self.site, data=request.GET, categories=categories)
         options = []
         if self.form.is_valid():
             options = self.form.cleaned_data

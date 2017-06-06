@@ -26,6 +26,7 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
     rating = indexes.IntegerField(null=True, faceted=True)
 
     attributes = indexes.MultiValueField()
+    attribute_codes = indexes.MultiValueField()
     attribute_values = indexes.MultiValueField()
     attribute_option_values = indexes.MultiValueField()
 
@@ -46,6 +47,9 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
 
     def prepare_attributes(self, obj):
         return [attribute.name for attribute in obj.attributes.all()]
+
+    def prepare_attribute_codes(self, obj):
+        return [attribute.code for attribute in obj.attributes.all()]
 
     def prepare_attribute_values(self, obj):
         return [val.value for val in obj.attribute_values.all()]
