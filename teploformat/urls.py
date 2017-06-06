@@ -52,6 +52,11 @@ urlpatterns += [
                ] + static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
 
+if 'rosetta' in settings.INSTALLED_APPS:
+    urlpatterns += [
+        url(r'^rosetta/', include('rosetta.urls')),
+    ]
+
 urlpatterns += i18n_patterns(
     url(r'^catalugue/get_search_count/$', get_search_count,
         name='get_search_count'),

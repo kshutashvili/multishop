@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'modeltranslation',
     'solo',
     'ckeditor',
+    'rosetta',
 ] + get_core_apps(['shop.catalogue',
                    'shop.promotions',
                    'shop.dashboard.catalogue',
