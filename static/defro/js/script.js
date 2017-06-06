@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
 
+console.log(document.body.scrollTop);
   $('#myTabs a').click(function (e) {
 	  e.preventDefault()
 	  $(this).tab('show')

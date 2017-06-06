@@ -5269,3 +5269,10 @@ img + .block155h {
 @media (max-width: 400px){
 
 }
+
+.catalog_item_block img:hover + .catalog_item_block_caption a {
+	color: #ed1b24;
+}
+.catalog_item_block_caption a {
+	color: #ed1b24;
+}

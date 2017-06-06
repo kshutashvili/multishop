@@ -272,7 +272,9 @@
                                                         <div class="before_free"></div>
                                                     {% endif %}
                                                     {% thumbnail product.primary_image.original "155" as thumb %}
-                                                        <img src="{{ thumb.url }}">
+                                                        <a href="{{ product.get_absolute_url }}">
+                                                            <img src="{{ thumb.url }}">
+                                                        </a>
                                                     {% endthumbnail %}
                                                     <p class="catalog_item_block_caption">
                                                         <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
