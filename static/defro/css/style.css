@@ -155,6 +155,9 @@ ul{
 	background: url("../img/call.png") no-repeat left center;
     position: relative;
 }
+.contacts a.zakaz_zvon:hover {
+    color: #565555;
+}
 .contacts a.zakaz_zvon::after{
     content:'';
     border-bottom: 1px dashed #ed1b24;
@@ -1255,6 +1258,9 @@ a.choose_kotel:hover{
 	display: inline-block;
 	padding-left: 0;
 }
+.bottom_menu .contact_ul li a.predstav:hover {
+	color: #ed1b24;
+}
 .bottom_menu .time_work{
 	background: url("../img/footer/time.png") no-repeat left top;
 	padding-top: 3px;
@@ -1366,6 +1372,9 @@ a.choose_kotel:hover{
     text-decoration: none;
     position: relative;
     font: 14px "ArialRegular";
+}
+.breadcrumb > li > a:hover {
+    color: #ed1b24;
 }
 .breadcrumb > li > a > img {
     margin-right: 10px;
