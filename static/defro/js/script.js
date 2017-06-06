@@ -1,7 +1,6 @@
 
 $(document).ready(function(){
 
-console.log(document.body.scrollTop);
   $('#myTabs a').click(function (e) {
 	  e.preventDefault()
 	  $(this).tab('show')
@@ -47,7 +46,7 @@ console.log(document.body.scrollTop);
     //     $('.shadow').show();
     // });
     $('.shadow').click(function () {
-        $('.top_menu, .shadow, .modal_zakaz_zvon, .modal_mobile_sort').hide();
+        $('.top_menu, .shadow, .modal_zakaz_zvon, .modal_mobile_sort, .buy_button_modal, .credit_button_modal, .ask_button_modal, .request_button_modal_second, .answer_button_modal, .request_button_modal_third, .request_button_modal').hide();
     });
     $('.more_block').click(function () {
         var more_block =  $(this).siblings('.more_info')

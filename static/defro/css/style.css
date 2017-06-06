@@ -5276,3 +5276,29 @@ img + .block155h {
 .catalog_item_block_caption a {
 	color: #ed1b24;
 }
+.modal_basket_goback:hover {
+	color: #ed1b24;
+}
+.zakaz_change_zakaz:hover {
+	color: #ed1b24;
+}
+
+.letter_details_tovar input::-webkit-input-placeholder {color:#999999;}
+.letter_details_tovar input::-moz-placeholder          {color:#999999;}
+.letter_details_tovar input:-moz-placeholder           {color:#999999;}
+.letter_details_tovar input:-ms-input-placeholder      {color:#999999;}
+
+.letter_details_tovar textarea::-webkit-input-placeholder {color:#999999;}
+.letter_details_tovar textarea::-moz-placeholder          {color:#999999;}
+.letter_details_tovar textarea:-moz-placeholder           {color:#999999;}
+.letter_details_tovar textarea:-ms-input-placeholder      {color:#999999;}
+
+.letter_details_tovar input:focus::-webkit-input-placeholder {color: transparent}
+.letter_details_tovar input:focus::-moz-placeholder          {color: transparent}
+.letter_details_tovar input:focus:-moz-placeholder           {color: transparent}
+.letter_details_tovar input:focus:-ms-input-placeholder      {color: transparent}
+
+.letter_details_tovar textarea:focus::-webkit-input-placeholder {color: transparent}
+.letter_details_tovar textarea:focus::-moz-placeholder          {color: transparent}
+.letter_details_tovar textarea:focus:-moz-placeholder           {color: transparent}
+.letter_details_tovar textarea:focus:-ms-input-placeholder      {color: transparent}

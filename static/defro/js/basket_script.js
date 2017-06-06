@@ -192,8 +192,9 @@ $(document).ready(function () {
                 }
 
                 $('div.' + $(this).attr("rel")).fadeIn(500);
-                $("body").append("<div id='overlay'></div>");
-                $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+                //$("body").append("<div id='overlay'></div>");
+                //$('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+                $('.shadow').show();
             }
             else {
                 var $errors = $('#basket_error');
@@ -212,8 +213,9 @@ $(document).ready(function () {
         $.post(review_url, $comment_form.serialize(), function () {
             $comment_form.find("input[type=text], textarea").val("");
             $('div.' + $('#submit_comment').attr("rel")).fadeIn(500);
-            $("body").append("<div id='overlay'></div>");
-            $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            //$("body").append("<div id='overlay'></div>");
+            //$('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            $('.shadow').show();
             return false;
         }).fail(function (xhr) {
             if (parseInt(xhr.status) == 409) {
@@ -241,8 +243,9 @@ $(document).ready(function () {
         var outer_this = this;
         $.post($(this).attr('data-oneclick-url'), $('#buy_one_click').serialize(), function () {
             $('div.' + $(outer_this).attr("rel")).fadeIn(500);
-            $("body").append("<div id='overlay'></div>");
-            $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            //$("body").append("<div id='overlay'></div>");
+            //$('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            $('.shadow').show();
         }).fail(function () {
             // Get the snackbar DIV
             var x = document.getElementById("snackbar");
@@ -263,8 +266,9 @@ $(document).ready(function () {
         $.post($(this).attr('data-oneclick-url'), $('#buy_one_click_modal').serialize(), function (data) {
             $('.close').trigger('click');
             $('div.' + $(outer_this).attr("rel")).fadeIn(500);
-            $("body").append("<div id='overlay'></div>");
-            $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            //$("body").append("<div id='overlay'></div>");
+            //$('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            $('.shadow').show();
             setTimeout(function () {
                 location.href = data;
             }, 3000);
@@ -362,8 +366,9 @@ $(document).ready(function () {
         $.post($('#call_request_form').attr('action'), $('#call_request_form').serialize(), function () {
             $('.close').trigger('click');
             $('div.' + $(outer_this).attr("rel")).fadeIn(500);
-            $("body").append("<div id='overlay'></div>");
-            $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            //$("body").append("<div id='overlay'></div>");
+            //$('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            $('.shadow').show();
             return false;
         });
     });
