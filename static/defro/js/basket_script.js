@@ -92,14 +92,13 @@ function modal_item_factory(img, upc, name, price, id, quantity) {
 }
 
 function basket_dropdown_item_factory(img, name, quantity, price) {
-    var $container = $('<div class="basket_elem"</div>');
+    var $container = $('<div class="basket_elem"></div>');
     var $img = $('<img src="' + img + '" />');
     var $name = $('<p class="basket_item_name">' + name + '</p>');
     var $quantity = $('<p class="basket_item_number">' + quantity + ' шт</p>');
     var $price = $('<p class="basket_item_price">' + price * quantity + 'грн</p>');
 
     $container.append($img, $name, $quantity, $price);
-
     return $container;
 
 }
@@ -143,9 +142,8 @@ $(document).ready(function () {
                     var $new_dropdown_element = basket_dropdown_item_factory(element['img'], element['title'], element['quantity'], element['price']);
 
                     $basket_items.append($new_item);
-                    $basket_dropdown.append($new_dropdown_element);
+                    $new_dropdown_element.appendTo(basket_dropdown);
                     in_basket.push(element['upc']);
-
                 });
             }
             catch (e) {
