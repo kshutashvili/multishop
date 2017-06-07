@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import math
 from django import forms
 
 from shop.catalogue.models import (AttributeOptionGroup, Product,
@@ -23,13 +24,14 @@ class FilterForm(forms.Form):
         self.make_filter()
 
     def make_filter(self):
-        for attr in ProductAttribute.objects.filter(type__in=self.attr_fields):
+        for attr in ProductAttribute.objects.filter(
+                product_class__site=self.site, type__in=self.attr_fields):
             code = 'filter_%s' % attr.code
             values = list(attr.productattributevalue_set.values_list(
                 'value_%s' % attr.type, flat=True))
             values.sort()
             first = values[0]
-            number = (values[-1] - values[0]) / 5
+            number = int(math.ceil((values[-1] - values[0]) / 5.0))
             choices = []
             for i in range(5):
                 choices.append(
