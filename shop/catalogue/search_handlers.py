@@ -40,9 +40,10 @@ class SolrProductSearchHandler(OscarSolrProductSearchHandler):
                     code = k.replace('filter_', '')
                     for item in self.options[k]:
                         values = item.split(',')
+                        values = range(int(values[0]), int(values[1]) + 1)
                         attributes.append({
                             'attribute_codes': code,
-                            'attribute_values__range': (values[0], values[1]),
+                            'attribute_values__in': values,
                         })
                 if k.startswith('group_filter_') and self.options[k]:
                     group_attributes += self.options[k]
