@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import operator
 
 import redis
+from unidecode import unidecode
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, mail_admins
@@ -183,6 +184,12 @@ class Video(models.Model):
 
 class AttributeOptionGroup(AbstractAttributeOptionGroup):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+
+    def get_name_code(self):
+        return unidecode(self.name).replace(' ', '_')
+
+    def get_filter_param(self):
+        return 'group_filter_{}'.format(self.get_name_code())
 
 
 @receiver(order_placed)

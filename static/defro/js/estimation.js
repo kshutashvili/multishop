@@ -72,6 +72,7 @@ $(document).ready(function(){
 
 $('#choose_kotel_btn').click(function (e) {
 	e.preventDefault();
-	location.href = $(this).attr('data-catalogue-url') + '?power=' + $('#t_power').text();
+	var power = parseInt($('#t_power').text());
+	location.href = $(this).attr('data-catalogue-url') + '?filter_power=' + (power - 2) + ',' + (power + 2);
 });
 
