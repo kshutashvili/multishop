@@ -5,14 +5,14 @@ from django.contrib.flatpages.models import FlatPage as DjangoFlatPage
 
 from contacts.models import PhoneNumber, SocialNetRef, WorkSchedule, Timetable, \
     ContactMessage
-from .models import FlatPage
+from .models import FlatPage, City
 
 admin.site.register(Timetable)
 
 
 @admin.register(PhoneNumber)
 class PhoneNumberAdmin(admin.ModelAdmin):
-    list_display = ('phone', 'operator', 'site')
+    list_display = ('phone', 'operator', 'site', 'city')
     list_filter = ('operator', 'site',)
 
 
@@ -25,13 +25,19 @@ class SocialNetRefAdmin(admin.ModelAdmin):
 @admin.register(WorkSchedule)
 class WorkScheduleAdmin(admin.ModelAdmin):
     filter_horizontal = ('timetable',)
-    list_display = ('schedule_type', 'site')
+    list_display = ('schedule_type', 'site', 'city')
     list_filter = ('schedule_type', 'site')
 
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ('created', 'phone', 'site',)
+
+
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    list_display = ('city_name', 'address')
+    prepopulated_fields = {"slug": ("city_name",)}
 
 
 admin.site.unregister(DjangoFlatPage)

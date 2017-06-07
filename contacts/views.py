@@ -4,12 +4,30 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 
 from website.views import SiteTemplateResponseMixin
-from .models import ContactMessage
+from .models import ContactMessage, City
 from .models import FlatPage
 
 
 class ContactsView(SiteTemplateResponseMixin, TemplateView):
+    template_name = 'contacts_main.html'
+
+    def get(self, request, *args, **kwargs):
+        all_cities = City.objects.all()
+        context = self.get_context_data(**kwargs)
+        context['cities'] = all_cities
+        return self.render_to_response(context)
+
+
+class ContactsByCity(SiteTemplateResponseMixin, TemplateView):
     template_name = 'contacts.html'
+
+    def get(self, request, *args, **kwargs):
+        all_cities = City.objects.all()
+        current_city = request.GET.get('city', None)
+        context = self.get_context_data(**kwargs)
+        context['current_city'] = current_city
+        context['cities'] = all_cities
+        return self.render_to_response(context)
 
 
 class ContactMessageCreateView(SiteTemplateResponseMixin, CreateView):

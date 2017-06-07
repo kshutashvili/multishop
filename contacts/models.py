@@ -15,6 +15,25 @@ SIGN_TYPE = (
 )
 
 
+class City(models.Model):
+    city_name = models.CharField(_('Город'), max_length=50)
+    slug = models.SlugField(_('Название-метка для URL'), max_length=80, unique=True)
+    address = models.CharField(_('Адрес'), max_length=70,
+                               default=_('ул. Смелянская 159/3'))
+    google_maps_api_key = models.CharField(_('Ключ API карт Google'), blank=True,
+                                           max_length=200)
+
+    class Meta:
+        verbose_name = _('Город')
+        verbose_name_plural = _('Города')
+
+    def __unicode__(self):
+        return self.city_name
+
+    def has_map(self):
+        return bool(self.address and self.google_maps_api_key)
+
+
 class PhoneNumber(models.Model):
     class OPERATOR:
         KIEVSTAR = 'kievstar'
@@ -45,6 +64,12 @@ class PhoneNumber(models.Model):
         verbose_name=_('Сайт'),
         related_name='phonenumbers'
     )
+
+    city = models.ForeignKey(City,
+                             verbose_name='Город',
+                             related_name="phones",
+                             blank=True,
+                             null=True)
 
     class Meta:
         verbose_name = _('Номер телефона')
@@ -108,6 +133,11 @@ class Timetable(models.Model):
         _('Время дня'),
         max_length=100
     )
+    city = models.ForeignKey(City,
+                             verbose_name='Город',
+                             related_name="timetables",
+                             blank=True,
+                             null=True)
 
     class Meta:
         verbose_name = _('График работы')
@@ -142,6 +172,11 @@ class WorkSchedule(models.Model):
         verbose_name=_('Сайт'),
         related_name='workschedules'
     )
+    city = models.ForeignKey(City,
+                             verbose_name='Город',
+                             related_name="schedules",
+                             blank=True,
+                             null=True)
 
     class Meta:
         verbose_name = _('Рассписание работы компании')
@@ -191,3 +226,4 @@ class FlatPage(models.Model):
 
     def get_absolute_url(self):
         return reverse('flatpage_detail', kwargs={'flatpage_slug': self.slug})
+
