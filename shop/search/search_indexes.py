@@ -59,7 +59,10 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
                 val.value_option is not None]
 
     def prepare_site(self, obj):
-        return obj.site.pk
+        try:
+            return obj.site.pk
+        except AttributeError:
+            return 0
 
     def read_queryset(self, using=None):
         return self.get_model().browsable.base_queryset()

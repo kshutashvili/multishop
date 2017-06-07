@@ -155,6 +155,9 @@ ul{
 	background: url("../img/call.png") no-repeat left center;
     position: relative;
 }
+.contacts a.zakaz_zvon:hover {
+    color: #565555;
+}
 .contacts a.zakaz_zvon::after{
     content:'';
     border-bottom: 1px dashed #ed1b24;
@@ -1255,6 +1258,9 @@ a.choose_kotel:hover{
 	display: inline-block;
 	padding-left: 0;
 }
+.bottom_menu .contact_ul li a.predstav:hover {
+	color: #ed1b24;
+}
 .bottom_menu .time_work{
 	background: url("../img/footer/time.png") no-repeat left top;
 	padding-top: 3px;
@@ -1366,6 +1372,9 @@ a.choose_kotel:hover{
     text-decoration: none;
     position: relative;
     font: 14px "ArialRegular";
+}
+.breadcrumb > li > a:hover {
+    color: #ed1b24;
 }
 .breadcrumb > li > a > img {
     margin-right: 10px;
@@ -4854,7 +4863,7 @@ a.compare_table_clean_button{
 	color: #1b6604;
 	font-family: 'ArialBold';
 }
-.mobile_menu
+.mobile_menu, .head_menu
 {
     display: none;
 }
@@ -5046,7 +5055,6 @@ a.compare_table_clean_button{
 {
     position: absolute;
     top: 65px;
-    left: 3px;
 }
 .headhesive .top_menu
 {
@@ -5069,12 +5077,27 @@ a.compare_table_clean_button{
 .headhesive .contacts {  
     display: none;
 }
-.headhesive .mobile_menu {    
-     background: url("../img/mob_menu.png") no-repeat;
-     height: 14px;
-     width: 33px;
-     margin: 20px 10px;
-    display: block;
+@media (max-width: 611px) {
+    .headhesive .mobile_menu {    
+        background: url("../img/mob_menu.png") no-repeat;
+        height: 14px;
+        width: 33px;
+        margin: 20px 10px;
+        display: block;
+        float: left;
+    }
+}
+.headhesive .head_menu {    
+    color: #ed1b24;
+    border: 1px solid #ed1b24;
+    text-transform: uppercase;
+    font-size: 16px;
+    background: url("../img/lines.png") no-repeat right 15px center;
+    padding: 12px 5px;
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    width: 130px;
     float: left;
 }
 .headhesive .header_right {
@@ -5246,3 +5269,36 @@ img + .block155h {
 @media (max-width: 400px){
 
 }
+
+.catalog_item_block img:hover + .catalog_item_block_caption a {
+	color: #ed1b24;
+}
+.catalog_item_block_caption a {
+	color: #ed1b24;
+}
+.modal_basket_goback:hover {
+	color: #ed1b24;
+}
+.zakaz_change_zakaz:hover {
+	color: #ed1b24;
+}
+
+.letter_details_tovar input::-webkit-input-placeholder {color:#999999;}
+.letter_details_tovar input::-moz-placeholder          {color:#999999;}
+.letter_details_tovar input:-moz-placeholder           {color:#999999;}
+.letter_details_tovar input:-ms-input-placeholder      {color:#999999;}
+
+.letter_details_tovar textarea::-webkit-input-placeholder {color:#999999;}
+.letter_details_tovar textarea::-moz-placeholder          {color:#999999;}
+.letter_details_tovar textarea:-moz-placeholder           {color:#999999;}
+.letter_details_tovar textarea:-ms-input-placeholder      {color:#999999;}
+
+.letter_details_tovar input:focus::-webkit-input-placeholder {color: transparent}
+.letter_details_tovar input:focus::-moz-placeholder          {color: transparent}
+.letter_details_tovar input:focus:-moz-placeholder           {color: transparent}
+.letter_details_tovar input:focus:-ms-input-placeholder      {color: transparent}
+
+.letter_details_tovar textarea:focus::-webkit-input-placeholder {color: transparent}
+.letter_details_tovar textarea:focus::-moz-placeholder          {color: transparent}
+.letter_details_tovar textarea:focus:-moz-placeholder           {color: transparent}
+.letter_details_tovar textarea:focus:-ms-input-placeholder      {color: transparent}

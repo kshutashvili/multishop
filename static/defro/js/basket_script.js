@@ -92,14 +92,13 @@ function modal_item_factory(img, upc, name, price, id, quantity) {
 }
 
 function basket_dropdown_item_factory(img, name, quantity, price) {
-    var $container = $('<div class="basket_elem"</div>');
+    var $container = $('<div class="basket_elem"></div>');
     var $img = $('<img src="' + img + '" />');
     var $name = $('<p class="basket_item_name">' + name + '</p>');
     var $quantity = $('<p class="basket_item_number">' + quantity + ' шт</p>');
     var $price = $('<p class="basket_item_price">' + price * quantity + 'грн</p>');
 
     $container.append($img, $name, $quantity, $price);
-
     return $container;
 
 }
@@ -143,9 +142,8 @@ $(document).ready(function () {
                     var $new_dropdown_element = basket_dropdown_item_factory(element['img'], element['title'], element['quantity'], element['price']);
 
                     $basket_items.append($new_item);
-                    $basket_dropdown.append($new_dropdown_element);
+                    $new_dropdown_element.appendTo(basket_dropdown);
                     in_basket.push(element['upc']);
-
                 });
             }
             catch (e) {
@@ -194,8 +192,9 @@ $(document).ready(function () {
                 }
 
                 $('div.' + $(this).attr("rel")).fadeIn(500);
-                $("body").append("<div id='overlay'></div>");
-                $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+                //$("body").append("<div id='overlay'></div>");
+                //$('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+                $('.shadow').show();
             }
             else {
                 var $errors = $('#basket_error');
@@ -214,8 +213,9 @@ $(document).ready(function () {
         $.post(review_url, $comment_form.serialize(), function () {
             $comment_form.find("input[type=text], textarea").val("");
             $('div.' + $('#submit_comment').attr("rel")).fadeIn(500);
-            $("body").append("<div id='overlay'></div>");
-            $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            //$("body").append("<div id='overlay'></div>");
+            //$('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            $('.shadow').show();
             return false;
         }).fail(function (xhr) {
             if (parseInt(xhr.status) == 409) {
@@ -243,8 +243,9 @@ $(document).ready(function () {
         var outer_this = this;
         $.post($(this).attr('data-oneclick-url'), $('#buy_one_click').serialize(), function () {
             $('div.' + $(outer_this).attr("rel")).fadeIn(500);
-            $("body").append("<div id='overlay'></div>");
-            $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            //$("body").append("<div id='overlay'></div>");
+            //$('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            $('.shadow').show();
         }).fail(function () {
             // Get the snackbar DIV
             var x = document.getElementById("snackbar");
@@ -265,8 +266,9 @@ $(document).ready(function () {
         $.post($(this).attr('data-oneclick-url'), $('#buy_one_click_modal').serialize(), function (data) {
             $('.close').trigger('click');
             $('div.' + $(outer_this).attr("rel")).fadeIn(500);
-            $("body").append("<div id='overlay'></div>");
-            $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            //$("body").append("<div id='overlay'></div>");
+            //$('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            $('.shadow').show();
             setTimeout(function () {
                 location.href = data;
             }, 3000);
@@ -364,8 +366,9 @@ $(document).ready(function () {
         $.post($('#call_request_form').attr('action'), $('#call_request_form').serialize(), function () {
             $('.close').trigger('click');
             $('div.' + $(outer_this).attr("rel")).fadeIn(500);
-            $("body").append("<div id='overlay'></div>");
-            $('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            //$("body").append("<div id='overlay'></div>");
+            //$('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            $('.shadow').show();
             return false;
         });
     });
