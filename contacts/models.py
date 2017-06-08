@@ -20,6 +20,10 @@ class City(models.Model):
     slug = models.SlugField(_('Название-метка для URL'), max_length=80, unique=True)
     address = models.CharField(_('Адрес'), max_length=70,
                                default=_('ул. Смелянская 159/3'))
+    site = models.ForeignKey(Site,
+                             verbose_name=_('Сайт'),
+                             related_name='cities',
+                             default=1)
     google_maps_api_key = models.CharField(_('Ключ API карт Google'), blank=True,
                                            max_length=200)
 

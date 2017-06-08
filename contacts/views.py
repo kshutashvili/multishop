@@ -12,9 +12,10 @@ class ContactsView(SiteTemplateResponseMixin, TemplateView):
     template_name = 'contacts_main.html'
 
     def get(self, request, *args, **kwargs):
-        all_cities = City.objects.all()
+        current_site = get_current_site(request)
+        all_cities_by_site = City.objects.filter(site=current_site)
         context = self.get_context_data(**kwargs)
-        context['cities'] = all_cities
+        context['cities'] = all_cities_by_site
         return self.render_to_response(context)
 
 
@@ -22,11 +23,12 @@ class ContactsByCity(SiteTemplateResponseMixin, TemplateView):
     template_name = 'contacts.html'
 
     def get(self, request, *args, **kwargs):
-        all_cities = City.objects.all()
+        current_site = get_current_site(request)
+        all_cities_by_site = City.objects.filter(site=current_site)
         current_city = request.GET.get('city', None)
         context = self.get_context_data(**kwargs)
         context['current_city'] = current_city
-        context['cities'] = all_cities
+        context['cities'] = all_cities_by_site
         return self.render_to_response(context)
 
 
