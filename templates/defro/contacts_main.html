@@ -1,0 +1,65 @@
+{% extends 'defro/base.html' %}
+
+{% load site_static %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+
+<div class="container main_container  compare_container default_container">
+        <div class="main_block clear_fix">
+            <div class="left_side default_left_side">
+                {% include 'defro/partials/side_menu.html' %}
+            </div>
+
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/"><img src="{% get_static 'img/home.png' %}"
+                                     alt="" class="solo_img"></a>
+                </li>
+                <li class="active">Контакты</li>
+            </ol>
+
+            <div class="main_content contact_content">
+                <div class="row">
+                    <h1>Выберите представительство компании наиболее подходящее для Вас:</h1>
+                    {% for city in cities %}
+                    <div class="contacts_short col-lg-6 col-md-6  col-sm-10  col-xs-10">
+                        <p>{{ city.city_name }}</p>
+                        <div class="contacts_short_body">
+                        <div class="contacts contacts_info_phone">
+                            {% if city.phones %}
+                                {% for phone in city.phones.all %}
+                                    {% if phone.operator == 'kievstar' %}
+                                    <li>
+                                        <a href="tel:{{ phone }}"><span>({{ phone.get_national_format|slice:':3' }})</span> {{ phone.get_national_format|slice:'4:' }}</a>
+                                    </li>
+                                    {% endif %}
+                                    {% if phone.operator == 'vodafone' %}
+                                        <li>
+                                            <a href="tel:{{ phone }}"><span>({{ phone.get_national_format|slice:':3' }})</span> {{ phone.get_national_format|slice:'4:' }}</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if phone.operator == 'life' %}
+                                        <li>
+                                            <a href="tel:{{ phone }}"><span>({{ phone.get_national_format|slice:':3' }})</span> {{ phone.get_national_format|slice:'4:' }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            <a class="contacts_more" href="{% url 'contact_by_city' %}?city={{ city.slug }}">Подробнее</a>
+                        </div>
+                        <iframe src="https://www.google.com/maps/embed/v1/place?q=г.{{ city.city_name }}{{ city.address }}&key={{ city.google_maps_api_key }}"
+                                width="250" height="200"
+                                frameborder="0"
+                                style="border:0"
+                                zoom="24"></iframe>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <p class="contacts_delivery">Доставка в любой населенный пункт Украины</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

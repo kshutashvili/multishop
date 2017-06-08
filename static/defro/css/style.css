@@ -4722,7 +4722,6 @@ a.compare_table_clean_button{
 .contacts_info_phone
 {
 	display: block;
-	margin-bottom: 27px;
 }
 .contacts_info_phone a {
 	display: block;
@@ -4742,10 +4741,10 @@ a.compare_table_clean_button{
 {
 	margin-bottom: 20px;
 }
-.contacts_grafik
+/*.contacts_grafik
 {
 	margin-bottom: 53px;
-}
+}*/
 .contacts_form
 {
 	padding-top: 17px;
@@ -4805,7 +4804,9 @@ a.compare_table_clean_button{
 	font-size: 15px;
 	margin-bottom: 20px;
 }
-
+.contacts_short {
+	margin-bottom: 30px;
+}
 .contacts_short p
 {
 	background-image: url('../img/contacts_location.png');
@@ -4824,7 +4825,7 @@ a.compare_table_clean_button{
 
 	border: 1px solid #d9d9d9;
 	border-top: none;
-	padding: 15px 20px 0;
+	padding: 15px 20px;
 }
 .contacts_short_body .contacts_info_phone
 {
@@ -4844,6 +4845,8 @@ a.compare_table_clean_button{
 	padding-left: 40px!important;
 	margin-left: 5px!important;
 	margin-top: 23px;
+	position: absolute;
+	bottom: 0px;
 }
 .contacts_short_body img
 {
