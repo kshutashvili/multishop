@@ -1,3 +1,5 @@
+from collections import Iterable
+
 from django.contrib.sites.shortcuts import get_current_site
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
