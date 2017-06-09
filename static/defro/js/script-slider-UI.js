@@ -16,7 +16,10 @@ jQuery("#slider_price").slider({
       slide: function(event, ui){
           jQuery("input#minCost").val(jQuery("#slider_price").slider("values",0));
           jQuery("input#maxCost").val(jQuery("#slider_price").slider("values",1));
-      }
+      },
+    stop: function( event, ui ) {
+      jQuery("input#maxCost").trigger('change_price');
+    }
 });
 
 jQuery("input#minCost").change(function(){

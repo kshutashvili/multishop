@@ -26,7 +26,8 @@ from shop.basket.views import delete_item_from_basket, update_items_quantity
 from shop.catalogue.reviews.views import ProductQuestionView, AddVoteView, CreateReviewAnswer, AddVoteAnswerView
 from shop.catalogue.views import get_search_count, \
     OneClickOrderCreateView, CompareView, remove_item_from_compare_list, \
-    remove_category_from_compare_list, CompareCategoryView
+    remove_category_from_compare_list, CompareCategoryView, \
+    UpdateFilterCatalogueView
 from shop.order.views import CallRequestCreateView
 from contacts.views import FlatPageView
 from website.sitemaps import base_sitemaps, html_sitemap
@@ -76,6 +77,9 @@ urlpatterns += i18n_patterns(
     url(r'^catalogue/compare/remove_category/$',
         remove_category_from_compare_list,
         name='remove_category_from_compare_list'),
+    url(r'^catalogue/update_filter/$',
+        UpdateFilterCatalogueView.as_view(),
+        name='update_filter'),
     url(
         r'^catalogue/(?P<product_slug>[\w-]*)_(?P<pk>\d+)/question/$',
         ProductQuestionView.as_view(), name='question'),

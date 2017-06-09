@@ -67,6 +67,25 @@ $(document).ready(function(){
         $('.left_filter, .shadow').hide();
     });
     filterMove();
+    $('#filters').on('change change_price', '#filter_form input', function() {
+        $('#filters .filter-wrapper div').addClass('loader');
+        $('#filter_form').addClass('wait');
+        var input_id = $(this).attr('id');
+        $.ajax({
+            url: '/catalogue/update_filter/',
+            type: 'GET',
+            data: $('#filter_form').serialize(),
+            success: function(data) {
+                $('#filters').html(data['result']);
+                initPrice();
+                var result = '<div class="label_after"><p>Товаров: <span>' + data['products_count'] + '</span></p>' +
+                    '<button type="submit">Посмотреть</button></div>'
+                $('.label_after').remove();
+                $('#' + input_id).next().append(result);
+                $('.label_after').fadeIn();
+            },
+        })
+    })
 });
 $(window).resize(function() {filterMove ()});
 function filterMove () {

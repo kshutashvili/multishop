@@ -70,7 +70,7 @@
                     {% endif %}
                 {% endfor %}
                 {% else %}
-                <li {% if not category %}class="active"{% endif %}>Каталог</li>
+                <li {% if not category %}class="active"{% endif %}>Каталог товаров</li>
                 {% endif %}
             </ul>
 
@@ -188,7 +188,9 @@
                             {% endfor %}
 
                             {% block filters %}
-                                {% include 'defro/partials/filters.html' with form=filter_form %}
+                                <div id="filters">
+                                    {% include 'defro/partials/filters.html' with form=filter_form %}
+                                </div>
                             {% endblock %}
 
 

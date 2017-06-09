@@ -1,9 +1,6 @@
 from django.contrib.sites.shortcuts import get_current_site
 from oscar.apps.catalogue.search_handlers import \
     SolrProductSearchHandler as OscarSolrProductSearchHandler
-from oscar.core.loading import get_model
-
-from haystack.query import SQ
 
 
 def get_product_search_handler_class():
@@ -41,22 +38,23 @@ class SolrProductSearchHandler(OscarSolrProductSearchHandler):
                     for item in self.options[k]:
                         values = item.split(',')
                         values = range(int(values[0]), int(values[1]) + 1)
-                        attributes.append({
-                            'attribute_codes': code,
-                            'attribute_values__in': values,
-                        })
+                        append = False
+                        for i in attributes:
+                            if i.get('attribute_codes') == code:
+                                i['attribute_values__in'] += values
+                                append = True
+                                break
+                        if not append:
+                            attributes.append({
+                                'attribute_codes': code,
+                                'attribute_values__in': values,
+                            })
                 if k.startswith('group_filter_') and self.options[k]:
                     group_attributes += self.options[k]
             if attributes:
-                sq_objetcs = SQ()
                 i = 0
                 for attribute in attributes:
-                    if i == 0:
-                        sq_objetcs = SQ(**attribute)
-                    else:
-                        sq_objetcs |= SQ(**attribute)
-                    i += 1
-                sqs = sqs.filter(sq_objetcs)
+                    sqs = sqs.filter(**attribute)
             if group_attributes:
                 sqs = sqs.filter(attribute_option_values__in=group_attributes)
         if self.categories:

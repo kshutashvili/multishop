@@ -1503,6 +1503,37 @@ a.choose_kotel:hover{
 .float_right{
 	float: right;
 }
+.filter-wrapper {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+}
+#filter_form.wait {
+	position: relative;
+	background: white;
+	opacity: 0.35;
+}
+#filters .disabled {
+	color: #7c7b7b;
+}
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #ff414a;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+	z-index: 11;
+	position: fixed;
+	top: 50%;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 .left_filter_collapse{
 	border: 1px solid #e0e0e0;
 	margin-top: 5px;
@@ -1640,7 +1671,7 @@ a.choose_kotel:hover{
 	margin: 8px;
 	margin-right: 0;
 }
-.label_after a{
+.label_after button{
 	display: inline-block;
 	vertical-align: middle;
 	background-color: #363636;
@@ -1650,6 +1681,7 @@ a.choose_kotel:hover{
 	margin-top: 4px;
 	margin-right: 5px;
 	float: right;
+	border: none;
 }
 .label_after span{
 	color: #fff !important;
