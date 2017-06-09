@@ -8,6 +8,7 @@ from shop.catalogue.models import (AttributeOptionGroup, Product,
 from shop.catalogue.widgets import CustomFilterCheckboxSelectMultiple
 from shop.catalogue.fields import CustomFilterMultipleChoiceField
 from shop.catalogue.fields import NonValidationMultipleChoiceField
+from shop.catalogue.search_handlers import SolrProductSearchHandler
 
 
 class FilterForm(forms.Form):
@@ -16,11 +17,11 @@ class FilterForm(forms.Form):
         ProductAttribute.FLOAT: forms.FloatField,
     }
 
-    def __init__(self, site, categories, *args, **kwargs):
+    def __init__(self, site, categories, request, *args, **kwargs):
         self.site = site
         self.categories = categories
+        self.request = request
         super(FilterForm, self).__init__(*args, **kwargs)
-
         self.make_filter()
 
     def make_filter(self):
@@ -46,17 +47,15 @@ class FilterForm(forms.Form):
                     '%s,%s' % (i[0], i[1]),
                     '%s - %s' % (i[0], i[1]),
                     {
-                        'product_count': self.query().filter(
-                            attribute_values__value_integer__gte=i[0],
-                            attribute_values__value_integer__lte=i[1],
-                        ).count(),
+                        'product_count': self.product_count(attr.code, i),
                         'attrs': {'data-min': i[0], 'data-max': i[1]},
                     }
                 )for i in choices],
             )
 
         for group in AttributeOptionGroup.objects.filter(site=self.site):
-            self.fields[group.get_filter_param()] = \
+            code = group.get_filter_param()
+            self.fields[code] = \
                 CustomFilterMultipleChoiceField(
                     widget=CustomFilterCheckboxSelectMultiple(),
                     label=group.name,
@@ -65,15 +64,38 @@ class FilterForm(forms.Form):
                         i.id,
                         i.option,
                         {
-                            'product_count': self.query().filter(
-                                attribute_values__value_option=i).count(),
+                            'product_count': self.product_count_group(code, i),
                             'attrs': {},
                         }
                     )for i in group.options.all()],
             )
 
-    def query(self):
-        query = Product.objects.filter(site=self.site)
-        if self.categories:
-            return query.filter(categories__in=self.categories)
-        return query
+    def query(self, without=None):
+        full_path = self.request.get_full_path()
+        if int(self.request.GET.get('page', 0)) == 1:
+            path_to_request = full_path.split('?')[0]
+        else:
+            path_to_request = full_path
+        options = dict(self.data)
+        if without and options.get(without):
+            del options[without]
+        handler = SolrProductSearchHandler(
+            self.request.GET, path_to_request, self.request,
+            options=options, categories=self.categories)
+        return handler.get_search_queryset()
+
+    def product_count(self, code, option):
+        sqs = self.query(without='filter_%s' % code)
+        values = range(int(option[0]), int(option[1]) + 1)
+        sqs = sqs.filter(
+            attribute_codes=code,
+            attribute_values__in=values,
+        )
+        return sqs.count()
+
+    def product_count_group(self, code, option):
+        sqs = self.query(without=code)
+        sqs = sqs.filter(
+            attribute_option_values__in=[option.id],
+        )
+        return sqs.count()

@@ -8,7 +8,8 @@ class CustomFilterCheckboxChoiceInput(widgets.CheckboxChoiceInput):
             name, value, attrs, choice, index)
         params = choice[2]
         self.product_count = params['product_count']
-        self.attrsc = params['attrs']
+        if self.product_count == 0:
+            params['attrs']['disabled'] = True
         self.attrs.update(params['attrs'])
 
 

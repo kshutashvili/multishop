@@ -1,3 +1,6 @@
+<div class="filter-wrapper">
+    <div class=""></div>
+</div>
 <form id="filter_form" method="get" action="">
     <div class="left_filter_collapse">
         <a class="left_filter_captions" role="button" data-toggle="collapse" href="#collapseFilter1" aria-expanded="false" aria-controls="collapseFilter1">
@@ -9,6 +12,7 @@
             <input class="otdo_input" type="text" id="minCost" value="{{ price_range_min }}" name="price_range_min" />
             <span class="otdo_span">до</span>
             <input class="otdo_input" type="text" id="maxCost" value="{{ price_range_max }}" name="price_range_max" />
+            <label></label>
             <span class="otdo_span">грн.</span>
 
             <div id="slider_price" data-min-price="{{ min_price }}" data-max-price="{{ max_price }}" data-price-range-min="{{ price_range_min }}" data-price-range-max="{{ price_range_max }}"></div>
@@ -30,13 +34,9 @@
                     <div class="checkbox">
                         {% for item in field %}
                             {{ item.tag }}
-                            <label for="{{ item.id_for_label }}">
+                            <label for="{{ item.id_for_label }}"{% if item.product_count == 0 %} class="disabled"{% endif %}>
                                 {{ item.choice_label }}
                                 <span>({{ item.product_count }})</span>
-                                <div class="label_after">
-                                    <p>Товаров: <span>{{ item.product_count }}</span></p>
-                                    <a href="?{{ item.name }}={{ item.choice_value }}">Посмотреть</a>
-                                </div>
                             </label>
                             <br>
                         {% endfor %}

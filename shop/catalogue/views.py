@@ -8,10 +8,10 @@ from django.core.checks import messages
 from django.core.mail import EmailMultiAlternatives
 from django.core.paginator import InvalidPage
 from django.db import connection
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from django.http.response import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
-from django.template.loader import get_template
+from django.template.loader import get_template, render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
 from django.views.generic.base import ContextMixin
@@ -100,7 +100,7 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         else:
             categories = (self.category,)
         self.form = FilterForm(
-            self.site, data=request.GET, categories=categories)
+            self.site, data=request.GET, request=request, categories=categories)
         options = []
         if self.form.is_valid():
             options = self.form.cleaned_data
@@ -135,6 +135,20 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         except ValueError:
             pass
         return context
+
+
+class UpdateFilterCatalogueView(CatalogueView):
+    template_name = 'defro/partials/filters.html'
+
+    def get(self, request, *args, **kwargs):
+        super(UpdateFilterCatalogueView, self).get(request, *args, **kwargs)
+        context = self.get_context_data()
+        context.update({'form': self.form})
+        html = render_to_string(self.template_name, context)
+        return JsonResponse({
+            'result': html,
+            'products_count': self.search_handler.get_search_queryset().count()
+        })
 
 
 class OneClickOrderCreateView(CreateView):
