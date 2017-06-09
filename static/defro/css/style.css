@@ -1823,11 +1823,14 @@ select::-ms-expand {
 	font-size: 20px;
 	margin: 19px 0 15px;
 }
-.catalog_item_block_caption a, .catalog_item_block_caption a:hover{
+.catalog_item_block_caption a{
 	color: #3e3e3e;
 	font-size: 20px;
 	margin: 19px 0 15px;
 	text-decoration: none;
+}
+.catalog_item_block_caption a:hover{
+	color: #ed1b24;
 }
 .catalog_items ul{
 	font-size: 0;
@@ -5305,10 +5308,7 @@ img + .block155h {
 
 }
 
-.catalog_item_block img:hover + .catalog_item_block_caption a {
-	color: #ed1b24;
-}
-.catalog_item_block_caption a {
+.catalog_item_block a:hover + .catalog_item_block_caption a {
 	color: #ed1b24;
 }
 .modal_basket_goback:hover {
