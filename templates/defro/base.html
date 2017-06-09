@@ -110,12 +110,21 @@
                     <div class="basket">
 
                         <div class="dropdown" id="compare_dropdown">
-                            <a href="{% url 'compare' %}" class="btn btn-default dropdown-toggle"
-                               id="dropdownMenu1" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="true"
-                               data-content="{{ compare_categories|length }}">
-                                Сравнение
-                            </a>
+                            {% if compare_categories %}
+                                <a href="{% url 'compare' %}" class="btn btn-default dropdown-toggle"
+                                   id="dropdownMenu1" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="true"
+                                   data-content="{{ compare_categories|length }}">
+                                    Сравнение
+                                </a>
+                            {% else %}
+                                <a href="#" class="btn btn-default dropdown-toggle"
+                                   id="dropdownMenu1" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="true"
+                                   data-content="{{ compare_categories|length }}">
+                                    Сравнение
+                                </a>
+                            {% endif %}
                             <ul class="dropdown-menu"
                                 aria-labelledby="dropdownMenu1">
                                 {% if compare_categories %}
@@ -130,7 +139,7 @@
                                     {% endfor %}
                                 {% else %}
                                     <li>
-                                        <a href="!#" class="sravn_items">Список
+                                        <a href="#" class="sravn_items">Список
                                             сравнения пуст</a>
                                     </li>
                                 {% endif %}

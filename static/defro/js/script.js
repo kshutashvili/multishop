@@ -29,6 +29,22 @@ $(document).ready(function(){
       }
   });
 
+$('.left_side_caption').click(function (e) {
+            if ($('#collapseExample').hasClass('.permanentCollapse')) {
+                e.preventDefault();
+                return
+            } else {
+                if($('#collapseExample').hasClass('in'))
+                {
+                    $('.shadow').hide();
+                }
+                else
+                {
+                    $('.shadow').show();
+                }
+            }
+        });
+
     $('.bxslider').bxSlider({
       minSlides: 1,
       maxSlides: 1,
@@ -122,7 +138,7 @@ $(document).ready(function(){
     
     headerScroll ();
     scrolbar_on();
-    //colapsehide ();
+    colapsehide ();
     mobile_menu_construct ();
     searchAppend();
     $('.headhesive .more').click(function(){

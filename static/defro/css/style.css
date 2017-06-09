@@ -5337,3 +5337,13 @@ img + .block155h {
 .letter_details_tovar textarea:focus::-moz-placeholder          {color: transparent}
 .letter_details_tovar textarea:focus:-moz-placeholder           {color: transparent}
 .letter_details_tovar textarea:focus:-ms-input-placeholder      {color: transparent}
+
+div.contacts a.kievstar {
+	background: url("../img/kievstar.png") no-repeat left center;
+}
+div.contacts a.vodafone {
+	background: url("../img/mts.png") no-repeat left center;
+}
+div.contacts a.life {
+	background: url("../img/life.png") no-repeat left center;
+}

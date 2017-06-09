@@ -32,17 +32,17 @@
                                 {% for phone in city.phones.all %}
                                     {% if phone.operator == 'kievstar' %}
                                     <li>
-                                        <a href="tel:{{ phone }}"><span>({{ phone.get_national_format|slice:':3' }})</span> {{ phone.get_national_format|slice:'4:' }}</a>
+                                        <a href="tel:{{ phone }}" class="{{ phone.operator }}"><span>({{ phone.get_national_format|slice:':3' }})</span> {{ phone.get_national_format|slice:'4:' }}</a>
                                     </li>
                                     {% endif %}
                                     {% if phone.operator == 'vodafone' %}
                                         <li>
-                                            <a href="tel:{{ phone }}"><span>({{ phone.get_national_format|slice:':3' }})</span> {{ phone.get_national_format|slice:'4:' }}</a>
+                                            <a href="tel:{{ phone }}" class="{{ phone.operator }}"><span>({{ phone.get_national_format|slice:':3' }})</span> {{ phone.get_national_format|slice:'4:' }}</a>
                                         </li>
                                     {% endif %}
                                     {% if phone.operator == 'life' %}
                                         <li>
-                                            <a href="tel:{{ phone }}"><span>({{ phone.get_national_format|slice:':3' }})</span> {{ phone.get_national_format|slice:'4:' }}</a>
+                                            <a href="tel:{{ phone }}" class="{{ phone.operator }}"><span>({{ phone.get_national_format|slice:':3' }})</span> {{ phone.get_national_format|slice:'4:' }}</a>
                                         </li>
                                     {% endif %}
                                 {% endfor %}

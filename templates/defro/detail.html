@@ -7,6 +7,7 @@
 {% load staticfiles %}
 {% load product_tags %}
 {% load display_tags %}
+{% load currency_tags %}
 {% load i18n %}
 {% load purchase_info_tags %}
 {% load site_static %}
@@ -40,7 +41,7 @@
 
         <div class="main_block clear_fix compare_main_block">
             <div class="left_side default_left_side">
-                {% include 'defro/partials/side_menu.html' %}
+                {% include 'defro/partials/side_menu.html' with is_main_page=True %}
             </div>
             <ul class="breadcrumb">
                 <li>
@@ -151,12 +152,14 @@
                                 {% if session.availability.is_available_to_buy %}
                                     <p class="nalichie ">Есть в наличии</p>
                                     <p class="line_through">
-                                        {{ session.price.previous|currency:session.price.currency }} </p>
+                                    {% if session.price.previous %}
+                                        {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span></p>
+                                    {% endif %}
                                     <p class="catalog_item_price">
                                         {% if session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% else %}
-                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
                                     <a href="#" type="submit"
                                             id="submit_btn"
@@ -222,9 +225,9 @@
                                         наличии</a>
                                     <p class="catalog_item_price naliche_net dpn">
                                         {% if session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency }}</span>
                                         {% else %}
-                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency }}</span>
                                         {% endif %}</p>
 
                                 {% endif %}
@@ -801,21 +804,23 @@
                                 {% if session.availability.is_available_to_buy %}
                                     <p class="nalichie ">Есть в наличии</p>
                                     <p class="line_through">
-                                        {{ session.price.previous|currency:session.price.currency }}</p>
+                                    {% if session.price.previous %}
+                                        {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span></p>
+                                    {% endif %}
                                     <p class="catalog_item_price">
                                         {% if session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% else %}
-                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
                                 {% else %}
                                     <p class="nalichie dpn naliche_net">Нет в
                                         наличии</p>
                                     <p class="catalog_item_price naliche_net dpn">
                                         {% if session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% else %}
-                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
 
                                 {% endif %}
@@ -906,21 +911,23 @@
                                 {% if session.availability.is_available_to_buy %}
                                     <p class="nalichie ">Есть в наличии</p>
                                     <p class="line_through">
-                                        {{ session.price.previous|currency:session.price.currency }} </p>
+                                    {% if session.price.previous %}
+                                        {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span></p>
+                                    {% endif %}
                                     <p class="catalog_item_price">
                                         {% if session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% else %}
-                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
                                 {% else %}
                                     <p class="nalichie dpn naliche_net">Нет в
                                         наличии</p>
                                     <p class="catalog_item_price naliche_net dpn">
                                         {% if session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% else %}
-                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
 
                                 {% endif %}
@@ -1016,21 +1023,23 @@
                                 {% if session.availability.is_available_to_buy %}
                                     <p class="nalichie ">Есть в наличии</p>
                                     <p class="line_through">
-                                        {{ session.price.previous|currency:session.price.currency }} </p>
+                                    {% if session.price.previous %}
+                                        {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span></p>
+                                    {% endif %}
                                     <p class="catalog_item_price">
                                         {% if session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% else %}
-                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
                                 {% else %}
                                     <p class="nalichie dpn naliche_net">Нет в
                                         наличии</p>
                                     <p class="catalog_item_price naliche_net dpn">
                                         {% if session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% else %}
-                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
 
                                 {% endif %}
@@ -1459,21 +1468,23 @@
                                 {% if session.availability.is_available_to_buy %}
                                     <p class="nalichie ">Есть в наличии</p>
                                     <p class="line_through">
-                                        {{ session.price.previous|currency:session.price.currency }} </p>
+                                    {% if session.price.previous %}
+                                        {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span></p>
+                                    {% endif %}
                                     <p class="catalog_item_price">
                                         {% if session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% else %}
-                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
                                 {% else %}
                                     <p class="nalichie dpn naliche_net">Нет в
                                         наличии</p>
                                     <p class="catalog_item_price naliche_net dpn">
                                         {% if session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|currency:session.price.currency }}
+                                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% else %}
-                                            {{ session.price.excl_tax|currency:session.price.currency }}
+                                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
 
                                 {% endif %}
@@ -1585,9 +1596,15 @@
                                         </p>
                                         <hr>
                                         {% purchase_info_for_product request product as session %}
-                                        <p class="catalog_item_price">{{ session.price.incl_tax|default_if_none:"" }}</p>
-                                        {% if session.price.incl_tax %}
-                                            грн{% endif %}
+                                        <p class="catalog_item_price">
+                                            {% if session.price.is_tax_known %}
+                                                {{ session.price.incl_tax|floatformat|humanize_price }}
+                                                <span>{{ session.price.currency|format_currency }}</span>
+                                            {% else %}
+                                                {{ session.price.excl_tax|floatformat|humanize_price }}
+                                                <span>{{ session.price.currency|format_currency }}</span>
+                                            {% endif %}
+                                        </p>
                                         {% if session.availability.is_available_to_buy %}
                                             <a href="{{ product.get_absolute_url }}"
                                                class="buy_button show_popup"
