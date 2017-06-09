@@ -298,12 +298,14 @@
 
                                                         {% if session.availability.is_available_to_buy %}
                                                             <p class="line_through">
-                                                                {{ session.price.previous|floatformat }} <span>{{ session.price.currency }}</span> </p>
+                                                            {% if session.price.previous %}
+                                                                {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency }}</span> </p>
+                                                            {% endif %}
                                                             <p class="catalog_item_price">
                                                                 {% if session.price.is_tax_known %}
-                                                                    {{ session.price.incl_tax|floatformat }} <span>{{ session.price.currency }}</span>
+                                                                    {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency }}</span>
                                                                 {% else %}
-                                                                    {{ session.price.excl_tax|floatformat }} <span>{{ session.price.currency }}</span>
+                                                                    {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency }}</span>
                                                                 {% endif %}</p>
                                                             {% if request.session.compare_list and product.id in request.session.compare_list %}
                                                                 <a href="#!"
@@ -325,9 +327,9 @@
                                                         {% else %}
                                                             <p class="catalog_item_price not_active_price">
                                                                 {% if session.price.is_tax_known %}
-                                                                    {{ session.price.incl_tax|currency:session.price.currency }}
+                                                                    {{ session.price.incl_tax|floatformat }} <span>{{ session.price.currency }}</span>
                                                                 {% else %}
-                                                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                                                    {{ session.price.excl_tax|floatformat }} <span>{{ session.price.currency }}</span>
                                                                 {% endif %}</p>
                                                             {% if request.session.compare_list and product.id in request.session.compare_list %}
                                                                 <a href="#!"
@@ -469,8 +471,10 @@
                                         </p>
                                         <hr>
                                         {% purchase_info_for_product request product as session %}
-                                        <p class="catalog_item_price">{{ session.price.incl_tax }}</p>
-                                        грн
+                                        <p class="catalog_item_price">
+                                            {{ session.price.incl_tax|floatformat|humanize_price }}
+                                            <span>{{ session.price.currency|format_currency }}</span>
+                                        </p>
                                         {% if session.availability.is_available_to_buy %}
                                             <a href="{{ product.get_absolute_url }}"
                                                class="buy_button show_popup"
