@@ -4,6 +4,7 @@
 {% load product_tags %}
 {% load purchase_info_tags %}
 {% load currency_filters %}
+{% load currency_tags %}
 {% load i18n %}
 {% load site_static %}
 {% load thumbnail %}
@@ -54,8 +55,10 @@
                             <hr>
                             {% purchase_info_for_product request p as session %}
                             {% if session.availability.is_available_to_buy %}
-                                <p class="catalog_item_price">{{ session.price.incl_tax }}</p>
-                                грн
+                                <p class="catalog_item_price">
+                                    {{ session.price.incl_tax|floatformat|humanize_price }}
+                                    <span>{{ session.price.currency|format_currency }}</span>
+                                </p>
                                 <a href="#"
                                    class="buy_button show_popup"
                                    rel="buy_button_modal"
