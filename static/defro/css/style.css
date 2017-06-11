@@ -5317,6 +5317,7 @@ img + .block155h {
 }
 .modal_basket_goback:hover {
 	color: #ed1b24;
+	background: url("../img/filter/marker_left_red.png") no-repeat left center;
 }
 .zakaz_change_zakaz:hover {
 	color: #ed1b24;
