@@ -62,9 +62,15 @@ $(document).ready(function(){
  $('.filter_media').click(function () {
         $('.left_filter ').show();
         $('.shadow').show();
+        $('.left_side_caption').css('z-index', '799');
     });
     $('.shadow, .filter_submit').click(function () {
-        $('.left_filter, .shadow').hide();
+        if($(window).width()<=992) {
+          $('.left_filter, .shadow').hide();
+        } else {
+          $('.shadow').hide();
+        }
+        $('.left_side_caption').css('z-index', '801');
     });
     filterMove();
     $('#filters').on('change change_price', '#filter_form input', function() {
@@ -95,6 +101,7 @@ function filterMove () {
     }
     else
     {
+        $('.left_filter').show();
         $('.left_filter .parameters').prependTo('.left_filter')
     }
 }

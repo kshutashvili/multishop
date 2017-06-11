@@ -30,3 +30,15 @@
         </div>
     </div>
 {% endblock %}
+
+{% block extrascripts %}
+<script>
+$(document).ready(function(){
+    side_hover();
+    $(window).resize(function() {
+        side_hover();
+    });
+});
+</script>
+{{ block.super }}
+{% endblock %}

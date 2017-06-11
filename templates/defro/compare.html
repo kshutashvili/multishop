@@ -117,6 +117,10 @@
             $('.rating_photo').barrating({
                 theme: 'fontawesome-stars'
             });
+            side_hover();
+            $(window).resize(function() {
+                side_hover();
+            });
         });
     </script>
     {{ block.super }}

@@ -158,11 +158,14 @@ ul{
 .contacts a.zakaz_zvon:hover {
     color: #565555;
 }
-.contacts a.zakaz_zvon::after{
+.contacts a.zakaz_zvon:after{
     content:'';
     border-bottom: 1px dashed #ed1b24;
     display: block;
     margin-top: 1px;
+}
+.contacts a.zakaz_zvon:hover:after{
+    border-bottom: 1px dashed #565555;
 }
 .basket{
 	float: right;
@@ -353,7 +356,7 @@ ul{
 	background: url("../img/block_bg.png") no-repeat center center;
 	height: 790px;
 	position: relative;
-	z-index: 1;
+	z-index: auto;
 	border-bottom: 4px solid #ed1b24;
 }
 .left_side{
@@ -1345,7 +1348,7 @@ a.choose_kotel:hover{
     z-index: 10; /*потому-что фильтры оказываются выше пунктов каталога */
 }
 .left_side .well {
-	z-index: 99;
+	z-index: auto;
 }
 .above_footer_block .bottom_menu, .above_footer_block .bottom_menu_bg{
 	position: static;
@@ -2135,6 +2138,10 @@ a.look_more:hover{
 	margin-top: 10px;
 	margin-left: 5px;
 	background: #ed1b24 url("../img/catalog/buy.png") no-repeat left -26px center;
+}
+.owl-carousel.catalog_owl .buy_button.but_button_sold {
+	background: #828081;
+	padding: 5px 0;
 }
 .owl-carousel.catalog_owl .owl-dot:first-child{
 	margin-left: 0;
@@ -5108,7 +5115,7 @@ a.compare_table_clean_button{
 }
 .headhesive .basket {
     top: 0px;
-    right: 40px;
+    /*right: 40px;*/
     right: 105px;
     position: absolute;
 }
@@ -5131,18 +5138,18 @@ a.compare_table_clean_button{
     text-transform: uppercase;
     font-size: 16px;
     background: url("../img/lines.png") no-repeat right 15px center;
-    padding: 12px 5px;
+    padding: 12px 15px;
     display: inline-block;
     margin-top: 10px;
     text-decoration: none;
-    width: 130px;
+    width: 264px;
     float: left;
 }
 .headhesive .header_right {
     float: left;
     margin-top: 10px;
     width: 330px;
-    width: 380px;
+    /*width: 380px;*/
 }
 .name_page
 {
@@ -5178,8 +5185,8 @@ a.compare_table_clean_button{
 {
     display: inline-block;
     float: left;
-    width: 20%;
-    width: 40%;
+    width: 30%;
+    /*width: 40%;*/
     text-align: center;
     padding-top: 5px;
     position: relative;
@@ -5313,6 +5320,7 @@ img + .block155h {
 }
 .modal_basket_goback:hover {
 	color: #ed1b24;
+	background: url("../img/filter/marker_left_red.png") no-repeat left center;
 }
 .zakaz_change_zakaz:hover {
 	color: #ed1b24;
@@ -5346,4 +5354,12 @@ div.contacts a.vodafone {
 }
 div.contacts a.life {
 	background: url("../img/life.png") no-repeat left center;
+}
+.shadow_hover {
+	position: relative!important;
+	z-index: 999!important;
+	background-color: #fff!important;
+}
+#landingCollapse {
+	z-index: auto;
 }

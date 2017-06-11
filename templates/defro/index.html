@@ -604,6 +604,13 @@
 {% endblock %}
 
 {% block extrascripts %}
-
+<script>
+$(document).ready(function(){
+	side_hover_landing();
+	$(window).resize(function() {
+		side_hover_landing();
+	});
+});
+</script>
 {{ block.super }}
 {% endblock %}

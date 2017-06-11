@@ -1,15 +1,23 @@
-<a class="left_side_caption {% if not is_main_page %}catalog_left_side_caption{% endif %}" role="button" data-toggle="collapse"
+{% if is_main_page %}
+<a class="left_side_caption" id="permanentCollapse">
+    Каталог товаров
+</a>
+{% else %}
+<a class="left_side_caption catalog_left_side_caption" role="button" data-toggle="collapse"
    href="#collapseExample" aria-expanded="false"
    aria-controls="collapseExample">
     Каталог товаров
 </a>
-<div class="collapse {% if expand %}in permanentCollapse{% endif %}" id="collapseExample">
-    <div class="well">
+{% endif %}
+
+
+<div class="collapse {% if is_main_page %}in{% endif %}" id="collapseExample">
+    <div class="well" {% if is_main_page %}id="landingCollapse"{% endif %}>
         <ul class="left_menu {% if is_main_page %}main_left_menu{% endif %}">
             <li>
                 {% if side_menu %}
                     {% for category, descendants in side_menu.items %}
-                        <div class="dropdown {% if is_main_page %}side-menu{% endif %}">
+                        <div class="dropdown side-menu">
                             <a href="{{ category.get_absolute_url }}"
                                class="btn btn-default dropdown-toggle"
                                id="dropdownMenu{{ forloop.counter0|add:"3" }}"
