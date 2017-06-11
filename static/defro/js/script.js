@@ -144,7 +144,7 @@ $('.owl-carousel').owlCarousel({
     
    
 });
-$(window).resize(function() {scrolbar_on(); mobile_menu_construct (); searchAppend();});
+$(window).resize(function() {scrolbar_on(); mobile_menu_construct (); searchAppend(); resizeCatalogButton();});
 function mobile_menu_construct ()
 {
     if($(window).width()<=610) {
@@ -178,4 +178,14 @@ function headerScroll () {
     $('.headhesive .header_contacts').remove();
      $('.headhesive .header_right .lang').remove();
     $('.well .left_menu').clone().appendTo('.header_scroll_catalog');
+}
+
+function resizeCatalogButton() {
+  if ($(window).width()>992) {
+    $('.head_menu').text('Каталог товаров');
+    $('.head_menu').css('width', '264px');
+  } else {
+    $('.head_menu').text('Каталог');
+    $('.head_menu').css('width', '150px');
+  }
 }

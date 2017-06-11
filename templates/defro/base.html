@@ -43,7 +43,7 @@
 
                     <div class="mobile_menu" role="button"></div>
                     <!--<p class="name_page">Каталог</p>-->
-                    <div class="head_menu" role="button">Каталог</div>
+                    <div class="head_menu" role="button">Каталог товаров</div>
                     <div class="header_scroll_catalog"></div>
                     <div class="header_right header_main_right">
                         <div class="lang">{% get_current_language as LANGUAGE_CODE %}
@@ -470,6 +470,11 @@
 {% block extrascripts %}
     <script src="{% get_static 'js/basket_script.js' %}"></script>
     <script src="{% get_static 'js/popup.js' %}"></script>
+    <script>
+    $(document).ready(function () {
+        resizeCatalogButton();
+    });
+    </script>
 {% endblock %}
 
 {# Block for body onload functions #}

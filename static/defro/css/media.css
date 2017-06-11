@@ -271,13 +271,13 @@
     }
     /*header_scroll*/
     .headhesive .header_scroll_contacts {    
-        width: 20%;
+        width: 18%;
     }
     .headhesive .header_scroll_contacts .more {
         padding-left: 65px;
     }
     .headhesive .basket {    
-        right: 10%;
+        right: 7%;
     }
     /*modal*/
     .credit_button_modal {
@@ -295,6 +295,9 @@
 @media screen and (max-width: 992px){
     .header_contacts a {
     width: auto;
+    }
+    .contacts a {
+        font-size: 16px;
     }
     .headhesive
     {
@@ -729,7 +732,7 @@
     }
     .table_main_har {
         margin-top: 0;
-        width: 668px;
+        width: 100%;
     }
     .user_answer_block a.otvetit {
         margin-right: 15px;
@@ -999,9 +1002,9 @@
         margin-top: -30px;
     }
 
-    .contacts a {       
+    /*.contacts a {       
         font-size: 16px;
-    }
+    }*/
 
     .right_side {
         text-align: left;
@@ -1349,6 +1352,7 @@
     }
     .headhesive .header_scroll_contacts {
         margin-top: 5px;
+        width: 19%;
     }
     .headhesive .more_contacts {
        
