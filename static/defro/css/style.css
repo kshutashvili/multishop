@@ -158,11 +158,14 @@ ul{
 .contacts a.zakaz_zvon:hover {
     color: #565555;
 }
-.contacts a.zakaz_zvon::after{
+.contacts a.zakaz_zvon:after{
     content:'';
     border-bottom: 1px dashed #ed1b24;
     display: block;
     margin-top: 1px;
+}
+.contacts a.zakaz_zvon:hover:after{
+    border-bottom: 1px dashed #565555;
 }
 .basket{
 	float: right;
