@@ -53,3 +53,15 @@
     </div>
     {{ block.super }}
 {% endblock content %}
+
+
+{% block extrascripts %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        side_hover();
+        $(window).resize(function() {
+            side_hover();
+        });
+    });
+</script>
+{% endblock %}

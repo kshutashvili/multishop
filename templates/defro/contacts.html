@@ -151,5 +151,13 @@
     <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
     <script src="{% get_static 'js/more-button.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            side_hover();
+            $(window).resize(function() {
+                side_hover();
+            });
+        });
+    </script>
     {{ block.super }}
 {% endblock %}

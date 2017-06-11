@@ -2616,7 +2616,7 @@
     .left_side a.left_side_caption {
         margin: 5px auto;
         display: block;
-        z-index: 800;
+        z-index: 801;
         position: relative;
         background-color: #fff;
     }
@@ -2632,8 +2632,8 @@
         left: 50%;
         margin-left: -140px;
     }
-    .well {
-        z-index: 820;
+    .left_side .well {
+        z-index: 801;
     }
     .third_block {
         background-size: 2800px;

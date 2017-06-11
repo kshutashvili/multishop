@@ -353,7 +353,7 @@ ul{
 	background: url("../img/block_bg.png") no-repeat center center;
 	height: 790px;
 	position: relative;
-	z-index: 1;
+	z-index: auto;
 	border-bottom: 4px solid #ed1b24;
 }
 .left_side{
@@ -1345,7 +1345,7 @@ a.choose_kotel:hover{
     z-index: 10; /*потому-что фильтры оказываются выше пунктов каталога */
 }
 .left_side .well {
-	z-index: 99;
+	z-index: auto;
 }
 .above_footer_block .bottom_menu, .above_footer_block .bottom_menu_bg{
 	position: static;
@@ -2135,6 +2135,10 @@ a.look_more:hover{
 	margin-top: 10px;
 	margin-left: 5px;
 	background: #ed1b24 url("../img/catalog/buy.png") no-repeat left -26px center;
+}
+.owl-carousel.catalog_owl .buy_button.but_button_sold {
+	background: #828081;
+	padding: 5px 0;
 }
 .owl-carousel.catalog_owl .owl-dot:first-child{
 	margin-left: 0;
@@ -5346,4 +5350,12 @@ div.contacts a.vodafone {
 }
 div.contacts a.life {
 	background: url("../img/life.png") no-repeat left center;
+}
+.shadow_hover {
+	position: relative!important;
+	z-index: 999!important;
+	background-color: #fff!important;
+}
+#landingCollapse {
+	z-index: auto;
 }

@@ -225,9 +225,9 @@
                                         наличии</a>
                                     <p class="catalog_item_price naliche_net dpn">
                                         {% if session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency }}</span>
+                                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% else %}
-                                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency }}</span>
+                                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
 
                                 {% endif %}
@@ -836,12 +836,21 @@
 
 
                                 {% endif %}
+                                {% if session.availability.is_available_to_buy %}
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
                                    rel="buy_button_modal" href="#!"
                                    data-product-id="{{ product.id }}">В корзину
                                 </a>
+                                {% else %}
+                                <a type="submit" class="buy_button but_button_sold"
+                                   value="{% trans "Нет в наличии" %}"
+                                   data-loading-text="Добавляем"
+                                   rel="buy_button_modal" href="#!"
+                                   data-product-id="{{ product.id }}">Нет в наличии
+                                </a>
+                                {% endif %}
 
                                 <a href="#"
                                    class="elipse_button elipse_button_kred show_popup"
@@ -943,12 +952,21 @@
 
 
                                 {% endif %}
+                                {% if session.availability.is_available_to_buy %}
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
                                    rel="buy_button_modal" href="#!"
                                    data-product-id="{{ product.id }}">В корзину
                                 </a>
+                                {% else %}
+                                <a type="submit" class="buy_button but_button_sold"
+                                   value="{% trans "Нет в наличии" %}"
+                                   data-loading-text="Добавляем"
+                                   rel="buy_button_modal" href="#!"
+                                   data-product-id="{{ product.id }}">Нет в наличии
+                                </a>
+                                {% endif %}
 
                                 <a href="#"
                                    class="elipse_button elipse_button_kred show_popup"
@@ -1055,12 +1073,21 @@
 
 
                                 {% endif %}
+                                {% if session.availability.is_available_to_buy %}
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
                                    rel="buy_button_modal" href="#!"
                                    data-product-id="{{ product.id }}">В корзину
                                 </a>
+                                {% else %}
+                                <a type="submit" class="buy_button but_button_sold"
+                                   value="{% trans "Нет в наличии" %}"
+                                   data-loading-text="Добавляем"
+                                   rel="buy_button_modal" href="#!"
+                                   data-product-id="{{ product.id }}">Нет в наличии
+                                </a>
+                                {% endif %}
 
                                 <a href="#"
                                    class="elipse_button elipse_button_kred show_popup"
@@ -1500,12 +1527,21 @@
 
 
                                 {% endif %}
+                                {% if session.availability.is_available_to_buy %}
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
                                    rel="buy_button_modal" href="#!"
                                    data-product-id="{{ product.id }}">В корзину
                                 </a>
+                                {% else %}
+                                <a type="submit" class="buy_button but_button_sold"
+                                   value="{% trans "Нет в наличии" %}"
+                                   data-loading-text="Добавляем"
+                                   rel="buy_button_modal" href="#!"
+                                   data-product-id="{{ product.id }}">Нет в наличии
+                                </a>
+                                {% endif %}
 
                                 <a href="#"
                                    class="elipse_button elipse_button_kred show_popup"
@@ -1840,6 +1876,11 @@
                 theme: 'fontawesome-stars'
             });
             $('#q_result1, #q_result2').hide()
+
+            side_hover();
+            $(window).resize(function() {
+                side_hover();
+            });
 
         });
         $('#submit').on('click', function (e) {

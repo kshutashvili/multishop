@@ -538,6 +538,10 @@
             $('.rating_photo').barrating({
                 theme: 'fontawesome-stars'
             });
+            side_hover();
+            $(window).resize(function() {
+                side_hover();
+            });
         });
     </script>
     <!--<script src="{% get_static 'js/more-button.js' %}"></script>-->
