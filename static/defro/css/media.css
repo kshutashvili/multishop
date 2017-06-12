@@ -1404,6 +1404,9 @@
     .contacts_short_body .contacts_info_phone {
         margin-right: 5px;
     }
+    .bottom_menu .menu_block .menu_block_items {
+        max-width: 210px;
+    }
 }
 @media screen and (max-width: 730px){
     .headhesive .basket {   
@@ -2424,6 +2427,9 @@
     .default_bottom_menu .bottom_menu {
         background: none
     }
+    .bottom_menu .menu_block .menu_block_items{
+        max-width: 250px;
+    }
 }
 
 @media screen and (max-width: 510px) {
@@ -3390,3 +3396,9 @@
     margin-left: -250px;
     }
 }
+
+/*@media screen and (min-width: 1201px) {
+    .bottom_menu .menu_block {
+        white-space: nowrap;
+    }
+}*/
