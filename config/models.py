@@ -29,6 +29,11 @@ class SiteConfig(models.Model):
                                 related_name='config')
     email = models.EmailField('email адрес')
 
+    copyright = models.CharField(verbose_name='Copyright',
+                                 max_length=100,
+                                 null=True,
+                                 blank=True)
+
     logo = models.ImageField('Логотип', blank=True, null=True)
 
     def __unicode__(self):

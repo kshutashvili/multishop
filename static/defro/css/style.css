@@ -5363,3 +5363,9 @@ div.contacts a.life {
 #landingCollapse {
 	z-index: auto;
 }
+.bx-wrapper .bx-controls-direction a {
+	z-index: 799!important;
+}
+.rights p {
+	width: 250px;
+}
