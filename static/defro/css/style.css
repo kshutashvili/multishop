@@ -173,6 +173,7 @@ ul{
 .basket .dropdown{
 	display: inline-block;
 	vertical-align: middle;
+	z-index: 901;
 }
 .basket .btn-default{
 	color: #565555;
