@@ -510,10 +510,13 @@ a.under_left_menu_more:hover{
 	width: auto;
 	display: inline-block;
 	margin-bottom: 8px;
+	height: 145px;
 }
 .second_block .owl-carousel .item{
 	border: 1px solid #aaabab;
 	text-align: center;
+	height: 200px;
+	width: 150px;
 }
 .second_block .owl-carousel .item p{
 	margin: 15px 0;
@@ -1749,6 +1752,7 @@ a.choose_kotel:hover{
 	-moz-appearance: none;
 	height: 33px;
 	padding-left: 15px;
+	padding-right: 30px;
 	background: url("../img/catalog/selectbox.png") no-repeat center right 2px;
 	width: 100%;
 	font: 14px "ArialRegular";

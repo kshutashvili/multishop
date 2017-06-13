@@ -8,6 +8,7 @@ $('#myTabs a').click(function (e) {
 
 $('.owl-carousel').owlCarousel({
     items:3,
+    autoWidth: true,
       margin:15,
       nav:true, 
       responsive:{

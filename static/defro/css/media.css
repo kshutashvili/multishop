@@ -1441,6 +1441,7 @@
         border-bottom: 1px solid #dfdede;
         position: absolute;
         width: 100%;
+        margin-top: 5px;
     }
     /*catalog*/
     .catalog_items ul li:nth-child(2n) {
@@ -2059,9 +2060,9 @@
     .often_caption.category_block_caption {
         margin-top: 10px;
     }
-    .acticle_tov {
+    /*.acticle_tov {
         top: 10px;
-    }
+    }*/
     .compare_block_table .nav {   
     top: 655px;
     }

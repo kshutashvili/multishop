@@ -35,7 +35,7 @@
 			<div class="owl-carousel owl-theme">
 				{% if side_menu %}
 					{% for category in side_menu %}
-						<div class="item">
+						<div class="item" width="150px;">
 							<a href="{{ category.get_absolute_url }}">
 								<p>{{ category.name }}</p>
 								{% if category.image %}
@@ -341,23 +341,25 @@
 	<div class="fifth_block">
 		<div class="container">
 			<h5>Нужна рассрочка? - это не проблема</h5>
-			<div class="banks">
-				<div class="banks_logos">
-				<img src="{% get_static 'img/banks/1.png' %}" alt="">
-				<img src="{% get_static 'img/banks/2.png' %}" alt="">
-				<img src="{% get_static 'img/banks/3.png' %}" alt="">
-				<img src="{% get_static 'img/banks/4.png' %}" alt="">
-				<img src="{% get_static 'img/banks/5.png' %}" alt="">
+			<div class="more_info">
+				<div class="banks">
+					<div class="banks_logos">
+					<img src="{% get_static 'img/banks/1.png' %}" alt="">
+					<img src="{% get_static 'img/banks/2.png' %}" alt="">
+					<img src="{% get_static 'img/banks/3.png' %}" alt="">
+					<img src="{% get_static 'img/banks/4.png' %}" alt="">
+					<img src="{% get_static 'img/banks/5.png' %}" alt="">
+					</div>
+					<p>Воспользуйтесь услугами наших банков-партнеров для получению кредита на покупку котла</p>
+					<p>Так же не упустите возможность воспользоваться государственной программой</p>
+					<p>компенсации 70% от стоимости твердотопливных котлов</p>
 				</div>
-				<p>Воспользуйтесь услугами наших банков-партнеров для получению кредита на покупку котла</p>
-				<p>Так же не упустите возможность воспользоваться государственной программой</p>
-				<p>компенсации 70% от стоимости твердотопливных котлов</p>
-			</div>
 				<form action="">
 					<input type="text" placeholder="+38 (___) ___-__-__">
 					<button>Оформить рассрочку</button>
 				</form>
-
+			</div>
+			<div class="more_block"><p>Подробнее</p><i></i></div>
 		</div>
 	</div>
 
@@ -414,14 +416,17 @@
 	<div class="seventh_block">
 		<div class="container">
 			<p class="caption"><span>ДОПОЛНИТЕЛЬНЫЕ</span> УСЛУГИ</p>
-			<p class="desc">Кроме продажи оборудования мы можем предложить так же <br> его монтаж и запуск</p>
-			<ul>
-				<li>Заявка на сайте или звонок</li>
-				<li>Выезд мастера</li>
-				<li>Составление договора</li>
-				<li>Монтаж котла</li>
-				<li>Запуск системы отопления</li>
-			</ul>
+			<div class="more_info">
+				<p class="desc">Кроме продажи оборудования мы можем предложить так же <br> его монтаж и запуск</p>
+				<ul>
+					<li>Заявка на сайте или звонок</li>
+					<li>Выезд мастера</li>
+					<li>Составление договора</li>
+					<li>Монтаж котла</li>
+					<li>Запуск системы отопления</li>
+				</ul>
+			</div>
+			<div class="more_block"><p>Подробнее</p><i></i></div>
 		</div>
 	</div>
 
@@ -431,7 +436,10 @@
 			<p class="desc">Доставка товара осуществляется по всей территории Украины</p>
 
 			<img src="{% get_static 'img/delivery/car.png' %}" alt="">
-			<p class="list_caption">Доставка товара может быть осуществлена следующим образом:</p>
+			<div class="list_caption">
+				Доставка товара может быть осуществлена следующим образом:
+				<div class="list_more"><p>Подробнее</p><i></i></div>
+			</div>
 			<ul class="main_ul first_ul">
 				<li>
 					<p class="list_name">СПОСОБЫ ДОСТАВКИ</p>
@@ -453,7 +461,10 @@
 			</ul>
 
 			<img src="{% get_static 'img/delivery/money.png' %}" alt="">
-			<p class="list_caption">Оплата товара может быть произведена следующими способами:</p>
+			<div class="list_caption">
+				Оплата товара может быть произведена следующими способами:
+				<div class="list_more"><p>Подробнее</p><i></i></div>
+			</div>
 			<ul class="main_ul second_ul">
 				<li>
 					<p class="list_name">БЕЗНАЛИЧНЫЙ РАСЧЕТ</p>
