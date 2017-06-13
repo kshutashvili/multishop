@@ -511,12 +511,25 @@
 {% block shadow %}
     <div class='modal_mobile_sort'>
         <h2>Сортировать:<span class="close"></span></h2>
-        <ul>
+        <!--<ul>
             <li class="active"><a>по популярности</a></li>
             <li><a>акционные</a></li>
             <li><a>от дешевых к дорогим</a></li>
             <li><a>от дорогих к дешевым</a></li>
-        </ul>
+        </ul> -->
+        <div class="custom_select">
+            <form method="get">
+                {{ form.sort_by }}
+                <button type="submit" id="mobile_sort_submit">Сортировать</button>
+            </form>
+        </div>
+        <!--
+        <div class="custom_select">
+            <form method="get">
+                {% include "partials/form_field.html" with field=form.sort_by nolabel=True %}
+            </form>
+        </div>
+        -->
     </div>
     {{ block.super }}
 {% endblock %}
