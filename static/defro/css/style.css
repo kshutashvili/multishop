@@ -151,7 +151,7 @@ ul{
 	background: url("../img/life.png") no-repeat left center;
 }
 .contacts a.zakaz_zvon{
-	font-size: 16px;	
+	font-size: 16px;
 	background: url("../img/call.png") no-repeat left center;
     position: relative;
 }
@@ -181,7 +181,7 @@ ul{
 	border: 1px solid transparent;
 	font-size: 12px;
 	padding: 35px 5px 0;
-	margin-left: 10px;
+	margin-left: 0px;
 	box-shadow: none;
 }
 .basket #dropdownMenu1:before{
@@ -193,7 +193,7 @@ ul{
 	background-color: #ed1b24;
 	color: #fff;
 	bottom: 15px;
-	left: 15px;
+	left: 5px;
 	border-radius: 50%;
 }
 .basket #dropdownMenu2:before{
@@ -205,7 +205,7 @@ ul{
 	background-color: #ed1b24;
 	color: #fff;
 	bottom: 15px;
-	left: 15px;
+	left: 5px;
 	border-radius: 50%;
 }
 .basket .open .btn-default{
@@ -4749,7 +4749,7 @@ a.compare_table_clean_button{
 	background: url("../img/contact_line.png") no-repeat left top;
 	padding-left: 75px;
 	float: left;
-	min-height: 533px;
+	min-height: 550px;
 	padding-top: 17px;
 }
 .contacts_info_caption
@@ -5391,4 +5391,8 @@ div.contacts a.life {
 	text-align: center;
 	margin: 15px 74px;
 	color: #fff;
+}
+.contacts_info_text.contacts_grafik {
+	margin-bottom: 0px!important;
+	height: 55px;
 }
