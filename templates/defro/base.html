@@ -322,9 +322,9 @@
                                             </p>
                                         {% endif %}
                                         {% if site_email %}
-                                            <a href="mailto:info@defro.org.ua/">{{ site_email }}</a>
+                                            <a href="mailto:{{ site_email }}">{{ site_email }}</a>
                                         {% else %}
-                                            <a href="mailto:info@defro.org.ua/">info@defro.org.ua/</a>
+                                            <a href="mailto:info@defro.org.ua">info@defro.org.ua</a>
                                         {% endif %}
 
                                     </div>
@@ -392,10 +392,13 @@
                         {% endif %}
                     </div>
                     <div class="rights">
-                        <p>© 2017 интернет-магазин <br> твердотопливных котлов
-                            Defro
-                            тм</p>
-
+                        {% if site_copyright %}
+                            <p>© {{ site_copyright }}</p>
+                        {% else %}
+                            <p>© 2017 интернет-магазин <br> твердотопливных котлов
+                                Defro
+                                тм</p>
+                        {% endif %}
                     </div>
                     <div class="social">
                         <p>Мы в соцсетях, <br> присоединяйтесь!</p>

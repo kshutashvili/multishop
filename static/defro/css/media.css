@@ -6,6 +6,7 @@
     .header_contacts a
     {
         width: 45%;
+        font-size: 16px;
     }
     .fourth_block ul
     {
@@ -297,8 +298,11 @@
     width: auto;
     }
     .contacts a {
-        font-size: 16px;
+        font-size: 14px;
     }
+    /*.contacts a.zakaz_zvon {
+        font-size: 14px;
+    }*/
     .headhesive
     {
         display: block;
@@ -968,10 +972,21 @@
 }
 
 @media screen and (max-width: 768px) {
-    .zakaz_zvon {
+    .contacts a.zakaz_zvon {
         position: absolute;
         top: 18px;
         right: 0;
+        font-size: 14px;
+        margin-right: 25px;
+    }
+
+    a.otvetit {
+        float: left;
+        margin-top: 7px;
+    }
+
+    .user_comment_bottom {
+        padding-bottom: 27px;
     }
 
     .header_right {
@@ -992,7 +1007,7 @@
     }
 
     .basket {
-        top: 110px;
+        top: 105px;
         right: 3%;
     }
 
@@ -1300,6 +1315,7 @@
         width: 100%;
         margin-top: 0;
         margin-bottom: 13px;
+        height: 200px;
     }
     /*contacts_main*/
     .contacts_short_body .contacts_info_phone {
@@ -1404,6 +1420,9 @@
     .contacts_short_body .contacts_info_phone {
         margin-right: 5px;
     }
+    .bottom_menu .menu_block .menu_block_items {
+        max-width: 210px;
+    }
 }
 @media screen and (max-width: 730px){
     .headhesive .basket {   
@@ -1438,6 +1457,7 @@
         border-bottom: 1px solid #dfdede;
         position: absolute;
         width: 100%;
+        margin-top: 5px;
     }
     /*catalog*/
     .catalog_items ul li:nth-child(2n) {
@@ -1912,7 +1932,7 @@
     .header_right {
         float: none;
         position: relative;
-        top: 80px;
+        top: 90px;
         height: 55px;
     }
 
@@ -2056,9 +2076,9 @@
     .often_caption.category_block_caption {
         margin-top: 10px;
     }
-    .acticle_tov {
+    /*.acticle_tov {
         top: 10px;
-    }
+    }*/
     .compare_block_table .nav {   
     top: 655px;
     }
@@ -2424,6 +2444,9 @@
     .default_bottom_menu .bottom_menu {
         background: none
     }
+    .bottom_menu .menu_block .menu_block_items{
+        max-width: 250px;
+    }
 }
 
 @media screen and (max-width: 510px) {
@@ -2591,15 +2614,16 @@
         display: none;
     }
     .header {
-        height: 180px;
+        /*height: 180px;*/
         box-shadow: none;
         z-index: auto;
     }
     .logo {
         top: -38px;
+        margin-left: 0px;
     }
     .logo img {
-        width: 55%;
+        width: 70%;
     }
     .search input {
         width: 265px;
@@ -3013,7 +3037,7 @@
     top: 25px;
     }
     .main_left_menu {
-        margin-left: -200px;
+        margin-left: -205px;
     }
     .subcategory_catalog .category_block ul li {
         max-width: 47%;
@@ -3390,3 +3414,9 @@
     margin-left: -250px;
     }
 }
+
+/*@media screen and (min-width: 1201px) {
+    .bottom_menu .menu_block {
+        white-space: nowrap;
+    }
+}*/

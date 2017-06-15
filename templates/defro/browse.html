@@ -289,7 +289,7 @@
                                                     </p>
                                                     <div class="for_list_block">
                                                         <select class="rating_photo">
-                                                            {% for num in "12345" %}
+                                                            {% for num in "012345" %}
                                                                 <option {% if product.rating == num %}selected="selected"{% endif %}
                                                                         value="{{ num }}">{{ num }}</option>
                                                             {% endfor %}
@@ -307,13 +307,13 @@
                                                         {% if session.availability.is_available_to_buy %}
                                                             <p class="line_through">
                                                             {% if session.price.previous %}
-                                                                {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency }}</span> </p>
+                                                                {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span> </p>
                                                             {% endif %}
                                                             <p class="catalog_item_price">
                                                                 {% if session.price.is_tax_known %}
-                                                                    {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency }}</span>
+                                                                    {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                                                 {% else %}
-                                                                    {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency }}</span>
+                                                                    {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                                                 {% endif %}</p>
                                                             {% if request.session.compare_list and product.id in request.session.compare_list %}
                                                                 <a href="#!"
@@ -335,9 +335,9 @@
                                                         {% else %}
                                                             <p class="catalog_item_price not_active_price">
                                                                 {% if session.price.is_tax_known %}
-                                                                    {{ session.price.incl_tax|floatformat }} <span>{{ session.price.currency }}</span>
+                                                                    {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                                                 {% else %}
-                                                                    {{ session.price.excl_tax|floatformat }} <span>{{ session.price.currency }}</span>
+                                                                    {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                                                 {% endif %}</p>
                                                             {% if request.session.compare_list and product.id in request.session.compare_list %}
                                                                 <a href="#!"
@@ -469,7 +469,7 @@
                                         <div class="block155h"></div>
                                         <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
                                         <select class="rating_photo">
-                                            {% for num in "12345" %}
+                                            {% for num in "012345" %}
                                                 <option {% if product.rating == num %}selected="selected"{% endif %}
                                                         value="{{ num }}">{{ num }}</option>
                                             {% endfor %}
@@ -516,12 +516,25 @@
 {% block shadow %}
     <div class='modal_mobile_sort'>
         <h2>Сортировать:<span class="close"></span></h2>
-        <ul>
+        <!--<ul>
             <li class="active"><a>по популярности</a></li>
             <li><a>акционные</a></li>
             <li><a>от дешевых к дорогим</a></li>
             <li><a>от дорогих к дешевым</a></li>
-        </ul>
+        </ul> -->
+        <div class="custom_select">
+            <form method="get">
+                {{ form.sort_by }}
+                <button type="submit" id="mobile_sort_submit">Сортировать</button>
+            </form>
+        </div>
+        <!--
+        <div class="custom_select">
+            <form method="get">
+                {% include "partials/form_field.html" with field=form.sort_by nolabel=True %}
+            </form>
+        </div>
+        -->
     </div>
     {{ block.super }}
 {% endblock %}
@@ -543,6 +556,7 @@
             $('.rating_photo').barrating({
                 theme: 'fontawesome-stars'
             });
+            $(".br-widget a:first-child").css( "display", "none" );
             side_hover();
             $(window).resize(function() {
                 side_hover();

@@ -76,7 +76,7 @@
                         name="product_upc">{{ product.upc }}</span>
                 </p>
                 <p class="category_block_caption often_caption">
-                    {{ product.title }}
+                    <span>{{ product.product_class.name }}</span> {{ product.title }}
                 </p>
                 <ul class="nav nav-tabs tovar_tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#tovar"
@@ -142,7 +142,7 @@
                             </div>
                             <div class="tovar_buy_block">
                                 <select class="rating_photo">
-                                    {% for num in "12345" %}
+                                    {% for num in "012345" %}
                                         <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
                                                 value="{{ num }}">{{ num }}</option>
                                     {% endfor %}
@@ -391,7 +391,7 @@
                                         </a>
                                         <a href="#add_review"
                                            class="comment_button_uniq">Оставить
-                                            отзыв о товаре</a>
+                                            отзыв</a>
                                         <div class="collapse in"
                                              id="collapseFilter3">
                                             <div class="well">
@@ -414,7 +414,7 @@
                                                                             <div class="user_comment_block"
                                                                                  data-reviewpk="{{ review.pk }}">
                                                                                 <select class="rating_photo">
-                                                                                    {% for num in "12345" %}
+                                                                                    {% for num in "012345" %}
                                                                                         <option {% if review.score == forloop.counter %}selected="selected"{% endif %}
                                                                                                 value="{{ forloop.counter }}">{{ forloop.counter }}</option>
                                                                                     {% endfor %}
@@ -702,7 +702,7 @@
                                                                 товар:</p>
                                                             <select name="score"
                                                                     class="rating_photo">
-                                                                {% for i in "12345" %}
+                                                                {% for i in "012345" %}
                                                                     <option value={{ forloop.counter }} {% if score == forloop.counter %}selected="selected"{% endif %}>{{ forloop.counter }}</option>
                                                                 {% endfor %}
                                                             </select>
@@ -793,7 +793,7 @@
                             <p class="catalog_item_block_caption">{{ product.title }}</p>
                             <div class="for_list_block">
                                 <select class="rating_photo">
-                                    {% for num in "12345" %}
+                                    {% for num in "012345" %}
                                         <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
                                                 value="{{ num }}">{{ num }}</option>
                                     {% endfor %}
@@ -909,7 +909,7 @@
                             <p class="catalog_item_block_caption">{{ product.title }}</p>
                             <div class="for_list_block">
                                 <select class="rating_photo">
-                                    {% for num in "12345" %}
+                                    {% for num in "012345" %}
                                         <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
                                                 value="{{ num }}">{{ num }}</option>
                                     {% endfor %}
@@ -1030,7 +1030,7 @@
                             <p class="catalog_item_block_caption">{{ product.title }}</p>
                             <div class="for_list_block">
                                 <select class="rating_photo">
-                                    {% for num in "12345" %}
+                                    {% for num in "012345" %}
                                         <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
                                                 value="{{ num }}">{{ num }}</option>
                                     {% endfor %}
@@ -1131,7 +1131,7 @@
                                                     data-reviewpk="{{ review.pk }}"
                                                     id="review{{ review.pk }}">
                                                     <select class="rating_photo">
-                                                        {% for num in "12345" %}
+                                                        {% for num in "012345" %}
                                                             <option {% if review.score|floatformat:0 == num %}selected="selected"{% endif %}
                                                                     value="{{ num }}">{{ num }}</option>
                                                         {% endfor %}
@@ -1399,7 +1399,7 @@
                                                     товар:</p>
                                                 <select name="score"
                                                         class="rating_photo">
-                                                    {% for i in "12345" %}
+                                                    {% for i in "012345" %}
                                                         <option value={{ forloop.counter }} {% if score == forloop.counter %}selected="selected"{% endif %}>{{ forloop.counter }}</option>
                                                     {% endfor %}
                                                 </select>
@@ -1484,7 +1484,7 @@
                             <p class="catalog_item_block_caption">{{ product.title }}</p>
                             <div class="for_list_block">
                                 <select class="rating_photo">
-                                    {% for num in "12345" %}
+                                    {% for num in "012345" %}
                                         <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
                                                 value="{{ num }}">{{ num }}</option>
                                     {% endfor %}
@@ -1626,7 +1626,7 @@
                                         {% endthumbnail %}
                                         <p class="catalog_item_block_caption">{{ product.title }}</p>
                                         <select class="rating_photo">
-                                            {% for num in "12345" %}
+                                            {% for num in "012345" %}
                                                 <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
                                                         value="{{ num }}">{{ num }}</option>
                                             {% endfor %}
@@ -1879,6 +1879,7 @@
             $('.rating_photo').barrating({
                 theme: 'fontawesome-stars'
             });
+            $(".br-widget a:first-child").css( "display", "none" );
             $('#q_result1, #q_result2').hide()
 
             side_hover();

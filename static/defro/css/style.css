@@ -151,7 +151,7 @@ ul{
 	background: url("../img/life.png") no-repeat left center;
 }
 .contacts a.zakaz_zvon{
-	font-size: 16px;	
+	font-size: 16px;
 	background: url("../img/call.png") no-repeat left center;
     position: relative;
 }
@@ -173,6 +173,7 @@ ul{
 .basket .dropdown{
 	display: inline-block;
 	vertical-align: middle;
+	z-index: 800;
 }
 .basket .btn-default{
 	color: #565555;
@@ -180,7 +181,7 @@ ul{
 	border: 1px solid transparent;
 	font-size: 12px;
 	padding: 35px 5px 0;
-	margin-left: 10px;
+	margin-left: 0px;
 	box-shadow: none;
 }
 .basket #dropdownMenu1:before{
@@ -192,7 +193,7 @@ ul{
 	background-color: #ed1b24;
 	color: #fff;
 	bottom: 15px;
-	left: 15px;
+	left: 5px;
 	border-radius: 50%;
 }
 .basket #dropdownMenu2:before{
@@ -204,7 +205,7 @@ ul{
 	background-color: #ed1b24;
 	color: #fff;
 	bottom: 15px;
-	left: 15px;
+	left: 5px;
 	border-radius: 50%;
 }
 .basket .open .btn-default{
@@ -510,10 +511,13 @@ a.under_left_menu_more:hover{
 	width: auto;
 	display: inline-block;
 	margin-bottom: 8px;
+	height: 145px;
 }
 .second_block .owl-carousel .item{
 	border: 1px solid #aaabab;
 	text-align: center;
+	height: 200px;
+	width: 150px;
 }
 .second_block .owl-carousel .item p{
 	margin: 15px 0;
@@ -1210,7 +1214,7 @@ a.choose_kotel:hover{
 	margin-right: 0;
 }
 .bottom_menu .menu_block .menu_block_items{
-	max-width: 210px;
+	max-width: 235px;
 	width: 100%;
 }
 .bottom_menu .menu_block .menu_block_items li{
@@ -1749,6 +1753,7 @@ a.choose_kotel:hover{
 	-moz-appearance: none;
 	height: 33px;
 	padding-left: 15px;
+	padding-right: 30px;
 	background: url("../img/catalog/selectbox.png") no-repeat center right 2px;
 	width: 100%;
 	font: 14px "ArialRegular";
@@ -1758,6 +1763,10 @@ a.choose_kotel:hover{
 .custom_select select:active, .custom_select select:focus {
 	background: url("../img/catalog/selectbox_active.png") no-repeat center right 2px;
 	outline: none !important;
+}
+.modal_mobile_sort .custom_select {
+	display: block;
+	width: 100%;
 }
 select::-ms-expand {
 	display: none;
@@ -4740,7 +4749,7 @@ a.compare_table_clean_button{
 	background: url("../img/contact_line.png") no-repeat left top;
 	padding-left: 75px;
 	float: left;
-	min-height: 533px;
+	min-height: 550px;
 	padding-top: 17px;
 }
 .contacts_info_caption
@@ -5362,4 +5371,28 @@ div.contacts a.life {
 }
 #landingCollapse {
 	z-index: auto;
+}
+.bx-wrapper .bx-controls-direction a {
+	z-index: 799!important;
+}
+.rights p {
+	width: 250px;
+}
+#mobile_sort_submit {
+	background: #ed1b24;
+	height: 42px;
+	padding: 12px 0;
+	width: 110px;
+	display: inline-block;
+	vertical-align: top;
+	text-decoration: none;
+	border: 1px solid #ed1b24;
+	font-size: 14px;
+	text-align: center;
+	margin: 15px 74px;
+	color: #fff;
+}
+.contacts_info_text.contacts_grafik {
+	margin-bottom: 0px!important;
+	height: 55px;
 }
