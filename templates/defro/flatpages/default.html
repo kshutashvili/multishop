@@ -5,11 +5,8 @@
 
 {% block title %}{{ flatpage.title }}{% endblock %}
 
-{% block meta %}
-    {% meta_tag 'FP' flatpage %}
-{% endblock meta %}
-
 {% block content %}
+    {% meta_tag 'FP' flatpage %}
     <div class="container-fluid">
         <div class="container main_container">
             <div class="main_block clear_fix">

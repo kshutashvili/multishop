@@ -8,11 +8,8 @@
 {% load meta_tags %}
 {% get_solo 'config.Configuration' as site_config %}
 
-{% block meta %}
-    {% meta_tag 'MP' None %}
-{% endblock meta %}
-
 {% block content %}
+    {% meta_tag 'MP' None %}
 	<div class="first_block">
 		<div class="container">
 			<div class="left_side">

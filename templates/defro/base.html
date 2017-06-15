@@ -5,11 +5,6 @@
 {% load static %}
 {% load url_tags %}
 
-{% block title %}
-{{ site_display_name }}
-{% endblock %}
-
-{% block meta %}{% endblock meta %}
 
 {% block viewport %}width=device-width, initial-scale=1.0{% endblock %}
 
@@ -26,6 +21,8 @@
     <link rel="stylesheet" href="{% get_static 'css/fontawesome-stars.css' %}">
     <link rel="stylesheet" href="{% get_static 'css/media.css' %}">
 {% endblock %}
+
+{% block metas %}{% endblock metas %}
 
 {% block layout %}
     <div class="container-fluid">

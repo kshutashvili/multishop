@@ -23,15 +23,12 @@
     {{ product.description|default:""|striptags }}
 {% endblock %}
 
-{% block meta %}
-    {% meta_tag page_type product %}
-{% endblock meta %}
-
 {% block mobile_menu %}
     {{ block.super }}
 {% endblock %}
 
 {% block content %}
+    {% meta_tag page_type product %}
     <div class="container default_container compare_container">
         {% basket_form request product as basket_form %}
         <form id="add_to_basket_form_{{ product.id }}" name="add_to_basket_form"

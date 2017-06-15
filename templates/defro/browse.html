@@ -44,10 +44,6 @@
   {% endif %}
 {% endblock %}
 
-{% block meta %}
-    {% meta_tag page_type page_obj category filter %}
-{% endblock meta %}
-
 {% block headertext %}{{ summary }}{% endblock %}
 
 {% block mobile_menu %}
@@ -56,6 +52,7 @@
 {% endblock %}
 
 {% block content %}
+    {% meta_tag page_type page_obj category filter %}
     <div class="container main_container compare_container default_container">
         <div class="main_block clear_fix">
             <div class="left_side default_left_side">
