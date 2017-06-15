@@ -11,6 +11,7 @@
 {% load i18n %}
 {% load site_static %}
 {% load thumbnail %}
+{% load meta_tags %}
 
 
 {% block title %}
@@ -42,6 +43,10 @@
     {% endif %}
   {% endif %}
 {% endblock %}
+
+{% block meta %}
+    {% meta_tag page_type page_obj category filter %}
+{% endblock meta %}
 
 {% block headertext %}{{ summary }}{% endblock %}
 

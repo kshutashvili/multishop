@@ -35,3 +35,5 @@ six==1.10.0
 sorl-thumbnail==12.4a1
 Unidecode==0.4.20
 django-rosetta
+git+https://github.com/kmike/pymorphy2.git
+pymorphy2-dicts-ru

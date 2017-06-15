@@ -1,8 +1,13 @@
 {% extends 'defro/base.html' %}
 
 {% load site_static %}
+{% load meta_tags %}
 
 {% block title %}{{ flatpage.title }}{% endblock %}
+
+{% block meta %}
+    {% meta_tag 'FP' flatpage %}
+{% endblock meta %}
 
 {% block content %}
     <div class="container-fluid">

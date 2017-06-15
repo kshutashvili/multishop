@@ -13,6 +13,7 @@
 {% load site_static %}
 {% load thumbnail %}
 {% load basket_tags %}
+{% load meta_tags %}
 
 {% block title %}
     {{ product.title }} | {{ block.super }}
@@ -22,6 +23,9 @@
     {{ product.description|default:""|striptags }}
 {% endblock %}
 
+{% block meta %}
+    {% meta_tag page_type product %}
+{% endblock meta %}
 
 {% block mobile_menu %}
     {{ block.super }}

@@ -49,6 +49,11 @@ class Configuration(SingletonModel):
                                             on_delete=models.SET_NULL,
                                             verbose_name="Мощность котла",
                                             null=True)
+        brand_attribute = models.ForeignKey(ProductAttribute,
+                                            related_name='brand_config',
+                                            on_delete=models.SET_NULL,
+                                            verbose_name="Поле бренда котла",
+                                            null=True)
         undercat_block_url = models.CharField('Ссылка под каталогом',
                                               max_length=128,
                                               blank=True)
@@ -151,3 +156,57 @@ class TextFour(UndercatText):
     class Meta:
         verbose_name = 'Текст 4'
         verbose_name_plural = 'Тексты 4'
+
+
+class MetaTag(models.Model):
+    MAIN_PAGE = 'MP'
+    SECTION = 'SC'
+    SUB_SECTION = 'SS'
+    CATEGORY = 'CA'
+    BRAND = 'BR'
+    BRAND_FILTER = 'BF'
+    PRODUCT = 'PD'
+    FLAT_PAGE = 'FP'
+
+    META_TYPE_CHOICES = (
+        (MAIN_PAGE, 'Главная страница'),
+        (SECTION, 'Раздел'),
+        (SUB_SECTION, 'Подраздел'),
+        (CATEGORY, 'Категория'),
+        (BRAND, 'Бренд'),
+        (BRAND_FILTER, 'Бренд + фильтр'),
+        (PRODUCT, 'Товар'),
+        (FLAT_PAGE, 'Статистическая страница')
+    )
+    title = models.CharField(
+        max_length=250,
+        default='[title]',
+        verbose_name='Заголовок',
+    )
+    title_meta = models.CharField(
+        max_length=250,
+        default='[title]',
+        verbose_name='Meta title',
+    )
+    description_meta = models.TextField(
+        default='[title]',
+        verbose_name='Meta description'
+    )
+    h1 = models.CharField(
+        max_length=250,
+        default='[title]',
+        verbose_name='H1 заголовок',
+    )
+    type = models.CharField(
+        max_length=2,
+        choices=META_TYPE_CHOICES,
+        verbose_name='Тип страницы',
+        unique=True,
+    )
+
+    class Meta:
+        verbose_name = "Мета тег"
+        verbose_name_plural = "Мета теги"
+
+    def __unicode__(self):
+        return u"{} - {}".format(self.get_type_display(), self.title)

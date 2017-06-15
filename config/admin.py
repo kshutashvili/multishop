@@ -7,7 +7,7 @@ from django.utils.html import format_html
 from solo.admin import SingletonModelAdmin
 
 from .models import (SiteConfig, Configuration, MenuItem, MenuCategory,
-                     TextOne, TextTwo, TextThree, TextFour)
+                     TextOne, TextTwo, TextThree, TextFour, MetaTag)
 
 
 class SiteConfigInline(admin.StackedInline):
@@ -69,6 +69,11 @@ class MenuItemAdminForm(forms.ModelForm):
         model = MenuItem
 
         exclude = ('name',)
+
+
+@admin.register(MetaTag)
+class MetaTagAdmin(admin.ModelAdmin):
+    list_display = ('type', )
 
 
 @admin.register(Configuration)

@@ -99,3 +99,16 @@ class FilterForm(forms.Form):
             attribute_option_values__in=[option.id],
         )
         return sqs.count()
+
+    def get_form_selected(self):
+        data = self.cleaned_data
+        result = {}
+        for data_item in data:
+            field = self.fields[data_item]
+            for selected in data[data_item]:
+                for choice in field.choices:
+                    if choice[0] == selected:
+                        if result.get(field.label) is None:
+                            result[field.label] = []
+                        result[field.label].append(choice[1])
+        return result

@@ -6,10 +6,11 @@
 {% load site_static %}
 {% load thumbnail %}
 {% load basket_tags %}
+{% load meta_tags %}
 
-{% block title %}
-    {{ category.name }} | {{ block.super }}
-{% endblock %}
+{% block meta %}
+    {% meta_tag page_type category %}
+{% endblock meta %}
 
 {% block content %}
     <div class="container">

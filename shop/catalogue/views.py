@@ -23,6 +23,8 @@ from oscar.apps.catalogue.views import \
     CatalogueView as OscarCatalogueView, \
     ProductCategoryView as OscarProductCategoryView
 from oscar.apps.customer import history
+from oscar.apps.partner.strategy import Selector
+from django.apps import apps
 
 from contacts.models import FlatPage
 from contacts.views import FlatPageView
@@ -31,6 +33,11 @@ from shop.catalogue.models import ProductAttributeValue
 from shop.order.forms import OneClickOrderForm
 from website.views import SiteTemplateResponseMixin
 from .forms import FilterForm
+
+MetaTag = apps.get_model('config', 'MetaTag')
+Configuration = apps.get_model('config', 'Configuration')
+
+config = Configuration.get_solo()
 
 
 class CompareAndMenuContextMixin(ContextMixin):
@@ -62,6 +69,12 @@ class ProductDetailView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                         OscarProductDetailView):
     template_name = 'detail.html'
 
+    def get_meta_tokens(self):
+        tokens = {}
+        tokens['page_type'] = MetaTag.PRODUCT
+        tokens['product'] = self.object
+        return tokens
+
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data()
         current_product = self.get_object()
@@ -74,7 +87,7 @@ class ProductDetailView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                               self.request.basket.lines.all()]
         context['already_in_basket'] = current_product in products_in_basket
         context['similar_products'] = similar_products
-
+        context.update(self.get_meta_tokens())
         return context
 
     def render_to_response(self, context, **response_kwargs):
@@ -88,6 +101,27 @@ class ProductDetailView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
 class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                     OscarCatalogueView):
     template_name = 'browse.html'
+
+    def get_meta_tokens(self):
+        tokens = {}
+        brand_attribute = config.brand_attribute
+        brand_attribute_code = brand_attribute.option_group.get_filter_param()
+        if (brand_attribute_code in self.request.GET and
+                len(self.request.GET.getlist(brand_attribute_code)) == 1 and
+                len(self.request.GET) <= 3):
+            tokens['page_type'] = MetaTag.BRAND
+            tokens['page_obj'] = brand_attribute.option_group.options.all().get(
+                pk=self.request.GET.get(brand_attribute_code))
+            tokens['category'] = self.category
+        elif self.category and len(self.request.GET) == 0:
+            tokens['page_type'] = MetaTag.CATEGORY
+            tokens['page_obj'] = self.category
+        else:
+            tokens['page_type'] = MetaTag.BRAND_FILTER
+            tokens['page_obj'] = None
+            tokens['category'] = self.category
+            tokens['filter'] = self.form.get_form_selected()
+        return tokens
 
     def get(self, request, *args, **kwargs):
         self.site = get_current_site(request)
@@ -119,6 +153,7 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
 
     def get_context_data(self, **kwargs):
         context = super(CatalogueView, self).get_context_data()
+        context.update(self.get_meta_tokens())
         context['recently_viewed_products'] = history.get(self.request)
         context['filter_form'] = self.form
         if hasattr(self, 'category'):
@@ -258,6 +293,12 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
         products_in_basket = [line.product for line in
                               self.request.basket.lines.all()]
         context['already_in_basket'] = products_in_basket
+        depth = self.category.depth
+        if depth == 1:
+            context['page_type'] = MetaTag.SECTION
+            print 'KAKAKAKAKK'
+        elif depth == 2:
+            context['page_type'] = MetaTag.SUB_SECTION
         return context
 
     def get(self, request, *args, **kwargs):
@@ -268,6 +309,7 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
             # with a catalog view
             slug = kwargs.pop('category_slug')
             kwargs['slug'] = slug.split(Category._slug_separator)[-1]
+            kwargs['page_type'] = MetaTag.CATEGORY
             return product_category_view(request, *args, **kwargs)
 
         potential_redirect = self.redirect_if_necessary(
