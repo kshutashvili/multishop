@@ -176,9 +176,15 @@ class UpdateFilterCatalogueView(CatalogueView):
     template_name = 'defro/partials/filters.html'
 
     def get(self, request, *args, **kwargs):
+        categroy_id = request.GET.get('category_id')
+        if categroy_id:
+            category = Category.objects.get(pk=categroy_id)
+            kwargs['slug'] = category.slug
+        else:
+            category = None
         super(UpdateFilterCatalogueView, self).get(request, *args, **kwargs)
         context = self.get_context_data()
-        context.update({'form': self.form})
+        context.update({'form': self.form, 'category': category})
         html = render_to_string(self.template_name, context)
         return JsonResponse({
             'result': html,
@@ -296,7 +302,6 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
         depth = self.category.depth
         if depth == 1:
             context['page_type'] = MetaTag.SECTION
-            print 'KAKAKAKAKK'
         elif depth == 2:
             context['page_type'] = MetaTag.SUB_SECTION
         return context

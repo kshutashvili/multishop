@@ -60,7 +60,7 @@ $(document).ready(function(){
       $(".plitka").removeClass("plitka_red");
       $(".catalog_items").addClass("catalog_item_list");
     });
- $('.filter_media').click(function () {
+    $('.filter_media').click(function () {
         $('.left_filter ').show();
         $('.shadow').show();
         $('.left_side_caption').css('z-index', '799');
@@ -73,6 +73,7 @@ $(document).ready(function(){
         }
         $('.left_side_caption').css('z-index', '801');
     });
+
     filterMove();
     $('#filters').on('change change_price', '#filter_form input', function() {
         $('#filters .filter-wrapper div').addClass('loader');
