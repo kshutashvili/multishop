@@ -93,7 +93,25 @@ $(document).ready(function(){
             },
         })
     })
+
+    $('.filter-facet-clear').click(function (e) {
+        e.preventDefault()
+        var name = $(this).closest('p').find('input[name="field_name"]').val();
+        var value = $(this).closest('p').find('input[name="field_value"]').val();
+        var get_query = decodeURIComponent(window.location.search.substr(1))
+        var get_query_array = get_query.split('&');
+        for (var i=0; i < get_query_array.length; i++) {
+            var key_value = get_query_array[i].split('=');
+
+            if (key_value[0] == name && key_value[1] == value) {
+                get_query = get_query.replace(get_query_array[i], '');
+                get_query = get_query.replace('&&', '&');
+                window.location.search = get_query;
+            }
+        }
+    });
 });
+
 $(window).resize(function() {filterMove ()});
 function filterMove () {
     if($(window).width()<=992)

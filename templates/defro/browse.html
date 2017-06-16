@@ -111,7 +111,19 @@
                                             {% endwith %}
                                         {% endif %}
                                     {% endfor %}
-                                    <a href="#"
+                                    {% for field in filter_form %}
+                                        {% for item in field %}
+                                            {% if item.is_checked %}
+                                                <p class="filter_labels">{{ field.label }}</p>
+                                                <p class="parameter_holder">{{ item.choice_label }}
+                                                    <input type="hidden" name="field_name" value="{{ field.name }}">
+                                                    <input type="hidden" name="field_value" value="{{ item.choice_value }}">
+                                                    <a class="filter-facet-clear" href=""></a>
+                                                </p>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                    <a href="{{ request.path }}"
                                        class="filter_labels float_right"
                                        id="reset_filters">Сбросить
                                         все фильтры</a>
