@@ -3,10 +3,19 @@
 {% load site_static %}
 {% load meta_tags %}
 
-{% block title %}{{ flatpage.title }}{% endblock %}
+{% block title %}
+    {% meta_tag 'FP' 'title' flatpage request %}
+{% endblock title %}
+
+{% block title_meta %}
+    {% meta_tag 'FP' 'title_meta' flatpage request %}
+{% endblock title_meta %}
+
+{% block description %}
+    {% meta_tag 'FP' 'description_meta' flatpage request %}
+{% endblock description %}
 
 {% block content %}
-    {% meta_tag 'FP' flatpage request %}
     <div class="container-fluid">
         <div class="container main_container">
             <div class="main_block clear_fix">

@@ -15,18 +15,17 @@
 
 
 {% block title %}
-    {% if summary %}{{ summary }} |{% endif %} {{ block.super }}
-    {% if paginator.num_pages > 1 %}, стр. {{ page_obj.number }} {% endif %}
-{% endblock %}
+    {% meta_tag page_type 'title' page_obj request category filter %}
+{% endblock title %}
+
+{% block title_meta %}
+    {% meta_tag page_type 'title_meta' page_obj request category filter %}
+{% endblock title_meta %}
 
 {% block description %}
-    {{ block.super }}
-    {% if paginator.num_pages > 1 %}
-        - Страница {{ page_obj.number }}.
-    {% else %}
-        - Страница 1
-    {% endif %}
-{% endblock %}
+    {% meta_tag page_type 'description_meta' page_obj request category filter %}
+{% endblock description %}
+
 
 {% block favicon %}
     {% if page_obj.number == 1 %}
@@ -52,7 +51,6 @@
 {% endblock %}
 
 {% block content %}
-    {% meta_tag page_type page_obj request category filter %}
     <div class="container main_container compare_container default_container">
         <div class="main_block clear_fix">
             <div class="left_side default_left_side">

@@ -16,19 +16,22 @@
 {% load meta_tags %}
 
 {% block title %}
-    {{ product.title }} | {{ block.super }}
-{% endblock %}
+    {% meta_tag page_type 'title' product request %}
+{% endblock title %}
+
+{% block title_meta %}
+    {% meta_tag page_type 'title_meta' product request %}
+{% endblock title_meta %}
 
 {% block description %}
-    {{ product.description|default:""|striptags }}
-{% endblock %}
+    {% meta_tag page_type 'description_meta' product request %}
+{% endblock description %}
 
 {% block mobile_menu %}
     {{ block.super }}
 {% endblock %}
 
 {% block content %}
-    {% meta_tag page_type product request %}
     <div class="container default_container compare_container">
         {% basket_form request product as basket_form %}
         <form id="add_to_basket_form_{{ product.id }}" name="add_to_basket_form"

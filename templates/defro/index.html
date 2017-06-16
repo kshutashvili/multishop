@@ -8,8 +8,19 @@
 {% load meta_tags %}
 {% get_solo 'config.Configuration' as site_config %}
 
+{% block title %}
+	{% meta_tag 'MP' 'title' None request %}
+{% endblock title %}
+
+{% block title_meta %}
+	{% meta_tag 'MP' 'title_meta' None request %}
+{% endblock title_meta %}
+
+{% block description %}
+	{% meta_tag 'MP' 'description_meta' None request %}
+{% endblock description %}
+
 {% block content %}
-    {% meta_tag 'MP' None request %}
 	<div class="first_block">
 		<div class="container">
 			<div class="left_side">
