@@ -28,7 +28,7 @@
 {% endblock %}
 
 {% block content %}
-    {% meta_tag page_type product %}
+    {% meta_tag page_type product request %}
     <div class="container default_container compare_container">
         {% basket_form request product as basket_form %}
         <form id="add_to_basket_form_{{ product.id }}" name="add_to_basket_form"

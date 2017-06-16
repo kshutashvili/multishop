@@ -2,6 +2,7 @@
 import pymorphy2
 from django import template
 from django.utils.translation import get_language
+from django.contrib.sites.shortcuts import get_current_site
 
 from pymorphy2.tagset import OpencorporaTag
 from oscar.apps.partner.strategy import Selector
@@ -12,7 +13,7 @@ register = template.Library()
 
 
 @register.inclusion_tag('defro/meta_tags.html')
-def meta_tag(page_type, object, category=None, filter=None):
+def meta_tag(page_type, object, request, category=None, filter=None):
     morph = pymorphy2.MorphAnalyzer(lang=get_language())
     meta_tags = MetaTag.objects.get(type=page_type)
     tags = {
@@ -40,6 +41,9 @@ def meta_tag(page_type, object, category=None, filter=None):
                         value += u' {}: {};'.format(item, filter_values)
                 elif token_clean == 'category' and category is not None:
                     value = category.name
+                elif token_clean == 'site_name':
+                    current_site = get_current_site(request)
+                    value = current_site.name
                 elif (page_type == MetaTag.PRODUCT and
                         (token_clean == 'price' or
                             token_clean == 'availability')):
