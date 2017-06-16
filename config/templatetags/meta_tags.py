@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 import pymorphy2
 from django import template
+from django.utils.translation import get_language
+
 from pymorphy2.tagset import OpencorporaTag
 from oscar.apps.partner.strategy import Selector
 
 from config.models import MetaTag
 
 register = template.Library()
-morph = pymorphy2.MorphAnalyzer()
 
 
 @register.inclusion_tag('defro/meta_tags.html')
 def meta_tag(page_type, object, category=None, filter=None):
+    morph = pymorphy2.MorphAnalyzer(lang=get_language())
     meta_tags = MetaTag.objects.get(type=page_type)
     tags = {
         'title': meta_tags.title,

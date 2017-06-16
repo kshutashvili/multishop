@@ -1,6 +1,6 @@
 from modeltranslation.translator import translator, TranslationOptions
 
-from .models import MenuItem
+from .models import MenuItem, MetaTag
 
 
 class MenuItemTranslationOptions(TranslationOptions):
@@ -8,3 +8,10 @@ class MenuItemTranslationOptions(TranslationOptions):
 
 
 translator.register(MenuItem, MenuItemTranslationOptions)
+
+
+class MetaTagTranslationOptions(TranslationOptions):
+    fields = ('title', 'title_meta', 'description_meta', 'h1', )
+
+
+translator.register(MetaTag, MetaTagTranslationOptions)
