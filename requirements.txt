@@ -37,3 +37,4 @@ Unidecode==0.4.20
 django-rosetta
 git+https://github.com/kmike/pymorphy2.git
 pymorphy2-dicts-ru
+pymorphy2-dicts-uk
