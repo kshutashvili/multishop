@@ -186,7 +186,7 @@ class AttributeOptionGroup(AbstractAttributeOptionGroup):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
     def get_name_code(self):
-        return unidecode(self.name).replace(' ', '_')
+        return unidecode(self.name).replace(' ', '_').replace("'", '')
 
     def get_filter_param(self):
         return 'group_filter_{}'.format(self.get_name_code())
