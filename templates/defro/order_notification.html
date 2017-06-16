@@ -212,7 +212,7 @@
             border: 1px solid #dddddd;
             border-top: 0;
             border-bottom: 0;
-            padding: 30px 15px 50px;
+            padding: 30px 15px 0px;
             background-color: #fff;
         }
         .letter_contacts_block p{
@@ -227,14 +227,28 @@
         .letter_contacts_block p:nth-child(2){
             background: url("{{ order.site.domain }}/static/defro/img/letter/phone.png") no-repeat left center;
         }
-        .letter_contacts_block p:nth-child(3){
-            background: url("{{ order.site.domain }}/static/defro/img/letter/dog.png") no-repeat left center;
-        }
+
         .letter_contacts_block{
             display: inline-block;
         }
         .letter_contacts_block:nth-child(1){
             margin-right: 20px;
+        }
+
+        .letter_content_email_block{
+            border: 1px solid #dddddd;
+            border-top: 0;
+            border-bottom: 0;
+            background-color: #fff;
+            padding: 30px 15px 50px;
+        }
+
+        .letter_content_email_block p{
+            background: url("{{ order.site.domain }}/static/defro/img/letter/dog.png") no-repeat left center;
+            display: inline-block;
+            margin: 0px 20px 5px 0px;
+            padding: 6px 0 6px 35px;
+            color: #3e3e3e;
         }
         .letter_social_groups{
             border: 1px solid #dddddd;
@@ -356,18 +370,23 @@
                 </div>
 
                 <div class="letter_content_second">
+                {% for city in cities %}
                     <div class="letter_contacts_block">
-                        <p>04073, г.Киев, ул Сирецкая, 9 оф.15</p>
-                        <p>(044) 383-06-30, ({{ phone_numbers.kievstar|first|slice:':3' }})) {{ phone_numbers.kievstar|first|slice:'4:' }}, <br> ({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}, ({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</p>
-                        <p>defro.com.ua@mail.ua</p>
+                        <p>г. {{ city.city_name }}, {{ city.address }}</p>
+                        {% if city.phones %}
+                            <p>
+                            {% for phone in city.phones.all %}
+                                ({{ phone.get_national_format|slice:':3' }}) {{ phone.get_national_format|slice:'4:' }}{% if not forloop.last %},{% endif %}
+                                {% if forloop.counter|divisibleby:2 %}<br/> {% endif %}
+                            {% endfor %}
+                            </p>
+                        {% endif %}
                     </div>
-                    <div class="letter_contacts_block">
-                        <p>18000, г. Черкассы, ул Смелянская, 159/3</p>
-                        <p>(0472) 50-03-60, (067) 377-27-92,<br> (066) 583-35-28, (063) 025-97-88</p>
-                        <p>info@defro.com.ua</p>
-                    </div>
+                {% endfor %}
                 </div>
-
+                <div class="letter_content_email_block">
+                    <p><a href="mailto:{{ site_email }}">{{ site_email }}</a></p>
+                </div>
                 <div class="letter_social_groups">
                     <p class="letter_social_groups_caption">Мы в сети. Присоединяйтесь!</p>
                     <a href="{{ social_networks_refs.facebook|first }}"></a>

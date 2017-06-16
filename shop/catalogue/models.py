@@ -199,12 +199,18 @@ def on_order_create(order, user, **kwargs):
 
     plaintext = get_template('defro/order_notification.txt')
     template = get_template('defro/order_notification.html')
+
+    order_site = order.site
+    site_config = order_site.config
+
     context = Context({
         'order': order,
         'lines': order.basket.lines.all(),
-        'phone_numbers': PhoneNumber.objects.filter(site__id=order.site.id),
+        'cities': order_site.cities.all(),
+        'site_logo': site_config.logo,
+        'site_email': site_config.email,
         'social_networks_refs': SocialNetRef.objects.filter(
-            site_id=order.site.id
+            site_id=order_site.id
         )
     })
     subject = _('Order notification')

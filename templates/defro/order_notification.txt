@@ -34,20 +34,22 @@ E-mail: {{ order.guest_email }}
 
 Способ оплаты: {{ order.sources.source_type.name }}
 Способ доставки: {{ order.shipping_method }}
-{% if order.notes %}
+{% if order.notes.message %}
     Комментарий к заказу: {{ order.notes.message }}
 {% else %}
     Комментарий к заказу: Нет
 {% endif %}
 
 
-04073, г.Киев, ул Сирецкая, 9 оф.15
-(044) 383-06-30, ({{ phone_numbers.kievstar|first|slice:':3' }})) {{ phone_numbers.kievstar|first|slice:'4:' }}, ({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}, ({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}
-defro.com.ua@mail.ua
+Наши контакты:
+{% for city in cities %}
+г. {{ city.city_name }}, {{ city.address }}
+{% if city.phones %}
+{% for phone in city.phones.all %} ({{ phone.get_national_format|slice:':3' }}) {{ phone.get_national_format|slice:'4:' }}{% if not forloop.last %},{% endif %}{% endfor %}
+{% endif %}
+{% endfor %}
+{{ site_email }}
 
-18000, г. Черкассы, ул Смелянская, 159/3
-(0472) 50-03-60, (067) 377-27-92, (066) 583-35-28, (063) 025-97-88
-info@defro.com.ua
 
 Мы в сети. Присоединяйтесь!
 {{ social_networks_refs.facebook|first }}
