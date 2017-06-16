@@ -110,8 +110,8 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                 len(self.request.GET.getlist(brand_attribute_code)) == 1 and
                 len(self.request.GET) <= 3):
             tokens['page_type'] = MetaTag.BRAND
-            tokens['page_obj'] = brand_attribute.option_group.options.all().get(
-                pk=self.request.GET.get(brand_attribute_code))
+            tokens['page_obj'] = brand_attribute.option_group.options.all() \
+                .get(pk=self.request.GET.get(brand_attribute_code))
             tokens['category'] = self.category
         elif self.category and len(self.request.GET) == 0:
             tokens['page_type'] = MetaTag.CATEGORY

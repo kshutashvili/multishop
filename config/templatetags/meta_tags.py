@@ -44,6 +44,9 @@ def meta_tag(page_type, object, request, category=None, filter=None):
                 elif token_clean == 'site_name':
                     current_site = get_current_site(request)
                     value = current_site.name
+                elif token_clean == 'site_domain':
+                    current_site = get_current_site(request)
+                    value = current_site.domain
                 elif (page_type == MetaTag.PRODUCT and
                         (token_clean == 'price' or
                             token_clean == 'availability')):
