@@ -45,6 +45,11 @@
                                             <a href="tel:{{ phone }}" class="{{ phone.operator }}"><span>({{ phone.get_national_format|slice:':3' }})</span> {{ phone.get_national_format|slice:'4:' }}</a>
                                         </li>
                                     {% endif %}
+                                    {% if phone.operator == 'cityphone' %}
+                                        <li>
+                                            <a href="tel:{{ phone }}" class="{{ phone.operator }}"><span>({{ phone.get_national_format|slice:':3' }})</span> {{ phone.get_national_format|slice:'4:' }}</a>
+                                        </li>
+                                    {% endif %}
                                 {% endfor %}
                             {% endif %}
                             <a class="contacts_more" href="{% url 'contact_by_city' %}?city={{ city.slug }}">Подробнее</a>
@@ -52,7 +57,7 @@
                         <iframe src="https://www.google.com/maps/embed/v1/place?q=г.{{ city.city_name }}{{ city.address }}&key={{ city.google_maps_api_key }}"
                                 width="250" height="200"
                                 frameborder="0"
-                                style="border:0"
+                                style="border:0; margin-bottom:30px;"
                                 zoom="24"></iframe>
                         </div>
                     </div>

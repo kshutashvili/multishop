@@ -43,9 +43,11 @@ class PhoneNumber(models.Model):
         KIEVSTAR = 'kievstar'
         LIFE = 'life'
         VODAFONE = 'vodafone'
+        CITYPHONE = 'cityphone'
         _CHOICES = ((KIEVSTAR, _('Kievstar')),
                     (LIFE, _('Life')),
-                    (VODAFONE, _('Vodafone')))
+                    (VODAFONE, _('Vodafone')),
+                    (CITYPHONE, _('Городской номер')))
 
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{12,15}$',

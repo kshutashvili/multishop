@@ -62,6 +62,11 @@
                                                         <a href="tel:{{ phone }}" class="{{ phone.operator }}"><span>({{ phone.get_national_format|slice:':3' }})</span> {{ phone.get_national_format|slice:'4:' }}</a>
                                                     </li>
                                                 {% endif %}
+                                                {% if phone.operator == 'cityphone' %}
+                                                    <li>
+                                                        <a href="tel:{{ phone }}" class="{{ phone.operator }}"><span>({{ phone.get_national_format|slice:':3' }})</span> {{ phone.get_national_format|slice:'4:' }}</a>
+                                                    </li>
+                                                {% endif %}
                                             {% endfor %}
                                         {% endif %}
                                     </div>
