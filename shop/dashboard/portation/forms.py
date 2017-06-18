@@ -6,7 +6,10 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class ImportForm(forms.Form):
-    pass
+
+    file = forms.FileField(
+        label=_('File with backup'),
+    )
 
 
 class ExportForm(forms.Form):

@@ -1,16 +1,35 @@
 from django.views.generic import FormView
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
+from django.contrib import messages
 
 from openpyxl.writer.excel import save_virtual_workbook
 
 from .forms import ImportForm
 from .forms import ExportForm
 from .exporters import CatelogueExporter
+from .importers import CatalogueImporter
 
 
 class ImportView(FormView):
+    template_name = 'shop/dashboard/portation/base.html'
     form_class = ImportForm
+
+    def get_context_data(self, **kwargs):
+        context = super(ImportView, self).get_context_data(**kwargs)
+        context['includes_files'] = True
+        context['title'] = _('Import')
+        return context
+
+    def form_valid(self, form):
+        file = form.cleaned_data['file']
+        importer = CatalogueImporter(file)
+        result = importer.handle()
+        result = _('Updated: {}; Created: {}.'.format(
+            result['updated'], result['created']))
+        messages.success(self.request, result)
+        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
 
 
 class ExportView(FormView):
@@ -36,4 +55,5 @@ class ExportView(FormView):
     def get_context_data(self, **kwargs):
         context = super(ExportView, self).get_context_data(**kwargs)
         context['title'] = _('Catalogue Export')
+        context['includes_files'] = False
         return context
