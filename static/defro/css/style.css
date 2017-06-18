@@ -5364,6 +5364,9 @@ div.contacts a.vodafone {
 div.contacts a.life {
 	background: url("../img/life.png") no-repeat left center;
 }
+div.contacts a.cityphone {
+	background: url("../img/home_phone.png") no-repeat left center;
+}
 .shadow_hover {
 	position: relative!important;
 	z-index: 999!important;
