@@ -17,8 +17,8 @@ class CatelogueExporter(object):
         self.form_data = data
 
     # TODO: add form for product filtering
-    def get_products_for_export(self):
-        products = Product.objects.all()
+    def get_products_for_export(self, p_class):
+        products = Product.objects.filter(product_class=p_class)
         return products
 
     def get_attributes_to_export(self, p_class):
@@ -27,8 +27,8 @@ class CatelogueExporter(object):
         return attributes
 
     def handle(self):
-        products = self.get_products_for_export()
         product_class = self.form_data['product_class']
+        products = self.get_products_for_export(product_class)
         self.get_attributes_to_export(product_class)
         result = self.export(products)
         return result
