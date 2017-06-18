@@ -30,8 +30,12 @@ function initPrice() {
   jQuery("input#minCost").change(function(){
     var value1=jQuery("input#minCost").val();
     var value2=jQuery("input#maxCost").val();
-
-      if(parseInt(value1) > parseInt(value2)){
+    if (value2 == '') {
+      max = jQuery("#slider_price").slider("option", "max");
+      value2 = max;
+      jQuery("input#maxCost").val(max);
+    }
+    if(parseInt(value1) > parseInt(value2)){
       value1 = value2;
       jQuery("input#minCost").val(value1);
     }
@@ -42,9 +46,11 @@ function initPrice() {
   jQuery("input#maxCost").change(function(){
     var value1=jQuery("input#minCost").val();
     var value2=jQuery("input#maxCost").val();
+    if (value1 == '') {
+      value1 = '1';
+      jQuery("input#minCost").val(1)
+    }
     
-    if (value2 > 1000) { value2 = 1000; jQuery("input#maxCost").val(1000)}
-
     if(parseInt(value1) > parseInt(value2)){
       value2 = value1;
       jQuery("input#maxCost").val(value2);
