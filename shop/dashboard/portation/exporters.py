@@ -9,7 +9,8 @@ class CatelogueExporter(object):
 
     fields_to_export = [
         'ID', 'Product class', 'UPC',
-        'Category ID(s)', 'Title', 'Description'
+        'Category ID(s)', 'Title RU', 'Title UA',
+        'Description RU', 'Description UA',
     ]
     attributes_to_export = {}
 
@@ -74,8 +75,10 @@ class CatelogueExporter(object):
             product.product_class.name,
             product.upc,
             self.categories_string(categories),
-            product.title,
-            product.description,
+            product.title_ru,
+            product.title_uk,
+            product.description_ru,
+            product.description_uk,
         ] + attributes
 
     def get_attribute_value(self, product, attribute):

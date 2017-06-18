@@ -45,8 +45,10 @@ class CatalogueImporter(Base):
         for category in categories:
             ProductCategory.objects.create(product=product, category=category)
 
-        product.title = values[self.TITLE]
-        product.description = values[self.DESCRIPTION]
+        product.title_ru = values[self.TITLE_RU]
+        product.title_uk = values[self.TITLE_UK]
+        product.description_ru = values[self.DESCRIPTION_RU]
+        product.description_uk = values[self.DESCRIPTION_UK]
         product.upc = values[self.UPC]
         product.save()
         return product
