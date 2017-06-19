@@ -45,7 +45,6 @@ urlpatterns = [
         {'sitemaps': base_sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),
     url(r'^sitemap/', html_sitemap),
-    url(r'^contacts/', include('contacts.urls'))
 ]
 
 urlpatterns += [
@@ -59,6 +58,7 @@ if 'rosetta' in settings.INSTALLED_APPS:
     ]
 
 urlpatterns += i18n_patterns(
+    url(r'^contacts/', include('contacts.urls')),
     url(r'^catalugue/get_search_count/$', get_search_count,
         name='get_search_count'),
     url(

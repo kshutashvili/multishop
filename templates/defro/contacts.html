@@ -75,7 +75,7 @@
                                     <p class="contacts_info_text contacts_grafik">
                                         {% if city.timetables %}
                                             {% for timetable in city.timetables.all %}
-                                                {{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span>
+                                                {{ timetable.weekdays }}: <span>{{ timetable.daytime }}</span><br />
                                             {% endfor %}
                                         {% else %}
                                             <p>Пн.-Пт.:
