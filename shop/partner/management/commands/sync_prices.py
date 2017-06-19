@@ -39,7 +39,9 @@ class Command(BaseCommand):
                 stock_record = StockRecord.objects.get(
                     partner_sku=price[0]
                 )
-
+            except StockRecord.DoesNotExist:
+                continue  # skip to next price
+            else:
                 # calculate prices
                 price_price = price[1]
                 price_discount = price[2]
@@ -60,9 +62,6 @@ class Command(BaseCommand):
                 stock_record.price_updated = True
 
                 stock_record.save()
-
-            except StockRecord.DoesNotExist:
-                pass  # skip to next price
 
         # remove stock of products that are not in server file
         StockRecord.objects.filter(price_updated=False)\
