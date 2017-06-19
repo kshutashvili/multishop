@@ -231,9 +231,15 @@
                     <div class="col-xs-12 col-sm-12 col-md-9 cold-lg-9">
                         <div class="right_content">
                             <p class="category_block_caption">
-                                {% for product_class in facet_data.product_class.results %}
-                                    {% if product_class.selected %}
-                                        {{ product_class.name }}
+                                {% for field, data in facet_data.items %}
+                                    {% if data.results %}
+                                        {% with name=data.name items=data.results %}
+                                            {% for item in items %}
+                                                {% if item.selected %}
+                                                    {{ name }}: {{ item.name }}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endwith %}
                                     {% endif %}
                                 {% endfor %}
                             </p>
@@ -511,6 +517,47 @@
                 {% if recently_viewed_products %}
                     {% include 'defro/recently_viewed_products.html' %}
                 {% endif %}
+
+                {% for field, data in facet_data.items %}
+                    {% if data.results %}
+                        {% with name=data.name items=data.results %}
+                            {% for item in items %}
+                                {% if item.selected %}
+                                <p class="category_block_caption before_owl">{{ name }}: {{ item.name }}</p>
+                                <div>
+                                    <div id="filter_desc">
+                                        {% if item.richtext %}
+                                            {{ item.richtext|safe }}
+                                        {% else %}
+                                            {% if item.text %}
+                                                {{ item.text|safe }}
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                    <a class="read-next" href="#">Подробнее</a>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if category %}
+                    <p class="category_block_caption before_owl">
+                        {% if category.description_title %}
+                            {{ category.description_title }}
+                        {% else %}
+                            {{ category.name }}
+                        {% endif %}
+                    </p>
+                    <div>
+                        <div id="tovar_desc">
+                            {{ category.description|safe }}
+                        </div>
+                        <a class="read-next" href="#">Подробнее</a>
+                    </div>
+                {% endif %}
+
             </div>
 
         </div>
@@ -523,31 +570,17 @@
 {% block shadow %}
     <div class='modal_mobile_sort'>
         <h2>Сортировать:<span class="close"></span></h2>
-        <!--<ul>
-            <li class="active"><a>по популярности</a></li>
-            <li><a>акционные</a></li>
-            <li><a>от дешевых к дорогим</a></li>
-            <li><a>от дорогих к дешевым</a></li>
-        </ul> -->
         <div class="custom_select">
             <form method="get">
                 {{ form.sort_by }}
                 <button type="submit" id="mobile_sort_submit">Сортировать</button>
             </form>
         </div>
-        <!--
-        <div class="custom_select">
-            <form method="get">
-                {% include "partials/form_field.html" with field=form.sort_by nolabel=True %}
-            </form>
-        </div>
-        -->
     </div>
     {{ block.super }}
 {% endblock %}
 
 {% block scripts %}
-    <!--<script src="{% get_static 'js/headhesive.min.js' %}"></script>-->
     {{ block.super }}
 {% endblock %}
 
@@ -570,7 +603,7 @@
             });
         });
     </script>
-    <!--<script src="{% get_static 'js/more-button.js' %}"></script>-->
+    <script src="{% get_static 'js/more-button.js' %}"></script>
 {% endblock %}
 
 {% block onbodyload %}

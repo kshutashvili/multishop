@@ -41,7 +41,7 @@ class CategoryAdminForm(forms.ModelForm):
             'description_ru': CKEditorWidget(),
             'description_uk': CKEditorWidget(),
         }
-        exclude = ('name', 'description')
+        exclude = ('name', 'description', 'description_title')
 
 
 class ProductAttributeValueAdminForm(forms.ModelForm):
@@ -69,6 +69,9 @@ class ProductAdmin(OscarProductAdmin):
 @admin.register(Category)
 class CategoryAdmin(OscarCategoryAdmin):
     form = CategoryAdminForm
+    fields = ('path', 'depth', 'numchild', 'name_ru', 'name_uk', 'description_title_ru',
+              'description_title_uk', 'description_ru', 'description_uk',
+              'image', 'slug', 'site')
 
 
 @admin.register(ProductAttributeValue)

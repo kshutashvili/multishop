@@ -109,6 +109,7 @@ class ProductCategory(AbstractProductCategory):
 
 class Category(AbstractCategory):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+    description_title = models.CharField(verbose_name='Название статьи (описания)', max_length=255, blank=True)
 
     def get_absolute_url(self):
         return reverse('catalogue:product_or_category',

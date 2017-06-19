@@ -51,7 +51,13 @@
                     </ul>
                 </div>
 
-                <p class="category_block_caption before_owl">{{ category.name }}</p>
+                <p class="category_block_caption before_owl">
+                    {% if category.description_title %}
+                        {{ category.description_title }}
+                    {% else %}
+                        {{ category.name }}
+                    {% endif %}
+                </p>
                 <div style="height:'100%'">
                     <div id="tovar_desc">
                         {{ category.description|safe }}
