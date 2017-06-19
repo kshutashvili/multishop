@@ -1,10 +1,14 @@
 from collections import Iterable
+from parler.views import TranslatableSlugMixin
 
 from django.contrib.sites.shortcuts import get_current_site
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.base import ContextMixin
+from django.shortcuts import get_object_or_404
+from django.conf import settings
+from django.utils.translation import get_language_from_request
 
 from website.views import SiteTemplateResponseMixin
 from shop.catalogue.models import Product, Category
@@ -73,7 +77,7 @@ class ContactMessageCreateView(SiteTemplateResponseMixin, CreateView):
         return super(ContactMessageCreateView, self).form_valid(form)
 
 
-class FlatPageView(CompareAndMenuContextMixin, SiteTemplateResponseMixin, DetailView):
+class FlatPageView(TranslatableSlugMixin, CompareAndMenuContextMixin, SiteTemplateResponseMixin, DetailView):
     template_name = 'flatpages/default.html'
     context_object_name = 'flatpage'
     model = FlatPage

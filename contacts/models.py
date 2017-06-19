@@ -3,11 +3,16 @@ from __future__ import unicode_literals
 
 import phonenumbers
 from ckeditor.fields import RichTextField
+from unidecode import unidecode
+from parler.models import TranslatableModel, TranslatedFields
 from django.contrib.sites.models import Site
 from django.core.validators import RegexValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext as _
+from django.conf import settings
+from django.template.defaultfilters import slugify
+
 
 SIGN_TYPE = (
     ('w', _('Бесцветный значок')),
@@ -214,10 +219,12 @@ class ContactMessage(models.Model):
     )
 
 
-class FlatPage(models.Model):
+class FlatPage(TranslatableModel):
     title = models.CharField('Название', max_length=80)
     content = RichTextField('Текст')
-    slug = models.SlugField(unique=True)
+    translations = TranslatedFields(
+        slug = models.SlugField(unique=True)
+    )
     when_created = models.DateTimeField('Дата создания', auto_now_add=True)
     site = models.ManyToManyField(Site, verbose_name='Сайт', blank=True,
                                   null=True, related_name='flatpages')
@@ -232,4 +239,3 @@ class FlatPage(models.Model):
 
     def get_absolute_url(self):
         return reverse('flatpage_detail', kwargs={'flatpage_slug': self.slug})
-

@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'solo',
     'ckeditor',
     'rosetta',
+    'parler',
 ] + get_core_apps(['shop.catalogue',
                    'shop.promotions',
                    'shop.dashboard.catalogue',
@@ -175,6 +176,17 @@ USE_L10N = True
 USE_TZ = True
 
 LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
+
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'ru',},
+        {'code': 'uk',},
+    ),
+    'default': {
+        'fallback': 'uk',
+        'hide_untranslated': False,
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/

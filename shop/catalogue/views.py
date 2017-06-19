@@ -349,7 +349,7 @@ def product_or_category(request, *args, **kwargs):
     query = [
         'SELECT "product" AS ctype FROM {ptable} WHERE slug="{slug}"',
         'SELECT "category" AS ctype FROM {ctable} WHERE slug="{slug}"',
-        'SELECT "flatpage" AS ctype FROM {ftable} WHERE slug="{slug}";'
+        'SELECT "flatpage" AS ctype FROM {ftable} WHERE id in (SELECT master_id from contacts_flatpages_translation);'
     ]
     query = ' UNION '.join(query)
     query = query.format(ptable=Product._meta.db_table,
