@@ -13,5 +13,7 @@ class StockRecord(AbstractStockRecord):
         _("Previous Price"), decimal_places=2, max_digits=12,
         blank=True, null=True)
 
+    price_updated = models.BooleanField(default=True)
+
 
 from oscar.apps.partner.models import *  # noqa
