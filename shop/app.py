@@ -6,10 +6,12 @@ from oscar.app import Shop as DefaultShop
 from oscar.views.decorators import login_forbidden
 
 from shop.catalogue.app import application as catalogue_app
+from shop.dashboard.app import application as dashboard_app
 
 
 class Shop(DefaultShop):
     catalogue_app = catalogue_app
+    dashboard_app = dashboard_app
 
     def get_urls(self):
         urls = [
