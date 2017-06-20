@@ -7,6 +7,7 @@ from oscar.apps.catalogue.admin import ProductAdmin as OscarProductAdmin, \
     CategoryInline, ProductRecommendationInline
 
 from .models import ExtraImage, Product, Video, Category, ProductAttributeValue
+from treebeard.forms import movenodeform_factory
 
 
 class ExtraImageInline(admin.TabularInline):
@@ -34,16 +35,6 @@ class ProductAdminForm(forms.ModelForm):
         exclude = ('name', 'description')
 
 
-class CategoryAdminForm(forms.ModelForm):
-    class Meta:
-        model = Category
-        widgets = {
-            'description_ru': CKEditorWidget(),
-            'description_uk': CKEditorWidget(),
-        }
-        exclude = ('name', 'description', 'description_title')
-
-
 class ProductAttributeValueAdminForm(forms.ModelForm):
     class Meta:
         model = ProductAttributeValue
@@ -66,12 +57,25 @@ class ProductAdmin(OscarProductAdmin):
                ExtraImageInline, VideoInline]
 
 
+CategoryAdminForm = movenodeform_factory(
+    Category,
+    exclude=('name', 'description', 'description_title'),
+    widgets={
+        'description_ru': CKEditorWidget(),
+        'description_uk': CKEditorWidget(),
+    }
+)
+
+
 @admin.register(Category)
 class CategoryAdmin(OscarCategoryAdmin):
+
     form = CategoryAdminForm
-    fields = ('path', 'depth', 'numchild', 'name_ru', 'name_uk', 'description_title_ru',
-              'description_title_uk', 'description_ru', 'description_uk',
-              'image', 'slug', 'site')
+    fields = ('name_ru', 'name_uk',
+              'description_title_ru', 'description_title_uk',
+              'description_ru', 'description_uk',
+              'image', 'slug', 'site',
+              '_position', '_ref_node_id')
 
 
 @admin.register(ProductAttributeValue)
