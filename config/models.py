@@ -14,7 +14,9 @@ from shop.catalogue.models import ProductAttribute
 class SiteConfig(models.Model):
     class TEMPLATES:
         DEFRO = 'defro'
+        BLUE = 'blue'
         _CHOICES = ((DEFRO, 'Defro'),
+                    (BLUE, 'Blue'),
                     )
 
     template = models.CharField(verbose_name='шаблон',
