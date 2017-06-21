@@ -1,10 +1,11 @@
 function initPrice() {
-  min = jQuery("#slider_price").data('min-price');
+  min = 0;
   max = jQuery("#slider_price").data('max-price');
-  price_range_min = jQuery("#slider_price").data('price-range-max');
-  price_range_max = jQuery("#slider_price").data('price-range-min');
-  if ('' != price_range_max && '' != price_range_min) {
-    values = [price_range_max, price_range_min];
+  price_range_min = jQuery("#slider_price").data('price-range-min');
+  price_range_max = jQuery("#slider_price").data('price-range-max');
+
+  if ('' !== price_range_max && '' !== price_range_min) {
+    values = [price_range_min, price_range_max];
   }
   else {
     values = [min, max];
@@ -17,14 +18,12 @@ function initPrice() {
         stop: function(event, ui) {
             jQuery("input#minCost").val(jQuery("#slider_price").slider("values",0));
             jQuery("input#maxCost").val(jQuery("#slider_price").slider("values",1));
+            jQuery("input#maxCost").trigger('change_price');
         },
         slide: function(event, ui){
             jQuery("input#minCost").val(jQuery("#slider_price").slider("values",0));
             jQuery("input#maxCost").val(jQuery("#slider_price").slider("values",1));
         },
-      stop: function( event, ui ) {
-        jQuery("input#maxCost").trigger('change_price');
-      }
   });
 
   jQuery("input#minCost").change(function(){
@@ -47,8 +46,7 @@ function initPrice() {
     var value1=jQuery("input#minCost").val();
     var value2=jQuery("input#maxCost").val();
     if (value1 == '') {
-      value1 = '1';
-      jQuery("input#minCost").val(1)
+      jQuery("input#minCost").val(0);
     }
     
     if(parseInt(value1) > parseInt(value2)){

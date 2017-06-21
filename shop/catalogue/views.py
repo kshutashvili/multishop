@@ -161,7 +161,6 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         price_range = [x.price for x in SearchQuerySet().models(Product).filter(
             site=self.site.pk) if x.price is not None]
         try:
-            context['min_price'] = int(min(price_range))
             context['max_price'] = int(max(price_range))
             context['price_range_min'] = int(self.request.GET.get(
                 'price_range_min'))
