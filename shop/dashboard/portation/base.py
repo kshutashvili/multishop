@@ -19,7 +19,3 @@ class Base():
         DESCRIPTION_RU,
         DESCRIPTION_UK,
     ]
-
-    def __init__(self, *args, **kwargs):
-        print self.FIELDS_TO_EXPORT_IMPORT
-        print 'alalalall'

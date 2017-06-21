@@ -1,17 +1,13 @@
-from shop.catalogue.models import Product
 from openpyxl import Workbook
 
+from shop.catalogue.models import Product
 from shop.catalogue.models import AttributeOption
 from shop.catalogue.models import ProductAttributeValue
+from .base import Base
 
 
-class CatelogueExporter(object):
+class CatelogueExporter(Base):
 
-    fields_to_export = [
-        'ID', 'Product class', 'UPC',
-        'Category ID(s)', 'Title RU', 'Title UA',
-        'Description RU', 'Description UA',
-    ]
     attributes_to_export = {}
 
     def __init__(self, data, *args, **kwargs):
@@ -50,7 +46,7 @@ class CatelogueExporter(object):
         return wb
 
     def create_first_line(self, ws):
-        for i, value in enumerate(self.fields_to_export):
+        for i, value in enumerate(self.FIELDS):
             ws.cell(row=1, column=i + 1, value=value)
 
         current = i + 2
