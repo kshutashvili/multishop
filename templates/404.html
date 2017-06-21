@@ -1,0 +1,69 @@
+{% extends base_template_name %}
+{% load site_static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="container default_container">
+            <div class="main_block clear_fix">
+                <div class="left_side search_left_side default_left_side">
+                    {% include site_template|add:'/partials/side_menu.html' with is_main_page=False expand=True %}
+                </div>
+                <ol class="breadcrumb">
+                    <li><a href="/"><img src="{% get_static 'img/home.png' %}" alt=""></a></li>
+                    <li class="active">Страница не найдена</li>
+                </ol>
+                <br>
+                <div class="error_block">
+                    <div class="error_img">
+                        <h4 class="error_msg">Страница не найдена</h4>
+                        <p class="error_submsg">Возможно, она была удалена или Вы ввели неверный адрес</p>
+                    </div>
+                    <div class="error_info_block">
+                        <p class="error_info_block__title">Попробуйте <a href="/">перейти на главную</a> или<br> воспользоваться поиском.</p>
+                        <p class="error_info_block__text">Можете перейти в раздел который Вам интересен:</p>
+                        <div class="well">
+                            <ul class="left_menu">
+                                <li>
+                                    {% if side_menu %}
+                                        {% for category, descendants in side_menu.items %}
+                                            <div class="dropdown side-menu">
+                                                <a href="{{ category.get_absolute_url }}"
+                                                   class="btn btn-default dropdown-toggle"
+                                                   id="dropdownMenu{{ forloop.counter0|add:"3" }}"
+                                                   data-toggle="dropdown"
+                                                   aria-haspopup="true"
+                                                   aria-expanded="true">
+                                                    {{ category.name }}
+                                                </a>
+                                                <ul class="dropdown-menu"
+                                                    aria-labelledby="dropdownMenu{{ forloop.counter0|add:"3" }}">
+                                                    {% for descendant in descendants %}
+                                                        <li class="clear_fix">
+                                                            {% if descendant.image %}
+                                                                <img src="{{ descendant.image.url }}"
+                                                                     alt="">
+                                                            {% endif %}
+                                                            <div class="menu_item_links">
+                                                                <a href="{{ descendant.get_absolute_url }}"
+                                                                   class="menu_item_caption">{{ descendant.name }}</a>
+                                                                {% for product in descendant.product_set.all %}
+                                                                    <a href="{{ product.get_absolute_url }}"
+                                                                       class="menu_item_list">{{ product.title }}</a>
+                                                                {% endfor %}
+                                                            </div>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
