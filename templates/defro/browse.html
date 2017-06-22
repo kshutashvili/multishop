@@ -232,15 +232,15 @@
                         <div class="right_content">
                             <p class="category_block_caption">
                             {% if category %}
-                                {{ category.name }}
-                            {% endif %} | 
-                            {% for field in filter_form %}
-                                {% for item in field %}
-                                    {% if item.is_checked %}
-                                        {{ field.label }}: {{ item.choice_label }}
-                                    {% endif %}
+                                {{ category.name }}{% endif %}{% if filter_form.has_changed %};
+                                {% for field in filter_form %}
+                                    {% for item in field %}
+                                        {% if item.is_checked %}
+                                            {{ field.label }}: {{ item.choice_label }}
+                                        {% endif %}
+                                    {% endfor %}
                                 {% endfor %}
-                            {% endfor %}
+                            {% endif %}
                             </p>
                             <div class="sort_vid">
                                 <div class="filter_media">Фильтр<i class="fa fa-filter" aria-hidden="true"></i></div>
