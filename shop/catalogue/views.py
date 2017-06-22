@@ -28,7 +28,7 @@ from django.apps import apps
 
 from contacts.models import FlatPage
 from contacts.views import FlatPageView
-from shop.catalogue.models import Product, Category
+from shop.catalogue.models import Product, Category, FilterDescription
 from shop.catalogue.models import ProductAttributeValue
 from shop.order.forms import OneClickOrderForm
 from website.views import SiteTemplateResponseMixin
@@ -143,6 +143,16 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
             path_to_request = full_path.split('?')[0]
         else:
             path_to_request = full_path
+        new_path = path_to_request.split('/')
+        if 'uk' in new_path:
+            path_to_request = "/%s" % '/'.join(new_path[2:])
+        else:
+            path_to_request = '/'.join(new_path)
+        try:
+            self.filter_descr = FilterDescription.objects.get(filter_url=path_to_request)
+        except FilterDescription.DoesNotExist:
+            # page without applied filter
+            pass
         try:
             self.search_handler = self.get_search_handler(
                 self.request.GET, path_to_request, request,
@@ -156,6 +166,8 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         context.update(self.get_meta_tokens())
         context['recently_viewed_products'] = history.get(self.request)
         context['filter_form'] = self.form
+        if hasattr(self, 'filter_descr'):
+            context['filter_descr'] = self.filter_descr
         if hasattr(self, 'category'):
             context['category'] = self.category
         price_range = [x.price for x in SearchQuerySet().models(Product).filter(
