@@ -60,6 +60,8 @@ def meta_tag(page_type, tag, object, request, category=None, filter=None):
                 except AttributeError:
                     value = ''
         tag = tag.replace(''.join(k), value)
+    if tag[0:2] == ' .':
+        tag = tag[2:]
     return tag
 
 

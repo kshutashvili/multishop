@@ -5399,3 +5399,55 @@ div.contacts a.cityphone {
 	margin-bottom: 0px!important;
 	height: 55px;
 }
+
+.error_block{
+    clear: both;
+    overflow: hidden;
+}
+.error_block .error_img{
+    float: left;
+    width: 606px;
+    height: 606px;
+    background-image: url("../img/error_404.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+.error_block .error_msg{
+    font-size: 26px;
+    font-family: "ArialRegular", sans-serif;
+    text-align: center;
+    margin: 535px 0 0 23px;
+    color: #777777;
+    text-transform: uppercase;
+}
+.error_block .error_submsg{
+    font-family: "ArialRegular";
+    font-size: 18px;
+    color: #777;
+    margin: 14px 0 0 65px;
+}
+.error_block .error_info_block{
+    width: 494px;
+    float: left;
+}
+.error_info_block__title{
+    font-family: "ArialRegular", sans-serif;
+    font-size: 22px;
+    color: #3e3e3e;
+    margin: 115px 0 0 61px;
+}
+.error_info_block__title a{
+    font-family: "ArialRegular", sans-serif;
+    font-size: 22px;
+    color: #229fff;
+}
+.error_info_block__text{
+    font-family: "ArialRegular", sans-serif;
+    font-size: 18px;
+    color: #3e3e3e;
+    margin: 31px 0 0 60px;
+}
+.error_block .well{
+    margin: 48px 0 0 65px;
+}
