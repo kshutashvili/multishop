@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'rosetta',
     'parler',
+    'shop.dashboard.portation',
 ] + get_core_apps(['shop.catalogue',
                    'shop.promotions',
                    'shop.dashboard.catalogue',
@@ -64,7 +65,7 @@ INSTALLED_APPS = [
                    'shop.search',
                    'shop.order',
                    'shop.basket',
-                   'shop.partner'
+                   'shop.partner',
                    ])
 
 MIDDLEWARE = [
@@ -221,12 +222,29 @@ OSCAR_SEARCH_FACETS = {
         ('rating', {'name': _('Rating'), 'field': 'rating'}),
     ]),
     'queries': OrderedDict([
-        ]),
+    ]),
 }
 
-OSCAR_MISSING_IMAGE_URL = os.path.join(MEDIA_URL,'image_not_found.jpg')
+OSCAR_MISSING_IMAGE_URL = os.path.join(MEDIA_URL, 'image_not_found.jpg')
 
 OSCAR_DEFAULT_CURRENCY = 'UAH'
+
+OSCAR_DASHBOARD_NAVIGATION += [
+    {
+        'label': _('Import/export'),
+        'icon': 'icon-refresh',
+        'children': [
+            {
+                'label': _('Import'),
+                'url_name': 'dashboard:portation-import',
+            },
+            {
+                'label': _('Export'),
+                'url_name': 'dashboard:portation-export',
+            },
+        ],
+    },
+]
 
 THUMBNAIL_PRESERVE_FORMAT=True
 
