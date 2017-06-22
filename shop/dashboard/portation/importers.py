@@ -7,6 +7,7 @@ from shop.catalogue.models import Category
 from shop.catalogue.models import ProductCategory
 from shop.catalogue.models import ProductAttributeValue
 from shop.catalogue.models import AttributeOption
+from shop.catalogue.models import ProductClass
 
 
 class CatalogueImporter(Base):
@@ -43,6 +44,8 @@ class CatalogueImporter(Base):
             self.statistics['updated'] += 1
         except Product.DoesNotExist:
             product = Product()
+            p_class = ProductClass.objects.get(name=values[self.PRODUCT_CLASS])
+            product.product_class = p_class
             self.statistics['created'] += 1
 
         categories = Category.objects.filter(
@@ -53,6 +56,7 @@ class CatalogueImporter(Base):
             product_category.product = product
             product_category.category = category
             product_category._no_index = True
+            product_category.save()
 
         product.title_ru = values[self.TITLE_RU]
         product.title_uk = values[self.TITLE_UK]
@@ -61,8 +65,8 @@ class CatalogueImporter(Base):
         product.upc = values[self.UPC]
         if not data[0].row == self.max_row:
             product._no_index = True
-        self.save_product_attributes(product, data)
         product.save()
+        self.save_product_attributes(product, data)
         return product
 
     def save_product_attributes(self, product, data):
@@ -95,11 +99,9 @@ class CatalogueImporter(Base):
             value_obj.save()
 
     def _get_categories(self, category):
-        if isinstance(category, str):
-            categories = str(category).split(', ')
-            categories = [int(item) for item in categories]
-        elif isinstance(category, type(None)):
+        if isinstance(category, type(None)):
             categories = []
         else:
-            categories = [int(category)]
+            category = unicode(category)
+            categories = category.split(', ')
         return categories
