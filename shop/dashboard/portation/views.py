@@ -26,9 +26,13 @@ class ImportView(FormView):
         file = form.cleaned_data['file']
         importer = CatalogueImporter(file)
         result = importer.handle()
-        result = _('Updated: {}; Created: {}.'.format(
+        result_message = _('Updated: {}; Created: {}.'.format(
             result['updated'], result['created']))
-        messages.success(self.request, result)
+        messages.success(self.request, result_message)
+        errors = result.get('errors')
+        if errors:
+            errors_message = _('Errors on rows: {}').format(', '.join(errors))
+            messages.error(self.request, errors_message)
         return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
 
 

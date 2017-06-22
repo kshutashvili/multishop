@@ -5,7 +5,6 @@ from .base import Base
 from shop.catalogue.models import Product
 from shop.catalogue.models import Category
 from shop.catalogue.models import ProductCategory
-from shop.catalogue.models import ProductClass
 from shop.catalogue.models import ProductAttributeValue
 from shop.catalogue.models import AttributeOption
 
@@ -19,6 +18,7 @@ class CatalogueImporter(Base):
         self.statistics = {
             'created': 0,
             'updated': 0,
+            'errors': [],
         }
         self._import()
         return self.statistics
@@ -28,7 +28,10 @@ class CatalogueImporter(Base):
         self.max_row = ws.max_row
         for row in ws:
             if row[0].row != 1:
-                self.create_update_product(row)
+                try:
+                    self.create_update_product(row)
+                except:
+                    self.statistics['errors'].append(str(row[0].row))
 
     def create_update_product(self, data):
         field_values = data[0:len(self.FIELDS)]
