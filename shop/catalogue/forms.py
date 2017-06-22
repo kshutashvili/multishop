@@ -107,7 +107,7 @@ class FilterForm(forms.Form):
             field = self.fields[data_item]
             for selected in data[data_item]:
                 for choice in field.choices:
-                    if choice[0] == selected:
+                    if str(choice[0]) == str(selected):
                         if result.get(field.label) is None:
                             result[field.label] = []
                         result[field.label].append(choice[1])
