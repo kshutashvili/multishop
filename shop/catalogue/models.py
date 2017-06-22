@@ -18,7 +18,8 @@ from django.utils.translation import ugettext_lazy as _, get_language
 from django.template.loader import get_template
 from oscar.apps.catalogue.abstract_models import (
     AbstractProduct, AbstractProductAttributeValue, AbstractProductClass,
-    AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup
+    AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup,
+    AbstractAttributeOption
 )
 from oscar.core.loading import get_class
 from redis.exceptions import ConnectionError
@@ -187,11 +188,20 @@ class Video(models.Model):
 class AttributeOptionGroup(AbstractAttributeOptionGroup):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
+    def __unicode__(self):
+        return '{} - {}'.format(self.name, self.site.name)
+
     def get_name_code(self):
         return unidecode(self.name).replace(' ', '_').replace("'", '')
 
     def get_filter_param(self):
         return 'group_filter_{}'.format(self.get_name_code())
+
+
+class AttributeOption(AbstractAttributeOption):
+
+    def __unicode__(self):
+        return '{} - {}'.format(self.option, self.group.site.name)
 
 
 class FilterDescription(models.Model):
