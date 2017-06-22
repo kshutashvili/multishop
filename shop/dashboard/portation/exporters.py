@@ -84,7 +84,7 @@ class CatelogueExporter(Base):
             if isinstance(value.value, tuple):
                 value = value.value
             elif isinstance(value.value, AttributeOption):
-                value = value.value.id,
+                value = value.value.option,
             else:
                 value = value.value,
         except ProductAttributeValue.DoesNotExist:

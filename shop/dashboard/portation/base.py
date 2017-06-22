@@ -5,9 +5,9 @@ class Base():
     UPC = 'UPC'
     CATEGORY = 'Category ID(s)'
     TITLE_RU = 'Title RU'
-    TITLE_UK = 'Title UK'
+    TITLE_UK = 'Title UA'
     DESCRIPTION_RU = 'Description RU'
-    DESCRIPTION_UK = 'Description UK'
+    DESCRIPTION_UK = 'Description UA'
 
     FIELDS = [
         ID,
