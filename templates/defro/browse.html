@@ -231,6 +231,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-9 cold-lg-9">
                         <div class="right_content">
                             <p class="category_block_caption">
+                            {% if filter_descr %}
                                 {% for field in filter_form %}
                                     {% for item in field %}
                                         {% if item.is_checked %}
@@ -238,6 +239,9 @@
                                         {% endif %}
                                     {% endfor %}
                                 {% endfor %}
+                            {% elif category %}
+                                {{ category.name }}
+                            {% endif %}
                             </p>
                             <div class="sort_vid">
                                 <div class="filter_media">Фильтр<i class="fa fa-filter" aria-hidden="true"></i></div>
