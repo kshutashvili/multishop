@@ -4,6 +4,7 @@ import operator
 
 import redis
 from unidecode import unidecode
+from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, mail_admins
@@ -191,6 +192,19 @@ class AttributeOptionGroup(AbstractAttributeOptionGroup):
 
     def get_filter_param(self):
         return 'group_filter_{}'.format(self.get_name_code())
+
+
+class FilterDescription(models.Model):
+    filter_url = models.CharField(verbose_name='URL', max_length=255)
+    title = models.CharField(verbose_name=_('Заголовок'), max_length=255, blank=True)
+    description = models.TextField(verbose_name=_('Описание'), blank=True)
+
+    class Meta:
+        verbose_name = _('Статья для фильтров')
+        verbose_name_plural = _('Статьи для фильтров')
+
+    def __unicode__(self):
+        return self.filter_url
 
 
 @receiver(order_placed)

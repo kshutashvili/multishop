@@ -231,16 +231,12 @@
                     <div class="col-xs-12 col-sm-12 col-md-9 cold-lg-9">
                         <div class="right_content">
                             <p class="category_block_caption">
-                                {% for field, data in facet_data.items %}
-                                    {% if data.results %}
-                                        {% with name=data.name items=data.results %}
-                                            {% for item in items %}
-                                                {% if item.selected %}
-                                                    {{ name }}: {{ item.name }}
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% endwith %}
-                                    {% endif %}
+                                {% for field in filter_form %}
+                                    {% for item in field %}
+                                        {% if item.is_checked %}
+                                            {{ field.label }}: {{ item.choice_label }}
+                                        {% endif %}
+                                    {% endfor %}
                                 {% endfor %}
                             </p>
                             <div class="sort_vid">
@@ -518,31 +514,16 @@
                     {% include 'defro/recently_viewed_products.html' %}
                 {% endif %}
 
-                {% for field, data in facet_data.items %}
-                    {% if data.results %}
-                        {% with name=data.name items=data.results %}
-                            {% for item in items %}
-                                {% if item.selected %}
-                                <p class="category_block_caption before_owl">{{ name }}: {{ item.name }}</p>
-                                <div>
-                                    <div id="filter_desc">
-                                        {% if item.richtext %}
-                                            {{ item.richtext|safe }}
-                                        {% else %}
-                                            {% if item.text %}
-                                                {{ item.text|safe }}
-                                            {% endif %}
-                                        {% endif %}
-                                    </div>
-                                    <a class="read-next" href="#">Подробнее</a>
-                                </div>
-                                {% endif %}
-                            {% endfor %}
-                        {% endwith %}
-                    {% endif %}
-                {% endfor %}
 
-                {% if category %}
+                {% if filter_descr %}
+                    <p class="category_block_caption before_owl">{{ filter_descr.title }}</p>
+                    <div>
+                        <div id="tovar_desc">
+                            {{ filter_descr.description|safe }}
+                        </div>
+                        <a class="read-next" href="#">Подробнее</a>
+                    </div>
+                {% elif category %}
                     <p class="category_block_caption before_owl">
                         {% if category.description_title %}
                             {{ category.description_title }}

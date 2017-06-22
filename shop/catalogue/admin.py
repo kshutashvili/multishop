@@ -6,7 +6,8 @@ from oscar.apps.catalogue.admin import ProductAdmin as OscarProductAdmin, \
     ProductAttributeValueAdmin as OscarProductAttributeValueAdmin, \
     CategoryInline, ProductRecommendationInline
 
-from .models import ExtraImage, Product, Video, Category, ProductAttributeValue
+from .models import ExtraImage, Product, Video, Category, ProductAttributeValue, \
+    FilterDescription
 from treebeard.forms import movenodeform_factory
 
 
@@ -81,6 +82,22 @@ class CategoryAdmin(OscarCategoryAdmin):
 @admin.register(ProductAttributeValue)
 class ProductAttributeValueAdmin(OscarProductAttributeValueAdmin):
     form = ProductAttributeValueAdminForm
+
+
+class FilterDescriptionAdminForm(forms.ModelForm):
+    class Meta:
+        model = FilterDescription
+        widgets = {
+            'description_ru': CKEditorWidget(),
+            'description_uk': CKEditorWidget(),
+        }
+        exclude = ('title', 'description')
+
+
+@admin.register(FilterDescription)
+class FilterDescriptionAdmin(admin.ModelAdmin):
+    form = FilterDescriptionAdminForm
+    list_display = ('filter_url', 'title')
 
 
 from oscar.apps.catalogue.admin import *  # noqa
