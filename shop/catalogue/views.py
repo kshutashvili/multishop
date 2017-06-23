@@ -317,8 +317,24 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
             context['page_type'] = MetaTag.SUB_SECTION
         return context
 
+    def query_to_dict(self, query):
+        return dict((s.split(':') for s in query.split('-')))
+
+    def dict_to_query(self, d):
+        if 'page' in d:
+            d = d.copy()
+            del d['page']
+        items = sorted(d.items(), key=lambda i: i[0])
+        return '-'.join((':'.join(item) for item in items))
+
+
     def get(self, request, *args, **kwargs):
         # Fetch the category; return 404 or redirect as needed
+        if request.GET:
+            return redirect('catalogue:product_or_category',
+                            slug=kwargs['category_slug'],
+                            query=self.dict_to_query(request.GET),
+                            permanent=True)
         self.category = self.get_category()
         if not self.category.get_children().exists():
             # Crutch oriented programming: we show products on the category url
@@ -333,9 +349,15 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
         if potential_redirect is not None:
             return potential_redirect
 
+        query = kwargs.get('query')
+        if query:
+            query = self.query_to_dict(query)
+            query.update(request.GET)
+        else:
+            query = request.GET
         try:
             self.search_handler = self.get_search_handler(
-                request.GET, request.get_full_path(), request,
+                query, request.get_full_path(), request,
                 self.get_categories(), [])
         except InvalidPage:
             messages.error(request, _('The given page number was invalid.'))
