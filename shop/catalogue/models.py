@@ -97,6 +97,18 @@ class Product(AbstractProduct):
         return reverse('catalogue:product_or_category',
                        kwargs={'slug': slug})
 
+    @property
+    def full_slug(self):
+        """Combined slug of product and it's category"""
+
+        if self.categories.all().exists():
+            cat = self.categories.all().first()
+            slug = cat._slug_separator.join((cat.slug, self.slug))
+        else:
+            slug = self.slug
+
+        return slug
+
 
 class ProductClass(AbstractProductClass):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)

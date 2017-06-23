@@ -28,24 +28,26 @@ def change_lang(context, lang=None, *args, **kwargs):
             slugs = url_parts.kwargs['slug'].split(Category._slug_separator)
             last_slug = slugs[-1]
             view_type = get_view_type(last_slug)[0]
-            attr = 'slug'
+            attr = 'full_slug'
 
             # get slug based on view_type
             if view_type == "product":
                 model = Product
             elif view_type == "flatpage":
                 model = FlatPage
-            else:
+                attr = 'slug'
+            elif view_type == "category":
                 model = Category
-                attr = 'full_slug'
 
             obj = model.objects.get(slug=last_slug)
             activate(lang)
 
             url_parts.kwargs['slug'] = getattr(obj, attr)
-
         else:
             activate(lang)
+
+        # remove empty params
+        url_parts.kwargs = {k: v for k, v in url_parts.kwargs.iteritems() if v is not None}
 
         url = reverse(url_parts.view_name, kwargs=url_parts.kwargs)
     finally:
