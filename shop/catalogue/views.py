@@ -320,10 +320,13 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
     def query_to_dict(self, query):
         return dict((s.split(':') for s in query.split('-')))
 
+    def _is_value_valid(self, value):
+        if {'-', ':'} & set(value):
+            return False
+        return True
+
     def dict_to_query(self, d):
-        if 'page' in d:
-            d = d.copy()
-            del d['page']
+        d = {k: v for k, v in d.iteritems() if self._is_value_valid(v)}
         items = sorted(d.items(), key=lambda i: i[0])
         return '-'.join((':'.join(item) for item in items))
 
