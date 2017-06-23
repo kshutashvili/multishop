@@ -85,7 +85,10 @@ function initPrice() {
 }
 
 $(document).ready(function(){
+  jQuery("input#minCost").val('');
+  jQuery("input#maxCost").val('');
   initPrice();
+
   $( function() {
     var select = $( "#minbeds" );
     var slider = $( "#slider_month" ).slider({

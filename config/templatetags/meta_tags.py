@@ -26,7 +26,7 @@ def meta_tag(page_type, tag, object, request, category=None, filter=None):
                     word = morph.parse(unicode(value))[0]
                     value = word.inflect({token_clean}).word
                 except AttributeError:
-                    value = ''
+                    value = value
             elif token_clean == 'filter':
                 value = ''
                 for item in filter:
