@@ -232,11 +232,16 @@
                         <div class="right_content">
                             <p class="category_block_caption">
                             {% if category %}
-                                {{ category.name }}{% endif %}{% if filter_form.has_changed %};
+                                {{ category.name }}{% if filter_form.has_changed %};{% endif %}
+                            {% endif %}
+                            {% if request.GET.price_range_min or request.GET.price_range_max %}
+                                {% trans "Цена:" %} {{ request.GET.price_range_min }} - {{ request.GET.price_range_max }};
+                            {% endif %}
+                            {% if filter_form.has_changed %}
                                 {% for field in filter_form %}
                                     {% for item in field %}
                                         {% if item.is_checked %}
-                                            {{ field.label }}: {{ item.choice_label }}
+                                            {{ field.label }}: {{ item.choice_label }};
                                         {% endif %}
                                     {% endfor %}
                                 {% endfor %}

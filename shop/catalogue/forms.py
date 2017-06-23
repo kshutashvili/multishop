@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 import math
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
-from shop.catalogue.models import (AttributeOptionGroup, Product,
-                                   ProductAttribute)
+from shop.catalogue.models import AttributeOptionGroup, ProductAttribute
 from shop.catalogue.widgets import CustomFilterCheckboxSelectMultiple
 from shop.catalogue.fields import CustomFilterMultipleChoiceField
 from shop.catalogue.fields import NonValidationMultipleChoiceField
@@ -111,4 +112,9 @@ class FilterForm(forms.Form):
                         if result.get(field.label) is None:
                             result[field.label] = []
                         result[field.label].append(choice[1])
+        price_range_min = self.request.GET.get('price_range_min')
+        price_range_max = self.request.GET.get('price_range_max')
+        if price_range_min or price_range_max:
+            result[_(u'Цена')] = ['{0} - {1}'.format(
+                price_range_min, price_range_max)]
         return result

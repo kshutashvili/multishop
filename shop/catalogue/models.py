@@ -19,7 +19,7 @@ from django.template.loader import get_template
 from oscar.apps.catalogue.abstract_models import (
     AbstractProduct, AbstractProductAttributeValue, AbstractProductClass,
     AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup,
-    AbstractAttributeOption, ProductManager, BrowsableProductManager
+    AbstractAttributeOption, ProductManager, BrowsableProductManager, AbstractProductAttribute
 )
 from oscar.core.loading import get_class
 from redis.exceptions import ConnectionError
@@ -122,6 +122,11 @@ class Category(AbstractCategory):
     def get_absolute_url(self):
         return reverse('catalogue:product_or_category',
                        kwargs={'slug': self.full_slug})
+
+
+class ProductAttribute(AbstractProductAttribute):
+    def __unicode__(self):
+        return '{} - {}'.format(self.name, self.product_class.name)
 
 
 class ProductAttributeValue(AbstractProductAttributeValue):
