@@ -4,7 +4,7 @@ from .models import FlatPage, City, Timetable
 
 
 class FlatPageTranslationOptions(TranslationOptions):
-    fields = ('title', 'content',)
+    fields = ('title', 'content', 'slug')
 
 
 class CityTranslationOptions(TranslationOptions):

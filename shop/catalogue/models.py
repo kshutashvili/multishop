@@ -19,10 +19,11 @@ from django.template.loader import get_template
 from oscar.apps.catalogue.abstract_models import (
     AbstractProduct, AbstractProductAttributeValue, AbstractProductClass,
     AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup,
-    AbstractAttributeOption
+    AbstractAttributeOption, ProductManager, BrowsableProductManager
 )
 from oscar.core.loading import get_class
 from redis.exceptions import ConnectionError
+from treebeard.mp_tree import MP_NodeManager
 
 from contacts.models import PhoneNumber, SocialNetRef
 
@@ -40,6 +41,9 @@ class Product(AbstractProduct):
     gift = models.BooleanField(verbose_name='+Подарок', default=False)
     free_shipping = models.BooleanField(verbose_name='Бесплатная доставка',
                                         default=False)
+
+    objects = ProductManager()
+    browsable = BrowsableProductManager()
 
     def change_similar_products(self, recent_products):
         try:
@@ -112,6 +116,8 @@ class ProductCategory(AbstractProductCategory):
 class Category(AbstractCategory):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
     description_title = models.CharField(verbose_name='Название статьи (описания)', max_length=255, blank=True)
+
+    objects = MP_NodeManager()
 
     def get_absolute_url(self):
         return reverse('catalogue:product_or_category',

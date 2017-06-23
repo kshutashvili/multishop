@@ -219,12 +219,10 @@ class ContactMessage(models.Model):
     )
 
 
-class FlatPage(TranslatableModel):
+class FlatPage(models.Model):
     title = models.CharField('Название', max_length=80)
     content = RichTextField('Текст')
-    translations = TranslatedFields(
-        slug = models.SlugField(unique=True)
-    )
+    slug = models.SlugField()
     when_created = models.DateTimeField('Дата создания', auto_now_add=True)
     site = models.ManyToManyField(Site, verbose_name='Сайт', blank=True,
                                   null=True, related_name='flatpages')

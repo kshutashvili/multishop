@@ -1,5 +1,4 @@
 from collections import Iterable
-from parler.views import TranslatableSlugMixin
 
 from django.contrib.sites.shortcuts import get_current_site
 from django.views.generic import TemplateView
@@ -77,7 +76,7 @@ class ContactMessageCreateView(SiteTemplateResponseMixin, CreateView):
         return super(ContactMessageCreateView, self).form_valid(form)
 
 
-class FlatPageView(TranslatableSlugMixin, CompareAndMenuContextMixin, SiteTemplateResponseMixin, DetailView):
+class FlatPageView(CompareAndMenuContextMixin, SiteTemplateResponseMixin, DetailView):
     template_name = 'flatpages/default.html'
     context_object_name = 'flatpage'
     model = FlatPage

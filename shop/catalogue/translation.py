@@ -6,7 +6,7 @@ from .models import Product
 
 
 class ProductTranslationOptions(TranslationOptions):
-    fields = ('title', 'description',)
+    fields = ('title', 'description', 'slug')
 
 
 class ProductAttributeTranslationOptions(TranslationOptions):
@@ -18,7 +18,7 @@ class ProductClassTranslationOptions(TranslationOptions):
 
 
 class CategoryTranslationOptions(TranslationOptions):
-    fields = ('name', 'description', 'description_title')
+    fields = ('name', 'description', 'description_title', 'slug')
 
 
 class ProductAttributeValueTranslationOptions(TranslationOptions):
