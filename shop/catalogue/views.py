@@ -320,7 +320,7 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
         return dict((s.split(':') for s in query.split('-')))
 
     def _is_value_valid(self, value):
-        if {'-', ':'} & set(value):
+        if not value or ({'-', ':'} & set(value)):
             return False
         return True
 
@@ -333,10 +333,12 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
     def get(self, request, *args, **kwargs):
         # Fetch the category; return 404 or redirect as needed
         if request.GET:
-            return redirect('catalogue:product_or_category',
-                            slug=kwargs['category_slug'],
-                            query=self.dict_to_query(request.GET),
-                            permanent=True)
+            query = self.dict_to_query(request.GET)
+            if query:
+                return redirect('catalogue:product_or_category',
+                                slug=kwargs['category_slug'],
+                                query=query,
+                                permanent=True)
         self.category = self.get_category()
         if not self.category.get_children().exists():
             # Crutch oriented programming: we show products on the category url
