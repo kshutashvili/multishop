@@ -18,10 +18,12 @@ from django.utils.translation import ugettext_lazy as _, get_language
 from django.template.loader import get_template
 from oscar.apps.catalogue.abstract_models import (
     AbstractProduct, AbstractProductAttributeValue, AbstractProductClass,
-    AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup
+    AbstractProductCategory, AbstractCategory, AbstractAttributeOptionGroup,
+    AbstractAttributeOption, ProductManager, BrowsableProductManager, AbstractProductAttribute
 )
 from oscar.core.loading import get_class
 from redis.exceptions import ConnectionError
+from treebeard.mp_tree import MP_NodeManager
 
 from contacts.models import PhoneNumber, SocialNetRef
 
@@ -39,6 +41,9 @@ class Product(AbstractProduct):
     gift = models.BooleanField(verbose_name='+Подарок', default=False)
     free_shipping = models.BooleanField(verbose_name='Бесплатная доставка',
                                         default=False)
+
+    objects = ProductManager()
+    browsable = BrowsableProductManager()
 
     def change_similar_products(self, recent_products):
         try:
@@ -92,6 +97,18 @@ class Product(AbstractProduct):
         return reverse('catalogue:product_or_category',
                        kwargs={'slug': slug})
 
+    @property
+    def full_slug(self):
+        """Combined slug of product and it's category"""
+
+        if self.categories.all().exists():
+            cat = self.categories.all().first()
+            slug = cat._slug_separator.join((cat.slug, self.slug))
+        else:
+            slug = self.slug
+
+        return slug
+
 
 class ProductClass(AbstractProductClass):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
@@ -112,9 +129,16 @@ class Category(AbstractCategory):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
     description_title = models.CharField(verbose_name='Название статьи (описания)', max_length=255, blank=True)
 
+    objects = MP_NodeManager()
+
     def get_absolute_url(self):
         return reverse('catalogue:product_or_category',
                        kwargs={'slug': self.full_slug})
+
+
+class ProductAttribute(AbstractProductAttribute):
+    def __unicode__(self):
+        return '{} - {}'.format(self.name, self.product_class.name)
 
 
 class ProductAttributeValue(AbstractProductAttributeValue):
@@ -187,11 +211,20 @@ class Video(models.Model):
 class AttributeOptionGroup(AbstractAttributeOptionGroup):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
+    def __unicode__(self):
+        return '{} - {}'.format(self.name, self.site.name)
+
     def get_name_code(self):
         return unidecode(self.name).replace(' ', '_').replace("'", '')
 
     def get_filter_param(self):
         return 'group_filter_{}'.format(self.get_name_code())
+
+
+class AttributeOption(AbstractAttributeOption):
+
+    def __unicode__(self):
+        return '{} - {}'.format(self.option, self.group.site.name)
 
 
 class FilterDescription(models.Model):

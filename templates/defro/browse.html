@@ -231,16 +231,20 @@
                     <div class="col-xs-12 col-sm-12 col-md-9 cold-lg-9">
                         <div class="right_content">
                             <p class="category_block_caption">
-                            {% if filter_descr %}
+                            {% if category %}
+                                {{ category.name }}{% if filter_form.has_changed %};{% endif %}
+                            {% endif %}
+                            {% if request.GET.price_range_min or request.GET.price_range_max %}
+                                {% trans "Цена:" %} {{ request.GET.price_range_min }} - {{ request.GET.price_range_max }};
+                            {% endif %}
+                            {% if filter_form.has_changed %}
                                 {% for field in filter_form %}
                                     {% for item in field %}
                                         {% if item.is_checked %}
-                                            {{ field.label }}: {{ item.choice_label }}
+                                            {{ field.label }}: {{ item.choice_label }};
                                         {% endif %}
                                     {% endfor %}
                                 {% endfor %}
-                            {% elif category %}
-                                {{ category.name }}
                             {% endif %}
                             </p>
                             <div class="sort_vid">
@@ -377,7 +381,7 @@
                                                         {% for av in product.attribute_values.all %}
                                                             <p>{{ av.attribute.name }}:
                                                                 <span>{% if av.value_option %}
-                                                                    {{ av.value_option }}{% else %}
+                                                                    {{ av.value_option.option }}{% else %}
                                                                     {{ av.value_as_html }}{% endif %}</span>.
                                                             </p>
                                                         {% endfor %}

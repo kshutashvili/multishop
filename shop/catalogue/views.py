@@ -7,7 +7,6 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.checks import messages
 from django.core.mail import EmailMultiAlternatives
 from django.core.paginator import InvalidPage
-from django.db import connection
 from django.http import HttpResponse, Http404, JsonResponse
 from django.http.response import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
@@ -26,13 +25,13 @@ from oscar.apps.customer import history
 from oscar.apps.partner.strategy import Selector
 from django.apps import apps
 
-from contacts.models import FlatPage
 from contacts.views import FlatPageView
 from shop.catalogue.models import Product, Category, FilterDescription
 from shop.catalogue.models import ProductAttributeValue
 from shop.order.forms import OneClickOrderForm
 from website.views import SiteTemplateResponseMixin
 from .forms import FilterForm
+from .utils import get_view_type
 
 MetaTag = apps.get_model('config', 'MetaTag')
 Configuration = apps.get_model('config', 'Configuration')
@@ -108,7 +107,7 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         brand_attribute_code = brand_attribute.option_group.get_filter_param()
         if (brand_attribute_code in self.request.GET and
                 len(self.request.GET.getlist(brand_attribute_code)) == 1 and
-                len(self.request.GET) <= 3):
+                len(self.request.GET) <= 4):
             tokens['page_type'] = MetaTag.BRAND
             tokens['page_obj'] = brand_attribute.option_group.options.all() \
                 .get(pk=self.request.GET.get(brand_attribute_code))
@@ -317,6 +316,7 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
             context['page_type'] = MetaTag.SUB_SECTION
         return context
 
+
     def get(self, request, *args, **kwargs):
         # Fetch the category; return 404 or redirect as needed
         self.category = self.get_category()
@@ -332,7 +332,6 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
             request.path, self.category)
         if potential_redirect is not None:
             return potential_redirect
-
         try:
             self.search_handler = self.get_search_handler(
                 request.GET, request.get_full_path(), request,
@@ -357,29 +356,19 @@ def product_or_category(request, *args, **kwargs):
         last_slug = slugs[-1]
     except IndexError:
         raise Http404
-    query = [
-        'SELECT "product" AS ctype FROM {ptable} WHERE slug="{slug}"',
-        'SELECT "category" AS ctype FROM {ctable} WHERE slug="{slug}"',
-        'SELECT "flatpage" AS ctype FROM {ftable} WHERE id in (SELECT master_id from contacts_flatpages_translation);'
-    ]
-    query = ' UNION '.join(query)
-    query = query.format(ptable=Product._meta.db_table,
-                         ctable=Category._meta.db_table,
-                         ftable=FlatPage._meta.db_table,
-                         slug=last_slug)
-    with connection.cursor() as cur:
-        cur.execute(query)
-        ctype = cur.fetchone()
-    if ctype is None:
-        raise Http404
-    ctype = ctype[0]
+
+    view_type = get_view_type(last_slug)
+    ctype = view_type[0]
     if ctype == 'product':
         kwargs['slug'] = kwargs['slug'].split(Category._slug_separator)[-1]
+        kwargs['pk'] = view_type[1]
         return product_view(request, *args, **kwargs)
     elif ctype == 'flatpage':
         kwargs['slug'] = kwargs.pop('slug')
+        kwargs['pk'] = view_type[1]
         return flatpage_view(request, *args, **kwargs)
     else:
+        kwargs['pk'] = view_type[1]
         kwargs['category_slug'] = kwargs.pop('slug')
         return category_view(request, *args, **kwargs)
 

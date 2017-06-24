@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from parler.admin import TranslatableAdmin
-
 from django.contrib import admin
 from django.contrib.flatpages.models import FlatPage as DjangoFlatPage
 
@@ -43,11 +41,4 @@ class CityAdmin(admin.ModelAdmin):
 
 
 admin.site.unregister(DjangoFlatPage)
-@admin.register(FlatPage)
-class FlatPageAdmin(TranslatableAdmin):
-    def get_prepopulated_fields(self, request, obj=None):
-        return {'slug': ('title',)}
-
-
-# admin.site.unregister(DjangoFlatPage)
-# admin.site.register(FlatPage)
+admin.site.register(FlatPage)
