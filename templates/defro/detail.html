@@ -372,7 +372,13 @@
                                                     {% for av in product.attribute_values.all %}
                                                         <tr>
                                                             <th>{{ av.attribute.name }}</th>
-                                                            <td>{{ av.value_as_html|safe }}</td>
+                                                            <td>
+                                                                {% if av.value_option %}
+                                                                    {{ av.value_option.option }}
+                                                                {% else %}
+                                                                    {{ av.value_as_html|safe }}
+                                                                {% endif %}
+                                                            </td>
                                                         </tr>
                                                     {% endfor %}
                                                 </table>
