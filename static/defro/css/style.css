@@ -521,6 +521,7 @@ a.under_left_menu_more:hover{
 }
 .second_block .owl-carousel .item p{
 	margin: 15px 0;
+	font-size: 16px;
 }
 .second_block .owl-carousel {
     padding: 0 50px;
@@ -742,7 +743,7 @@ label.select_box:before {
 }
 .third_block .stoimost{
 	text-align: center;
-	font: 30px "ArialBold";
+	font: 24px "ArialBold";
 	margin-top: 40px;
 	margin-bottom: 20px;
 	text-transform: uppercase;
@@ -872,14 +873,14 @@ a.choose_kotel:hover{
 }
 .sixth_block h6{
 	background-color: #fdfcfc;
-	font: 38px "ArialBold";
+	font: 30px "ArialBold";
 	text-transform: uppercase;
 	text-align: center;
 	color: #ed1b24;
 	margin: 60px 0 45px;
 }
 .sixth_block h6 span{
-	font: 38px "ArialRegular";
+	font: 30px "ArialRegular";
 }
 .sixth_block .youtube_videos{
 	text-align: center;
@@ -1142,7 +1143,7 @@ a.choose_kotel:hover{
 	min-height: 143px;
 }
 .eighth_block .list_name{
-	font: 24px "ArialBold";
+	font: 22px "ArialBold";
 	color: #ed1b24;
 	text-transform: uppercase;
 	margin-bottom: 10px;
@@ -1416,7 +1417,7 @@ a.choose_kotel:hover{
 .category_block_caption{
 	border-bottom: 1px solid #dfdede;
 	color: #424141;
-	font-size: 26px;
+	font-size: 24px;
 	padding-bottom: 3px;
 }
 .category_block ul li{
@@ -1446,9 +1447,10 @@ a.choose_kotel:hover{
 	border: 1px solid #ed1b24;
 	color: #ed1b24;
 }
-.category_block ul li a p{
+.category_block ul li p{
 	font: 20px "ArialRegular";
 	margin: 5px 0 0;
+	text-align: center;
 }
 .category_block ul li a img{
 	max-width: 165px;
@@ -1572,6 +1574,7 @@ a.choose_kotel:hover{
 	height: 30px;
 	border: 1px solid #b1b1b1;
 	text-align: center;
+	font-size: 16px;
 }
 /* Ширина слайдера */
 #slider_price {
@@ -1732,7 +1735,9 @@ a.choose_kotel:hover{
 	margin-left: 25px;
 }
 .right_content .category_block_caption{
+	padding-bottom: 15px;
 	width: 100%;
+	font-size: 24px;
 }
 .custom_select select option {
     padding-left: 15px;
@@ -1772,7 +1777,7 @@ select::-ms-expand {
 	display: none;
 }
 .number_of_elems{
-	margin: 0 60px;
+	margin: 0 45px;
 	display: inline-block;
 }
 .number_of_elems .custom_select{
@@ -1810,8 +1815,8 @@ select::-ms-expand {
 	margin-bottom: 25px;
 	margin-top: 19px;
 }
-.right_content .category_block_caption{
-	padding-bottom: 15px;
+.sort_vid span {
+	font-size: 15px;
 }
 .rating_number, .br-wrapper{
 	display: inline-block;
@@ -2078,6 +2083,7 @@ a.look_more:hover{
 .pagination > li > a, .pagination > li > span{
 	padding: 12px 18px;
 	color: #000;
+	font-size: 18px;
 }
 .marker_prev{
 	background: url("../img/catalog/marker_prev.png") no-repeat right 19px center;
@@ -2357,6 +2363,7 @@ a.read-next-fullcomment{
 	position: relative;
 	height: 35px;
 	padding: 6px 11px;
+	font-size: 18px;
 }
 .nav-tabs{
 	border: 0;
@@ -2461,7 +2468,7 @@ a.read-next-fullcomment{
 	border: 1px solid #d9d9d9;
 }
 .tovar_buy_block{
-	padding: 10px 35px 0 85px;
+	padding: 10px 30px 0 85px;
 	background: url("../img/piktograma_basket.png") no-repeat left top;
 	float: left;
 	min-height: 533px;
@@ -2489,7 +2496,7 @@ a.read-next-fullcomment{
 	text-align: center;
 	margin: 20px 0 10px;
 	color: #b6b6b6;
-	font-size: 24px;
+	font-size: 23px;
 }
 .tovar_buy_block .catalog_item_price{
 	text-align: center;
@@ -2547,12 +2554,12 @@ a.basket_button_none{
 }
 a.buy_credit{
 	color: #3bb854;
-	background: url("../img/credit.png") no-repeat left 15px center;
-	padding: 10px 10px 10px 52px;
+	background: url("../img/credit.png") no-repeat left 10px center;
+	padding: 10px 10px 10px 47px;
 	background-color: #fff;
 	display: block;
 	max-width: 222px;
-	font-size: 20px;
+	font-size: 22px;
 	text-align: center;
 	text-decoration: none;
 	border: 1px solid #3bb854;
@@ -2586,22 +2593,24 @@ input.zakaz_one_click{
 }
 a.elipse_button{
 	display: inline-block;
-	padding-top: 62px;
 	background: url("../img/tovar/green_srav.png") no-repeat top center;
 	vertical-align: top;
 	text-decoration: none;
 	color: #414141;
 	text-align: center;
 	margin: 0 25px;
+	padding: 62px 5px 0px 5px;
+	font-size: 12px;
 }
 a.elipse_button_question{
 	display: inline-block;
-	padding-top: 62px;
 	background: url("../img/tovar/vopros.png") no-repeat top center;
 	vertical-align: top;
 	text-decoration: none;
 	color: #414141;
 	text-align: center;
+	padding: 62px 5px 0px 5px;
+	font-size: 12px;
 }
 .social_block a{
 	width: 25px;
@@ -2680,7 +2689,7 @@ a.elipse_button_question{
 }
 .fast_delivery_text{
 	color: #565555;
-	font-size: 13px;
+	font-size: 17px;
 	margin-bottom: 30px;
 }
 .tovar_second_info{
@@ -2783,14 +2792,14 @@ table.table_teh_har {
 }
 .table_main_har th {
   padding: 10px;
-  font-size: 13px;
+  font-size: 15px;
 }
 .table_main_har tr:nth-child(3) td {
   line-height: 25px;
 }
 .table_main_har td {
   padding: 10px;
-  font-size: 13px;
+  font-size: 15px;
 }
 .table_main_har td:first-child {
   width: 44%;
@@ -2834,6 +2843,9 @@ a.read-next-fullcomment.read-next-arrow{
 	max-width: 415px;
 	width: 100%;
 	display: block;
+}
+.tovar_second_info .left_filter_collapse .well table td, .tovar_second_info .left_filter_collapse .well table th {
+	font-size: 14px;
 }
 .left_filter_collapse .otzivi_after {
     top: -1px;
@@ -2884,6 +2896,9 @@ a.comment_button_uniq{
 }
 .user_comment_block .rating_number, .user_comment_block .br-wrapper {
     vertical-align: top;
+}
+.user_comment_block #user_comment p, .user_answer_block #user_comment p {
+	font-size: 15px;
 }
 .otziv_polezen_da{
 	color: #3bb854;
@@ -3935,7 +3950,7 @@ a.modal_basket_goto{
 }
 .letter_icon_info p span{
 	color: #262626;
-	font-size: 17px;
+	font-size: 16px;
 }
 .letter_icon_info p:nth-child(1){
 	background: url("../img/letter/name.png") no-repeat left center;
@@ -4099,7 +4114,7 @@ a.modal_basket_goto{
 	margin-left: 25px;
 	border: 0;
 	background-color: transparent;
-	font-size: 20px;
+	font-size: 22px;
 	padding: 5px 45px 12px;
 }
 .zakaz_details_tovar .letter_details_tovar{
@@ -4176,6 +4191,7 @@ a.zakaz_change_zakaz{
 	padding-left: 45px;
 	border: 1px solid #999999;
 	margin-bottom: 20px;
+	font-size: 16px;
 }
 .letter_details_contact input:first-child{
 	background: url("../img/letter/ava_gray_mini.png") no-repeat left 12px center;
@@ -4189,6 +4205,7 @@ a.zakaz_change_zakaz{
 .letter_details_contact textarea{
 	width: 290px;
 	height: 83px;
+	font-size: 16px;
 	padding-left: 45px;
 	border: 1px solid #999999;
 	margin-bottom: 30px;
@@ -4217,6 +4234,7 @@ a.zakaz_change_zakaz{
 	padding-left: 25px;
 	border: 1px solid #999999;
 	margin-bottom: 20px;
+	font-size: 16px;
 }
 .make_zakaz_container input::-webkit-input-placeholder {color:#000;opacity: 1;}
 .make_zakaz_container input::-moz-placeholder          {color:#000;opacity: 1;}/* Firefox 19+ */
@@ -4239,6 +4257,7 @@ a.zakaz_change_zakaz{
     height: 45px;
     background-size: 15%;
     border: 1px solid #999999;
+    font-size: 16px;
 }
 .make_zakaz_button{
 	font-size: 20px;
@@ -4287,7 +4306,7 @@ a.zakaz_change_zakaz{
 	max-width: 100%;
 }
 .made_zakaz_container .letter_details_caption {
-    font-size: 18px;
+    font-size: 22px;
     background-color: #fafafa;
     padding: 10px;
     padding-left: 45px;
@@ -4755,7 +4774,7 @@ a.compare_table_clean_button{
 .contacts_info_caption
 {
 	color: #424141;
-	font: 16px "ArialBold";
+	font: 24px "ArialBold";
 	text-transform: uppercase;
 	border-bottom: 1px solid #d9d9d9;
 	padding-bottom: 15px;
@@ -4763,20 +4782,24 @@ a.compare_table_clean_button{
 .contacts_info_text
 {
 	color: #565555;
-	font-size: 13px;
+	font-size: 17px;
 	margin-bottom: 30px;
+}
+.contacts_info_text.contacts_grafik span {
+	font-size: 17px;
 }
 .contacts_adress
 {
-	margin-bottom: 50px;
+	margin-bottom: 35px;
 }
 .contacts_info_phone
 {
 	display: block;
+	height: 195px;
 }
 .contacts_info_phone a {
 	display: block;
-	font-size: 16px;
+	font-size: 20px;
 	margin-bottom: 15px;
 	height: 24px;
 }
@@ -4840,9 +4863,10 @@ a.compare_table_clean_button{
 	display: inline-block;
 	color: #fff;
 	background-color: #ed1b24;
-	padding: 8px 50px;
+	font-size: 18px;
 	text-decoration: none;
 	width: 270px;
+	padding-left: 0px;
 }
 .contacts_map p
 {
@@ -4852,7 +4876,7 @@ a.compare_table_clean_button{
 	padding: 12px 0 12px;
 	border: 1px solid #d9d9d9;
 	color: #565555;
-	font-size: 15px;
+	font-size: 17px;
 	margin-bottom: 20px;
 }
 .contacts_short {
@@ -4865,7 +4889,7 @@ a.compare_table_clean_button{
 	background-color: #f7f7f7;
 	padding: 15px 65px;
 	background-position: 25px 10px;
-	font-size: 17px;
+	font-size: 24px;
 	color: #696767;
 	border: 1px solid #d9d9d9;
 	display: block;
@@ -4881,7 +4905,7 @@ a.compare_table_clean_button{
 .contacts_short_body .contacts_info_phone
 {
 	float: left;
-	margin-right: 85px;
+	margin-right: 65px;
 }
 .contacts_more
 {
@@ -4912,7 +4936,7 @@ a.compare_table_clean_button{
 	background-color: #f7f7f7;
 	text-align: center;
 	padding: 15px;
-	font-size: 18px;
+	font-size: 17px;
 	border: 1px solid #d9d9d9;
 	color: #1b6604;
 	font-family: 'ArialBold';
@@ -5450,4 +5474,10 @@ div.contacts a.cityphone {
 }
 .error_block .well{
     margin: 48px 0 0 65px;
+}
+.grafik p, .grafik p span {
+    font-size: 13px;
+}
+#season {
+    height: 65px;
 }

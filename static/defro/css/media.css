@@ -119,10 +119,12 @@
         width: 100%;
         text-align: center;
         margin-left:0 ;
+        font-size: 16px;
     }
     .compare_block_table .catalog_item_price {
         margin-left: 0;
         width: 100%;
+        font-size: 20px;
     }
     #all_parame .table_main_har td:first-child {
         width: 265px;
@@ -298,14 +300,32 @@
     width: auto;
     }
     .contacts a {
+        font-size: 20px;
+    }
+    .compare_block_table .catalog_item_block_caption {
         font-size: 14px;
+    }
+    .contact_content h1 {
+        font-size: 21px;
+    }
+    .zakaz_details_tovar .letter_details_price {
+        font-size: 16px;
+    }
+    .right_content .category_block_caption {
+        font-size: 18px;
     }
     /*.contacts a.zakaz_zvon {
         font-size: 14px;
     }*/
+    .left_menu .dropdown-menu li .menu_item_links {
+        font-size: 15px;
+    }
     .headhesive
     {
         display: block;
+    }
+    .select_box select {
+        font-size: 18px;
     }
     .lang
     {
@@ -338,13 +358,9 @@
     {
         margin: 25px 0 10px;
     }
-    .right_side h1
-    {
-        font: 35px "ArialBold";
-    }
     .right_side p
     {
-        font-size: 25px;
+        font-size: 32px;
     }
     .third_block
     {
@@ -352,15 +368,16 @@
     }
     .third_block .calculator .other_blocks span
     {
-       font-size: 13px;
+       font-size: 14px;
     }
     .third_block .calculator .other_blocks p {
-        font-size: 16px;
+        font-size: 20px;
         padding: 18px 25px;
     }
     .calculator_second .other_blocks_cell {
         display: table-cell;
-        width: 23%;
+        width: 21%;
+        font-size: 18px;
     }
     .calculator_second .other_blocks_cell:last-child
     {
@@ -368,23 +385,25 @@
     }
     .third_block .calculator .top_and_bot_block p {
         display: table-cell;
+        font-size: 20px;
     }
     .third_block .calculator .top_and_bot_block p.cpecial {
-        font-size: 16px;
+        font-size: 20px;
     }
     .calculator_second .top_and_bot_block p {
         width: 23%;
     }
     .third_block .calculator .other_blocks span {
         margin-left: 5px;
+        font-size: 18px;
     }
     .third_block .calculator.calculator_second .other_blocks input {
-        width: 50%;
+        width: 40%;
     }
     .third_block .calculator_second  .other_blocks p {
-        font-size: 13px;
+        font-size: 18px;
         padding: 18px 25px;
-        width: 75px;
+        width: 100px;
     }
     .calculator_second .other_blocks_cell:last-child p
     {
@@ -407,7 +426,7 @@
     }
     .fourth_block ul li p {
         padding-top: 0;
-        font-size: 13px;
+        font-size: 14px;
     }
     .fourth_block ul li {
         min-height: 182px;
@@ -425,13 +444,13 @@
         max-width: 220px;
     }
     .seventh_block .caption {
-        font: 40px "ArialBlack";
+        font: 50px "ArialBlack";
     }
     .seventh_block .caption span {
-        font-size: 40px;
+        font-size: 50px;
     }
     .seventh_block .desc {
-        font-size: 20px;
+        font-size: 26px;
     }
     .seventh_block ul li {
         background-size: 85% !important;
@@ -443,10 +462,7 @@
         top: 20px;
     }
     .eighth_block .list_caption {
-        font-size: 20px;
-    }
-    .eighth_block .desc {
-        font: 22px "ArialBold";
+        font-size: 24px;
     }
     .bottom_menu {
         display: flex;
@@ -663,6 +679,15 @@
     .table_main_har ul:nth-child(2n+1) {
         background: #fff;
     }
+    .tovar_buy_block .catalog_item_price {
+        font-size: 36px;
+    }
+    .tovar_second_info .left_filter_collapse .well table td, .tovar_second_info .left_filter_collapse .well table th {
+        font-size: 15px;
+    }
+    #submit_comment {
+        font-size: 18px;
+    }
     .compare_scroll
     {
         min-width: 1px;
@@ -742,7 +767,7 @@
         margin-right: 15px;
     }
     .often_caption.category_block_caption {
-        font-size: 24px;
+        font-size: 26px;
     }
     .acticle_tov {
         top: 0;
@@ -984,7 +1009,10 @@
         float: left;
         margin-top: 7px;
     }
-
+    
+    #submit_comment {
+        font-size: 18px;
+    }
     .user_comment_bottom {
         padding-bottom: 27px;
     }
@@ -1023,7 +1051,7 @@
 
     .right_side {
         text-align: left;
-        width: 250px;
+        width: 300px;
     }
 
     .calculator_second .other_blocks_cell:first-child {
@@ -1035,7 +1063,7 @@
     }
 
     .calculator_second .top_and_bot_block p {
-        width: 21%;
+        width: 19%;
         text-align: left;
     }
 
@@ -1045,7 +1073,7 @@
     }
 
     .calculating {
-        font-size: 18px !important;
+        /*font-size: 18px !important;*/
         margin: 0 3px;
     }
 
@@ -1057,17 +1085,12 @@
     }
 
     .fourth_block h4 {
-        font-size: 35px;
         max-width: 590px;
         text-align: center;
     }
 
-    .fourth_block h4 span {
-        font-size: 35px;
-    }
-
     .fifth_block h5 {
-        font-size: 43px;
+        font-size: 46px;
         width: 390px;
         margin: 45px auto 45px;
     }
@@ -1090,11 +1113,11 @@
     }
 
     .slider_block .slider_name {
-        font-size: 24px;
+        font-size: 30px;
     }
 
     .slider_block .slider_text {
-        font-size: 14px;
+        font-size: 16px;
         height: 138px;
         overflow: hidden;
     }
@@ -1114,7 +1137,7 @@
     .seventh_block ul li {
         max-width: 155px;
         padding-top: 140px;
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .seventh_block ul li::after {
@@ -1282,7 +1305,7 @@
     }
 
     .tovar_buy_block .catalog_item_price {
-        font-size: 30px;
+        font-size: 36px;
     }
 
     a.basket_button, a.buy_credit, button.zakaz_one_click {
@@ -1315,7 +1338,7 @@
         width: 100%;
         margin-top: 0;
         margin-bottom: 13px;
-        height: 200px;
+        height: 180px;
     }
     /*contacts_main*/
     .contacts_short_body .contacts_info_phone {
@@ -1508,10 +1531,10 @@
         width: 70%;
     }
     .contacts a {       
-        font-size: 15px;
+        font-size: 20px;
     }
     .contacts span {
-        font-size: 15px;
+        font-size: 16px;
     }
     .contacts {
         margin-top: -25px;
@@ -1529,8 +1552,13 @@
     .right_side p {
         font-size: 23px;
     }
-    .third_block .calculator .other_blocks input, .select_box select {
+    .third_block .calculator .other_blocks input {
         width: 190px;
+        font-size: 14px;
+    }
+    .select_box select {
+        width: 190px;
+        font-size: 16px;
     }
     .third_block .calculator_second .right_side  {
         width: 100%;
@@ -1551,6 +1579,7 @@
         width: 100%;
         text-align: center;
         padding: 7px 21px 4px;
+        font-size: 14px;
     }
     .third_block .first_calc .right_side
     {
@@ -1779,7 +1808,7 @@
     }
 
     .slider_block .slider_name {
-        font-size: 27px;
+        font-size: 30px;
         display: block;
         text-align: center;
         margin-bottom: 5px;
@@ -2035,6 +2064,7 @@
     .tovar_buy_block .line_through {
         float: right;
         margin: -11px 0 10px;
+        font-size: 22px;
     }
     .tovar_buy_block .catalog_item_price {
         float: right;
@@ -2270,9 +2300,13 @@
     .third_block {
         background-size: 2500px;
     }
+        #submit_comment {
+        font-size: 16px;
+    }
 
     a.choose_kotel {
         text-align: center;
+        font-size: 18px;
     }
 
     .fourth_block {
@@ -2494,7 +2528,7 @@
     /*contacts_main*/
     
     .contact_content h1 {
-    font-size: 20px;
+    font-size: 22px;
     }
     /*made_zakaz*/
     .made_zakaz_container .letter_details_tovar ul li img {    
@@ -2610,6 +2644,45 @@
 
 @media screen and (max-width: 460px) {
 
+    .category_block ul li p {
+        font-size: 12px;
+    }
+    .category_block.compare_block .category_block_caption {
+        font-size: 26px;
+    }
+    .category_block.compare_block ul li a {
+        font-size: 12px;
+    }
+    .compare_block_table .category_block_caption {
+        font-size: 18px;
+    }
+    .compare_block_table .catalog_item_block_caption {
+        font-size: 12px;
+    }
+    .compare_block_table .nav-tabs > li > a {
+        font-size: 14px;
+    }
+    .contacts_short p {
+        font-size: 20px;
+    }
+    .contacts_info_phone {
+        height: auto;
+    }
+    .contacts_delivery {
+        font-size: 16px;
+    }
+    .contacts_info_text.contacts_grafik span {
+        font-size: 16px;
+    }
+    .right_content .category_block_caption {
+        font-size: 20px;
+    }
+    .search_nothing_here {
+        font-size: 16px;
+    }
+    .tovar_second_info .left_filter_collapse .well table td, .tovar_second_info .left_filter_collapse .well table th {
+        font-size: 15px;
+    }
     .more-info {
         display: none;
     }
@@ -2676,7 +2749,7 @@
     }
     .fifth_block h5 {
         width: 320px;
-        font-size: 32px;
+        font-size: 34px;
     }
     .sixth_block .youtube_videos img {
         max-width: 90%;
@@ -2731,9 +2804,6 @@
     .banks img {
         height: 150px;
     }
-    .eighth_block .caption span,  .eighth_block .caption{
-        font-size: 32px;
-    }
     .more_block, .list_more, .list_more_second
     {
         display: block;
@@ -2778,7 +2848,7 @@
     .eighth_block .list_caption {
         width: 100%;
         position: relative;
-        height: 145px;
+        height: 165px;
     }
     .eighth_block .list_caption .list_more,  .eighth_block .list_caption .list_more_second {
         bottom: -20px;
@@ -2846,10 +2916,10 @@
         margin-left: 17%;
     }
     .often_caption.category_block_caption span {
-        font-size: 22px;
+        font-size: 24px;
     }
     .often_caption.category_block_caption {
-        font-size: 20px;
+        font-size: 24px;
         width: 60%;
     }
     .user_comment_bottom {
@@ -2999,7 +3069,7 @@
     /*contacts_main*/
   
     .contact_content h1 {
-        font-size: 18px;
+        font-size: 22px;
     }
     /*made_zakaz*/
     .made_zakaz_container .letter_details_tovar ul li img
@@ -3096,7 +3166,7 @@
     }
     /*contacts*/
     .contacts_info_caption {   
-        font-size: 14px ;
+        font-size: 24px ;
     }
     .contacts_info_block .contacts {   
         margin-bottom: 20px;
@@ -3172,10 +3242,10 @@
         width: 160px;
     }
     .compare_block_table .nav {
-            top: 625px;
+        top: 675px;
     }
     .category_block_caption {
-        font-size: 20px;
+        font-size: 26px;
         margin-top: 20px;
     }
     .table_main_har ul li {
@@ -3189,7 +3259,7 @@
         margin-left: 8%;
     }
     .tovar_second_info .left_filter_collapse .left_filter_captions {
-        font-size: 20px;
+        font-size: 24px;
     }
     /*contacts_main*/
     .contacts_short_body {    
@@ -3415,8 +3485,8 @@
     }
 }
 
-/*@media screen and (min-width: 1201px) {
-    .bottom_menu .menu_block {
-        white-space: nowrap;
+@media screen and (min-width: 1201px) {
+    .left_menu .dropdown-menu li .menu_item_links a {
+        font-size: 15px;
     }
-}*/
+}
