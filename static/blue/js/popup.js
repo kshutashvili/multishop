@@ -5,13 +5,14 @@ $(function () {
 	
 	$('.show_popup').click(function () {
 		$('div.'+$(this).attr("rel")).fadeIn(500);
-		$("body").append("<div id='overlay'></div>");
-		$('#overlay').show().css({'filter' : 'alpha(opacity=80)'});
+		//$("body").append("<div class='shadow'></div>");
+		$('.shadow').show().css({'filter' : 'alpha(opacity=80)'});
 		return false;				
 	});	
 	$('a.close').click(function () {
 		$(this).parent().fadeOut(100);
-		$('#overlay').remove('#overlay');
+		//$('.shadow').remove('.shadow');
+		$('.shadow').hide();
 		return false;
 	});
 	$('.close_modal').click(function () {

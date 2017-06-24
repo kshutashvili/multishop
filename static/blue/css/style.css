@@ -152,11 +152,17 @@ ul{
 	background: url("../img/call.png") no-repeat left center;
     position: relative;
 }
+.contacts a.zakaz_zvon:hover {
+    color: #565555;
+}
 .contacts a.zakaz_zvon::after{
     content:'';
     border-bottom: 1px dashed #229fff;
     display: block;
     margin-top: 1px;
+}
+.contacts a.zakaz_zvon:hover:after{
+    border-bottom: 1px dashed #565555;
 }
 .basket{
 	float: right;
@@ -164,6 +170,7 @@ ul{
 .basket .dropdown{
 	display: inline-block;
 	vertical-align: middle;
+	z-index: 800;
 }
 .basket .btn-default{
 	color: #565555;
@@ -171,8 +178,32 @@ ul{
 	border: 1px solid transparent;
 	font-size: 12px;
 	padding: 35px 5px 0;
-	margin-left: 10px;
+	margin-left: 0px;
 	box-shadow: none;
+}
+.basket #dropdownMenu1:before{
+	content: attr(data-content);
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	background-color: #229fff;
+	color: #fff;
+	bottom: 15px;
+	left: 5px;
+	border-radius: 50%;
+}
+.basket #dropdownMenu2:before{
+	content: attr(data-content);
+	position: absolute;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	background-color: #229fff;
+	color: #fff;
+	bottom: 15px;
+	left: 5px;
+	border-radius: 50%;
 }
 .basket .open .btn-default{
 	border: 1px solid #e0e0e0;
@@ -201,10 +232,10 @@ ul{
 	border-radius: 50%;
 }
 .basket .open #dropdownMenu1:before{
-	content: "\2714";
+	content: attr(data-content);
 }
 .basket .open #dropdownMenu2:before{
-	content: "1";
+	content: attr(data-content);
 }
 #dropdownMenu1{
 	background: url("../img/sravn.png") no-repeat center top 5px;
@@ -325,7 +356,7 @@ ul{
 	background: url("../img/block_bg.png") no-repeat center center;
 	height: 790px;
 	position: relative;
-	z-index: 1;
+	z-index: auto;
 	border-bottom: 4px solid #229fff;
 }
 .left_side{
@@ -483,13 +514,17 @@ a.under_left_menu_more:hover{
 	width: auto;
 	display: inline-block;
 	margin-bottom: 8px;
+	height: 145px;
 }
 .second_block .owl-carousel .item{
 	border: 1px solid #aaabab;
 	text-align: center;
+	height: 200px;
+	width: 150px;
 }
 .second_block .owl-carousel .item p{
 	margin: 15px 0;
+	font-size: 16px;
 }
 .second_block .owl-carousel {
     padding: 0 50px;
@@ -711,7 +746,7 @@ label.select_box:before {
 }
 .third_block .stoimost{
 	text-align: center;
-	font: 30px "ArialBold";
+	font: 24px "ArialBold";
 	margin-top: 40px;
 	margin-bottom: 20px;
 	text-transform: uppercase;
@@ -1237,7 +1272,7 @@ a.choose_kotel:hover{
 	margin-right: 0;
 }
 .bottom_menu .menu_block .menu_block_items{
-	max-width: 210px;
+	max-width: 235px;
 	width: 100%;
 }
 .bottom_menu .menu_block .menu_block_items li{
@@ -1371,6 +1406,9 @@ a.choose_kotel:hover{
     position: relative;
     z-index: 10;
 }
+.left_side .well {
+	z-index: auto;
+}
 .above_footer_block .bottom_menu, .above_footer_block .bottom_menu_bg{
 	position: static;
 	height: auto;
@@ -1463,6 +1501,7 @@ a.choose_kotel:hover{
 .category_block ul li a p{
 	font: 20px "ArialRegular";
 	margin: 5px 0 0;
+	text-align: center;
 }
 .category_block ul li a img{
 	max-width: 165px;
@@ -1523,6 +1562,37 @@ a.choose_kotel:hover{
 }
 .float_right{
 	float: right;
+}
+.filter-wrapper {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+}
+#filter_form.wait {
+	position: relative;
+	background: white;
+	opacity: 0.35;
+}
+#filters .disabled {
+	color: #7c7b7b;
+}
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #ff414a;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+	z-index: 11;
+	position: fixed;
+	top: 50%;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 .left_filter_collapse{
 	border: 1px solid #e0e0e0;
@@ -1714,7 +1784,9 @@ a.choose_kotel:hover{
 	margin-left: 25px;
 }
 .right_content .category_block_caption{
+	padding-bottom: 15px;
 	width: 100%;
+	font-size: 24px;
 }
 .custom_select select option {
     padding-left: 15px;
@@ -1745,11 +1817,15 @@ a.choose_kotel:hover{
 	background: url("../img/catalog/selectbox_active.png") no-repeat center right 2px;
 	outline: none !important;
 }
+.modal_mobile_sort .custom_select {
+	display: block;
+	width: 100%;
+}
 select::-ms-expand {
 	display: none;
 }
 .number_of_elems{
-	margin: 0 60px;
+	margin: 0 45px;
 	display: inline-block;
 }
 .number_of_elems .custom_select{
@@ -1811,6 +1887,15 @@ select::-ms-expand {
 	color: #3e3e3e;
 	font-size: 20px;
 	margin: 19px 0 15px;
+}
+.catalog_item_block_caption a{
+	color: #3e3e3e;
+	font-size: 20px;
+	margin: 19px 0 15px;
+	text-decoration: none;
+}
+.catalog_item_block_caption a:hover{
+	color: #229fff;
 }
 .catalog_items ul{
 	font-size: 0;
@@ -1881,6 +1966,18 @@ a.buy_button.but_button_sold{
 }
 a.buy_button.but_button_sold:hover{
 	background: #828081;
+}
+.basket_button_sold{
+	background: #828081;
+	color: #fff;
+	cursor: default;
+	pointer-events: none;
+	border: 1px solid #dfdede;
+	font-size: 20px;
+	padding: 10px 10px;
+	margin-bottom: 10px;
+	width: 100%;
+	max-width: 100%;
 }
 a.buy_button:hover{
 	background-color: #f8545b;
@@ -2034,6 +2131,7 @@ a.look_more:hover{
 .pagination > li > a, .pagination > li > span{
 	padding: 12px 18px;
 	color: #000;
+	font-size: 18px;
 }
 .marker_prev{
 	background: url("../img/catalog/marker_prev.png") no-repeat right 19px center;
@@ -2077,6 +2175,7 @@ a.look_more:hover{
 .owl-carousel.catalog_owl .owl-item img{
 	display: inline-block;
 	max-width: 155px;
+	max-height: 155px;
 }
 .owl-carousel.catalog_owl .catalog_item_block{
 	max-width: 100%;
@@ -2085,6 +2184,7 @@ a.look_more:hover{
 .owl-carousel.catalog_owl .catalog_item_block_caption{
 	font-size: 14px;
 	margin: 15px 20px 10px;
+	height: 32px;
 }
 .owl-carousel.catalog_owl .rating_number{
 	margin-left: 0px;
@@ -2101,6 +2201,10 @@ a.look_more:hover{
 	margin-top: 10px;
 	margin-left: 5px;
 	background: #ed1b24 url("../img/catalog/buy.png") no-repeat left -26px center;
+}
+.owl-carousel.catalog_owl .buy_button.but_button_sold {
+	background: #828081;
+	padding: 5px 0;
 }
 .owl-carousel.catalog_owl .owl-dot:first-child{
 	margin-left: 0;
@@ -2498,11 +2602,11 @@ a.basket_button_none{
 a.buy_credit{
 	color: #3bb854;
 	background: url("../img/credit.png") no-repeat left 15px center;
-	padding: 10px 10px 10px 52px;
+	padding: 10px 10px 10px 47px;
 	background-color: #fff;
 	display: block;
 	max-width: 222px;
-	font-size: 20px;
+	font-size: 22px;
 	text-align: center;
 	text-decoration: none;
 	border: 1px solid #3bb854;
@@ -2552,6 +2656,8 @@ a.elipse_button_question{
 	text-decoration: none;
 	color: #414141;
 	text-align: center;
+	padding: 62px 5px 0px 5px;
+	font-size: 12px;
 }
 .social_block a{
 	width: 25px;
@@ -2733,14 +2839,14 @@ table.table_teh_har {
 }
 .table_main_har th {
   padding: 10px;
-  font-size: 13px;
+  font-size: 15px;
 }
 .table_main_har tr:nth-child(3) td {
   line-height: 25px;
 }
 .table_main_har td {
   padding: 10px;
-  font-size: 13px;
+  font-size: 15px;
 }
 .table_main_har td:first-child {
   width: 44%;
@@ -2784,6 +2890,9 @@ a.read-next-fullcomment.read-next-arrow{
 	max-width: 415px;
 	width: 100%;
 	display: block;
+}
+.tovar_second_info .left_filter_collapse .well table td, .tovar_second_info .left_filter_collapse .well table th {
+	font-size: 14px;
 }
 .left_filter_collapse .otzivi_after {
     top: -1px;
@@ -2835,7 +2944,10 @@ a.comment_button_uniq{
 .user_comment_block .rating_number, .user_comment_block .br-wrapper {
     vertical-align: top;
 }
-a.otziv_polezen_da{
+.user_comment_block #user_comment p, .user_answer_block #user_comment p {
+	font-size: 15px;
+}
+.otziv_polezen_da{
 	color: #3bb854;
 	display: inline-block;
 	vertical-align: top;
@@ -2844,17 +2956,17 @@ a.otziv_polezen_da{
 	margin-right: 4px;
 	text-decoration: none;
 }
-a.otziv_polezen_da span{
+.otziv_polezen_da span{
 	color: #6c6c6d;
 	margin-left: 5px;
 }
-a.otziv_polezen_net{
+.otziv_polezen_net{
 	color: #229fff;
 	display: inline-block;
 	vertical-align: top;
 	text-decoration: none;
 }
-a.otziv_polezen_net span{
+.otziv_polezen_net span{
 	color: #6c6c6d;
 	margin-left: 5px;
 }
@@ -4050,7 +4162,7 @@ a.modal_basket_goto{
 	margin-left: 25px;
 	border: 0;
 	background-color: transparent;
-	font-size: 20px;
+	font-size: 22px;
 	padding: 5px 45px 12px;
 }
 .zakaz_details_tovar .letter_details_tovar{
@@ -4127,6 +4239,7 @@ a.zakaz_change_zakaz{
 	padding-left: 45px;
 	border: 1px solid #999999;
 	margin-bottom: 20px;
+	font-size: 16px;
 }
 .letter_details_contact form input:first-child{
 	background: url("../img/letter/ava_gray_mini.png") no-repeat left 12px center;
@@ -4140,6 +4253,7 @@ a.zakaz_change_zakaz{
 .letter_details_contact form textarea{
 	width: 290px;
 	height: 83px;
+	font-size: 16px;
 	padding-left: 45px;
 	border: 1px solid #999999;
 	margin-bottom: 30px;
@@ -4168,6 +4282,7 @@ a.zakaz_change_zakaz{
 	padding-left: 25px;
 	border: 1px solid #999999;
 	margin-bottom: 20px;
+	font-size: 16px;
 }
 .make_zakaz_container input::-webkit-input-placeholder {color:#000;opacity: 1;}
 .make_zakaz_container input::-moz-placeholder          {color:#000;opacity: 1;}/* Firefox 19+ */
@@ -4190,6 +4305,7 @@ a.zakaz_change_zakaz{
     height: 45px;
     background-size: 15%;
     border: 1px solid #999999;
+    font-size: 16px;
 }
 a.make_zakaz_button{
 	font-size: 20px;
@@ -4238,7 +4354,7 @@ a.make_zakaz_button:hover{
 	max-width: 100%;
 }
 .made_zakaz_container .letter_details_caption {
-    font-size: 18px;
+    font-size: 22px;
     background-color: #fafafa;
     padding: 10px;
     padding-left: 45px;
@@ -4706,7 +4822,7 @@ a.compare_table_clean_button{
 .contacts_info_caption
 {
 	color: #424141;
-	font: 16px "ArialBold";
+	font: 24px "ArialBold";
 	text-transform: uppercase;
 	border-bottom: 1px solid #d9d9d9;
 	padding-bottom: 15px;
@@ -4714,8 +4830,11 @@ a.compare_table_clean_button{
 .contacts_info_text
 {
 	color: #565555;
-	font-size: 13px;
+	font-size: 17px;
 	margin-bottom: 30px;
+}
+.contacts_info_text.contacts_grafik span {
+	font-size: 17px;
 }
 .contacts_adress
 {
@@ -4724,11 +4843,12 @@ a.compare_table_clean_button{
 .contacts_info_phone
 {
 	display: block;
-	margin-bottom: 27px;
+	/*margin-bottom: 27px;*/
+	height: 195px;
 }
 .contacts_info_phone a {
 	display: block;
-	font-size: 16px;
+	font-size: 20px;
 	margin-bottom: 15px;
 	height: 24px;
 }
@@ -4744,10 +4864,10 @@ a.compare_table_clean_button{
 {
 	margin-bottom: 20px;
 }
-.contacts_grafik
+/*.contacts_grafik
 {
 	margin-bottom: 53px;
-}
+}*/
 .contacts_form
 {
 	padding-top: 17px;
@@ -4792,9 +4912,10 @@ a.compare_table_clean_button{
 	display: inline-block;
 	color: #fff;
 	background-color: #229fff;
-	padding: 8px 50px;
+	font-size: 18px;
 	text-decoration: none;
 	width: 270px;
+	padding-left: 0px;
 }
 .contacts_map p
 {
@@ -4804,10 +4925,12 @@ a.compare_table_clean_button{
 	padding: 12px 0 12px;
 	border: 1px solid #d9d9d9;
 	color: #565555;
-	font-size: 15px;
+	font-size: 17px;
 	margin-bottom: 20px;
 }
-
+.contacts_short {
+	margin-bottom: 30px;
+}
 .contacts_short p
 {
 	background-image: url('../img/contacts_location.png');
@@ -4815,7 +4938,7 @@ a.compare_table_clean_button{
 	background-color: #f7f7f7;
 	padding: 15px 65px;
 	background-position: 25px 10px;
-	font-size: 17px;
+	font-size: 24px;
 	color: #696767;
 	border: 1px solid #d9d9d9;
 	display: block;
@@ -4831,7 +4954,7 @@ a.compare_table_clean_button{
 .contacts_short_body .contacts_info_phone
 {
 	float: left;
-	margin-right: 85px;
+	margin-right: 65px;
 }
 .contacts_more
 {
@@ -4846,6 +4969,8 @@ a.compare_table_clean_button{
 	padding-left: 40px!important;
 	margin-left: 5px!important;
 	margin-top: 23px;
+	position: absolute;
+	bottom: 0px;
 }
 .contacts_short_body img
 {
@@ -4860,12 +4985,12 @@ a.compare_table_clean_button{
 	background-color: #f7f7f7;
 	text-align: center;
 	padding: 15px;
-	font-size: 18px;
+	font-size: 17px;
 	border: 1px solid #d9d9d9;
 	color: #229fff;
 	font-family: 'ArialBold';
 }
-.mobile_menu
+.mobile_menu, .head_menu
 {
     display: none;
 }
@@ -5057,7 +5182,7 @@ a.compare_table_clean_button{
 {
     position: absolute;
     top: 65px;
-    left: 3px;
+    /*left: 3px;*/
 }
 .headhesive .top_menu
 {
@@ -5073,26 +5198,49 @@ a.compare_table_clean_button{
 }
 .headhesive .basket {
     top: 0px;
-    right: 40px;
+    /*right: 40px;*/
     right: 105px;
     position: absolute;
 }
 .headhesive .contacts {  
     display: none;
 }
-.headhesive .mobile_menu {    
+/*.headhesive .mobile_menu {    
      background: url("../img/mob_menu.png") no-repeat;
      height: 14px;
      width: 33px;
      margin: 20px 10px;
     display: block;
     float: left;
+}*/
+@media (max-width: 611px) {
+    .headhesive .mobile_menu {
+        background: url("../img/mob_menu.png") no-repeat;
+        height: 14px;
+        width: 33px;
+        margin: 20px 10px;
+        display: block;
+        float: left;
+    }
+}
+.headhesive .head_menu {    
+    color: #229fff;
+    border: 1px solid #229fff;
+    text-transform: uppercase;
+    font-size: 16px;
+    background: url("../img/lines.png") no-repeat right 15px center;
+    padding: 12px 15px;
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    width: 264px;
+    float: left;
 }
 .headhesive .header_right {
     float: left;
     margin-top: 10px;
     width: 330px;
-    width: 380px;
+    /*width: 380px;*/
 }
 .name_page
 {
@@ -5128,8 +5276,8 @@ a.compare_table_clean_button{
 {
     display: inline-block;
     float: left;
-    width: 20%;
-    width: 40%;
+    width: 30%;
+    /*width: 40%;*/
     text-align: center;
     padding-top: 5px;
     position: relative;
@@ -5150,7 +5298,12 @@ a.compare_table_clean_button{
     background: none;
     padding-left: 0px;
 }
-
+.block155h {
+    height: 155px;
+}
+img + .block155h {
+    height: 0px;
+}
 .modal_zakaz_zvon
 {
     position: fixed;
@@ -5251,4 +5404,86 @@ a.compare_table_clean_button{
 }
 @media (max-width: 400px){
 
+}
+
+.catalog_item_block a:hover + .catalog_item_block_caption a {
+	color: #ed1b24;
+}
+.modal_basket_goback:hover {
+	color: #ed1b24;
+	background: url("../img/filter/marker_left_red.png") no-repeat left center;
+}
+.zakaz_change_zakaz:hover {
+	color: #ed1b24;
+}
+
+.letter_details_tovar input::-webkit-input-placeholder {color:#999999;}
+.letter_details_tovar input::-moz-placeholder          {color:#999999;}
+.letter_details_tovar input:-moz-placeholder           {color:#999999;}
+.letter_details_tovar input:-ms-input-placeholder      {color:#999999;}
+
+.letter_details_tovar textarea::-webkit-input-placeholder {color:#999999;}
+.letter_details_tovar textarea::-moz-placeholder          {color:#999999;}
+.letter_details_tovar textarea:-moz-placeholder           {color:#999999;}
+.letter_details_tovar textarea:-ms-input-placeholder      {color:#999999;}
+
+.letter_details_tovar input:focus::-webkit-input-placeholder {color: transparent}
+.letter_details_tovar input:focus::-moz-placeholder          {color: transparent}
+.letter_details_tovar input:focus:-moz-placeholder           {color: transparent}
+.letter_details_tovar input:focus:-ms-input-placeholder      {color: transparent}
+
+.letter_details_tovar textarea:focus::-webkit-input-placeholder {color: transparent}
+.letter_details_tovar textarea:focus::-moz-placeholder          {color: transparent}
+.letter_details_tovar textarea:focus:-moz-placeholder           {color: transparent}
+.letter_details_tovar textarea:focus:-ms-input-placeholder      {color: transparent}
+
+div.contacts a.kievstar {
+	background: url("../img/kievstar.png") no-repeat left center;
+}
+div.contacts a.vodafone {
+	background: url("../img/mts.png") no-repeat left center;
+}
+div.contacts a.life {
+	background: url("../img/life.png") no-repeat left center;
+}
+div.contacts a.cityphone {
+	background: url("../img/home_phone.png") no-repeat left center;
+}
+.shadow_hover {
+	position: relative!important;
+	z-index: 999!important;
+	background-color: #fff!important;
+}
+#landingCollapse {
+	z-index: auto;
+}
+.bx-wrapper .bx-controls-direction a {
+	z-index: 799!important;
+}
+.rights p {
+	width: 250px;
+}
+#mobile_sort_submit {
+	background: #229fff;
+	height: 42px;
+	padding: 12px 0;
+	width: 110px;
+	display: inline-block;
+	vertical-align: top;
+	text-decoration: none;
+	border: 1px solid #229fff;
+	font-size: 14px;
+	text-align: center;
+	margin: 15px 74px;
+	color: #fff;
+}
+.contacts_info_text.contacts_grafik {
+	margin-bottom: 0px!important;
+	height: 55px;
+}
+.grafik p, .grafik p span {
+    font-size: 13px;
+}
+#season {
+    height: 65px;
 }
