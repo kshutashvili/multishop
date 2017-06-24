@@ -13,6 +13,9 @@ $(function () {
 		$(this).parent().fadeOut(100);
 		//$('.shadow').remove('.shadow');
 		$('.shadow').hide();
+		if ($('.headhesive').css('display') == 'none') {
+			$('.headhesive').show();
+		}
 		return false;
 	});
 	$('.close_modal').click(function () {

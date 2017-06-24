@@ -108,6 +108,9 @@ ul{
 	text-decoration: none;
 	margin: 20px 2px;
 }
+.lang a.active_lang {
+	color: #229fff;
+}
 .lang a:focus, .lang a:active, .lang a:hover{
 	color: #229fff;
 }
@@ -1731,7 +1734,7 @@ a.choose_kotel:hover{
 	margin: 8px;
 	margin-right: 0;
 }
-.label_after a{
+.label_after button{
 	display: inline-block;
 	vertical-align: middle;
 	background-color: #229fff;
@@ -1741,6 +1744,7 @@ a.choose_kotel:hover{
 	margin-top: 4px;
 	margin-right: 5px;
 	float: right;
+	border: none;
 }
 .label_after span{
 	color: #000 !important;
@@ -4233,7 +4237,7 @@ a.zakaz_change_zakaz{
 	border: 0;
 	margin-left: 70px;
 }
-.letter_details_contact form input{
+.letter_details_contact input{
 	width: 290px;
 	height: 45px;
 	padding-left: 45px;
@@ -4241,16 +4245,16 @@ a.zakaz_change_zakaz{
 	margin-bottom: 20px;
 	font-size: 16px;
 }
-.letter_details_contact form input:first-child{
+.letter_details_contact input:first-child{
 	background: url("../img/letter/ava_gray_mini.png") no-repeat left 12px center;
 }
-.letter_details_contact form input:nth-child(2){
+.letter_details_contact input:nth-child(2){
 	background: url("../img/letter/phone_mini.png") no-repeat left 12px center;
 }
-.letter_details_contact form input:nth-child(3){
+.letter_details_contact input:nth-child(3){
 	background: url("../img/letter/dog_mini.png") no-repeat left 12px center;
 }
-.letter_details_contact form textarea{
+.letter_details_contact textarea{
 	width: 290px;
 	height: 83px;
 	font-size: 16px;
@@ -4276,13 +4280,16 @@ a.zakaz_change_zakaz{
 	border: 0;
 	margin-left: 70px;
 }
-.letter_details_payment form input{
+.letter_details_payment input{
 	width: 290px;
 	height: 45px;
 	padding-left: 25px;
 	border: 1px solid #999999;
 	margin-bottom: 20px;
 	font-size: 16px;
+}
+.header_for_zakaz.headhesive .contacts {
+	display: block;
 }
 .make_zakaz_container input::-webkit-input-placeholder {color:#000;opacity: 1;}
 .make_zakaz_container input::-moz-placeholder          {color:#000;opacity: 1;}/* Firefox 19+ */
@@ -4307,7 +4314,7 @@ a.zakaz_change_zakaz{
     border: 1px solid #999999;
     font-size: 16px;
 }
-a.make_zakaz_button{
+.make_zakaz_button{
 	font-size: 20px;
 	color: #fff;
 	background-color: #229fff;
@@ -4319,9 +4326,10 @@ a.make_zakaz_button{
 	margin-right: 14px;
 	margin-top: 20px;
 	text-decoration: none;
+	border: none;
 	margin-bottom: 30px;
 }
-a.make_zakaz_button:hover{
+.make_zakaz_button:hover{
 	background-color: #0a86e6;
 }
 .letter_details_contact{
@@ -4798,6 +4806,9 @@ a.compare_table_clean_button{
 	float: none;
 	margin-bottom: 7px;
 }
+.contact_tab > li > a {
+	font-size: 18px;
+}
 .contact_tab > li.active > a::after {
 	content: '';
 	position: absolute;
@@ -5224,7 +5235,7 @@ a.compare_table_clean_button{
     }
 }
 .headhesive .head_menu {    
-    color: #229fff;
+    color: #000;
     border: 1px solid #229fff;
     text-transform: uppercase;
     font-size: 16px;
@@ -5235,6 +5246,7 @@ a.compare_table_clean_button{
     text-decoration: none;
     width: 264px;
     float: left;
+    background-color: #fedc00;
 }
 .headhesive .header_right {
     float: left;

@@ -147,14 +147,14 @@
 
 
     </div>
+    {{ block.super }}
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
 {% endblock %}
 
 {% block extrascripts %}
-    <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
-    <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
-    <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
-    <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
-    <script src="{% get_static 'js/more-button.js' %}"></script>
     <script>
         $(document).ready(function(){
             side_hover();

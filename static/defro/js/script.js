@@ -45,6 +45,9 @@ $('.owl-carousel').owlCarousel({
     });
     $('.shadow').click(function () {
         $('.shadow, .modal_zakaz_zvon, .modal_mobile_sort, .buy_button_modal, .credit_button_modal, .ask_button_modal, .request_button_modal_second, .answer_button_modal, .request_button_modal_third, .request_button_modal').hide();
+        if ($('.headhesive').css('display') == 'none') {
+          $('.headhesive').show();
+        }
         if($(window).width()<=610) {
           $('.top_menu').hide();
         }
@@ -157,6 +160,10 @@ $('.owl-carousel').owlCarousel({
     //   });
     // }
 hover_side_menu();
+$('.basket_goto.show_popup').click(function(){
+  $('.headhesive').hide();
+  
+})
 });
 
 $(window).resize(function() {scrolbar_on(); mobile_menu_construct (); searchAppend(); resizeCatalogButton(); hover_side_menu();});

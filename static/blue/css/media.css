@@ -215,11 +215,11 @@
     .zakaz_details_tovar {
         max-width: 295px;
     }
-    .letter_details_contact form input, .letter_details_contact form textarea, .letter_details_payment form input, 
+    .letter_details_contact input, .letter_details_contact textarea, .letter_details_payment input, 
     .letter_details_payment .custom_select {
     width: 250px;
     }
-    a.make_zakaz_button {
+    .make_zakaz_button {
         width: 250px;
         padding: 10px 20px;
     }
@@ -862,7 +862,7 @@
     .zakaz_details_tovar .letter_details_tovar ul li img {   
         width: 84px;
     }
-    .letter_details_contact form input, .letter_details_contact form textarea, .letter_details_payment form input, 
+    .letter_details_contact input, .letter_details_contact textarea, .letter_details_payment input, 
     .letter_details_payment .custom_select {
     width: 290px;
     }
@@ -872,7 +872,7 @@
     .letter_details_payment .letter_details_caption::after {
         height: 230px;
     }
-    a.make_zakaz_button {   
+    .make_zakaz_button {   
         float: none;
        position: relative;
         left: 50%;
@@ -1474,13 +1474,17 @@
     }    
     .header_for_zakaz .contacts {
         margin-top: 0px;
-        width: 55%;
+        width: 54%;
     }
     .header_for_zakaz .contacts a{
        width: 40%;
+       font-size: 16px;
     } 
     .header_for_zakaz .contacts a:nth-child(3){
        margin-top: 10px;
+    }
+    .header_for_zakaz .contacts span {
+        font-size: 14px;
     }
     /*catalog_list*/
     .catalog_items.catalog_item_list .catalog_item_block {
@@ -2091,7 +2095,7 @@
     .header_right {
         float: none;
         position: relative;
-        top: 90px;
+        top: 110px;
         height: 55px;
     }
 
@@ -3365,7 +3369,7 @@
     max-width: 300px;
     margin-left: 40px;
     }
-    a.make_zakaz_button {   
+    .make_zakaz_button {   
          position: static;
         margin: 0 auto
     }
@@ -3566,7 +3570,7 @@
     .zakaz_details_tovar .letter_details_tovar {
     max-width: 270px;
     }
-    .letter_details_contact form input, .letter_details_contact form textarea, .letter_details_payment form input, .letter_details_payment .custom_select {
+    .letter_details_contact input, .letter_details_contact textarea, .letter_details_payment input, .letter_details_payment .custom_select {
     width: 270px;
     }
     /*made_zakaz*/
@@ -3626,7 +3630,7 @@
     a.zakaz_change_zakaz {    
     padding-left: 40px;
     }
-    .letter_details_contact form input, .letter_details_contact form textarea, .letter_details_payment form input, .letter_details_payment .custom_select {
+    .letter_details_contact input, .letter_details_contact textarea, .letter_details_payment input, .letter_details_payment .custom_select {
     width: 250px;
     }
     /*catalog*/

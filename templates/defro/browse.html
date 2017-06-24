@@ -340,6 +340,9 @@
 
 
                                                             {% endif %}
+                                                            {% if product.id in request.basket %}
+                                                                <a href="#" class="buy_button buy_button_bougth">Нет в наличии</a>
+                                                            {% endif %}
                                                             <a href="#"
                                                                class="buy_button show_popup"
                                                                rel="buy_button_modal"
