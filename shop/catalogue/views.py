@@ -316,29 +316,9 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
             context['page_type'] = MetaTag.SUB_SECTION
         return context
 
-    def query_to_dict(self, query):
-        return dict((s.split(':') for s in query.split('-')))
-
-    def _is_value_valid(self, value):
-        if not value or ({'-', ':'} & set(value)):
-            return False
-        return True
-
-    def dict_to_query(self, d):
-        d = {k: v for k, v in d.iteritems() if self._is_value_valid(v)}
-        items = sorted(d.items(), key=lambda i: i[0])
-        return '-'.join((':'.join(item) for item in items))
-
 
     def get(self, request, *args, **kwargs):
         # Fetch the category; return 404 or redirect as needed
-        if request.GET:
-            query = self.dict_to_query(request.GET)
-            if query:
-                return redirect('catalogue:product_or_category',
-                                slug=kwargs['category_slug'],
-                                query=query,
-                                permanent=True)
         self.category = self.get_category()
         if not self.category.get_children().exists():
             # Crutch oriented programming: we show products on the category url
@@ -352,16 +332,9 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
             request.path, self.category)
         if potential_redirect is not None:
             return potential_redirect
-
-        query = kwargs.get('query')
-        if query:
-            query = self.query_to_dict(query)
-            query.update(request.GET)
-        else:
-            query = request.GET
         try:
             self.search_handler = self.get_search_handler(
-                query, request.get_full_path(), request,
+                request.GET, request.get_full_path(), request,
                 self.get_categories(), [])
         except InvalidPage:
             messages.error(request, _('The given page number was invalid.'))
