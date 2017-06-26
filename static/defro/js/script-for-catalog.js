@@ -99,16 +99,20 @@ $(document).ready(function(){
         e.preventDefault()
         var name = $(this).closest('p').find('input[name="field_name"]').val();
         var value = $(this).closest('p').find('input[name="field_value"]').val();
-        var get_query = decodeURIComponent(window.location.search.substr(1))
-        var get_query_array = get_query.split('&');
-        for (var i=0; i < get_query_array.length; i++) {
-            var key_value = get_query_array[i].split('=');
-
-            if (key_value[0] == name && key_value[1] == value) {
-                get_query = get_query.replace(get_query_array[i], '');
-                get_query = get_query.replace('&&', '&');
-                window.location.search = get_query;
-            }
+        var url_params = window.location.pathname;
+        params = url_params.slice(1, -1);
+        params = params.split('/');
+        var filter_param = params[params.length - 1];
+        filter_param = filter_param.split('-');
+        for (var i = filter_param.length - 1; i >= 0; i--) {
+          var key_value = filter_param[i].split(':');
+          url_value = decodeURIComponent(key_value[1].replace(/\+/g,  " "));
+          url_value = decodeURIComponent(url_value.replace(/\+/g,  " "));
+          if (key_value[0] == name && url_value == value) {
+            url_params = url_params.replace(filter_param[i], '');
+            url_params = url_params.replace('--', '-').replace('-/', '/');
+            window.location.pathname = url_params;
+          }
         }
     });
 });
