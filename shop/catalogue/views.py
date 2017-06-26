@@ -171,8 +171,10 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         context['filter_form'] = self.form
         if hasattr(self, 'filter_descr'):
             context['filter_descr'] = self.filter_descr
+        context['filter_reset_url'] = self.request.path
         if hasattr(self, 'category'):
             context['category'] = self.category
+            context['filter_reset_url'] = self.category.get_absolute_url()
         price_range = [x.price for x in SearchQuerySet().models(Product).filter(
             site=self.site.pk) if x.price is not None]
         try:
