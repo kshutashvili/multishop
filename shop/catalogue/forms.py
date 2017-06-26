@@ -45,7 +45,7 @@ class FilterForm(forms.Form):
                 label=attr.name,
                 required=False,
                 choices=[(
-                    '%s,%s' % (i[0], i[1]),
+                    '%s_%s' % (i[0], i[1]),
                     '%s - %s' % (i[0], i[1]),
                     {
                         'product_count': self.product_count(attr.code, i),

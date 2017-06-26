@@ -36,7 +36,7 @@ class SolrProductSearchHandler(OscarSolrProductSearchHandler):
                 if k.startswith('filter_') and self.options[k]:
                     code = k.replace('filter_', '')
                     for item in self.options[k]:
-                        values = item.split(',')
+                        values = item.split('_')
                         values = range(int(values[0]), int(values[1]) + 1)
                         append = False
                         for i in attributes:
