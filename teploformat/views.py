@@ -25,7 +25,8 @@ def page_not_found_with_site_templates(request):
         'request_path': request.path,
         'base_template_name': base_template_name,
         'site_template': site_template,
-        'side_menu': side_menu
+        'side_menu': side_menu,
+        'is_404': True
     }
 
     try:

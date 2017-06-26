@@ -23,7 +23,9 @@ def change_lang(context, lang=None, *args, **kwargs):
 
     try:
 
-        if url_parts.url_name == "product_or_category" and cur_language != lang:
+        if url_parts.url_name == "product_or_category" \
+                and cur_language != lang \
+                and not context.get('is_404'):
             # product_or_category special routing with localized slugs
             slugs = url_parts.kwargs['slug'].split(Category._slug_separator)
             last_slug = slugs[-1]
