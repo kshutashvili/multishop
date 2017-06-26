@@ -31,7 +31,7 @@ from shop.catalogue.models import ProductAttributeValue
 from shop.order.forms import OneClickOrderForm
 from website.views import SiteTemplateResponseMixin
 from .forms import FilterForm
-from .utils import get_view_type
+from .utils import get_view_type, dict_to_query, query_to_dict
 
 MetaTag = apps.get_model('config', 'MetaTag')
 Configuration = apps.get_model('config', 'Configuration')
@@ -132,6 +132,10 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
             categories = Category.objects.none()
         else:
             categories = (self.category,)
+
+        if kwargs.get('query'):
+            request.GET = query_to_dict(kwargs.get('query'))
+
         self.form = FilterForm(
             self.site, data=request.GET, request=request, categories=categories)
         options = []
@@ -316,9 +320,13 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
             context['page_type'] = MetaTag.SUB_SECTION
         return context
 
-
     def get(self, request, *args, **kwargs):
         # Fetch the category; return 404 or redirect as needed
+        if request.GET:
+            return redirect('catalogue:product_or_category',
+                            slug=kwargs['category_slug'],
+                            query=dict_to_query(request.GET),
+                            permanent=True)
         self.category = self.get_category()
         if not self.category.get_children().exists():
             # Crutch oriented programming: we show products on the category url
@@ -332,9 +340,16 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
             request.path, self.category)
         if potential_redirect is not None:
             return potential_redirect
+
+        query = kwargs.get('query')
+        if query:
+            query = query_to_dict(query)
+            query.update(request.GET)
+        else:
+            query = request.GET
         try:
             self.search_handler = self.get_search_handler(
-                request.GET, request.get_full_path(), request,
+                query, request.get_full_path(), request,
                 self.get_categories(), [])
         except InvalidPage:
             messages.error(request, _('The given page number was invalid.'))
