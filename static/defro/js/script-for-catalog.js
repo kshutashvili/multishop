@@ -94,6 +94,16 @@ $(document).ready(function(){
             },
         })
     })
+    $('#reset_filters').click(function (e) {
+      e.preventDefault();
+      var url_params = window.location.pathname;
+      params = url_params.slice(1, -1);
+      params = params.split('/');
+      var filter_param = params[params.length - 1];
+      url_params = url_params.replace(filter_param, '');
+      url_params = url_params.replace('//', '/');
+      window.location.pathname = url_params;
+    })
 
     $('.filter-facet-clear').click(function (e) {
         e.preventDefault()
