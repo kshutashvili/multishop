@@ -532,17 +532,17 @@
 			            <ul class="contact_ul">
 			                {% if phone_numbers.kievstar %}
 			                    <li>
-			                        <a href="tel:+0988598880">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a>
+			                        <a href="tel:+38{{ phone_numbers.kievstar|first|cut:" " }}">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a>
 			                    </li>
 			                {% endif %}
 			                {% if phone_numbers.vodafone %}
 			                    <li>
-			                        <a href="tel:+0995598880">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a>
+			                        <a href="tel:+38{{ phone_numbers.vodafone|first|cut:" " }}">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a>
 			                    </li>
 			                {% endif %}
 			                {% if phone_numbers.life %}
 			                    <li>
-			                        <a href="tel:+0931498880">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a>
+			                        <a href="tel:+38{{ phone_numbers.life|first|cut:" " }}">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a>
 			                    </li>
 			                {% endif %}
 			                <li><a href="#" class="predstav">Наши

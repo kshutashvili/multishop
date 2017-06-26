@@ -123,10 +123,12 @@
                                             {% endif %}
                                         {% endfor %}
                                     {% endfor %}
-                                    <a href="{{ filter_reset_url }}"
-                                       class="filter_labels float_right"
-                                       id="reset_filters">Сбросить
-                                        все фильтры</a>
+                                    {% if filter_form.has_changed %}
+                                        <a href="{{ filter_reset_url }}"
+                                           class="filter_labels float_right"
+                                           id="reset_filters">Сбросить
+                                            все фильтры</a>
+                                    {% endif %}
                                 </div>
                             </div>
                             {% for field, data in facet_data.items %}
