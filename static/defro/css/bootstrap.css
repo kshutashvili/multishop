@@ -6223,7 +6223,7 @@ button.close {
 .carousel-inner > .item > a > img {
   line-height: 1;
 }
-@media all and (-webkit-transform-3d) {
+@media all {
   .carousel-inner > .item {
     -webkit-transition: -webkit-transform .6s ease-in-out;
          -o-transition:      -o-transform .6s ease-in-out;

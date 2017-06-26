@@ -351,7 +351,7 @@
                                                             {% endif %}
                                                             <a href="#"
                                                                class="buy_button show_popup"
-                                                               rel="buy_button_modal"
+                                                               data-rel="buy_button_modal"
                                                                data-product-id="{{ product.id }}">Нет
                                                                 в наличии</a>
                                                         {% else %}
@@ -508,12 +508,12 @@
                                         {% if session.availability.is_available_to_buy %}
                                             <a href="{{ product.get_absolute_url }}"
                                                class="buy_button show_popup"
-                                               rel="buy_button_modal"
+                                               data-rel="buy_button_modal"
                                                data-product-id="{{ product.id }}">Купить</a>
                                         {% else %}
                                             <a href="{{ product.get_absolute_url }}"
                                                class="buy_button show_popup"
-                                               rel="buy_button_modal">Нет в
+                                               data-rel="buy_button_modal">Нет в
                                                 наличии</a>
                                         {% endif %}
                                     </a>

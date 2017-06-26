@@ -170,14 +170,14 @@
                                             class="basket_button show_popup"
                                             value="{% trans "Add to basket" %}"
                                             data-loading-text="Добавляем"
-                                            rel="buy_button_modal"
+                                            data-rel="buy_button_modal"
                                             data-product-id="{{ product.id }}">В
                                         корзину
                                     </a>
                                     <a href="#" class="basket_button_in dpn">В
                                         корзине</a>
                                     <a href="#" class="buy_credit show_popup"
-                                       rel="credit_button_modal">Купить в
+                                       data-rel="credit_button_modal">Купить в
                                         кредит</a>
 
                                     <form id="buy_one_click" method="POST"
@@ -204,7 +204,7 @@
                                     <a href="#" class="basket_button_in dpn">В
                                         корзине</a>
                                     <a href="#" class="buy_credit show_popup"
-                                       rel="credit_button_modal">Купить в
+                                       data-rel="credit_button_modal">Купить в
                                         кредит</a>
 
                                     <form id="buy_one_click" method="POST"
@@ -246,7 +246,7 @@
 
                                 <a href="#"
                                    class="elipse_button_question show_popup"
-                                   rel="ask_button_modal">Задать
+                                   data-rel="ask_button_modal">Задать
                                     вопрос</a>
 
                                 <div class="social_block">
@@ -526,7 +526,7 @@
                                                                                     </p>
                                                                                     <a href="#"
                                                                                        class="otvetit show_popup"
-                                                                                       rel="answer_button_modal">Ответить</a>
+                                                                                       data-rel="answer_button_modal">Ответить</a>
                                                                                 </div>
                                                                             </div>
                                                                             {% if review.answers %}
@@ -594,7 +594,7 @@
                                                                                             </p>
                                                                                             <a href="#"
                                                                                                class="otvetit show_popup"
-                                                                                               rel="answer_button_modal">Ответить</a>
+                                                                                               data-rel="answer_button_modal">Ответить</a>
                                                                                         </div>
                                                                                     </div>
                                                                                     {% if answer.answer_to_answer %}
@@ -662,7 +662,7 @@
                                                                                                     </p>
                                                                                                     <a href="#"
                                                                                                        class="otvetit show_popup"
-                                                                                                       rel="answer_button_modal">Ответить</a>
+                                                                                                       data-rel="answer_button_modal">Ответить</a>
                                                                                                 </div>
                                                                                             </div>
                                                                                         {% endfor %}
@@ -850,7 +850,7 @@
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
-                                   rel="buy_button_modal" href="#!"
+                                   data-rel="buy_button_modal" href="#!"
                                    data-product-id="{{ product.id }}">В корзину
                                 </a>
                                 {% else %}
@@ -864,11 +864,11 @@
 
                                 <a href="#"
                                    class="elipse_button elipse_button_kred show_popup"
-                                   rel="credit_button_modal">Купить
+                                   data-rel="credit_button_modal">Купить
                                     в кредит</a>
                                 <a href="#"
                                    class="elipse_button_question show_popup"
-                                   rel="ask_button_modal">Задать
+                                   data-rel="ask_button_modal">Задать
                                     вопрос</a>
                             </div>
 
@@ -966,7 +966,7 @@
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
-                                   rel="buy_button_modal" href="#!"
+                                   data-rel="buy_button_modal" href="#!"
                                    data-product-id="{{ product.id }}">В корзину
                                 </a>
                                 {% else %}
@@ -980,11 +980,11 @@
 
                                 <a href="#"
                                    class="elipse_button elipse_button_kred show_popup"
-                                   rel="credit_button_modal">Купить
+                                   data-rel="credit_button_modal">Купить
                                     в кредит</a>
                                 <a href="#"
                                    class="elipse_button_question show_popup"
-                                   rel="ask_button_modal">Задать
+                                   data-rel="ask_button_modal">Задать
                                     вопрос</a>
                             </div>
 
@@ -1087,7 +1087,7 @@
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
-                                   rel="buy_button_modal" href="#!"
+                                   data-rel="buy_button_modal" href="#!"
                                    data-product-id="{{ product.id }}">В корзину
                                 </a>
                                 {% else %}
@@ -1101,11 +1101,11 @@
 
                                 <a href="#"
                                    class="elipse_button elipse_button_kred show_popup"
-                                   rel="credit_button_modal">Купить
+                                   data-rel="credit_button_modal">Купить
                                     в кредит</a>
                                 <a href="#"
                                    class="elipse_button_question show_popup"
-                                   rel="ask_button_modal">Задать
+                                   data-rel="ask_button_modal">Задать
                                     вопрос</a>
                             </div>
 
@@ -1228,7 +1228,7 @@
                                                             </p>
                                                             <a href="#"
                                                                class="otvetit show_popup"
-                                                               rel="answer_button_modal">Ответить</a>
+                                                               data-rel="answer_button_modal">Ответить</a>
                                                     </div>
                                                 </li>
                                                 {% if review.answers %}
@@ -1298,7 +1298,7 @@
                                                                 </p>
                                                                 <a href="#"
                                                                    class="otvetit show_popup"
-                                                                   rel="answer_button_modal">Ответить</a>
+                                                                   data-rel="answer_button_modal">Ответить</a>
                                                             </div>
                                                         </li>
                                                         {% if answer.answer_to_answer %}
@@ -1368,7 +1368,7 @@
                                                                         </p>
                                                                         <a href="#"
                                                                            class="otvetit show_popup"
-                                                                           rel="answer_button_modal">Ответить</a>
+                                                                           data-rel="answer_button_modal">Ответить</a>
                                                                     </div>
                                                                 </li>
                                                             {% endfor %}
@@ -1541,7 +1541,7 @@
                                 <a type="submit" class="buy_button show_popup"
                                    value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
-                                   rel="buy_button_modal" href="#!"
+                                   data-rel="buy_button_modal" href="#!"
                                    data-product-id="{{ product.id }}">В корзину
                                 </a>
                                 {% else %}
@@ -1555,11 +1555,11 @@
 
                                 <a href="#"
                                    class="elipse_button elipse_button_kred show_popup"
-                                   rel="credit_button_modal">Купить
+                                   data-rel="credit_button_modal">Купить
                                     в кредит</a>
                                 <a href="#"
                                    class="elipse_button_question show_popup"
-                                   rel="ask_button_modal">Задать
+                                   data-rel="ask_button_modal">Задать
                                     вопрос</a>
                             </div>
                         </div>
@@ -1654,7 +1654,7 @@
                                         {% if session.availability.is_available_to_buy %}
                                             <a href="{{ product.get_absolute_url }}"
                                                class="buy_button show_popup"
-                                               rel="buy_button_modal"
+                                               data-rel="buy_button_modal"
                                                data-product-id="{{ product.id }}">Купить</a>
                                         {% else %}
                                             <a href="{{ product.get_absolute_url }}"
