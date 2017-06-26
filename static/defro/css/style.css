@@ -468,9 +468,6 @@ ul{
 	background: url("../img/fire_icon.png") no-repeat left top;
 	margin-bottom: 22px;
 }
-.under_left_menu li:last-child{
-	//margin-bottom: 0;
-}
 a.under_left_menu_more{
 	color: #fff;
 	font-size: 18px;
@@ -670,7 +667,6 @@ a.under_left_menu_more:hover{
     display: inline-block;
     -webkit-appearance:none;
     -moz-appearance:none;
-    appearance:none;
     cursor:pointer;
     width: 180px;
     height: 40px;
@@ -689,7 +685,6 @@ label.select_box:after {
     border-radius: 4px;
     border:2px solid #c65e55;
     position:absolute;
-    pointer-events:none;
 }
 label.select_box:before {
     content:'';
@@ -697,7 +692,6 @@ label.select_box:before {
     width:20px; height:20px;
     background:#f8f8f8;
     position:absolute;
-    pointer-events:none;
     display:block;
 }
 .calculator_second.calculator{
@@ -1196,7 +1190,6 @@ a.choose_kotel:hover{
 	background-color: rgba(0,0,0,0.8);
 	position: absolute;
 	bottom: 0;
-	//z-index: 10;
 	height: 352px;
 	width: 100%;
 }
@@ -1753,7 +1746,6 @@ a.choose_kotel:hover{
 	outline : none;
 	overflow : hidden;
 	text-indent : 0.01px;
-	text-overflow : »;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	height: 33px;
@@ -1913,7 +1905,6 @@ a.buy_button.but_button_sold{
 	background: #828081;
 	color: #fff;
 	cursor: default;
-	pointer-events: none;
 	border: 1px solid #dfdede;
 }
 a.buy_button.but_button_sold:hover{
@@ -1923,7 +1914,6 @@ a.buy_button.but_button_sold:hover{
 	background: #828081;
 	color: #fff;
 	cursor: default;
-	pointer-events: none;
 	border: 1px solid #dfdede;
 	font-size: 20px;
 	padding: 10px 10px;
@@ -2549,7 +2539,6 @@ a.basket_button_none{
 	border: 1px solid #828081;
 	padding: 10px;
 	cursor: default;
-	pointer-events: none;
 	margin-bottom: 10px;
 }
 a.buy_credit{
@@ -3207,7 +3196,6 @@ a.add_own_new_comment{
     top:36px;
     left:50%;
     display:none;
-    //overflow:hidden;
     border:1px solid #ccc;
     background:#fff;
     -moz-border-radius:15px;
