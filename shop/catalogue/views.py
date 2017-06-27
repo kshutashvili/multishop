@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.checks import messages
 from django.core.mail import EmailMultiAlternatives
-from django.core.paginator import InvalidPage
+from django.core.paginator import InvalidPage, EmptyPage
 from django.http import HttpResponse, Http404, JsonResponse
 from django.http.response import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
@@ -141,8 +141,11 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
             request.GET._mutable = True
             request.GET['page'] = page_num
 
-        self.form = FilterForm(
-            self.site, data=request.GET, request=request, categories=categories)
+        try:
+            self.form = FilterForm(
+                self.site, data=request.GET, request=request, categories=categories)
+        except EmptyPage:
+            raise Http404
         options = []
         if self.form.is_valid():
             options = self.form.cleaned_data
