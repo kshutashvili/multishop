@@ -3621,7 +3621,7 @@ a.modal_basket_button_zakaz:hover{
 	display: inline-block;
 	vertical-align: top;
 }
-a.modal_basket_goto{
+.modal_basket_goto{
 	color: #5d5d5d;
 	border: 1px solid #229fff;
 	background-color: #fedc00;

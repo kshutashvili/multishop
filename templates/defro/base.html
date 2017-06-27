@@ -223,13 +223,13 @@
                             <input type="text"
                                    placeholder="(0XX) XXX - XX - XX"
                                    class="modal_input_goto" name="phone">
-                            <a href="#"
+                            <button
                                class="modal_basket_goto"
-                               rel="request_button_modal_third"
-                               type="submit"
+                               data-rel="request_button_modal_third"
+                               type="submit" 
                                id="one_click_btn_modal"
                                data-oneclick-url="{% url 'oneclick_basket' %}">Заказать
-                                в один клик</a>
+                                в один клик</button>
                         </form>
                     </li>
                 </ul>
@@ -438,7 +438,7 @@
             <input id="phone" name="phone" type="text">
             {% csrf_token %}<br><br>
             <a href="#" id="submit_call_request"
-               rel="request_button_modal">Отправить</a>
+               data-rel="request_button_modal">Отправить</a>
         </form>
     </div>
 

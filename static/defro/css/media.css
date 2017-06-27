@@ -2319,7 +2319,7 @@
         margin-top: 5px;
         margin-left: 0px;
     }
-    a.modal_basket_goback,  a.modal_basket_goto, .buy_button_modal input.modal_input_goto {
+    a.modal_basket_goback,  .modal_basket_goto, .buy_button_modal input.modal_input_goto {
         display: none;
     }
     a.modal_basket_button_zakaz {

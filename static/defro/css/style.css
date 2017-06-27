@@ -3558,7 +3558,7 @@ a.modal_basket_button_zakaz:hover{
 	display: inline-block;
 	vertical-align: top;
 }
-a.modal_basket_goto{
+.modal_basket_goto{
 	color: #fff;
 	background-color: #424141;
 	text-decoration: none;
@@ -3570,7 +3570,7 @@ a.modal_basket_goto{
 	width: 230px;
 	font-size: 18px;
 	text-align: center;
-
+	border: none;
 }
 .buy_button_modal li{
 	font-size: 0;
