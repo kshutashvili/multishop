@@ -1,9 +1,17 @@
 import os
+from django.shortcuts import reverse
+
 from django.contrib.sites.shortcuts import get_current_site
 from django.views.decorators.csrf import requires_csrf_token
 from django import http
 from django.template import Context, Engine, TemplateDoesNotExist, loader
 from shop.catalogue.models import Category
+
+
+@requires_csrf_token
+def page_not_found(request):
+
+    return http.HttpResponsePermanentRedirect(reverse('404'))
 
 
 @requires_csrf_token
@@ -40,4 +48,5 @@ def page_not_found_with_site_templates(request):
             'was not found on this server.</p>')
         body = template.render(Context(context))
         content_type = 'text/html'
+
     return http.HttpResponseNotFound(body, content_type=content_type)

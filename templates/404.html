@@ -1,5 +1,18 @@
 {% extends base_template_name %}
 {% load site_static %}
+{% load meta_tags %}
+
+{% block title %}
+    {% meta_tag 'MP' 'title' None request %}
+{% endblock title %}
+
+{% block title_meta %}
+    {% meta_tag 'MP' 'title_meta' None request %}
+{% endblock title_meta %}
+
+{% block description %}
+    {% meta_tag 'MP' 'description_meta' None request %}
+{% endblock description %}
 
 {% block content %}
     <div class="container-fluid">
