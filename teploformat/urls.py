@@ -37,7 +37,7 @@ from teploformat.views import page_not_found_with_site_templates
 handler404 = 'teploformat.views.page_not_found'
 
 urlpatterns = [
-    url(r'^404.html$', page_not_found_with_site_templates, name='404'),
+    url(r'^404/$', page_not_found_with_site_templates, name='404'),
     url(r'^admin/', admin.site.urls),
     url(r'^basket/delete_item_from_basket/(?P<id>[0-9]+)/$',
         delete_item_from_basket,
