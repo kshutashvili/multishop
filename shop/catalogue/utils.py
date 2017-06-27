@@ -59,10 +59,6 @@ def query_to_dict(query):
 def dict_to_query(d):
     """Takes QueryDict and returns custom filter URL"""
 
-    if 'page' in d:
-        d = d.copy()
-        del d['page']
-
     output = []
 
     lists = sorted(d.lists(), key=lambda i: i[0])

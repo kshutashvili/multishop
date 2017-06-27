@@ -136,16 +136,18 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         if kwargs.get('query'):
             request.GET = query_to_dict(kwargs.get('query'))
 
+        page_num = kwargs.get('page')
+        if page_num:
+            request.GET._mutable = True
+            request.GET['page'] = page_num
+
         self.form = FilterForm(
             self.site, data=request.GET, request=request, categories=categories)
         options = []
         if self.form.is_valid():
             options = self.form.cleaned_data
-        full_path = request.get_full_path()
-        if int(request.GET.get('page', 0)) == 1:
-            path_to_request = full_path.split('?')[0]
-        else:
-            path_to_request = full_path
+        path_to_request = request.get_full_path()
+
         new_path = path_to_request.split('/')
         if 'uk' in new_path:
             path_to_request = "/%s" % '/'.join(new_path[2:])
@@ -329,6 +331,17 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
                             slug=kwargs['category_slug'],
                             query=dict_to_query(request.GET),
                             permanent=True)
+
+        # redirect page 1 to root
+        if int(kwargs.get('page') or 0) == 1:
+            redirect_kwargs = {'slug': kwargs['category_slug']}
+            if kwargs.get('query'):
+                redirect_kwargs['query'] = kwargs['query']
+
+            return redirect('catalogue:product_or_category',
+                            permanent=True,
+                            **redirect_kwargs)
+
         self.category = self.get_category()
         if not self.category.get_children().exists():
             # Crutch oriented programming: we show products on the category url

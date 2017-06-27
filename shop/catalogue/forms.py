@@ -72,11 +72,7 @@ class FilterForm(forms.Form):
             )
 
     def query(self, without=None):
-        full_path = self.request.get_full_path()
-        if int(self.request.GET.get('page', 0)) == 1:
-            path_to_request = full_path.split('?')[0]
-        else:
-            path_to_request = full_path
+        path_to_request = self.request.get_full_path()
         options = dict(self.data)
         if without and options.get(without):
             del options[without]

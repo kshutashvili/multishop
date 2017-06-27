@@ -31,7 +31,7 @@ class BaseCatalogueApplication(DefaultCatApp):
                 name='range'
             ),
             url(
-                r'^(?P<slug>[\w-]+(/[\w-]+)*)(?:/(?P<query>(?:\w+:\S+)(?:-\w+:\S+)*))?/$',
+                r'^(?P<slug>[\w-]+(/[\w-]+)*)(?:/(?P<query>(?:\w+:[^\s\/]+)*))?(?:/p=(?P<page>(\d+)))?/$',
                 product_or_category,
                 name='product_or_category'
             ),
