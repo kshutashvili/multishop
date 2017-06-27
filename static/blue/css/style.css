@@ -676,7 +676,6 @@ a.under_left_menu_more:hover{
     display: inline-block;
     -webkit-appearance:none;
     -moz-appearance:none;
-    appearance: none;
     cursor:pointer;
     width: 180px;
     height: 40px;
@@ -695,7 +694,6 @@ label.select_box:after {
     border-radius: 4px;
     border:2px solid #229fff;
     position:absolute;
-    pointer-events:none;
 }
 label.select_box:before {
     content:'';
@@ -703,7 +701,6 @@ label.select_box:before {
     width:20px; height:20px;
     background:#f8f8f8;
     position:absolute;
-    pointer-events:none;
     display:block;
 }
 .calculator_second.calculator{
@@ -1965,7 +1962,6 @@ a.buy_button.but_button_sold{
 	background: #828081;
 	color: #fff;
 	cursor: default;
-	pointer-events: none;
 	border: 1px solid #dfdede;
 }
 a.buy_button.but_button_sold:hover{
@@ -1975,7 +1971,6 @@ a.buy_button.but_button_sold:hover{
 	background: #828081;
 	color: #fff;
 	cursor: default;
-	pointer-events: none;
 	border: 1px solid #dfdede;
 	font-size: 20px;
 	padding: 10px 10px;
@@ -2600,7 +2595,6 @@ a.basket_button_none{
 	border: 1px solid #828081;
 	padding: 10px;
 	cursor: default;
-	pointer-events: none;
 	margin-bottom: 10px;
 }
 a.buy_credit{
