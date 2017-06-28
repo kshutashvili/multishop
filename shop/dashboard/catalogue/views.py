@@ -1,5 +1,11 @@
 from django.contrib.sites.shortcuts import get_current_site
 from django.http.response import HttpResponseRedirect
+from django.views.generic import CreateView
+from django.views.generic import UpdateView
+from django.contrib.contenttypes.models import ContentType
+from django.contrib import messages
+from django.utils.translation import ugettext_lazy as _
+
 from oscar.apps.dashboard.catalogue.views import \
     ProductCreateUpdateView as OscarProductCreateUpdateView, \
     ProductClassCreateView as OscarProductClassCreateView, \
@@ -9,11 +15,14 @@ from oscar.apps.dashboard.catalogue.views import \
     ProductListView as OscarProductListView, \
     CategoryListView as OscarCategoryListView, \
     ProductClassListView as OscarProductClassListView
+from oscar.core.loading import get_class
 
-from shop.dashboard.catalogue.forms import ProductForm, \
+from shop.dashboard.catalogue.forms import ProductForm, ModelMetaTagForm, \
     ProductAttributesFormSet, ProductClassForm, CategoryForm, \
     ExtraProductImageFormSet, ProductVideoFormSet, ProductClassSelectForm
 from website.views import SiteMultipleObjectMixin
+
+ModelMetaTag = get_class('config.models', 'ModelMetaTag')
 
 
 class ProductCreateUpdateView(OscarProductCreateUpdateView):
@@ -31,6 +40,23 @@ class ProductCreateUpdateView(OscarProductCreateUpdateView):
         self.object.site = get_current_site(self.request)
         self.object.save()
         return super(ProductCreateUpdateView, self).clean(form, formsets)
+
+    def get_context_data(self, **kwargs):
+        cxt = super(ProductCreateUpdateView, self).get_context_data(**kwargs)
+        content_type = ContentType.objects.get_for_model(self.object)
+
+        model_meta_tag = ModelMetaTag.objects.filter(
+            content_type=content_type,
+            object_id=self.object.id,
+        )
+        if model_meta_tag.exists():
+            cxt['model_meta_tag'] = model_meta_tag[0]
+        else:
+            cxt.update({
+                'meta_tag_object': self.object,
+                'meta_tag_content_type': content_type,
+            })
+        return cxt
 
 
 class ProductClassCreateView(OscarProductClassCreateView):
@@ -66,6 +92,7 @@ class CategoryCreateView(OscarCategoryCreateView):
 
 
 class CategoryUpdateView(OscarCategoryUpdateView):
+    template_name = 'shop/dashboard/catalogue/category_form.html'
     form_class = CategoryForm
 
     def form_valid(self, *args, **kwargs):
@@ -73,9 +100,27 @@ class CategoryUpdateView(OscarCategoryUpdateView):
         self.object.save()
         return super(CategoryUpdateView, self).form_valid(*args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super(CategoryUpdateView, self).get_context_data(**kwargs)
+        content_type = ContentType.objects.get_for_model(self.object)
+
+        model_meta_tag = ModelMetaTag.objects.filter(
+            content_type=content_type,
+            object_id=self.object.id,
+        )
+        if model_meta_tag.exists():
+            context['model_meta_tag'] = model_meta_tag[0]
+        else:
+            context.update({
+                'meta_tag_object': self.object,
+                'meta_tag_content_type': content_type,
+            })
+        return context
+
 
 class ProductListView(SiteMultipleObjectMixin, OscarProductListView):
     productclass_form_class = ProductClassSelectForm
+
     def get_context_data(self, **kwargs):
         ctx = super(ProductListView, self).get_context_data(**kwargs)
         site = get_current_site(self.request)
@@ -91,3 +136,47 @@ class ProductClassListView(SiteMultipleObjectMixin, OscarProductClassListView):
     pass
 
 
+class MetaTagCreateView(CreateView):
+    model = ModelMetaTag
+    form_class = ModelMetaTagForm
+    template_name = 'shop/dashboard/catalogue/model_meta_tag.html'
+
+    def get_initial(self):
+        return {
+            'object_id': self.request.GET.get('object_id'),
+            'content_type': self.request.GET.get('content_type'),
+        }
+
+    def get_context_data(self, **kwargs):
+        context = super(MetaTagCreateView, self).get_context_data(**kwargs)
+        context['title'] = _('Create Object Meta Tag')
+        return context
+
+    def get_success_url(self):
+        message = _('Meta tag for "{}" was created successfully') \
+            .format(self.object.content_object)
+        messages.info(self.request, message)
+        next = self.request.GET.get('next')
+        if next:
+            return next
+        return self.request.META.get('HTTP_REFERER')
+
+
+class MetaTagUpdateView(UpdateView):
+    model = ModelMetaTag
+    form_class = ModelMetaTagForm
+    template_name = 'shop/dashboard/catalogue/model_meta_tag.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MetaTagUpdateView, self).get_context_data(**kwargs)
+        context['title'] = _('Update Object Meta Tag')
+        return context
+
+    def get_success_url(self):
+        message = _('Meta tag for "{}" was updated successfully') \
+            .format(self.object.content_object)
+        messages.info(self.request, message)
+        next = self.request.GET.get('next')
+        if next:
+            return next
+        return self.request.META.get('HTTP_REFERER')

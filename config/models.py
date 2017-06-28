@@ -9,6 +9,8 @@ from django.dispatch import receiver
 from solo.models import SingletonModel
 
 from shop.catalogue.models import ProductAttribute
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 
 class SiteConfig(models.Model):
@@ -217,3 +219,39 @@ class MetaTag(models.Model):
 
     def __unicode__(self):
         return u"{} - {}".format(self.get_type_display(), self.title)
+
+
+class ModelMetaTag(models.Model):
+
+    title = models.CharField(
+        max_length=250,
+        verbose_name='Заголовок',
+    )
+    title_meta = models.CharField(
+        max_length=250,
+        verbose_name='Meta title',
+    )
+    description_meta = models.TextField(
+        verbose_name='Meta description'
+    )
+    h1 = models.CharField(
+        max_length=250,
+        verbose_name='H1 заголовок',
+    )
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.CASCADE,
+        limit_choices_to={
+            'model__in': ('product', 'category', )
+        }
+    )
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey()
+
+    class Meta:
+        unique_together = (('content_type', 'object_id'))
+        verbose_name = 'Мета тегы для обьекта'
+        verbose_name_plural = 'Мета тегы для обьектов'
+
+    def __unicode__(self):
+        return '{} - {}'.format(self.content_object, self.title)

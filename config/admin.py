@@ -7,7 +7,10 @@ from django.utils.html import format_html
 from solo.admin import SingletonModelAdmin
 
 from .models import (SiteConfig, Configuration, MenuItem, MenuCategory,
-                     TextOne, TextTwo, TextThree, TextFour, MetaTag)
+                     TextOne, TextTwo, TextThree, TextFour, MetaTag, ModelMetaTag)
+
+
+admin.site.register(ModelMetaTag)
 
 
 class SiteConfigInline(admin.StackedInline):
