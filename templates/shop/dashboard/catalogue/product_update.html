@@ -114,7 +114,7 @@
                                     <li><a target="_blank" href="{% url 'dashboard:meta-tag-update' model_meta_tag.id %}?next={{ request.path }}">
                                         {% trans "Update meta tags" %}</h3>
                                     </a></li>
-                                {% else %}
+                                {% elif meta_tag_object %}
                                     <li><a target="_blank" href="{% url 'dashboard:meta-tag-create' %}?object_id={{ meta_tag_object.id }}&content_type={{ meta_tag_content_type.id }}&next={{ request.path }}">
                                         {% trans "Create meta tags" %}</h3>
                                     </a></li>
