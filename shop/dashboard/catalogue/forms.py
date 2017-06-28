@@ -2,6 +2,7 @@
 from django import forms
 from django.core import exceptions
 from django.forms.models import inlineformset_factory
+
 from oscar.apps.dashboard.catalogue.forms import \
     ProductForm as OscarProductForm, \
     ProductAttributesForm as OscarProductAttributes, \
@@ -16,6 +17,11 @@ from treebeard.forms import movenodeform_factory
 from shop.catalogue.models import Product, ProductClass, ProductAttribute, \
     Category, ProductAttributeValue, ExtraImage, Video
 from shop.partner.models import StockRecord
+
+from oscar.core.loading import get_class
+
+
+ModelMetaTag = get_class('config.models', 'ModelMetaTag')
 
 
 def _attr_textarea_field_uk(attribute):
@@ -266,3 +272,9 @@ class StockRecordForm(OscarStockRecordForm):
             'price_currency', 'price_excl_tax', 'price_retail', 'cost_price',
             'num_in_stock', 'low_stock_threshold',
         ]
+
+
+class ModelMetaTagForm(forms.ModelForm):
+    class Meta:
+        model = ModelMetaTag
+        fields = '__all__'

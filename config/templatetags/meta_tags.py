@@ -3,16 +3,32 @@ import pymorphy2
 from django import template
 from django.utils.translation import get_language
 from django.contrib.sites.shortcuts import get_current_site
+from django.contrib.contenttypes.models import ContentType
+
 from pymorphy2.tagset import OpencorporaTag
 from oscar.apps.partner.strategy import Selector
 
 from config.models import MetaTag
+from config.models import ModelMetaTag
+from shop.catalogue.models import Product
+from shop.catalogue.models import Category
 
 register = template.Library()
 
 
 @register.simple_tag
 def meta_tag(page_type, tag, object, request, category=None, filter=None):
+    # Return ModelMetaTag if exists
+    if isinstance(object, Product) or isinstance(object, Category):
+        model_meta_tag = ModelMetaTag.objects.filter(
+            content_type=ContentType.objects.get_for_model(object),
+            object_id=object.id,
+        )
+        if model_meta_tag.exists():
+            tag = getattr(model_meta_tag[0], tag)
+            return tag
+
+    # else return tag from tokens
     morph = pymorphy2.MorphAnalyzer(lang=get_language())
     meta_tags = MetaTag.objects.get(type=page_type)
     tag = getattr(meta_tags, tag)
