@@ -3,6 +3,7 @@
 {% load site_static %}
 {% load history_tags %}
 {% load currency_filters %}
+{% load currency_tags %}
 {% load reviews_tags %}
 {% load staticfiles %}
 {% load product_tags %}
@@ -39,7 +40,7 @@
                         <p class="compare_table_number">Добавлено
                             товаров:
                             <span>{{ products|length }}</span></p>
-                        <a href="{% url 'catalogue:category' category_slug=category.slug pk=category.pk %}"
+                        <a href="{{ category.get_absolute_url }}"
                            class="compare_table_add_button">Добавить
                             еще один товар</a>
                         <a href="#" class="compare_table_clean_button"
@@ -65,8 +66,9 @@
                                 <li>
                                 <div class="catalog_item_block">
                                     {% thumbnail product.primary_image.original "155" as thumb %}
-                                        <img src="{{ thumb.url }}" alt="">
+                                        <img src="{{ thumb.url }}" alt="" style="width: 155px; height: 155px;">
                                     {% endthumbnail %}
+                                    <div class="block155h"></div>
                                     <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
                                     <div class="for_list_block">
                                         <select class="rating_photo">
@@ -84,26 +86,33 @@
                                         {% purchase_info_for_product request product as session %}
                                         {% if session.availability.is_available_to_buy %}
                                             <p class="line_through">
-                                                {{ session.price.previous|currency:session.price.currency }}</p>
+                                                {% if session.price.previous %}
+                                                {{ session.price.previous|floatformat|humanize_price }}
+                                                <span>{{session.price.currency|format_currency }}</span>
+                                                {% endif %}
+                                            </p>
                                             <p class="catalog_item_price">
                                                 {% if session.price.is_tax_known %}
-                                                    {{ session.price.incl_tax|currency:session.price.currency }}
+                                                    {{ session.price.incl_tax|floatformat|humanize_price}}
+                                                    <span>{{session.price.currency|format_currency }}</span>
                                                 {% else %}
-                                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                                    {{ session.price.excl_tax|floatformat|humanize_price }}
+                                                    <span>{{session.price.currency|format_currency }}</span>
                                                 {% endif %}</p>
+                                            <a href="#" class="buy_button">Купить</a>
                                         {% else %}
-                                            <p class="nalichie dpn naliche_net">
+                                            <p class="sold_out">
                                                 Нет в наличии</p>
                                             <p class="catalog_item_price naliche_net dpn">
                                                 {% if session.price.is_tax_known %}
-                                                    {{ session.price.incl_tax|currency:session.price.currency }}
+                                                    {{ session.price.incl_tax|floatformat|humanize_price}}
+                                                    <span>{{session.price.currency|format_currency }}</span>
                                                 {% else %}
-                                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                                    {{ session.price.excl_tax|floatformat|humanize_price}}
+                                                    <span>{{session.price.currency|format_currency }}</span>
                                                 {% endif %}</p>
 
                                         {% endif %}
-                                        <a href="#" class="buy_button">Нет в
-                                            наличии</a>
                                     </div>
                                     <a href="#" class="close_compare"
                                        data-product-id="{{ product.id }}"

@@ -15,7 +15,6 @@ def url_format(url):
     current_lang = get_language()
     default_lang = settings.LANGUAGE_CODE
     formatted_url = urlparse(url).path
-    print(formatted_url)
 
     if current_lang != default_lang:
         # get localized slug for flat page
