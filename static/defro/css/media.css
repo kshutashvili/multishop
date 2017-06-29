@@ -646,7 +646,7 @@
     }
     .compare_block_table .nav {
         position: absolute;
-        top: 705px;
+        top: 835px;
         left: 50%;
         margin-left: -123px;
         z-index: 999;
@@ -1836,7 +1836,8 @@
 
     .compare_block ul li img
     {
-        width: 100px;
+        width: 100px!important;
+        height: 100px!important;
     }
     .compare_block .line_through {
         font-size: 16px;
@@ -1848,6 +1849,15 @@
     .compare_block ul li:nth-child(4n) {
         margin-right: 2%;
         margin-left: 2%;
+    }
+    .compare_block .line_through {
+        margin: 18px 0px 0px 5px;;
+    }
+    .compare_block .br-wrapper {
+        margin-top: 0px;
+    }
+    .compare_block .sold_out {
+        height: 30px;
     }
     .tovar_tabs
     {
@@ -3263,7 +3273,8 @@
         width: 160px;
     }
     .compare_block ul li img {
-        width: 80px;
+        width: 80px!important;
+        height: 80px!important;
     }
     .compare_block .compare_item_caption {
         font: 13px "ArialRegular";

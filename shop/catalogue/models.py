@@ -7,6 +7,7 @@ from unidecode import unidecode
 from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.contrib.sites.models import Site
+from django.core.exceptions import ValidationError
 from django.core.mail import EmailMultiAlternatives, mail_admins
 from django.core.management import call_command
 from django.db import models
@@ -14,6 +15,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import reverse
 from django.template import Context
+from django.utils import six
 from django.utils.translation import ugettext_lazy as _, get_language
 from django.template.loader import get_template
 from oscar.apps.catalogue.abstract_models import (
@@ -139,6 +141,25 @@ class Category(AbstractCategory):
 class ProductAttribute(AbstractProductAttribute):
     def __unicode__(self):
         return '{} - {}'.format(self.name, self.product_class.name)
+
+    def _validate_text(self, value):
+        if isinstance(value, tuple):
+            # validate individual values
+            for v in value:
+                if v is None:
+                    if self.required:
+                        raise ValidationError(
+                            _("%(attr)s attribute cannot be blank") %
+                            {'attr': self.code})
+                else:
+                    self._validate_text(v)
+
+            return
+
+        if not isinstance(value, six.string_types):
+            raise ValidationError(_("Must be str or unicode"))
+
+    _validate_richtext = _validate_text
 
 
 class ProductAttributeValue(AbstractProductAttributeValue):

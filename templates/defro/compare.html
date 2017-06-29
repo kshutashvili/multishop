@@ -3,6 +3,7 @@
 {% load site_static %}
 {% load history_tags %}
 {% load currency_filters %}
+{% load currency_tags %}
 {% load reviews_tags %}
 {% load staticfiles %}
 {% load product_tags %}
@@ -39,9 +40,10 @@
                                         <li>
                                             {% thumbnail product.primary_image.original "155" as thumb %}
                                                 <img src="{{ thumb.url }}"
-                                                     alt="">
+                                                     alt="" style="width: 155px; height: 155px;">
                                             {% endthumbnail %}
-                                            <p class="compare_item_caption"><a href="{{ product.get_absolute_url }}">{{ product.product_class.name }} {{ product.title }}</a></p>
+                                            <div class="block155h"></div>
+                                            <p class="compare_item_caption"><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></p>
                                             <select class="rating_photo">
                                                 {% for num in "12345" %}
                                                     <option {% if product.rating == num %}selected="selected"{% endif %}
@@ -58,29 +60,31 @@
                                             {% purchase_info_for_product request product as session %}
                                             {% if session.availability.is_available_to_buy %}
                                                 <p class="line_through">
-                                                    {{ session.price.previous|currency:session.price.currency }}
-                                                        +
-                                                        налоги </p>
+                                                    {% if session.price.previous %}
+                                                    {{ session.price.previous|floatformat|humanize_price }}
+                                                    <span>{{session.price.currency|format_currency }}</span>
+                                                    {% endif %}
+                                                </p>
                                                 <p class="catalog_item_price">
                                                     {% if session.price.is_tax_known %}
-                                                        {{ session.price.incl_tax|currency:session.price.currency }}
+                                                        {{ session.price.incl_tax|floatformat|humanize_price }}
+                                                        <span>{{session.price.currency|format_currency }}</span>
                                                     {% else %}
-                                                        {{ session.price.excl_tax|currency:session.price.currency }}
-                                                        +
-                                                        налоги
+                                                        {{ session.price.excl_tax|floatformat|humanize_price }}
+                                                        <span>{{session.price.currency|format_currency }}</span>
                                                     {% endif %}</p>
                                             {% else %}
-                                                <p class="nalichie dpn naliche_net">
+                                                <p class="sold_out">
                                                     Нет
                                                     в
                                                     наличии</p>
                                                 <p class="catalog_item_price naliche_net dpn">
                                                     {% if session.price.is_tax_known %}
-                                                        {{ session.price.incl_tax|currency:session.price.currency }}
+                                                        {{ session.price.incl_tax|floatformat|humanize_price }}
+                                                        <span>{{session.price.currency|format_currency }}</span>
                                                     {% else %}
-                                                        {{ session.price.excl_tax|currency:session.price.currency }}
-                                                        +
-                                                        налоги
+                                                        {{ session.price.excl_tax|floatformat|humanize_price }}
+                                                        <span>{{session.price.currency|format_currency }}</span>
                                                     {% endif %}</p>
 
                                             {% endif %}

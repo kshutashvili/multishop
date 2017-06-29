@@ -4529,6 +4529,13 @@ a.search_category_name{
     display: inline-block;
     vertical-align: top;
 }
+.compare_block .line_through {
+    text-decoration: line-through;
+    color: #888888;
+    font-size: 18px;
+    float: left;
+    margin: 15px 0px 0px 18px;
+}
 .compare_table_add{
 	text-align: center;
 	margin-top: 15px;
@@ -4602,6 +4609,7 @@ a.compare_table_clean_button{
 .compare_block_table .line_through {
     display: inline-block;
     margin-top: 10px;
+    margin-left: 12px;
 }
 .compare_block_table .catalog_item_block {
     padding: 23px 0 14px;
@@ -5468,4 +5476,27 @@ div.contacts a.cityphone {
 }
 #season {
     height: 65px;
+}
+.compare_block .sold_out, .compare_block_table .sold_out {
+	color: #bbbbbb;
+	display: block!important;
+    margin-top: 20px;
+    height: 38px;
+}
+.compare_block .compare_item_caption {
+	height: 32px;
+}
+.compare_block_table .nav-tabs > li > a {
+	font-size: 14px;
+}
+.compare_block_table .catalog_item_block_caption {
+	height: 46px;
+}
+.compare_block_table .sold_out {
+	height: 27px;
+	font: 20px "ArialRegular";
+    text-align: center;
+}
+.compare_ul li:nth-child(4) .catalog_item_block {
+	margin-right: 6px;
 }
