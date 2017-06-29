@@ -43,7 +43,7 @@
                             <div class="block155h"></div>
                             <p class="catalog_item_block_caption">{{ p.title }}</p>
                             <select class="rating_photo">
-                                {% for num in "12345" %}
+                                {% for num in "012345" %}
                                     <option {% if p.rating == num %}selected="selected"{% endif %}
                                             value="{{ num }}">{{ num }}</option>
                                 {% endfor %}
