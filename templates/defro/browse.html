@@ -301,9 +301,10 @@
                                                     {% endif %}
                                                     {% thumbnail product.primary_image.original "155" as thumb %}
                                                         <a href="{{ product.get_absolute_url }}">
-                                                            <img src="{{ thumb.url }}">
+                                                            <img src="{{ thumb.url }}" style="width: 155px; height: 155px;">
                                                         </a>
                                                     {% endthumbnail %}
+                                                    <div class="block155h"></div>
                                                     <p class="catalog_item_block_caption">
                                                         <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
                                                     </p>
@@ -487,7 +488,7 @@
                                            name="id">
                                     <a href="{{ product.get_absolute_url }}">
                                         {% thumbnail product.primary_image.original "155" as img %}
-                                            <img src="{{ img.url }}">
+                                            <img src="{{ img.url }}" style="width: 155px; height: 155px;">
                                         {% endthumbnail %}
                                         <div class="block155h"></div>
                                         <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>

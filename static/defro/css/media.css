@@ -968,6 +968,9 @@
     .contacts_short_body .contacts_info_phone {
     margin-right: 95px;
     }
+    .catalog_item_list .catalog_item_block_caption {
+        width: 200px;
+    }
 }
 @media screen and (max-width: 882px) {
     .error_block .error_msg{
@@ -1738,12 +1741,12 @@
         margin-right: 0px;
         margin-left: 0px;
         float: left;
-        width: 33.3%;
+        width: 28%;
         text-align: left;
         padding-left: 15px;
     }
     .filter_media .fa {   
-    right: 20px;
+    right: 10px;
     }
     .sort_vid .sort
     {
@@ -2663,8 +2666,22 @@
     .compare_block_table .catalog_item_block img {
         max-width: 110px;
     }
-    .catalog_item_block_caption {
+    .catalog_item_block_caption, .catalog_item_list .catalog_item_block_caption a {
         font-size: 17px;
+    }
+    .catalog_item_list .catalog_item_block_caption {
+        width: 150px;
+    }
+    .catalog_item_list .catalog_item_block_caption {
+        height: auto;
+    }
+    .catalog_item_list .block155h {
+        width: 120px;
+        height: 120px;
+    }
+    .catalog_items.catalog_item_list .catalog_item_block img {
+        width: 120px!important;
+        height: 120px!important;
     }
     .compare_block_table .nav {
         top: 705px;
@@ -3159,6 +3176,7 @@
     {
         float: right;
         margin-right: 20px;
+        padding: 5px 0px;
     }
     .category_block ul li a img {
     max-width: 100px;
@@ -3372,7 +3390,7 @@
     .compare_block_table .catalog_item_block img {
         max-width: 100px;
     }
-    .catalog_item_block_caption {
+    .catalog_item_block_caption, .catalog_item_list .catalog_item_block_caption a {
         font-size: 13px;
     }
     .compare_block_table .catalog_item_block {
@@ -3472,7 +3490,17 @@
         display: block;
         text-align: center;
     }
-
+    .catalog_item_list .block155h {
+        width: 100px;
+        height: 100px;
+    }
+    .catalog_items.catalog_item_list .catalog_item_block img {
+        width: 100px!important;
+        height: 100px!important;
+    }
+    .catalog_item_list .catalog_item_block_caption {
+        width: 125px;
+    }
 }
 @media screen and (max-width: 360px) {
     .error_block .well {
@@ -3519,7 +3547,7 @@
         padding-left: 5px;
     }
     .filter_media .fa {
-    right: 10px;
+    right: 5px;
     }
     /*default_blocks*/
     .footer {
