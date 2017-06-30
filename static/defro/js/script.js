@@ -166,7 +166,7 @@ $('.basket_goto.show_popup').click(function(){
 })
 });
 
-$(window).resize(function() {scrolbar_on(); mobile_menu_construct (); searchAppend(); resizeCatalogButton(); hover_side_menu();});
+$(window).resize(function() {scrolbar_on(); mobile_menu_construct(); searchAppend(); resizeCatalogButton(); hover_side_menu(); hide_mobile_side_menu();});
 function mobile_menu_construct ()
 {
     if($(window).width()<=610) {
