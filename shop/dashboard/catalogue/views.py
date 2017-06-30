@@ -43,19 +43,20 @@ class ProductCreateUpdateView(OscarProductCreateUpdateView):
 
     def get_context_data(self, **kwargs):
         cxt = super(ProductCreateUpdateView, self).get_context_data(**kwargs)
-        content_type = ContentType.objects.get_for_model(self.object)
+        if self.object:
+            content_type = ContentType.objects.get_for_model(self.object)
 
-        model_meta_tag = ModelMetaTag.objects.filter(
-            content_type=content_type,
-            object_id=self.object.id,
-        )
-        if model_meta_tag.exists():
-            cxt['model_meta_tag'] = model_meta_tag[0]
-        else:
-            cxt.update({
-                'meta_tag_object': self.object,
-                'meta_tag_content_type': content_type,
-            })
+            model_meta_tag = ModelMetaTag.objects.filter(
+                content_type=content_type,
+                object_id=self.object.id,
+            )
+            if model_meta_tag.exists():
+                cxt['model_meta_tag'] = model_meta_tag[0]
+            else:
+                cxt.update({
+                    'meta_tag_object': self.object,
+                    'meta_tag_content_type': content_type,
+                })
         return cxt
 
 
