@@ -403,12 +403,11 @@
                             </div>
 
                             {% if paginator.num_pages > 1 %}
-                                <a href="#" class="look_more">Смотреть еще <img src="img/catalog/more.png" alt=""></a>
+                                <a href="#" class="look_more">Смотреть еще <img src="{% get_static 'img/catalog/more.png' %}" alt=""></a>
                                 <nav aria-label="Page navigation"
                                      class="page_nav">
                                     <ul class="pagination">
                                         {% if page_obj.has_previous %}
-
                                             <li>
                                                 <a href="{% url_replace page=page_obj.previous_page_number %}"
                                                    aria-label="Previous">
