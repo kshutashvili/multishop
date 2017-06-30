@@ -5573,3 +5573,6 @@ a + .for_list_block {
     text-align: center;
     width: 200px;
 }
+.mobile-hide {
+    display: none!important;
+}
