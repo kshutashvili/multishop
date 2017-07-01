@@ -1,6 +1,46 @@
 from django.contrib.sites.shortcuts import get_current_site
 from oscar.apps.catalogue.search_handlers import \
     SolrProductSearchHandler as OscarSolrProductSearchHandler
+from oscar.core.loading import get_class
+from django.utils.translation import ugettext_lazy as _
+from django import forms
+
+
+BrowseCategoryForm = get_class('search.forms', 'BrowseCategoryForm')
+
+
+class CustomBrowseCategoryForm(BrowseCategoryForm):
+    RELEVANCY = "relevancy"
+    TOP_RATED = "rating"
+    NEWEST = "newest"
+    PRICE_HIGH_TO_LOW = "price_desc"
+    PRICE_LOW_TO_HIGH = "price_asc"
+    TITLE_A_TO_Z = "title_asc"
+    TITLE_Z_TO_A = "title_desc"
+
+    SORT_BY_CHOICES = [
+        (RELEVANCY, _("Relevancy")),
+        (TOP_RATED, _("Customer rating")),
+        (NEWEST, _("Newest")),
+        (PRICE_HIGH_TO_LOW, _("Price high to low")),
+        (PRICE_LOW_TO_HIGH, _("Price low to high")),
+        (TITLE_A_TO_Z, _("Title A to Z")),
+        (TITLE_Z_TO_A, _("Title Z to A")),
+    ]
+
+    # explicit sort field being passed to the search backend.
+    SORT_BY_MAP = {
+        TOP_RATED: '-rating',
+        NEWEST: '-date_created',
+        PRICE_HIGH_TO_LOW: '-price',
+        PRICE_LOW_TO_HIGH: 'price',
+        TITLE_A_TO_Z: 'title_s',
+        TITLE_Z_TO_A: '-title_s',
+    }
+
+    sort_by = forms.ChoiceField(
+        label=_("Sort by"), choices=SORT_BY_CHOICES,
+        widget=forms.Select(), required=False)
 
 
 def get_product_search_handler_class():
@@ -8,6 +48,9 @@ def get_product_search_handler_class():
 
 
 class SolrProductSearchHandler(OscarSolrProductSearchHandler):
+
+    form_class = CustomBrowseCategoryForm
+
     def __init__(self, request_data, full_path, request=None, categories=None,
                  options=[]):
         self.options = options
