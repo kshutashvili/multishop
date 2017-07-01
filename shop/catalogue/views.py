@@ -30,7 +30,7 @@ from shop.catalogue.models import Product, Category, FilterDescription
 from shop.catalogue.models import ProductAttributeValue
 from shop.order.forms import OneClickOrderForm
 from website.views import SiteTemplateResponseMixin
-from .forms import FilterForm
+from .forms import FilterForm, PaginateByForm
 from .utils import get_view_type, dict_to_query, query_to_dict
 
 MetaTag = apps.get_model('config', 'MetaTag')
@@ -109,15 +109,15 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                 len(self.request.GET.getlist(brand_attribute_code)) == 1 and
                 len(self.request.GET) <= 4):
             tokens['page_type'] = MetaTag.BRAND
-            tokens['page_obj'] = brand_attribute.option_group.options.all() \
+            tokens['page_object'] = brand_attribute.option_group.options.all() \
                 .get(pk=self.request.GET.get(brand_attribute_code))
             tokens['category'] = self.category
         elif self.category and len(self.request.GET) == 0:
             tokens['page_type'] = MetaTag.CATEGORY
-            tokens['page_obj'] = self.category
+            tokens['page_object'] = self.category
         else:
             tokens['page_type'] = MetaTag.BRAND_FILTER
-            tokens['page_obj'] = None
+            tokens['page_object'] = None
             tokens['category'] = self.category
             tokens['filter'] = self.form.get_form_selected()
         return tokens
@@ -134,7 +134,7 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
             categories = (self.category,)
 
         if kwargs.get('query'):
-            request.GET = query_to_dict(kwargs.get('query'))
+            request.GET = query_to_dict(kwargs.get('query'), prepared=True)
 
         page_num = kwargs.get('page')
         if page_num:
@@ -146,6 +146,9 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                 self.site, data=request.GET, request=request, categories=categories)
         except EmptyPage:
             raise Http404
+
+        self.paginate_form = PaginateByForm(data=request.GET)
+
         options = []
         if self.form.is_valid():
             options = self.form.cleaned_data
@@ -167,13 +170,24 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                 options=options, categories=categories)
         except InvalidPage:
             raise Http404
-        return super(OscarCatalogueView, self).get(request, *args, **kwargs)
+
+        if request.is_ajax():
+            template_name = "defro/partials/products.html"
+            context_data = self.get_context_data(**kwargs)
+            content = render_to_string(template_name, context_data, request)
+
+            return JsonResponse({"content": content,
+                                 "has_more_pages": int(page_num) < context_data['paginator'].num_pages})
+
+        else:
+            return super(OscarCatalogueView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(CatalogueView, self).get_context_data()
         context.update(self.get_meta_tokens())
         context['recently_viewed_products'] = history.get(self.request)
         context['filter_form'] = self.form
+        context['paginate_form'] = self.paginate_form
         if hasattr(self, 'filter_descr'):
             context['filter_descr'] = self.filter_descr
         context['filter_reset_url'] = self.request.path
@@ -330,9 +344,14 @@ class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
     def get(self, request, *args, **kwargs):
         # Fetch the category; return 404 or redirect as needed
         if request.GET:
+            if kwargs.get('query'):
+                d = query_to_dict(kwargs.get('query'), request.GET)
+            else:
+                d = request.GET.copy()
+
             return redirect('catalogue:product_or_category',
                             slug=kwargs['category_slug'],
-                            query=dict_to_query(request.GET),
+                            query=dict_to_query(d),
                             permanent=True)
 
         # redirect page 1 to root

@@ -16,30 +16,30 @@
 
 
 {% block title %}
-    {% meta_tag page_type 'title' page_obj request category filter %}
+    {% meta_tag page_type 'title' page_object request category filter %}
 {% endblock title %}
 
 {% block title_meta %}
-    {% meta_tag page_type 'title_meta' page_obj request category filter %}
+    {% meta_tag page_type 'title_meta' page_object request category filter %}
 {% endblock title_meta %}
 
 {% block description %}
-    {% meta_tag page_type 'description_meta' page_obj request category filter %}
+    {% meta_tag page_type 'description_meta' page_object request category filter %}
 {% endblock description %}
 
 
 {% block favicon %}
     {% if page_obj.number == 1 %}
     {% if page_obj.has_next %}
-      <link rel="next" href="?page={{ page_obj.next_page_number }}">
+      <link rel="next" href="/p={{ page_obj.next_page_number }}/">
     {% endif %}
   {% else %}
     <link rel="canonical" href="{% url 'catalogue:index' %}">
     {% if page_obj.has_next %}
-      <link rel="next" href="?page={{ page_obj.next_page_number }}">
+      <link rel="next" href="/p={{ page_obj.next_page_number }}/">
     {% endif %}
     {% if page_obj.has_previous %}
-      <link rel="prev" href="?page={{ page_obj.previous_page_number }}">
+      <link rel="prev" href="/p={{ page_obj.previous_page_number }}/">
     {% endif %}
   {% endif %}
 {% endblock %}
@@ -250,17 +250,17 @@
                                         </form>
                                     </div>
                                 {% endif %}
-                                <div class="number_of_elems">
-                                    <span>Показывать по</span>
-                                    <div class="custom_select">
-                                        <select id="paginate_by">
-                                            <option>12</option>
-                                            <option>8</option>
-                                            <option>6</option>
-                                        </select>
+                                {% if paginate_form %}
+                                    <div class="number_of_elems">
+                                        <span>Показывать по</span>
+                                        <div class="custom_select">
+                                            <form method="get">
+                                                {% include "partials/form_field.html" with field=paginate_form.paginate_by nolabel=True %}
+                                            </form>
+                                        </div>
+                                        <span>на странице</span>
                                     </div>
-                                    <span>на странице</span>
-                                </div>
+                                {% endif %}
                                 <span class='vid'>
                                     <span>Вид:</span>
                                     <span class="change_look plitka plitka_red"></span>
@@ -270,119 +270,8 @@
 
                             <div class="catalog_items catalog_main_block">
                                 {% if products %}
-                                    <ul>
-                                        {% for product in products %}
-                                            {% basket_form request product as basket_form %}
-                                            <form id="add_to_basket_form_{{ product.id }}"
-                                                  name="add_to_basket_form"
-                                                  style="display: none;"
-                                                  action="{% url 'basket:add' pk=product.pk %}"
-                                                  method="post"
-                                                  class="add-to-basket">{% csrf_token %}
-                                                {% include "partials/form_fields.html" with form=basket_form %}
-                                            </form>
-                                            <li>
-                                                <div class="catalog_item_block {% if product.is_discountable or product.special_offer %}before_akcia {% elif product.new %}before_new {% elif product.top_sale %} before_hit{% elif product.recommended %} before_rec{% elif product.super_price %} before_superprice{% endif %} free_shipping">
-                                                    {% if product.gift %}
-                                                        <div class="before_gift"></div>
-                                                    {% endif %}
-                                                    {% if product.free_shipping %}
-                                                        <div class="before_free"></div>
-                                                    {% endif %}
-                                                    {% thumbnail product.primary_image.original "155" as thumb %}
-                                                        <a href="{{ product.get_absolute_url }}">
-                                                            <img src="{{ thumb.url }}" style="width: 155px; height: 155px;">
-                                                        </a>
-                                                    {% endthumbnail %}
-                                                    <div class="block155h"></div>
-                                                    <p class="catalog_item_block_caption">
-                                                        <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
-                                                    </p>
-                                                    <div class="for_list_block">
-                                                        <select class="rating_photo">
-                                                            {% for num in "012345" %}
-                                                                <option {% if product.rating == num %}selected="selected"{% endif %}
-                                                                        value="{{ num }}">{{ num }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                        <p class="rating_number"><span>{% if product.rating %}
-                                                            {{ product.rating|floatformat }}{% else %}
-                                                            0{% endif %}
-                                                            /</span>5 ( голосов
-                                                            <span>{{ product.num_approved_reviews }}</span>)
-                                                        </p>
-                                                        <hr>
-                                                        {% purchase_info_for_product request product as session %}
-
-
-                                                        {% if session.availability.is_available_to_buy %}
-                                                            <p class="line_through">
-                                                            {% if session.price.previous %}
-                                                                {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span> </p>
-                                                            {% endif %}
-                                                            <p class="catalog_item_price">
-                                                                {% if session.price.is_tax_known %}
-                                                                    {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
-                                                                {% else %}
-                                                                    {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
-                                                                {% endif %}</p>
-                                                            {% if request.session.compare_list and product.id in request.session.compare_list %}
-                                                                <a href="#!"
-                                                                   class="compare_button compare_button_added">В
-                                                                    сравнении</a>
-                                                            {% else %}
-                                                                <a href="#!"
-                                                                   data-compare-url="{% url 'compare' %}"
-                                                                   class="compare_button"
-                                                                   data-product-id="{{ product.id }}">Сравнить</a>
-
-
-                                                            {% endif %}
-                                                            {% if product.id in request.basket %}
-                                                                <a href="#" class="buy_button buy_button_bougth">Нет в наличии</a>
-                                                            {% endif %}
-                                                            <a href="#"
-                                                               class="buy_button show_popup"
-                                                               data-rel="buy_button_modal"
-                                                               data-product-id="{{ product.id }}">Нет
-                                                                в наличии</a>
-                                                        {% else %}
-                                                            <p class="catalog_item_price not_active_price">
-                                                                {% if session.price.is_tax_known %}
-                                                                    {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
-                                                                {% else %}
-                                                                    {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
-                                                                {% endif %}</p>
-                                                            {% if request.session.compare_list and product.id in request.session.compare_list %}
-                                                                <a href="#!"
-                                                                   class="compare_button compare_button_added">В
-                                                                    сравнении</a>
-                                                            {% else %}
-                                                                <a href="#!"
-                                                                   data-compare-url="{% url 'compare' %}"
-                                                                   class="compare_button"
-                                                                   data-product-id="{{ product.id }}">Сравнить</a>
-
-
-                                                            {% endif %}
-                                                            <a href="#"
-                                                               class="buy_button but_button_sold">Нет
-                                                                в
-                                                                наличии</a>
-                                                        {% endif %}
-                                                    </div>
-                                                    <div class="catalog_item_info">
-                                                        {% for av in product.attribute_values.all %}
-                                                            <p>{{ av.attribute.name }}:
-                                                                <span>{% if av.value_option %}
-                                                                    {{ av.value_option.option }}{% else %}
-                                                                    {{ av.value_as_html }}{% endif %}</span>.
-                                                            </p>
-                                                        {% endfor %}
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        {% endfor %}
+                                    <ul id="ul_products">
+                                        {% include "defro/partials/products.html" %}
                                     </ul>
 
                                 {% else %}
@@ -393,7 +282,9 @@
                             </div>
 
                             {% if paginator.num_pages > 1 %}
-                                <a href="#" class="look_more">Смотреть еще <img src="{% get_static 'img/catalog/more.png' %}" alt=""></a>
+                                {%  if page_obj.has_next %}
+                                    <a href="#" class="look_more">Смотреть еще <img src="{% get_static 'img/catalog/more.png' %}" alt=""></a>
+                                {% endif %}
                                 <nav aria-label="Page navigation"
                                      class="page_nav">
                                     <ul class="pagination">

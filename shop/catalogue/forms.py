@@ -114,3 +114,16 @@ class FilterForm(forms.Form):
             result[_(u'Цена')] = ['{0} - {1}'.format(
                 price_range_min, price_range_max)]
         return result
+
+
+class PaginateByForm(forms.Form):
+
+    PAGINATE_BY_CHOICES = [
+        (12, "12"),
+        (8, "8"),
+        (6, "6"),
+    ]
+
+    paginate_by = forms.ChoiceField(
+        label="Paginate by", choices=PAGINATE_BY_CHOICES,
+        widget=forms.Select(), required=False)
