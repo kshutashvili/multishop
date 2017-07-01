@@ -60,7 +60,7 @@
                         </ul>
                     </div>
 
-                    <div class="scroll-inner compare_scroll">
+                    <div class="scrollbar-inner compare_scroll">
                         <ul class="compare_ul">
                             {% for product in products %}
                                 <li>
@@ -72,9 +72,9 @@
                                     <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
                                     <div class="for_list_block">
                                         <select class="rating_photo">
-                                            {% for num in "12345" %}
-                                                <option {% if product.rating == num %}selected="selected"{% endif %}
-                                                        value="{{ num }}">{{ num }}</option>
+                                            {% for num in "012345" %}
+                                                <option {% if product.rating == forloop.counter0 %}selected="selected"{% endif %}
+                                                        value="{{ forloop.counter0 }}">{{ forloop.counter0 }}</option>
                                             {% endfor %}
                                         </select>
                                         <p class="rating_number"><span>{% if product.rating %}
@@ -99,7 +99,10 @@
                                                     {{ session.price.excl_tax|floatformat|humanize_price }}
                                                     <span>{{session.price.currency|format_currency }}</span>
                                                 {% endif %}</p>
-                                            <a href="#" class="buy_button">Купить</a>
+                                            <a href="#"
+                                               class="buy_button show_popup"
+                                               data-rel="buy_button_modal"
+                                               data-product-id="{{ product.id }}">Купить</a>
                                         {% else %}
                                             <p class="sold_out">
                                                 Нет в наличии</p>
@@ -160,18 +163,34 @@
     {{ block.super }}
 {% endblock %}
 
+{% block scripts %}
+    {{ block.super }}
+{% endblock %}
+
 {% block extrascripts %}
+    <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
+    <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
+    <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
+    <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.rating_photo').barrating({
                 theme: 'fontawesome-stars'
             });
+            $(".br-widget a:first-child").css( "display", "none" );
             side_hover();
-            $(window).resize(function() {
-                side_hover();
-            });
+            compare_scrolbar_on();
+            // $(window).resize(function() {
+            //     side_hover();
+            // });
         });
+        $(window).resize(function() {compare_scrolbar_on();side_hover();});
+        function compare_scrolbar_on() {
+            if($(window).width()<=992) {
+               $('.scrollbar-inner').scrollbar();        
+           }
+        }
     </script>
     {{ block.super }}
 {% endblock %}

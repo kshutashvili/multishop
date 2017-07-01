@@ -34,8 +34,8 @@
             <div class="for_list_block">
                 <select class="rating_photo">
                     {% for num in "012345" %}
-                        <option {% if product.rating == num %}selected="selected"{% endif %}
-                                value="{{ num }}">{{ num }}</option>
+                        <option {% if product.rating == forloop.counter0 %}selected="selected"{% endif %}
+                                value="{{ forloop.counter0 }}">{{ forloop.counter0 }}</option>
                     {% endfor %}
                 </select>
                 <p class="rating_number"><span>{% if product.rating %}

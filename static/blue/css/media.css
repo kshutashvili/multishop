@@ -2409,7 +2409,7 @@
         margin-top: 450px;
     }
     .compare_block_table .nav {
-        top: 680px;
+        top: 875px;
     }
 }
 @media screen and (max-width: 580px) {
@@ -3467,7 +3467,7 @@
         width: 160px;
     }
     .compare_block_table .nav {
-            top: 675px;
+            top: 900px;
     }
     .category_block_caption {
         font-size: 26px;

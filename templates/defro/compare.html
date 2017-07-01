@@ -45,9 +45,9 @@
                                             <div class="block155h"></div>
                                             <p class="compare_item_caption"><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></p>
                                             <select class="rating_photo">
-                                                {% for num in "12345" %}
-                                                    <option {% if product.rating == num %}selected="selected"{% endif %}
-                                                            value="{{ num }}">{{ num }}</option>
+                                                {% for num in "012345" %}
+                                                    <option {% if product.rating == forloop.counter0 %}selected="selected"{% endif %}
+                                                            value="{{ forloop.counter0 }}">{{ forloop.counter0 }}</option>
                                                 {% endfor %}
                                             </select>
                                             <p class="rating_number"><span>{% if product.rating %}
@@ -113,14 +113,22 @@
     {{ block.super }}
 {% endblock %}
 
+{% block scripts %}
+    {{ block.super }}
+{% endblock %}
+
 {% block extrascripts %}
+    <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
+    <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
+    <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
+    <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
-    <script src="{% get_static 'js/basket_script.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.rating_photo').barrating({
                 theme: 'fontawesome-stars'
             });
+            $(".br-widget a:first-child").css( "display", "none" );
             side_hover();
             $(window).resize(function() {
                 side_hover();

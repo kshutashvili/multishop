@@ -2054,7 +2054,7 @@ a.buy_button:hover{
 }
 .not_active_price{
     color: #bbbbbb;
-    padding: 30px 0;
+    height: 58px;
 }
 .catalog_item_info{
     display: none;
@@ -5121,7 +5121,7 @@ a.compare_table_clean_button{
     position: fixed;
     background-color: #fff;
     border: 1px solid #e0e0e0;
-    height: 250px;
+    height: 340px;
     width: 300px;
     z-index: 999;
     top: 50%;

@@ -374,8 +374,8 @@
                                         <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
                                         <select class="rating_photo">
                                             {% for num in "012345" %}
-                                                <option {% if product.rating == num %}selected="selected"{% endif %}
-                                                        value="{{ num }}">{{ num }}</option>
+                                                <option {% if product.rating == forloop.counter0 %}selected="selected"{% endif %}
+                                                        value="{{ forloop.counter0 }}">{{ forloop.counter0 }}</option>
                                             {% endfor %}
                                         </select>
                                         <p class="rating_number">Отзывов:
@@ -446,12 +446,15 @@
 {% block shadow %}
     <div class='modal_mobile_sort'>
         <h2>Сортировать:<span class="close"></span></h2>
-        <div class="custom_select">
-            <form method="get">
-                {{ form.sort_by }}
-                <button type="submit" id="mobile_sort_submit">Сортировать</button>
-            </form>
-        </div>
+        <ul>
+            <li {% if current_sort == "relevancy" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:relevancy">по релевантности</a></li>
+            <li {% if current_sort == "rating" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:rating">по рейтингу</a></li>
+            <li {% if current_sort == "newest" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:newest">по дате, сначала новые</a></li>
+            <li {% if current_sort == "price_desc" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:price_desc">по цене, сначала дорогие</a></li>
+            <li {% if current_sort == "price_asc" %}class="active"{% endif %}><a href="{{ current_path}}/sort_by:price_asc">по цене, сначала дешевые</a></li>
+            <li {% if current_sort == "title_asc" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:title_asc">по названию от А до Я</a></li>
+            <li {% if current_sort == "title_desc" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:title_desc">по названию от Я до А</a></li>
+        </ul>
     </div>
     {{ block.super }}
 {% endblock %}

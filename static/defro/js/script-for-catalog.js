@@ -95,7 +95,7 @@ $(document).ready(function(){
     $('.filter_media').click(function () {
         $('.left_filter ').show();
         $('.shadow').show();
-        $('.left_side_caption').css('z-index', '799');
+        $('.left_side_caption').css('z-index', '1');
     });
     $('.shadow, .filter_submit').click(function () {
         if($(window).width()<=992) {
@@ -103,7 +103,7 @@ $(document).ready(function(){
         } else {
           $('.shadow').hide();
         }
-        $('.left_side_caption').css('z-index', '801');
+        //$('.left_side_caption').css('z-index', '801');
     });
 
     filterMove();

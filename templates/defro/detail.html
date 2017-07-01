@@ -143,8 +143,8 @@
                             <div class="tovar_buy_block">
                                 <select class="rating_photo">
                                     {% for num in "012345" %}
-                                        <option {% if product.rating|floatformat:0 == num %}selected="selected"{% endif %}
-                                                value="{{ num }}">{{ num }}</option>
+                                        <option {% if product.rating == forloop.counter0 %}selected="selected"{% endif %}
+                                                value="{{ forloop.counter0 }}">{{ forloop.counter0 }}</option>
                                     {% endfor %}
                                 </select>
                                 <p class="rating_number"><span>{% if product.rating %}
@@ -421,8 +421,8 @@
                                                                                  data-reviewpk="{{ review.pk }}">
                                                                                 <select class="rating_photo">
                                                                                     {% for num in "012345" %}
-                                                                                        <option {% if review.score == forloop.counter %}selected="selected"{% endif %}
-                                                                                                value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                                                                                        <option {% if review.score == forloop.counter0 %}selected="selected"{% endif %}
+                                                                                                value="{{ forloop.counter0 }}">{{ forloop.counter0 }}</option>
                                                                                     {% endfor %}
                                                                                 </select>
                                                                                 <span class="user_name">
@@ -709,7 +709,7 @@
                                                             <select name="score"
                                                                     class="rating_photo">
                                                                 {% for i in "012345" %}
-                                                                    <option value={{ forloop.counter }} {% if score == forloop.counter %}selected="selected"{% endif %}>{{ forloop.counter }}</option>
+                                                                    <option value={{ forloop.counter0 }} {% if score == forloop.counter0 %}selected="selected"{% endif %}>{{ forloop.counter0 }}</option>
                                                                 {% endfor %}
                                                             </select>
 
@@ -1893,6 +1893,9 @@
             $(window).resize(function() {
                 side_hover();
             });
+            console.log('{{ product.rating|floatformat:0 }}');
+            console.log('{{ product.rating }}');
+            console.log({{product.rating|floatformat:0}})
 
         });
         $('#submit').on('click', function (e) {

@@ -135,6 +135,14 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
 
         if kwargs.get('query'):
             request.GET = query_to_dict(kwargs.get('query'), prepared=True)
+            current_query = kwargs.get('query').split(':')
+            if 'sort_by' in current_query:
+                self.current_sort = current_query[current_query.index('sort_by')+1]
+                print(self.current_sort)
+
+        self.current_path = self.request.path[0:self.request.path.find('sort_by')]
+
+        print(self.current_path)
 
         page_num = kwargs.get('page')
         if page_num:
@@ -190,6 +198,10 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         context['paginate_form'] = self.paginate_form
         if hasattr(self, 'filter_descr'):
             context['filter_descr'] = self.filter_descr
+        if hasattr(self, 'current_sort'):
+            context['current_sort'] = self.current_sort
+        if hasattr(self, 'current_path'):
+            context['current_path'] = self.current_path
         context['filter_reset_url'] = self.request.path
         if hasattr(self, 'category'):
             context['category'] = self.category
@@ -204,6 +216,7 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                 'price_range_max'))
         except (ValueError, TypeError):
             pass
+        print(context)
         return context
 
 
