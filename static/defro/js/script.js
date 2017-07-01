@@ -139,31 +139,16 @@ $('.owl-carousel').owlCarousel({
             }
     });
 
-    // if($(window).width()<=1200) {
-    //     $(".headhesive .head_menu, .header_scroll_catalog .side-menu").off("mouseenter mouseleave");
-    //     $('.headhesive .head_menu').click(function(){
-    //         if($('.headhesive .header_scroll_catalog').hasClass('open')) {
-    //             $('.headhesive .header_scroll_catalog').hide().removeClass('open');
-    //         } else {
-    //             $('.headhesive .header_scroll_catalog').show().addClass('open');
-    //         }
-    //     });
-    // } else {
-    //   $('.headhesive .head_menu').unbind('click');
-    //   $('.headhesive .head_menu').hover(function() {
-    //     clearTimeout(timeout);
-    //     $('.headhesive .header_scroll_catalog').show().addClass('open');
-    //   }, function () {
-    //     timeout = setTimeout(function () {
-    //       $('.headhesive .header_scroll_catalog').hide().removeClass('open');
-    //         }, 500);
-    //   });
-    // }
 hover_side_menu();
 $('.basket_goto.show_popup').click(function(){
   $('.headhesive').hide();
-  
 })
+
+$('.error_info_block .well .left_menu .side-menu').off("mouseenter mouseleave");
+$('.error_info_block .well .left_menu .side-menu').click(function() {
+  $(this).find('.dropdown-menu').hide();
+})
+
 });
 
 $(window).resize(function() {scrolbar_on(); mobile_menu_construct(); searchAppend(); resizeCatalogButton(); hover_side_menu(); hide_mobile_side_menu();});

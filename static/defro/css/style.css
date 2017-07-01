@@ -5550,3 +5550,6 @@ a + .for_list_block {
 .mobile-hide {
 	display: none!important;
 }
+#desc .catalog_item_block, #review .catalog_item_block, #delivery .catalog_item_block {
+	height: 530px;
+}
