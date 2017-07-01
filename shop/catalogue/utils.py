@@ -41,17 +41,30 @@ def get_view_type(slug):
     return view_type
 
 
-def query_to_dict(query):
+def query_to_dict(query, existing_dict=None, prepared=False):
     """Takes custom query string and returns QueryDict"""
 
-    d = QueryDict(mutable=True)
+    if existing_dict is None:
+        existing_dict = {}
+
+    SINGLE_KEYS = {'paginate_by', 'sort_by'}
+    save_filters = (SINGLE_KEYS & set(existing_dict.keys())) or prepared
+
+    if existing_dict:
+        d = existing_dict.copy()
+    else:
+        d = QueryDict(mutable=True)
 
     pairs = FIELDS_MATCH.split(query)
 
     for name_value in pairs:
         nv = name_value.split(':', 1)
         if len(nv) == 2:
-            d.appendlist(nv[0], unquote(nv[1]))
+            if save_filters and (nv[0] not in SINGLE_KEYS or nv[0] not in d):
+                d.appendlist(nv[0], unquote(nv[1]))
+
+            if not save_filters and nv[0] in SINGLE_KEYS:
+                d.appendlist(nv[0], unquote(nv[1]))
 
     return d
 

@@ -5,6 +5,38 @@ $(document).ready(function(){
 	  $(this).tab('show')
 	});
 
+    $('#id_paginate_by').change(function () {
+        $(this).closest('form').submit();
+    });
+
+    var pageNum = 2;
+
+    $('.look_more').click(function(e) {
+        var url_params = window.location.pathname;
+        params = url_params.slice(1, -1);
+        params = params.split('/');
+        var page_param = params[params.length - 1];
+        if (page_param.startsWith("p=")) {
+            pageNum = parseInt(page_param.split('=').slice(-1)[0]) + 1;
+            params.splice(params.length - 1);
+        }
+        var url = '/' + params.join("/")+ '/p=' + pageNum + '/';
+        e.preventDefault();
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(data) {
+                $('#ul_products').append(data.content);
+                if (!data.has_more_pages) {
+                    $('.look_more').hide();
+                }
+                pageNum += 1;
+            },
+            error: function() {
+                $('.look_more').hide();
+            }
+        })
+    });
 
   $('.owl-carousel').owlCarousel({
     items:3,
