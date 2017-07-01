@@ -3,6 +3,9 @@ from django.db.models import ObjectDoesNotExist
 from django.http.response import HttpResponse
 from django.http.response import JsonResponse
 from django.views.decorators.http import require_POST
+from django.views.decorators.cache import never_cache
+from django.utils.decorators import method_decorator
+
 from oscar.apps.basket.models import Line
 from oscar.apps.basket.views import BasketAddView as OscarBasketAddView, \
     BasketView as OscarBasketView
@@ -37,6 +40,11 @@ class BasketAddView(OscarBasketAddView):
 
 
 class BasketView(OscarBasketView):
+
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        return super(BasketView, self).dispatch(request, *args, **kwargs)
+
     def render_to_response(self, context, **response_kwargs):
         if self.request.is_ajax():
             products = self.request.basket.lines.all()
