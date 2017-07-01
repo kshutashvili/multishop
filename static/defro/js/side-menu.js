@@ -19,9 +19,11 @@ $('#compare_dropdown').hover(function () {
 function hide_mobile_side_menu () {
     if($(window).width()<=610) {
         $('.dropdown.side-menu .dropdown-menu').addClass('mobile-hide');
+        $('.left_side_caption').css('z-index', '1');
     }
     else {
         $('.dropdown.side-menu .dropdown-menu').removeClass('mobile-hide');
+        $('.left_side_caption').css('z-index', '801');
     }
 }
 

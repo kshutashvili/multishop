@@ -506,8 +506,7 @@
 
 	<div class="ninth_block">
 		<p class="caption">Как с нами связаться</p>
-
-		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10152.64201863653!2d30.464266675051782!3d50.493970452650935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4cd9276a07ab5%3A0xc636f250e41964f2!2z0LLRg9C70LjRhtGPINCh0LjRgNC10YbRjNC60LAsIDksINCa0LjRl9Cy!5e0!3m2!1sru!2sua!4v1487162479886" style="width: 100%; height:750px; border: 0; box-shadow: 0px -3px 10px -7px #000;" allowfullscreen></iframe>
+		<div id="map" style="width: 100%; height:750px; border: 0; box-shadow: 0px -3px 10px -7px #000;"></div>
 
 		<div class="container">
 			<div class="bottom_menu">
@@ -628,13 +627,29 @@
 {% endblock %}
 
 {% block extrascripts %}
-<script>
-$(document).ready(function(){
-	side_hover_landing();
-	$(window).resize(function() {
-		side_hover_landing();
-	});
-});
-</script>
-{{ block.super }}
+	<script>
+		$(document).ready(function(){
+			side_hover_landing();
+			$(window).resize(function() {
+				side_hover_landing();
+			});
+		});
+	</script>
+	<script async defer
+	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdPtVLPxh69Yy7yTGDoXhK2vVUE0YGpEM&callback=initMap">
+	</script>
+    <script>
+      function initMap() {
+        var coords = {lat: 50.487384, lng: 30.468923}
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: {lat: 50.479384, lng: 30.468923}
+        });
+        var marker = new google.maps.Marker({
+          position: coords,
+          map: map
+        });
+      }
+    </script>
+	{{ block.super }}
 {% endblock %}
