@@ -301,6 +301,7 @@ ul{
 }
 .dropdown_2 .basket_elem img{
 	width: 85px;
+	height: 85px;
 	margin-left: 20px;
 	float: left;
 }
@@ -310,6 +311,7 @@ ul{
 .basket_item_name{
 	color: #3e3e3e;
 	margin-bottom: 5px;
+	height: 32px;
 }
 .basket_item_number{
 	color: #9d9d9c;

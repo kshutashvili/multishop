@@ -19,7 +19,7 @@
         <div class="container default_container">
             <div class="main_block clear_fix">
                 <div class="left_side search_left_side default_left_side">
-                    {% include site_template|add:'/partials/side_menu.html' with is_main_page=False expand=True %}
+                    {% include site_template|add:'/partials/side_menu.html' %}
                 </div>
                 <ol class="breadcrumb">
                     <li><a href="/"><img src="{% get_static 'img/home.png' %}" alt=""></a></li>
@@ -79,4 +79,26 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+{% endblock %}
+
+{% block extrascripts %}
+    {{ block.super }}
+    <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
+    <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
+    <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
+    <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            side_hover();
+            $(window).resize(function() {
+                side_hover();
+            });
+        });
+    </script>
+    <script src="{% get_static 'js/more-button.js' %}"></script>
 {% endblock %}

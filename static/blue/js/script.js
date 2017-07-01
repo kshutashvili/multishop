@@ -164,6 +164,12 @@ $('.basket_goto.show_popup').click(function(){
   $('.headhesive').hide();
   
 })
+
+$('.error_info_block .well .left_menu .side-menu').off("mouseenter mouseleave");
+$('.error_info_block .well .left_menu .side-menu').click(function() {
+  $(this).find('.dropdown-menu').hide();
+})
+
 });
 
 $(window).resize(function() {scrolbar_on(); mobile_menu_construct(); searchAppend(); resizeCatalogButton(); hover_side_menu(); hide_mobile_side_menu();});

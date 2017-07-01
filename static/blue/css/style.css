@@ -302,6 +302,7 @@ ul{
 }
 .dropdown_2 .basket_elem img{
     width: 85px;
+    height: 85px;
     margin-left: 20px;
     float: left;
 }
@@ -311,6 +312,7 @@ ul{
 .basket_item_name{
     color: #3e3e3e;
     margin-bottom: 5px;
+    height: 32px;
 }
 .basket_item_number{
     color: #9d9d9c;
@@ -1434,6 +1436,9 @@ a.choose_kotel:hover{
     text-decoration: none;
     position: relative;
     font: 14px "ArialRegular";
+}
+.breadcrumb > li > a:hover {
+    color: #337ab7;
 }
 .breadcrumb > li > a > img {
     margin-right: 10px;
@@ -4322,7 +4327,7 @@ a.zakaz_change_zakaz{
     width: 290px;
     text-align: center;
     margin-right: 14px;
-    margin-top: 20px;
+    margin-top: 50px;
     text-decoration: none;
     border: none;
     margin-bottom: 30px;
@@ -5439,14 +5444,14 @@ a + .block155h, img + .block155h {
 }
 
 .catalog_item_block a:hover + .catalog_item_block_caption a {
-    color: #ed1b24;
+    color: #337ab7;
 }
 .modal_basket_goback:hover {
-    color: #ed1b24;
+    color: #337ab7;
     background: url("../img/filter/marker_left_red.png") no-repeat left center;
 }
 .zakaz_change_zakaz:hover {
-    color: #ed1b24;
+    color: #337ab7;
 }
 
 .letter_details_tovar input::-webkit-input-placeholder {color:#999999;}
