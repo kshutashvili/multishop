@@ -37,7 +37,7 @@ phonenumbers==8.3.3
 polib==1.0.8
 purl==1.3
 pycountry==17.01.08
-pymorphy2==0.8
+git+https://github.com/kmike/pymorphy2.git
 pymorphy2-dicts-ru==2.4.404209.4415854
 pymorphy2-dicts-uk==2.4.1.1.1460299261
 pysolr==3.6.0
