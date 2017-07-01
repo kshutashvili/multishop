@@ -177,7 +177,7 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
             content = render_to_string(template_name, context_data, request)
 
             return JsonResponse({"content": content,
-                                 "has_more_pages": int(page_num) < context_data['paginator'].num_pages})
+                                 "has_more_pages": context_data['page_obj'].has_next()})
 
         else:
             return super(OscarCatalogueView, self).get(request, *args, **kwargs)
