@@ -6,7 +6,6 @@
 {% load url_tags %}
 {% load solo_tags %}
 {% load meta_tags %}
-{% get_solo 'config.Configuration' as site_config %}
 
 {% block title %}
 	{% meta_tag 'MP' 'title' None request %}
@@ -21,6 +20,7 @@
 {% endblock description %}
 
 {% block content %}
+    {% get_solo 'config.Configuration' as site_config %}
 	<div class="first_block">
 		<div class="container">
 			<div class="left_side">

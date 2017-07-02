@@ -101,6 +101,14 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                     OscarCatalogueView):
     template_name = 'browse.html'
 
+    def dispatch(self, request, *args, **kwargs):
+
+        # disallow root URL /catalogue get
+        if not (kwargs or request.GET):
+            return redirect('404')
+
+        return super(CatalogueView, self).dispatch(request, *args, **kwargs)
+
     def get_meta_tokens(self):
         tokens = {}
         brand_attribute = config.brand_attribute
@@ -123,6 +131,7 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         return tokens
 
     def get(self, request, *args, **kwargs):
+
         self.site = get_current_site(request)
         try:
             slug = kwargs.get('category_slug') or kwargs['slug']
@@ -138,11 +147,8 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
             current_query = kwargs.get('query').split(':')
             if 'sort_by' in current_query:
                 self.current_sort = current_query[current_query.index('sort_by')+1]
-                print(self.current_sort)
 
         self.current_path = self.request.path[0:self.request.path.find('sort_by')]
-
-        print(self.current_path)
 
         page_num = kwargs.get('page')
         if page_num:
@@ -205,7 +211,8 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         context['filter_reset_url'] = self.request.path
         if hasattr(self, 'category'):
             context['category'] = self.category
-            context['filter_reset_url'] = self.category.get_absolute_url()
+            if self.category:
+                context['filter_reset_url'] = self.category.get_absolute_url()
         price_range = [x.price for x in SearchQuerySet().models(Product).filter(
             site=self.site.pk) if x.price is not None]
         try:
