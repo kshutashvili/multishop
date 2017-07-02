@@ -68,17 +68,18 @@
                            data-compare-url="{% url 'compare' %}"
                            class="compare_button"
                            data-product-id="{{ product.id }}">Сравнить</a>
-
-
                     {% endif %}
-                    {% if product.id in request.basket %}
+
+                    {% if product.id in basket_product_ids %}
                         <a href="#" class="buy_button buy_button_bougth">Нет в наличии</a>
+                    {% else %}
+                        <a href="#"
+                           class="buy_button show_popup"
+                           data-rel="buy_button_modal"
+                           data-product-id="{{ product.id }}">Нет
+                            в наличии</a>
                     {% endif %}
-                    <a href="#"
-                       class="buy_button show_popup"
-                       data-rel="buy_button_modal"
-                       data-product-id="{{ product.id }}">Нет
-                        в наличии</a>
+
                 {% else %}
                     <p class="catalog_item_price not_active_price">
                         {% if session.price.is_tax_known %}

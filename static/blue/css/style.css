@@ -2103,7 +2103,7 @@ a.buy_button:hover{
     background-size: 85%;
 }
 .buy_button.buy_button_bougth{
-    background: #fff url("../img/catalog/in_basket.png") no-repeat top -3px center;
+    background: #fff url("../img/catalog/in_basket.png") no-repeat top -3px center !important;
     border: 1px solid #229fff;
 }
 .buy_button.buy_button_bougth:hover{
@@ -5567,7 +5567,6 @@ a + .for_list_block {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;
-    text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

@@ -27,6 +27,10 @@ $(document).ready(function(){
             type: 'GET',
             success: function(data) {
                 $('#ul_products').append(data.content);
+                $('.rating_photo').barrating({
+                    theme: 'fontawesome-stars'
+                });
+                $(".br-widget a:first-child").css( "display", "none" );
                 if (!data.has_more_pages) {
                     $('.look_more').hide();
                 }

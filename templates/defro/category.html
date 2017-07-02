@@ -21,7 +21,7 @@
 {% endblock description %}
 
 {% block content %}
-    <div class="container">
+    <div class="container main_container compare_container default_container">
         <div class="main_block clear_fix">
             <div class="left_side default_left_side">
                 {% include 'defro/partials/side_menu.html' %}
@@ -69,14 +69,22 @@
     {{ block.super }}
 {% endblock content %}
 
+{% block scripts %}
+    {{ block.super }}
+{% endblock %}
 
 {% block extrascripts %}
-<script type="text/javascript">
-    $(document).ready(function () {
-        side_hover();
-        $(window).resize(function() {
+    <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
+    <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
+    <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
+    <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
             side_hover();
+            $(window).resize(function() {
+                side_hover();
+            });
         });
-    });
-</script>
+    </script>
 {% endblock %}

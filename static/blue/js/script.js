@@ -30,6 +30,9 @@ $('.owl-carousel').owlCarousel({
       }
   });
 
+$('.buy_button').click(function() {
+  $(this).addClass('buy_button_bougth').removeClass('show_popup')
+});
 
     $('.bxslider').bxSlider({
       minSlides: 1,

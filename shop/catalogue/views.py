@@ -138,11 +138,12 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
             current_query = kwargs.get('query').split(':')
             if 'sort_by' in current_query:
                 self.current_sort = current_query[current_query.index('sort_by')+1]
-                print(self.current_sort)
 
         self.current_path = self.request.path[0:self.request.path.find('sort_by')]
 
-        print(self.current_path)
+        self.basket_product_ids = []
+        for line in request.basket.lines.all():
+            self.basket_product_ids.append(line.product.id)
 
         page_num = kwargs.get('page')
         if page_num:
@@ -202,6 +203,8 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
             context['current_sort'] = self.current_sort
         if hasattr(self, 'current_path'):
             context['current_path'] = self.current_path
+        if hasattr(self, 'basket_product_ids'):
+            context['basket_product_ids'] = self.basket_product_ids
         context['filter_reset_url'] = self.request.path
         if hasattr(self, 'category'):
             context['category'] = self.category
@@ -216,7 +219,6 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                 'price_range_max'))
         except (ValueError, TypeError):
             pass
-        print(context)
         return context
 
 
@@ -303,7 +305,11 @@ class CompareCategoryView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
     template_name = 'compare_table.html'
 
     def get_context_data(self, **kwargs):
+        self.basket_product_ids = []
+        for line in self.request.basket.lines.all():
+            self.basket_product_ids.append(line.product.id)
         context = super(CompareCategoryView, self).get_context_data()
+        context['basket_product_ids'] = self.basket_product_ids
         category = get_object_or_404(Category, pk=kwargs['category'])
         context['category'] = category
         try:

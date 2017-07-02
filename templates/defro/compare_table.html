@@ -63,13 +63,26 @@
                     <div class="scrollbar-inner compare_scroll">
                         <ul class="compare_ul">
                             {% for product in products %}
+                                {% basket_form request product as basket_form %}
+                                <form id="add_to_basket_form_{{ product.id }}"
+                                      name="add_to_basket_form"
+                                      style="display: none;"
+                                      action="{% url 'basket:add' pk=product.pk %}"
+                                      method="post"
+                                      class="add-to-basket">{% csrf_token %}
+                                    {% include "partials/form_fields.html" with form=basket_form %}
+                                </form>
                                 <li>
                                 <div class="catalog_item_block">
                                     {% thumbnail product.primary_image.original "155" as thumb %}
-                                        <img src="{{ thumb.url }}" alt="" style="width: 155px; height: 155px;">
+                                        <a href="{{ product.get_absolute_url }}">
+                                            <img src="{{ thumb.url }}" alt="" style="width: 155px; height: 155px;">
+                                        </a>
                                     {% endthumbnail %}
                                     <div class="block155h"></div>
-                                    <p class="catalog_item_block_caption">{{ product.product_class.name }} {{ product.title }}</p>
+                                    <p class="catalog_item_block_caption">
+                                        <a href="{{ product.get_absolute_url }}">{{ product.product_class.name }} {{ product.title }}</a>
+                                    </p>
                                     <div class="for_list_block">
                                         <select class="rating_photo">
                                             {% for num in "012345" %}
@@ -99,10 +112,15 @@
                                                     {{ session.price.excl_tax|floatformat|humanize_price }}
                                                     <span>{{session.price.currency|format_currency }}</span>
                                                 {% endif %}</p>
-                                            <a href="#"
-                                               class="buy_button show_popup"
-                                               data-rel="buy_button_modal"
-                                               data-product-id="{{ product.id }}">Купить</a>
+
+                                           {% if product.id in basket_product_ids %}
+                                                <a href="#" class="buy_button buy_button_bougth">В корзине</a>
+                                            {% else %}
+                                                <a href="#"
+                                                   class="buy_button show_popup"
+                                                   data-rel="buy_button_modal"
+                                                   data-product-id="{{ product.id }}">Купить</a>
+                                            {% endif %}
                                         {% else %}
                                             <p class="sold_out">
                                                 Нет в наличии</p>
