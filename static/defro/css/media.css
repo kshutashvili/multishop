@@ -595,6 +595,12 @@
         padding: 10px 0;
         float: none;
     }
+    .filter-wrapper {
+        display: none;
+    }
+    .parameters_block {
+        display: none;
+    }
     .filter_submit {
         display: block;
         margin: 20px auto 0;
