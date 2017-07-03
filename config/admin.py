@@ -81,7 +81,7 @@ class MetaTagAdmin(admin.ModelAdmin):
 
 @admin.register(Configuration)
 class ConfigurationAdmin(SingletonModelAdmin):
-    list_display = ('power_attribute',)
+    pass
 
 
 @admin.register(TextOne)

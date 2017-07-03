@@ -40,6 +40,17 @@ class SiteConfig(models.Model):
 
     logo = models.ImageField('Логотип', blank=True, null=True)
 
+    power_attribute = models.ForeignKey(ProductAttribute,
+                                        on_delete=models.SET_NULL,
+                                        verbose_name='Атрибут мощности котла',
+                                        null=True)
+
+    brand_attribute = models.ForeignKey(ProductAttribute,
+                                        related_name='brand_config',
+                                        on_delete=models.SET_NULL,
+                                        verbose_name="Атрибут бренда котла",
+                                        null=True)
+
     def __unicode__(self):
         return self.site.domain
 
@@ -54,15 +65,6 @@ def create_or_update_site_config(sender, instance, created, **kwargs):
 class Configuration(SingletonModel):
         class Meta:
             verbose_name = "Конфигурация"
-        power_attribute = models.ForeignKey(ProductAttribute,
-                                            on_delete=models.SET_NULL,
-                                            verbose_name="Мощность котла",
-                                            null=True)
-        brand_attribute = models.ForeignKey(ProductAttribute,
-                                            related_name='brand_config',
-                                            on_delete=models.SET_NULL,
-                                            verbose_name="Поле бренда котла",
-                                            null=True)
         undercat_block_url = models.CharField('Ссылка под каталогом',
                                               max_length=128,
                                               blank=True)

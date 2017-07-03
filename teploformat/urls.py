@@ -53,9 +53,8 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-                   url(r'^static/(?P<path>.*)$', views.serve),
-               ] + static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
+    url(r'^static/(?P<path>.*)$', views.serve),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += [

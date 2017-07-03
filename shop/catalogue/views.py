@@ -34,9 +34,7 @@ from .forms import FilterForm, PaginateByForm
 from .utils import get_view_type, dict_to_query, query_to_dict
 
 MetaTag = apps.get_model('config', 'MetaTag')
-Configuration = apps.get_model('config', 'Configuration')
-
-config = Configuration.get_solo()
+SiteConfig = apps.get_model('config', 'SiteConfig')
 
 
 class CompareAndMenuContextMixin(ContextMixin):
@@ -111,7 +109,8 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
 
     def get_meta_tokens(self):
         tokens = {}
-        brand_attribute = config.brand_attribute
+        site_config = SiteConfig.objects.get(site=self.site)
+        brand_attribute = site_config.brand_attribute
         brand_attribute_code = brand_attribute.option_group.get_filter_param()
         if (brand_attribute_code in self.request.GET and
                 len(self.request.GET.getlist(brand_attribute_code)) == 1 and
