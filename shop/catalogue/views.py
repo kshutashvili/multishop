@@ -354,7 +354,7 @@ class CompareCategoryView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
 product_category_view = CatalogueView.as_view()
 
 
-class ProductCategoryView(SiteTemplateResponseMixin, CompareAndMenuContextMixin,
+class ProductCategoryView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                           OscarProductCategoryView):
     template_name = 'category.html'
 
