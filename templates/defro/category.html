@@ -74,6 +74,7 @@
 {% endblock %}
 
 {% block extrascripts %}
+    {{ block.super }}
     <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
     <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
     <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
