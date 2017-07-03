@@ -295,7 +295,9 @@
     }
 }
 @media screen and (max-width: 992px){
-
+    .dropdown-backdrop {
+        display: none;
+    }
     .error_block .error_img{
         width: 100%;
         background-position: center;

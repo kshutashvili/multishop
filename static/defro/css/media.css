@@ -296,6 +296,9 @@
     }
 }
 @media screen and (max-width: 992px){
+    .dropdown-backdrop {
+        display: none;
+    }
     .header_contacts a {
     width: auto;
     }
