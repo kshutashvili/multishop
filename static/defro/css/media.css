@@ -612,6 +612,9 @@
         text-decoration: none;
         color: #fff;
     }
+    .social {
+        display: none;
+    }
     /*Search nothing*/
     .search_nothing_container
     {
