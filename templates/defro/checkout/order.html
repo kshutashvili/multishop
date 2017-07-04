@@ -37,7 +37,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container compare_container default_container">
         <div class="make_zakaz_container clear_fix">
             <p class="category_block_caption">Оформление заказа</p>
             <div class="letter_details zakaz_details_tovar">
@@ -59,8 +59,8 @@
                             </li>
                         {% endfor %}
                     </ul>
-                    <p class="letter_details_sum">Итого:
-                        <span>{{ request.basket.total_incl_tax }} грн.</span>
+                    <p class="letter_details_sum">Итого: 
+                        <span> {{ request.basket.total_incl_tax }} грн.</span>
                     </p>
                     <a href="#" class="zakaz_change_zakaz show_popup"
                        data-rel="buy_button_modal">Редактировать
