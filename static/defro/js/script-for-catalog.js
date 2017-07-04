@@ -142,7 +142,7 @@ $(document).ready(function(){
                 }
             },
         })
-    })
+    });
     $('#filters').on('click', '#mobile_reset', function (e) {
       e.preventDefault();
       $('#filters #filter_form input:checkbox').removeAttr('checked');
