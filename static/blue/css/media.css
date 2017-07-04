@@ -862,17 +862,17 @@
         margin: 0 auto;
     }
     .zakaz_details_tovar .letter_details_tovar {
-        max-width: 300px;       
+        max-width: 290px;       
         margin-left: 60px;
     }
-    .zakaz_details_tovar .letter_details_tovar ul li img {   
+    .zakaz_details_tovar .letter_details_tovar ul li img {
         width: 84px;
     }
     .letter_details_contact input, .letter_details_contact textarea, .letter_details_payment input, 
     .letter_details_payment .custom_select {
     width: 290px;
     }
-    .letter_details_contact::after {    
+    .letter_details_contact::after {
         display: none;
     }
     .letter_details_payment .letter_details_caption::after {
@@ -3402,9 +3402,22 @@
     }
     /*make_zakaz*/
     .zakaz_details_tovar .letter_details_tovar {
-    max-width: 300px;
-    margin-left: 40px;
+        max-width: 270px;
+        margin-left: 40px;
     }
+    .letter_details_contact input, .letter_details_contact textarea, .letter_details_payment input, .letter_details_payment .custom_select {
+        width: 270px;
+    }
+    .zakaz_details_tovar .letter_details_tovar ul li img {
+        width: 70px;
+    }
+    .letter_details_name_number {
+        width: 140px;
+    }
+    .zakaz_details_tovar a.zakaz_change_zakaz {
+        background: url("../img/letter/file.png") no-repeat center left 20px;
+    }
+
     .make_zakaz_button {   
          position: static;
         margin: 0 auto
@@ -3431,6 +3444,12 @@
     }
     .subcategory_catalog .category_block ul li a img {
         max-width: 100px;
+    }
+    .zakaz_details_tovar .letter_details_caption:before {
+        left: -30px;
+    }
+    .zakaz_details_tovar .letter_details_caption::after{
+        left: -3px;
     }
 }
 @media screen and (max-width: 380px) {
@@ -3614,10 +3633,10 @@
     }
     /*make_zakaz*/
     .zakaz_details_tovar .letter_details_tovar {
-    max-width: 270px;
+    max-width: 250px;
     }
     .letter_details_contact input, .letter_details_contact textarea, .letter_details_payment input, .letter_details_payment .custom_select {
-    width: 270px;
+    width: 250px;
     }
     /*made_zakaz*/
     .made_zakaz_container {
@@ -3626,6 +3645,12 @@
     .made_zakaz_container .letter_details_name {
         max-width: 185px;
         font-size: 13px;
+    }
+    .letter_details_sum {
+        font-size: 14px;
+    }
+    .zakaz_details_tovar a.zakaz_change_zakaz {
+        background: url("../img/letter/file.png") no-repeat center left 10px;
     }
     /*catalog*/
     .sort_vid .sort, .sort_vid .vid,  .filter_media{   
