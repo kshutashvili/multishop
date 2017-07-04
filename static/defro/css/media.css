@@ -300,7 +300,7 @@
         display: none;
     }
     .header_contacts a {
-    width: auto;
+        width: auto;
     }
     .contacts a {
         font-size: 20px;
@@ -562,6 +562,9 @@
         left: 50%;
         display: none;
         margin-left: -132.5px;
+    }
+    .left_filter .filter_facet {
+        display: none;
     }
     .otdo_input {
         width: 65px;

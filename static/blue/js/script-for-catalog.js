@@ -112,8 +112,11 @@ $(document).ready(function(){
 
     filterMove();
     $('#filters').on('change change_price', '#filter_form input', function() {
-        $('#filters .filter-wrapper div').addClass('loader');
-        $('#filter_form').addClass('wait');
+        if ($(document).width() > 992) {
+          $('#filters .filter-wrapper div').addClass('loader');
+          $('#filter_form').addClass('wait');
+          var desktop = true;
+        }
         var input_id = $(this).attr('id');
         $.ajax({
             url: '/catalogue/update_filter/',
@@ -122,11 +125,21 @@ $(document).ready(function(){
             success: function(data) {
                 $('#filters').html(data['result']);
                 initPrice();
-                var result = '<div class="label_after"><p>Товаров: <span>' + data['products_count'] + '</span></p>' +
-                    '<button type="submit">Посмотреть</button></div>'
-                $('.label_after').remove();
-                $('#' + input_id).next().append(result);
-                $('.label_after').fadeIn();
+                if (desktop === true) {
+                    var result = '<div class="label_after"><p>Товаров: <span>' + data['products_count'] + '</span></p>' +
+                        '<button type="submit">Посмотреть</button></div>'
+                    $('.label_after').remove();
+                    $('#' + input_id).next().append(result);
+                    $('.label_after').fadeIn();
+                }else {
+                  var result = '<div class="parameters clear_fix">' +
+                    '<p class="filter_labels">Найдено товаров: <span>' + data['products_count'] + '</span></p>' +
+                    '<button class="filter_submit" type="submit">Посмотреть</button>' +
+                    '<a href="#" id="mobile_reset" class="filter_labels float_right">Скинуть фильтр</a>' +
+                  '</div>';
+                  $('#filters form').append(result);
+
+                }
             },
         })
     })

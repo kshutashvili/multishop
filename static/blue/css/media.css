@@ -526,9 +526,7 @@
         margin-top: 30px;
     }
     .social {
-        float: none;
-        margin: 0 auto;
-        display: block;
+        display: none;
     }
     .social p {
         margin-right: 19%;
@@ -563,6 +561,9 @@
         position: absolute;
         top: 5px;
     }
+    .filter-wrapper {
+        display: none;
+    }
     .custom_select {
         width: 190px;
         margin-left: 0px;
@@ -590,6 +591,9 @@
         left: 50%;
         display: none;
         margin-left: -132.5px;
+    }
+    .left_filter .filter_facet {
+        display: none;
     }
     .otdo_input {
         width: 65px;
