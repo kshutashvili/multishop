@@ -618,9 +618,6 @@
         text-decoration: none;
         color: #fff;
     }
-    .social {
-        display: none;
-    }
     /*Search nothing*/
     .search_nothing_container
     {
@@ -985,6 +982,9 @@
     }
     .catalog_item_list .catalog_item_block_caption {
         width: 200px;
+    }
+    .main_content .social {
+        display: none;
     }
 }
 @media screen and (max-width: 882px) {

@@ -53,6 +53,7 @@ $('.buy_button').click(function() {
         }
         if($(window).width()<=610) {
           $('.top_menu').hide();
+          $('.headhesive').addClass('mobile-hide');
         }
     });
     $('.more_block').click(function () {

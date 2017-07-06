@@ -25,7 +25,7 @@ function hide_mobile_side_menu () {
     else {
         $('.dropdown.side-menu .dropdown-menu').removeClass('mobile-hide');
         $('.headhesive').removeClass('mobile-hide');
-        $('.left_side_caption').css('z-index', '801');
+        //$('.left_side_caption').css('z-index', '801');
     }
 }
 

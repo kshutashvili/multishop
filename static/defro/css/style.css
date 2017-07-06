@@ -5415,7 +5415,8 @@ div.contacts a.cityphone {
 	z-index: 799!important;
 }
 .rights p {
-	width: 250px;
+	margin: 0 10px 10px;
+	text-align: center;
 }
 #mobile_sort_submit {
 	background: #ed1b24;
