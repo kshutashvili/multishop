@@ -376,11 +376,13 @@ class ProductCategoryView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                 d = query_to_dict(kwargs.get('query'), request.GET)
             else:
                 d = request.GET.copy()
-
+            redirect_kwargs = {'slug': kwargs['category_slug']}
+            query = dict_to_query(d)
+            if query:
+                redirect_kwargs['query'] = query
             return redirect('catalogue:product_or_category',
-                            slug=kwargs['category_slug'],
-                            query=dict_to_query(d),
-                            permanent=True)
+                            permanent=True,
+                            **redirect_kwargs)
 
         # redirect page 1 to root
         if int(kwargs.get('page') or 0) == 1:

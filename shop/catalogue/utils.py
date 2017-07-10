@@ -8,7 +8,7 @@ from contacts.models import FlatPage
 from shop.catalogue.models import Product, Category
 
 
-FIELDS_MATCH = re.compile('[-;]')
+FIELDS_MATCH = re.compile('[;]')
 
 
 def get_view_type(slug):
@@ -60,11 +60,12 @@ def query_to_dict(query, existing_dict=None, prepared=False):
     for name_value in pairs:
         nv = name_value.split(':', 1)
         if len(nv) == 2:
-            if save_filters and (nv[0] not in SINGLE_KEYS or nv[0] not in d):
-                d.appendlist(nv[0], unquote(nv[1]))
-
-            if not save_filters and nv[0] in SINGLE_KEYS:
-                d.appendlist(nv[0], unquote(nv[1]))
+            if (save_filters and (nv[0] not in SINGLE_KEYS or nv[0] not in d))\
+                    or (not save_filters and nv[0] in SINGLE_KEYS):
+                values = unquote(nv[1])
+                values = values.split('_')
+                for v in values:
+                    d.appendlist(nv[0], v)
 
     return d
 
@@ -73,10 +74,13 @@ def dict_to_query(d):
     """Takes QueryDict and returns custom filter URL"""
 
     output = []
+    exclude_params = {'category_id'}
 
     lists = sorted(d.lists(), key=lambda i: i[0])
 
     for k, list_ in lists:
-        output.extend('%s:%s' % (k, quote(v))
-                      for v in list_ if v)
-    return '-'.join(output)
+        if k not in exclude_params:
+            val = '_'.join(quote(v) for v in list_ if v)
+            if val:
+                output.extend(['%s:%s' % (k, val)])
+    return ';'.join(output)

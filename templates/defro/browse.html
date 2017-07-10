@@ -119,7 +119,7 @@
                                                 <p class="parameter_holder">{{ item.choice_label }}
                                                     <input type="hidden" name="field_name" value="{{ field.name }}">
                                                     <input type="hidden" name="field_value" value="{{ item.choice_value }}">
-                                                    <a class="filter-facet-clear" href=""></a>
+                                                    <a class="filter-facet-clear" href="" data-checkbox-id="id_{{ item.name }}_{{ forloop.counter0 }}"></a>
                                                 </p>
                                             {% endif %}
                                         {% endfor %}
