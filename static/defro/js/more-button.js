@@ -12,27 +12,17 @@ $(document).ready(function () {
 
         if (scoreA == 0) {
             $('.read-next').addClass("read-next-arrow");
+            $('#short_desc').hide();
+            t.addClass('fulltext');
+            $(this).text('Свернуть');
             scoreA = 1;
         } else {
             $('.read-next').removeClass("read-next-arrow");
+            $('#short_desc').show();
+            t.removeClass('fulltext');
+            $(this).text('Подробнее');
             scoreA = 0;
         }
-
-        if (H == max) {
-            H = min
-        }
-        else if (H + h > max) {
-            H = max
-        }
-        else {
-            H += h
-        }
-        ;
-
-        H += tables_height / 1.5;
-
-        t.height(H);
-        $(this).text(H == max ? 'Свернуть' : 'Читать далее')
         return false
     })
 });

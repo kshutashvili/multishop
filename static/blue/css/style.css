@@ -2731,7 +2731,7 @@ a.elipse_button_question{
 }
 .fast_delivery_block{
     background: url("../img/piktograma_delivery.png") no-repeat left top;
-    padding-left: 75px;
+    padding-left: 70px;
     float: left;
     min-height: 533px;
     padding-top: 20px;
@@ -2830,6 +2830,9 @@ table.table_teh_har {
   background: #fffefd;
 }
 .tovar_second_info #tovar_desc{
+    height: 0;
+}
+#category_descr #tovar_desc {
     height: 0;
 }
 .tovar_second_info a.read-next{
@@ -5583,4 +5586,15 @@ a + .for_list_block {
 }
 #desc .catalog_item_block, #review .catalog_item_block, #delivery .catalog_item_block {
     height: 530px;
+}
+.fulltext {
+    height: 100%!important;
+}
+#submit_comment {
+    background-color: #229fff;
+}
+.category_block ul li p{
+    font: 20px "ArialRegular";
+    margin: 5px 0 0;
+    text-align: center;
 }

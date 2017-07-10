@@ -30,9 +30,13 @@
                 <li><a href="/"><img src="{% get_static 'img/home.png' %}"
                                      alt=""></a></li>
                     {% for c in category.get_ancestors_and_self %}
-                        <li>
-                            <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-                        </li>
+                        {% if c == category %}
+                            <li class="active">{{ c.name }}</li>
+                        {% else %}
+                            <li>
+                                <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                            </li>
+                        {% endif %}
                     {% endfor %}
             </ol>
                 <div class="category_block">
@@ -58,7 +62,10 @@
                         {{ category.name }}
                     {% endif %}
                 </p>
-                <div style="height:'100%'">
+                <div style="height:'100%'" id="category_descr">
+                    <div id="short_desc" height="">
+                        <p>{{ category.description|truncatechars_html:1500|safe }}</p>
+                    </div>
                     <div id="tovar_desc">
                         {{ category.description|safe }}
                     </div>
@@ -80,6 +87,7 @@
     <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
     <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
+    <script src="{% get_static 'js/more-button.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             side_hover();
