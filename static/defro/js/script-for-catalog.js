@@ -157,28 +157,14 @@ $(document).ready(function(){
       url_params = url_params.replace(filter_param, '');
       url_params = url_params.replace('//', '/');
       window.location.pathname = url_params;
-    })
+    });
 
     $('.filter-facet-clear').click(function (e) {
-        e.preventDefault()
-        var name = $(this).closest('p').find('input[name="field_name"]').val();
-        var value = $(this).closest('p').find('input[name="field_value"]').val();
-        var url_params = window.location.pathname;
-        params = url_params.slice(1, -1);
-        params = params.split('/');
-        var filter_param = params[params.length - 1];
-        filter_param = filter_param.split('-');
-        for (var i = filter_param.length - 1; i >= 0; i--) {
-          var key_value = filter_param[i].split(':');
-          url_value = decodeURIComponent(key_value[1].replace(/\+/g,  " "));
-          url_value = decodeURIComponent(url_value.replace(/\+/g,  " "));
-          if (key_value[0] == name && url_value == value) {
-            url_params = url_params.replace(filter_param[i], '');
-            url_params = url_params.replace('--', '-').replace('-/', '/');
-            window.location.pathname = url_params;
-          }
-        }
+        e.preventDefault();
+        $('#' + $(this).data('checkbox-id')).removeAttr('checked');
+        $('#filter_form').submit();
     });
+
 });
 
 $(window).resize(function() {filterMove ()});
