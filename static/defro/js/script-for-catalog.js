@@ -73,18 +73,18 @@ $(document).ready(function(){
     maxSlides: 1,
     moveSlides: 1
   });
-    jQuery('#scrollup img').click( function(){
-      window.scroll(0 ,0); 
-      return false;
-    });
+    // jQuery('#scrollup img').click( function(){
+    //   window.scroll(0 ,0); 
+    //   return false;
+    // });
 
-    jQuery(window).scroll(function(){
-      if ( jQuery(document).scrollTop() > 0 ) {
-        jQuery('#scrollup').fadeIn('fast');
-      } else {
-        jQuery('#scrollup').fadeOut('fast');
-      }
-    });
+    // jQuery(window).scroll(function(){
+    //   if ( jQuery(document).scrollTop() > 0 ) {
+    //     jQuery('#scrollup').fadeIn('fast');
+    //   } else {
+    //     jQuery('#scrollup').fadeOut('fast');
+    //   }
+    // });
 
     $(".plitka").click(function(){
       $(this).addClass("plitka_red");

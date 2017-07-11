@@ -59,6 +59,7 @@ class CompareAndMenuContextMixin(ContextMixin):
 
             context['compare_categories'] = compare_categories
             context['compare_products'] = compare_products
+
         return context
 
 

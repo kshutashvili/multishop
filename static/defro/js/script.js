@@ -30,6 +30,19 @@ $('.owl-carousel').owlCarousel({
       }
   });
 
+jQuery('#scrollup img').click( function(){
+  window.scroll(0 ,0); 
+  return false;
+});
+
+jQuery(window).scroll(function(){
+  if ( jQuery(document).scrollTop() > 0 ) {
+    jQuery('#scrollup').fadeIn('fast');
+  } else {
+    jQuery('#scrollup').fadeOut('fast');
+  }
+});
+
 $('.buy_button').click(function() {
   $(this).addClass('buy_button_bougth').removeClass('show_popup')
 });

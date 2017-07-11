@@ -27,3 +27,9 @@ def url_format(url):
         return "/%s/%s/" % (current_lang, formatted_url)
 
     return "/%s/" % formatted_url
+
+
+@register.filter
+def phone_number_filter(phone):
+    phone_with_minus = "-".join([phone[0:3], phone[4:6], phone[6:8]])
+    return phone_with_minus

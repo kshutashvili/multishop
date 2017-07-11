@@ -163,6 +163,7 @@ ul{
     border-bottom: 1px dashed #ed1b24;
     display: block;
     margin-top: 1px;
+    width: 125px;
 }
 .contacts a.zakaz_zvon:hover:after{
     border-bottom: 1px dashed #565555;
@@ -4776,7 +4777,7 @@ a.compare_table_clean_button{
 .contacts_info_caption
 {
 	color: #424141;
-	font: 24px "ArialBold";
+	font: 18px "ArialBold";
 	text-transform: uppercase;
 	border-bottom: 1px solid #d9d9d9;
 	padding-bottom: 15px;
@@ -5437,7 +5438,7 @@ div.contacts a.cityphone {
 }
 .contacts_info_text.contacts_grafik {
 	margin-bottom: 0px!important;
-	height: 55px;
+	height: 75px;
 }
 
 .error_block{

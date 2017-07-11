@@ -1,4 +1,6 @@
 {% load static %}
+{% load url_tags %}
+{% load currency_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -326,7 +328,7 @@
                     <img class="letter_logo" src="{{ order.site.domain }}{% static 'defro/img/logo.png' %}" alt="">
                 {% endif %}
                 <div class="letter_content">
-                    <p class="letter_caption">Здравствуйте, <span>{{ order.user.get_full_name }}</span>!</p>
+                    <p class="letter_caption">Здравствуйте, <span>{{ order.name }}</span>!</p>
                     <p class="letter_thx">Спасибо, Ваш заказ принят!</p>
                     <p class="letter_confirm">Наш менеджер обязательно свяжется с Вами для уточнения всех деталей и подтверждения заказа.</p>
                     <div class="letter_details">
@@ -340,11 +342,11 @@
                                         <p class="letter_details_name">{{ line.product.product_class.name }} {{ line.product.title }} </p>
                                         <span>{{ line.quantity }} шт.</span>
                                     </div>
-                                    <p class="letter_details_price">{{ line.line_price_incl_tax }} {{ order.currency }}</p>
+                                    <p class="letter_details_price">{{ line.line_price_incl_tax }} {{ order.currency|format_currency }}</p>
                                 </li>
                             {% endfor %}
                             </ul>
-                            <p class="letter_details_sum">Итого: <span>{{ order.total_price  }} {{ order.currency }}</span></p>
+                            <p class="letter_details_sum">Итого: <span>{{ order.total_price  }} {{ order.currency|format_currency }}</span></p>
                         </div>
                     </div>
                     <div class="letter_details">
@@ -376,7 +378,7 @@
                         {% if city.phones %}
                             <p>
                             {% for phone in city.phones.all %}
-                                ({{ phone.get_national_format|slice:':3' }}) {{ phone.get_national_format|slice:'4:' }}{% if not forloop.last %},{% endif %}
+                                ({{ phone.get_national_format|slice:':3' }}) {{ phone.get_national_format|slice:'4:'|phone_number_filter }}{% if not forloop.last %},{% endif %}
                                 {% if forloop.counter|divisibleby:2 %}<br/> {% endif %}
                             {% endfor %}
                             </p>

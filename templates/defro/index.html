@@ -52,9 +52,9 @@
 							<a href="{{ category.get_absolute_url }}">
 								<p>{{ category.name }}</p>
 								{% if category.image %}
-									{% thumbnail category.image "74x155" crop="center" as img %}
-										<img src="{{ img.url }}" alt="">
-									{% endthumbnail %}
+
+										<img src="{{ category.image.url }}" alt="" style="width: 74px; height: 145px;">
+
 								{% endif %}
 							</a>
 						</div>
@@ -531,17 +531,17 @@
 			            <ul class="contact_ul">
 			                {% if phone_numbers.kievstar %}
 			                    <li>
-			                        <a href="tel:+38{{ phone_numbers.kievstar|first|cut:" " }}">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a>
+			                        <a href="tel:+38{{ phone_numbers.kievstar|first|cut:" " }}">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:'|phone_number_filter }}</a>
 			                    </li>
 			                {% endif %}
 			                {% if phone_numbers.vodafone %}
 			                    <li>
-			                        <a href="tel:+38{{ phone_numbers.vodafone|first|cut:" " }}">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a>
+			                        <a href="tel:+38{{ phone_numbers.vodafone|first|cut:" " }}">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:'|phone_number_filter }}</a>
 			                    </li>
 			                {% endif %}
 			                {% if phone_numbers.life %}
 			                    <li>
-			                        <a href="tel:+38{{ phone_numbers.life|first|cut:" " }}">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a>
+			                        <a href="tel:+38{{ phone_numbers.life|first|cut:" " }}">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:'|phone_number_filter }}</a>
 			                    </li>
 			                {% endif %}
 			                <li><a href="#" class="predstav">Наши
@@ -624,6 +624,10 @@
 
 {% block above_footer_block %}
 
+{% endblock %}
+
+{% block footer %}
+	{{ block.super }}
 {% endblock %}
 
 {% block extrascripts %}

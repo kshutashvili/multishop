@@ -2438,6 +2438,9 @@
     .subcategory_catalog .category_block ul li {
     max-width: 40%;
     }
+    .contacts a.zakaz_zvon:after {
+        width: 105px;
+    }
 }
 @media screen and (max-width: 560px) {
     .error_block .error_msg{
@@ -3394,7 +3397,7 @@
     }
     /*contacts*/
     .contacts_info_caption {   
-        font-size: 14px ;
+        font-size: 18px ;
     }
     .contacts_info_block .contacts {   
         margin-bottom: 20px;
@@ -3769,5 +3772,13 @@
 @media screen and (min-width: 1201px) {
     .left_menu .dropdown-menu li .menu_item_links a {
         font-size: 15px;
+    }
+    .headhesive .basket {
+        position: relative;
+        right: 0;
+        top: -50px;
+    }
+    .headhesive {
+        height: 63px;
     }
 }

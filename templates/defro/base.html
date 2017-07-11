@@ -57,19 +57,19 @@
                     <div class="contacts  header_scroll_contacts">
                         {% if phone_numbers.kievstar %}
                             <a href='tel:+38{{ phone_numbers.kievstar|first|cut:" " }}'>
-                                <span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}
+                                <span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:'|phone_number_filter }}
                             </a>
                         {% endif %}
                         <span class='more' role="button">Еще номера</span>
                         <div class="more_contacts">
                             {% if phone_numbers.vodafone %}
                                 <a href='tel:+38{{ phone_numbers.vodafone|first|cut:" " }}'>
-                                    <span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}
+                                    <span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:'|phone_number_filter }}
                                 </a>
                             {% endif %}
                             {% if phone_numbers.life %}
                                 <a href='tel:+38{{ phone_numbers.life|first|cut:" " }}'>
-                                    <span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}
+                                    <span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:'|phone_number_filter }}
                                 </a>
                             {% endif %}
                         </div>
@@ -88,15 +88,16 @@
                     <div class="contacts header_contacts main_contacts">
                         <div>
                             {% if phone_numbers.kievstar %}
-                                <a href="tel:+38{{ phone_numbers.kievstar|first|cut:" " }}"><span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}
+                                <a href="tel:+38{{ phone_numbers.kievstar|first|cut:" " }}"><span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:'|phone_number_filter }}
                                 </a>
                             {% endif %}
                             {% if phone_numbers.vodafone %}
-                                <a href="tel:+38{{ phone_numbers.vodafone|first|cut:" " }}"><span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}
+                                <a href="tel:+38{{ phone_numbers.vodafone|first|cut:" " }}"><span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:'|phone_number_filter }}
                                 </a>
                             {% endif %}
                             {% if phone_numbers.life %}
-                                <a href="tel:+38{{ phone_numbers.life|first|cut:" " }}"><span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}
+                                <a href="tel:+38{{ phone_numbers.life|first|cut:" " }}"><span>({{ phone_numbers.life|first|slice:':3' }})</span>
+                                {{ phone_numbers.life|first|slice:'4:'|phone_number_filter }}
                                 </a>
                             {% endif %}
                             <a href="#" class="zakaz_zvon show_popup"
@@ -111,14 +112,14 @@
                                 <a href="{% url 'compare' %}" class="btn btn-default dropdown-toggle"
                                    id="dropdownMenu1" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="true"
-                                   data-content="{{ compare_categories|length }}">
+                                   data-content="{{ compare_products|length }}">
                                     Сравнение
                                 </a>
                             {% else %}
                                 <a href="#" class="btn btn-default dropdown-toggle"
                                    id="dropdownMenu1" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="true"
-                                   data-content="{{ compare_categories|length }}">
+                                   data-content="{{ compare_products|length }}">
                                     Сравнение
                                 </a>
                             {% endif %}
@@ -128,7 +129,7 @@
                                     {% for category in compare_categories %}
                                         <li>
                                             <a href="{% url 'compare_category' category=category.pk %}"
-                                               class="sravn_items">{{ category.name }}</a>
+                                               class="sravn_items">{{ category.name }} ({{ compare_products|length }})</a>
                                             <a href="#" class="sravn_delete"
                                                data-category-pk="{{ category.pk }}"
                                                data-remove-url="{% url 'remove_category_from_compare_list' %}"></a>
@@ -285,17 +286,17 @@
                                     <ul class="contact_ul">
                                         {% if phone_numbers.kievstar %}
                                             <li>
-                                                <a href="tel:+38{{ phone_numbers.kievstar|first|cut:" " }}">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:' }}</a>
+                                                <a href="tel:+38{{ phone_numbers.kievstar|first|cut:" " }}">({{ phone_numbers.kievstar|first|slice:':3' }}) {{ phone_numbers.kievstar|first|slice:'4:'|phone_number_filter }}</a>
                                             </li>
                                         {% endif %}
                                         {% if phone_numbers.vodafone %}
                                             <li>
-                                                <a href="tel:+38{{ phone_numbers.vodafone|first|cut:" " }}">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:' }}</a>
+                                                <a href="tel:+38{{ phone_numbers.vodafone|first|cut:" " }}">({{ phone_numbers.vodafone|first|slice:':3' }}) {{ phone_numbers.vodafone|first|slice:'4:'|phone_number_filter }}</a>
                                             </li>
                                         {% endif %}
                                         {% if phone_numbers.life %}
                                             <li>
-                                                <a href="tel:+38{{ phone_numbers.life|first|cut:" " }}">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:' }}</a>
+                                                <a href="tel:+38{{ phone_numbers.life|first|cut:" " }}">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:'|phone_number_filter }}</a>
                                             </li>
                                         {% endif %}
                                         <li><a href="{% url 'contacts' %}"
