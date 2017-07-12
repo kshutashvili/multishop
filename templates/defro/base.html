@@ -129,7 +129,7 @@
                                     {% for category in compare_categories %}
                                         <li>
                                             <a href="{% url 'compare_category' category=category.pk %}"
-                                               class="sravn_items">{{ category.name }} ({{ compare_products|length }})</a>
+                                               class="sravn_items">{{ category.name }}</a>
                                             <a href="#" class="sravn_delete"
                                                data-category-pk="{{ category.pk }}"
                                                data-remove-url="{% url 'remove_category_from_compare_list' %}"></a>
