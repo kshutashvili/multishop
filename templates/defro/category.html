@@ -62,9 +62,9 @@
                         {{ category.name }}
                     {% endif %}
                 </p>
-                <div style="height:'100%'" id="category_descr">
-                    <div id="short_desc" height="">
-                        <p>{{ category.description|truncatechars_html:1500|safe }}</p>
+                <div style="height:100%" id="category_descr">
+                    <div id="short_desc">
+                        {{ category.description|truncatechars_html:1500|safe }}
                     </div>
                     <div id="tovar_desc">
                         {{ category.description|safe }}

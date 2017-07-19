@@ -28,7 +28,7 @@
                     <div class="contacts_short col-lg-6 col-md-6  col-sm-10  col-xs-10">
                         <p>{{ city.city_name }}</p>
                         <div class="contacts_short_body">
-                        <div class="contacts contacts_info_phone">
+                        <ul class="contacts contacts_info_phone">
                             {% if city.phones %}
                                 {% for phone in city.phones.all %}
                                     {% if phone.operator == 'kievstar' %}
@@ -54,12 +54,10 @@
                                 {% endfor %}
                             {% endif %}
                             <a class="contacts_more" href="{% url 'contact_by_city' %}?city={{ city.slug }}">Подробнее</a>
-                        </div>
-                        <iframe src="https://www.google.com/maps/embed/v1/place?q=г.{{ city.city_name }}{{ city.address }}&key={{ city.google_maps_api_key }}"
+                        </ul>
+                        <iframe src="https://www.google.com/maps/embed/v1/place?q=г.{{ city.city_name }}_{{ city.address|cut:' ' }}&key={{ city.google_maps_api_key }}"
                                 width="250" height="200"
-                                frameborder="0"
-                                style="border:0; margin-bottom:45px;"
-                                zoom="24"></iframe>
+                                style="border:0; margin-bottom:45px;"></iframe>
                         </div>
                     </div>
                     {% endfor %}

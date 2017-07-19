@@ -6,16 +6,18 @@
 {% for product in products %}
 
     {% basket_form request product as basket_form %}
-    <form id="add_to_basket_form_{{ product.id }}"
-          name="add_to_basket_form"
-          style="display: none;"
-          action="{% url 'basket:add' pk=product.pk %}"
-          method="post"
-          class="add-to-basket">{% csrf_token %}
-        {% include "partials/form_fields.html" with form=basket_form %}
-    </form>
     <li>
         <div class="catalog_item_block {% if product.is_discountable or product.special_offer %}before_akcia {% elif product.new %}before_new {% elif product.top_sale %} before_hit{% elif product.recommended %} before_rec{% elif product.super_price %} before_superprice{% endif %} free_shipping">
+
+            <form id="add_to_basket_form_{{ product.id }}"
+                  name="add_to_basket_form"
+                  style="display: none;"
+                  action="{% url 'basket:add' pk=product.pk %}"
+                  method="post"
+                  class="add-to-basket">{% csrf_token %}
+                {% include "partials/form_fields.html" with form=basket_form %}
+            </form>
+
             {% if product.gift %}
                 <div class="before_gift"></div>
             {% endif %}

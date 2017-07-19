@@ -213,8 +213,24 @@ $(document).ready(function () {
         $.post(review_url, $comment_form.serialize(), function () {
             $comment_form.find("input[type=text], textarea").val("");
             $('div.' + $('#submit_comment').attr("rel")).fadeIn(500);
-            //$("body").append("<div id='overlay'></div>");
-            //$('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            $('.shadow').show();
+            return false;
+        }).fail(function (xhr) {
+            if (parseInt(xhr.status) == 409) {
+                var $errors = $('#basket_error');
+                $errors.text('Вы можете оставить только один отзыв!');
+                $errors.addClass('show');
+                setTimeout(function () {
+                    $errors.removeClass("show");
+                }, 3000);
+            }
+        });
+    });
+    $('#submit_comment1').click(function (e) {
+        e.preventDefault();
+        $.post(review_url, $comment_form.serialize(), function () {
+            $comment_form.find("input[type=text], textarea").val("");
+            $('div.' + $('#submit_comment1').attr("rel")).fadeIn(500);
             $('.shadow').show();
             return false;
         }).fail(function (xhr) {

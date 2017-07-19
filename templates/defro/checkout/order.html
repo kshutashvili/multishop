@@ -1,6 +1,7 @@
 {% extends 'defro/base.html' %}
 
 {% load site_static %}
+{% load url_tags %}
 
 {% block header %}
     <div class="header header_for_zakaz">
@@ -15,18 +16,18 @@
             </div>
             <div class="contacts">
                 {% if phone_numbers.kievstar %}
-                    <a href="tel:+38{{ phone_numbers.kievstar|first }}">
-                        <span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:' }}
+                    <a href="tel:+38{{ phone_numbers.kievstar|first|cut:' ' }}">
+                        <span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:'|phone_number_filter }}
                     </a>
                 {% endif %}
                 {% if phone_numbers.vodafone %}
-                    <a href="tel:+38{{ phone_numbers.vodafone|first }}">
-                        <span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:' }}
+                    <a href="tel:+38{{ phone_numbers.vodafone|first|cut:' ' }}">
+                        <span>({{ phone_numbers.vodafone|first|slice:':3' }})</span>{{ phone_numbers.vodafone|first|slice:'4:'|phone_number_filter }}
                     </a>
                 {% endif %}
                 {% if phone_numbers.life %}
-                    <a href="tel:+38{{ phone_numbers.life|first }}">
-                        <span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:' }}
+                    <a href="tel:+38{{ phone_numbers.life|first|cut:' ' }}">
+                        <span>({{ phone_numbers.life|first|slice:':3' }})</span>{{ phone_numbers.life|first|slice:'4:'|phone_number_filter }}
                     </a>
                 {% endif %}
             </div>
@@ -67,7 +68,7 @@
                         заказ</a>
                 </div>
             </div>
-            <form action="" method="post" style="display: inline">
+            <form method="post" style="display: inline">
                 {% csrf_token %}
                 <div class="letter_details zakaz_details_tovar letter_details_contact">
                     <p class="letter_details_caption">Контактные данные</p>
@@ -99,7 +100,7 @@
 
                     </div>
                 </div>
-                <button type="submit" href="#" class="make_zakaz_button">Заказ
+                <button type="submit" class="make_zakaz_button">Заказ
                     подтверждаю
                 </button>
             </form>

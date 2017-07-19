@@ -44,7 +44,7 @@
                                     </p>
                                     <p class="contacts_info_caption phone_caption">
                                         Наши телефоны</p>
-                                    <div class="contacts contacts_info_phone">
+                                    <ul class="contacts contacts_info_phone">
                                         {% if city.phones %}
                                             {% for phone in city.phones.all %}
                                                 {% if phone.operator == 'kievstar' %}
@@ -69,7 +69,7 @@
                                                 {% endif %}
                                             {% endfor %}
                                         {% endif %}
-                                    </div>
+                                    </ul>
                                     <p class="contacts_info_caption">График
                                         работы</p>
                                     <p class="contacts_info_text contacts_grafik">
@@ -98,25 +98,37 @@
                                         связи</p>
                                     <form action="{% url 'contact_message' %}"
                                           method="post">{% csrf_token %}
-                                        <label for="">Ваше имя <span
+                                        <label>Ваше имя <span
                                                 class="red_star">*</span></label>
-                                        {% if form.name.errors %}<p>
-                                            {{ form.name.errors }}{% endif %}</p>
+                                        {% if form.name.errors %}
+                                            <p>
+                                            {{ form.name.errors }}
+                                            </p>
+                                        {% endif %}
                                         <input type="text" name="name">
-                                        <label for="">Ваш email <span
+                                        <label>Ваш email <span
                                                 class="red_star">*</span></label>
-                                        {% if form.email.errors %}<p>
-                                            {{ form.email.errors }}{% endif %}</p>
+                                        {% if form.email.errors %}
+                                            <p>
+                                            {{ form.email.errors }}
+                                            </p>
+                                        {% endif %}
                                         <input type="email" name="email">
-                                        <label for="">Ваш телефон <span
+                                        <label>Ваш телефон <span
                                                 class="red_star">*</span></label>
-                                        {% if form.phone.errors %}<p>
-                                            {{ form.phone.errors }}{% endif %}</p>
+                                        {% if form.phone.errors %}
+                                            <p>
+                                            {{ form.phone.errors }}
+                                            </p>
+                                        {% endif %}
                                         <input type="text" name="phone">
-                                        <label for="">Сообщение <span
+                                        <label>Сообщение <span
                                                 class="red_star">*</span></label>
-                                        {% if form.message.errors %}<p>
-                                            {{ form.message.errors }}{% endif %}</p>
+                                        {% if form.message.errors %}
+                                            <p>
+                                            {{ form.message.errors }}
+                                            </p>
+                                        {% endif %}
                                         <textarea name="message"></textarea>
                                         <p class="contact_comment_pole"><span
                                                 class="red_star">*</span> -поля
@@ -130,9 +142,8 @@
                                         перевозчиком
                                         "Интайм" или "Новая почта", оплата после
                                         получения!</p>
-                                    <iframe src="https://www.google.com/maps/embed/v1/place?q=г.{{ city.city_name }}{{ city.address }}&key={{ city.google_maps_api_key }}"
+                                    <iframe src="https://www.google.com/maps/embed/v1/place?q=г.{{ city.city_name }}_{{ city.address|cut:' ' }}&key={{ city.google_maps_api_key }}"
                                             width="880" height="580"
-                                            frameborder="0"
                                             style="border:0"
                                             allowfullscreen></iframe>
                                 </div>

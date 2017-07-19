@@ -721,7 +721,7 @@
     .tovar_second_info .left_filter_collapse .well table td, .tovar_second_info .left_filter_collapse .well table th {
         font-size: 15px;
     }
-    #submit_comment {
+    #submit_comment, #submit_comment1 {
         font-size: 18px;
     }
     .compare_scroll
@@ -1127,7 +1127,7 @@
         /*margin-top: 7px;*/
     }
     
-    #submit_comment {
+    #submit_comment, #submit_comment1 {
         font-size: 18px;
     }
     .user_comment_bottom {
@@ -2476,7 +2476,7 @@
     .third_block {
         background-size: 2500px;
     }
-    #submit_comment {
+    #submit_comment, #submit_comment1 {
         font-size: 16px;
     }
 

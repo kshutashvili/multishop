@@ -5478,16 +5478,16 @@ a + .block155h, img + .block155h {
 .letter_details_tovar textarea:focus:-moz-placeholder           {color: transparent}
 .letter_details_tovar textarea:focus:-ms-input-placeholder      {color: transparent}
 
-div.contacts a.kievstar {
+.contacts a.kievstar {
     background: url("../img/kievstar.png") no-repeat left center;
 }
-div.contacts a.vodafone {
+.contacts a.vodafone {
     background: url("../img/mts.png") no-repeat left center;
 }
-div.contacts a.life {
+.contacts a.life {
     background: url("../img/life.png") no-repeat left center;
 }
-div.contacts a.cityphone {
+.contacts a.cityphone {
     background: url("../img/home_phone.png") no-repeat left center;
 }
 .shadow_hover {
@@ -5591,7 +5591,7 @@ a + .for_list_block {
 .fulltext {
     height: 100%!important;
 }
-#submit_comment {
+#submit_comment, #submit_comment1 {
     background-color: #229fff;
 }
 .category_block ul li p{
