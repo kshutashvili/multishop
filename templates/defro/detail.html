@@ -39,7 +39,13 @@
               action="{% url 'basket:add' pk=product.pk %}"
               method="post"
               class="add-to-basket">{% csrf_token %}
-            {% include "partials/form_fields.html" with form=basket_form %}
+            {% for field in basket_form %}
+                {% if field.is_hidden %}
+                    <input name="{{ field.name }}" type="hidden" value="{{ field.value }}" />
+                {% else %}
+                    {{ field }}
+                {% endif %}
+            {% endfor %}
         </form>
 
 
@@ -838,16 +844,14 @@
                                 {% endif %}
                                 {% if session.availability.is_available_to_buy %}
                                 <a class="buy_button show_popup"
-                                   value="{% trans "Add to basket" %}"
                                    data-loading-text="Добавляем"
                                    data-rel="buy_button_modal" href="#!"
                                    data-product-id="{{ product.id }}">В корзину
                                 </a>
                                 {% else %}
                                 <a class="buy_button but_button_sold"
-                                   value="{% trans "Нет в наличии" %}"
                                    data-loading-text="Добавляем"
-                                   rel="buy_button_modal" href="#!"
+                                    href="#!"
                                    data-product-id="{{ product.id }}">Нет в наличии
                                 </a>
                                 {% endif %}
@@ -961,7 +965,7 @@
                                 {% else %}
                                 <a class="buy_button but_button_sold"
                                    data-loading-text="Добавляем"
-                                   rel="buy_button_modal" href="#!"
+                                    href="#!"
                                    data-product-id="{{ product.id }}">Нет в наличии
                                 </a>
                                 {% endif %}
@@ -1080,7 +1084,7 @@
                                 {% else %}
                                 <a class="buy_button but_button_sold"
                                    data-loading-text="Добавляем"
-                                   rel="buy_button_modal" href="#!"
+                                    href="#!"
                                    data-product-id="{{ product.id }}">Нет в наличии
                                 </a>
                                 {% endif %}
@@ -1528,7 +1532,7 @@
                                 {% else %}
                                 <a class="buy_button but_button_sold"
                                    data-loading-text="Добавляем"
-                                   rel="buy_button_modal" href="#!"
+                                   href="#!"
                                    data-product-id="{{ product.id }}">Нет в наличии
                                 </a>
                                 {% endif %}
@@ -1599,7 +1603,13 @@
                                       action="{% url 'basket:add' pk=product.pk %}"
                                       method="post"
                                       class="add-to-basket">{% csrf_token %}
-                                    {% include "partials/form_fields.html" with form=basket_form %}
+                                    {% for field in basket_form %}
+                                        {% if field.is_hidden %}
+                                            <input name="{{ field.name }}" type="hidden" value="{{ field.value }}" />
+                                        {% else %}
+                                            {{ field }}
+                                        {% endif %}
+                                    {% endfor %}
                                 </form>
                                 <div class="catalog_item_block">
                                     <input type="text" style="display: none;"

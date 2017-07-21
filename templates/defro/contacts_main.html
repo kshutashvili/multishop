@@ -53,7 +53,7 @@
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
-                            <a class="contacts_more" href="{% url 'contact_by_city' %}?city={{ city.slug }}">Подробнее</a>
+                            <li><a class="contacts_more" href="{% url 'contact_by_city' %}?city={{ city.slug }}">Подробнее</a></li>
                         </ul>
                         <iframe src="https://www.google.com/maps/embed/v1/place?q=г.{{ city.city_name }}_{{ city.address|cut:' ' }}&key={{ city.google_maps_api_key }}"
                                 width="250" height="200"

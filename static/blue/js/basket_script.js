@@ -228,6 +228,24 @@ $(document).ready(function () {
             }
         });
     });
+    $('#submit_comment1').click(function (e) {
+        e.preventDefault();
+        $.post(review_url, $comment_form.serialize(), function () {
+            $comment_form.find("input[type=text], textarea").val("");
+            $('div.' + $('#submit_comment1').attr("rel")).fadeIn(500);
+            $('.shadow').show();
+            return false;
+        }).fail(function (xhr) {
+            if (parseInt(xhr.status) == 409) {
+                var $errors = $('#basket_error');
+                $errors.text('Вы можете оставить только один отзыв!');
+                $errors.addClass('show');
+                setTimeout(function () {
+                    $errors.removeClass("show");
+                }, 3000);
+            }
+        });
+    });
     function modal_item_delete() {
         $('.modal_item_delete').click(function (e) {
             e.preventDefault();
