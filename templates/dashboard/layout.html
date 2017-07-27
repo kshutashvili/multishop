@@ -18,7 +18,8 @@
                   {% site_list %}
                 </select>
               </li>
-              <li><a href="#" id="change_site_btn" class="button">{% trans "Change site" %}</a></li>
+              <li><a href="#" id="change_site_btn" class="button">{% trans "Change Site" %}</a></li>
+              <li><a href="{% url 'dashboard:site-add' %}" id="add_site_btn" class="button">{% trans "Create Site" %}</a></li>
             </ul>
         </div>
         <div class="collapse navbar-collapse nav-accounts">

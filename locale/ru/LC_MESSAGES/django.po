@@ -592,5 +592,9 @@ msgid "Rating"
 msgstr ""
 
 #: templates/dashboard/layout.html:21
-msgid "Change site"
+msgid "Change Site"
 msgstr "Перейти на сайт"
+
+#: shop/dashboard/site/views.py:16
+msgid "Create Site"
+msgstr "Добавить сайт"
