@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'rosetta',
     'parler',
     'shop.dashboard.portation',
+    'shop.dashboard.site',
 ] + get_core_apps(['shop.catalogue',
                    'shop.promotions',
                    'shop.dashboard.catalogue',

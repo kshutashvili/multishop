@@ -589,3 +589,7 @@ msgstr ""
 #: teploformat/settings.py:205
 msgid "Rating"
 msgstr ""
+
+#: templates/dashboard/layout.html:21
+msgid "Change site"
+msgstr "Перейти на сайт"
