@@ -1,9 +1,22 @@
-from django.shortcuts import reverse
-from django.views.generic import CreateView
+from django.shortcuts import reverse, get_object_or_404
+from django.contrib.sites.shortcuts import get_current_site
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.views.generic import (CreateView, ListView,
+                                  UpdateView, DeleteView,
+                                  TemplateView)
 from django.utils.translation import ugettext_lazy as _
 
-from shop.dashboard.site.forms import SiteForm, SiteConfigForm
+from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
+                                       CityForm, PhoneNumbersFormSet,
+                                       TimetablesFormSet, SocialRefForm,
+                                       FlatPageForm, ContactMessageForm,
+                                       SiteContactConfigForm, TimetableForm,
+                                       WorkScheduleFormSet)
 from django.contrib.sites.models import Site
+from contacts.models import (City, SocialNetRef, FlatPage, ContactMessage,
+                             Timetable)
+from website.views import SiteMultipleObjectMixin
 
 
 class SiteCreateView(CreateView):
@@ -35,3 +48,407 @@ class SiteCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('dashboard:index')
+
+
+class CityListView(SiteMultipleObjectMixin, ListView):
+
+    model = City
+    context_object_name = 'cities'
+    template_name = 'shop/dashboard/site/city_list.html'
+
+
+class CityCreateUpdateView(UpdateView):
+    model = City
+    context_object_name = 'city'
+    form_class = CityForm
+    phone_numbers_formset = PhoneNumbersFormSet
+    timetables_formset = TimetablesFormSet
+    template_name = 'shop/dashboard/site/city_detail.html'
+
+    def process_all_forms(self, form):
+        if self.creating and form.is_valid():
+            # the object will be needed by formsets
+            self.object = form.save(commit=False)
+            self.object.site = get_current_site(self.request)
+
+        phone_numbers_formset = self.phone_numbers_formset(
+            self.request.POST, self.request.FILES, instance=self.object)
+        timetables_formset = self.timetables_formset(
+            self.request.POST, self.request.FILES, instance=self.object
+        )
+
+        is_valid = (form.is_valid() and phone_numbers_formset.is_valid()
+                    and timetables_formset.is_valid())
+
+        if is_valid:
+            return self.forms_valid(form,
+                                    phone_numbers_formset,
+                                    timetables_formset)
+        else:
+            return self.forms_invalid(form,
+                                      phone_numbers_formset,
+                                      timetables_formset)
+
+    def forms_valid(self, form, phone_numbers_formset, timetables_formset):
+        form.save()
+        phone_numbers_formset.save()
+        timetables_formset.save()
+
+        return HttpResponseRedirect(self.get_success_url())
+
+    def forms_invalid(self, form, phone_numbers_formset, timetables_formset):
+        messages.error(self.request,
+                       _("Your submitted data was not valid - please "
+                         "correct the errors below"
+                         ))
+        ctx = self.get_context_data(form=form,
+                                    phone_numbers_formset=phone_numbers_formset,
+                                    work_schedules_formset=timetables_formset)
+        return self.render_to_response(ctx)
+
+    form_valid = form_invalid = process_all_forms
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(CityCreateUpdateView, self).get_context_data(
+            *args, **kwargs)
+
+        if "phone_numbers_formset" not in ctx:
+            ctx["phone_numbers_formset"] = self.phone_numbers_formset(
+                instance=self.object)
+
+        if "timetables_formset" not in ctx:
+            ctx["timetables_formset"] = self.timetables_formset(
+                instance=self.object)
+
+        ctx["title"] = self.get_title()
+
+        return ctx
+
+
+class CityUpdateView(CityCreateUpdateView):
+    creating = False
+
+    def get_title(self):
+        return _("Update city '%s'") % self.object.city_name
+
+    def get_success_url(self):
+        messages.info(self.request, _("City updated successfully"))
+        return reverse("dashboard:city-list")
+
+    def get_object(self):
+        city = get_object_or_404(City, pk=self.kwargs['pk'])
+        return city
+
+
+class CityCreateView(CityCreateUpdateView):
+    creating = True
+
+    def get_object(self):
+        return None
+
+    def get_title(self):
+        return _("Add a new city")
+
+    def get_success_url(self):
+        messages.info(self.request, _("City created successfully"))
+        return reverse("dashboard:city-list")
+
+
+class CityDeleteView(DeleteView):
+    template_name = 'shop/dashboard/site/city_delete.html'
+    model = City
+    form_class = CityForm
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(CityDeleteView, self).get_context_data(*args,
+                                                           **kwargs)
+        ctx['title'] = _("Delete city '%s'") % self.object.city_name
+        return ctx
+
+    def get_success_url(self):
+        messages.info(self.request, _("City deleted successfully"))
+        return reverse("dashboard:city-list")
+
+
+class SocialNetRefListView(SiteMultipleObjectMixin, ListView):
+
+    model = SocialNetRef
+    context_object_name = 'social_refs'
+    template_name = 'shop/dashboard/site/socialref_list.html'
+
+
+class SocialNetRefCreateUpdateView(UpdateView):
+    model = SocialNetRef
+    context_object_name = 'social_ref'
+    form_class = SocialRefForm
+    template_name = 'shop/dashboard/site/socialref_detail.html'
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        if self.creating:
+            obj.site = get_current_site(self.request)
+
+        obj.save()
+
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(SocialNetRefCreateUpdateView, self).get_context_data(
+            *args, **kwargs)
+
+        ctx["title"] = self.get_title()
+
+        return ctx
+
+
+class SocialNetRefUpdateView(SocialNetRefCreateUpdateView):
+    creating = False
+
+    def get_title(self):
+        return _("Update social reference '%s'") % self.object.ref_type
+
+    def get_success_url(self):
+        messages.info(self.request, _("Social reference updated successfully"))
+        return reverse("dashboard:socialref-list")
+
+    def get_object(self):
+        obj = get_object_or_404(SocialNetRef, pk=self.kwargs['pk'])
+        return obj
+
+
+class SocialNetRefCreateView(SocialNetRefCreateUpdateView):
+    creating = True
+
+    def get_object(self):
+        return None
+
+    def get_title(self):
+        return _("Add a new social reference")
+
+    def get_success_url(self):
+        messages.info(self.request, _("Social reference created successfully"))
+        return reverse("dashboard:socialref-list")
+
+
+class SocialNetRefDeleteView(DeleteView):
+    template_name = 'shop/dashboard/site/socialref_delete.html'
+    model = SocialNetRef
+    form_class = SocialRefForm
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(SocialNetRefDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Delete social reference '%s'") % self.object.ref_type
+
+        return ctx
+
+    def get_success_url(self):
+        messages.info(self.request, _("Social reference deleted successfully"))
+        return reverse("dashboard:socialref-list")
+
+
+class FlatPageListView(SiteMultipleObjectMixin, ListView):
+
+    model = FlatPage
+    context_object_name = 'flat_pages'
+    template_name = 'shop/dashboard/site/flatpage_list.html'
+
+
+class FlatPageCreateUpdateView(UpdateView):
+    model = FlatPage
+    context_object_name = 'flat_page'
+    form_class = FlatPageForm
+    template_name = 'shop/dashboard/site/flatpage_detail.html'
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        if self.creating:
+            obj.site = get_current_site(self.request)
+
+        obj.save()
+
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(FlatPageCreateUpdateView, self).get_context_data(
+            *args, **kwargs)
+
+        ctx["title"] = self.get_title()
+
+        return ctx
+
+
+class FlatPageUpdateView(FlatPageCreateUpdateView):
+    creating = False
+
+    def get_title(self):
+        return _("Update flat page '%s'") % self.object.title
+
+    def get_success_url(self):
+        messages.info(self.request, _("Flat page updated successfully"))
+        return reverse("dashboard:flatpage-list")
+
+    def get_object(self):
+        obj = get_object_or_404(FlatPage, pk=self.kwargs['pk'])
+        return obj
+
+
+class FlatPageCreateView(FlatPageCreateUpdateView):
+    creating = True
+
+    def get_object(self):
+        return None
+
+    def get_title(self):
+        return _("Add a new flat page")
+
+    def get_success_url(self):
+        messages.info(self.request, _("Flat page created successfully"))
+        return reverse("dashboard:flatpage-list")
+
+
+class FlatPageDeleteView(DeleteView):
+    template_name = 'shop/dashboard/site/flatpage_delete.html'
+    model = FlatPage
+    form_class = FlatPageForm
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(FlatPageDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Delete flat page '%s'") % self.object.title
+
+        return ctx
+
+    def get_success_url(self):
+        messages.info(self.request, _("Flat page deleted successfully"))
+        return reverse("dashboard:flatpage-list")
+
+
+class ContactMessageListView(SiteMultipleObjectMixin, ListView):
+
+    model = ContactMessage
+    context_object_name = 'contact_messages'
+    template_name = 'shop/dashboard/site/contactmessage_list.html'
+
+
+class ContactMessageUpdateView(UpdateView):
+    model = ContactMessage
+    context_object_name = 'contact_message'
+    form_class = ContactMessageForm
+    template_name = 'shop/dashboard/site/contactmessage_detail.html'
+
+    def get_success_url(self):
+        messages.info(self.request, _("Contact message updated successfully"))
+        return reverse("dashboard:contactmessage-list")
+
+    def get_object(self):
+        obj = get_object_or_404(ContactMessage, pk=self.kwargs['pk'])
+        return obj
+
+
+class ContactMessageDeleteView(DeleteView):
+    template_name = 'shop/dashboard/site/contactmessage_delete.html'
+    model = ContactMessage
+    form_class = ContactMessageForm
+
+    def get_success_url(self):
+        messages.info(self.request, _("Contact message deleted successfully"))
+        return reverse("dashboard:contactmessage-list")
+
+
+class SiteContactConfigView(TemplateView):
+    template_name = 'shop/dashboard/site/contacts_config.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(SiteContactConfigView, self).get_context_data(**kwargs)
+
+        ctx['form'] = SiteContactConfigForm(request=self.request)
+        ctx['formset'] = WorkScheduleFormSet(instance=get_current_site(self.request))
+        return ctx
+
+    def post(self, request):
+
+        form = SiteContactConfigForm(request.POST, request=request)
+        formset = WorkScheduleFormSet(request.POST,
+                                      instance=get_current_site(request))
+
+        if form.is_valid() and formset.is_valid():
+            form.save()
+            formset.save()
+
+        return HttpResponseRedirect(reverse('dashboard:sitecontact-edit'))
+
+
+class TimetableListView(ListView):
+
+    model = Timetable
+    context_object_name = 'timetables'
+    template_name = 'shop/dashboard/site/timetable_list.html'
+
+    def get_queryset(self):
+        return Timetable.objects.filter(city__isnull=True)
+
+
+class TimetableCreateUpdateView(UpdateView):
+    model = Timetable
+    context_object_name = 'timetable'
+    form_class = TimetableForm
+    template_name = 'shop/dashboard/site/timetable_detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(TimetableCreateUpdateView, self).get_context_data(
+            *args, **kwargs)
+
+        ctx["title"] = self.get_title()
+
+        return ctx
+
+
+class TimetableUpdateView(TimetableCreateUpdateView):
+
+    def get_title(self):
+        return _("Update timetable '%s'") % self.object
+
+    def get_success_url(self):
+        messages.info(self.request, _("Timetable updated successfully"))
+        return reverse("dashboard:timetable-list")
+
+    def get_object(self):
+        obj = get_object_or_404(Timetable, pk=self.kwargs['pk'])
+        return obj
+
+
+class TimetableCreateView(TimetableCreateUpdateView):
+
+    def get_object(self):
+        return None
+
+    def get_title(self):
+        return _("Add a new timetable")
+
+    def get_success_url(self):
+        messages.info(self.request, _("Timetable created successfully"))
+        return reverse("dashboard:timetable-list")
+
+
+class TimetableDeleteView(DeleteView):
+    template_name = 'shop/dashboard/site/timetable_delete.html'
+    model = Timetable
+    form_class = TimetableForm
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(TimetableDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Delete timetable '%s'") % self.object
+
+        return ctx
+
+    def get_success_url(self):
+        messages.info(self.request, _("Timetable deleted successfully"))
+        return reverse("dashboard:timetable-list")

@@ -1,0 +1,43 @@
+{% extends 'dashboard/layout.html' %}
+{% load i18n %}
+{% load thumbnail %}
+{% load staticfiles %}
+{% load form_tags %}
+
+
+{% block body_class %}{{ block.super }} create-page{% endblock %}
+
+{% block title %}
+    {{ title }} | {% trans "Contacts" %} | {{ block.super }}
+{% endblock %}
+
+{% block headertext %}{{ title }}{% endblock %}
+
+{% block dashboard_content %}
+  <form class="form-{{ style|default:"stacked" }}" method="{{ method|default:"post" }}"
+    {% if action %}action="{{ action }}"{% endif %}>
+    {% if not method == "get" %}{% csrf_token %}{% endif %}
+
+    {% include 'dashboard/partials/form_fields.html' %}
+
+    {% block work_schedules %}
+      <table class="table table-striped table-bordered form-inline">
+          <caption>{% trans "Work Schedules" %}</caption>
+          {{ formset.management_form }}
+          {{ formset.non_form_errors }}
+          {% for form in formset %}
+              <tr>
+                  <td>
+                      {% include "dashboard/partials/form_fields_inline.html" with form=form %}
+                  </td>
+              </tr>
+          {% endfor %}
+      </table>
+      <p></p>
+    {% endblock %}
+    <div class="form-group form-actions">
+      <button class="btn btn-lg btn-primary" type="submit" data-loading-text="{% trans 'Saving...' %}">{% trans "Save" %}</button>
+      {% trans "or" %} <a href="#" onclick="window.history.go(-1);return false" >{% trans "cancel" %}</a>.
+    </div>
+  </form>
+{% endblock dashboard_content %}

@@ -73,7 +73,8 @@ class PhoneNumber(models.Model):
     site = models.ForeignKey(
         Site,
         verbose_name=_('Сайт'),
-        related_name='phonenumbers'
+        related_name='phonenumbers',
+        blank=True, null=True
     )
 
     city = models.ForeignKey(City,

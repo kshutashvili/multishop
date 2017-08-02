@@ -235,8 +235,39 @@ OSCAR_MISSING_IMAGE_URL = os.path.join(MEDIA_URL, 'image_not_found.jpg')
 
 OSCAR_DEFAULT_CURRENCY = 'UAH'
 
-OSCAR_DASHBOARD_NAVIGATION += [
-    {
+OSCAR_DASHBOARD_NAVIGATION.insert(1,
+                                  {
+         'label': _('Contacts'),
+         'icon': 'icon-th-list',
+         'children': [
+             {
+                 'label': _('General'),
+                 'url_name': 'dashboard:sitecontact-edit',
+             },
+             {
+                 'label': _('Timetables'),
+                 'url_name': 'dashboard:timetable-list',
+             },
+             {
+                 'label': _('Social Net Ref'),
+                 'url_name': 'dashboard:socialref-list',
+             },
+             {
+                 'label': _('Flat Pages'),
+                 'url_name': 'dashboard:flatpage-list',
+             },
+             {
+                 'label': _('Cities'),
+                 'url_name': 'dashboard:city-list',
+             },
+             {
+                 'label': _('Contact Messages'),
+                 'url_name': 'dashboard:contactmessage-list',
+             },
+         ],
+     })
+
+OSCAR_DASHBOARD_NAVIGATION += [{
         'label': _('Import/export'),
         'icon': 'icon-refresh',
         'children': [
@@ -252,7 +283,7 @@ OSCAR_DASHBOARD_NAVIGATION += [
     },
 ]
 
-THUMBNAIL_PRESERVE_FORMAT=True
+THUMBNAIL_PRESERVE_FORMAT = True
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',

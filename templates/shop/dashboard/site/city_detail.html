@@ -1,0 +1,73 @@
+{% extends 'dashboard/layout.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% blocktrans with city_name=city.city_name %}City {{ city_name }}{% endblocktrans %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        </li>
+        <li>
+            <a href="{% url 'dashboard:city-list' %}">{% trans "Cities" %}</a>
+        </li>
+        <li class="active">{{ city.city_name }}</li>
+    </ul>
+{% endblock %}
+
+{% block headertext %}
+    {% blocktrans with city_name=city.city_name %}City {{ city_name }}{% endblocktrans %}
+{% endblock  %}
+
+{% block dashboard_content %}
+    <form {% if form_id %}id="{{ form_id }}"{% endif %} class="form-{{ style|default:"stacked" }} {{ class }}" method="{{ method|default:"post" }}"
+    {% if action %}action="{{ action }}"{% endif %}>
+    {% if not method == "get" %}{% csrf_token %}{% endif %}
+    {% block phone_numbers %}
+      <table class="table table-striped table-bordered form-inline">
+          <caption>{% trans "Phone numbers" %}</caption>
+          {{ phone_numbers_formset.management_form }}
+          {{ phone_numbers_formset.non_form_errors }}
+          {% for phone_number_form in phone_numbers_formset %}
+              <tr>
+                  <td>
+                      {% include "dashboard/partials/form_fields_inline.html" with form=phone_number_form %}
+                  </td>
+              </tr>
+          {% endfor %}
+      </table>
+      <p></p>
+    {% endblock %}
+    {% block city_data %}
+      <table class="table table-striped table-bordered">
+          <caption>{% trans "Configuration" %}</caption>
+              <tr>
+                  <td>
+                      {% include 'dashboard/partials/form_fields.html' %}
+                  </td>
+              </tr>
+      </table>
+    {% endblock %}
+    {% block work_schedules %}
+      <table class="table table-striped table-bordered form-inline">
+          <caption>{% trans "Timetables" %}</caption>
+          {{ timetables_formset.management_form }}
+          {{ timetables_formset.non_form_errors }}
+          {% for timetable_form in timetables_formset %}
+              <tr>
+                  <td>
+                      {% include "dashboard/partials/form_fields_inline.html" with form=timetable_form %}
+                  </td>
+              </tr>
+          {% endfor %}
+      </table>
+      <p></p>
+    {% endblock %}
+    <div class="form-group form-actions">
+      <button class="btn btn-lg btn-primary" type="submit" data-loading-text="{% trans 'Saving...' %}">{% trans "Save" %}</button>
+      {% trans "or" %} <a href="#" onclick="window.history.go(-1);return false" >{% trans "cancel" %}</a>.
+    </div>
+  </form>
+{% endblock dashboard_content %}
