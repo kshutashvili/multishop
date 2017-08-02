@@ -1203,3 +1203,42 @@ msgstr "Общие"
 #: teploformat/settings.py:252
 msgid "Social Net Ref"
 msgstr "Ссылки на социальные сети"
+
+#: templates/shop/dashboard/site/metatag_delete.html:10
+#: templates/shop/dashboard/site/metatag_detail.html:15
+#: templates/shop/dashboard/site/metatag_list.html:5
+#: templates/shop/dashboard/site/metatag_list.html:13
+#: templates/shop/dashboard/site/metatag_list.html:20
+#: teploformat/settings.py:248
+msgid "Meta Tags"
+msgstr "Meta теги"
+
+#: templates/shop/dashboard/site/metatag_delete.html:12
+msgid "Delete meta tag?"
+msgstr "Удалить meta тег?"
+
+#: templates/shop/dashboard/site/metatag_delete.html:22
+msgid "Delete meta tag"
+msgstr "Удаление meta тега"
+
+#: templates/shop/dashboard/site/metatag_delete.html:28
+msgid "Delete meta tag <strong>%(title)s</strong> - are you sure?"
+msgstr "Удаление meta тега <strong>%(title)s</strong> - вы уверены?"
+
+#: templates/shop/dashboard/site/metatag_detail.html:6
+#: templates/shop/dashboard/site/metatag_detail.html:22
+msgid "Meta Tag %(title)s"
+msgstr "Meta тег %(title)s"
+
+#: templates/shop/dashboard/site/metatag_list.html:19
+msgid "Create new meta tag"
+msgstr "Добавить новый meta тег"
+
+#: templates/shop/dashboard/site/metatag_list.html:34
+#: templates/shop/dashboard/site/metatag_list.html:62
+msgid "All Meta Tags"
+msgstr "Все meta теги"
+
+#: templates/shop/dashboard/site/metatag_list.html:64
+msgid "No meta tags found."
+msgstr "Meta теги не найдены."

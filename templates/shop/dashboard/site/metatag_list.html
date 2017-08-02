@@ -1,0 +1,68 @@
+{% extends 'dashboard/layout.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Meta Tags" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        </li>
+        <li class="active">{% trans "Meta Tags" %}</li>
+    </ul>
+{% endblock %}
+
+{% block header %}
+    <div class="page-header">
+        <a href="{% url 'dashboard:metatag-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Create new meta tag" %}</a>
+        <h1>{% trans "Meta Tags" %}</h1>
+    </div>
+{% endblock header %}
+
+{% block dashboard_content %}
+
+    {% if meta_tags %}
+        <form action="." method="post" class="order_table" id="orders_form">
+            {% csrf_token %}
+
+            {% block metatag_list %}
+            <table class="table table-striped table-bordered table-hover">
+                <caption>
+                    <h3 class="pull-left"><i class="icon-large"></i>
+                        {% trans "All Meta Tags" %}
+                    </h3>
+                </caption>
+
+                <thead>
+                    <tr>
+                        <th>{% trans "Тип страницы" %}</th>
+                        <th>{% trans "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for meta_tag in meta_tags %}
+                    <tr>
+                        <td><a href="{% url 'dashboard:metatag-detail' pk=meta_tag.id %}">{{ meta_tag.get_type_display }}</a></td>
+                        <td>
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:metatag-detail' url_name_delete='dashboard:metatag-delete' record=meta_tag %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endblock metatag_list %}
+
+            {% include "dashboard/partials/pagination.html" %}
+        </form>
+    {% else %}
+        <table class="table table-striped table-bordered">
+            <caption><i class="icon-large"></i>
+               {% trans "All Meta Tags" %}
+            </caption>
+            <tr><td>{% trans "No meta tags found." %}</td></tr>
+        </table>
+    {% endif %}
+
+    {% endblock dashboard_content %}

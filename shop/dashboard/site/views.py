@@ -12,7 +12,8 @@ from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
                                        TimetablesFormSet, SocialRefForm,
                                        FlatPageForm, ContactMessageForm,
                                        SiteContactConfigForm, TimetableForm,
-                                       WorkScheduleFormSet)
+                                       WorkScheduleFormSet, MetaTagForm)
+from config.models import MetaTag
 from django.contrib.sites.models import Site
 from contacts.models import (City, SocialNetRef, FlatPage, ContactMessage,
                              Timetable)
@@ -452,3 +453,71 @@ class TimetableDeleteView(DeleteView):
     def get_success_url(self):
         messages.info(self.request, _("Timetable deleted successfully"))
         return reverse("dashboard:timetable-list")
+
+
+class MetaTagListView(ListView):
+
+    model = MetaTag
+    context_object_name = 'meta_tags'
+    template_name = 'shop/dashboard/site/metatag_list.html'
+
+
+class MetaTagCreateUpdateView(UpdateView):
+    model = Timetable
+    context_object_name = 'meta_tag'
+    form_class = MetaTagForm
+    template_name = 'shop/dashboard/site/metatag_detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(MetaTagCreateUpdateView, self).get_context_data(
+            *args, **kwargs)
+
+        ctx["title"] = self.get_title()
+
+        return ctx
+
+
+class MetaTagUpdateView(MetaTagCreateUpdateView):
+
+    def get_title(self):
+        return _("Update meta tag '%s'") % self.object
+
+    def get_success_url(self):
+        messages.info(self.request, _("Meta tag updated successfully"))
+        return reverse("dashboard:metatag-list")
+
+    def get_object(self):
+        obj = get_object_or_404(MetaTag, pk=self.kwargs['pk'])
+        return obj
+
+
+class MetaTagCreateView(MetaTagCreateUpdateView):
+
+    def get_object(self):
+        return None
+
+    def get_title(self):
+        return _("Add a new meta tag")
+
+    def get_success_url(self):
+        messages.info(self.request, _("Meta tag created successfully"))
+        return reverse("dashboard:metatag-list")
+
+
+class MetaTagDeleteView(DeleteView):
+    template_name = 'shop/dashboard/site/metatag_delete.html'
+    model = MetaTag
+    form_class = MetaTagForm
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(MetaTagDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Delete meta tag '%s'") % self.object
+
+        return ctx
+
+    def get_success_url(self):
+        messages.info(self.request, _("Meta tag deleted successfully"))
+        return reverse("dashboard:metatag-list")

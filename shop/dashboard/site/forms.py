@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.sites.shortcuts import get_current_site
 
 from django.contrib.sites.models import Site
-from config.models import SiteConfig
+from config.models import SiteConfig, MetaTag
 from contacts.models import (City, PhoneNumber,
                              Timetable, SocialNetRef,
                              FlatPage, ContactMessage,
@@ -159,3 +159,13 @@ WorkScheduleFormSet = inlineformset_factory(Site,
                                             WorkSchedule,
                                             form=WorkScheduleForm,
                                             extra=1)
+
+
+class MetaTagForm(forms.ModelForm):
+
+    class Meta:
+        model = MetaTag
+        fields = ('type', 'title_ru', 'title_uk',
+                  'title_meta_ru', 'title_meta_uk',
+                  'description_meta_ru', 'description_meta_uk',
+                  'h1_ru', 'h1_uk')

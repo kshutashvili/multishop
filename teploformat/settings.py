@@ -245,6 +245,10 @@ OSCAR_DASHBOARD_NAVIGATION.insert(1,
                  'url_name': 'dashboard:sitecontact-edit',
              },
              {
+                 'label': _('Meta Tags'),
+                 'url_name': 'dashboard:metatag-list',
+             },
+             {
                  'label': _('Timetables'),
                  'url_name': 'dashboard:timetable-list',
              },

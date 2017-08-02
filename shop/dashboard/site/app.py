@@ -17,7 +17,11 @@ from shop.dashboard.site.views import (SiteCreateView, CityListView,
                                        TimetableListView,
                                        TimetableCreateView,
                                        TimetableUpdateView,
-                                       TimetableDeleteView)
+                                       TimetableDeleteView,
+                                       MetaTagListView,
+                                       MetaTagCreateView,
+                                       MetaTagUpdateView,
+                                       MetaTagDeleteView)
 
 
 class SiteDashboardApplication(Application):
@@ -45,6 +49,10 @@ class SiteDashboardApplication(Application):
     timetable_create_view = TimetableCreateView
     timetable_update_view = TimetableUpdateView
     timetable_delete_view = TimetableDeleteView
+    metatag_list_view = MetaTagListView
+    metatag_create_view = MetaTagCreateView
+    metatag_update_view = MetaTagUpdateView
+    metatag_delete_view = MetaTagDeleteView
 
     def get_urls(self):
         urls = [
@@ -90,6 +98,14 @@ class SiteDashboardApplication(Application):
                 name='timetable-detail'),
             url(r'^timetable/delete/(?P<pk>[\d]+)/$', self.timetable_delete_view.as_view(),
                 name='timetable-delete'),
+            url(r'^metatag/$', self.metatag_list_view.as_view(),
+                name='metatag-list'),
+            url(r'^metatag/add/$', self.metatag_create_view.as_view(),
+                name='metatag-create'),
+            url(r'^metatag/edit/(?P<pk>[\d]+)/$', self.metatag_update_view.as_view(),
+                name='metatag-detail'),
+            url(r'^metatag/delete/(?P<pk>[\d]+)/$', self.metatag_delete_view.as_view(),
+                name='metatag-delete'),
 
         ]
         return self.post_process_urls(urls)
