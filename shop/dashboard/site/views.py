@@ -7,17 +7,28 @@ from django.views.generic import (CreateView, ListView,
                                   TemplateView)
 from django.utils.translation import ugettext_lazy as _
 
-from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
-                                       CityForm, PhoneNumbersFormSet,
-                                       TimetablesFormSet, SocialRefForm,
-                                       FlatPageForm, ContactMessageForm,
-                                       SiteContactConfigForm, TimetableForm,
-                                       WorkScheduleFormSet, MetaTagForm)
-from config.models import MetaTag
 from django.contrib.sites.models import Site
-from contacts.models import (City, SocialNetRef, FlatPage, ContactMessage,
-                             Timetable)
+from oscar.core.loading import get_class, get_model
 from website.views import SiteMultipleObjectMixin
+
+MetaTag = get_model('config', 'MetaTag')
+City = get_model('contacts', 'City')
+SocialNetRef = get_model('contacts', 'SocialNetRef')
+FlatPage = get_model('contacts', 'FlatPage')
+ContactMessage = get_model('contacts', 'ContactMessage')
+Timetable = get_model('contacts', 'Timetable')
+SiteForm = get_class('dashboard.site.forms', 'SiteForm')
+CityForm = get_class('dashboard.site.forms', 'CityForm')
+SiteConfigForm = get_class('dashboard.site.forms', 'SiteConfigForm')
+PhoneNumbersFormSet = get_class('dashboard.site.forms', 'PhoneNumbersFormSet')
+TimetablesFormSet = get_class('dashboard.site.forms', 'TimetablesFormSet')
+SocialRefForm = get_class('dashboard.site.forms', 'SocialRefForm')
+FlatPageForm = get_class('dashboard.site.forms', 'FlatPageForm')
+ContactMessageForm = get_class('dashboard.site.forms', 'ContactMessageForm')
+SiteContactConfigForm = get_class('dashboard.site.forms', 'SiteContactConfigForm')
+TimetableForm = get_class('dashboard.site.forms', 'TimetableForm')
+WorkScheduleFormSet = get_class('dashboard.site.forms', 'WorkScheduleFormSet')
+MetaTagForm = get_class('dashboard.site.forms', 'MetaTagForm')
 
 
 class SiteCreateView(CreateView):

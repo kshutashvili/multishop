@@ -1242,3 +1242,33 @@ msgstr "Все meta теги"
 #: templates/shop/dashboard/site/metatag_list.html:64
 msgid "No meta tags found."
 msgstr "Meta теги не найдены."
+
+#: templates/shop/dashboard/orders/oneclickorder_delete.html:22
+msgid "Delete One-Click Order"
+msgstr "Удаление заказа в один клик"
+
+#: templates/shop/dashboard/orders/oneclickorder_delete.html:28
+#, python-format
+msgid "Delete One-Click Order <strong>%(name)s</strong> - are you sure?"
+msgstr "Удаление заказа в один клик <strong>%(name)s</strong> - вы уверены?"
+
+#: templates/shop/dashboard/orders/oneclickorder_detail.html:6
+#: templates/shop/dashboard/orders/oneclickorder_detail.html:22
+#, python-format
+msgid "One-Click Order %(title)s"
+msgstr "Заказ в один клик %(title)s"
+
+#: templates/shop/dashboard/orders/oneclickorder_list.html:65
+msgid "No One-Click Orders found."
+msgstr "Заказы в один клик не найдены."
+
+#: templates/shop/dashboard/orders/oneclickorder_list.html:13
+#: templates/shop/dashboard/orders/oneclickorder_detail.html:15
+#: teploformat/settings.py:276
+msgid "One-Click Orders"
+msgstr "Заказы в один клик"
+
+#: templates/shop/dashboard/orders/oneclickorder_list.html:33
+#: templates/shop/dashboard/orders/oneclickorder_list.html:63
+msgid "All One-Click Orders"
+msgstr "Все заказы в один клик"

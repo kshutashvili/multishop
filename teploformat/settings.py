@@ -271,6 +271,13 @@ OSCAR_DASHBOARD_NAVIGATION.insert(1,
          ],
      })
 
+OSCAR_DASHBOARD_NAVIGATION[3]['children'] += [
+    {
+        'label': _('One-Click Orders'),
+        'url_name': 'dashboard:oneclickorder-list',
+    },
+]
+
 OSCAR_DASHBOARD_NAVIGATION += [{
         'label': _('Import/export'),
         'icon': 'icon-refresh',

@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans "Cities" %} | {{ block.super }}
+    {% trans "One-Click Orders" %} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -10,60 +10,59 @@
         <li>
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
-        <li class="active">{% trans "Cities" %}</li>
+        <li class="active">{% trans "One-Click Orders" %}</li>
     </ul>
 {% endblock %}
 
 {% block header %}
     <div class="page-header">
-        <a href="{% url 'dashboard:city-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Create new city" %}</a>
-        <h1>{% trans "Cities" %}</h1>
+        <h1>{% trans "One-Click Orders" %}</h1>
     </div>
 {% endblock header %}
 
 {% block dashboard_content %}
 
-    {% if cities %}
+    {% if orders %}
         <form action="." method="post" class="order_table" id="orders_form">
             {% csrf_token %}
 
-            {% block city_list %}
+            {% block order_list %}
             <table class="table table-striped table-bordered table-hover">
                 <caption>
                     <h3 class="pull-left"><i class="icon-large"></i>
-                        {% trans "All Cities" %}
+                        {% trans "All One-Click Orders" %}
                     </h3>
                 </caption>
 
                 <thead>
                     <tr>
-                        <th>{% trans "City" %}</th>
-                        <th>{% trans "Address" %}</th>
+                        <th>{% trans "Phone" %}</th>
+                        <th>{% trans "Created" %}</th>
                         <th>{% trans "Actions" %}</th>
                     </tr>
                 </thead>
                 <tbody>
-                {% for city in cities %}
+                {% for order in orders %}
                     <tr>
-                        <td><a href="{% url 'dashboard:city-detail' pk=city.id %}">{{ city.city_name }}</a></td>
-                        <td>{{ city.address }}</td>
+                        <td><a href="{% url 'dashboard:oneclickorder-detail' pk=order.id %}">{{ order.phone }}</a></td>
+                        <td>{{ order.when_created }}</td>
                         <td>
-                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:city-detail' url_name_delete='dashboard:city-delete' record=city %}
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:oneclickorder-detail' url_name_delete='dashboard:oneclickorder-delete' record=order %}
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            {% endblock city_list %}
+            {% endblock order_list %}
 
             {% include "dashboard/partials/pagination.html" %}
         </form>
     {% else %}
         <table class="table table-striped table-bordered">
             <caption><i class="icon-large"></i>
-               {% trans "All Cities" %}
+               {% trans "All One-Click Orders" %}
             </caption>
-            <tr><td>{% trans "No cities found." %}</td></tr>
+            <tr><td>{% trans "No One-Click Orders found." %}</td></tr>
         </table>
     {% endif %}
 
