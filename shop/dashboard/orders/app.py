@@ -8,6 +8,8 @@ class OrdersDashboardApplication(OscarOrdersDashboardApplication):
     oneclickorder_list_view = get_class('shop.dashboard.orders.views', 'OneClickOrderListView')
     oneclickorder_update_view = get_class('shop.dashboard.orders.views', 'OneClickOrderUpdateView')
     oneclickorder_delete_view = get_class('shop.dashboard.orders.views', 'OneClickOrderDeleteView')
+    callrequest_list_view = get_class('shop.dashboard.orders.views', 'CallRequestListView')
+    callrequest_delete_view = get_class('shop.dashboard.orders.views', 'CallRequestDeleteView')
 
     def get_urls(self):
         urls = [
@@ -16,6 +18,9 @@ class OrdersDashboardApplication(OscarOrdersDashboardApplication):
                 name='oneclickorder-detail'),
             url(r'^oneclickorder/delete/(?P<pk>[\d]+)/$', self.oneclickorder_delete_view.as_view(),
                 name='oneclickorder-delete'),
+            url(r'^callrequest/$', self.callrequest_list_view.as_view(), name='callrequest-list'),
+            url(r'^callrequest/delete/(?P<pk>[\d]+)/$', self.callrequest_delete_view.as_view(),
+                name='callrequest-delete'),
         ]
 
         urls = self.post_process_urls(urls)

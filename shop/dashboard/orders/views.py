@@ -31,6 +31,7 @@ ShippingAddress = get_model('order', 'ShippingAddress')
 Line = get_model('order', 'Line')
 ShippingEventType = get_model('order', 'ShippingEventType')
 PaymentEventType = get_model('order', 'PaymentEventType')
+CallRequest = get_model('order', 'CallRequest')
 EventHandler = get_class('order.processing', 'EventHandler')
 OrderStatsForm = get_class('dashboard.orders.forms', 'OrderStatsForm')
 OrderSearchForm = get_class('dashboard.orders.forms', 'OrderSearchForm')
@@ -41,6 +42,7 @@ OrderStatusForm = get_class('dashboard.orders.forms', 'OrderStatusForm')
 OneClickOrder = get_model('order', 'OneClickOrder')
 OneClickOrderForm = get_class('dashboard.orders.forms', 'OneClickOrderForm')
 BasketItemsFormSet = get_class('dashboard.orders.forms', 'BasketItemsFormSet')
+CallRequestForm = get_class('dashboard.orders.forms', 'CallRequestForm')
 
 
 def queryset_orders_for_user(user):
@@ -877,10 +879,36 @@ class OneClickOrderDeleteView(DeleteView):
             *args,
             **kwargs)
 
-        ctx['title'] = _("Delete meta tag '%s'") % self.object
+        ctx['title'] = _("Delete One-click order '%s'") % self.object
 
         return ctx
 
     def get_success_url(self):
         messages.info(self.request, _("One-click order deleted successfully"))
         return reverse("dashboard:oneclickorder-list")
+
+
+class CallRequestListView(SiteMultipleObjectMixin, ListView):
+
+    model = CallRequest
+    context_object_name = 'call_requests'
+    template_name = 'shop/dashboard/orders/callrequest_list.html'
+
+
+class CallRequestDeleteView(DeleteView):
+    template_name = 'shop/dashboard/orders/callrequest_delete.html'
+    model = CallRequest
+    form_class = CallRequestForm
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(CallRequestDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Delete call request '%s'") % self.object.name
+
+        return ctx
+
+    def get_success_url(self):
+        messages.info(self.request, _("Call request deleted successfully"))
+        return reverse("dashboard:callrequest-list")

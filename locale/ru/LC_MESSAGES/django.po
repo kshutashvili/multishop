@@ -1272,3 +1272,27 @@ msgstr "Заказы в один клик"
 #: templates/shop/dashboard/orders/oneclickorder_list.html:63
 msgid "All One-Click Orders"
 msgstr "Все заказы в один клик"
+
+msgid "Delete call request"
+msgstr "Удаление заявки на звонок"
+
+#: templates/shop/dashboard/orders/callrequest_delete.html:28
+#, python-format
+msgid "Delete call request <strong>%(name)s</strong> - are you sure?"
+msgstr "Удаление заявки на звонок <strong>%(name)s</strong> - вы уверены?"
+
+#: templates/shop/dashboard/orders/callrequest_list.html:33
+#: templates/shop/dashboard/orders/callrequest_list.html:77
+msgid "All call requests"
+msgstr "Все заявки на звонок"
+
+#: templates/shop/dashboard/orders/callrequest_list.html:79
+msgid "No call requests found."
+msgstr "Заявки на звонок не найдены."
+
+msgid "Call Requests"
+msgstr "Заявки на звонок"
+
+#: templates/shop/dashboard/orders/callrequest_list.html:39
+msgid "Client Name"
+msgstr "Имя клиента"
