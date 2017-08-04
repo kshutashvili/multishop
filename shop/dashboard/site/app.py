@@ -21,7 +21,11 @@ from shop.dashboard.site.views import (SiteCreateView, CityListView,
                                        MetaTagListView,
                                        MetaTagCreateView,
                                        MetaTagUpdateView,
-                                       MetaTagDeleteView)
+                                       MetaTagDeleteView,
+                                       FilterDescriptionListView,
+                                       FilterDescriptionCreateView,
+                                       FilterDescriptionUpdateView,
+                                       FilterDescriptionDeleteView)
 
 
 class SiteDashboardApplication(Application):
@@ -53,6 +57,10 @@ class SiteDashboardApplication(Application):
     metatag_create_view = MetaTagCreateView
     metatag_update_view = MetaTagUpdateView
     metatag_delete_view = MetaTagDeleteView
+    filterdescription_list_view = FilterDescriptionListView
+    filterdescription_create_view = FilterDescriptionCreateView
+    filterdescription_update_view = FilterDescriptionUpdateView
+    filterdescription_delete_view = FilterDescriptionDeleteView
 
     def get_urls(self):
         urls = [
@@ -106,6 +114,15 @@ class SiteDashboardApplication(Application):
                 name='metatag-detail'),
             url(r'^metatag/delete/(?P<pk>[\d]+)/$', self.metatag_delete_view.as_view(),
                 name='metatag-delete'),
+            # filter description URLs
+            url(r'^filterdescription/$', self.filterdescription_list_view.as_view(),
+                name='filterdescription-list'),
+            url(r'^filterdescription/add/$', self.filterdescription_create_view.as_view(),
+                name='filterdescription-create'),
+            url(r'^filterdescription/edit/(?P<pk>[\d]+)/$', self.filterdescription_update_view.as_view(),
+                name='filterdescription-detail'),
+            url(r'^filterdescription/delete/(?P<pk>[\d]+)/$', self.filterdescription_delete_view.as_view(),
+                name='filterdescription-delete'),
 
         ]
         return self.post_process_urls(urls)

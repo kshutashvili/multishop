@@ -1,0 +1,69 @@
+{% extends 'dashboard/layout.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Filter Descriptions" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        </li>
+        <li class="active">{% trans "Filter Descriptions" %}</li>
+    </ul>
+{% endblock %}
+
+{% block header %}
+    <div class="page-header">
+        <a href="{% url 'dashboard:filterdescription-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Create new filter description" %}</a>
+        <h1>{% trans "Filter Descriptions" %}</h1>
+    </div>
+{% endblock header %}
+
+{% block dashboard_content %}
+
+    {% if filter_descriptions %}
+        <form action="." method="post" class="order_table" id="orders_form">
+            {% csrf_token %}
+
+            {% block filterdescription_list %}
+            <table class="table table-striped table-bordered table-hover">
+                <caption>
+                    <h3 class="pull-left"><i class="icon-large"></i>
+                        {% trans "All Filter Descriptions" %}
+                    </h3>
+                </caption>
+
+                <thead>
+                    <tr>
+                        <th>{% trans "Filter URL" %}</th>
+                        <th>{% trans "Title" %}</th>
+                        <th>{% trans "Description" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for filter_description in filter_descriptions %}
+                    <tr>
+                        <td><a href="{% url 'dashboard:filterdescription-detail' pk=filter_description.id %}">{{ filter_description.filter_url }}</a></td>
+                        <td>
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:filterdescription-detail' url_name_delete='dashboard:filterdescription-delete' record=filter_description %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endblock filterdescription_list %}
+
+            {% include "dashboard/partials/pagination.html" %}
+        </form>
+    {% else %}
+        <table class="table table-striped table-bordered">
+            <caption><i class="icon-large"></i>
+               {% trans "All Filter Descriptions" %}
+            </caption>
+            <tr><td>{% trans "No filter description found." %}</td></tr>
+        </table>
+    {% endif %}
+
+    {% endblock dashboard_content %}

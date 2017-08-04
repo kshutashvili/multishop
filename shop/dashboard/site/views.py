@@ -7,6 +7,13 @@ from django.views.generic import (CreateView, ListView,
                                   TemplateView)
 from django.utils.translation import ugettext_lazy as _
 
+from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
+                                       CityForm, PhoneNumbersFormSet,
+                                       TimetablesFormSet, SocialRefForm,
+                                       FlatPageForm, ContactMessageForm,
+                                       SiteContactConfigForm, TimetableForm,
+                                       WorkScheduleFormSet, MetaTagForm,
+                                       FilterDescriptionForm)
 from django.contrib.sites.models import Site
 from oscar.core.loading import get_class, get_model
 from website.views import SiteMultipleObjectMixin
@@ -17,6 +24,7 @@ SocialNetRef = get_model('contacts', 'SocialNetRef')
 FlatPage = get_model('contacts', 'FlatPage')
 ContactMessage = get_model('contacts', 'ContactMessage')
 Timetable = get_model('contacts', 'Timetable')
+FilterDescription = get_model('catalogue', 'FilterDescription')
 SiteForm = get_class('dashboard.site.forms', 'SiteForm')
 CityForm = get_class('dashboard.site.forms', 'CityForm')
 SiteConfigForm = get_class('dashboard.site.forms', 'SiteConfigForm')
@@ -532,3 +540,67 @@ class MetaTagDeleteView(DeleteView):
     def get_success_url(self):
         messages.info(self.request, _("Meta tag deleted successfully"))
         return reverse("dashboard:metatag-list")
+
+
+class FilterDescriptionListView(ListView):
+    model = FilterDescription
+    context_object_name = 'filter_descriptions'
+    template_name = 'shop/dashboard/site/filterdescription_list.html'
+
+
+class FilterDescriptionCreateView(CreateView):
+    template_name = 'shop/dashboard/site/filterdescription_detail.html'
+    model = FilterDescription
+    form_class = FilterDescriptionForm
+    context_object_name = 'filter_description'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(FilterDescriptionCreateView, self).get_context_data(**kwargs)
+        ctx['title'] = _('Create New Filter Description')
+        return ctx
+
+    def get_success_url(self):
+        messages.success(self.request, _("Filter Description created successfully"))
+        return reverse('dashboard:filterdescription-list')
+
+    def get_object(self):
+        return None
+
+
+class FilterDescriptionUpdateView(UpdateView):
+    template_name = 'shop/dashboard/site/filterdescription_detail.html'
+    model = FilterDescription
+    form_class = FilterDescriptionForm
+    context_object_name = 'filter_description'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(FilterDescriptionUpdateView, self).get_context_data(**kwargs)
+        ctx['title'] = self.object.title
+        return ctx
+
+    def get_object(self):
+        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Filter Description updated successfully"))
+        return reverse('dashboard:filterdescription-list')
+
+
+class FilterDescriptionDeleteView(DeleteView):
+    template_name = 'shop/dashboard/site/filterdescription_delete.html'
+    model = FilterDescription
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(FilterDescriptionDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Delete filter description for '%s'") % self.object
+
+        return ctx
+
+    def get_success_url(self):
+        messages.success(
+            self.request, _("Deleted filter description '%s'") % self.object.title)
+        return reverse('dashboard:filterdescription-list')

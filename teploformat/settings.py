@@ -294,6 +294,13 @@ OSCAR_DASHBOARD_NAVIGATION += [{
     },
 ]
 
+OSCAR_DASHBOARD_NAVIGATION[2]['children'].append(
+    {
+        'label': _('Filter Description'),
+        'url_name': 'dashboard:filterdescription-list',
+    },
+)
+
 THUMBNAIL_PRESERVE_FORMAT = True
 
 TEMPLATE_LOADERS = (

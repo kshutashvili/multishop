@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 
+from ckeditor.widgets import CKEditorWidget
+
 from django import forms
 from django.contrib.sites.shortcuts import get_current_site
-
 from django.contrib.sites.models import Site
+from django.forms.models import inlineformset_factory
+
 from config.models import SiteConfig, MetaTag
 from contacts.models import (City, PhoneNumber,
                              Timetable, SocialNetRef,
                              FlatPage, ContactMessage,
                              WorkSchedule)
-from django.forms.models import inlineformset_factory
-from ckeditor.widgets import CKEditorWidget
+from shop.catalogue.models import FilterDescription
 
 
 class SiteForm(forms.ModelForm):
@@ -169,3 +171,9 @@ class MetaTagForm(forms.ModelForm):
                   'title_meta_ru', 'title_meta_uk',
                   'description_meta_ru', 'description_meta_uk',
                   'h1_ru', 'h1_uk')
+
+
+class FilterDescriptionForm(forms.ModelForm):
+    class Meta:
+        model = FilterDescription
+        fields = '__all__'
