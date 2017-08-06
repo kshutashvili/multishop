@@ -1,0 +1,95 @@
+{% extends 'dashboard/layout.html' %}
+{% load i18n %}
+{% load currency_filters %}
+
+{% block title %}
+    {% blocktrans with title=order.phone %}One-Click Order {{ title }}{% endblocktrans %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        </li>
+        <li>
+            <a href="{% url 'dashboard:oneclickorder-list' %}">{% trans "One-Click Orders" %}</a>
+        </li>
+        <li class="active">{{ order.phone }}</li>
+    </ul>
+{% endblock %}
+
+{% block headertext %}
+    {% blocktrans with title=order.phone %}One-Click Order {{ title }}{% endblocktrans %}
+{% endblock  %}
+
+{% block dashboard_content %}
+    <form {% if form_id %}id="{{ form_id }}"{% endif %} class="form-{{ style|default:"stacked" }} {{ class }}" method="{{ method|default:"post" }}"
+    {% if action %}action="{{ action }}"{% endif %}>
+    {% if not method == "get" %}{% csrf_token %}{% endif %}
+
+    {% include 'dashboard/partials/form_field.html' with field=form.phone %}
+    {% if form.product.value %}
+      {% block product %}
+        {% include 'dashboard/partials/form_field.html' with field=form.product %}
+      {% endblock %}
+    {% endif %}
+    {% if form.basket.value %}
+      {{ form.basket.as_hidden }}
+      {% block basket_items %}
+        <table class="table table-striped table-bordered form-inline">
+          <caption>{% trans "Basket" %}</caption>
+          {{ basket_lines.management_form }}
+          {{ basket_lines.non_form_errors }}
+          <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>{% trans "Quantity" %}</th>
+                    <th>{% trans "Line Reference" %}</th>
+                    <th>{% trans "Product" %}</th>
+                    <th>{% trans "Price excl tax (before discounts)" %}</th>
+                    <th>{% trans "Price inc tax (before discounts)" %}</th>
+                    <th>{% trans "Currency" %}</th>
+                    <th>{% trans "Stock Record" %}</th>
+                    <th>{% trans "Delete" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for line in basket_lines %}
+                {{ line.id }}
+                {{ line.basket }}
+                <tr>
+                  <td>
+                    {{ line.quantity }}
+                  </td>
+                  <td>
+                    <p>{{ line.instance.line_reference }}</p>
+                  </td>
+                  <td>
+                    <p><a href="{% url "dashboard:catalogue-product" pk=line.instance.product.id %}">{{ line.instance.product }}</a></p>
+                  </td>
+                  <td>
+                    {{ line.instance.price_excl_tax }}
+                  </td>
+                  <td>
+                    {{ line.instance.price_incl_tax }}
+                  </td>
+                  <td>
+                    {{ line.instance.price_currency }}
+                  </td>
+                  <td>
+                    {{ line.instance.stockrecord }}
+                  </td>
+                <td>{{ line.DELETE }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+      </table>
+      <p></p>
+      {% endblock %}
+    {% endif %}
+    <div class="form-group form-actions">
+      <button class="btn btn-lg btn-primary" type="submit" data-loading-text="{% trans 'Saving...' %}">{% trans "Save" %}</button>
+      {% trans "or" %} <a href="#" onclick="window.history.go(-1);return false" >{% trans "cancel" %}</a>.
+    </div>
+  </form>
+{% endblock dashboard_content %}

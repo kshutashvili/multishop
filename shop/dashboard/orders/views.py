@@ -11,7 +11,8 @@ from django.db.models import Count, Q, Sum, fields
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import DetailView, FormView, ListView, UpdateView
+from django.views.generic import (DetailView, FormView,
+                                  ListView, UpdateView, DeleteView)
 from oscar.apps.order import exceptions as order_exceptions
 from oscar.apps.payment.exceptions import PaymentError
 from oscar.core.compat import UnicodeCSVWriter
@@ -19,6 +20,7 @@ from oscar.core.loading import get_class, get_model
 from oscar.core.utils import datetime_combine, format_datetime
 from oscar.views import sort_queryset
 from oscar.views.generic import BulkEditMixin
+from website.views import SiteMultipleObjectMixin
 
 Partner = get_model('partner', 'Partner')
 Transaction = get_model('payment', 'Transaction')
@@ -29,6 +31,7 @@ ShippingAddress = get_model('order', 'ShippingAddress')
 Line = get_model('order', 'Line')
 ShippingEventType = get_model('order', 'ShippingEventType')
 PaymentEventType = get_model('order', 'PaymentEventType')
+CallRequest = get_model('order', 'CallRequest')
 EventHandler = get_class('order.processing', 'EventHandler')
 OrderStatsForm = get_class('dashboard.orders.forms', 'OrderStatsForm')
 OrderSearchForm = get_class('dashboard.orders.forms', 'OrderSearchForm')
@@ -36,6 +39,10 @@ OrderNoteForm = get_class('dashboard.orders.forms', 'OrderNoteForm')
 ShippingAddressForm = get_class(
     'dashboard.orders.forms', 'ShippingAddressForm')
 OrderStatusForm = get_class('dashboard.orders.forms', 'OrderStatusForm')
+OneClickOrder = get_model('order', 'OneClickOrder')
+OneClickOrderForm = get_class('dashboard.orders.forms', 'OneClickOrderForm')
+BasketItemsFormSet = get_class('dashboard.orders.forms', 'BasketItemsFormSet')
+CallRequestForm = get_class('dashboard.orders.forms', 'CallRequestForm')
 
 
 def queryset_orders_for_user(user):
@@ -810,3 +817,98 @@ class ShippingAddressUpdateView(UpdateView):
         messages.info(self.request, _("Delivery address updated"))
         return reverse('dashboard:order-detail',
                        kwargs={'number': self.object.order.number, })
+
+
+class OneClickOrderListView(SiteMultipleObjectMixin, ListView):
+
+    model = OneClickOrder
+    context_object_name = 'orders'
+    template_name = 'shop/dashboard/orders/oneclickorder_list.html'
+
+
+class OneClickOrderCreateUpdateView(UpdateView):
+    model = OneClickOrder
+    context_object_name = 'meta_tag'
+    form_class = OneClickOrderForm
+    template_name = 'shop/dashboard/orders/oneclickorder_detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(OneClickOrderCreateUpdateView, self).get_context_data(
+            *args, **kwargs)
+
+        ctx["title"] = self.get_title()
+        ctx['basket_lines'] = BasketItemsFormSet(instance=self.object.basket)
+
+        return ctx
+
+
+class OneClickOrderUpdateView(OneClickOrderCreateUpdateView):
+
+    def get_title(self):
+        return _("Update one-click order '%s'") % self.object
+
+    def get_success_url(self):
+        messages.info(self.request, _("One-click order updated successfully"))
+        return reverse("dashboard:oneclickorder-list")
+
+    def get_object(self):
+        obj = get_object_or_404(OneClickOrder, pk=self.kwargs['pk'])
+        return obj
+
+    def form_valid(self, form):
+
+        ctx = self.get_context_data()
+
+        ctx['basket_lines'] = BasketItemsFormSet(self.request.POST, instance=self.object.basket)
+
+        if form.is_valid() and ctx['basket_lines'].is_valid():
+            form.save()
+            ctx['basket_lines'].save()
+            return HttpResponseRedirect(self.get_success_url())
+
+        return self.render_to_response(ctx)
+
+
+class OneClickOrderDeleteView(DeleteView):
+    template_name = 'shop/dashboard/orders/oneclickorder_delete.html'
+    model = OneClickOrder
+    form_class = OneClickOrderForm
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(OneClickOrderDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Delete One-click order '%s'") % self.object
+
+        return ctx
+
+    def get_success_url(self):
+        messages.info(self.request, _("One-click order deleted successfully"))
+        return reverse("dashboard:oneclickorder-list")
+
+
+class CallRequestListView(SiteMultipleObjectMixin, ListView):
+
+    model = CallRequest
+    context_object_name = 'call_requests'
+    template_name = 'shop/dashboard/orders/callrequest_list.html'
+
+
+class CallRequestDeleteView(DeleteView):
+    template_name = 'shop/dashboard/orders/callrequest_delete.html'
+    model = CallRequest
+    form_class = CallRequestForm
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(CallRequestDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Delete call request '%s'") % self.object.name
+
+        return ctx
+
+    def get_success_url(self):
+        messages.info(self.request, _("Call request deleted successfully"))
+        return reverse("dashboard:callrequest-list")

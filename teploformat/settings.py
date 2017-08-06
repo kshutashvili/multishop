@@ -237,6 +237,7 @@ OSCAR_MISSING_IMAGE_URL = os.path.join(MEDIA_URL, 'image_not_found.jpg')
 
 OSCAR_DEFAULT_CURRENCY = 'UAH'
 
+# append group after Dashboard
 OSCAR_DASHBOARD_NAVIGATION.insert(1,
                                   {
          'label': _('Contacts'),
@@ -266,13 +267,38 @@ OSCAR_DASHBOARD_NAVIGATION.insert(1,
                  'label': _('Cities'),
                  'url_name': 'dashboard:city-list',
              },
-             {
-                 'label': _('Contact Messages'),
-                 'url_name': 'dashboard:contactmessage-list',
-             },
          ],
      })
 
+# append to Catalogue
+OSCAR_DASHBOARD_NAVIGATION[2]['children'] += [
+    {
+        'label': _('Filter Description'),
+        'url_name': 'dashboard:filterdescription-list',
+    },
+]
+
+# append to Orders
+OSCAR_DASHBOARD_NAVIGATION[3]['children'] += [
+    {
+        'label': _('One-Click Orders'),
+        'url_name': 'dashboard:oneclickorder-list',
+    },
+]
+
+# append to Clients
+OSCAR_DASHBOARD_NAVIGATION[4]['children'] += [
+    {
+        'label': _('Call Requests'),
+        'url_name': 'dashboard:callrequest-list',
+    },
+    {
+        'label': _('Contact Messages'),
+        'url_name': 'dashboard:contactmessage-list',
+    },
+]
+
+# append as separate group
 OSCAR_DASHBOARD_NAVIGATION += [{
         'label': _('Import/export'),
         'icon': 'icon-refresh',
