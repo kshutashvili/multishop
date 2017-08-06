@@ -5,6 +5,7 @@ from django.contrib.sites.models import Site
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.translation import ugettext as _
 
 from solo.models import SingletonModel
 
@@ -63,21 +64,24 @@ def create_or_update_site_config(sender, instance, created, **kwargs):
 
 
 class Configuration(SingletonModel):
-        undercat_block_url = models.CharField('Ссылка под каталогом',
+        site = models.OneToOneField(Site, verbose_name='сайт',
+                                on_delete=models.CASCADE,
+                                related_name='landing_config')
+        undercat_block_url = models.CharField(_('Ссылка под каталогом'),
                                               max_length=128,
                                               blank=True)
-        show_calculator = models.BooleanField("Отображать калькулятор котлов?",
+        show_calculator = models.BooleanField(_("Отображать калькулятор котлов?"),
                                               default=False)
-        show_benefits = models.BooleanField("Отображать блок 'Преимуществ'?",
+        show_benefits = models.BooleanField(_("Отображать блок 'Преимуществ'?"),
                                             default=False)
-        show_credit = models.BooleanField("Отображать блок 'Кредит'?",
+        show_credit = models.BooleanField(_("Отображать блок 'Кредит'?"),
                                           default=False)
-        credit_block_text = models.CharField("Текст для блока 'Кредит'",
-                                             max_length=210,
+        credit_block_text = models.CharField(_("Текст для блока 'Кредит'"),
+                                             max_length=220,
                                              blank=True)
-        show_reviews = models.BooleanField("Отображать блок 'Обзоры и отзывы'?",
+        show_reviews = models.BooleanField(_("Отображать блок 'Обзоры и отзывы'?"),
                                            default=False)
-        show_advanced = models.BooleanField("Отображать блок 'Дополнительные услуги'?",
+        show_advanced = models.BooleanField(_("Отображать блок 'Дополнительные услуги'?"),
                                             default=False)
 
         class Meta:
@@ -86,28 +90,28 @@ class Configuration(SingletonModel):
 
 class FuelConfiguration(models.Model):
     FUEL_TYPES = (
-        ('wood', 'Дрова'),
-        ('pellets', 'Пеллеты'),
-        ('coal', 'Каменный уголь'),
-        ('brown_coal', 'Бурый уголь'),
-        ('gas', 'Газ'),
-        ('electricity', 'Электроэнергия'),
-        ('diesel', 'Дизельное топливо')
+        ('wood', _('Дрова')),
+        ('pellets', _('Пеллеты')),
+        ('coal', _('Каменный уголь')),
+        ('brown_coal', _('Бурый уголь')),
+        ('gas', _('Газ')),
+        ('electricity', _('Электроэнергия')),
+        ('diesel', _('Дизельное топливо'))
     )
     config = models.ForeignKey(Configuration,
-                               verbose_name="Настройки главной страницы",
+                               verbose_name=_("Настройки главной страницы"),
                                related_name="fuels")
-    fuel_type = models.CharField("Вид топлива",
+    fuel_type = models.CharField(_("Вид топлива"),
                                  max_length=20,
                                  choices=FUEL_TYPES,
                                  default='wood')
-    fuel_cost = models.DecimalField("Цена",
+    fuel_cost = models.DecimalField(_("Цена"),
                                     decimal_places=2,
                                     max_digits=7)
 
     class Meta:
-        verbose_name = 'Объем и цена топлива'
-        verbose_name_plural = 'Объемы и цены топлива'
+        verbose_name = _('Объем и цена топлива')
+        verbose_name_plural = _('Объемы и цены топлива')
 
     def __unicode__(self):
         return self.fuel_type
@@ -115,17 +119,17 @@ class FuelConfiguration(models.Model):
 
 class BenefitItem(models.Model):
     config = models.ForeignKey(Configuration,
-                               verbose_name="Настройки главной страницы",
+                               verbose_name=_("Настройки главной страницы"),
                                related_name="benefits")
-    image = models.ImageField("Изображение",
+    image = models.ImageField(_("Изображение"),
                               blank=True,
                               upload_to='benefit_images')
-    text = models.CharField("Текст",
+    text = models.CharField(_("Текст"),
                             max_length=200)
 
     class Meta:
-        verbose_name = 'Преимущество'
-        verbose_name_plural = 'Преимущества'
+        verbose_name = _('Преимущество')
+        verbose_name_plural = _('Преимущества')
 
     def __unicode__(self):
         return self.text
@@ -133,14 +137,14 @@ class BenefitItem(models.Model):
 
 class OverviewItem(models.Model):
     config = models.ForeignKey(Configuration,
-                               verbose_name="Настройки главной страницы",
+                               verbose_name=_("Настройки главной страницы"),
                                related_name="overviews")
-    link = models.CharField("Ссылка на обзор",
+    link = models.CharField(_("Ссылка на обзор"),
                              max_length=200)
 
     class Meta:
-        verbose_name = 'Обзор'
-        verbose_name_plural = 'Обзоры'
+        verbose_name = _('Обзор')
+        verbose_name_plural = _('Обзоры')
 
     def __unicode__(self):
         return self.link
@@ -148,17 +152,19 @@ class OverviewItem(models.Model):
 
 class ReviewItem(models.Model):
     config = models.ForeignKey(Configuration,
-                               verbose_name="Настройки главной страницы",
+                               verbose_name=_("Настройки главной страницы"),
                                related_name="reviews")
-    photo = models.ImageField("Фото",
+    photo = models.ImageField(_("Фото"),
                              blank=True)
-    name = models.CharField("Имя оставившего отзыв",
+    name = models.CharField(_("Имя оставившего отзыв"),
                             max_length=50)
-    text = models.TextField("Текст отзыва")
+    text = models.TextField(_("Текст отзыва"))
+    created = models.DateField(_("Дата создания"),
+                               auto_now_add=True)
 
     class Meta:
-        verbose_name = 'Отзыв'
-        verbose_name_plural = 'Отзывы'
+        verbose_name = _('Отзыв')
+        verbose_name_plural = _('Отзывы')
 
     def __unicode__(self):
         return self.name
@@ -223,11 +229,11 @@ class MenuItem(models.Model):
 class UndercatText(models.Model):
     class Meta:
         abstract = True
-    text = models.TextField('Текст')
-    site = models.ForeignKey(Site, verbose_name='Сайт',
+    text = models.TextField(_('Текст'))
+    site = models.ForeignKey(Site, verbose_name=_('Сайт'),
                              on_delete=models.CASCADE,
                              max_length=255, blank=True, null=True)
-    is_active = models.BooleanField('Отображается на сайте', default=True)
+    is_active = models.BooleanField(_('Отображается на сайте'), default=True)
 
     def __unicode__(self):
         return self.text

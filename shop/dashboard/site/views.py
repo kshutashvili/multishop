@@ -940,7 +940,9 @@ class LandingConfigView(TemplateView):
     def post(self, request):
         form = LandingConfigForm(request.POST)
         if form.is_valid():
-            form.save()
+            obj = form.save(commit=False)
+            obj.site = get_current_site(self.request)
+            obj.save()
             return HttpResponseRedirect(reverse('dashboard:index'))
         return HttpResponseRedirect(reverse('dashboard:landingconfig-edit'))
 

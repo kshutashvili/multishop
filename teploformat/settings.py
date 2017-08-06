@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'rosetta',
     'parler',
+    'embed_video',
     'shop.dashboard.portation',
     'shop.dashboard.site',
 ] + get_core_apps(['shop.catalogue',

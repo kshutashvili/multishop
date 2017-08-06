@@ -209,7 +209,7 @@ class TextFourForm(forms.ModelForm):
 class LandingConfigForm(forms.ModelForm):
     class Meta:
         model = Configuration
-        exclude = '__all__'
+        exclude = ('site',)
 
 
 class FuelConfigurationForm(forms.ModelForm):
@@ -221,7 +221,7 @@ class FuelConfigurationForm(forms.ModelForm):
 class BenefitItemForm(forms.ModelForm):
     class Meta:
         model = BenefitItem
-        exclude = ('config',)
+        fields = ('image', 'text', 'text_ru', 'text_uk')
 
 
 class OverviewItemForm(forms.ModelForm):
@@ -233,5 +233,6 @@ class OverviewItemForm(forms.ModelForm):
 class ReviewItemForm(forms.ModelForm):
     class Meta:
         model = ReviewItem
-        exclude = ('config',)
+        fields = ('photo', 'name', 'name_ru', 'name_uk',
+                  'text', 'text_ru', 'text_uk')
 

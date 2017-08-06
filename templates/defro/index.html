@@ -6,6 +6,7 @@
 {% load url_tags %}
 {% load solo_tags %}
 {% load meta_tags %}
+{% load embed_video_tags %}
 
 {% block title %}
 	{% meta_tag 'MP' 'title' None request %}
@@ -334,6 +335,18 @@
 		<div class="container">
 			<h4><span>Преимущества котлов</span> DEFRO:</h4>
 			<ul>
+			{% if site_config.benefits %}
+				{% for benefit in site_config.benefits.all %}
+					<li class="clear_fix">
+						{% if benefit.image %}
+							<img src="{{ benefit.image.url }}" alt="">
+						{% else %}
+							<img src="{% get_static 'img/icons/1.png' %}" alt="">
+						{% endif %}
+						<p>{{ benefit.text }}</p>
+					</li>
+				{% endfor %}
+			{% else %}
 				<li class="clear_fix">
 					<img src="{% get_static 'img/icons/1.png' %}" alt="">
 					<p>Фирменная гарантия 4 года на герметичность водяной рубашки и 2 года на исправную работу котла.</p>
@@ -366,6 +379,7 @@
 					<img src="{% get_static 'img/icons/8.png' %}" alt="">
 					<p>Многоточковая система подачи воздуха в топку и система очистки воздуха.</p>
 				</li>
+			{% endif %}
 			</ul>
 		</div>
 	</div>
@@ -384,9 +398,7 @@
 					<img src="{% get_static 'img/banks/4.png' %}" alt="">
 					<img src="{% get_static 'img/banks/5.png' %}" alt="">
 					</div>
-					<p>Воспользуйтесь услугами наших банков-партнеров для получению кредита на покупку котла</p>
-					<p>Так же не упустите возможность воспользоваться государственной программой</p>
-					<p>компенсации 70% от стоимости твердотопливных котлов</p>
+					{{ site_config.credit_block_text|linebreaks }}
 				</div>
 				<form action="#">
 					<input type="text" placeholder="+38 (___) ___-__-__">
@@ -403,14 +415,45 @@
 		<div class="container">
 			<h6>Обзоры <span>и</span> отзывы:</h6>
 			<div class="youtube_videos">
-				<a href="#"><img src="{% get_static 'img/youtube.png' %}" alt=""></a>
-				<a href="#"><img src="{% get_static 'img/youtube.png' %}" alt=""></a>
-				<a href="#"><img src="{% get_static 'img/youtube.png' %}" alt=""></a>
+				{% if site_config.overviews %}
+					{% for overview in site_config.overviews.all %}
+						<div class="video embed-responsive" style="width: 360px; height: 204px; margin: 0 8px; display: inline-block;">
+							{% video overview.link 'small' %}
+						</div>
+					{% endfor %}
+				{% else %}
+					<a href="#"><img src="{% get_static 'img/youtube.png' %}" alt=""></a>
+					<a href="#"><img src="{% get_static 'img/youtube.png' %}" alt=""></a>
+					<a href="#"><img src="{% get_static 'img/youtube.png' %}" alt=""></a>
+				{% endif %}
 			</div>
 
 			<div class="slider">
 				<ul class="bxslider">
-
+				{% if site_config.reviews %}
+					{% for review in site_config.reviews.all %}
+						<li>
+							<div class="slider_block clear_fix">
+								{% if review.photo %}
+									<img src="{{ review.photo.url }}}" alt="">
+								{% else %}
+									<img src="{% get_static 'img/slider_img.png' %}" alt="">
+								{% endif %}
+								<p class="slider_name">{{ review.name }}</p>
+								<p class="slider_date">{{ review.created }}</p>
+								<p class="slider_text">{{ review.text }}</p>
+							</div>
+						</li>
+					{% endfor %}
+				{% else %}
+					<li>
+							<div class="slider_block clear_fix">
+								<img src="{% get_static 'img/slider_img.png' %}" alt="">
+								<p class="slider_name">Киреева Анжелика <span>домохозяйка</span></p>
+								<p class="slider_date">12 Декабря 2016</p>
+								<p class="slider_text">Мы с мужем имеем квартиру, а дом оснащали на случай «конца света». У нас там своя скважина, солнечные батареи и котел выбирали энергонезависимый. То есть основная фишка - полная автономия. В ситуации, когда электричества нет никакой (даже солнца) могут работать только котлы на дровах. Разводку по дому стальными трубами мы сделали еще при строительстве. Расчет мощности котла и установка заказывали в «Винтерм». Они и котла подбирали. Взяли мы польский с чугунными внутренностями, как более надежный. Всем спасибо! У нас там теперь можно легко ядерную зиму пересидеть!</p>
+							</div>
+						</li>
 					<li>
 						<div class="slider_block clear_fix">
 							<img src="{% get_static 'img/slider_img.png' %}" alt="">
@@ -435,15 +478,7 @@
 							<p class="slider_text">Мы с мужем имеем квартиру, а дом оснащали на случай «конца света». У нас там своя скважина, солнечные батареи и котел выбирали энергонезависимый. То есть основная фишка - полная автономия. В ситуации, когда электричества нет никакой (даже солнца) могут работать только котлы на дровах. Разводку по дому стальными трубами мы сделали еще при строительстве. Расчет мощности котла и установка заказывали в «Винтерм». Они и котла подбирали. Взяли мы польский с чугунными внутренностями, как более надежный. Всем спасибо! У нас там теперь можно легко ядерную зиму пересидеть!</p>
 						</div>
 					</li>
-					<li>
-						<div class="slider_block clear_fix">
-							<img src="{% get_static 'img/slider_img.png' %}" alt="">
-							<p class="slider_name">Киреева Анжелика <span>домохозяйка</span></p>
-							<p class="slider_date">12 Декабря 2016</p>
-							<p class="slider_text">Мы с мужем имеем квартиру, а дом оснащали на случай «конца света». У нас там своя скважина, солнечные батареи и котел выбирали энергонезависимый. То есть основная фишка - полная автономия. В ситуации, когда электричества нет никакой (даже солнца) могут работать только котлы на дровах. Разводку по дому стальными трубами мы сделали еще при строительстве. Расчет мощности котла и установка заказывали в «Винтерм». Они и котла подбирали. Взяли мы польский с чугунными внутренностями, как более надежный. Всем спасибо! У нас там теперь можно легко ядерную зиму пересидеть!</p>
-						</div>
-					</li>
-
+				{% endif %}
 				</ul>
 			</div>
 		</div>
