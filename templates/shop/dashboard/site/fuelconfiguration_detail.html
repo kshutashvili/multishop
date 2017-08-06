@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-    {% blocktrans with url=filter_description.filter_url %}Filter description для {{ url }}{% endblocktrans %} | {{ block.super }}
+    {% blocktrans with fuel_type=fuel_configuration.fuel_type %}Цена для {{ fuel_type }}{% endblocktrans %} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -12,14 +12,14 @@
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
         <li>
-            <a href="{% url 'dashboard:filterdescription-list' %}">{% trans "Filter Descriptions" %}</a>
+            <a href="{% url 'dashboard:fuelconfiguration-list' %}">{% trans "Цены на топливо" %}</a>
         </li>
-        <li class="active">{{ filter_description.filter_url }}</li>
+        <li class="active">{{ fuel_configuration.fuel_type }}</li>
     </ul>
 {% endblock %}
 
 {% block headertext %}
-    {% blocktrans with url=filter_description.filter_url %}Filter description для {{ url }}{% endblocktrans %}
+    {% blocktrans with fuel_type=fuel_configuration.fuel_type %}Цена для {{ fuel_type }}{% endblocktrans %}
 {% endblock  %}
 
 {% block dashboard_content %}

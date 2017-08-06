@@ -7,7 +7,10 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.sites.models import Site
 from django.forms.models import inlineformset_factory
 
-from config.models import SiteConfig, MetaTag
+from config.models import (SiteConfig, MetaTag, TextOne, TextTwo,
+                          TextThree, TextFour, Configuration,
+                          FuelConfiguration, BenefitItem,
+                          OverviewItem, ReviewItem)
 from contacts.models import (City, PhoneNumber,
                              Timetable, SocialNetRef,
                              FlatPage, ContactMessage,
@@ -177,3 +180,58 @@ class FilterDescriptionForm(forms.ModelForm):
     class Meta:
         model = FilterDescription
         fields = '__all__'
+
+
+class TextOneForm(forms.ModelForm):
+    class Meta:
+        model = TextOne
+        exclude = ('site', )
+
+
+class TextTwoForm(forms.ModelForm):
+    class Meta:
+        model = TextTwo
+        exclude = ('site', )
+
+
+class TextThreeForm(forms.ModelForm):
+    class Meta:
+        model = TextThree
+        exclude = ('site', )
+
+
+class TextFourForm(forms.ModelForm):
+    class Meta:
+        model = TextFour
+        exclude = ('site', )
+
+
+class LandingConfigForm(forms.ModelForm):
+    class Meta:
+        model = Configuration
+        exclude = '__all__'
+
+
+class FuelConfigurationForm(forms.ModelForm):
+    class Meta:
+        model = FuelConfiguration
+        exclude = ('config',)
+
+
+class BenefitItemForm(forms.ModelForm):
+    class Meta:
+        model = BenefitItem
+        exclude = ('config',)
+
+
+class OverviewItemForm(forms.ModelForm):
+    class Meta:
+        model = OverviewItem
+        exclude = ('config',)
+
+
+class ReviewItemForm(forms.ModelForm):
+    class Meta:
+        model = ReviewItem
+        exclude = ('config',)
+

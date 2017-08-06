@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for teploformat project.
 
@@ -10,6 +11,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+from __future__ import unicode_literals
 import os
 
 from oscar.defaults import *
@@ -293,6 +295,49 @@ OSCAR_DASHBOARD_NAVIGATION[2]['children'].append(
         'url_name': 'dashboard:filterdescription-list',
     },
 )
+
+OSCAR_DASHBOARD_NAVIGATION += [{
+    'label': _('Настройки лэндинга'),
+    'icon': 'icon-th-list',
+    'children': [
+        {
+            'label': _('Текст 1'),
+            'url_name': 'dashboard:textone-list'
+        },
+        {
+            'label': _('Текст 2'),
+            'url_name': 'dashboard:texttwo-list'
+        },
+        {
+            'label': _('Текст 3'),
+            'url_name': 'dashboard:textthree-list'
+        },
+        {
+            'label': _('Текст 4'),
+            'url_name': 'dashboard:textfour-list'
+        },
+        {
+            'label': _('Лэндинг'),
+            'url_name': 'dashboard:landingconfig-edit'
+        },
+        {
+            'label': _('Цены на топливо'),
+            'url_name': 'dashboard:fuelconfiguration-list'
+        },
+        {
+            'label': _('Преимущества'),
+            'url_name': 'dashboard:benefit-list'
+        },
+        {
+            'label': _('Обзоры'),
+            'url_name': 'dashboard:overview-list'
+        },
+        {
+            'label': _('Отзывы'),
+            'url_name': 'dashboard:review-list'
+        }
+    ]
+}]
 
 THUMBNAIL_PRESERVE_FORMAT = True
 

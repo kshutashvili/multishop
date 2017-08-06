@@ -1,0 +1,94 @@
+{% extends 'dashboard/layout.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Texts" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        </li>
+        <li class="active">{% trans "Texts" %}</li>
+    </ul>
+{% endblock %}
+
+{% block header %}
+    <div class="page-header">
+        <a href="
+        {% if text_one %}{% url 'dashboard:textone-create' %}{% endif %}
+        {% if text_two %}{% url 'dashboard:texttwo-create' %}{% endif %}
+        {% if text_three %}{% url 'dashboard:textthree-create' %}{% endif %}
+        {% if text_four %}{% url 'dashboard:textfour-create' %}{% endif %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Create new Text" %}</a>
+        <h1>{% trans "Texts" %}</h1>
+    </div>
+{% endblock header %}
+
+{% block dashboard_content %}
+
+    {% if text_obj %}
+        <form action="." method="post" class="order_table" id="orders_form">
+            {% csrf_token %}
+
+            {% block text_list %}
+            <table class="table table-striped table-bordered table-hover">
+                <caption>
+                    <h3 class="pull-left"><i class="icon-large"></i>
+                        {% trans "All Texts" %}
+                    </h3>
+                </caption>
+
+                <thead>
+                    <tr>
+                        <th>{% trans "Text" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for text in text_obj %}
+                    <tr>
+                        {% if text_one %}
+                        <td><a href="{% url 'dashboard:textone-detail' pk=text.id %}">{{ text.text }}</a></td>
+                        <td>
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:textone-detail' url_name_delete='dashboard:textone-delete' record=text %}
+                        </td>
+                        {% endif %}
+
+                        {% if text_two %}
+                        <td><a href="{% url 'dashboard:texttwo-detail' pk=text.id %}">{{ text.text }}</a></td>
+                        <td>
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:texttwo-detail' url_name_delete='dashboard:texttwo-delete' record=text %}
+                        </td>
+                        {% endif %}
+
+                        {% if text_three %}
+                        <td><a href="{% url 'dashboard:textthree-detail' pk=text.id %}">{{ text.text }}</a></td>
+                        <td>
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:textthree-detail' url_name_delete='dashboard:textthree-delete' record=text %}
+                        </td>
+                        {% endif %}
+
+                        {% if text_four %}
+                        <td><a href="{% url 'dashboard:textfour-detail' pk=text.id %}">{{ text.text }}</a></td>
+                        <td>
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:textfour-detail' url_name_delete='dashboard:textfour-delete' record=text %}
+                        </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endblock text_list %}
+
+            {% include "dashboard/partials/pagination.html" %}
+        </form>
+    {% else %}
+        <table class="table table-striped table-bordered">
+            <caption><i class="icon-large"></i>
+               {% trans "All Texts" %}
+            </caption>
+            <tr><td>{% trans "No texts found." %}</td></tr>
+        </table>
+    {% endif %}
+
+    {% endblock dashboard_content %}

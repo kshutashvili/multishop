@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans "Filter Descriptions" %} | {{ block.super }}
+    {% trans "Преимущества" %} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -10,57 +10,57 @@
         <li>
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
-        <li class="active">{% trans "Filter Descriptions" %}</li>
+        <li class="active">{% trans "Преимущества" %}</li>
     </ul>
 {% endblock %}
 
 {% block header %}
     <div class="page-header">
-        <a href="{% url 'dashboard:filterdescription-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать новый Filter Description" %}</a>
-        <h1>{% trans "Filter Descriptions" %}</h1>
+        <a href="{% url 'dashboard:benefit-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать новое преимущество" %}</a>
+        <h1>{% trans "Преимущества" %}</h1>
     </div>
 {% endblock header %}
 
 {% block dashboard_content %}
 
-    {% if filter_descriptions %}
+    {% if benefits %}
         <form action="." method="post" class="order_table" id="orders_form">
             {% csrf_token %}
 
-            {% block filterdescription_list %}
+            {% block benefits_list %}
             <table class="table table-striped table-bordered table-hover">
                 <caption>
                     <h3 class="pull-left"><i class="icon-large"></i>
-                        {% trans "Все Filter Descriptions" %}
+                        {% trans "Все преимущества" %}
                     </h3>
                 </caption>
 
                 <thead>
                     <tr>
-                        <th>{% trans "URL фильтра" %}</th>
+                        <th>{% trans "Текст" %}</th>
                     </tr>
                 </thead>
                 <tbody>
-                {% for filter_description in filter_descriptions %}
+                {% for benefit in benefits %}
                     <tr>
-                        <td><a href="{% url 'dashboard:filterdescription-detail' pk=filter_description.id %}">{{ filter_description.filter_url }}</a></td>
+                        <td><a href="{% url 'dashboard:benefit-detail' pk=benefit.id %}">{{ benefit }}</a></td>
                         <td>
-                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:filterdescription-detail' url_name_delete='dashboard:filterdescription-delete' record=filter_description %}
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:benefit-detail' url_name_delete='dashboard:benefit-delete' record=benefit %}
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            {% endblock filterdescription_list %}
+            {% endblock benefits_list %}
 
             {% include "dashboard/partials/pagination.html" %}
         </form>
     {% else %}
         <table class="table table-striped table-bordered">
             <caption><i class="icon-large"></i>
-               {% trans "Все Filter Descriptions" %}
+               {% trans "Все преимущества" %}
             </caption>
-            <tr><td>{% trans "Еще не было создано ни одного Filter Description." %}</td></tr>
+            <tr><td>{% trans "Еще не было создано ни одного преимущества." %}</td></tr>
         </table>
     {% endif %}
 

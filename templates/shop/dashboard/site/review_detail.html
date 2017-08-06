@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-    {% blocktrans with url=filter_description.filter_url %}Filter description для {{ url }}{% endblocktrans %} | {{ block.super }}
+    {{ title }} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -12,14 +12,14 @@
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
         <li>
-            <a href="{% url 'dashboard:filterdescription-list' %}">{% trans "Filter Descriptions" %}</a>
+            <a href="{% url 'dashboard:review-list' %}">{% trans "Отзывы" %}</a>
         </li>
-        <li class="active">{{ filter_description.filter_url }}</li>
+        <li class="active">{{ review }}</li>
     </ul>
 {% endblock %}
 
 {% block headertext %}
-    {% blocktrans with url=filter_description.filter_url %}Filter description для {{ url }}{% endblocktrans %}
+    {{ title }}
 {% endblock  %}
 
 {% block dashboard_content %}

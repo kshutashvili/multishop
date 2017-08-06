@@ -63,11 +63,105 @@ def create_or_update_site_config(sender, instance, created, **kwargs):
 
 
 class Configuration(SingletonModel):
-        class Meta:
-            verbose_name = "Конфигурация"
         undercat_block_url = models.CharField('Ссылка под каталогом',
                                               max_length=128,
                                               blank=True)
+        show_calculator = models.BooleanField("Отображать калькулятор котлов?",
+                                              default=False)
+        show_benefits = models.BooleanField("Отображать блок 'Преимуществ'?",
+                                            default=False)
+        show_credit = models.BooleanField("Отображать блок 'Кредит'?",
+                                          default=False)
+        credit_block_text = models.CharField("Текст для блока 'Кредит'",
+                                             max_length=210,
+                                             blank=True)
+        show_reviews = models.BooleanField("Отображать блок 'Обзоры и отзывы'?",
+                                           default=False)
+        show_advanced = models.BooleanField("Отображать блок 'Дополнительные услуги'?",
+                                            default=False)
+
+        class Meta:
+            verbose_name = "Настройки главной страницы"
+
+
+class FuelConfiguration(models.Model):
+    FUEL_TYPES = (
+        ('wood', 'Дрова'),
+        ('pellets', 'Пеллеты'),
+        ('coal', 'Каменный уголь'),
+        ('brown_coal', 'Бурый уголь'),
+        ('gas', 'Газ'),
+        ('electricity', 'Электроэнергия'),
+        ('diesel', 'Дизельное топливо')
+    )
+    config = models.ForeignKey(Configuration,
+                               verbose_name="Настройки главной страницы",
+                               related_name="fuels")
+    fuel_type = models.CharField("Вид топлива",
+                                 max_length=20,
+                                 choices=FUEL_TYPES,
+                                 default='wood')
+    fuel_cost = models.DecimalField("Цена",
+                                    decimal_places=2,
+                                    max_digits=7)
+
+    class Meta:
+        verbose_name = 'Объем и цена топлива'
+        verbose_name_plural = 'Объемы и цены топлива'
+
+    def __unicode__(self):
+        return self.fuel_type
+
+
+class BenefitItem(models.Model):
+    config = models.ForeignKey(Configuration,
+                               verbose_name="Настройки главной страницы",
+                               related_name="benefits")
+    image = models.ImageField("Изображение",
+                              blank=True,
+                              upload_to='benefit_images')
+    text = models.CharField("Текст",
+                            max_length=200)
+
+    class Meta:
+        verbose_name = 'Преимущество'
+        verbose_name_plural = 'Преимущества'
+
+    def __unicode__(self):
+        return self.text
+
+
+class OverviewItem(models.Model):
+    config = models.ForeignKey(Configuration,
+                               verbose_name="Настройки главной страницы",
+                               related_name="overviews")
+    link = models.CharField("Ссылка на обзор",
+                             max_length=200)
+
+    class Meta:
+        verbose_name = 'Обзор'
+        verbose_name_plural = 'Обзоры'
+
+    def __unicode__(self):
+        return self.link
+
+
+class ReviewItem(models.Model):
+    config = models.ForeignKey(Configuration,
+                               verbose_name="Настройки главной страницы",
+                               related_name="reviews")
+    photo = models.ImageField("Фото",
+                             blank=True)
+    name = models.CharField("Имя оставившего отзыв",
+                            max_length=50)
+    text = models.TextField("Текст отзыва")
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+    def __unicode__(self):
+        return self.name
 
 
 class MenuCategory(models.Model):
