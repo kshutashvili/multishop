@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from solo.models import SingletonModel
+from ckeditor.fields import RichTextField
+
 from django.contrib.sites.models import Site
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import ugettext as _
-
-from solo.models import SingletonModel
-
-from shop.catalogue.models import ProductAttribute
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+
+from shop.catalogue.models import ProductAttribute
+from contacts.models import City
+
 
 
 class SiteConfig(models.Model):
@@ -64,28 +67,35 @@ def create_or_update_site_config(sender, instance, created, **kwargs):
 
 
 class Configuration(SingletonModel):
-        site = models.OneToOneField(Site, verbose_name='сайт',
+    site = models.OneToOneField(Site, verbose_name='сайт',
                                 on_delete=models.CASCADE,
                                 related_name='landing_config')
-        undercat_block_url = models.CharField(_('Ссылка под каталогом'),
-                                              max_length=128,
-                                              blank=True)
-        show_calculator = models.BooleanField(_("Отображать калькулятор котлов?"),
-                                              default=False)
-        show_benefits = models.BooleanField(_("Отображать блок 'Преимуществ'?"),
+    undercat_block_url = models.CharField(_('Ссылка под каталогом'),
+                                            max_length=128,
+                                            blank=True)
+    show_calculator = models.BooleanField(_("Отображать калькулятор котлов?"),
                                             default=False)
-        show_credit = models.BooleanField(_("Отображать блок 'Кредит'?"),
+    show_benefits = models.BooleanField(_("Отображать блок 'Преимуществ'?"),
                                           default=False)
-        credit_block_text = models.CharField(_("Текст для блока 'Кредит'"),
-                                             max_length=220,
-                                             blank=True)
-        show_reviews = models.BooleanField(_("Отображать блок 'Обзоры и отзывы'?"),
-                                           default=False)
-        show_advanced = models.BooleanField(_("Отображать блок 'Дополнительные услуги'?"),
-                                            default=False)
+    show_credit = models.BooleanField(_("Отображать блок 'Кредит'?"),
+                                        default=False)
+    credit_block_text = models.TextField(_("Текст для блока 'Кредит'"),
+                                           max_length=220,
+                                           blank=True)
+    show_reviews = models.BooleanField(_("Отображать блок 'Обзоры и отзывы'?"),
+                                         default=False)
+    show_advanced = models.BooleanField(_("Отображать блок 'Дополнительные услуги'?"),
+                                          default=False)
+    show_delivery = models.BooleanField(_("Отображать блок 'Доставка/Оплата'"),
+                                        default=True)
+    footer_map_for = models.OneToOneField(City,
+                                          verbose_name=_("Карта в футере для"),
+                                          related_name='footer_map',
+                                          blank=True,
+                                          null=True)
 
-        class Meta:
-            verbose_name = "Настройки главной страницы"
+    class Meta:
+        verbose_name='Настройки главной страницы'
 
 
 class FuelConfiguration(models.Model):
@@ -155,7 +165,8 @@ class ReviewItem(models.Model):
                                verbose_name=_("Настройки главной страницы"),
                                related_name="reviews")
     photo = models.ImageField(_("Фото"),
-                             blank=True)
+                             blank=True,
+                             upload_to='review_images')
     name = models.CharField(_("Имя оставившего отзыв"),
                             max_length=50)
     text = models.TextField(_("Текст отзыва"))
@@ -168,6 +179,33 @@ class ReviewItem(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class DeliveryAndPay(models.Model):
+    BLOCK_TYPES = (
+        ('delivery', _("Для блока 'Доставка'")),
+        ('pay', _("Для блока 'Оплата'"))
+    )
+    config = models.ForeignKey(Configuration,
+                               verbose_name=_("Настройки главной страницы"),
+                               related_name="pay_block")
+    for_block = models.CharField(_("Для блока"),
+                                 choices=BLOCK_TYPES,
+                                 default='delivery',
+                                 max_length=30)
+    icon = models.ImageField(_("Изображение"),
+                             blank=True,
+                             upload_to='deliverypay_images')
+    title = models.CharField(_("Заголовок"),
+                             max_length=30)
+    text = RichTextField("Текст")
+
+    class Meta:
+        verbose_name = _("Блок 'Доставка/Оплата'")
+        verbose_name_plural = _("Блоки 'Доставка/Оплата'")
+
+    def __unicode__(self):
+        return self.title
 
 
 class MenuCategory(models.Model):

@@ -9,7 +9,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('contacts', '0031_removed_translated_slug_field'),
+        ('contacts', '0030_data_migration_slug_field_flatpage'),
     ]
 
     operations = [

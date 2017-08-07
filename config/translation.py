@@ -1,7 +1,7 @@
 from modeltranslation.translator import translator, TranslationOptions
 
 from .models import (MenuItem, MetaTag, BenefitItem, TextOne, TextTwo, TextThree,
-                     TextFour, ReviewItem)
+                     TextFour, ReviewItem, DeliveryAndPay)
 
 
 class MenuItemTranslationOptions(TranslationOptions):
@@ -52,4 +52,10 @@ class ReviewItemTranslationOptions(TranslationOptions):
     fields = ('name', 'text',)
 
 translator.register(ReviewItem, ReviewItemTranslationOptions)
+
+
+class DeliveryAndPayTranslationOptions(TranslationOptions):
+    fields = ('title', 'text')
+
+translator.register(DeliveryAndPay, DeliveryAndPayTranslationOptions)
 

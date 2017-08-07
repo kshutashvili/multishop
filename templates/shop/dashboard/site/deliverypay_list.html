@@ -1,0 +1,71 @@
+{% extends 'dashboard/layout.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Блок 'Доставка/оплата'" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        </li>
+        <li class="active">{% trans "Блок 'Доставка/оплата'" %}</li>
+    </ul>
+{% endblock %}
+
+{% block header %}
+    <div class="page-header">
+        <a href="{% url 'dashboard:deliverypay-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать новый блок" %}</a>
+        <h1>{% trans "Блок 'Доставка/оплата'" %}</h1>
+    </div>
+{% endblock header %}
+
+{% block dashboard_content %}
+
+    {% if deliveries %}
+        <form action="." method="post" class="order_table" id="orders_form">
+            {% csrf_token %}
+
+            {% block benefits_list %}
+            <table class="table table-striped table-bordered table-hover">
+                <caption>
+                    <h3 class="pull-left"><i class="icon-large"></i>
+                        {% trans "Все блоки" %}
+                    </h3>
+                </caption>
+
+                <thead>
+                    <tr>
+                        <th>{% trans "Для блока" %}</th>
+                        <th>{% trans "Заголовок" %}</th>
+                        <th>{% trans "Текст" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for delivery in deliveries %}
+                    <tr>
+                        <td><a href="{% url 'dashboard:deliverypay-detail' pk=delivery.id %}">{{ delivery.for_block }}</a></td>
+                        <td><a href="{% url 'dashboard:deliverypay-detail' pk=delivery.id %}">{{ delivery }}</a></td>
+                        <td>{{ delivery.text }}</td>
+                        <td>
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:deliverypay-detail' url_name_delete='dashboard:deliverypay-delete' record=delivery %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endblock benefits_list %}
+
+            {% include "dashboard/partials/pagination.html" %}
+        </form>
+    {% else %}
+        <table class="table table-striped table-bordered">
+            <caption><i class="icon-large"></i>
+               {% trans "Все блоки" %}
+            </caption>
+            <tr><td>{% trans "Еще не было создано ни одного блока." %}</td></tr>
+        </table>
+    {% endif %}
+
+    {% endblock dashboard_content %}

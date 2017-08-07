@@ -1150,11 +1150,12 @@ a.choose_kotel:hover{
     min-height: 143px;
 }
 .eighth_block .list_name{
-    font: 24px "ArialBold";
+    font: 24px "ArialBold"!important;
     color: #229fff;
     text-transform: uppercase;
     margin-bottom: 10px;
-    padding-top: 7px;
+    padding: 7px 0 0 0!important;
+    background-color: transparent!important;
 }
 .eighth_block .list_text{
     font-size: 16px;
@@ -1163,6 +1164,16 @@ a.choose_kotel:hover{
 }
 .eighth_block .list_text span{
     font: 16px "ArialBold";
+}
+.eighth_block .first_ul p {
+    font-size: 16px;
+    background-color: #fff;
+    padding: 10px 0px 20px;
+}
+.eighth_block .second_ul p {
+    font-size: 16px;
+    background-color: #fff;
+    padding: 10px 0px 20px;
 }
 .eighth_block .list_text span.red_dot{
     display: block;

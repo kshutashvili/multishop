@@ -21,7 +21,7 @@
 {% endblock description %}
 
 {% block content %}
-    {% get_solo 'config.Configuration' as site_config %}
+	{% get_solo 'config.Configuration' as site_config %}
 	<div class="first_block">
 		<div class="container">
 			<div class="left_side">
@@ -435,7 +435,7 @@
 						<li>
 							<div class="slider_block clear_fix">
 								{% if review.photo %}
-									<img src="{{ review.photo.url }}}" alt="">
+									<img src="{{ review.photo.url }}" alt="">
 								{% else %}
 									<img src="{% get_static 'img/slider_img.png' %}" alt="">
 								{% endif %}
@@ -504,6 +504,7 @@
 	</div>
 {% endif %}
 
+{% if site_config.show_delivery %}
 	<div class="eighth_block">
 		<div class="container">
 			<p class="caption"><span>схема</span> доставки <span>и</span> оплаты:</p>
@@ -515,23 +516,34 @@
 				<div class="list_more"><p>Подробнее</p><i></i></div>
 			</div>
 			<ul class="main_ul first_ul">
-				<li>
-					<p class="list_name">СПОСОБЫ ДОСТАВКИ</p>
-					<p class="list_text">Доставка товара осуществляется по всей территории Украины и может быть произведена с помощью следующих транспортных компаний: <span>Новая <span>Почта</span>, <span>Интайм</span>, <span>Деливери</span>, Мист Экспресс</span>. По согласованию с покупателем возможна доставка нашим транспортом или "попутным грузом". Также есть возможность самовывоза товара.</p>
-				</li>
-				<li>
-					<p class="list_name">ОПЛАТА</p>
-					<p class="list_text">Все расходы, связанные с доставкой товара и оплатой наложенного платежа, оплачиваются непосредственно покупателем.
-					Товары с акционной отметкой «Бесплатная доставка» отправляются бесплатно в любую точку Украины. Сроки действия акции уточняйте у менеджеров.</p>
-				</li>
-				<li>
-					<p class="list_name">СРОКИ</p>
-					<p class="list_text">С момента подтверждения заказа сроки его доставки в среднем составляют от 24 до 72 часов.</p>
-				</li>
-				<li>
-					<p class="list_name">СТОИМОСТЬ</p>
-					<p class="list_text">Расчет стоимости доставки осуществляется при оформлении заказа и в среднем составляет 4,5%-7% от общей стоимости товара. Ее величина зависит от типа продукции и адреса доставки.</p>
-				</li>
+				{% if site_config.pay_block %}
+					{% for delivery_block in site_config.pay_block.all %}
+						{% if delivery_block.for_block == 'delivery' %}
+							<li {% if delivery_block.icon %}style="background: url('{{ delivery_block.icon.url }}') no-repeat left center"{% endif %}>
+								<p class="list_name">{{ delivery_block.title }}</p>
+								{{ delivery_block.text|safe }}
+							</li>
+						{% endif %}
+					{% endfor %}
+				{% else %}
+					<li>
+						<p class="list_name">СПОСОБЫ ДОСТАВКИ</p>
+						<p class="list_text">Доставка товара осуществляется по всей территории Украины и может быть произведена с помощью следующих транспортных компаний: <span>Новая <span>Почта</span>, <span>Интайм</span>, <span>Деливери</span>, Мист Экспресс</span>. По согласованию с покупателем возможна доставка нашим транспортом или "попутным грузом". Также есть возможность самовывоза товара.</p>
+					</li>
+					<li>
+						<p class="list_name">ОПЛАТА</p>
+						<p class="list_text">Все расходы, связанные с доставкой товара и оплатой наложенного платежа, оплачиваются непосредственно покупателем.
+						Товары с акционной отметкой «Бесплатная доставка» отправляются бесплатно в любую точку Украины. Сроки действия акции уточняйте у менеджеров.</p>
+					</li>
+					<li>
+						<p class="list_name">СРОКИ</p>
+						<p class="list_text">С момента подтверждения заказа сроки его доставки в среднем составляют от 24 до 72 часов.</p>
+					</li>
+					<li>
+						<p class="list_name">СТОИМОСТЬ</p>
+						<p class="list_text">Расчет стоимости доставки осуществляется при оформлении заказа и в среднем составляет 4,5%-7% от общей стоимости товара. Ее величина зависит от типа продукции и адреса доставки.</p>
+					</li>
+				{% endif %}
 			</ul>
 
 			<img src="{% get_static 'img/delivery/money.png' %}" alt="">
@@ -540,6 +552,16 @@
 				<div class="list_more"><p>Подробнее</p><i></i></div>
 			</div>
 			<ul class="main_ul second_ul">
+			{% if site_config.pay_block %}
+				{% for pay_block in site_config.pay_block.all %}
+					{% if pay_block.for_block == 'pay' %}
+						<li {% if pay_block.icon %}style="background: url('{{ pay_block.icon.url }}') no-repeat left center"{% endif %}>
+							<p class="list_name">{{ pay_block.title }}</p>
+							{{ pay_block.text|safe }}
+						</li>
+					{% endif %}
+				{% endfor %}
+			{% else %}
 				<li>
 					<p class="list_name">БЕЗНАЛИЧНЫЙ РАСЧЕТ</p>
 					<p class="list_text">После оформления заказа на Ваш электронный адрес будет выслан счет-фактура. Совершить оплату по нему Вы можете в отделении любого банка на территории Украины или с помощью интернет-банкинга <span>Приват 24</span>, <span>UniCredit Online</span> и т.д. Дополнительная комиссия здесь отсутствует.</p>
@@ -561,13 +583,19 @@
 					<p class="list_name">НАЛОЖЕННЫЙ ПЛАТЕЖ</p>
 					<p class="list_text">Совершить оплату за товар Вы можете в национальной валюте в пункте выдачи транспортной компании. В таком случае к сумме оплаты будет добавлена комиссия в размере 3% от общей стоимости заказа.</p>
 				</li>
+			{% endif %}
 			</ul>
 		</div>
 	</div>
-
+{% endif %}
 	<div class="ninth_block">
 		<p class="caption">Как с нами связаться</p>
-		<div id="map" style="width: 100%; height:750px; border: 0; box-shadow: 0px -3px 10px -7px #000;"></div>
+		<div id="map" style="width: 100%; height:750px; border: 0; box-shadow: 0px -3px 10px -7px #000;">
+			<iframe src="https://www.google.com/maps/embed/v1/place?q=г.{{ site_config.footer_map_for.city_name }}_{{ site_config.footer_map_for.address|cut:' ' }}&key={{ site_config.footer_map_for.google_maps_api_key }}"
+                                            width="880" height="580"
+                                            style="border:0;width:100%;height:100%;"
+                                            allowfullscreen></iframe>
+		</div>
 
 		<div class="container">
 			<div class="bottom_menu">
@@ -700,21 +728,5 @@
 			});
 		});
 	</script>
-	<script async defer
-	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdPtVLPxh69Yy7yTGDoXhK2vVUE0YGpEM&callback=initMap">
-	</script>
-    <script>
-      function initMap() {
-        var coords = {lat: 50.487384, lng: 30.468923}
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 14,
-          center: {lat: 50.479384, lng: 30.468923}
-        });
-        var marker = new google.maps.Marker({
-          position: coords,
-          map: map
-        });
-      }
-    </script>
 	{{ block.super }}
 {% endblock %}

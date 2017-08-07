@@ -362,6 +362,10 @@ OSCAR_DASHBOARD_NAVIGATION += [{
         {
             'label': _('Отзывы'),
             'url_name': 'dashboard:review-list'
+        },
+        {
+            'label': _('Блок Доставка и оплата'),
+            'url_name': 'dashboard:deliverypay-list'
         }
     ]
 }]

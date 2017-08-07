@@ -12,9 +12,9 @@
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
         <li>
-            <a href="{% url 'dashboard:benefit-list' %}">{% trans "Цены на топливо" %}</a>
+            <a href="{% url 'dashboard:deliverypay-list' %}">{% trans "Блоки 'Доставка/Оплата'" %}</a>
         </li>
-        <li class="active">{{ benefit }}</li>
+        <li class="active">{{ object }}</li>
     </ul>
 {% endblock %}
 
@@ -33,3 +33,9 @@
     </div>
   </form>
 {% endblock dashboard_content %}
+
+{% block extrascripts %}
+{{ block.super }}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+{% endblock %}

@@ -7,7 +7,9 @@ from django.utils.html import format_html
 from solo.admin import SingletonModelAdmin
 
 from .models import (SiteConfig, Configuration, MenuItem, MenuCategory,
-                     TextOne, TextTwo, TextThree, TextFour, MetaTag, ModelMetaTag)
+                     TextOne, TextTwo, TextThree, TextFour, MetaTag, ModelMetaTag,
+                     FuelConfiguration, BenefitItem, OverviewItem, ReviewItem,
+                     DeliveryAndPay)
 
 
 admin.site.register(ModelMetaTag)
@@ -124,3 +126,37 @@ class MenuItemAdmin(admin.ModelAdmin):
                            href=obj.link)
 
     show_link.short_description = 'Ссылка'
+
+
+@admin.register(FuelConfiguration)
+class FuelConfigurationAdmin(admin.ModelAdmin):
+    list_display = ('fuel_type', 'fuel_cost')
+
+
+@admin.register(BenefitItem)
+class BenefitItemAdmin(admin.ModelAdmin):
+    list_display = ('text',)
+
+
+@admin.register(OverviewItem)
+class OverviewItemAdmin(admin.ModelAdmin):
+    list_display = ('link',)
+
+
+@admin.register(ReviewItem)
+class ReviewItemAdmin(admin.ModelAdmin):
+    list_display = ('name', 'text', 'created')
+
+
+class DeliveryAndPayAdminForm(forms.ModelForm):
+    class Meta:
+        model = DeliveryAndPay
+        widgets = {
+            'text': CKEditorWidget(),
+        }
+        fields = '__all__'
+
+
+@admin.register(DeliveryAndPay)
+class DeliveryAndPayAdmin(admin.ModelAdmin):
+    list_display = ('for_block', 'title')

@@ -23,11 +23,12 @@ from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
                                        TextTwoForm, TextThreeForm,
                                        TextFourForm, LandingConfigForm,
                                        FuelConfigurationForm, BenefitItemForm,
-                                       OverviewItemForm, ReviewItemForm)
+                                       OverviewItemForm, ReviewItemForm,
+                                       DeliveryAndPayForm)
 from shop.catalogue.models import FilterDescription
 from config.models import (MetaTag, TextOne, TextTwo, TextThree, TextFour,
                            Configuration, FuelConfiguration, BenefitItem,
-                           OverviewItem, ReviewItem)
+                           OverviewItem, ReviewItem, DeliveryAndPay)
 from contacts.models import (City, SocialNetRef, FlatPage, ContactMessage,
                              Timetable)
 from website.views import SiteMultipleObjectMixin
@@ -1229,4 +1230,75 @@ class ReviewItemDeleteView(DeleteView):
         messages.success(
             self.request, _("Отзыв '%s' удален") % self.object)
         return reverse('dashboard:review-list')
+
+
+class DeliveryAndPayListView(ListView):
+    model = DeliveryAndPay
+    template_name = "shop/dashboard/site/deliverypay_list.html"
+    context_object_name = 'deliveries'
+
+
+class DeliveryAndPayCreateView(CreateView):
+    model = DeliveryAndPay
+    form_class = DeliveryAndPayForm
+    template_name = "shop/dashboard/site/deliverypay_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(DeliveryAndPayCreateView, self).get_context_data(**kwargs)
+        ctx['title'] = _('Создать новую запись о Доставке/Оплате')
+        return ctx
+
+    def form_valid(self, form):
+        print(form)
+        obj = form.save(commit=False)
+        obj.config = Configuration.get_solo()
+        obj.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        messages.success(self.request, _("Запись о Доставке/Оплате успешно создана"))
+        return reverse('dashboard:deliverypay-list')
+
+    def get_object(self):
+        return None
+
+
+class DeliveryAndPayUpdateView(UpdateView):
+    model = DeliveryAndPay
+    form_class = DeliveryAndPayForm
+    template_name = "shop/dashboard/site/deliverypay_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(DeliveryAndPayUpdateView, self).get_context_data(**kwargs)
+        ctx['title'] = self.object.title
+        return ctx
+
+    def get_object(self):
+        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Запись о Доставке/Оплате успешно изменена"))
+        return reverse('dashboard:deliverypay-list')
+
+
+class DeliveryAndPayDeleteview(DeleteView):
+    model = DeliveryAndPay
+    template_name = "shop/dashboard/site/deliverypay_delete.html"
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(DeliveryAndPayDeleteview, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Удаление Записи '%s'") % self.object
+
+        return ctx
+
+    def get_success_url(self):
+        messages.success(
+            self.request, _("Запись '%s' удалена") % self.object)
+        return reverse('dashboard:deliverypay-list')
+
+
 

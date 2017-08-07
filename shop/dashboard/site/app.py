@@ -58,7 +58,11 @@ from shop.dashboard.site.views import (SiteCreateView, CityListView,
                                        ReviewItemListView,
                                        ReviewItemCreateView,
                                        ReviewItemUpdateView,
-                                       ReviewItemDeleteView)
+                                       ReviewItemDeleteView,
+                                       DeliveryAndPayListView,
+                                       DeliveryAndPayCreateView,
+                                       DeliveryAndPayUpdateView,
+                                       DeliveryAndPayDeleteview)
 
 
 class SiteDashboardApplication(Application):
@@ -127,6 +131,10 @@ class SiteDashboardApplication(Application):
     review_create_view = ReviewItemCreateView
     review_update_view = ReviewItemUpdateView
     review_delete_view = ReviewItemDeleteView
+    deliverypay_list_view = DeliveryAndPayListView
+    deliverypay_create_view = DeliveryAndPayCreateView
+    deliverypay_update_view = DeliveryAndPayUpdateView
+    deliverypay_delete_view = DeliveryAndPayDeleteview
 
     def get_urls(self):
         urls = [
@@ -264,6 +272,15 @@ class SiteDashboardApplication(Application):
                 name='review-detail'),
             url(r'^review/delete/(?P<pk>[\d]+)/$', self.review_delete_view.as_view(),
                 name='review-delete'),
+            # deliveries and pays
+            url(r'^deliverypay/$', self.deliverypay_list_view.as_view(),
+                name='deliverypay-list'),
+            url(r'^deliverypay/add/$', self.deliverypay_create_view.as_view(),
+                name='deliverypay-create'),
+            url(r'^deliverypay/edit/(?P<pk>[\d]+)/$', self.deliverypay_update_view.as_view(),
+                name='deliverypay-detail'),
+            url(r'^deliverypay/delete/(?P<pk>[\d]+)/$', self.deliverypay_delete_view.as_view(),
+                name='deliverypay-delete'),
 
         ]
         return self.post_process_urls(urls)

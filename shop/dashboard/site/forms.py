@@ -10,7 +10,7 @@ from django.forms.models import inlineformset_factory
 from config.models import (SiteConfig, MetaTag, TextOne, TextTwo,
                           TextThree, TextFour, Configuration,
                           FuelConfiguration, BenefitItem,
-                          OverviewItem, ReviewItem)
+                          OverviewItem, ReviewItem, DeliveryAndPay)
 from contacts.models import (City, PhoneNumber,
                              Timetable, SocialNetRef,
                              FlatPage, ContactMessage,
@@ -221,7 +221,7 @@ class FuelConfigurationForm(forms.ModelForm):
 class BenefitItemForm(forms.ModelForm):
     class Meta:
         model = BenefitItem
-        fields = ('image', 'text', 'text_ru', 'text_uk')
+        fields = ('image', 'text_ru', 'text_uk')
 
 
 class OverviewItemForm(forms.ModelForm):
@@ -233,6 +233,15 @@ class OverviewItemForm(forms.ModelForm):
 class ReviewItemForm(forms.ModelForm):
     class Meta:
         model = ReviewItem
-        fields = ('photo', 'name', 'name_ru', 'name_uk',
-                  'text', 'text_ru', 'text_uk')
+        fields = ('photo', 'name_ru', 'name_uk',
+                  'text_ru', 'text_uk')
+
+
+class DeliveryAndPayForm(forms.ModelForm):
+    text_ru = forms.CharField(label='Текст [ru]', widget=CKEditorWidget())
+    text_uk = forms.CharField(label='Текст [uk]', widget=CKEditorWidget())
+    class Meta:
+        model = DeliveryAndPay
+        fields = ('for_block', 'icon', 'title_ru', 'title_uk',
+                  'text_ru', 'text_uk')
 
