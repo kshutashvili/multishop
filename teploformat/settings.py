@@ -69,6 +69,7 @@ INSTALLED_APPS = [
                    'shop.dashboard.catalogue',
                    'shop.catalogue.reviews',
                    'shop.dashboard.orders',
+                   'shop.dashboard.reviews',
                    'shop.search',
                    'shop.order',
                    'shop.basket',
@@ -297,6 +298,10 @@ OSCAR_DASHBOARD_NAVIGATION[4]['children'] += [
         'label': _('Contact Messages'),
         'url_name': 'dashboard:contactmessage-list',
     },
+    {
+        'label': _('Вопросы о товаре'),
+        'url_name': 'dashboard:productquestion-list',
+    },
 ]
 
 # append as separate group
@@ -315,13 +320,6 @@ OSCAR_DASHBOARD_NAVIGATION += [{
         ],
     },
 ]
-
-OSCAR_DASHBOARD_NAVIGATION[2]['children'].append(
-    {
-        'label': _('Filter Description'),
-        'url_name': 'dashboard:filterdescription-list',
-    },
-)
 
 OSCAR_DASHBOARD_NAVIGATION += [{
     'label': _('Настройки лэндинга'),
