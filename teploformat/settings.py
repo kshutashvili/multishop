@@ -298,6 +298,10 @@ OSCAR_DASHBOARD_NAVIGATION[4]['children'] += [
         'label': _('Contact Messages'),
         'url_name': 'dashboard:contactmessage-list',
     },
+    {
+        'label': _('Вопросы о товаре'),
+        'url_name': 'dashboard:productquestion-list',
+    },
 ]
 
 # append as separate group
