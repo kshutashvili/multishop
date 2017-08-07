@@ -1,12 +1,14 @@
 from oscar.apps.dashboard.reviews.app import (
     ReviewsApplication as CoreReviewsApplication)
 
-from .views import ReviewUpdateView, ReviewListView
+from oscar.core.loading import get_class
 
 
 class ReviewsApplication(CoreReviewsApplication):
 
-    list_view = ReviewListView
-    update_view = ReviewUpdateView
+    list_view = get_class('dashboard.reviews.views',
+                          'ReviewListView')
+    update_view = get_class('dashboard.reviews.views',
+                            'ReviewUpdateView')
 
 application = ReviewsApplication()

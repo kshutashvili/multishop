@@ -317,13 +317,6 @@ OSCAR_DASHBOARD_NAVIGATION += [{
     },
 ]
 
-OSCAR_DASHBOARD_NAVIGATION[2]['children'].append(
-    {
-        'label': _('Filter Description'),
-        'url_name': 'dashboard:filterdescription-list',
-    },
-)
-
 OSCAR_DASHBOARD_NAVIGATION += [{
     'label': _('Настройки лэндинга'),
     'icon': 'icon-th-list',
