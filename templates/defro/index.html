@@ -6,6 +6,7 @@
 {% load url_tags %}
 {% load solo_tags %}
 {% load meta_tags %}
+{% load embed_video_tags %}
 
 {% block title %}
 	{% meta_tag 'MP' 'title' None request %}
@@ -64,6 +65,7 @@
 		</div>
 	</div>
 
+{% if site_config.show_calculator %}
 	<div class="third_block">
 		<div class="container">
 			<h3>Сравнительный РАСЧЕТ</h3>
@@ -174,132 +176,148 @@
 							<p class="cpecial">Цена на топливо</p>
 							<p class="cpecial">Затраты на отопление</p>
 						</div>
-
-						<div class="other_blocks">
-							<div class="other_blocks_cell">
-								<img src="{% get_static 'img/table/1.png' %}" alt="">
-								<p>Дрова</p>
-							</div>
-							<div class="other_blocks_cell">
-								<p id="wood_volume">20,54 скл.м</p>
-							</div>
-							<div class="other_blocks_cell">
-								<div class="right_side">
-									<input id="wood_cost" type="text" value="420"> <span>грн/скл.м</span>
+					{% for fuel in site_config.fuels.all %}
+						{% if fuel.fuel_type == 'wood' %}
+							<div class="other_blocks">
+								<div class="other_blocks_cell">
+									<img src="{% get_static 'img/table/1.png' %}" alt="">
+									<p>Дрова</p>
+								</div>
+								<div class="other_blocks_cell">
+									<p id="wood_volume"> скл.м</p>
+								</div>
+								<div class="other_blocks_cell">
+									<div class="right_side">
+										<input id="wood_cost" type="number" value="{{ fuel.fuel_cost|floatformat:'0' }}"> <span>грн/скл.м</span>
+									</div>
+								</div>
+								<div class="other_blocks_cell">
+									<p><span id="wood_sum" class="calculating">8 626,80</span> грн</p>
 								</div>
 							</div>
-							<div class="other_blocks_cell">
-								<p><span id="wood_sum" class="calculating">8 626,80</span> грн</p>
-							</div>
-						</div>
+						{% endif %}
 
-						<div class="other_blocks">
-							<div class="other_blocks_cell">
-								<img src="{% get_static 'img/table/2.png' %}" alt="">
-								<p>Пеллеты</p>
-							</div>
-							<div class="other_blocks_cell">
-								<p id="pellets_volume">20,54 скл.м</p>
-							</div>
-							<div class="other_blocks_cell">
-								<div class="right_side">
-									<input id="pellets_cost" type="text" value="2600"> <span>грн/тонна</span>
+						{% if fuel.fuel_type == 'pellets' %}
+							<div class="other_blocks">
+								<div class="other_blocks_cell">
+									<img src="{% get_static 'img/table/2.png' %}" alt="">
+									<p>Пеллеты</p>
+								</div>
+								<div class="other_blocks_cell">
+									<p id="pellets_volume"> скл.м</p>
+								</div>
+								<div class="other_blocks_cell">
+									<div class="right_side">
+										<input id="pellets_cost" type="number" value="{{ fuel.fuel_cost|floatformat:'0' }}"> <span>грн/тонна</span>
+									</div>
+								</div>
+								<div class="other_blocks_cell">
+									<p><span id="pellets_sum" class="calculating">8 626,80</span> грн</p>
 								</div>
 							</div>
-							<div class="other_blocks_cell">
-								<p><span id="pellets_sum" class="calculating">8 626,80</span> грн</p>
-							</div>
-						</div>
+						{% endif %}
 
-						<div class="other_blocks">
-							<div class="other_blocks_cell">
-								<img src="{% get_static 'img/table/3.png' %}" alt="">
-								<p>Каменный уголь</p>
-							</div>
-							<div class="other_blocks_cell">
-								<p id="coal_volume">20,54 скл.м</p>
-							</div>
-							<div class="other_blocks_cell">
-								<div class="right_side">
-									<input id="coal_cost" type="text" value="4700"> <span>грн/тонна</span>
+						{% if fuel.fuel_type == 'coal' %}
+							<div class="other_blocks">
+								<div class="other_blocks_cell">
+									<img src="{% get_static 'img/table/3.png' %}" alt="">
+									<p>Каменный уголь</p>
+								</div>
+								<div class="other_blocks_cell">
+									<p id="coal_volume"> скл.м</p>
+								</div>
+								<div class="other_blocks_cell">
+									<div class="right_side">
+										<input id="coal_cost" type="number" value="{{ fuel.fuel_cost|floatformat:'0' }}"> <span>грн/тонна</span>
+									</div>
+								</div>
+								<div class="other_blocks_cell">
+									<p><span id="coal_sum" class="calculating">8 626,80</span> грн</p>
 								</div>
 							</div>
-							<div class="other_blocks_cell">
-								<p><span id="coal_sum" class="calculating">8 626,80</span> грн</p>
-							</div>
-						</div>
+						{% endif %}
 
-						<div class="other_blocks">
-							<div class="other_blocks_cell">
-								<img src="{% get_static 'img/table/4.png' %}" alt="">
-								<p>Бурый уголь</p>
-							</div>
-							<div class="other_blocks_cell">
-								<p id="brown_coal_volume">20,54 скл.м</p>
-							</div>
-							<div class="other_blocks_cell">
-								<div class="right_side">
-									<input id="brown_coal_cost" type="text" value="1230"> <span>грн/тонна</span>
+						{% if fuel.fuel_type == 'brown_coal' %}
+							<div class="other_blocks">
+								<div class="other_blocks_cell">
+									<img src="{% get_static 'img/table/4.png' %}" alt="">
+									<p>Бурый уголь</p>
+								</div>
+								<div class="other_blocks_cell">
+									<p id="brown_coal_volume"> скл.м</p>
+								</div>
+								<div class="other_blocks_cell">
+									<div class="right_side">
+										<input id="brown_coal_cost" type="number" value="{{ fuel.fuel_cost|floatformat:'0' }}"> <span>грн/тонна</span>
+									</div>
+								</div>
+								<div class="other_blocks_cell">
+									<p><span id="brown_coal_sum" class="calculating">8 626,80</span> грн</p>
 								</div>
 							</div>
-							<div class="other_blocks_cell">
-								<p><span id="brown_coal_sum" class="calculating">8 626,80</span> грн</p>
-							</div>
-						</div>
+						{% endif %}
 
-						<div class="other_blocks">
-							<div class="other_blocks_cell">
-								<img src="{% get_static 'img/table/5.png' %}" alt="">
-								<p>Газ</p>
-							</div>
-							<div class="other_blocks_cell">
-								<p id="gas_volume">20,54 скл.м</p>
-							</div>
-							<div class="other_blocks_cell">
-								<div class="right_side">
-									<input id="gas_cost" type="text" value="6.88"> <span>грн/м.куб</span>
+						{% if fuel.fuel_type == 'gas' %}
+							<div class="other_blocks">
+								<div class="other_blocks_cell">
+									<img src="{% get_static 'img/table/5.png' %}" alt="">
+									<p>Газ</p>
+								</div>
+								<div class="other_blocks_cell">
+									<p id="gas_volume"> скл.м</p>
+								</div>
+								<div class="other_blocks_cell">
+									<div class="right_side">
+										<input id="gas_cost" type="number" value="{{ fuel.fuel_cost|floatformat:'0' }}"> <span>грн/м.куб</span>
+									</div>
+								</div>
+								<div class="other_blocks_cell">
+									<p><span id="gas_sum" class="calculating">8 626,80</span> грн</p>
 								</div>
 							</div>
-							<div class="other_blocks_cell">
-								<p><span id="gas_sum" class="calculating">8 626,80</span> грн</p>
-							</div>
-						</div>
+						{% endif %}
 
-						<div class="other_blocks">
-							<div class="other_blocks_cell">
-								<img src="{% get_static 'img/table/6.png' %}" alt="">
-								<p>Электроэнергия</p>
-							</div>
-							<div class="other_blocks_cell">
-								<p id="electricity_volume">20,54 скл.м</p>
-							</div>
-							<div class="other_blocks_cell">
-								<div class="right_side">
-									<input id="electricity_cost" type="text" value="1.48"> <span>грн/кВт.ч</span>
+						{% if fuel.fuel_type == 'electricity' %}
+							<div class="other_blocks">
+								<div class="other_blocks_cell">
+									<img src="{% get_static 'img/table/6.png' %}" alt="">
+									<p>Электроэнергия</p>
+								</div>
+								<div class="other_blocks_cell">
+									<p id="electricity_volume"> скл.м</p>
+								</div>
+								<div class="other_blocks_cell">
+									<div class="right_side">
+										<input id="electricity_cost" type="number" value="{{ fuel.fuel_cost|floatformat:'0' }}"> <span>грн/кВт.ч</span>
+									</div>
+								</div>
+								<div class="other_blocks_cell">
+									<p><span id="electricity_sum" class="calculating">8 626,80</span> грн</p>
 								</div>
 							</div>
-							<div class="other_blocks_cell">
-								<p><span id="electricity_sum" class="calculating">8 626,80</span> грн</p>
-							</div>
-						</div>
+						{% endif %}
 
-						<div class="other_blocks">
-							<div class="other_blocks_cell">
-								<img src="{% get_static 'img/table/7.png' %}" alt="">
-								<p>Дизельное топливо</p>
-							</div>
-							<div class="other_blocks_cell">
-								<p id="diesel_volume">20,54 скл.м</p>
-							</div>
-							<div class="other_blocks_cell">
-								<div class="right_side">
-									<input id="diesel_cost" type="text" value="20"> <span>грн</span>
+						{% if fuel.fuel_type == 'diesel' %}
+							<div class="other_blocks">
+								<div class="other_blocks_cell">
+									<img src="{% get_static 'img/table/7.png' %}" alt="">
+									<p>Дизельное топливо</p>
+								</div>
+								<div class="other_blocks_cell">
+									<p id="diesel_volume"> скл.м</p>
+								</div>
+								<div class="other_blocks_cell">
+									<div class="right_side">
+										<input id="diesel_cost" type="number" value="{{ fuel.fuel_cost|floatformat:'0' }}"> <span>грн</span>
+									</div>
+								</div>
+								<div class="other_blocks_cell">
+									<p><span id="diesel_sum" class="calculating">8 626,80</span> грн</p>
 								</div>
 							</div>
-							<div class="other_blocks_cell">
-								<p><span id="diesel_sum" class="calculating">8 626,80</span> грн</p>
-							</div>
-						</div>
+						{% endif %}
+					{% endfor %}
+
 					</div>
 				</div>
 				<a href="" class="choose_kotel"
@@ -310,11 +328,25 @@
 			<div class="more_block"><p>Подробнее</p><i></i></div>
 		</div>
 	</div>
+{% endif %}
 
+{% if site_config.show_benefits %}
 	<div class="fourth_block">
 		<div class="container">
 			<h4><span>Преимущества котлов</span> DEFRO:</h4>
 			<ul>
+			{% if site_config.benefits %}
+				{% for benefit in site_config.benefits.all %}
+					<li class="clear_fix">
+						{% if benefit.image %}
+							<img src="{{ benefit.image.url }}" alt="">
+						{% else %}
+							<img src="{% get_static 'img/icons/1.png' %}" alt="">
+						{% endif %}
+						<p>{{ benefit.text }}</p>
+					</li>
+				{% endfor %}
+			{% else %}
 				<li class="clear_fix">
 					<img src="{% get_static 'img/icons/1.png' %}" alt="">
 					<p>Фирменная гарантия 4 года на герметичность водяной рубашки и 2 года на исправную работу котла.</p>
@@ -347,10 +379,13 @@
 					<img src="{% get_static 'img/icons/8.png' %}" alt="">
 					<p>Многоточковая система подачи воздуха в топку и система очистки воздуха.</p>
 				</li>
+			{% endif %}
 			</ul>
 		</div>
 	</div>
+{% endif %}
 
+{% if site_config.show_credit %}
 	<div class="fifth_block">
 		<div class="container">
 			<h5>Нужна рассрочка? - это не проблема</h5>
@@ -363,9 +398,7 @@
 					<img src="{% get_static 'img/banks/4.png' %}" alt="">
 					<img src="{% get_static 'img/banks/5.png' %}" alt="">
 					</div>
-					<p>Воспользуйтесь услугами наших банков-партнеров для получению кредита на покупку котла</p>
-					<p>Так же не упустите возможность воспользоваться государственной программой</p>
-					<p>компенсации 70% от стоимости твердотопливных котлов</p>
+					{{ site_config.credit_block_text|linebreaks }}
 				</div>
 				<form action="#">
 					<input type="text" placeholder="+38 (___) ___-__-__">
@@ -375,19 +408,52 @@
 			<div class="more_block"><p>Подробнее</p><i></i></div>
 		</div>
 	</div>
+{% endif %}
 
+{% if site_config.show_reviews %}
 	<div class="sixth_block">
 		<div class="container">
 			<h6>Обзоры <span>и</span> отзывы:</h6>
 			<div class="youtube_videos">
-				<a href="#"><img src="{% get_static 'img/youtube.png' %}" alt=""></a>
-				<a href="#"><img src="{% get_static 'img/youtube.png' %}" alt=""></a>
-				<a href="#"><img src="{% get_static 'img/youtube.png' %}" alt=""></a>
+				{% if site_config.overviews %}
+					{% for overview in site_config.overviews.all %}
+						<div class="video embed-responsive" style="width: 360px; height: 204px; margin: 0 8px; display: inline-block;">
+							{% video overview.link 'small' %}
+						</div>
+					{% endfor %}
+				{% else %}
+					<a href="#"><img src="{% get_static 'img/youtube.png' %}" alt=""></a>
+					<a href="#"><img src="{% get_static 'img/youtube.png' %}" alt=""></a>
+					<a href="#"><img src="{% get_static 'img/youtube.png' %}" alt=""></a>
+				{% endif %}
 			</div>
 
 			<div class="slider">
 				<ul class="bxslider">
-
+				{% if site_config.reviews %}
+					{% for review in site_config.reviews.all %}
+						<li>
+							<div class="slider_block clear_fix">
+								{% if review.photo %}
+									<img src="{{ review.photo.url }}}" alt="">
+								{% else %}
+									<img src="{% get_static 'img/slider_img.png' %}" alt="">
+								{% endif %}
+								<p class="slider_name">{{ review.name }}</p>
+								<p class="slider_date">{{ review.created }}</p>
+								<p class="slider_text">{{ review.text }}</p>
+							</div>
+						</li>
+					{% endfor %}
+				{% else %}
+					<li>
+							<div class="slider_block clear_fix">
+								<img src="{% get_static 'img/slider_img.png' %}" alt="">
+								<p class="slider_name">Киреева Анжелика <span>домохозяйка</span></p>
+								<p class="slider_date">12 Декабря 2016</p>
+								<p class="slider_text">Мы с мужем имеем квартиру, а дом оснащали на случай «конца света». У нас там своя скважина, солнечные батареи и котел выбирали энергонезависимый. То есть основная фишка - полная автономия. В ситуации, когда электричества нет никакой (даже солнца) могут работать только котлы на дровах. Разводку по дому стальными трубами мы сделали еще при строительстве. Расчет мощности котла и установка заказывали в «Винтерм». Они и котла подбирали. Взяли мы польский с чугунными внутренностями, как более надежный. Всем спасибо! У нас там теперь можно легко ядерную зиму пересидеть!</p>
+							</div>
+						</li>
 					<li>
 						<div class="slider_block clear_fix">
 							<img src="{% get_static 'img/slider_img.png' %}" alt="">
@@ -412,20 +478,14 @@
 							<p class="slider_text">Мы с мужем имеем квартиру, а дом оснащали на случай «конца света». У нас там своя скважина, солнечные батареи и котел выбирали энергонезависимый. То есть основная фишка - полная автономия. В ситуации, когда электричества нет никакой (даже солнца) могут работать только котлы на дровах. Разводку по дому стальными трубами мы сделали еще при строительстве. Расчет мощности котла и установка заказывали в «Винтерм». Они и котла подбирали. Взяли мы польский с чугунными внутренностями, как более надежный. Всем спасибо! У нас там теперь можно легко ядерную зиму пересидеть!</p>
 						</div>
 					</li>
-					<li>
-						<div class="slider_block clear_fix">
-							<img src="{% get_static 'img/slider_img.png' %}" alt="">
-							<p class="slider_name">Киреева Анжелика <span>домохозяйка</span></p>
-							<p class="slider_date">12 Декабря 2016</p>
-							<p class="slider_text">Мы с мужем имеем квартиру, а дом оснащали на случай «конца света». У нас там своя скважина, солнечные батареи и котел выбирали энергонезависимый. То есть основная фишка - полная автономия. В ситуации, когда электричества нет никакой (даже солнца) могут работать только котлы на дровах. Разводку по дому стальными трубами мы сделали еще при строительстве. Расчет мощности котла и установка заказывали в «Винтерм». Они и котла подбирали. Взяли мы польский с чугунными внутренностями, как более надежный. Всем спасибо! У нас там теперь можно легко ядерную зиму пересидеть!</p>
-						</div>
-					</li>
-
+				{% endif %}
 				</ul>
 			</div>
 		</div>
 	</div>
+{% endif %}
 
+{% if site_config.show_advanced %}
 	<div class="seventh_block">
 		<div class="container">
 			<p class="caption"><span>ДОПОЛНИТЕЛЬНЫЕ</span> УСЛУГИ</p>
@@ -442,6 +502,7 @@
 			<div class="more_block"><p>Подробнее</p><i></i></div>
 		</div>
 	</div>
+{% endif %}
 
 	<div class="eighth_block">
 		<div class="container">

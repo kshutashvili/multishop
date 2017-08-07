@@ -7,9 +7,9 @@
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
         <li>
-        <a href="{% url 'dashboard:filterdescription-list' %}">{% trans "Filter Descriptions" %}</a>
+        <a href="{% url 'dashboard:review-list' %}">{% trans "Отзывы" %}</a>
     </li>
-    <li class="active">{% trans "Удалить filter description?" %}</li>
+    <li class="active">{% trans "Удалить отзыв?" %}</li>
 </ul>
 {% endblock %}
 
@@ -19,17 +19,17 @@
 
 {% block dashboard_content %}
   <div class="table-header">
-      <h2>{% trans "Удаление filter description" %}</h2>
+      <h2>{% trans "Удаление отзыва" %}</h2>
   </div>
   <form action="." method="post" class="well">
       {% csrf_token %}
       {{ form }}
       <p>
-          {% blocktrans with url=object.filter_url %}Удаление filter description для <strong>{{ url }}</strong> - вы уверены?{% endblocktrans %}
+          {% blocktrans with name=object.name %}Удаление отзыва <strong>{{ name }}</strong> - вы уверены?{% endblocktrans %}
       </p>
       <div class="form-actions">
           <button type="submit" class="btn btn-danger" data-loading-text="{% trans 'Deleting...' %}">{% trans "Delete" %}</button>
-      {% trans "or" %} <a href="{% url 'dashboard:filterdescription-list' %}">{% trans "cancel" %}</a>
+      {% trans "or" %} <a href="{% url 'dashboard:review-list' %}">{% trans "cancel" %}</a>
       </div>
   </form>
 {% endblock %}

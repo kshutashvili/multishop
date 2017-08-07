@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-    {% blocktrans with url=filter_description.filter_url %}Filter description для {{ url }}{% endblocktrans %} | {{ block.super }}
+    {% blocktrans with text=text_obj.text %}{{ text }}{% endblocktrans %} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -12,14 +12,18 @@
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
         <li>
-            <a href="{% url 'dashboard:filterdescription-list' %}">{% trans "Filter Descriptions" %}</a>
+            <a href="
+            {% if text_one %}{% url 'dashboard:textone-list' %}{% endif %}
+            {% if text_two %}{% url 'dashboard:texttwo-list' %}{% endif %}
+            {% if text_three %}{% url 'dashboard:textthree-list' %}{% endif %}
+            {% if text_four %}{% url 'dashboard:textfour-list' %}{% endif %}">{% trans "Texts" %}</a>
         </li>
-        <li class="active">{{ filter_description.filter_url }}</li>
+        <li class="active">{{ text_obj.text }}</li>
     </ul>
 {% endblock %}
 
 {% block headertext %}
-    {% blocktrans with url=filter_description.filter_url %}Filter description для {{ url }}{% endblocktrans %}
+    {% blocktrans with text=text_obj.text %}{{ text }}{% endblocktrans %}
 {% endblock  %}
 
 {% block dashboard_content %}

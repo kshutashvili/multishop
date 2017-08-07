@@ -7,9 +7,13 @@
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
         <li>
-        <a href="{% url 'dashboard:filterdescription-list' %}">{% trans "Filter Descriptions" %}</a>
+        <a href="
+        {% if text_one %}{% url 'dashboard:textone-list' %}{% endif %}
+        {% if text_two %}{% url 'dashboard:texttwo-list' %}{% endif %}
+        {% if text_three %}{% url 'dashboard:textthree-list' %}{% endif %}
+        {% if text_four %}{% url 'dashboard:textfour-list' %}{% endif %}">{% trans "Texts" %}</a>
     </li>
-    <li class="active">{% trans "Удалить filter description?" %}</li>
+    <li class="active">{% trans "Delete text?" %}</li>
 </ul>
 {% endblock %}
 
@@ -19,13 +23,13 @@
 
 {% block dashboard_content %}
   <div class="table-header">
-      <h2>{% trans "Удаление filter description" %}</h2>
+      <h2>{% trans "Delete text" %}</h2>
   </div>
   <form action="." method="post" class="well">
       {% csrf_token %}
       {{ form }}
       <p>
-          {% blocktrans with url=object.filter_url %}Удаление filter description для <strong>{{ url }}</strong> - вы уверены?{% endblocktrans %}
+          {% blocktrans with url=object.text %}Delete text - <strong>{{ url }}</strong> - are you sure?{% endblocktrans %}
       </p>
       <div class="form-actions">
           <button type="submit" class="btn btn-danger" data-loading-text="{% trans 'Deleting...' %}">{% trans "Delete" %}</button>
