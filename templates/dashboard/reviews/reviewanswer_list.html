@@ -59,7 +59,7 @@
                         </td>
                         <td>
                           {% if review.review %}
-                            <a href="{% url 'dashboard:reviews-update' pk=review.review.id %}">{{ review.review }}</a>
+                            <a href="{% url 'dashboard:reviews-update' pk=review.review.id %}">:{{ review.review }}</a>
                           {% else %}
                             <span>-</span>
                           {% endif %}
