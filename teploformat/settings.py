@@ -302,7 +302,18 @@ OSCAR_DASHBOARD_NAVIGATION[4]['children'] += [
         'label': _('Вопросы о товаре'),
         'url_name': 'dashboard:productquestion-list',
     },
+    {
+        'label': _('Reviews'),
+        'url_name': 'dashboard:reviews-list',
+    },
+    {
+        'label': _('Ответы на отзывы'),
+        'url_name': 'dashboard:reviewanswers-list',
+    },
 ]
+
+# remove Reviews from Content
+del OSCAR_DASHBOARD_NAVIGATION[6]['children'][4]
 
 # append as separate group
 OSCAR_DASHBOARD_NAVIGATION += [{

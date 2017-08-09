@@ -1296,3 +1296,15 @@ msgstr "Заявки на звонок"
 #: templates/shop/dashboard/orders/callrequest_list.html:39
 msgid "Client Name"
 msgstr "Имя клиента"
+
+#: shop/dashboard/reviews/views.py:171
+msgid "All review answers"
+msgstr "Все ответы на отзывы"
+
+#: templates/dashboard/reviews/reviewanswer_list.html:99
+msgid "No review answers found."
+msgstr "Ответы на отзывы не найдены."
+
+#: templates/dashboard/reviews/reviewanswer_list.html:51
+msgid "Reply to"
+msgstr "Ответ на отзыв"

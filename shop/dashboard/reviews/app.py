@@ -17,6 +17,12 @@ class ReviewsApplication(CoreReviewsApplication):
                                              'ProductQuestionUpdateView')
     product_question_delete_view = get_class('dashboard.reviews.views',
                                              'ProductQuestionDeleteView')
+    reviewanswers_list_view = get_class('dashboard.reviews.views',
+                                        'ReviewAnswerListView')
+    reviewanswers_update_view = get_class('dashboard.reviews.views',
+                                          'ReviewAnswerUpdateView')
+    reviewanswers_delete_view = get_class('dashboard.reviews.views',
+                                          'ReviewAnswerDeleteView')
 
     def get_urls(self):
 
@@ -30,6 +36,15 @@ class ReviewsApplication(CoreReviewsApplication):
             url(r'^productquestion/delete/(?P<pk>[\d]+)/$',
                 self.product_question_delete_view.as_view(),
                 name='productquestion-delete'),
+            url(r'^answers/$',
+                self.reviewanswers_list_view.as_view(),
+                name='reviewanswers-list'),
+            url(r'^answers/edit/(?P<pk>[\d]+)/$',
+                self.reviewanswers_update_view.as_view(),
+                name='reviewanswers-update'),
+            url(r'^answers/delete/(?P<pk>[\d]+)/$',
+                self.reviewanswers_delete_view.as_view(),
+                name='reviewanswers-delete'),
         ]
 
         urls = self.post_process_urls(urls)
