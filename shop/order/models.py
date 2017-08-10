@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django.contrib.sites.models import Site
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
 from oscar.apps.order.abstract_models import AbstractOrder
 
 
@@ -179,19 +182,36 @@ class Order(AbstractOrder):
 
 class CallRequest(models.Model):
     class Meta:
-        verbose_name = u'Заявка на звонок'
-        verbose_name_plural = u'Заявки на звонки'
+        verbose_name = _('Заявка на звонок')
+        verbose_name_plural = _('Заявки на звонки')
 
-    name = models.CharField(max_length=120, verbose_name='Имя')
+    name = models.CharField(max_length=120, verbose_name=_('Имя'))
     phone = models.CharField(
         max_length=12,
-        verbose_name=u'Телефон'
+        verbose_name=_('Телефон')
     )
     when_created = models.DateTimeField(
-        verbose_name=u'Время создания',
+        verbose_name=_('Время создания'),
         auto_now_add=True,
         null=True
     )
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+
+
+class InstallmentPayment(models.Model):
+    site = models.ForeignKey(Site,
+                             verbose_name='Сайт')
+    phone = models.CharField(_("Номер телефона"),
+                             max_length=15)
+    created = models.DateTimeField(_("Дата создания заявки"),
+                                   auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("Заявка оформления рассрочки")
+        verbose_name_plural = _("Заявки оформления рассрочки")
+
+    def __str__(self):
+        return self.phone
+
 
 from oscar.apps.order.models import *

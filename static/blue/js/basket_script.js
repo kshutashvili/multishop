@@ -384,9 +384,19 @@ $(document).ready(function () {
         $.post($('#call_request_form').attr('action'), $('#call_request_form').serialize(), function () {
             $('.close').trigger('click');
             $('div.' + $(outer_this).attr("data-rel")).fadeIn(500);
-            //$("body").append("<div id='overlay'></div>");
-            //$('#overlay').show().css({'filter': 'alpha(opacity=80)'});
             $('.shadow').show();
+            return false;
+        });
+    });
+
+    $('#submit_installment').click(function (e) {
+        $(this).text('Отправка...');
+        e.preventDefault();
+        var outer_this = this;
+        $.post($('#installment_form').attr('action'), $('#installment_form').serialize(), function () {
+            $('div.' + $(outer_this).attr("data-rel")).fadeIn(500);
+            $('.shadow').show();
+            $(outer_this).text('Оформить рассрочку');
             return false;
         });
     });

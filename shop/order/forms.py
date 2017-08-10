@@ -3,7 +3,7 @@
 from django import forms
 
 from shop.order.models import Order, \
-    OneClickOrder, CallRequest, ShippingMethod, PaymentMethod
+    OneClickOrder, CallRequest, ShippingMethod, PaymentMethod, InstallmentPayment
 
 
 class OneClickOrderForm(forms.ModelForm):
@@ -18,6 +18,22 @@ class OneClickOrderForm(forms.ModelForm):
     class Meta:
         model = OneClickOrder
         fields = ['phone']
+
+
+class InstallmentPaymentForm(forms.ModelForm):
+    phone = forms.RegexField(regex=r'^\+?1?\d{9,15}$',
+                             error_message=(
+                                "Phone number must be entered in the format: '+999999999'. "
+                                "Up to 15 digits allowed."),
+                             label='')
+
+    class Meta:
+        model = InstallmentPayment
+        fields = ['phone',]
+
+    def __init__(self, *args, **kwargs):
+        super(InstallmentPaymentForm, self).__init__(*args, **kwargs)
+        self.fields['phone'].widget.attrs = {'placeholder': u'+380(__)_______'}
 
 
 class OrderForm(forms.ModelForm):

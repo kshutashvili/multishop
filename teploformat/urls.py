@@ -28,7 +28,7 @@ from shop.catalogue.views import get_search_count, \
     OneClickOrderCreateView, CompareView, remove_item_from_compare_list, \
     remove_category_from_compare_list, CompareCategoryView, \
     UpdateFilterCatalogueView
-from shop.order.views import CallRequestCreateView
+from shop.order.views import CallRequestCreateView, InstallmentPaymentCreateView
 from contacts.views import FlatPageView
 from website.sitemaps import base_sitemaps, html_sitemap
 from teploformat.views import page_not_found_with_site_templates
@@ -91,6 +91,7 @@ urlpatterns += i18n_patterns(
         name='update_items_quantity'),
     url(r'^basket/', include('shop.order.urls', namespace='order')),
     url('^call_request', CallRequestCreateView.as_view(), name='call_request'),
+    url(r'^installment_pay/$', InstallmentPaymentCreateView.as_view(), name='installment_pay'),
     url(r'', include(application.urls)),
     url(r'^(?P<flatpage_slug>[a-zA-Z0-9-_]+)/$', FlatPageView.as_view(),
         name='flatpage_detail'),

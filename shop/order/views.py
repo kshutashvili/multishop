@@ -9,7 +9,7 @@ from django.views.generic import FormView, CreateView
 from django.db import transaction
 
 from website.views import SiteTemplateResponseMixin
-from .forms import OrderForm, CallRequestForm
+from .forms import OrderForm, CallRequestForm, InstallmentPaymentForm
 from .utils import OrderCreator
 
 
@@ -48,6 +48,20 @@ class SimpleOrderView(SiteTemplateResponseMixin, FormView):
 
 class CallRequestCreateView(CreateView):
     form_class = CallRequestForm
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        site = get_current_site(self.request)
+        instance.site = site
+        instance.save()
+        return HttpResponse(status=201)
+
+    def form_invalid(self, form):
+        return HttpResponse(status=403)
+
+
+class InstallmentPaymentCreateView(CreateView):
+    form_class = InstallmentPaymentForm
 
     def form_valid(self, form):
         instance = form.save(commit=False)

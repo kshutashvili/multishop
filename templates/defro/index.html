@@ -400,9 +400,10 @@
 					</div>
 					{{ site_config.credit_block_text|linebreaks }}
 				</div>
-				<form action="#">
-					<input type="text" placeholder="+38 (___) ___-__-__">
-					<button>Оформить рассрочку</button>
+				<form action="{% url 'installment_pay' %}" method="POST" id="installment_form">
+					{% csrf_token %}
+					{{ installment_form.phone }}
+					<button type="submit" id="submit_installment" data-rel="request_button_modal">Оформить рассрочку</button>
 				</form>
 			</div>
 			<div class="more_block"><p>Подробнее</p><i></i></div>
