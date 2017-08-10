@@ -211,6 +211,11 @@ class LandingConfigForm(forms.ModelForm):
         model = Configuration
         exclude = ('site',)
 
+    def __init__(self, request, *args, **kwargs):
+        super(LandingConfigForm, self).__init__(*args, **kwargs)
+        curr_site = get_current_site(request)
+        self.fields['footer_map_for'].queryset = self.fields['footer_map_for'].queryset.filter(site=curr_site)
+
 
 class FuelConfigurationForm(forms.ModelForm):
     class Meta:

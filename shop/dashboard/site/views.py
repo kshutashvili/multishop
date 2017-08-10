@@ -935,7 +935,7 @@ class LandingConfigView(TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super(LandingConfigView, self).get_context_data(**kwargs)
         obj = Configuration.get_solo()
-        ctx['form'] = LandingConfigForm(instance=obj)
+        ctx['form'] = LandingConfigForm(instance=obj, request=self.request)
         return ctx
 
     def post(self, request):
@@ -1249,7 +1249,6 @@ class DeliveryAndPayCreateView(CreateView):
         return ctx
 
     def form_valid(self, form):
-        print(form)
         obj = form.save(commit=False)
         obj.config = Configuration.get_solo()
         obj.save()
