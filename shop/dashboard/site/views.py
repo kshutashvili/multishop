@@ -24,11 +24,12 @@ from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
                                        TextFourForm, LandingConfigForm,
                                        FuelConfigurationForm, BenefitItemForm,
                                        OverviewItemForm, ReviewItemForm,
-                                       DeliveryAndPayForm)
+                                       DeliveryAndPayForm, HeaderMenuForm)
 from shop.catalogue.models import FilterDescription
 from config.models import (MetaTag, TextOne, TextTwo, TextThree, TextFour,
                            Configuration, FuelConfiguration, BenefitItem,
-                           OverviewItem, ReviewItem, DeliveryAndPay)
+                           OverviewItem, ReviewItem, DeliveryAndPay,
+                           MenuItem)
 from contacts.models import (City, SocialNetRef, FlatPage, ContactMessage,
                              Timetable)
 from website.views import SiteMultipleObjectMixin
@@ -935,11 +936,16 @@ class LandingConfigView(TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super(LandingConfigView, self).get_context_data(**kwargs)
         obj = Configuration.get_solo()
-        ctx['form'] = LandingConfigForm(instance=obj, request=self.request)
+        form = LandingConfigForm(instance=obj)
+        curr_site = get_current_site(self.request)
+        form.fields['footer_map_for'].queryset = form.fields['footer_map_for'].queryset.filter(site=curr_site)
+        ctx['form'] = form
         return ctx
 
     def post(self, request):
         form = LandingConfigForm(request.POST)
+        print(form)
+        print(form.errors)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.site = get_current_site(self.request)
@@ -1298,6 +1304,77 @@ class DeliveryAndPayDeleteview(DeleteView):
         messages.success(
             self.request, _("Запись '%s' удалена") % self.object)
         return reverse('dashboard:deliverypay-list')
+
+
+class HeaderMenuListView(ListView):
+    model = MenuItem
+    template_name = "shop/dashboard/site/headermenu_list.html"
+    context_object_name = 'header_menu'
+    queryset = MenuItem.objects.in_header()
+
+
+class HeaderMenuCreateView(CreateView):
+    model = MenuItem
+    form_class = HeaderMenuForm
+    template_name = "shop/dashboard/site/headermenu_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(HeaderMenuCreateView, self).get_context_data(**kwargs)
+        ctx['title'] = _('Создать новый пункт меню')
+        return ctx
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.site = get_current_site(self.request)
+        obj.position = MenuItem.POSITION.HEADER
+        obj.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        messages.success(self.request, _("Новый пункт меню создан"))
+        return reverse('dashboard:headermenu-list')
+
+    def get_object(self):
+        return None
+
+
+class HeaderMenuUpdateView(UpdateView):
+    model = MenuItem
+    form_class = HeaderMenuForm
+    template_name = "shop/dashboard/site/headermenu_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(HeaderMenuUpdateView, self).get_context_data(**kwargs)
+        ctx['title'] = self.object.name
+        return ctx
+
+    def get_object(self):
+        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Пункт меню успешно изменен"))
+        return reverse('dashboard:headermenu-list')
+
+
+class HeaderMenuDeleteView(DeleteView):
+    model = MenuItem
+    template_name = "shop/dashboard/site/headermenu_delete.html"
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(HeaderMenuDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Удаление пункта меню '%s'") % self.object
+
+        return ctx
+
+    def get_success_url(self):
+        messages.success(
+            self.request, _("Пункт меню '%s' удален") % self.object)
+        return reverse('dashboard:headermenu-list')
+
 
 
 

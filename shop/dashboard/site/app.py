@@ -62,7 +62,11 @@ from shop.dashboard.site.views import (SiteCreateView, CityListView,
                                        DeliveryAndPayListView,
                                        DeliveryAndPayCreateView,
                                        DeliveryAndPayUpdateView,
-                                       DeliveryAndPayDeleteview)
+                                       DeliveryAndPayDeleteview,
+                                       HeaderMenuListView,
+                                       HeaderMenuCreateView,
+                                       HeaderMenuUpdateView,
+                                       HeaderMenuDeleteView)
 
 
 class SiteDashboardApplication(Application):
@@ -135,6 +139,10 @@ class SiteDashboardApplication(Application):
     deliverypay_create_view = DeliveryAndPayCreateView
     deliverypay_update_view = DeliveryAndPayUpdateView
     deliverypay_delete_view = DeliveryAndPayDeleteview
+    headermenu_list_view = HeaderMenuListView
+    headermenu_create_view = HeaderMenuCreateView
+    headermenu_update_view = HeaderMenuUpdateView
+    headermenu_delete_view = HeaderMenuDeleteView
 
     def get_urls(self):
         urls = [
@@ -281,6 +289,15 @@ class SiteDashboardApplication(Application):
                 name='deliverypay-detail'),
             url(r'^deliverypay/delete/(?P<pk>[\d]+)/$', self.deliverypay_delete_view.as_view(),
                 name='deliverypay-delete'),
+            # HEADER menu
+            url(r'^headermenu/$', self.headermenu_list_view.as_view(),
+                name='headermenu-list'),
+            url(r'^headermenu/add/$', self.headermenu_create_view.as_view(),
+                name='headermenu-create'),
+            url(r'^headermenu/edit/(?P<pk>[\d]+)/$', self.headermenu_update_view.as_view(),
+                name='headermenu-detail'),
+            url(r'^headermenu/delete/(?P<pk>[\d]+)/$', self.headermenu_delete_view.as_view(),
+                name='headermenu-delete'),
 
         ]
         return self.post_process_urls(urls)

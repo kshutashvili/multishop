@@ -10,7 +10,8 @@ from django.forms.models import inlineformset_factory
 from config.models import (SiteConfig, MetaTag, TextOne, TextTwo,
                           TextThree, TextFour, Configuration,
                           FuelConfiguration, BenefitItem,
-                          OverviewItem, ReviewItem, DeliveryAndPay)
+                          OverviewItem, ReviewItem, DeliveryAndPay,
+                          MenuItem)
 from contacts.models import (City, PhoneNumber,
                              Timetable, SocialNetRef,
                              FlatPage, ContactMessage,
@@ -211,11 +212,6 @@ class LandingConfigForm(forms.ModelForm):
         model = Configuration
         exclude = ('site',)
 
-    def __init__(self, request, *args, **kwargs):
-        super(LandingConfigForm, self).__init__(*args, **kwargs)
-        curr_site = get_current_site(request)
-        self.fields['footer_map_for'].queryset = self.fields['footer_map_for'].queryset.filter(site=curr_site)
-
 
 class FuelConfigurationForm(forms.ModelForm):
     class Meta:
@@ -249,4 +245,15 @@ class DeliveryAndPayForm(forms.ModelForm):
         model = DeliveryAndPay
         fields = ('for_block', 'icon', 'title_ru', 'title_uk',
                   'text_ru', 'text_uk')
+
+
+class HeaderMenuForm(forms.ModelForm):
+    class Meta:
+        model = MenuItem
+        fields = ('name', 'order', 'link',
+                  'category', 'is_active')
+
+    # def __init__(self, *args, **kwargs):
+    #     super(HeaderMenuForm, self).__init__(*args, **kwargs)
+    #     self.queryset = MenuItem.objects.in_header()
 

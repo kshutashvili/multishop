@@ -315,6 +315,14 @@ OSCAR_DASHBOARD_NAVIGATION[4]['children'] += [
 # remove Reviews from Content
 del OSCAR_DASHBOARD_NAVIGATION[6]['children'][4]
 
+# append to Content
+OSCAR_DASHBOARD_NAVIGATION[6]['children'] += [
+    {
+        'label': _('Меню (Header)'),
+        'url_name': 'dashboard:headermenu-list',
+    },
+]
+
 # append as separate group
 OSCAR_DASHBOARD_NAVIGATION += [{
         'label': _('Import/export'),
