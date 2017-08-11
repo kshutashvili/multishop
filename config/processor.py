@@ -27,7 +27,7 @@ def menu_processor(request):
     menu_by_cat = defaultdict(lambda: [])
     for item in footer_objects:
         menu_by_cat[item.category].append(item)
-    footer_menu = sorted(menu_by_cat.items(), key=lambda item: item[0].order)
+    footer_menu = sorted(menu_by_cat.items(), key=lambda item: -1 if item[0] is None else item[0].order)
     return {'header_menu': header_menu, 'footer_menu': footer_menu}
 
 

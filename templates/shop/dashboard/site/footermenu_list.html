@@ -38,6 +38,7 @@
                 <thead>
                     <tr>
                         <th>{% trans "Название" %}</th>
+                        <th>{% trans "Категория" %}</th>
                         <th>{% trans "Ссылка" %}</th>
                         <th>{% trans "Отображается на сайте" %}</th>
                     </tr>
@@ -46,6 +47,13 @@
                 {% for item in footer_menu %}
                     <tr>
                         <td><a href="{% url 'dashboard:footermenu-detail' pk=item.id %}">{{ item }}</a></td>
+                        <td>
+                          {% if item.category %}
+                            <a href="{% url 'dashboard:menucategory-detail' pk=item.category.id %}">{{ item.category }}</a>
+                          {% else %}
+                            -
+                          {% endif %}
+                        </td>
                         <td>{{ item.link }}</td>
                         <td>{{ item.is_active }}</td>
                         <td>
