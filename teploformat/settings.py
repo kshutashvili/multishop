@@ -322,12 +322,16 @@ OSCAR_DASHBOARD_NAVIGATION[6]['children'] += [
         'url_name': 'dashboard:menucategory-list',
     },
     {
-        'label': _('Меню (Header)'),
+        'label': _('Верхнее меню'),
         'url_name': 'dashboard:headermenu-list',
     },
     {
-        'label': _('Настройки меню'),
+        'label': _('Нижнее меню'),
         'url_name': 'dashboard:footermenu-list',
+    },
+    {
+        'label': _('Боковое меню'),
+        'url_name': 'dashboard:sidemenu-list',
     },
 ]
 

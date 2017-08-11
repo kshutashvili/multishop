@@ -247,17 +247,17 @@ class DeliveryAndPayForm(forms.ModelForm):
                   'text_ru', 'text_uk')
 
 
-class HeaderMenuForm(forms.ModelForm):
+class MenuItemForm(forms.ModelForm):
     class Meta:
         model = MenuItem
-        fields = ('name', 'order', 'link',
-                  'category', 'is_active')
+        fields = ('name_ru', 'name_uk', 'order', 'link',
+                  'is_active')
 
 
-class FooterMenuForm(forms.ModelForm):
+class FooterMenuItemForm(forms.ModelForm):
     class Meta:
         model = MenuItem
-        fields = ('name', 'order', 'link',
+        fields = ('name_ru', 'name_uk', 'order', 'link',
                   'category', 'is_active')
 
 
@@ -265,4 +265,3 @@ class MenuCategoryForm(forms.ModelForm):
     class Meta:
         model = MenuCategory
         fields = '__all__'
-

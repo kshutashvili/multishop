@@ -60,7 +60,7 @@ class ProductAdmin(OscarProductAdmin):
 
 CategoryAdminForm = movenodeform_factory(
     Category,
-    exclude=('name', 'description', 'description_title', 'slug'),
+    exclude=('name', 'description', 'description_title', 'slug', 'name_in_menu'),
     widgets={
         'description_ru': CKEditorWidget(),
         'description_uk': CKEditorWidget(),
@@ -73,6 +73,7 @@ class CategoryAdmin(OscarCategoryAdmin):
 
     form = CategoryAdminForm
     fields = ('name_ru', 'name_uk',
+              'name_in_side_menu_ru', 'name_in_side_menu_uk',
               'description_title_ru', 'description_title_uk',
               'description_ru', 'description_uk',
               'image', 'slug_ru', 'slug_uk', 'site',
