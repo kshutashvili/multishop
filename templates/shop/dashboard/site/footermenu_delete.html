@@ -7,7 +7,7 @@
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
         <li>
-        <a href="{% url 'dashboard:headermenu-list' %}">{% trans "Пункты меню (Header)" %}</a>
+        <a href="{% url 'dashboard:footermenu-list' %}">{% trans "Настройки меню" %}</a>
     </li>
     <li class="active">{% trans "Удалить пункт меню?" %}</li>
 </ul>
@@ -29,7 +29,7 @@
       </p>
       <div class="form-actions">
           <button type="submit" class="btn btn-danger" data-loading-text="{% trans 'Deleting...' %}">{% trans "Delete" %}</button>
-      {% trans "or" %} <a href="{% url 'dashboard:headermenu-list' %}">{% trans "cancel" %}</a>
+      {% trans "or" %} <a href="{% url 'dashboard:footermenu-list' %}">{% trans "cancel" %}</a>
       </div>
   </form>
 {% endblock %}

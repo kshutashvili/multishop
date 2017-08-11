@@ -66,7 +66,15 @@ from shop.dashboard.site.views import (SiteCreateView, CityListView,
                                        HeaderMenuListView,
                                        HeaderMenuCreateView,
                                        HeaderMenuUpdateView,
-                                       HeaderMenuDeleteView)
+                                       HeaderMenuDeleteView,
+                                       FooterMenuListView,
+                                       FooterMenuCreateView,
+                                       FooterMenuUpdateView,
+                                       FooterMenuDeleteView,
+                                       MenuCategoryListView,
+                                       MenuCategoryCreateView,
+                                       MenuCategoryUpdateView,
+                                       MenuCategoryDeleteView)
 
 
 class SiteDashboardApplication(Application):
@@ -143,6 +151,14 @@ class SiteDashboardApplication(Application):
     headermenu_create_view = HeaderMenuCreateView
     headermenu_update_view = HeaderMenuUpdateView
     headermenu_delete_view = HeaderMenuDeleteView
+    footermenu_list_view = FooterMenuListView
+    footermenu_create_view = FooterMenuCreateView
+    footermenu_update_view = FooterMenuUpdateView
+    footermenu_delete_view = FooterMenuDeleteView
+    menucategory_list_view = MenuCategoryListView
+    menucategory_create_view = MenuCategoryCreateView
+    menucategory_update_view = MenuCategoryUpdateView
+    menucategory_delete_view = MenuCategoryDeleteView
 
     def get_urls(self):
         urls = [
@@ -298,6 +314,24 @@ class SiteDashboardApplication(Application):
                 name='headermenu-detail'),
             url(r'^headermenu/delete/(?P<pk>[\d]+)/$', self.headermenu_delete_view.as_view(),
                 name='headermenu-delete'),
+            # FOOTER menu
+            url(r'^footermenu/$', self.footermenu_list_view.as_view(),
+                name='footermenu-list'),
+            url(r'^footermenu/add/$', self.footermenu_create_view.as_view(),
+                name='footermenu-create'),
+            url(r'^footermenu/edit/(?P<pk>[\d]+)/$', self.footermenu_update_view.as_view(),
+                name='footermenu-detail'),
+            url(r'^footermenu/delete/(?P<pk>[\d]+)/$', self.footermenu_delete_view.as_view(),
+                name='footermenu-delete'),
+            # Menu category
+            url(r'^menucategory/$', self.menucategory_list_view.as_view(),
+                name='menucategory-list'),
+            url(r'^menucategory/add/$', self.menucategory_create_view.as_view(),
+                name='menucategory-create'),
+            url(r'^menucategory/edit/(?P<pk>[\d]+)/$', self.menucategory_update_view.as_view(),
+                name='menucategory-detail'),
+            url(r'^menucategory/delete/(?P<pk>[\d]+)/$', self.menucategory_delete_view.as_view(),
+                name='menucategory-delete'),
 
         ]
         return self.post_process_urls(urls)

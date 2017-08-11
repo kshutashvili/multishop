@@ -24,12 +24,13 @@ from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
                                        TextFourForm, LandingConfigForm,
                                        FuelConfigurationForm, BenefitItemForm,
                                        OverviewItemForm, ReviewItemForm,
-                                       DeliveryAndPayForm, HeaderMenuForm)
+                                       DeliveryAndPayForm, HeaderMenuForm,
+                                       FooterMenuForm, MenuCategoryForm)
 from shop.catalogue.models import FilterDescription
 from config.models import (MetaTag, TextOne, TextTwo, TextThree, TextFour,
                            Configuration, FuelConfiguration, BenefitItem,
                            OverviewItem, ReviewItem, DeliveryAndPay,
-                           MenuItem)
+                           MenuItem, MenuCategory)
 from contacts.models import (City, SocialNetRef, FlatPage, ContactMessage,
                              Timetable)
 from website.views import SiteMultipleObjectMixin
@@ -1376,5 +1377,140 @@ class HeaderMenuDeleteView(DeleteView):
         return reverse('dashboard:headermenu-list')
 
 
+class FooterMenuListView(ListView):
+    model = MenuItem
+    template_name = "shop/dashboard/site/footermenu_list.html"
+    context_object_name = 'footer_menu'
+    queryset = MenuItem.objects.in_footer()
 
+
+class FooterMenuCreateView(CreateView):
+    model = MenuItem
+    form_class = FooterMenuForm
+    template_name = "shop/dashboard/site/footermenu_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(FooterMenuCreateView, self).get_context_data(**kwargs)
+        ctx['title'] = _('Создать новый пункт меню')
+        return ctx
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.site = get_current_site(self.request)
+        obj.position = MenuItem.POSITION.FOOTER
+        obj.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        messages.success(self.request, _("Новый пункт меню создан"))
+        return reverse('dashboard:footermenu-list')
+
+    def get_object(self):
+        return None
+
+
+class FooterMenuUpdateView(UpdateView):
+    model = MenuItem
+    form_class = FooterMenuForm
+    template_name = "shop/dashboard/site/footermenu_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(FooterMenuUpdateView, self).get_context_data(**kwargs)
+        ctx['title'] = self.object.name
+        return ctx
+
+    def get_object(self):
+        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Пункт меню успешно изменен"))
+        return reverse('dashboard:footermenu-list')
+
+
+class FooterMenuDeleteView(DeleteView):
+    model = MenuItem
+    template_name = "shop/dashboard/site/footermenu_delete.html"
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(FooterMenuDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Удаление пункта меню '%s'") % self.object
+
+        return ctx
+
+    def get_success_url(self):
+        messages.success(
+            self.request, _("Пункт меню '%s' удален") % self.object)
+        return reverse('dashboard:footermenu-list')
+
+
+class MenuCategoryListView(ListView):
+    model = MenuCategory
+    template_name = "shop/dashboard/site/menucategory_list.html"
+    context_object_name = 'menu_categories'
+
+
+class MenuCategoryCreateView(CreateView):
+    model = MenuCategory
+    form_class = MenuCategoryForm
+    template_name = "shop/dashboard/site/menucategory_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(MenuCategoryCreateView, self).get_context_data(**kwargs)
+        ctx['title'] = _('Создать новую категорию меню')
+        return ctx
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        #obj.site = get_current_site(self.request)
+        obj.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        messages.success(self.request, _("Новая категория меню создана"))
+        return reverse('dashboard:menucategory-list')
+
+    def get_object(self):
+        return None
+
+
+class MenuCategoryUpdateView(UpdateView):
+    model = MenuCategory
+    form_class = MenuCategoryForm
+    template_name = "shop/dashboard/site/menucategory_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(MenuCategoryUpdateView, self).get_context_data(**kwargs)
+        ctx['title'] = self.object.name
+        return ctx
+
+    def get_object(self):
+        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Категория меню успешно изменена"))
+        return reverse('dashboard:menucategory-list')
+
+
+class MenuCategoryDeleteView(DeleteView):
+    model = MenuCategory
+    template_name = "shop/dashboard/site/menucategory_delete.html"
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(MenuCategoryDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Удаление категории меню '%s'") % self.object
+
+        return ctx
+
+    def get_success_url(self):
+        messages.success(
+            self.request, _("Категория меню '%s' удалена") % self.object)
+        return reverse('dashboard:menucategory-list')
 

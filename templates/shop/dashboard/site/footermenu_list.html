@@ -1,0 +1,71 @@
+{% extends 'dashboard/layout.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Настройки меню" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        </li>
+        <li class="active">{% trans "Настройки меню" %}</li>
+    </ul>
+{% endblock %}
+
+{% block header %}
+    <div class="page-header">
+        <a href="{% url 'dashboard:footermenu-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать новый пункт меню" %}</a>
+        <h1>{% trans "Настройки меню" %}</h1>
+    </div>
+{% endblock header %}
+
+{% block dashboard_content %}
+
+    {% if footer_menu %}
+        <form action="." method="post" class="order_table" id="orders_form">
+            {% csrf_token %}
+
+            {% block benefits_list %}
+            <table class="table table-striped table-bordered table-hover">
+                <caption>
+                    <h3 class="pull-left"><i class="icon-large"></i>
+                        {% trans "Все пункты меню" %}
+                    </h3>
+                </caption>
+
+                <thead>
+                    <tr>
+                        <th>{% trans "Название" %}</th>
+                        <th>{% trans "Ссылка" %}</th>
+                        <th>{% trans "Отображается на сайте" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in footer_menu %}
+                    <tr>
+                        <td><a href="{% url 'dashboard:footermenu-detail' pk=item.id %}">{{ item }}</a></td>
+                        <td>{{ item.link }}</td>
+                        <td>{{ item.is_active }}</td>
+                        <td>
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:footermenu-detail' url_name_delete='dashboard:footermenu-delete' record=item %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endblock benefits_list %}
+
+            {% include "dashboard/partials/pagination.html" %}
+        </form>
+    {% else %}
+        <table class="table table-striped table-bordered">
+            <caption><i class="icon-large"></i>
+               {% trans "Все пункты меню" %}
+            </caption>
+            <tr><td>{% trans "Еще не было создано ни одного пункта меню." %}</td></tr>
+        </table>
+    {% endif %}
+
+    {% endblock dashboard_content %}

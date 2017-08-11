@@ -262,10 +262,6 @@ OSCAR_DASHBOARD_NAVIGATION.insert(1,
                  'url_name': 'dashboard:socialref-list',
              },
              {
-                 'label': _('Flat Pages'),
-                 'url_name': 'dashboard:flatpage-list',
-             },
-             {
                  'label': _('Cities'),
                  'url_name': 'dashboard:city-list',
              },
@@ -318,8 +314,20 @@ del OSCAR_DASHBOARD_NAVIGATION[6]['children'][4]
 # append to Content
 OSCAR_DASHBOARD_NAVIGATION[6]['children'] += [
     {
+        'label': _('Статические страницы'),
+        'url_name': 'dashboard:flatpage-list',
+    },
+    {
+        'label': _('Категории меню'),
+        'url_name': 'dashboard:menucategory-list',
+    },
+    {
         'label': _('Меню (Header)'),
         'url_name': 'dashboard:headermenu-list',
+    },
+    {
+        'label': _('Настройки меню'),
+        'url_name': 'dashboard:footermenu-list',
     },
 ]
 

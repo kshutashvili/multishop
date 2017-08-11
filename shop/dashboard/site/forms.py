@@ -11,7 +11,7 @@ from config.models import (SiteConfig, MetaTag, TextOne, TextTwo,
                           TextThree, TextFour, Configuration,
                           FuelConfiguration, BenefitItem,
                           OverviewItem, ReviewItem, DeliveryAndPay,
-                          MenuItem)
+                          MenuItem, MenuCategory)
 from contacts.models import (City, PhoneNumber,
                              Timetable, SocialNetRef,
                              FlatPage, ContactMessage,
@@ -253,7 +253,16 @@ class HeaderMenuForm(forms.ModelForm):
         fields = ('name', 'order', 'link',
                   'category', 'is_active')
 
-    # def __init__(self, *args, **kwargs):
-    #     super(HeaderMenuForm, self).__init__(*args, **kwargs)
-    #     self.queryset = MenuItem.objects.in_header()
+
+class FooterMenuForm(forms.ModelForm):
+    class Meta:
+        model = MenuItem
+        fields = ('name', 'order', 'link',
+                  'category', 'is_active')
+
+
+class MenuCategoryForm(forms.ModelForm):
+    class Meta:
+        model = MenuCategory
+        fields = '__all__'
 
