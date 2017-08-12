@@ -130,12 +130,18 @@ class ProductCategory(AbstractProductCategory):
 class Category(AbstractCategory):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
     description_title = models.CharField(verbose_name='Название статьи (описания)', max_length=255, blank=True)
+    name_in_side_menu = models.CharField(_('Название в боковом меню'), max_length=255,
+                                          blank=True)
 
     objects = MP_NodeManager()
 
     def get_absolute_url(self):
         return reverse('catalogue:product_or_category',
                        kwargs={'slug': self.full_slug})
+
+    @property
+    def side_menu_name(self):
+        return self.name_in_side_menu or self.name
 
 
 class ProductAttribute(AbstractProductAttribute):

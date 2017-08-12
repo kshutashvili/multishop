@@ -13,13 +13,16 @@ from website.views import SiteTemplateResponseMixin
 from shop.catalogue.models import Product, Category
 from .models import ContactMessage, City
 from .models import FlatPage
+from config.models import MenuItem
 
 
 class CompareAndMenuContextMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super(CompareAndMenuContextMixin, self).get_context_data()
         site = get_current_site(self.request)
-        context['side_menu'] = {
+        context['side_menu'] = MenuItem.objects.filter(site=site).in_side().active()
+
+        context['side_menu_categories'] = {
             cat: [descendant for descendant in cat.get_descendants()] for cat in
             Category.objects.filter(site=site) if cat.is_root()}
         compare_list = self.request.session.get('compare_list')

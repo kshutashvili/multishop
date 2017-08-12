@@ -12,7 +12,7 @@
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
         <li>
-            <a href="{% url 'dashboard:headermenu-list' %}">{% trans "Пункты меню (Header)" %}</a>
+            <a href="{% url 'dashboard:headermenu-list' %}">{% trans "Настройки верхнего меню" %}</a>
         </li>
         <li class="active">{{ object }}</li>
     </ul>
@@ -33,9 +33,3 @@
     </div>
   </form>
 {% endblock dashboard_content %}
-
-{% block extrascripts %}
-{{ block.super }}
-<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-{% endblock %}

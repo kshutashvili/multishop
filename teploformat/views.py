@@ -6,6 +6,7 @@ from django.views.decorators.csrf import requires_csrf_token
 from django import http
 from django.template import Context, Engine, TemplateDoesNotExist, loader
 from shop.catalogue.models import Category
+from config.models import MenuItem
 
 
 @requires_csrf_token
@@ -25,7 +26,7 @@ def page_not_found_with_site_templates(request):
         'base.html'
     )
 
-    side_menu = {
+    side_menu_categories = {
         cat: [descendant for descendant in cat.get_descendants()] for cat in
         Category.objects.filter(site=site) if cat.is_root()}
 
@@ -33,7 +34,8 @@ def page_not_found_with_site_templates(request):
         'request_path': request.path,
         'base_template_name': base_template_name,
         'site_template': site_template,
-        'side_menu': side_menu,
+        'side_menu': MenuItem.objects.filter(site=site).in_side().active(),
+        'side_menu_categories': side_menu_categories,
         'is_404': True
     }
 

@@ -18,7 +18,8 @@ class ProductClassTranslationOptions(TranslationOptions):
 
 
 class CategoryTranslationOptions(TranslationOptions):
-    fields = ('name', 'description', 'description_title', 'slug')
+    fields = ('name', 'description', 'description_title',
+              'slug', 'name_in_side_menu')
 
 
 class ProductAttributeValueTranslationOptions(TranslationOptions):

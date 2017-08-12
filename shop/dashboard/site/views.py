@@ -24,8 +24,8 @@ from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
                                        TextFourForm, LandingConfigForm,
                                        FuelConfigurationForm, BenefitItemForm,
                                        OverviewItemForm, ReviewItemForm,
-                                       DeliveryAndPayForm, HeaderMenuForm,
-                                       FooterMenuForm, MenuCategoryForm)
+                                       DeliveryAndPayForm, MenuItemForm,
+                                       FooterMenuItemForm, MenuCategoryForm)
 from shop.catalogue.models import FilterDescription
 from config.models import (MetaTag, TextOne, TextTwo, TextThree, TextFour,
                            Configuration, FuelConfiguration, BenefitItem,
@@ -1311,7 +1311,7 @@ class DeliveryAndPayDeleteview(DeleteView):
         return reverse('dashboard:deliverypay-list')
 
 
-class HeaderMenuListView(ListView):
+class HeaderMenuListView(SiteMultipleObjectMixin, ListView):
     model = MenuItem
     template_name = "shop/dashboard/site/headermenu_list.html"
     context_object_name = 'header_menu'
@@ -1320,7 +1320,7 @@ class HeaderMenuListView(ListView):
 
 class HeaderMenuCreateView(CreateView):
     model = MenuItem
-    form_class = HeaderMenuForm
+    form_class = MenuItemForm
     template_name = "shop/dashboard/site/headermenu_detail.html"
 
     def get_context_data(self, **kwargs):
@@ -1345,7 +1345,7 @@ class HeaderMenuCreateView(CreateView):
 
 class HeaderMenuUpdateView(UpdateView):
     model = MenuItem
-    form_class = HeaderMenuForm
+    form_class = MenuItemForm
     template_name = "shop/dashboard/site/headermenu_detail.html"
 
     def get_context_data(self, **kwargs):
@@ -1381,7 +1381,7 @@ class HeaderMenuDeleteView(DeleteView):
         return reverse('dashboard:headermenu-list')
 
 
-class FooterMenuListView(ListView):
+class FooterMenuListView(SiteMultipleObjectMixin, ListView):
     model = MenuItem
     template_name = "shop/dashboard/site/footermenu_list.html"
     context_object_name = 'footer_menu'
@@ -1390,7 +1390,7 @@ class FooterMenuListView(ListView):
 
 class FooterMenuCreateView(CreateView):
     model = MenuItem
-    form_class = FooterMenuForm
+    form_class = FooterMenuItemForm
     template_name = "shop/dashboard/site/footermenu_detail.html"
 
     def get_context_data(self, **kwargs):
@@ -1415,7 +1415,7 @@ class FooterMenuCreateView(CreateView):
 
 class FooterMenuUpdateView(UpdateView):
     model = MenuItem
-    form_class = FooterMenuForm
+    form_class = FooterMenuItemForm
     template_name = "shop/dashboard/site/footermenu_detail.html"
 
     def get_context_data(self, **kwargs):
@@ -1518,3 +1518,72 @@ class MenuCategoryDeleteView(DeleteView):
             self.request, _("Категория меню '%s' удалена") % self.object)
         return reverse('dashboard:menucategory-list')
 
+
+class SideMenuListView(SiteMultipleObjectMixin, ListView):
+    model = MenuItem
+    template_name = "shop/dashboard/site/sidemenu_list.html"
+    context_object_name = 'side_menu'
+    queryset = MenuItem.objects.in_side()
+
+
+class SideMenuCreateView(CreateView):
+    model = MenuItem
+    form_class = MenuItemForm
+    template_name = "shop/dashboard/site/sidemenu_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(SideMenuCreateView, self).get_context_data(**kwargs)
+        ctx['title'] = _('Создать новый пункт меню')
+        return ctx
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.site = get_current_site(self.request)
+        obj.position = MenuItem.POSITION.SIDE
+        obj.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        messages.success(self.request, _("Новый пункт меню создан"))
+        return reverse('dashboard:sidemenu-list')
+
+    def get_object(self):
+        return None
+
+
+class SideMenuUpdateView(UpdateView):
+    model = MenuItem
+    form_class = MenuItemForm
+    template_name = "shop/dashboard/site/sidemenu_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(SideMenuUpdateView, self).get_context_data(**kwargs)
+        ctx['title'] = self.object.name
+        return ctx
+
+    def get_object(self):
+        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Пункт меню успешно изменен"))
+        return reverse('dashboard:sidemenu-list')
+
+
+class SideMenuDeleteView(DeleteView):
+    model = MenuItem
+    template_name = "shop/dashboard/site/sidemenu_delete.html"
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(SideMenuDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Удаление пункта меню '%s'") % self.object
+
+        return ctx
+
+    def get_success_url(self):
+        messages.success(
+            self.request, _("Пункт меню '%s' удален") % self.object)
+        return reverse('dashboard:sidemenu-list')

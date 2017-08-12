@@ -74,7 +74,11 @@ from shop.dashboard.site.views import (SiteCreateView, CityListView,
                                        MenuCategoryListView,
                                        MenuCategoryCreateView,
                                        MenuCategoryUpdateView,
-                                       MenuCategoryDeleteView)
+                                       MenuCategoryDeleteView,
+                                       SideMenuListView,
+                                       SideMenuCreateView,
+                                       SideMenuUpdateView,
+                                       SideMenuDeleteView)
 
 
 class SiteDashboardApplication(Application):
@@ -159,6 +163,10 @@ class SiteDashboardApplication(Application):
     menucategory_create_view = MenuCategoryCreateView
     menucategory_update_view = MenuCategoryUpdateView
     menucategory_delete_view = MenuCategoryDeleteView
+    sidemenu_list_view = SideMenuListView
+    sidemenu_create_view = SideMenuCreateView
+    sidemenu_update_view = SideMenuUpdateView
+    sidemenu_delete_view = SideMenuDeleteView
 
     def get_urls(self):
         urls = [
@@ -332,7 +340,15 @@ class SiteDashboardApplication(Application):
                 name='menucategory-detail'),
             url(r'^menucategory/delete/(?P<pk>[\d]+)/$', self.menucategory_delete_view.as_view(),
                 name='menucategory-delete'),
-
+            # SIDE menu
+            url(r'^sidemenu/$', self.sidemenu_list_view.as_view(),
+                name='sidemenu-list'),
+            url(r'^sidemenu/add/$', self.sidemenu_create_view.as_view(),
+                name='sidemenu-create'),
+            url(r'^sidemenu/edit/(?P<pk>[\d]+)/$', self.sidemenu_update_view.as_view(),
+                name='sidemenu-detail'),
+            url(r'^sidemenu/delete/(?P<pk>[\d]+)/$', self.sidemenu_delete_view.as_view(),
+                name='sidemenu-delete'),
         ]
         return self.post_process_urls(urls)
 

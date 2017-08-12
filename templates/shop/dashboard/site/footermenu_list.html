@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans "Настройки меню" %} | {{ block.super }}
+    {% trans "Настройки нижнего меню" %} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -10,14 +10,14 @@
         <li>
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
-        <li class="active">{% trans "Настройки меню" %}</li>
+        <li class="active">{% trans "Настройки нижнего меню" %}</li>
     </ul>
 {% endblock %}
 
 {% block header %}
     <div class="page-header">
-        <a href="{% url 'dashboard:footermenu-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать новый пункт меню" %}</a>
-        <h1>{% trans "Настройки меню" %}</h1>
+        <a href="{% url 'dashboard:footermenu-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать новый пункт нижнего меню" %}</a>
+        <h1>{% trans "Настройки нижнего меню" %}</h1>
     </div>
 {% endblock header %}
 
@@ -31,13 +31,14 @@
             <table class="table table-striped table-bordered table-hover">
                 <caption>
                     <h3 class="pull-left"><i class="icon-large"></i>
-                        {% trans "Все пункты меню" %}
+                        {% trans "Все пункты нижнего меню" %}
                     </h3>
                 </caption>
 
                 <thead>
                     <tr>
                         <th>{% trans "Название" %}</th>
+                        <th>{% trans "Категория" %}</th>
                         <th>{% trans "Ссылка" %}</th>
                         <th>{% trans "Отображается на сайте" %}</th>
                     </tr>
@@ -46,6 +47,13 @@
                 {% for item in footer_menu %}
                     <tr>
                         <td><a href="{% url 'dashboard:footermenu-detail' pk=item.id %}">{{ item }}</a></td>
+                        <td>
+                          {% if item.category %}
+                            <a href="{% url 'dashboard:menucategory-detail' pk=item.category.id %}">{{ item.category }}</a>
+                          {% else %}
+                            -
+                          {% endif %}
+                        </td>
                         <td>{{ item.link }}</td>
                         <td>{{ item.is_active }}</td>
                         <td>
@@ -62,9 +70,9 @@
     {% else %}
         <table class="table table-striped table-bordered">
             <caption><i class="icon-large"></i>
-               {% trans "Все пункты меню" %}
+               {% trans "Все пункты нижнего меню" %}
             </caption>
-            <tr><td>{% trans "Еще не было создано ни одного пункта меню." %}</td></tr>
+            <tr><td>{% trans "Еще не было создано ни одного пункта нижнего меню." %}</td></tr>
         </table>
     {% endif %}
 

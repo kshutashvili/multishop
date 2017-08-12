@@ -232,6 +232,10 @@ class MenuItemQuerySet(models.QuerySet):
         kwargs['position'] = MenuItem.POSITION.FOOTER
         return self.filter(*args, **kwargs)
 
+    def in_side(self, *args, **kwargs):
+        kwargs['position'] = MenuItem.POSITION.SIDE
+        return self.filter(*args, **kwargs)
+
 
 class MenuItem(models.Model):
     class Meta:
@@ -241,8 +245,10 @@ class MenuItem(models.Model):
     class POSITION:
         HEADER = 'header'
         FOOTER = 'footer'
+        SIDE = 'side'
         _CHOICES = ((HEADER, 'Header'),
-                    (FOOTER, 'Footer'))
+                    (FOOTER, 'Footer'),
+                    (SIDE, 'Боковое меню'))
 
     position = models.CharField('Расположение', max_length=128,
                                 default=POSITION.HEADER,

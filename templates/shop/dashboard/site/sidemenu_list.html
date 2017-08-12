@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans "Настройки верхнего меню" %} | {{ block.super }}
+    {% trans "Настройки бокового меню" %} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -10,20 +10,20 @@
         <li>
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
-        <li class="active">{% trans "Настройки верхнего меню" %}</li>
+        <li class="active">{% trans "Настройки бокового меню" %}</li>
     </ul>
 {% endblock %}
 
 {% block header %}
     <div class="page-header">
-        <a href="{% url 'dashboard:headermenu-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать новый пункт верхнего меню" %}</a>
-        <h1>{% trans "Настройки верхнего меню" %}</h1>
+        <a href="{% url 'dashboard:sidemenu-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать новый пункт бокового меню" %}</a>
+        <h1>{% trans "Настройки бокового меню" %}</h1>
     </div>
 {% endblock header %}
 
 {% block dashboard_content %}
 
-    {% if header_menu %}
+    {% if side_menu %}
         <form action="." method="post" class="order_table" id="orders_form">
             {% csrf_token %}
 
@@ -31,7 +31,7 @@
             <table class="table table-striped table-bordered table-hover">
                 <caption>
                     <h3 class="pull-left"><i class="icon-large"></i>
-                        {% trans "Все пункты верхнего меню" %}
+                        {% trans "Все пункты бокового меню" %}
                     </h3>
                 </caption>
 
@@ -43,13 +43,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for item in header_menu %}
+                {% for item in side_menu %}
                     <tr>
-                        <td><a href="{% url 'dashboard:headermenu-detail' pk=item.id %}">{{ item }}</a></td>
+                        <td><a href="{% url 'dashboard:sidemenu-detail' pk=item.id %}">{{ item }}</a></td>
                         <td>{{ item.link }}</td>
                         <td>{{ item.is_active }}</td>
                         <td>
-                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:headermenu-detail' url_name_delete='dashboard:headermenu-delete' record=item %}
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:sidemenu-detail' url_name_delete='dashboard:sidemenu-delete' record=item %}
                         </td>
                     </tr>
                 {% endfor %}
@@ -62,9 +62,9 @@
     {% else %}
         <table class="table table-striped table-bordered">
             <caption><i class="icon-large"></i>
-               {% trans "Все пункты верхнего меню" %}
+               {% trans "Все пункты бокового меню" %}
             </caption>
-            <tr><td>{% trans "Еще не было создано ни одного пункта верхнего меню." %}</td></tr>
+            <tr><td>{% trans "Еще не было создано ни одного пункта бокового меню." %}</td></tr>
         </table>
     {% endif %}
 
