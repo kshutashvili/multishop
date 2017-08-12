@@ -186,25 +186,25 @@ class FilterDescriptionForm(forms.ModelForm):
 class TextOneForm(forms.ModelForm):
     class Meta:
         model = TextOne
-        exclude = ('site', )
+        exclude = ('site', 'text')
 
 
 class TextTwoForm(forms.ModelForm):
     class Meta:
         model = TextTwo
-        exclude = ('site', )
+        exclude = ('site', 'text')
 
 
 class TextThreeForm(forms.ModelForm):
     class Meta:
         model = TextThree
-        exclude = ('site', )
+        exclude = ('site', 'text')
 
 
 class TextFourForm(forms.ModelForm):
     class Meta:
         model = TextFour
-        exclude = ('site', )
+        exclude = ('site', 'text')
 
 
 class LandingConfigForm(forms.ModelForm):

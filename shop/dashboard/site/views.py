@@ -930,9 +930,10 @@ class TextFourDeleteView(DeleteView):
         return reverse('dashboard:textfour-list')
 
 
-class LandingConfigView(TemplateView):
+class LandingConfigView(UpdateView):
     template_name = 'shop/dashboard/site/landingconfig_edit.html'
     model = Configuration
+    form_class = LandingConfigForm
 
     def get_context_data(self, **kwargs):
         ctx = super(LandingConfigView, self).get_context_data(**kwargs)
@@ -943,16 +944,19 @@ class LandingConfigView(TemplateView):
         ctx['form'] = form
         return ctx
 
-    def post(self, request):
-        form = LandingConfigForm(request.POST)
-        print(form)
-        print(form.errors)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.site = get_current_site(self.request)
-            obj.save()
-            return HttpResponseRedirect(reverse('dashboard:index'))
-        return HttpResponseRedirect(reverse('dashboard:landingconfig-edit'))
+    def get_object(self, *args, **kwargs):
+        obj = self.model.get_solo()
+        return obj
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.site = get_current_site(self.request)
+        obj.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        messages.success(self.request, _("Лэндинг обновлен"))
+        return reverse('dashboard:index')
 
 
 class FuelConfigurationListView(ListView):
