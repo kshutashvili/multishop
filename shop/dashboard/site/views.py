@@ -7,6 +7,7 @@ from django.shortcuts import reverse, get_object_or_404
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib import messages
 from django.contrib.sites.models import Site
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.views.generic import (CreateView, ListView,
                                   UpdateView, DeleteView,
@@ -42,6 +43,7 @@ FlatPage = get_model('contacts', 'FlatPage')
 ContactMessage = get_model('contacts', 'ContactMessage')
 Timetable = get_model('contacts', 'Timetable')
 FilterDescription = get_model('catalogue', 'FilterDescription')
+Category = get_model('catalogue', 'Category')
 SiteForm = get_class('dashboard.site.forms', 'SiteForm')
 CityForm = get_class('dashboard.site.forms', 'CityForm')
 SiteConfigForm = get_class('dashboard.site.forms', 'SiteConfigForm')
@@ -1520,6 +1522,20 @@ class SideMenuListView(SiteMultipleObjectMixin, ListView):
     template_name = "shop/dashboard/site/sidemenu_list.html"
     context_object_name = 'side_menu'
     queryset = MenuItem.objects.in_side()
+
+    def get_context_data(self, **kwargs):
+
+        ctx = super(SideMenuListView, self).get_context_data(**kwargs)
+
+        site = get_current_site(self.request)
+
+        ctx['side_menu_categories_renamed'] = Category.objects.filter(
+            ~Q(name_in_side_menu_ru='') | ~Q(name_in_side_menu_uk=''),
+            name_in_side_menu_ru__isnull=False, name_in_side_menu_uk__isnull=False,
+            site=site
+        )
+
+        return ctx
 
 
 class SideMenuCreateView(CreateView):
