@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from ckeditor.widgets import CKEditorWidget
 
@@ -211,7 +212,7 @@ class TextFourForm(forms.ModelForm):
 class LandingConfigForm(forms.ModelForm):
     class Meta:
         model = Configuration
-        exclude = ('site',)
+        exclude = ('site', 'general_phrase', 'additional_phrase', 'credit_block_text')
 
 
 class FuelConfigurationForm(forms.ModelForm):

@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+
 from django.conf.urls import url
 from oscar.core.application import Application
 
@@ -198,7 +202,7 @@ class SiteDashboardApplication(Application):
                 name='socialref-delete'),
             url(r'^flatpage/$', self.flatpage_list_view.as_view(),
                 name='flatpage-list'),
-            url(r'^flatpage/add/$', self.flatpage_list_view.as_view(),
+            url(r'^flatpage/add/$', self.flatpage_create_view.as_view(),
                 name='flatpage-create'),
             url(r'^flatpage/edit/(?P<pk>[\d]+)/$', self.flatpage_update_view.as_view(),
                 name='flatpage-detail'),
