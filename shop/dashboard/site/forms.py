@@ -17,6 +17,7 @@ from contacts.models import (City, PhoneNumber,
                              FlatPage, ContactMessage,
                              WorkSchedule)
 from shop.catalogue.models import FilterDescription
+from shop.order.models import InstallmentPayment
 
 
 class SiteForm(forms.ModelForm):
@@ -77,7 +78,7 @@ class SocialRefForm(forms.ModelForm):
 class FlatPageForm(forms.ModelForm):
 
     content_ru = forms.CharField(label='Содержание (на русском)', widget=CKEditorWidget())
-    content_uk = forms.CharField(label='Зміст (українською)', widget=CKEditorWidget())
+    content_uk = forms.CharField(label='Вміст (українською)', widget=CKEditorWidget())
 
     class Meta:
         model = FlatPage
@@ -265,3 +266,10 @@ class MenuCategoryForm(forms.ModelForm):
     class Meta:
         model = MenuCategory
         fields = '__all__'
+
+
+class InstallmentPaymentForm(forms.ModelForm):
+    class Meta:
+        model = InstallmentPayment
+        exclude = ('site',)
+

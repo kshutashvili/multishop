@@ -78,7 +78,11 @@ from shop.dashboard.site.views import (SiteCreateView, CityListView,
                                        SideMenuListView,
                                        SideMenuCreateView,
                                        SideMenuUpdateView,
-                                       SideMenuDeleteView)
+                                       SideMenuDeleteView,
+                                       InstallmentPaymentListView,
+                                       InstallmentPaymentCreateView,
+                                       InstallmentPaymentUpdateView,
+                                       InstallmentPaymentDeleteView)
 
 
 class SiteDashboardApplication(Application):
@@ -167,6 +171,10 @@ class SiteDashboardApplication(Application):
     sidemenu_create_view = SideMenuCreateView
     sidemenu_update_view = SideMenuUpdateView
     sidemenu_delete_view = SideMenuDeleteView
+    installment_list_view = InstallmentPaymentListView
+    installment_create_view = InstallmentPaymentCreateView
+    installment_update_view = InstallmentPaymentUpdateView
+    installment_delete_view = InstallmentPaymentDeleteView
 
     def get_urls(self):
         urls = [
@@ -349,6 +357,15 @@ class SiteDashboardApplication(Application):
                 name='sidemenu-detail'),
             url(r'^sidemenu/delete/(?P<pk>[\d]+)/$', self.sidemenu_delete_view.as_view(),
                 name='sidemenu-delete'),
+            # Installment payment
+            url(r'^installment/$', self.installment_list_view.as_view(),
+                name='installment-list'),
+            url(r'^installment/add/$', self.installment_create_view.as_view(),
+                name='installment-create'),
+            url(r'^installment/edit/(?P<pk>[\d]+)/$', self.installment_update_view.as_view(),
+                name='installment-detail'),
+            url(r'^installment/delete/(?P<pk>[\d]+)/$', self.installment_delete_view.as_view(),
+                name='installment-delete'),
         ]
         return self.post_process_urls(urls)
 

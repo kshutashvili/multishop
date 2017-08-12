@@ -25,8 +25,10 @@ from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
                                        FuelConfigurationForm, BenefitItemForm,
                                        OverviewItemForm, ReviewItemForm,
                                        DeliveryAndPayForm, MenuItemForm,
-                                       FooterMenuItemForm, MenuCategoryForm)
+                                       FooterMenuItemForm, MenuCategoryForm,
+                                       InstallmentPaymentForm)
 from shop.catalogue.models import FilterDescription
+from shop.order.models import InstallmentPayment
 from config.models import (MetaTag, TextOne, TextTwo, TextThree, TextFour,
                            Configuration, FuelConfiguration, BenefitItem,
                            OverviewItem, ReviewItem, DeliveryAndPay,
@@ -1587,3 +1589,73 @@ class SideMenuDeleteView(DeleteView):
         messages.success(
             self.request, _("Пункт меню '%s' удален") % self.object)
         return reverse('dashboard:sidemenu-list')
+
+
+
+
+class InstallmentPaymentListView(SiteMultipleObjectMixin, ListView):
+    model = InstallmentPayment
+    template_name = "shop/dashboard/site/installment_list.html"
+    context_object_name = 'installments'
+
+
+class InstallmentPaymentCreateView(CreateView):
+    model = InstallmentPayment
+    form_class = InstallmentPaymentForm
+    template_name = "shop/dashboard/site/installment_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(InstallmentPaymentCreateView, self).get_context_data(**kwargs)
+        ctx['title'] = _('Создать новую рассрочку')
+        return ctx
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.site = get_current_site(self.request)
+        obj.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        messages.success(self.request, _("Новый рассрочка создана"))
+        return reverse('dashboard:installment-list')
+
+    def get_object(self):
+        return None
+
+
+class InstallmentPaymentUpdateView(UpdateView):
+    model = InstallmentPayment
+    form_class = InstallmentPaymentForm
+    template_name = "shop/dashboard/site/installment_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(InstallmentPaymentUpdateView, self).get_context_data(**kwargs)
+        ctx['title'] = self.object.phone
+        return ctx
+
+    def get_object(self):
+        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Рассрочка успешно изменена"))
+        return reverse('dashboard:installment-list')
+
+
+class InstallmentPaymentDeleteView(DeleteView):
+    model = InstallmentPayment
+    template_name = "shop/dashboard/site/installment_delete.html"
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(InstallmentPaymentDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Удаление рассрочки '%s'") % self.object
+
+        return ctx
+
+    def get_success_url(self):
+        messages.success(
+            self.request, _("Пункт меню '%s' удален") % self.object)
+        return reverse('dashboard:installment-list')
