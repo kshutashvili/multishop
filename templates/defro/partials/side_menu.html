@@ -15,46 +15,44 @@
     <div class="well" {% if is_main_page %}id="landingCollapse"{% endif %}>
         <ul class="left_menu {% if is_main_page %}main_left_menu{% endif %}">
             <li>
+                {% if side_menu_categories %}
+                  {% for category, descendants in side_menu_categories.items %}
+                    <div class="dropdown side-menu">
+                        <a href="{{ category.get_absolute_url }}"
+                           class="btn btn-default dropdown-toggle"
+                           id="dropdownMenu{{ forloop.counter0|add:"3" }}"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="true">
+                            {{ category.side_menu_name }}
+                        </a>
+                        <ul class="dropdown-menu"
+                            aria-labelledby="dropdownMenu{{ forloop.counter0|add:"3" }}">
+                            {% for descendant in descendants %}
+                                <li class="clear_fix">
+                                    {% if descendant.image %}
+                                        <img src="{{ descendant.image.url }}"
+                                             alt="">
+                                    {% endif %}
+                                    <div class="menu_item_links">
+                                        <a href="{{ descendant.get_absolute_url }}"
+                                           class="menu_item_caption">{{ descendant.side_menu_name }}</a>
+                                        {% for product in descendant.product_set.all %}
+                                            <a href="{{ product.get_absolute_url }}"
+                                               class="menu_item_list">{{ product.title }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                  {% endfor %}
+                {% endif %}
                 {% if side_menu %}
                     {% for item in side_menu %}
-
-                      {% if item.link == "category" %}
-                        {% for category, descendants in side_menu_categories.items %}
-                            <div class="dropdown side-menu">
-                                <a href="{{ category.get_absolute_url }}"
-                                   class="btn btn-default dropdown-toggle"
-                                   id="dropdownMenu{{ forloop.counter0|add:"3" }}"
-                                   data-toggle="dropdown"
-                                   aria-haspopup="true"
-                                   aria-expanded="true">
-                                    {{ category.side_menu_name }}
-                                </a>
-                                <ul class="dropdown-menu"
-                                    aria-labelledby="dropdownMenu{{ forloop.counter0|add:"3" }}">
-                                    {% for descendant in descendants %}
-                                        <li class="clear_fix">
-                                            {% if descendant.image %}
-                                                <img src="{{ descendant.image.url }}"
-                                                     alt="">
-                                            {% endif %}
-                                            <div class="menu_item_links">
-                                                <a href="{{ descendant.get_absolute_url }}"
-                                                   class="menu_item_caption">{{ descendant.side_menu_name }}</a>
-                                                {% for product in descendant.product_set.all %}
-                                                    <a href="{{ product.get_absolute_url }}"
-                                                       class="menu_item_list">{{ product.title }}</a>
-                                                {% endfor %}
-                                            </div>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% endfor %}
-                      {% else %}
-                        <div class ="side-menu">
-                          <a href="{{ item.link }}" class="btn btn-default">{{ item.name }}</a>
-                        </div>
-                      {% endif %}
+                      <div class ="side-menu">
+                        <a href="{{ item.link }}" class="btn btn-default">{{ item.name }}</a>
+                      </div>
                   {% endfor %}
                 {% endif %}
             </li>
