@@ -308,11 +308,6 @@ class FlatPageCreateView(CreateView):
         messages.info(self.request, _("Flat page created successfully"))
         return reverse("dashboard:flatpage-list")
 
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.site = get_current_site(self.request)
-        obj.save()
-        return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
         ctx = super(FlatPageCreateView, self).get_context_data(**kwargs)
