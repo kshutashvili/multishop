@@ -469,7 +469,8 @@ ul{
 .under_left_menu li{
 	padding-left: 47px;
 	background: url("../img/fire_icon.png") no-repeat left top;
-	margin-bottom: 22px;
+	margin-bottom: 15px;
+	min-height: 40px;
 }
 a.under_left_menu_more{
 	color: #fff;

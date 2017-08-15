@@ -26,12 +26,14 @@ from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
                                        FuelConfigurationForm, BenefitItemForm,
                                        OverviewItemForm, ReviewItemForm,
                                        DeliveryAndPayForm, MenuItemForm,
-                                       FooterMenuItemForm, MenuCategoryForm)
+                                       FooterMenuItemForm, MenuCategoryForm,
+                                       InstallmentPaymentForm)
 from shop.catalogue.models import FilterDescription
+from shop.order.models import InstallmentPayment
 from config.models import (MetaTag, TextOne, TextTwo, TextThree, TextFour,
                            Configuration, FuelConfiguration, BenefitItem,
                            OverviewItem, ReviewItem, DeliveryAndPay,
-                           MenuItem, MenuCategory)
+                           MenuItem, MenuCategory, SiteConfig)
 from contacts.models import (City, SocialNetRef, FlatPage, ContactMessage,
                              Timetable)
 from website.views import SiteMultipleObjectMixin
@@ -87,6 +89,43 @@ class SiteCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('dashboard:index')
+
+
+class SiteUpdateView(UpdateView):
+    template_name = 'shop/dashboard/site/site_detail.html'
+    model = Site
+    form_class = SiteForm
+
+    def get_context_data(self, **kwargs):
+        context = super(SiteUpdateView, self).get_context_data(**kwargs)
+        context['title'] = _("Изменение сайта")
+        if self.request.POST:
+            context['site_config_form'] = SiteConfigForm(self.request.POST,
+                                                         self.request.FILES)
+        else:
+            current_site = get_current_site(self.request)
+            current_site_config = SiteConfig.objects.get(site=current_site)
+            context['site_config_form'] = SiteConfigForm(instance=current_site_config)
+        return context
+
+    def get_object(self):
+        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Сайт успешно изменен"))
+        return reverse('dashboard:index')
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        site_config = context['site_config_form']
+        self.object = form.save()
+        site_config.instance = self.object.config
+
+        if site_config.is_valid():
+            site_config.save()
+
+        return super(SiteUpdateView, self).form_valid(form)
 
 
 class CityListView(SiteMultipleObjectMixin, ListView):
@@ -295,35 +334,31 @@ class FlatPageListView(SiteMultipleObjectMixin, ListView):
     template_name = 'shop/dashboard/site/flatpage_list.html'
 
 
-class FlatPageCreateUpdateView(UpdateView):
+class FlatPageCreateView(CreateView):
     model = FlatPage
     context_object_name = 'flat_page'
     form_class = FlatPageForm
     template_name = 'shop/dashboard/site/flatpage_detail.html'
 
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        if self.creating:
-            obj.site = get_current_site(self.request)
+    def get_object(self):
+        return None
 
-        obj.save()
+    def get_success_url(self):
+        messages.info(self.request, _("Flat page created successfully"))
+        return reverse("dashboard:flatpage-list")
 
-        return HttpResponseRedirect(self.get_success_url())
 
-    def get_context_data(self, *args, **kwargs):
-        ctx = super(FlatPageCreateUpdateView, self).get_context_data(
-            *args, **kwargs)
-
-        ctx["title"] = self.get_title()
-
+    def get_context_data(self, **kwargs):
+        ctx = super(FlatPageCreateView, self).get_context_data(**kwargs)
+        ctx['title'] = _('Создать статическую страницу')
         return ctx
 
 
-class FlatPageUpdateView(FlatPageCreateUpdateView):
-    creating = False
-
-    def get_title(self):
-        return _("Update flat page '%s'") % self.object.title
+class FlatPageUpdateView(UpdateView):
+    model = FlatPage
+    context_object_name = 'flat_page'
+    form_class = FlatPageForm
+    template_name = 'shop/dashboard/site/flatpage_detail.html'
 
     def get_success_url(self):
         messages.info(self.request, _("Flat page updated successfully"))
@@ -333,19 +368,10 @@ class FlatPageUpdateView(FlatPageCreateUpdateView):
         obj = get_object_or_404(FlatPage, pk=self.kwargs['pk'])
         return obj
 
-
-class FlatPageCreateView(FlatPageCreateUpdateView):
-    creating = True
-
-    def get_object(self):
-        return None
-
-    def get_title(self):
-        return _("Add a new flat page")
-
-    def get_success_url(self):
-        messages.info(self.request, _("Flat page created successfully"))
-        return reverse("dashboard:flatpage-list")
+    def get_context_data(self, **kwargs):
+        ctx = super(FlatPageUpdateView, self).get_context_data(**kwargs)
+        ctx['title'] = self.object
+        return ctx
 
 
 class FlatPageDeleteView(DeleteView):
@@ -358,12 +384,12 @@ class FlatPageDeleteView(DeleteView):
             *args,
             **kwargs)
 
-        ctx['title'] = _("Delete flat page '%s'") % self.object.title
+        ctx['title'] = _("Удаление статической страницы '%s'") % self.object.title
 
         return ctx
 
     def get_success_url(self):
-        messages.info(self.request, _("Flat page deleted successfully"))
+        messages.info(self.request, _("Статическая страница успешно изменена"))
         return reverse("dashboard:flatpage-list")
 
 
@@ -632,7 +658,7 @@ class TextOneListView(SiteMultipleObjectMixin, ListView):
 
     def get_context_data(self, **kwargs):
         ctx = super(TextOneListView, self).get_context_data(**kwargs)
-        ctx['title'] = _('Create New Text One')
+        ctx['title'] = _('Создать новый Текст 1')
         ctx['text_one'] = True
         ctx['text_two'] = False
         ctx['text_three'] = False
@@ -649,7 +675,7 @@ class TextOneCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(TextOneCreateView, self).get_context_data(**kwargs)
-        ctx['title'] = _('Create New Text One')
+        ctx['title'] = _('Создать новый Текст 1')
         ctx['text_one'] = True
         ctx['text_two'] = False
         ctx['text_three'] = False
@@ -657,7 +683,7 @@ class TextOneCreateView(CreateView):
         return ctx
 
     def get_success_url(self):
-        messages.success(self.request, _("Text One created successfully"))
+        messages.success(self.request, _("Текст 1 успешно создан"))
         return reverse('dashboard:textone-list')
 
     def get_object(self):
@@ -693,7 +719,7 @@ class TextOneUpdateView(UpdateView):
         return obj
 
     def get_success_url(self):
-        messages.success(self.request, _("Text One updated successfully"))
+        messages.success(self.request, _("Текст 1 успешно изменен"))
         return reverse('dashboard:textone-list')
 
 
@@ -706,7 +732,7 @@ class TextOneDeleteView(DeleteView):
             *args,
             **kwargs)
 
-        ctx['title'] = _("Delete Text one '%s'") % self.object
+        ctx['title'] = _("Удаление Текста 1 '%s'") % self.object
         ctx['text_one'] = True
         ctx['text_two'] = False
         ctx['text_three'] = False
@@ -715,7 +741,7 @@ class TextOneDeleteView(DeleteView):
 
     def get_success_url(self):
         messages.success(
-            self.request, _("Deleted Text One '%s'") % self.object.text)
+            self.request, _("Текст 1 '%s' удален") % self.object.text)
         return reverse('dashboard:textone-list')
 
 
@@ -724,7 +750,7 @@ class TextTwoListView(TextOneListView):
 
     def get_context_data(self, **kwargs):
         ctx = super(TextTwoListView, self).get_context_data(**kwargs)
-        ctx['title'] = _('Create New Text Two')
+        ctx['title'] = _('Создать новый Текст 2')
         ctx['text_one'] = False
         ctx['text_two'] = True
         ctx['text_three'] = False
@@ -738,7 +764,7 @@ class TextTwoCreateView(TextOneCreateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(TextTwoCreateView, self).get_context_data(**kwargs)
-        ctx['title'] = _('Create New Text Two')
+        ctx['title'] = _('Создать новый Текст 2')
         ctx['text_one'] = False
         ctx['text_two'] = True
         ctx['text_three'] = False
@@ -746,7 +772,7 @@ class TextTwoCreateView(TextOneCreateView):
         return ctx
 
     def get_success_url(self):
-        messages.success(self.request, _("Text Two created successfully"))
+        messages.success(self.request, _("Текст 2 успешно создан"))
         return reverse('dashboard:texttwo-list')
 
 
@@ -764,7 +790,7 @@ class TextTwoUpdateView(TextOneUpdateView):
         return ctx
 
     def get_success_url(self):
-        messages.success(self.request, _("Text Two updated successfully"))
+        messages.success(self.request, _("Текст 2 успешно изменен"))
         return reverse('dashboard:texttwo-list')
 
 
@@ -777,7 +803,7 @@ class TextTwoDeleteView(DeleteView):
             *args,
             **kwargs)
 
-        ctx['title'] = _("Delete Text Two '%s'") % self.object
+        ctx['title'] = _("Удаление Текста 2 '%s'") % self.object
         ctx['text_one'] = False
         ctx['text_two'] = True
         ctx['text_three'] = False
@@ -786,7 +812,7 @@ class TextTwoDeleteView(DeleteView):
 
     def get_success_url(self):
         messages.success(
-            self.request, _("Deleted Text Two '%s'") % self.object.title)
+            self.request, _("Текст 2 '%s' успешно удален") % self.object)
         return reverse('dashboard:texttwo-list')
 
 
@@ -795,7 +821,7 @@ class TextThreeListView(TextOneListView):
 
     def get_context_data(self, **kwargs):
         ctx = super(TextThreeListView, self).get_context_data(**kwargs)
-        ctx['title'] = _('Create New Text Three')
+        ctx['title'] = _('Создать новый Текст 3')
         ctx['text_one'] = False
         ctx['text_two'] = False
         ctx['text_three'] = True
@@ -809,7 +835,7 @@ class TextThreeCreateView(TextOneCreateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(TextThreeCreateView, self).get_context_data(**kwargs)
-        ctx['title'] = _('Create New Text Three')
+        ctx['title'] = _('Создать новый Текст 3')
         ctx['text_one'] = False
         ctx['text_two'] = False
         ctx['text_three'] = True
@@ -817,7 +843,7 @@ class TextThreeCreateView(TextOneCreateView):
         return ctx
 
     def get_success_url(self):
-        messages.success(self.request, _("Text Three created successfully"))
+        messages.success(self.request, _("Текст 3 успешно создан"))
         return reverse('dashboard:textthree-list')
 
 
@@ -835,7 +861,7 @@ class TextThreeUpdateView(TextOneUpdateView):
         return ctx
 
     def get_success_url(self):
-        messages.success(self.request, _("Text Three updated successfully"))
+        messages.success(self.request, _("Текст 3 успешно изменен"))
         return reverse('dashboard:textthree-list')
 
 
@@ -848,7 +874,7 @@ class TextThreeDeleteView(DeleteView):
             *args,
             **kwargs)
 
-        ctx['title'] = _("Delete Text Three '%s'") % self.object
+        ctx['title'] = _("Удаление Текста 3 '%s'") % self.object
         ctx['text_one'] = False
         ctx['text_two'] = False
         ctx['text_three'] = True
@@ -857,7 +883,7 @@ class TextThreeDeleteView(DeleteView):
 
     def get_success_url(self):
         messages.success(
-            self.request, _("Deleted Text Three '%s'") % self.object.title)
+            self.request, _("Текст 3 '%s' удален") % self.object)
         return reverse('dashboard:textthree-list')
 
 
@@ -866,7 +892,7 @@ class TextFourListView(TextOneListView):
 
     def get_context_data(self, **kwargs):
         ctx = super(TextFourListView, self).get_context_data(**kwargs)
-        ctx['title'] = _('Create New Text Four')
+        ctx['title'] = _('Создать новый Текст 4')
         ctx['text_one'] = False
         ctx['text_two'] = False
         ctx['text_three'] = False
@@ -880,15 +906,15 @@ class TextFourCreateView(TextOneCreateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(TextFourCreateView, self).get_context_data(**kwargs)
-        ctx['title'] = _('Create New Text Four')
-        cctx['text_one'] = False
+        ctx['title'] = _('создать новый текст 4')
+        ctx['text_one'] = False
         ctx['text_two'] = False
         ctx['text_three'] = False
         ctx['text_four'] = True
         return ctx
 
     def get_success_url(self):
-        messages.success(self.request, _("Text Four created successfully"))
+        messages.success(self.request, _("Текст 4 успешно создан"))
         return reverse('dashboard:textfour-list')
 
 
@@ -906,7 +932,7 @@ class TextFourUpdateView(TextOneUpdateView):
         return ctx
 
     def get_success_url(self):
-        messages.success(self.request, _("Text Four updated successfully"))
+        messages.success(self.request, _("Текст 4 успешно обновлен"))
         return reverse('dashboard:textfour-list')
 
 
@@ -919,7 +945,7 @@ class TextFourDeleteView(DeleteView):
             *args,
             **kwargs)
 
-        ctx['title'] = _("Delete Text Four '%s'") % self.object
+        ctx['title'] = _("Удаление Текста 4 '%s'") % self.object
         ctx['text_one'] = False
         ctx['text_two'] = False
         ctx['text_three'] = False
@@ -928,13 +954,14 @@ class TextFourDeleteView(DeleteView):
 
     def get_success_url(self):
         messages.success(
-            self.request, _("Deleted Text Four '%s'") % self.object.title)
+            self.request, _("Текст 4 удален '%s'") % self.object)
         return reverse('dashboard:textfour-list')
 
 
-class LandingConfigView(TemplateView):
+class LandingConfigView(UpdateView):
     template_name = 'shop/dashboard/site/landingconfig_edit.html'
     model = Configuration
+    form_class = LandingConfigForm
 
     def get_context_data(self, **kwargs):
         ctx = super(LandingConfigView, self).get_context_data(**kwargs)
@@ -945,16 +972,19 @@ class LandingConfigView(TemplateView):
         ctx['form'] = form
         return ctx
 
-    def post(self, request):
-        form = LandingConfigForm(request.POST)
-        print(form)
-        print(form.errors)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.site = get_current_site(self.request)
-            obj.save()
-            return HttpResponseRedirect(reverse('dashboard:index'))
-        return HttpResponseRedirect(reverse('dashboard:landingconfig-edit'))
+    def get_object(self, *args, **kwargs):
+        obj = self.model.get_solo()
+        return obj
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.site = get_current_site(self.request)
+        obj.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        messages.success(self.request, _("Лэндинг обновлен"))
+        return reverse('dashboard:index')
 
 
 class FuelConfigurationListView(ListView):
@@ -1599,3 +1629,71 @@ class SideMenuDeleteView(DeleteView):
         messages.success(
             self.request, _("Пункт меню '%s' удален") % self.object)
         return reverse('dashboard:sidemenu-list')
+
+
+class InstallmentPaymentListView(SiteMultipleObjectMixin, ListView):
+    model = InstallmentPayment
+    template_name = "shop/dashboard/site/installment_list.html"
+    context_object_name = 'installments'
+
+
+class InstallmentPaymentCreateView(CreateView):
+    model = InstallmentPayment
+    form_class = InstallmentPaymentForm
+    template_name = "shop/dashboard/site/installment_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(InstallmentPaymentCreateView, self).get_context_data(**kwargs)
+        ctx['title'] = _('Создать новую рассрочку')
+        return ctx
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.site = get_current_site(self.request)
+        obj.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        messages.success(self.request, _("Новый рассрочка создана"))
+        return reverse('dashboard:installment-list')
+
+    def get_object(self):
+        return None
+
+
+class InstallmentPaymentUpdateView(UpdateView):
+    model = InstallmentPayment
+    form_class = InstallmentPaymentForm
+    template_name = "shop/dashboard/site/installment_detail.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super(InstallmentPaymentUpdateView, self).get_context_data(**kwargs)
+        ctx['title'] = self.object.phone
+        return ctx
+
+    def get_object(self):
+        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Рассрочка успешно изменена"))
+        return reverse('dashboard:installment-list')
+
+
+class InstallmentPaymentDeleteView(DeleteView):
+    model = InstallmentPayment
+    template_name = "shop/dashboard/site/installment_delete.html"
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(InstallmentPaymentDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Удаление рассрочки '%s'") % self.object
+
+        return ctx
+
+    def get_success_url(self):
+        messages.success(
+            self.request, _("Пункт меню '%s' удален") % self.object)
+        return reverse('dashboard:installment-list')

@@ -70,6 +70,14 @@ class Configuration(SingletonModel):
     site = models.OneToOneField(Site, verbose_name='сайт',
                                 on_delete=models.CASCADE,
                                 related_name='landing_config')
+    main_image = models.ImageField("Основное изображение",
+                                   blank=True)
+    general_phrase = models.CharField("Основная фраза",
+                                      max_length=30,
+                                      blank=True)
+    additional_phrase = models.CharField("Дополнительная фраза",
+                                         max_length=30,
+                                         blank=True)
     undercat_block_url = models.CharField(_('Ссылка под каталогом'),
                                             max_length=128,
                                             blank=True)

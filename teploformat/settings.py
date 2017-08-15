@@ -279,9 +279,13 @@ OSCAR_DASHBOARD_NAVIGATION[2]['children'] += [
 # append to Orders
 OSCAR_DASHBOARD_NAVIGATION[3]['children'] += [
     {
-        'label': _('One-Click Orders'),
+        'label': _('Заказы в один клик'),
         'url_name': 'dashboard:oneclickorder-list',
     },
+    {
+        'label': _('Заявки на рассрочку'),
+        'url_name': 'dashboard:installment-list'
+    }
 ]
 
 # append to Clients

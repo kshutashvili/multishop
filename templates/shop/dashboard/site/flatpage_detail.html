@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-    {% blocktrans with flatpage_title=flatpage.title %}Flat Page {{ flatpage_title }}{% endblocktrans %} | {{ block.super }}
+    {% blocktrans with flatpage_title=flatpage.title %}Статическая страница {{ flatpage_title }}{% endblocktrans %} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -12,14 +12,14 @@
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
         <li>
-            <a href="{% url 'dashboard:flatpage-list' %}">{% trans "Flat Pages" %}</a>
+            <a href="{% url 'dashboard:flatpage-list' %}">{% trans "Статические страницы" %}</a>
         </li>
         <li class="active">{{ flatpage.title }}</li>
     </ul>
 {% endblock %}
 
 {% block headertext %}
-    {% blocktrans with flatpage_title=flatpage.title %}Flat Page {{ flatpage_title }}{% endblocktrans %}
+    {% blocktrans with flatpage_title=flatpage.title %}Сттаическая страница {{ flatpage_title }}{% endblocktrans %}
 {% endblock  %}
 
 {% block dashboard_content %}
