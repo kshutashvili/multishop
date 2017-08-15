@@ -15,7 +15,8 @@ def show_site_email(request):
     return {'site_email': site_email,
             'site_display_name': site_obj.name,
             'site_logo': site_conf.logo,
-            'site_copyright': site_copyright}
+            'site_copyright': site_copyright,
+            'site_id': site_obj.pk}
 
 
 def menu_processor(request):

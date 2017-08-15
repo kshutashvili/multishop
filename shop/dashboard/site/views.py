@@ -32,7 +32,7 @@ from shop.order.models import InstallmentPayment
 from config.models import (MetaTag, TextOne, TextTwo, TextThree, TextFour,
                            Configuration, FuelConfiguration, BenefitItem,
                            OverviewItem, ReviewItem, DeliveryAndPay,
-                           MenuItem, MenuCategory)
+                           MenuItem, MenuCategory, SiteConfig)
 from contacts.models import (City, SocialNetRef, FlatPage, ContactMessage,
                              Timetable)
 from website.views import SiteMultipleObjectMixin
@@ -87,6 +87,43 @@ class SiteCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('dashboard:index')
+
+
+class SiteUpdateView(UpdateView):
+    template_name = 'shop/dashboard/site/site_detail.html'
+    model = Site
+    form_class = SiteForm
+
+    def get_context_data(self, **kwargs):
+        context = super(SiteUpdateView, self).get_context_data(**kwargs)
+        context['title'] = _("Изменение сайта")
+        if self.request.POST:
+            context['site_config_form'] = SiteConfigForm(self.request.POST,
+                                                         self.request.FILES)
+        else:
+            current_site = get_current_site(self.request)
+            current_site_config = SiteConfig.objects.get(site=current_site)
+            context['site_config_form'] = SiteConfigForm(instance=current_site_config)
+        return context
+
+    def get_object(self):
+        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Сайт успешно изменен"))
+        return reverse('dashboard:index')
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        site_config = context['site_config_form']
+        self.object = form.save()
+        site_config.instance = self.object.config
+
+        if site_config.is_valid():
+            site_config.save()
+
+        return super(SiteUpdateView, self).form_valid(form)
 
 
 class CityListView(SiteMultipleObjectMixin, ListView):

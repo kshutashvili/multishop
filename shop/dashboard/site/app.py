@@ -5,9 +5,9 @@ from __future__ import unicode_literals
 from django.conf.urls import url
 from oscar.core.application import Application
 
-from shop.dashboard.site.views import (SiteCreateView, CityListView,
-                                       CityUpdateView, CityCreateView,
-                                       CityDeleteView,
+from shop.dashboard.site.views import (SiteCreateView, SiteUpdateView,
+                                       CityListView, CityUpdateView,
+                                       CityCreateView, CityDeleteView,
                                        SocialNetRefListView,
                                        SocialNetRefCreateView,
                                        SocialNetRefUpdateView,
@@ -94,6 +94,7 @@ class SiteDashboardApplication(Application):
     default_permissions = ['is_staff', ]
 
     site_create_view = SiteCreateView
+    site_update_view = SiteUpdateView
     city_list_view = CityListView
     city_update_view = CityUpdateView
     city_create_view = CityCreateView
@@ -184,6 +185,8 @@ class SiteDashboardApplication(Application):
         urls = [
             url(r'^add/$', self.site_create_view.as_view(),
                 name='site-add'),
+            url(r'^site/edit/(?P<pk>[\d]+)/$', self.site_update_view.as_view(),
+                name='site-detail'),
             url(r'^city/$', self.city_list_view.as_view(),
                 name='city-list'),
             url(r'^city/add/$', self.city_create_view.as_view(),
