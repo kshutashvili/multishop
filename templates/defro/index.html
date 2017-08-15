@@ -47,8 +47,8 @@
 		<div class="container">
 			<h2><span>Наши</span> продукты</h2>
 			<div class="owl-carousel owl-theme">
-				{% if side_menu %}
-					{% for category in side_menu %}
+				{% if side_menu_categories %}
+					{% for category in side_menu_categories %}
 						<div class="item" style="width: 150px;">
 							<a href="{{ category.get_absolute_url }}">
 								<p>{{ category.name }}</p>

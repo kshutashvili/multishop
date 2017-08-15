@@ -37,8 +37,8 @@
                         <div class="well">
                             <ul class="left_menu">
                                 <li>
-                                    {% if side_menu %}
-                                        {% for category, descendants in side_menu.items %}
+                                    {% if side_menu_categories %}
+                                        {% for category, descendants in side_menu_categories.items %}
                                             <div class="dropdown side-menu">
                                                 <a href="{{ category.get_absolute_url }}"
                                                    class="btn btn-default dropdown-toggle"
