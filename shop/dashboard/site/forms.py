@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from ckeditor.widgets import CKEditorWidget
 
@@ -17,6 +18,7 @@ from contacts.models import (City, PhoneNumber,
                              FlatPage, ContactMessage,
                              WorkSchedule)
 from shop.catalogue.models import FilterDescription
+from shop.order.models import InstallmentPayment
 
 
 class SiteForm(forms.ModelForm):
@@ -77,13 +79,13 @@ class SocialRefForm(forms.ModelForm):
 class FlatPageForm(forms.ModelForm):
 
     content_ru = forms.CharField(label='Содержание (на русском)', widget=CKEditorWidget())
-    content_uk = forms.CharField(label='Зміст (українською)', widget=CKEditorWidget())
+    content_uk = forms.CharField(label='Вміст (українською)', widget=CKEditorWidget())
 
     class Meta:
         model = FlatPage
         fields = ('title_ru', 'title_uk',
                   'content_ru', 'content_uk',
-                  'slug_ru', 'slug_uk')
+                  'slug_ru', 'slug_uk', 'site')
 
 
 class ContactMessageForm(forms.ModelForm):
@@ -186,31 +188,31 @@ class FilterDescriptionForm(forms.ModelForm):
 class TextOneForm(forms.ModelForm):
     class Meta:
         model = TextOne
-        exclude = ('site', )
+        exclude = ('site', 'text')
 
 
 class TextTwoForm(forms.ModelForm):
     class Meta:
         model = TextTwo
-        exclude = ('site', )
+        exclude = ('site', 'text')
 
 
 class TextThreeForm(forms.ModelForm):
     class Meta:
         model = TextThree
-        exclude = ('site', )
+        exclude = ('site', 'text')
 
 
 class TextFourForm(forms.ModelForm):
     class Meta:
         model = TextFour
-        exclude = ('site', )
+        exclude = ('site', 'text')
 
 
 class LandingConfigForm(forms.ModelForm):
     class Meta:
         model = Configuration
-        exclude = ('site',)
+        exclude = ('site', 'general_phrase', 'additional_phrase', 'credit_block_text')
 
 
 class FuelConfigurationForm(forms.ModelForm):
@@ -265,3 +267,10 @@ class MenuCategoryForm(forms.ModelForm):
     class Meta:
         model = MenuCategory
         fields = '__all__'
+
+
+class InstallmentPaymentForm(forms.ModelForm):
+    class Meta:
+        model = InstallmentPayment
+        exclude = ('site',)
+

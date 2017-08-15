@@ -1,9 +1,13 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+
 from django.conf.urls import url
 from oscar.core.application import Application
 
-from shop.dashboard.site.views import (SiteCreateView, CityListView,
-                                       CityUpdateView, CityCreateView,
-                                       CityDeleteView,
+from shop.dashboard.site.views import (SiteCreateView, SiteUpdateView,
+                                       CityListView, CityUpdateView,
+                                       CityCreateView, CityDeleteView,
                                        SocialNetRefListView,
                                        SocialNetRefCreateView,
                                        SocialNetRefUpdateView,
@@ -78,7 +82,11 @@ from shop.dashboard.site.views import (SiteCreateView, CityListView,
                                        SideMenuListView,
                                        SideMenuCreateView,
                                        SideMenuUpdateView,
-                                       SideMenuDeleteView)
+                                       SideMenuDeleteView,
+                                       InstallmentPaymentListView,
+                                       InstallmentPaymentCreateView,
+                                       InstallmentPaymentUpdateView,
+                                       InstallmentPaymentDeleteView)
 
 
 class SiteDashboardApplication(Application):
@@ -86,6 +94,7 @@ class SiteDashboardApplication(Application):
     default_permissions = ['is_staff', ]
 
     site_create_view = SiteCreateView
+    site_update_view = SiteUpdateView
     city_list_view = CityListView
     city_update_view = CityUpdateView
     city_create_view = CityCreateView
@@ -167,11 +176,17 @@ class SiteDashboardApplication(Application):
     sidemenu_create_view = SideMenuCreateView
     sidemenu_update_view = SideMenuUpdateView
     sidemenu_delete_view = SideMenuDeleteView
+    installment_list_view = InstallmentPaymentListView
+    installment_create_view = InstallmentPaymentCreateView
+    installment_update_view = InstallmentPaymentUpdateView
+    installment_delete_view = InstallmentPaymentDeleteView
 
     def get_urls(self):
         urls = [
             url(r'^add/$', self.site_create_view.as_view(),
                 name='site-add'),
+            url(r'^site/edit/(?P<pk>[\d]+)/$', self.site_update_view.as_view(),
+                name='site-detail'),
             url(r'^city/$', self.city_list_view.as_view(),
                 name='city-list'),
             url(r'^city/add/$', self.city_create_view.as_view(),
@@ -190,7 +205,7 @@ class SiteDashboardApplication(Application):
                 name='socialref-delete'),
             url(r'^flatpage/$', self.flatpage_list_view.as_view(),
                 name='flatpage-list'),
-            url(r'^flatpage/add/$', self.flatpage_list_view.as_view(),
+            url(r'^flatpage/add/$', self.flatpage_create_view.as_view(),
                 name='flatpage-create'),
             url(r'^flatpage/edit/(?P<pk>[\d]+)/$', self.flatpage_update_view.as_view(),
                 name='flatpage-detail'),
@@ -349,6 +364,15 @@ class SiteDashboardApplication(Application):
                 name='sidemenu-detail'),
             url(r'^sidemenu/delete/(?P<pk>[\d]+)/$', self.sidemenu_delete_view.as_view(),
                 name='sidemenu-delete'),
+            # Installment payment
+            url(r'^installment/$', self.installment_list_view.as_view(),
+                name='installment-list'),
+            url(r'^installment/add/$', self.installment_create_view.as_view(),
+                name='installment-create'),
+            url(r'^installment/edit/(?P<pk>[\d]+)/$', self.installment_update_view.as_view(),
+                name='installment-detail'),
+            url(r'^installment/delete/(?P<pk>[\d]+)/$', self.installment_delete_view.as_view(),
+                name='installment-delete'),
         ]
         return self.post_process_urls(urls)
 

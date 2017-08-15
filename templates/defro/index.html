@@ -22,7 +22,7 @@
 
 {% block content %}
 	{% get_solo 'config.Configuration' as site_config %}
-	<div class="first_block">
+	<div class="first_block" {% if site_config.main_image %}style="background: url({{ site_config.main_image.url }}) no-repeat center center"{% endif %}>
 		<div class="container">
 			<div class="left_side">
 				{% include 'defro/partials/side_menu.html' with is_main_page=True expand=True %}
@@ -37,8 +37,8 @@
 				{% endif %}
 			</div>
 			<div class="right_side">
-				<h1>Высокое качество</h1>
-				<p>Экономичность</p>
+				<h1>{{ site_config.general_phrase }}</h1>
+				<p>{{ site_config.additional_phrase }}</p>
 			</div>
 		</div>
 	</div>
