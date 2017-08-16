@@ -16,7 +16,8 @@ def show_site_email(request):
             'site_display_name': site_obj.name,
             'site_logo': site_conf.logo,
             'site_copyright': site_copyright,
-            'site_id': site_obj.pk}
+            'site_id': site_obj.pk,
+            'site_favicon': site_conf.favicon}
 
 
 def menu_processor(request):

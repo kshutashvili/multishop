@@ -42,6 +42,7 @@ class SiteConfig(models.Model):
                                  null=True,
                                  blank=True)
 
+    favicon = models.ImageField('Favicon', blank=True, null=True)
     logo = models.ImageField('Логотип', blank=True, null=True)
 
     power_attribute = models.ForeignKey(ProductAttribute,
@@ -55,6 +56,15 @@ class SiteConfig(models.Model):
                                         verbose_name="Атрибут бренда котла",
                                         null=True)
 
+    code_webmaster_google = models.CharField("Код подтверждения для Google",
+                                             blank=True,
+                                             null=True,
+                                             max_length=128)
+
+    code_webmaster_yandex = models.CharField("Код подтверждения для Яндекс.Вебмастер",
+                                             blank=True,
+                                             null=True,
+                                             max_length=128)
     def __unicode__(self):
         return self.site.domain
 
