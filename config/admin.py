@@ -83,7 +83,7 @@ class MetaTagAdmin(admin.ModelAdmin):
 
 
 @admin.register(Configuration)
-class ConfigurationAdmin(SingletonModelAdmin):
+class ConfigurationAdmin(admin.ModelAdmin):
     pass
 
 

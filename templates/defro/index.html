@@ -21,7 +21,6 @@
 {% endblock description %}
 
 {% block content %}
-	{% get_solo 'config.Configuration' as site_config %}
 	<div class="first_block" {% if site_config.main_image %}style="background: url({{ site_config.main_image.url }}) no-repeat center center"{% endif %}>
 		<div class="container">
 			<div class="left_side">

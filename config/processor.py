@@ -11,13 +11,15 @@ def show_site_email(request):
     site_obj = get_current_site(request)
     site_conf = SiteConfig.objects.get(site=site_obj)
     site_email = site_conf.email
-    site_copyright =site_conf.copyright
+    site_copyright = site_conf.copyright
+    site_config, _ = Configuration.objects.get_or_create(site=site_obj)
     return {'site_email': site_email,
             'site_display_name': site_obj.name,
             'site_logo': site_conf.logo,
             'site_copyright': site_copyright,
             'site_id': site_obj.pk,
-            'site_favicon': site_conf.favicon}
+            'site_favicon': site_conf.favicon,
+            'site_config': site_config}
 
 
 def menu_processor(request):
@@ -43,9 +45,9 @@ def show_undercat_block(request):
         (Q(site=None) | Q(site=site_obj) & Q(is_active=True))).first()
     text_four = TextFour.objects.filter(
         (Q(site=None) | Q(site=site_obj) & Q(is_active=True))).first()
-    text_url = Configuration.get_solo().undercat_block_url
+    conf_obj, _ = Configuration.objects.get_or_create(site=site_obj)
     return {'text_one': text_one if text_one else '',
             'text_two': text_two if text_two else '',
             'text_three': text_three if text_three else '',
             'text_four': text_four if text_four else '',
-            'text_url': text_url}
+            'text_url': conf_obj.undercat_block_url}

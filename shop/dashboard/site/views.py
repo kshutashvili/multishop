@@ -965,15 +965,16 @@ class LandingConfigView(UpdateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(LandingConfigView, self).get_context_data(**kwargs)
-        obj = Configuration.get_solo()
-        form = LandingConfigForm(instance=obj)
         curr_site = get_current_site(self.request)
+        obj, _ = self.model.objects.get_or_create(site=curr_site)
+        form = LandingConfigForm(instance=obj)
         form.fields['footer_map_for'].queryset = form.fields['footer_map_for'].queryset.filter(site=curr_site)
         ctx['form'] = form
         return ctx
 
     def get_object(self, *args, **kwargs):
-        obj = self.model.get_solo()
+        curr_site = get_current_site(self.request)
+        obj = self.model.objects.get(site=curr_site)
         return obj
 
     def form_valid(self, form):
@@ -1006,7 +1007,8 @@ class FuelConfigurationCreateView(CreateView):
 
     def form_valid(self, form):
         obj = form.save(commit=False)
-        obj.config = Configuration.get_solo()
+        curr_site = get_current_site(self.request)
+        obj.config, _ = Configuration.objects.get_or_create(site=curr_site)
         obj.save()
 
         return HttpResponseRedirect(self.get_success_url())
@@ -1077,7 +1079,8 @@ class BenefitItemCreateView(CreateView):
 
     def form_valid(self, form):
         obj = form.save(commit=False)
-        obj.config = Configuration.get_solo()
+        curr_site = get_current_site(self.request)
+        obj.config = Configuration.object.get(site=curr_site)
         obj.save()
 
         return HttpResponseRedirect(self.get_success_url())
@@ -1148,7 +1151,8 @@ class OverviewItemCreateView(CreateView):
 
     def form_valid(self, form):
         obj = form.save(commit=False)
-        obj.config = Configuration.get_solo()
+        curr_site = get_current_site(self.request)
+        obj.config, _ = Configuration.objects.get_or_create(site=curr_site)
         obj.save()
 
         return HttpResponseRedirect(self.get_success_url())
@@ -1219,7 +1223,8 @@ class ReviewItemCreateView(CreateView):
 
     def form_valid(self, form):
         obj = form.save(commit=False)
-        obj.config = Configuration.get_solo()
+        curr_site = get_current_site(self.request)
+        obj.config, _ = Configuration.objects.get_or_create(site=curr_site)
         obj.save()
 
         return HttpResponseRedirect(self.get_success_url())
@@ -1289,7 +1294,8 @@ class DeliveryAndPayCreateView(CreateView):
 
     def form_valid(self, form):
         obj = form.save(commit=False)
-        obj.config = Configuration.get_solo()
+        curr_site = get_current_site(self.request)
+        obj.config, _ = Configuration.objects.get_or_create(site=curr_site)
         obj.save()
         return HttpResponseRedirect(self.get_success_url())
 

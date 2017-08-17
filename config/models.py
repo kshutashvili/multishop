@@ -76,7 +76,7 @@ def create_or_update_site_config(sender, instance, created, **kwargs):
     instance.config.save()
 
 
-class Configuration(SingletonModel):
+class Configuration(models.Model):
     site = models.OneToOneField(Site, verbose_name='сайт',
                                 on_delete=models.CASCADE,
                                 related_name='landing_config')
@@ -105,7 +105,7 @@ class Configuration(SingletonModel):
     show_advanced = models.BooleanField(_("Отображать блок 'Дополнительные услуги'?"),
                                           default=False)
     show_delivery = models.BooleanField(_("Отображать блок 'Доставка/Оплата'"),
-                                        default=True)
+                                        default=False)
     footer_map_for = models.OneToOneField(City,
                                           verbose_name=_("Карта в футере для"),
                                           related_name='footer_map',
@@ -114,6 +114,9 @@ class Configuration(SingletonModel):
 
     class Meta:
         verbose_name='Настройки главной страницы'
+
+    def __unicode__(self):
+        return self.site.domain
 
 
 class FuelConfiguration(models.Model):
