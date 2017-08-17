@@ -65,6 +65,13 @@ class SiteConfig(models.Model):
                                              blank=True,
                                              null=True,
                                              max_length=128)
+
+    google_tag_manager_script = models.TextField("Скрипт Google Tag Manager",
+                                                 blank=True)
+
+    google_tag_manager_noscript = models.TextField("Iframe для Google Tag Manager",
+                                                   blank=True)
+
     def __unicode__(self):
         return self.site.domain
 

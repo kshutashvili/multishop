@@ -15,7 +15,12 @@
         <meta name="description" content="{% block description %}{% endblock %}" />
         <meta name="viewport" content="{% block viewport %}width=device-width{% endblock %}" />
         <meta name="robots" content="NOARCHIVE,NOCACHE" />
-
+        {% block google_vefiry %}
+        {% endblock %}
+        {% block yandex_vefiry %}
+        {% endblock %}
+        {% block google_tag_manager_script %}
+        {% endblock %}
         <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
         <!--[if lt IE 9]>
         <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -40,6 +45,8 @@
     </head>
 
     <body id="{% block body_id %}default{% endblock %}" class="{% block body_class %}default{% endblock %}">
+        {% block google_tag_manager_noscript %}
+        {% endblock %}
         {# Main content goes in this 'layout' block #}
         {% block layout %}{% endblock %}
 

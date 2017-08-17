@@ -19,7 +19,11 @@ def show_site_email(request):
             'site_copyright': site_copyright,
             'site_id': site_obj.pk,
             'site_favicon': site_conf.favicon,
-            'site_config': site_config}
+            'site_config': site_config,
+            'google_webmaster_code': site_conf.code_webmaster_google,
+            'yandex_webmaster_code': site_conf.code_webmaster_yandex,
+            'google_tag_manager_script': site_conf.google_tag_manager_script,
+            'google_tag_manager_noscript': site_conf.google_tag_manager_noscript}
 
 
 def menu_processor(request):
