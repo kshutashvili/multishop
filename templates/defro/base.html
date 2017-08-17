@@ -404,30 +404,46 @@
                     </div>
                     <div class="social">
                         <p>Мы в соцсетях, <br> присоединяйтесь!</p>
-                        <a href="{{ social_networks_refs.facebook|first }}"><img
+                        {% if social_networks_refs.facebook %}
+                            <a href="{{ social_networks_refs.facebook|first }}"><img
                                 src="{% get_static 'img/footer/fb.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.vkontakte|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.vkontakte %}
+                            <a href="{{ social_networks_refs.vkontakte|first }}"><img
                                 src="{% get_static 'img/footer/vk.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.mailru|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.mailru %}
+                            <a href="{{ social_networks_refs.mailru|first }}"><img
                                 src="{% get_static 'img/footer/mail.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.twitter|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.twitter %}
+                            <a href="{{ social_networks_refs.twitter|first }}"><img
                                 src="{% get_static 'img/footer/tw.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.odnoklassniki|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.odnoklassniki %}
+                            <a href="{{ social_networks_refs.odnoklassniki|first }}"><img
                                 src="{% get_static 'img/footer/od.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.pinterest|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.pinterest %}
+                            <a href="{{ social_networks_refs.pinterest|first }}"><img
                                 src="{% get_static 'img/footer/p.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.google|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.google %}
+                            <a href="{{ social_networks_refs.google|first }}"><img
                                 src="{% get_static 'img/footer/google.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.youtube|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.youtube %}
+                            <a href="{{ social_networks_refs.youtube|first }}"><img
                                 src="{% get_static 'img/footer/youtube.png' %}"
                                 alt=""></a>
+                        {% endif %}
                     </div>
                 </div>
                 <div id="scrollup"><img alt="Прокрутить вверх" src="{% get_static 'img/button_up.png' %}"></div>
