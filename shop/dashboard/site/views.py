@@ -431,19 +431,28 @@ class SiteContactConfigView(TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super(SiteContactConfigView, self).get_context_data(**kwargs)
 
-        ctx['form'] = SiteContactConfigForm(request=self.request)
-        ctx['formset'] = WorkScheduleFormSet(instance=get_current_site(self.request))
+        if self.request.method == "POST":
+            ctx['form'] = SiteContactConfigForm(self.request.POST,
+                                                request=self.request)
+            ctx['formset'] = WorkScheduleFormSet(self.request.POST,
+                                                 instance=get_current_site(self.request))
+        else:
+            ctx['form'] = SiteContactConfigForm(request=self.request)
+            ctx['formset'] = WorkScheduleFormSet(instance=get_current_site(self.request))
         return ctx
 
     def post(self, request):
 
-        form = SiteContactConfigForm(request.POST, request=request)
-        formset = WorkScheduleFormSet(request.POST,
-                                      instance=get_current_site(request))
+        ctx = self.get_context_data()
+
+        form = ctx['form']
+        formset = ctx['formset']
 
         if form.is_valid() and formset.is_valid():
             form.save()
             formset.save()
+        else:
+            return self.render_to_response(ctx)
 
         return HttpResponseRedirect(reverse('dashboard:sitecontact-edit'))
 
