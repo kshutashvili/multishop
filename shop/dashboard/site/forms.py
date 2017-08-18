@@ -111,6 +111,7 @@ class SiteContactConfigForm(forms.Form):
     def __init__(self, *args, **kwargs):
 
         # set initial values
+        Site.objects.clear_cache()
         self.site = get_current_site(kwargs.pop('request'))
         phone_numbers = PhoneNumber.objects.filter(site=self.site)
 
@@ -151,7 +152,6 @@ class SiteContactConfigForm(forms.Form):
             config_obj = self.site.config
             config_obj.email = self.cleaned_data['email']
             config_obj.save()
-            Site.objects.clear_cache()
 
 
 class WorkScheduleForm(forms.ModelForm):
