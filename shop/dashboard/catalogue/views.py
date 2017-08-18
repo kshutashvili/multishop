@@ -57,6 +57,14 @@ class ProductCreateUpdateView(OscarProductCreateUpdateView):
                     'meta_tag_object': self.object,
                     'meta_tag_content_type': content_type,
                 })
+
+        cxt['category_formset'] = self.formsets['category_formset'](
+            self.product_class,
+            self.request.user,
+            instance=self.object,
+            site=get_current_site(self.request)
+        )
+
         return cxt
 
 
@@ -87,6 +95,14 @@ class ProductClassUpdateView(OscarProductClassUpdateView):
 class CategoryCreateView(OscarCategoryCreateView):
     form_class = CategoryForm
 
+    def get_form_kwargs(self):
+        """
+        Returns the keyword arguments for instantiating the form.
+        """
+        kwargs = super(CategoryCreateView, self).get_form_kwargs()
+        kwargs['site'] = get_current_site(self.request)
+        return kwargs
+
     def form_valid(self, form, *args, **kwargs):
         form.cleaned_data['site'] = get_current_site(self.request)
         return super(CategoryCreateView, self).form_valid(form, *args, **kwargs)
@@ -95,6 +111,14 @@ class CategoryCreateView(OscarCategoryCreateView):
 class CategoryUpdateView(OscarCategoryUpdateView):
     template_name = 'shop/dashboard/catalogue/category_form.html'
     form_class = CategoryForm
+
+    def get_form_kwargs(self):
+        """
+        Returns the keyword arguments for instantiating the form.
+        """
+        kwargs = super(CategoryUpdateView, self).get_form_kwargs()
+        kwargs['site'] = get_current_site(self.request)
+        return kwargs
 
     def form_valid(self, *args, **kwargs):
         self.object.site = get_current_site(self.request)
