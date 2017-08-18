@@ -113,7 +113,8 @@ class SiteContactConfigForm(forms.Form):
         # set initial values
         Site.objects.clear_cache()
         self.site = get_current_site(kwargs.pop('request'))
-        phone_numbers = PhoneNumber.objects.filter(site=self.site)
+        phone_numbers = PhoneNumber.objects.filter(site=self.site,
+                                                   city__isnull=True)
 
         if 'initial' not in kwargs:
             kwargs['initial'] = {}
