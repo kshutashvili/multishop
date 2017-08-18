@@ -89,6 +89,7 @@
                                         товаров:
                                         <span>{{ paginator.count }}</span>
                                     </p>
+                                    {% comment %}
                                     {% for field, data in facet_data.items %}
                                         {% if data.results %}
                                             {% with name=data.name items=data.results %}
@@ -112,6 +113,7 @@
                                             {% endwith %}
                                         {% endif %}
                                     {% endfor %}
+                                    {% endcomment %}
                                     {% for field in filter_form %}
                                         {% for item in field %}
                                             {% if item.is_checked %}
@@ -132,6 +134,7 @@
                                     {% endif %}
                                 </div>
                             </div>
+                            {% comment %}
                             {% for field, data in facet_data.items %}
                                 {% if data.results %}
 
@@ -202,6 +205,7 @@
 
                                 {% endif %}
                             {% endfor %}
+                            {% endcomment %}
 
                             {% block filters %}
                                 <div id="filters">
