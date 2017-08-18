@@ -151,6 +151,7 @@ class SiteContactConfigForm(forms.Form):
             config_obj = self.site.config
             config_obj.email = self.cleaned_data['email']
             config_obj.save()
+            Site.objects.clear_cache()
 
 
 class WorkScheduleForm(forms.ModelForm):
