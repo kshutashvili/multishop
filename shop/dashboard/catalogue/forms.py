@@ -17,7 +17,8 @@ from oscar.forms.widgets import ImageInput
 from treebeard.forms import movenodeform_factory
 
 from shop.catalogue.models import Product, ProductClass, ProductAttribute, \
-    Category, ProductAttributeValue, ExtraImage, Video
+    Category, ProductAttributeValue, ExtraImage, Video, \
+    AttributeOptionGroup, AttributeOption
 from shop.partner.models import StockRecord
 
 from oscar.core.loading import get_class
@@ -346,3 +347,15 @@ class ModelMetaTagForm(forms.ModelForm):
     class Meta:
         model = ModelMetaTag
         fields = '__all__'
+
+
+AttributeOptionFormSet = inlineformset_factory(AttributeOptionGroup,
+                                               AttributeOption,
+                                               fields='__all__',
+                                               extra=3)
+
+
+class AttributeOptionGroupForm(forms.ModelForm):
+    class Meta:
+        model = AttributeOptionGroup
+        exclude = ('site', )

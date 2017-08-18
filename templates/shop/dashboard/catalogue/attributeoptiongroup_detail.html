@@ -1,0 +1,50 @@
+{% extends 'dashboard/layout.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+    {{ title }} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        </li>
+        <li>
+            <a href="{% url 'dashboard:optiongroup-list' %}">{% trans "Группы опций атрибутов" %}</a>
+        </li>
+        <li class="active">{{ object.name }}</li>
+    </ul>
+{% endblock %}
+
+{% block headertext %}
+    {{ title }}
+{% endblock  %}
+
+{% block dashboard_content %}
+    <form enctype="multipart/form-data" {% if form_id %}id="{{ form_id }}"{% endif %} class="form-{{ style|default:"stacked" }}" method="{{ method|default:"post" }}"
+    {% if action %}action="{{ action }}"{% endif %}>
+    {% if not method == "get" %}{% csrf_token %}{% endif %}
+    {% include 'dashboard/partials/form_fields.html' %}
+    {% block options %}
+      <table class="table table-striped table-bordered form-inline">
+          <caption>{% trans "Опции атрибута" %}</caption>
+          {{ option_formset.management_form }}
+          {{ option_formset.non_form_errors }}
+          {% for option_form in option_formset %}
+              <tr>
+                  <td>
+                      {% include "dashboard/partials/form_fields_inline.html" with form=option_form %}
+                  </td>
+              </tr>
+          {% endfor %}
+      </table>
+      <p></p>
+    {% endblock %}
+    <div class="form-group form-actions">
+      <button class="btn btn-lg btn-primary" type="submit" data-loading-text="{% trans 'Saving...' %}">{% trans "Save" %}</button>
+      {% trans "or" %} <a href="#" onclick="window.history.go(-1);return false" >{% trans "cancel" %}</a>.
+    </div>
+  </form>
+{% endblock dashboard_content %}

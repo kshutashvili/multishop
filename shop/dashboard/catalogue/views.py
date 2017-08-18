@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
 from django.contrib.sites.shortcuts import get_current_site
 from django.http.response import HttpResponseRedirect
 from django.views.generic import CreateView
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, ListView, DeleteView
 from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
+from django.shortcuts import reverse, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 
 from oscar.apps.dashboard.catalogue.views import \
@@ -19,10 +21,12 @@ from oscar.core.loading import get_class
 
 from shop.dashboard.catalogue.forms import ProductForm, ModelMetaTagForm, \
     ProductAttributesFormSet, ProductClassForm, CategoryForm, \
-    ExtraProductImageFormSet, ProductVideoFormSet, ProductClassSelectForm
+    ExtraProductImageFormSet, ProductVideoFormSet, ProductClassSelectForm, \
+    AttributeOptionGroupForm, AttributeOptionFormSet
 from website.views import SiteMultipleObjectMixin
 
 ModelMetaTag = get_class('config.models', 'ModelMetaTag')
+AttributeOptionGroup = get_class('shop.catalogue.models', 'AttributeOptionGroup')
 
 
 class ProductCreateUpdateView(OscarProductCreateUpdateView):
@@ -205,3 +209,111 @@ class MetaTagUpdateView(UpdateView):
         if next:
             return next
         return self.request.META.get('HTTP_REFERER')
+
+
+class AttributeOptionGroupListView(SiteMultipleObjectMixin, ListView):
+    model = AttributeOptionGroup
+    template_name = "shop/dashboard/catalogue/attributeoptiongroup_list.html"
+    context_object_name = 'option_groups'
+
+
+class AttributeOptionGroupCreateUpdateView(UpdateView):
+    model = AttributeOptionGroup
+    form_class = AttributeOptionGroupForm
+    option_formset = AttributeOptionFormSet
+    template_name = 'shop/dashboard/catalogue/attributeoptiongroup_detail.html'
+
+    def process_all_forms(self, form):
+        if self.creating and form.is_valid():
+            # the object will be needed by formsets
+            self.object = form.save(commit=False)
+            self.object.site = get_current_site(self.request)
+
+        option_formset = self.option_formset(
+            self.request.POST, self.request.FILES, instance=self.object)
+
+        is_valid = form.is_valid() and option_formset.is_valid()
+
+        if is_valid:
+            return self.forms_valid(form,
+                                    option_formset)
+        else:
+            return self.forms_invalid(form,
+                                      option_formset)
+
+    def forms_valid(self, form, option_formset):
+        form.save()
+        option_formset.save()
+
+        return HttpResponseRedirect(self.get_success_url())
+
+    def forms_invalid(self, form, option_formset):
+        messages.error(self.request,
+                       _("Your submitted data was not valid - please "
+                         "correct the errors below"
+                         ))
+        ctx = self.get_context_data(form=form,
+                                    option_formset=option_formset)
+        return self.render_to_response(ctx)
+
+    form_valid = form_invalid = process_all_forms
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(AttributeOptionGroupCreateUpdateView, self).get_context_data(
+            *args, **kwargs)
+
+        if "option_formset" not in ctx:
+            ctx["option_formset"] = self.option_formset(
+                instance=self.object)
+
+        ctx["title"] = self.get_title()
+
+        return ctx
+
+
+class AttributeOptionGroupUpdateView(AttributeOptionGroupCreateUpdateView):
+    creating = False
+
+    def get_title(self):
+        return u"Обновить групу опций атрибутов '%s'" % self.object.name
+
+    def get_success_url(self):
+        messages.info(self.request, u"Группа опций атрибутов успешно сохранена")
+        return reverse("dashboard:optiongroup-list")
+
+    def get_object(self):
+        city = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return city
+
+
+class AttributeOptionGroupCreateView(AttributeOptionGroupCreateUpdateView):
+    creating = True
+
+    def get_object(self):
+        return None
+
+    def get_title(self):
+        return u"Создать новую группу опций атрибутов"
+
+    def get_success_url(self):
+        messages.info(self.request, u"Новая группа опций атрибутов создана")
+        return reverse("dashboard:optiongroup-list")
+
+
+class AttributeOptionGroupDeleteView(DeleteView):
+    model = AttributeOptionGroup
+    template_name = "shop/dashboard/catalogue/attributeoptiongroup_delete.html"
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(AttributeOptionGroupDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = u"Удаление группы опций атрибутов '%s'" % self.object.name
+
+        return ctx
+
+    def get_success_url(self):
+        messages.success(
+            self.request, u"Группа опций атрибутов '%s' удалена" % self.object.name)
+        return reverse('dashboard:optiongroup-list')

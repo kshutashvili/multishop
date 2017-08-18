@@ -274,6 +274,10 @@ OSCAR_DASHBOARD_NAVIGATION[2]['children'] += [
         'label': _('Filter Description'),
         'url_name': 'dashboard:filterdescription-list',
     },
+    {
+        'label': _('Группы опций атрибутов'),
+        'url_name': 'dashboard:optiongroup-list',
+    },
 ]
 
 # append to Orders
