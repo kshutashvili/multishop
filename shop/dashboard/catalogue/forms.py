@@ -186,7 +186,7 @@ class ProductClassForm(OscarProductClassForm):
 CategoryForm = movenodeform_factory(
     Category,
     fields=['name_ru', 'name_uk', 'name_in_side_menu_ru', 'name_in_side_menu_uk',
-            'description_ru', 'description_uk', 'image'])
+            'slug_ru', 'slug_uk', 'description_ru', 'description_uk', 'image'])
 
 
 class ExtraProductImageForm(OscarProductImageForm):
