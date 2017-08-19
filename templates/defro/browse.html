@@ -15,17 +15,11 @@
 {% load url_replace %}
 
 
-{% block title %}
-    {% meta_tag page_type 'title' page_object request category filter %}
-{% endblock title %}
+{% block title %}{% meta_tag page_type 'title' page_object request category filter %}{% endblock title %}
 
-{% block title_meta %}
-    {% meta_tag page_type 'title_meta' page_object request category filter %}
-{% endblock title_meta %}
+{% block title_meta %}{% meta_tag page_type 'title_meta' page_object request category filter %}{% endblock title_meta %}
 
-{% block description %}
-    {% meta_tag page_type 'description_meta' page_object request category filter %}
-{% endblock description %}
+{% block description %}{% meta_tag page_type 'description_meta' page_object request category filter %}{% endblock description %}
 
 
 {% block favicon %}
