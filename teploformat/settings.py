@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 from __future__ import unicode_literals
 import os
+import pprint
 
 from oscar.defaults import *
 from oscar import get_core_apps
@@ -271,7 +272,7 @@ OSCAR_DASHBOARD_NAVIGATION.insert(1,
 # append to Catalogue
 OSCAR_DASHBOARD_NAVIGATION[2]['children'] += [
     {
-        'label': _('Filter Description'),
+        'label': _('Описания фильтров'),
         'url_name': 'dashboard:filterdescription-list',
     },
     {
@@ -406,6 +407,19 @@ OSCAR_DASHBOARD_NAVIGATION += [{
         }
     ]
 }]
+
+# delete Catalog --> Ranges
+del OSCAR_DASHBOARD_NAVIGATION[2]['children'][3]
+# delete Catalog -- > Stock-alerts
+del OSCAR_DASHBOARD_NAVIGATION[2]['children'][3]
+# delete Content -- > Content-block
+del OSCAR_DASHBOARD_NAVIGATION[6]['children'][0]
+# delete Content -- > Content-block pages
+del OSCAR_DASHBOARD_NAVIGATION[6]['children'][0]
+# delete Content -- > Pages
+del OSCAR_DASHBOARD_NAVIGATION[6]['children'][0]
+# delete Content -- > comms (letter templates)
+del OSCAR_DASHBOARD_NAVIGATION[6]['children'][0]
 
 THUMBNAIL_PRESERVE_FORMAT = True
 

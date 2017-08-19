@@ -45,7 +45,6 @@ def social_networks_ref(request):
             del limits[ref.ref_type]
         if not limits:
             break
-    print(social_networks_refs)
     return {'social_networks_refs': social_networks_refs}
 
 
