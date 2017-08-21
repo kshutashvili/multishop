@@ -375,6 +375,12 @@ class FlatPageCreateView(CreateView):
     def get_object(self):
         return None
 
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.save()
+        obj.site.add(get_current_site(self.request))
+        return HttpResponseRedirect(self.get_success_url())
+
     def get_success_url(self):
         messages.info(self.request, _("Flat page created successfully"))
         return reverse("dashboard:flatpage-list")
@@ -395,6 +401,12 @@ class FlatPageUpdateView(UpdateView):
     def get_success_url(self):
         messages.info(self.request, _("Flat page updated successfully"))
         return reverse("dashboard:flatpage-list")
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.save()
+        obj.site.add(get_current_site(self.request))
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_object(self):
         obj = get_object_or_404(FlatPage, pk=self.kwargs['pk'])
@@ -421,7 +433,7 @@ class FlatPageDeleteView(DeleteView):
         return ctx
 
     def get_success_url(self):
-        messages.info(self.request, _("Статическая страница успешно изменена"))
+        messages.info(self.request, _("Статическая страница успешно удалена"))
         return reverse("dashboard:flatpage-list")
 
 

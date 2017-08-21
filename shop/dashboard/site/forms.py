@@ -85,7 +85,7 @@ class FlatPageForm(forms.ModelForm):
         model = FlatPage
         fields = ('title_ru', 'title_uk',
                   'content_ru', 'content_uk',
-                  'slug_ru', 'slug_uk', 'site')
+                  'slug_ru', 'slug_uk')
 
 
 class ContactMessageForm(forms.ModelForm):
