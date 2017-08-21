@@ -81,7 +81,7 @@ class ProductForm(OscarProductForm):
     class Meta:
         model = Product
         fields = [
-            'title_ru', 'title_uk', 'upc', 'description_ru', 'description_uk',
+            'title_ru', 'title_uk', 'slug_ru', 'slug_uk', 'upc', 'description_ru', 'description_uk',
             'is_discountable', 'structure', 'new', 'top_sale', 'recommended',
             'super_price', 'special_offer', 'gift', 'free_shipping']
         widgets = {
