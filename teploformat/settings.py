@@ -251,7 +251,7 @@ OSCAR_DASHBOARD_NAVIGATION.insert(
          'children': [
              {
                  'label': _('Редактировать сайт'),
-                 'url_name': 'dashboard:sitecontact-edit',
+                 'url_name': 'dashboard:site-detail-current',
              },
              {
                  'label': _('Контакты главные'),

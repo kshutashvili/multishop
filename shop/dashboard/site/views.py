@@ -111,7 +111,12 @@ class SiteUpdateView(UpdateView):
         return context
 
     def get_object(self):
-        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        if self.kwargs.get('is_current', False):
+            pk = get_current_site(self.request).pk
+        else:
+            pk = self.kwargs['pk']
+
+        obj = get_object_or_404(self.model, pk=pk)
         return obj
 
     def get_success_url(self):

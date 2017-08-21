@@ -189,6 +189,9 @@ class SiteDashboardApplication(Application):
                 name='site-add'),
             url(r'^site/edit/(?P<pk>[\d]+)/$', self.site_update_view.as_view(),
                 name='site-detail'),
+            url(r'^site/edit/$', self.site_update_view.as_view(),
+                {'is_current': True}, name='site-detail-current'
+                ),
             url(r'site/delete/(?P<pk>[\d]+)/$', self.site_delete_view.as_view(),
                 name='site-delete'),
             url(r'^city/$', self.city_list_view.as_view(),
