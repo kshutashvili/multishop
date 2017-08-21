@@ -68,6 +68,7 @@ class SiteCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(SiteCreateView, self).get_context_data(**kwargs)
         context['title'] = _('Create Site')
+        context['delete_btn'] = False
         if self.request.POST:
             context['site_config_form'] = SiteConfigForm(self.request.POST,
                                                          self.request.FILES)
@@ -99,6 +100,7 @@ class SiteUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(SiteUpdateView, self).get_context_data(**kwargs)
         context['title'] = _("Изменение сайта")
+        context['delete_btn'] = True
         if self.request.POST:
             context['site_config_form'] = SiteConfigForm(self.request.POST,
                                                          self.request.FILES)
@@ -126,6 +128,22 @@ class SiteUpdateView(UpdateView):
             site_config.save()
 
         return super(SiteUpdateView, self).form_valid(form)
+
+
+class SiteDeleteView(DeleteView):
+    template_name = 'shop/dashboard/site/site_delete.html'
+    model = Site
+    form_class = SiteForm
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(SiteDeleteView, self).get_context_data(*args,
+                                                           **kwargs)
+        ctx['title'] = _("Удаление сайта '%s'") % self.object
+        return ctx
+
+    def get_success_url(self):
+        messages.info(self.request, _("Сайт успешно удален"))
+        return reverse("dashboard:index")
 
 
 class CityListView(SiteMultipleObjectMixin, ListView):
