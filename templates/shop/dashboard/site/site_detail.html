@@ -28,9 +28,6 @@
     <div class="form-group form-actions">
       <button class="btn btn-lg btn-primary" type="submit" data-loading-text="{% trans 'Saving...' %}">{% trans "Save" %}</button>
       {% trans "or" %} <a href="#" onclick="window.history.go(-1);return false" >{% trans "cancel" %}</a>.
-      {% if delete_btn %}
-        <a href="/dashboard/site/site/delete/2/" class="btn btn-lg btn-danger" style="float: right;">Удалить</a>
-      {% endif %}
     </div>
   </form>
 {% endblock dashboard_content %}

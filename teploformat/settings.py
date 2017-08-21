@@ -297,6 +297,10 @@ OSCAR_DASHBOARD_NAVIGATION.insert(
                 'label': _('Боковое меню'),
                 'url_name': 'dashboard:sidemenu-list',
              },
+             {
+                'label': _('Удаление сайтов'),
+                'url_name': 'dashboard:site-list'
+             }
          ],
     }
 )

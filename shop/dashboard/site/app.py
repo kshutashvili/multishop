@@ -6,7 +6,7 @@ from django.conf.urls import url
 from oscar.core.application import Application
 
 from shop.dashboard.site.views import (SiteCreateView, SiteUpdateView,
-                                       SiteDeleteView,
+                                       SiteDeleteView, SiteListView,
                                        CityListView, CityUpdateView,
                                        CityCreateView, CityDeleteView,
                                        SocialNetRefListView,
@@ -97,6 +97,7 @@ class SiteDashboardApplication(Application):
     site_create_view = SiteCreateView
     site_update_view = SiteUpdateView
     site_delete_view = SiteDeleteView
+    site_list_view = SiteListView
     city_list_view = CityListView
     city_update_view = CityUpdateView
     city_create_view = CityCreateView
@@ -187,6 +188,8 @@ class SiteDashboardApplication(Application):
         urls = [
             url(r'^add/$', self.site_create_view.as_view(),
                 name='site-add'),
+            url(r'^sites/$', self.site_list_view.as_view(),
+                name='site-list'),
             url(r'^site/edit/(?P<pk>[\d]+)/$', self.site_update_view.as_view(),
                 name='site-detail'),
             url(r'^site/edit/$', self.site_update_view.as_view(),
