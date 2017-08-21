@@ -35,7 +35,7 @@ order_placed = get_class('order.signals', 'order_placed')
 class Product(AbstractProduct):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
 
-    new = models.BooleanField(verbose_name='Новинка', default=True)
+    new = models.BooleanField(verbose_name='Новинка', default=False)
     top_sale = models.BooleanField(verbose_name='Хит продаж', default=False)
     recommended = models.BooleanField(verbose_name='Рекомендуем', default=False)
     super_price = models.BooleanField(verbose_name='Суперцена', default=False)

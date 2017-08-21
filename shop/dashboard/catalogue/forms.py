@@ -73,6 +73,10 @@ class ProductForm(OscarProductForm):
     title_uk = forms.CharField(label='Назва (українською)')
     description_uk = forms.CharField(label='Опис (українською)',
                                      widget=forms.Textarea(), required=False)
+    is_discountable = forms.BooleanField(
+        label=_("Is discountable?"), initial=False, help_text=_(
+            "This flag indicates if this product can be used in an offer "
+            "or not"), required=False)
 
     class Meta:
         model = Product
