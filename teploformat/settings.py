@@ -273,10 +273,10 @@ OSCAR_DASHBOARD_NAVIGATION.insert(
                  'label': _('Timetables'),
                  'url_name': 'dashboard:timetable-list',
              },
-             # {
-             #     'label': _('Email templates'),
-             #     'url_name': 'dashboard:comms-list',
-             # },
+             {
+                 'label': _('Email templates'),
+                 'url_name': 'dashboard:comms-list',
+             },
              {
                 'label': _('Статические страницы'),
                 'url_name': 'dashboard:flatpage-list',
