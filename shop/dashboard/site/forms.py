@@ -7,6 +7,8 @@ from django import forms
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.sites.models import Site
 from django.forms.models import inlineformset_factory
+from django.contrib.auth.forms import (UserCreationForm,
+                                       PasswordChangeForm)
 
 from config.models import (SiteConfig, MetaTag, TextOne, TextTwo,
                           TextThree, TextFour, Configuration,
@@ -19,6 +21,7 @@ from contacts.models import (City, PhoneNumber,
                              WorkSchedule)
 from shop.catalogue.models import FilterDescription
 from shop.order.models import InstallmentPayment
+from users.models import User
 
 
 class SiteForm(forms.ModelForm):
@@ -276,3 +279,18 @@ class InstallmentPaymentForm(forms.ModelForm):
         model = InstallmentPayment
         exclude = ('site',)
 
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ("username", "email", "first_name", "last_name", "is_staff", "is_active")
+
+
+class UserCreateForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ("username", "email")
+
+
+class UserPasswordChangeForm(PasswordChangeForm):
+    pass

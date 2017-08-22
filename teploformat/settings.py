@@ -298,6 +298,10 @@ OSCAR_DASHBOARD_NAVIGATION.insert(
                 'url_name': 'dashboard:sidemenu-list',
              },
              {
+                'label': _('Пользователи'),
+                'url_name': 'dashboard:user-list',
+             },
+             {
                 'label': _('Удаление сайтов'),
                 'url_name': 'dashboard:site-list'
              }

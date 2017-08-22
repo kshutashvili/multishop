@@ -1,0 +1,69 @@
+{% extends 'dashboard/layout.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Пользователи" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        </li>
+        <li class="active">{% trans "Пользователи" %}</li>
+    </ul>
+{% endblock %}
+
+{% block header %}
+    <div class="page-header">
+        <a href="{% url 'dashboard:user-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать нового пользователя" %}</a>
+        <h1>{% trans "Пользователи" %}</h1>
+    </div>
+{% endblock header %}
+
+{% block dashboard_content %}
+
+    {% if users %}
+        <form action="." method="post" class="order_table" id="orders_form">
+            {% csrf_token %}
+
+            {% block benefits_list %}
+            <table class="table table-striped table-bordered table-hover">
+                <caption>
+                    <h3 class="pull-left"><i class="icon-large"></i>
+                        {% trans "Все пользователи" %}
+                    </h3>
+                </caption>
+
+                <thead>
+                    <tr>
+                        <th>{% trans "Email" %}</th>
+                        <th>{% trans "Имя пользователя" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td><a href="{% url 'dashboard:user-detail' pk=user.id %}">{{ user.email }}</a></td>
+                        <td>{{ user.username }}</td>
+                        <td>
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:user-detail' url_name_delete='dashboard:user-delete' record=user %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endblock benefits_list %}
+
+            {% include "dashboard/partials/pagination.html" %}
+        </form>
+    {% else %}
+        <table class="table table-striped table-bordered">
+            <caption><i class="icon-large"></i>
+               {% trans "Все пользователи" %}
+            </caption>
+            <tr><td>{% trans "Еще не было создано ни одного пользователя" %}</td></tr>
+        </table>
+    {% endif %}
+
+    {% endblock dashboard_content %}

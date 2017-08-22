@@ -7,11 +7,12 @@ from django.shortcuts import reverse, get_object_or_404
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib import messages
 from django.contrib.sites.models import Site
+from django.contrib.auth import update_session_auth_hash
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.views.generic import (CreateView, ListView,
                                   UpdateView, DeleteView,
-                                  TemplateView)
+                                  TemplateView, FormView)
 from django.utils.translation import ugettext_lazy as _
 
 from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
@@ -27,7 +28,8 @@ from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
                                        OverviewItemForm, ReviewItemForm,
                                        DeliveryAndPayForm, MenuItemForm,
                                        FooterMenuItemForm, MenuCategoryForm,
-                                       InstallmentPaymentForm)
+                                       InstallmentPaymentForm, UserForm,
+                                       UserCreateForm, UserPasswordChangeForm)
 from shop.catalogue.models import FilterDescription
 from shop.order.models import InstallmentPayment
 from config.models import (MetaTag, TextOne, TextTwo, TextThree, TextFour,
@@ -37,6 +39,7 @@ from config.models import (MetaTag, TextOne, TextTwo, TextThree, TextFour,
 from contacts.models import (City, SocialNetRef, FlatPage, ContactMessage,
                              Timetable)
 from website.views import SiteMultipleObjectMixin
+from users.models import User
 
 MetaTag = get_model('config', 'MetaTag')
 City = get_model('contacts', 'City')
@@ -1756,3 +1759,84 @@ class InstallmentPaymentDeleteView(DeleteView):
         messages.success(
             self.request, _("Пункт меню '%s' удален") % self.object)
         return reverse('dashboard:installment-list')
+
+
+class UserListView(ListView):
+    model = User
+    template_name = "shop/dashboard/site/user_list.html"
+    context_object_name = 'users'
+
+
+class UserCreateView(CreateView):
+    model = User
+    form_class = UserCreateForm
+    template_name = "shop/dashboard/site/user_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(UserCreateView, self).get_context_data(**kwargs)
+        context['title'] = _('Создать нового пользователя')
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, _("Новый пользователь создан"))
+        return reverse('dashboard:user-list')
+
+    def get_object(self):
+        return None
+
+
+class UserUpdateView(UpdateView):
+    model = User
+    form_class = UserForm
+    template_name = "shop/dashboard/site/user_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(UserUpdateView, self).get_context_data(**kwargs)
+        context['title'] = self.object.email
+        return context
+
+    def get_object(self):
+        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Данные пользователя успешно изменены"))
+        return reverse("dashboard:user-list")
+
+
+class UserDeleteView(DeleteView):
+    model = User
+    template_name = "shop/dashboard/site/user_delete.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UserDeleteView, self).get_context_data(*args, **kwargs)
+        context['title'] = _("Удаление пользователя '%s'") % self.object
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, _("Пользователь %s удален") % self.object)
+        return reverse('dashboard:user-list')
+
+
+class UserPasswordChangeView(TemplateView):
+    template_name = "shop/dashboard/site/user_change_password.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UserPasswordChangeView, self).get_context_data(*args, **kwargs)
+        context['form'] = UserPasswordChangeForm(user=self.request.user)
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, _("Пароль успешно изменен"))
+        return reverse('dashboard:user-list')
+
+    def post(self, request):
+        form = UserPasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            # Updating the password logs out all other sessions for the user
+            # except the current one.
+            update_session_auth_hash(request, form.user)
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.render_to_response({'form': form})

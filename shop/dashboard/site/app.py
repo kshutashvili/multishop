@@ -87,7 +87,12 @@ from shop.dashboard.site.views import (SiteCreateView, SiteUpdateView,
                                        InstallmentPaymentListView,
                                        InstallmentPaymentCreateView,
                                        InstallmentPaymentUpdateView,
-                                       InstallmentPaymentDeleteView)
+                                       InstallmentPaymentDeleteView,
+                                       UserListView,
+                                       UserCreateView,
+                                       UserUpdateView,
+                                       UserDeleteView,
+                                       UserPasswordChangeView)
 
 
 class SiteDashboardApplication(Application):
@@ -183,6 +188,11 @@ class SiteDashboardApplication(Application):
     installment_create_view = InstallmentPaymentCreateView
     installment_update_view = InstallmentPaymentUpdateView
     installment_delete_view = InstallmentPaymentDeleteView
+    user_list_view = UserListView
+    user_create_view = UserCreateView
+    user_update_view = UserUpdateView
+    user_delete_view = UserDeleteView
+    user_change_password_view = UserPasswordChangeView
 
     def get_urls(self):
         urls = [
@@ -383,6 +393,17 @@ class SiteDashboardApplication(Application):
                 name='installment-detail'),
             url(r'^installment/delete/(?P<pk>[\d]+)/$', self.installment_delete_view.as_view(),
                 name='installment-delete'),
+            # users
+            url(r'^user/$', self.user_list_view.as_view(),
+                name='user-list'),
+            url(r'^user/add/$', self.user_create_view.as_view(),
+                name='user-create'),
+            url(r'^user/edit/(?P<pk>[\d]+)/$', self.user_update_view.as_view(),
+                name='user-detail'),
+            url(r'^user/delete/(?P<pk>[\d]+)/$', self.user_delete_view.as_view(),
+                name='user-delete'),
+            url(r'user/change_password/$', self.user_change_password_view.as_view(),
+                name='user-change-password'),
         ]
         return self.post_process_urls(urls)
 
