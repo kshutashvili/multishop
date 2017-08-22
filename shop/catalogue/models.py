@@ -33,7 +33,8 @@ order_placed = get_class('order.signals', 'order_placed')
 
 
 class Product(AbstractProduct):
-    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True,
+                             on_delete=models.CASCADE)
 
     new = models.BooleanField(verbose_name='Новинка', default=False)
     top_sale = models.BooleanField(verbose_name='Хит продаж', default=False)
@@ -43,6 +44,14 @@ class Product(AbstractProduct):
     gift = models.BooleanField(verbose_name='+Подарок', default=False)
     free_shipping = models.BooleanField(verbose_name='Бесплатная доставка',
                                         default=False)
+
+    product_class = models.ForeignKey(
+        'catalogue.ProductClass',
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name=_('Product type'), related_name="products",
+        help_text=_("Choose what type of product this is"))
 
     objects = ProductManager()
     browsable = BrowsableProductManager()
@@ -113,7 +122,8 @@ class Product(AbstractProduct):
 
 
 class ProductClass(AbstractProductClass):
-    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True,
+                             on_delete=models.CASCADE)
     image = models.ImageField(_('Image'), upload_to='product_classes',
                               blank=True,
                               null=True, max_length=255)
@@ -124,11 +134,13 @@ class ProductClass(AbstractProductClass):
 
 
 class ProductCategory(AbstractProductCategory):
-    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True,
+                             on_delete=models.CASCADE)
 
 
 class Category(AbstractCategory):
-    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True,
+                             on_delete=models.CASCADE)
     description_title = models.CharField(verbose_name='Название статьи (описания)', max_length=255, blank=True)
     name_in_side_menu = models.CharField(_('Название в боковом меню'), max_length=255,
                                           blank=True)
@@ -236,7 +248,8 @@ class Video(models.Model):
 
 
 class AttributeOptionGroup(AbstractAttributeOptionGroup):
-    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True)
+    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True,
+                             on_delete=models.SET_NULL)
 
     def __unicode__(self):
         return '{} - {}'.format(self.name, self.site.name)
