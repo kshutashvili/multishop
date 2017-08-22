@@ -38,7 +38,7 @@
                     <ul>
                         {% for cat in category.get_children.all %}
                             <li>
-                                <a href="{{ cat.get_absolute_url }}">
+                                <a href="{{ cat.get_absolute_url }}" style="line-height: 200px;">
                                     {% if cat.image %}
                                         <img src="{{ cat.image.url }}" alt="{{ cat.name }}">
                                     {% endif %}

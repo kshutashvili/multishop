@@ -51,11 +51,11 @@
 				{% if side_menu_categories %}
 					{% for category in side_menu_categories %}
 						<div class="item" style="width: 150px;">
-							<a href="{{ category.get_absolute_url }}">
+							<a href="{{ category.get_absolute_url }}" style="line-height:150px;">
 								<p>{{ category.name }}</p>
 								{% if category.image %}
 
-										<img src="{{ category.image.url }}" alt="" style="width: 74px; height: 145px;">
+										<img src="{{ category.image.url }}" alt="" style="max-width: 75px; max-height: 145px;">
 
 								{% endif %}
 							</a>

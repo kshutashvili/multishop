@@ -512,7 +512,7 @@ a.under_left_menu_more:hover{
 	width: auto;
 	display: inline-block;
 	margin-bottom: 8px;
-	height: 145px;
+	/*height: 145px;*/
 }
 .second_block .owl-carousel .item{
 	border: 1px solid #aaabab;
