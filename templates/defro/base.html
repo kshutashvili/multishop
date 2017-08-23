@@ -8,6 +8,28 @@
 
 {% block viewport %}width=device-width, initial-scale=1.0{% endblock %}
 
+{% block google_vefiry %}
+    <meta name="google-site-verification" content="{{ google_webmaster_code }}" />
+{% endblock %}
+
+{% block yandex_vefiry %}
+    <meta name="yandex-verification" content="{{ yandex_webmaster_code }}" />
+{% endblock %}
+
+{% block google_tag_manager_script %}
+    {{ google_tag_manager_script|safe }}
+{% endblock %}
+
+{% block google_tag_manager_noscript %}
+    {{ google_tag_manager_noscript|safe }}
+{% endblock %}
+
+{% block favicon %}
+    {% if site_favicon %}
+        <link rel="shortcut icon" href="{{ site_favicon.url }}" />
+    {% endif %}
+{% endblock %}
+
 {% block styles %}
     <link rel="stylesheet" type="text/css"
           href="{% get_static 'css/jquery.bxslider.css' %}">
@@ -398,30 +420,46 @@
                     </div>
                     <div class="social">
                         <p>Мы в соцсетях, <br> присоединяйтесь!</p>
-                        <a href="{{ social_networks_refs.facebook|first }}"><img
+                        {% if social_networks_refs.facebook %}
+                            <a href="{{ social_networks_refs.facebook|first }}"><img
                                 src="{% get_static 'img/footer/fb.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.vkontakte|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.vkontakte %}
+                            <a href="{{ social_networks_refs.vkontakte|first }}"><img
                                 src="{% get_static 'img/footer/vk.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.mailru|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.mailru %}
+                            <a href="{{ social_networks_refs.mailru|first }}"><img
                                 src="{% get_static 'img/footer/mail.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.twitter|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.twitter %}
+                            <a href="{{ social_networks_refs.twitter|first }}"><img
                                 src="{% get_static 'img/footer/tw.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.odnoklassniki|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.odnoklassniki %}
+                            <a href="{{ social_networks_refs.odnoklassniki|first }}"><img
                                 src="{% get_static 'img/footer/od.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.pinterest|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.pinterest %}
+                            <a href="{{ social_networks_refs.pinterest|first }}"><img
                                 src="{% get_static 'img/footer/p.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.google|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.google %}
+                            <a href="{{ social_networks_refs.google|first }}"><img
                                 src="{% get_static 'img/footer/google.png' %}"
                                 alt=""></a>
-                        <a href="{{ social_networks_refs.youtube|first }}"><img
+                        {% endif %}
+                        {% if social_networks_refs.youtube %}
+                            <a href="{{ social_networks_refs.youtube|first }}"><img
                                 src="{% get_static 'img/footer/youtube.png' %}"
                                 alt=""></a>
+                        {% endif %}
                     </div>
                 </div>
                 <div id="scrollup"><img alt="Прокрутить вверх" src="{% get_static 'img/button_up.png' %}"></div>

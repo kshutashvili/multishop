@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans "Texts" %} | {{ block.super }}
+    {% trans "Тексты" %} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -10,7 +10,7 @@
         <li>
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
-        <li class="active">{% trans "Texts" %}</li>
+        <li class="active">{% trans "Тексты" %}</li>
     </ul>
 {% endblock %}
 
@@ -20,8 +20,8 @@
         {% if text_one %}{% url 'dashboard:textone-create' %}{% endif %}
         {% if text_two %}{% url 'dashboard:texttwo-create' %}{% endif %}
         {% if text_three %}{% url 'dashboard:textthree-create' %}{% endif %}
-        {% if text_four %}{% url 'dashboard:textfour-create' %}{% endif %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Create new Text" %}</a>
-        <h1>{% trans "Texts" %}</h1>
+        {% if text_four %}{% url 'dashboard:textfour-create' %}{% endif %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать новый Текст" %}</a>
+        <h1>{% trans "Тексты" %}</h1>
     </div>
 {% endblock header %}
 
@@ -35,13 +35,13 @@
             <table class="table table-striped table-bordered table-hover">
                 <caption>
                     <h3 class="pull-left"><i class="icon-large"></i>
-                        {% trans "All Texts" %}
+                        {% trans "Все тексты" %}
                     </h3>
                 </caption>
 
                 <thead>
                     <tr>
-                        <th>{% trans "Text" %}</th>
+                        <th>{% trans "Текст" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -85,9 +85,9 @@
     {% else %}
         <table class="table table-striped table-bordered">
             <caption><i class="icon-large"></i>
-               {% trans "All Texts" %}
+               {% trans "Все тексты" %}
             </caption>
-            <tr><td>{% trans "No texts found." %}</td></tr>
+            <tr><td>{% trans "Еще не создано ни одного текста." %}</td></tr>
         </table>
     {% endif %}
 

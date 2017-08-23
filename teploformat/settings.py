@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 from __future__ import unicode_literals
 import os
+import pprint
 
 from oscar.defaults import *
 from oscar import get_core_apps
@@ -239,18 +240,33 @@ OSCAR_MISSING_IMAGE_URL = os.path.join(MEDIA_URL, 'image_not_found.jpg')
 
 OSCAR_DEFAULT_CURRENCY = 'UAH'
 
+# rename first item
+OSCAR_DASHBOARD_NAVIGATION[0]['label'] = _('Главная')
+
 # append group after Dashboard
-OSCAR_DASHBOARD_NAVIGATION.insert(1,
-                                  {
-         'label': _('Contacts'),
+OSCAR_DASHBOARD_NAVIGATION.insert(
+    1, {
+         'label': _('Настройки'),
          'icon': 'icon-th-list',
          'children': [
              {
-                 'label': _('General'),
+                 'label': _('Редактировать сайт'),
+                 'url_name': 'dashboard:site-detail-current',
+             },
+             {
+                 'label': _('Контакты главные'),
                  'url_name': 'dashboard:sitecontact-edit',
              },
              {
-                 'label': _('Meta Tags'),
+                 'label': _('Контакты по городам'),
+                 'url_name': 'dashboard:city-list',
+             },
+             {
+                 'label': _('Ссылки на соц сети'),
+                 'url_name': 'dashboard:socialref-list',
+             },
+             {
+                 'label': _('Шаблоны мета данных'),
                  'url_name': 'dashboard:metatag-list',
              },
              {
@@ -258,30 +274,63 @@ OSCAR_DASHBOARD_NAVIGATION.insert(1,
                  'url_name': 'dashboard:timetable-list',
              },
              {
-                 'label': _('Social Net Ref'),
-                 'url_name': 'dashboard:socialref-list',
+                 'label': _('Email templates'),
+                 'url_name': 'dashboard:comms-list',
              },
              {
-                 'label': _('Cities'),
-                 'url_name': 'dashboard:city-list',
+                'label': _('Статические страницы'),
+                'url_name': 'dashboard:flatpage-list',
              },
+             {
+                'label': _('Категории меню'),
+                'url_name': 'dashboard:menucategory-list',
+             },
+             {
+                'label': _('Верхнее меню'),
+                'url_name': 'dashboard:headermenu-list',
+             },
+             {
+                'label': _('Нижнее меню'),
+                'url_name': 'dashboard:footermenu-list',
+             },
+             {
+                'label': _('Боковое меню'),
+                'url_name': 'dashboard:sidemenu-list',
+             },
+             {
+                'label': _('Пользователи'),
+                'url_name': 'dashboard:user-list',
+             },
+             {
+                'label': _('Удаление сайтов'),
+                'url_name': 'dashboard:site-list'
+             }
          ],
-     })
+    }
+)
 
 # append to Catalogue
 OSCAR_DASHBOARD_NAVIGATION[2]['children'] += [
     {
-        'label': _('Filter Description'),
+        'label': _('Описания фильтров'),
         'url_name': 'dashboard:filterdescription-list',
+    },
+    {
+        'label': _('Группы опций атрибутов'),
+        'url_name': 'dashboard:optiongroup-list',
     },
 ]
 
 # append to Orders
 OSCAR_DASHBOARD_NAVIGATION[3]['children'] += [
     {
-        'label': _('One-Click Orders'),
+        'label': _('Заказы в один клик'),
         'url_name': 'dashboard:oneclickorder-list',
     },
+    {
+        'label': _('Заявки на рассрочку'),
+        'url_name': 'dashboard:installment-list'
+    }
 ]
 
 # append to Clients
@@ -310,30 +359,6 @@ OSCAR_DASHBOARD_NAVIGATION[4]['children'] += [
 
 # remove Reviews from Content
 del OSCAR_DASHBOARD_NAVIGATION[6]['children'][4]
-
-# append to Content
-OSCAR_DASHBOARD_NAVIGATION[6]['children'] += [
-    {
-        'label': _('Статические страницы'),
-        'url_name': 'dashboard:flatpage-list',
-    },
-    {
-        'label': _('Категории меню'),
-        'url_name': 'dashboard:menucategory-list',
-    },
-    {
-        'label': _('Верхнее меню'),
-        'url_name': 'dashboard:headermenu-list',
-    },
-    {
-        'label': _('Нижнее меню'),
-        'url_name': 'dashboard:footermenu-list',
-    },
-    {
-        'label': _('Боковое меню'),
-        'url_name': 'dashboard:sidemenu-list',
-    },
-]
 
 # append as separate group
 OSCAR_DASHBOARD_NAVIGATION += [{
@@ -398,6 +423,19 @@ OSCAR_DASHBOARD_NAVIGATION += [{
         }
     ]
 }]
+
+# delete Catalog --> Ranges
+del OSCAR_DASHBOARD_NAVIGATION[2]['children'][3]
+# delete Catalog -- > Stock-alerts
+del OSCAR_DASHBOARD_NAVIGATION[2]['children'][3]
+# delete Content -- > Content-block
+del OSCAR_DASHBOARD_NAVIGATION[6]['children'][0]
+# delete Content -- > Content-block pages
+del OSCAR_DASHBOARD_NAVIGATION[6]['children'][0]
+# delete Content -- > Pages
+del OSCAR_DASHBOARD_NAVIGATION[6]['children'][0]
+# delete Content -- > comms (letter templates)
+del OSCAR_DASHBOARD_NAVIGATION[6]['children'][0]
 
 THUMBNAIL_PRESERVE_FORMAT = True
 

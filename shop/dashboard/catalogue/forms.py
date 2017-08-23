@@ -10,15 +10,21 @@ from oscar.apps.dashboard.catalogue.forms import \
     ProductImageForm as OscarProductImageForm, \
     ProductClassSelectForm as OscarProductClassSelectForm, \
     StockRecordForm as OscarStockRecordForm, \
-    StockRecordFormSet as OscarStockRecordFormSet
+    StockRecordFormSet as OscarStockRecordFormSet, \
+    ProductCategoryFormSet as OscarProductCategoryFormSet, \
+    ProductCategoryForm as OscarProductCategoryForm
 from oscar.forms.widgets import ImageInput
 from treebeard.forms import movenodeform_factory
 
 from shop.catalogue.models import Product, ProductClass, ProductAttribute, \
-    Category, ProductAttributeValue, ExtraImage, Video
+    Category, ProductAttributeValue, ExtraImage, Video, \
+    AttributeOptionGroup, AttributeOption
 from shop.partner.models import StockRecord
 
 from oscar.core.loading import get_class
+
+from django.utils.translation import ugettext_lazy as _
+from django.forms.models import ErrorList
 
 
 ModelMetaTag = get_class('config.models', 'ModelMetaTag')
@@ -67,11 +73,15 @@ class ProductForm(OscarProductForm):
     title_uk = forms.CharField(label='Назва (українською)')
     description_uk = forms.CharField(label='Опис (українською)',
                                      widget=forms.Textarea(), required=False)
+    is_discountable = forms.BooleanField(
+        label=_("Is discountable?"), initial=False, help_text=_(
+            "This flag indicates if this product can be used in an offer "
+            "or not"), required=False)
 
     class Meta:
         model = Product
         fields = [
-            'title_ru', 'title_uk', 'upc', 'description_ru', 'description_uk',
+            'title_ru', 'title_uk', 'slug_ru', 'slug_uk', 'upc', 'description_ru', 'description_uk',
             'is_discountable', 'structure', 'new', 'top_sale', 'recommended',
             'super_price', 'special_offer', 'gift', 'free_shipping']
         widgets = {
@@ -183,10 +193,72 @@ class ProductClassForm(OscarProductClassForm):
         }
 
 
-CategoryForm = movenodeform_factory(
+class ProductCategoryFormSet(OscarProductCategoryFormSet):
+
+    def __init__(self, product_class, user, *args, **kwargs):
+        self.site = kwargs.pop('site', None)
+
+        # This function just exists to drop the extra arguments
+        super(ProductCategoryFormSet, self).__init__(product_class, user, *args, **kwargs)
+
+        if self.site:
+            for form in self.forms:
+                form.fields['category'].queryset = Category.objects.filter(site=self.site)
+
+
+BaseCategoryForm = movenodeform_factory(
     Category,
     fields=['name_ru', 'name_uk', 'name_in_side_menu_ru', 'name_in_side_menu_uk',
-            'description_ru', 'description_uk', 'image'])
+            'slug_ru', 'slug_uk', 'description_ru', 'description_uk', 'image'])
+
+
+class CategoryForm(BaseCategoryForm):
+
+    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,
+                 initial=None, error_class=ErrorList, label_suffix=':',
+                 empty_permitted=False, instance=None, **kwargs):
+
+        self.site = kwargs.pop('site')
+
+        opts = self._meta
+        if opts.model is None:
+            raise ValueError('ModelForm has no model class specified')
+
+        # update the '_position' field choices
+        self.is_sorted = getattr(opts.model, 'node_order_by', False)
+        if self.is_sorted:
+            choices_sort_mode = BaseCategoryForm._MoveNodeForm__position_choices_sorted
+        else:
+            choices_sort_mode = BaseCategoryForm._MoveNodeForm__position_choices_unsorted
+        self.declared_fields['_position'].choices = choices_sort_mode
+
+        # update the '_ref_node_id' choices
+        choices = self.mk_dropdown_tree(opts.model, for_node=instance, site=self.site)
+        self.declared_fields['_ref_node_id'].choices = choices
+
+        # put initial data for these fields into a map, update the map with
+        # initial data, and pass this new map to the parent constructor as
+        # initial data
+        if instance is None:
+            initial_ = {}
+        else:
+            initial_ = self._get_position_ref_node(instance)
+
+        if initial is not None:
+            initial_.update(initial)
+
+        forms.ModelForm.__init__(
+            self, data, files, auto_id, prefix, initial_, error_class, label_suffix,
+            empty_permitted, instance, **kwargs)
+
+    @classmethod
+    def mk_dropdown_tree(cls, model, for_node=None, site=None):
+        """ Creates a tree-like list of choices """
+
+        options = [(0, _('-- root --'))]
+        for node in model.get_root_nodes().filter(site=site):
+            cls.add_subtree(for_node, node, options)
+        return options
 
 
 class ExtraProductImageForm(OscarProductImageForm):
@@ -279,3 +351,15 @@ class ModelMetaTagForm(forms.ModelForm):
     class Meta:
         model = ModelMetaTag
         fields = '__all__'
+
+
+AttributeOptionFormSet = inlineformset_factory(AttributeOptionGroup,
+                                               AttributeOption,
+                                               fields='__all__',
+                                               extra=3)
+
+
+class AttributeOptionGroupForm(forms.ModelForm):
+    class Meta:
+        model = AttributeOptionGroup
+        exclude = ('site', )

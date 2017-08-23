@@ -8,37 +8,38 @@
 {% load meta_tags %}
 {% load embed_video_tags %}
 
-{% block title %}
-	{% meta_tag 'MP' 'title' None request %}
-{% endblock title %}
+{% block title %}{% meta_tag 'MP' 'title' None request %}{% endblock title %}
 
-{% block title_meta %}
-	{% meta_tag 'MP' 'title_meta' None request %}
-{% endblock title_meta %}
+{% block title_meta %}{% meta_tag 'MP' 'title_meta' None request %}{% endblock title_meta %}
 
-{% block description %}
-	{% meta_tag 'MP' 'description_meta' None request %}
-{% endblock description %}
+{% block description %}{% meta_tag 'MP' 'description_meta' None request %}{% endblock description %}
 
 {% block content %}
-	{% get_solo 'config.Configuration' as site_config %}
-	<div class="first_block">
+	<div class="first_block" {% if site_config.main_image %}style="background: url({{ site_config.main_image.url }}) no-repeat center center"{% endif %}>
 		<div class="container">
 			<div class="left_side">
 				{% include 'defro/partials/side_menu.html' with is_main_page=True expand=True %}
 				<ul class="under_left_menu">
-					<li>{{ text_one|safe }}</li>
-					<li>{{ text_two|safe }}</li>
-					<li>{{ text_three|safe }}</li>
-					<li>{{ text_four|safe }}</li>
+					{% if text_one %}
+						<li>{{ text_one|safe }}</li>
+					{% endif %}
+					{% if text_two %}
+						<li>{{ text_two|safe }}</li>
+					{% endif %}
+					{% if text_three %}
+						<li>{{ text_three|safe }}</li>
+					{% endif %}
+					{% if text_four %}
+						<li>{{ text_four|safe }}</li>
+					{% endif %}
 				</ul>
 				{% if text_url %}
 					<a href="{{ text_url }}" class="under_left_menu_more">Узнать подробнее</a>
 				{% endif %}
 			</div>
 			<div class="right_side">
-				<h1>Высокое качество</h1>
-				<p>Экономичность</p>
+				<h1>{{ site_config.general_phrase }}</h1>
+				<p>{{ site_config.additional_phrase }}</p>
 			</div>
 		</div>
 	</div>
@@ -47,14 +48,14 @@
 		<div class="container">
 			<h2><span>Наши</span> продукты</h2>
 			<div class="owl-carousel owl-theme">
-				{% if side_menu %}
-					{% for category in side_menu %}
+				{% if side_menu_categories %}
+					{% for category in side_menu_categories %}
 						<div class="item" style="width: 150px;">
-							<a href="{{ category.get_absolute_url }}">
+							<a href="{{ category.get_absolute_url }}" style="line-height:150px;">
 								<p>{{ category.name }}</p>
 								{% if category.image %}
 
-										<img src="{{ category.image.url }}" alt="" style="width: 74px; height: 145px;">
+										<img src="{{ category.image.url }}" alt="" style="max-width: 75px; max-height: 145px;">
 
 								{% endif %}
 							</a>

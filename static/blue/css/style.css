@@ -472,7 +472,8 @@ ul{
 .under_left_menu li{
     padding-left: 47px;
     background: url("../img/fire_icon.png") no-repeat left top;
-    margin-bottom: 22px;
+    margin-bottom: 15px;
+    min-height: 40px;
 }
 .under_left_menu li:last-child{
     /*margin-bottom: 0;*/
@@ -520,7 +521,7 @@ a.under_left_menu_more:hover{
     width: auto;
     display: inline-block;
     margin-bottom: 8px;
-    height: 145px;
+    /*height: 145px;*/
 }
 .second_block .owl-carousel .item{
     border: 1px solid #aaabab;

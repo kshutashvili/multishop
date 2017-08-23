@@ -8,17 +8,11 @@
 {% load basket_tags %}
 {% load meta_tags %}
 
-{% block title %}
-    {% meta_tag page_type 'title' category request %}
-{% endblock title %}
+{% block title %}{% meta_tag page_type 'title' category request %}{% endblock title %}
 
-{% block title_meta %}
-    {% meta_tag page_type 'title_meta' category request %}
-{% endblock title_meta %}
+{% block title_meta %}{% meta_tag page_type 'title_meta' category request %}{% endblock title_meta %}
 
-{% block description %}
-    {% meta_tag page_type 'description_meta' category request %}
-{% endblock description %}
+{% block description %}{% meta_tag page_type 'description_meta' category request %}{% endblock description %}
 
 {% block content %}
     <div class="container main_container compare_container default_container">
@@ -44,7 +38,7 @@
                     <ul>
                         {% for cat in category.get_children.all %}
                             <li>
-                                <a href="{{ cat.get_absolute_url }}">
+                                <a href="{{ cat.get_absolute_url }}" style="line-height: 200px;">
                                     {% if cat.image %}
                                         <img src="{{ cat.image.url }}" alt="{{ cat.name }}">
                                     {% endif %}

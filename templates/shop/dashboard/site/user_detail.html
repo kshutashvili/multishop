@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-    {% blocktrans with text=text_obj.text %}{{ text }}{% endblocktrans %} | {{ block.super }}
+    {{ title }} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -12,22 +12,18 @@
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
         <li>
-            <a href="
-            {% if text_one %}{% url 'dashboard:textone-list' %}{% endif %}
-            {% if text_two %}{% url 'dashboard:texttwo-list' %}{% endif %}
-            {% if text_three %}{% url 'dashboard:textthree-list' %}{% endif %}
-            {% if text_four %}{% url 'dashboard:textfour-list' %}{% endif %}">{% trans "Тексты" %}</a>
+            <a href="{% url 'dashboard:user-list' %}">{% trans "Пользователи" %}</a>
         </li>
-        <li class="active">{{ text_obj.text }}</li>
+        <li class="active">{{ object }}</li>
     </ul>
 {% endblock %}
 
 {% block headertext %}
-    {% blocktrans with text=text_obj.text %}{{ text }}{% endblocktrans %}
+    {{ title }} {% if request.user == object %}<a href="{% url 'dashboard:user-change-password' %}" class="btn btn-lg btn-primary" style="float:right;">Изменить пароль</a>{% endif %}
 {% endblock  %}
 
 {% block dashboard_content %}
-    <form {% if form_id %}id="{{ form_id }}"{% endif %} class="form-{{ style|default:"stacked" }}" method="{{ method|default:"post" }}"
+    <form enctype="multipart/form-data" {% if form_id %}id="{{ form_id }}"{% endif %} class="form-{{ style|default:"stacked" }}" method="{{ method|default:"post" }}"
     {% if action %}action="{{ action }}"{% endif %}>
     {% if not method == "get" %}{% csrf_token %}{% endif %}
     {% include 'dashboard/partials/form_fields.html' %}

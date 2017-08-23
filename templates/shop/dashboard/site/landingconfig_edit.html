@@ -14,7 +14,7 @@
 {% block headertext %}{% trans "Landing Config" %}{% endblock %}
 
 {% block dashboard_content %}
-  <form class="form-{{ style|default:"stacked" }}" method="{{ method|default:"post" }}"
+  <form enctype="multipart/form-data" class="form-{{ style|default:"stacked" }}" method="{{ method|default:"post" }}"
     {% if action %}action="{{ action }}"{% endif %}>
     {% if not method == "get" %}{% csrf_token %}{% endif %}
 

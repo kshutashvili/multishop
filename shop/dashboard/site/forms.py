@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from ckeditor.widgets import CKEditorWidget
 
@@ -6,6 +7,8 @@ from django import forms
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.sites.models import Site
 from django.forms.models import inlineformset_factory
+from django.contrib.auth.forms import (UserCreationForm,
+                                       PasswordChangeForm)
 
 from config.models import (SiteConfig, MetaTag, TextOne, TextTwo,
                           TextThree, TextFour, Configuration,
@@ -17,6 +20,8 @@ from contacts.models import (City, PhoneNumber,
                              FlatPage, ContactMessage,
                              WorkSchedule)
 from shop.catalogue.models import FilterDescription
+from shop.order.models import InstallmentPayment
+from users.models import User
 
 
 class SiteForm(forms.ModelForm):
@@ -77,7 +82,7 @@ class SocialRefForm(forms.ModelForm):
 class FlatPageForm(forms.ModelForm):
 
     content_ru = forms.CharField(label='Содержание (на русском)', widget=CKEditorWidget())
-    content_uk = forms.CharField(label='Зміст (українською)', widget=CKEditorWidget())
+    content_uk = forms.CharField(label='Вміст (українською)', widget=CKEditorWidget())
 
     class Meta:
         model = FlatPage
@@ -109,8 +114,10 @@ class SiteContactConfigForm(forms.Form):
     def __init__(self, *args, **kwargs):
 
         # set initial values
+        Site.objects.clear_cache()
         self.site = get_current_site(kwargs.pop('request'))
-        phone_numbers = PhoneNumber.objects.filter(site=self.site)
+        phone_numbers = PhoneNumber.objects.filter(site=self.site,
+                                                   city__isnull=True)
 
         if 'initial' not in kwargs:
             kwargs['initial'] = {}
@@ -186,31 +193,31 @@ class FilterDescriptionForm(forms.ModelForm):
 class TextOneForm(forms.ModelForm):
     class Meta:
         model = TextOne
-        exclude = ('site', )
+        exclude = ('site', 'text')
 
 
 class TextTwoForm(forms.ModelForm):
     class Meta:
         model = TextTwo
-        exclude = ('site', )
+        exclude = ('site', 'text')
 
 
 class TextThreeForm(forms.ModelForm):
     class Meta:
         model = TextThree
-        exclude = ('site', )
+        exclude = ('site', 'text')
 
 
 class TextFourForm(forms.ModelForm):
     class Meta:
         model = TextFour
-        exclude = ('site', )
+        exclude = ('site', 'text')
 
 
 class LandingConfigForm(forms.ModelForm):
     class Meta:
         model = Configuration
-        exclude = ('site',)
+        exclude = ('site', 'general_phrase', 'additional_phrase', 'credit_block_text')
 
 
 class FuelConfigurationForm(forms.ModelForm):
@@ -265,3 +272,25 @@ class MenuCategoryForm(forms.ModelForm):
     class Meta:
         model = MenuCategory
         fields = '__all__'
+
+
+class InstallmentPaymentForm(forms.ModelForm):
+    class Meta:
+        model = InstallmentPayment
+        exclude = ('site',)
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ("username", "email", "first_name", "last_name", "is_staff", "is_active")
+
+
+class UserCreateForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ("username", "email")
+
+
+class UserPasswordChangeForm(PasswordChangeForm):
+    pass

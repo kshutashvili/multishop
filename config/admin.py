@@ -22,6 +22,7 @@ class SiteConfigInline(admin.StackedInline):
 
 class SiteConfigAdmin(admin.ModelAdmin):
     inlines = (SiteConfigInline,)
+    change_list_template = 'admin/change_list.html'
 
     def get_inline_instances(self, request, obj=None):
         if not obj:
@@ -82,7 +83,7 @@ class MetaTagAdmin(admin.ModelAdmin):
 
 
 @admin.register(Configuration)
-class ConfigurationAdmin(SingletonModelAdmin):
+class ConfigurationAdmin(admin.ModelAdmin):
     pass
 
 

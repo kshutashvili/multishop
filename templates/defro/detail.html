@@ -15,17 +15,11 @@
 {% load basket_tags %}
 {% load meta_tags %}
 
-{% block title %}
-    {% meta_tag page_type 'title' product request %}
-{% endblock title %}
+{% block title %}{% meta_tag page_type 'title' product request %}{% endblock title %}
 
-{% block title_meta %}
-    {% meta_tag page_type 'title_meta' product request %}
-{% endblock title_meta %}
+{% block title_meta %}{% meta_tag page_type 'title_meta' product request %}{% endblock title_meta %}
 
-{% block description %}
-    {% meta_tag page_type 'description_meta' product request %}
-{% endblock description %}
+{% block description %}{% meta_tag page_type 'description_meta' product request %}{% endblock description %}
 
 {% block mobile_menu %}
     {{ block.super }}

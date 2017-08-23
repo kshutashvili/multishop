@@ -1,0 +1,70 @@
+{% extends 'dashboard/layout.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Группы опций атрибутов" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        </li>
+        <li class="active">{% trans "Группы опций атрибутов" %}</li>
+    </ul>
+{% endblock %}
+
+{% block header %}
+    <div class="page-header">
+        <a href="{% url 'dashboard:optiongroup-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать новую группу опций атрибутов" %}</a>
+        <h1>{% trans "Группы опций атрибутов" %}</h1>
+    </div>
+{% endblock header %}
+
+{% block dashboard_content %}
+
+    {% if option_groups %}
+        <form action="." method="post" class="order_table" id="orders_form">
+            {% csrf_token %}
+
+            {% block benefits_list %}
+            <table class="table table-striped table-bordered table-hover">
+                <caption>
+                    <h3 class="pull-left"><i class="icon-large"></i>
+                        {% trans "Все группы опций атрибутов" %}
+                    </h3>
+                </caption>
+
+                <thead>
+                    <tr>
+                        <th>{% trans "Название" %}</th>
+                        <th>{% trans "Список опций" %}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in option_groups %}
+                    <tr>
+                        <td><a href="{% url 'dashboard:optiongroup-detail' pk=item.id %}">{{ item.name }}</a></td>
+                        <td>{{ item.option_summary }}</td>
+                        <td>
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:optiongroup-detail' url_name_delete='dashboard:optiongroup-delete' record=item %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endblock benefits_list %}
+
+            {% include "dashboard/partials/pagination.html" %}
+        </form>
+    {% else %}
+        <table class="table table-striped table-bordered">
+            <caption><i class="icon-large"></i>
+               {% trans "Все группы опций атрибутов" %}
+            </caption>
+            <tr><td>{% trans "Еще не было создано ни одной группы опций атрибутов." %}</td></tr>
+        </table>
+    {% endif %}
+
+    {% endblock dashboard_content %}

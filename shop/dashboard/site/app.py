@@ -1,9 +1,14 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+
 from django.conf.urls import url
 from oscar.core.application import Application
 
-from shop.dashboard.site.views import (SiteCreateView, CityListView,
-                                       CityUpdateView, CityCreateView,
-                                       CityDeleteView,
+from shop.dashboard.site.views import (SiteCreateView, SiteUpdateView,
+                                       SiteDeleteView, SiteListView,
+                                       CityListView, CityUpdateView,
+                                       CityCreateView, CityDeleteView,
                                        SocialNetRefListView,
                                        SocialNetRefCreateView,
                                        SocialNetRefUpdateView,
@@ -78,7 +83,16 @@ from shop.dashboard.site.views import (SiteCreateView, CityListView,
                                        SideMenuListView,
                                        SideMenuCreateView,
                                        SideMenuUpdateView,
-                                       SideMenuDeleteView)
+                                       SideMenuDeleteView,
+                                       InstallmentPaymentListView,
+                                       InstallmentPaymentCreateView,
+                                       InstallmentPaymentUpdateView,
+                                       InstallmentPaymentDeleteView,
+                                       UserListView,
+                                       UserCreateView,
+                                       UserUpdateView,
+                                       UserDeleteView,
+                                       UserPasswordChangeView)
 
 
 class SiteDashboardApplication(Application):
@@ -86,6 +100,9 @@ class SiteDashboardApplication(Application):
     default_permissions = ['is_staff', ]
 
     site_create_view = SiteCreateView
+    site_update_view = SiteUpdateView
+    site_delete_view = SiteDeleteView
+    site_list_view = SiteListView
     city_list_view = CityListView
     city_update_view = CityUpdateView
     city_create_view = CityCreateView
@@ -167,11 +184,29 @@ class SiteDashboardApplication(Application):
     sidemenu_create_view = SideMenuCreateView
     sidemenu_update_view = SideMenuUpdateView
     sidemenu_delete_view = SideMenuDeleteView
+    installment_list_view = InstallmentPaymentListView
+    installment_create_view = InstallmentPaymentCreateView
+    installment_update_view = InstallmentPaymentUpdateView
+    installment_delete_view = InstallmentPaymentDeleteView
+    user_list_view = UserListView
+    user_create_view = UserCreateView
+    user_update_view = UserUpdateView
+    user_delete_view = UserDeleteView
+    user_change_password_view = UserPasswordChangeView
 
     def get_urls(self):
         urls = [
             url(r'^add/$', self.site_create_view.as_view(),
                 name='site-add'),
+            url(r'^sites/$', self.site_list_view.as_view(),
+                name='site-list'),
+            url(r'^site/edit/(?P<pk>[\d]+)/$', self.site_update_view.as_view(),
+                name='site-detail'),
+            url(r'^site/edit/$', self.site_update_view.as_view(),
+                {'is_current': True}, name='site-detail-current'
+                ),
+            url(r'site/delete/(?P<pk>[\d]+)/$', self.site_delete_view.as_view(),
+                name='site-delete'),
             url(r'^city/$', self.city_list_view.as_view(),
                 name='city-list'),
             url(r'^city/add/$', self.city_create_view.as_view(),
@@ -190,7 +225,7 @@ class SiteDashboardApplication(Application):
                 name='socialref-delete'),
             url(r'^flatpage/$', self.flatpage_list_view.as_view(),
                 name='flatpage-list'),
-            url(r'^flatpage/add/$', self.flatpage_list_view.as_view(),
+            url(r'^flatpage/add/$', self.flatpage_create_view.as_view(),
                 name='flatpage-create'),
             url(r'^flatpage/edit/(?P<pk>[\d]+)/$', self.flatpage_update_view.as_view(),
                 name='flatpage-detail'),
@@ -349,6 +384,26 @@ class SiteDashboardApplication(Application):
                 name='sidemenu-detail'),
             url(r'^sidemenu/delete/(?P<pk>[\d]+)/$', self.sidemenu_delete_view.as_view(),
                 name='sidemenu-delete'),
+            # Installment payment
+            url(r'^installment/$', self.installment_list_view.as_view(),
+                name='installment-list'),
+            url(r'^installment/add/$', self.installment_create_view.as_view(),
+                name='installment-create'),
+            url(r'^installment/edit/(?P<pk>[\d]+)/$', self.installment_update_view.as_view(),
+                name='installment-detail'),
+            url(r'^installment/delete/(?P<pk>[\d]+)/$', self.installment_delete_view.as_view(),
+                name='installment-delete'),
+            # users
+            url(r'^user/$', self.user_list_view.as_view(),
+                name='user-list'),
+            url(r'^user/add/$', self.user_create_view.as_view(),
+                name='user-create'),
+            url(r'^user/edit/(?P<pk>[\d]+)/$', self.user_update_view.as_view(),
+                name='user-detail'),
+            url(r'^user/delete/(?P<pk>[\d]+)/$', self.user_delete_view.as_view(),
+                name='user-delete'),
+            url(r'user/change_password/$', self.user_change_password_view.as_view(),
+                name='user-change-password'),
         ]
         return self.post_process_urls(urls)
 

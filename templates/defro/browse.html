@@ -15,17 +15,11 @@
 {% load url_replace %}
 
 
-{% block title %}
-    {% meta_tag page_type 'title' page_object request category filter %}
-{% endblock title %}
+{% block title %}{% meta_tag page_type 'title' page_object request category filter %}{% endblock title %}
 
-{% block title_meta %}
-    {% meta_tag page_type 'title_meta' page_object request category filter %}
-{% endblock title_meta %}
+{% block title_meta %}{% meta_tag page_type 'title_meta' page_object request category filter %}{% endblock title_meta %}
 
-{% block description %}
-    {% meta_tag page_type 'description_meta' page_object request category filter %}
-{% endblock description %}
+{% block description %}{% meta_tag page_type 'description_meta' page_object request category filter %}{% endblock description %}
 
 
 {% block favicon %}
@@ -89,6 +83,7 @@
                                         товаров:
                                         <span>{{ paginator.count }}</span>
                                     </p>
+                                    {% comment %}
                                     {% for field, data in facet_data.items %}
                                         {% if data.results %}
                                             {% with name=data.name items=data.results %}
@@ -112,6 +107,7 @@
                                             {% endwith %}
                                         {% endif %}
                                     {% endfor %}
+                                    {% endcomment %}
                                     {% for field in filter_form %}
                                         {% for item in field %}
                                             {% if item.is_checked %}
@@ -132,6 +128,7 @@
                                     {% endif %}
                                 </div>
                             </div>
+                            {% comment %}
                             {% for field, data in facet_data.items %}
                                 {% if data.results %}
 
@@ -202,6 +199,7 @@
 
                                 {% endif %}
                             {% endfor %}
+                            {% endcomment %}
 
                             {% block filters %}
                                 <div id="filters">

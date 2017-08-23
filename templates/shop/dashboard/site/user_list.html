@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans "Статические страницы" %} | {{ block.super }}
+    {% trans "Пользователи" %} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -10,58 +10,59 @@
         <li>
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
-        <li class="active">{% trans "Статические страницы" %}</li>
+        <li class="active">{% trans "Пользователи" %}</li>
     </ul>
 {% endblock %}
 
 {% block header %}
     <div class="page-header">
-        <a href="{% url 'dashboard:flatpage-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать новую статическую страницу" %}</a>
-        <h1>{% trans "Статические страницы" %}</h1>
+        <a href="{% url 'dashboard:user-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать нового пользователя" %}</a>
+        <h1>{% trans "Пользователи" %}</h1>
     </div>
 {% endblock header %}
 
 {% block dashboard_content %}
 
-    {% if flat_pages %}
+    {% if users %}
         <form action="." method="post" class="order_table" id="orders_form">
             {% csrf_token %}
 
-            {% block socialref_list %}
+            {% block benefits_list %}
             <table class="table table-striped table-bordered table-hover">
                 <caption>
                     <h3 class="pull-left"><i class="icon-large"></i>
-                        {% trans "Все статические страницы" %}
+                        {% trans "Все пользователи" %}
                     </h3>
                 </caption>
 
                 <thead>
                     <tr>
-                        <th>{% trans "Название" %}</th>
-                        <th>{% trans "Actions" %}</th>
+                        <th>{% trans "Email" %}</th>
+                        <th>{% trans "Имя пользователя" %}</th>
                     </tr>
                 </thead>
                 <tbody>
-                {% for flat_page in flat_pages %}
+                {% for user in users %}
                     <tr>
-                        <td><a href="{% url 'dashboard:flatpage-detail' pk=flat_page.id %}">{{ flat_page.title }}</a></td>
+                        <td><a href="{% url 'dashboard:user-detail' pk=user.id %}">{{ user.email }}</a></td>
+                        <td>{{ user.username }}</td>
                         <td>
-                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:flatpage-detail' url_name_delete='dashboard:flatpage-delete' record=flat_page %}
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:user-detail' url_name_delete='dashboard:user-delete' record=user %}
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            {% endblock socialref_list %}
+            {% endblock benefits_list %}
 
             {% include "dashboard/partials/pagination.html" %}
         </form>
     {% else %}
         <table class="table table-striped table-bordered">
             <caption><i class="icon-large"></i>
-               {% trans "Все статические страницы" %}
+               {% trans "Все пользователи" %}
             </caption>
-            <tr><td>{% trans "Еще не создано ни одной статической страницы." %}</td></tr>
+            <tr><td>{% trans "Еще не было создано ни одного пользователя" %}</td></tr>
         </table>
     {% endif %}
 

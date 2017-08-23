@@ -42,6 +42,7 @@ class SiteConfig(models.Model):
                                  null=True,
                                  blank=True)
 
+    favicon = models.ImageField('Favicon', blank=True, null=True)
     logo = models.ImageField('Логотип', blank=True, null=True)
 
     power_attribute = models.ForeignKey(ProductAttribute,
@@ -55,6 +56,22 @@ class SiteConfig(models.Model):
                                         verbose_name="Атрибут бренда котла",
                                         null=True)
 
+    code_webmaster_google = models.CharField("Код подтверждения для Google",
+                                             blank=True,
+                                             null=True,
+                                             max_length=128)
+
+    code_webmaster_yandex = models.CharField("Код подтверждения для Яндекс.Вебмастер",
+                                             blank=True,
+                                             null=True,
+                                             max_length=128)
+
+    google_tag_manager_script = models.TextField("Скрипт Google Tag Manager",
+                                                 blank=True)
+
+    google_tag_manager_noscript = models.TextField("Iframe для Google Tag Manager",
+                                                   blank=True)
+
     def __unicode__(self):
         return self.site.domain
 
@@ -66,10 +83,18 @@ def create_or_update_site_config(sender, instance, created, **kwargs):
     instance.config.save()
 
 
-class Configuration(SingletonModel):
+class Configuration(models.Model):
     site = models.OneToOneField(Site, verbose_name='сайт',
                                 on_delete=models.CASCADE,
                                 related_name='landing_config')
+    main_image = models.ImageField("Основное изображение",
+                                   blank=True)
+    general_phrase = models.CharField("Основная фраза",
+                                      max_length=30,
+                                      blank=True)
+    additional_phrase = models.CharField("Дополнительная фраза",
+                                         max_length=30,
+                                         blank=True)
     undercat_block_url = models.CharField(_('Ссылка под каталогом'),
                                             max_length=128,
                                             blank=True)
@@ -87,7 +112,7 @@ class Configuration(SingletonModel):
     show_advanced = models.BooleanField(_("Отображать блок 'Дополнительные услуги'?"),
                                           default=False)
     show_delivery = models.BooleanField(_("Отображать блок 'Доставка/Оплата'"),
-                                        default=True)
+                                        default=False)
     footer_map_for = models.OneToOneField(City,
                                           verbose_name=_("Карта в футере для"),
                                           related_name='footer_map',
@@ -96,6 +121,9 @@ class Configuration(SingletonModel):
 
     class Meta:
         verbose_name='Настройки главной страницы'
+
+    def __unicode__(self):
+        return self.site.domain
 
 
 class FuelConfiguration(models.Model):
