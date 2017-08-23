@@ -40,35 +40,48 @@ class FilterForm(forms.Form):
                     [first if i == 0 else first + 1, first + number])
                 first = first + number
 
+            widget_choices = []
+            for i in choices:
+                product_count = self.product_count(attr.code, i)
+                if product_count > 0:
+                    widget_choices.append((
+                        '%s_%s' % (i[0], i[1]),
+                        '%s - %s' % (i[0], i[1]),
+                        {
+                            'product_count': self.product_count(attr.code, i),
+                            'attrs': {'data-min': i[0], 'data-max': i[1]},
+                        }
+                    ))
+
             self.fields[code] = NonValidationMultipleChoiceField(
                 widget=CustomFilterCheckboxSelectMultiple(),
                 label=attr.name,
                 required=False,
-                choices=[(
-                    '%s-%s' % (i[0], i[1]),
-                    '%s - %s' % (i[0], i[1]),
-                    {
-                        'product_count': self.product_count(attr.code, i),
-                        'attrs': {'data-min': i[0], 'data-max': i[1]},
-                    }
-                )for i in choices],
+                choices=widget_choices,
             )
 
         for group in AttributeOptionGroup.objects.filter(site=self.site):
             code = group.get_filter_param()
-            self.fields[code] = \
-                CustomFilterMultipleChoiceField(
-                    widget=CustomFilterCheckboxSelectMultiple(),
-                    label=group.name,
-                    required=False,
-                    choices=[(
+
+            widget_choices = []
+            for i in group.options.all():
+                product_count = self.product_count_group(code, i)
+                if product_count > 0:
+                    widget_choices.append((
                         i.id,
                         i.option,
                         {
                             'product_count': self.product_count_group(code, i),
                             'attrs': {},
                         }
-                    )for i in group.options.all()],
+                    ))
+
+            self.fields[code] = \
+                CustomFilterMultipleChoiceField(
+                    widget=CustomFilterCheckboxSelectMultiple(),
+                    label=group.name,
+                    required=False,
+                    choices=widget_choices,
             )
 
     def query(self, without=None):
