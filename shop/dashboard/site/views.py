@@ -12,7 +12,8 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.views.generic import (CreateView, ListView,
                                   UpdateView, DeleteView,
-                                  TemplateView, FormView)
+                                  TemplateView, FormView,
+                                  View)
 from django.utils.translation import ugettext_lazy as _
 
 from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
@@ -30,7 +31,8 @@ from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
                                        FooterMenuItemForm, MenuCategoryForm,
                                        InstallmentPaymentForm, UserForm,
                                        UserCreateForm, UserPasswordChangeForm)
-from shop.catalogue.models import FilterDescription
+from shop.catalogue.models import (FilterDescription, Product, ProductCategory,
+                                   ProductAttributeValue)
 from shop.order.models import InstallmentPayment
 from config.models import (MetaTag, TextOne, TextTwo, TextThree, TextFour,
                            Configuration, FuelConfiguration, BenefitItem,
@@ -1840,3 +1842,40 @@ class UserPasswordChangeView(TemplateView):
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.render_to_response({'form': form})
+
+
+class CloneProductView(View):
+    def post(self, request, *args, **kwargs):
+        current_product_categories = []
+        current_product_attr_values = []
+        current_product_pk = kwargs.pop('pk', None)
+        if current_product_pk:
+            obj = Product.objects.get(pk=current_product_pk)
+            # save current product categories
+            for cat in obj.categories.all():
+                current_product_categories.append(cat)
+            # save current product attributes
+            for attr in obj.attributes.all():
+                current_product_attr_values.append(attr)
+            # obj.pk = None => creating new object when obj will be saved
+            obj.pk = None
+            # set upc to None; upc must be unique or None
+            obj.upc = None
+            obj.save()
+            # set unique slugs
+            obj.slug = "{}{}".format(obj.slug, obj.pk)
+            obj.slug_uk = obj.slug
+            obj.save()
+            # save categories for cloned obj
+            for cat in current_product_categories:
+                ProductCategory.objects.create(product_id=obj.id,
+                                               category=cat)
+            # save attribute values for cloned obj
+            for attr in current_product_attr_values:
+                attr_value_obj = ProductAttributeValue.objects.get(attribute=attr, product_id=current_product_pk)
+                attr_value_obj.pk = None
+                attr_value_obj.product = obj
+                attr_value_obj.attribute = attr
+                attr_value_obj.save()
+            obj.save()
+        return HttpResponseRedirect(reverse('dashboard:catalogue-product-list'))

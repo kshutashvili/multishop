@@ -92,7 +92,8 @@ from shop.dashboard.site.views import (SiteCreateView, SiteUpdateView,
                                        UserCreateView,
                                        UserUpdateView,
                                        UserDeleteView,
-                                       UserPasswordChangeView)
+                                       UserPasswordChangeView,
+                                       CloneProductView)
 
 
 class SiteDashboardApplication(Application):
@@ -193,6 +194,7 @@ class SiteDashboardApplication(Application):
     user_update_view = UserUpdateView
     user_delete_view = UserDeleteView
     user_change_password_view = UserPasswordChangeView
+    clone_product_view = CloneProductView
 
     def get_urls(self):
         urls = [
@@ -404,6 +406,9 @@ class SiteDashboardApplication(Application):
                 name='user-delete'),
             url(r'user/change_password/$', self.user_change_password_view.as_view(),
                 name='user-change-password'),
+            # clone product
+            url(r'cloneproduct/(?P<pk>[\d]+)/$', self.clone_product_view.as_view(),
+                name='clone-product'),
         ]
         return self.post_process_urls(urls)
 

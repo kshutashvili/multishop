@@ -55,3 +55,19 @@
 </script>
 
 {% endblock %}
+
+{% block onbodyload %}
+    oscar.dashboard.options = {
+        'languageCode': 'en',
+        'dateFormat': 'yy-mm-dd',
+        'timeFormat': 'hh:ii',
+        'datetimeFormat': 'yy-mm-dd hh:ii',
+        'stepMinute': 15,
+        'initialDate': new Date(new Date().setSeconds(0)),
+    };
+    var el = window.document;
+    oscar.dashboard.initDatePickers(el);
+    oscar.dashboard.initMasks(el);
+    oscar.dashboard.initSelects(el);
+    oscar.dashboard.initForms();
+{% endblock %}

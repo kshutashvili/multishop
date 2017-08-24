@@ -30,7 +30,13 @@
     </ul>
 {% endblock %}
 
-{% block headertext %}{{ title }}{% endblock %}
+{% block headertext %}
+{{ title }}
+<form action="{% url 'dashboard:clone-product' product.pk %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-lg btn-primary pull-right" style="margin-top: -32px;">Клонировать</button>
+</form>
+{% endblock %}
 
 {% block dashboard_content %}
     <form action="{% if request.GET.urlencode %}?{{ request.GET.urlencode }}{% endif %}"
@@ -434,5 +440,6 @@
 {% endblock %}
 
 {% block onbodyload %}
-    $('#mceu_7').hide();
+    {{ block.super }}
+    $('.mce-tinymce').hide();
 {% endblock %}
