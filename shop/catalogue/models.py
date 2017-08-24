@@ -45,6 +45,8 @@ class Product(AbstractProduct):
     free_shipping = models.BooleanField(verbose_name='Бесплатная доставка',
                                         default=False)
 
+    description = RichTextField(_('Description'), blank=True)
+
     product_class = models.ForeignKey(
         'catalogue.ProductClass',
         null=True,
@@ -142,6 +144,7 @@ class Category(AbstractCategory):
     site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True,
                              on_delete=models.CASCADE)
     description_title = models.CharField(verbose_name='Название статьи (описания)', max_length=255, blank=True)
+    description = RichTextField(_('Description'), blank=True)
     name_in_side_menu = models.CharField(_('Название в боковом меню'), max_length=255,
                                           blank=True)
 

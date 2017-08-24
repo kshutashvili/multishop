@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from ckeditor.widgets import CKEditorWidget
+
 from django import forms
 from django.core import exceptions
 from django.forms.models import inlineformset_factory
@@ -69,10 +71,10 @@ class ProductForm(OscarProductForm):
     OscarProductForm.FIELD_FACTORIES['richtext_ru'] = _attr_textarea_field_ru
     title_ru = forms.CharField(label='Название (на русском)')
     description_ru = forms.CharField(label='Описание (на русском)',
-                                     widget=forms.Textarea(), required=False)
+                                     widget=CKEditorWidget(), required=False)
     title_uk = forms.CharField(label='Назва (українською)')
     description_uk = forms.CharField(label='Опис (українською)',
-                                     widget=forms.Textarea(), required=False)
+                                     widget=CKEditorWidget(), required=False)
     is_discountable = forms.BooleanField(
         label=_("Is discountable?"), initial=False, help_text=_(
             "This flag indicates if this product can be used in an offer "

@@ -1,5 +1,6 @@
 {% extends 'dashboard/layout.html' %}
 {% load category_tags %}
+{% load staticfiles %}
 {% load i18n %}
 
 {% block body_class %}{{ block.super }} create-page catalogue{% endblock %}
@@ -39,7 +40,13 @@
             {% endif %}
         </p>
 
-        {% include 'dashboard/partials/form.html' with includes_files=1 class='wysiwyg' %}
+        {% include 'dashboard/partials/form.html' with includes_files=1 %}
 
     </div>
 {% endblock dashboard_content %}
+
+{% block extrascripts %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{% endblock %}
