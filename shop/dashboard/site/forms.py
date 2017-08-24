@@ -185,9 +185,14 @@ class MetaTagForm(forms.ModelForm):
 
 
 class FilterDescriptionForm(forms.ModelForm):
+    title_ru = forms.CharField(label='Заголовок (на русском)', widget=CKEditorWidget())
+    title_uk = forms.CharField(label='Заголовок (українською)', widget=CKEditorWidget())
+    description_ru = forms.CharField(label='Описание (на русском)', widget=CKEditorWidget())
+    description_uk = forms.CharField(label='Опис (українською)', widget=CKEditorWidget())
+
     class Meta:
         model = FilterDescription
-        fields = '__all__'
+        fields = ('filter_url', 'title_ru', 'title_uk', 'description_ru', 'description_uk')
 
 
 class TextOneForm(forms.ModelForm):

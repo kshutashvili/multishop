@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-    {% blocktrans with url=filter_description.filter_url %}Filter description для {{ url }}{% endblocktrans %} | {{ block.super }}
+    {% blocktrans with url=filter_description.filter_url %}Описание фильтра для {{ url }}{% endblocktrans %} | {{ block.super }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -12,14 +12,14 @@
             <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
         </li>
         <li>
-            <a href="{% url 'dashboard:filterdescription-list' %}">{% trans "Filter Descriptions" %}</a>
+            <a href="{% url 'dashboard:filterdescription-list' %}">{% trans "Описания фильтров" %}</a>
         </li>
         <li class="active">{{ filter_description.filter_url }}</li>
     </ul>
 {% endblock %}
 
 {% block headertext %}
-    {% blocktrans with url=filter_description.filter_url %}Filter description для {{ url }}{% endblocktrans %}
+    {% blocktrans with url=filter_description.filter_url %}Описание фильтра для {{ url }}{% endblocktrans %}
 {% endblock  %}
 
 {% block dashboard_content %}
@@ -33,3 +33,9 @@
     </div>
   </form>
 {% endblock dashboard_content %}
+
+{% block extrascripts %}
+{{ block.super }}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{% endblock %}

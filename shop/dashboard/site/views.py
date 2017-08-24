@@ -657,11 +657,11 @@ class FilterDescriptionCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         ctx = super(FilterDescriptionCreateView, self).get_context_data(**kwargs)
-        ctx['title'] = _('Create New Filter Description')
+        ctx['title'] = _('Создать новое описание фильтра')
         return ctx
 
     def get_success_url(self):
-        messages.success(self.request, _("Filter Description created successfully"))
+        messages.success(self.request, _("Описание фильтра успешно создано"))
         return reverse('dashboard:filterdescription-list')
 
     def get_object(self):
@@ -684,7 +684,7 @@ class FilterDescriptionUpdateView(UpdateView):
         return obj
 
     def get_success_url(self):
-        messages.success(self.request, _("Filter Description updated successfully"))
+        messages.success(self.request, _("Описание фильтра успешно изменено"))
         return reverse('dashboard:filterdescription-list')
 
 
@@ -697,13 +697,13 @@ class FilterDescriptionDeleteView(DeleteView):
             *args,
             **kwargs)
 
-        ctx['title'] = _("Delete filter description for '%s'") % self.object
+        ctx['title'] = _("Удаление описания фильтра для '%s'") % self.object
 
         return ctx
 
     def get_success_url(self):
         messages.success(
-            self.request, _("Deleted filter description '%s'") % self.object.title)
+            self.request, _("Описание фильтра '%s' удалено") % self.object.title)
         return reverse('dashboard:filterdescription-list')
 
 
