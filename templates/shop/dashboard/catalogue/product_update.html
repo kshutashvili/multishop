@@ -32,10 +32,12 @@
 
 {% block headertext %}
 {{ title }}
-<form action="{% url 'dashboard:clone-product' product.pk %}" method="POST">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-lg btn-primary pull-right" style="margin-top: -32px;">Клонировать</button>
-</form>
+{% if product %}
+    <form action="{% url 'dashboard:clone-product' product.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-lg btn-primary pull-right" style="margin-top: -32px;">Клонировать</button>
+    </form>
+{% endif %}
 {% endblock %}
 
 {% block dashboard_content %}
