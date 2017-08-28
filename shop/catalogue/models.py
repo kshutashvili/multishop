@@ -255,7 +255,7 @@ class AttributeOptionGroup(AbstractAttributeOptionGroup):
                              on_delete=models.SET_NULL)
 
     def __unicode__(self):
-        return '{} - {}'.format(self.name, self.site.name)
+        return '{}'.format(self.name)
 
     def get_name_code(self):
         return unidecode(self.name).replace(' ', '_').replace("'", '')
@@ -267,7 +267,7 @@ class AttributeOptionGroup(AbstractAttributeOptionGroup):
 class AttributeOption(AbstractAttributeOption):
 
     def __unicode__(self):
-        return '{} - {}'.format(self.option, self.group.site.name)
+        return '{}'.format(self.option)
 
 
 class FilterDescription(models.Model):
