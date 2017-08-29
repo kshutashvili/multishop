@@ -455,6 +455,19 @@ DEFAULT_FROM_EMAIL = 'webmaster@localhost'
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': [["Styles", "Format", "Bold", "Italic", "Underline", "Strike", "SpellChecker"],
+                ['NumberedList', 'BulletedList', "Indent", "Outdent", 'JustifyLeft', 'JustifyCenter',
+                 'JustifyRight', 'JustifyBlock'],
+                ["Image", "Table", "Link", "Unlink", "Anchor", "SectionLink", "Subscript",
+                 "Superscript", "HorizontalRule", "SpecialChar"],
+                ['TextColor','BGColor'],
+                ['Undo', 'Redo'], ["Source"]]
+    },
+}
+
+
 try:
     from local_settings import *
 except ImportError:
