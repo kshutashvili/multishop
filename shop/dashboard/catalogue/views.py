@@ -24,6 +24,7 @@ from shop.dashboard.catalogue.forms import ProductForm, ModelMetaTagForm, \
     ExtraProductImageFormSet, ProductVideoFormSet, ProductClassSelectForm, \
     AttributeOptionGroupForm, AttributeOptionFormSet
 from website.views import SiteMultipleObjectMixin
+from .forms import StockRecordFormSet
 
 ModelMetaTag = get_class('config.models', 'ModelMetaTag')
 AttributeOptionGroup = get_class('shop.catalogue.models', 'AttributeOptionGroup')
@@ -34,11 +35,13 @@ class ProductCreateUpdateView(OscarProductCreateUpdateView):
     form_class = ProductForm
     extra_product_image_formset = ExtraProductImageFormSet
     video_formset = ProductVideoFormSet
+    stockrecord_formset = StockRecordFormSet
 
     def __init__(self, *args, **kwargs):
         super(ProductCreateUpdateView, self).__init__(*args, **kwargs)
         self.formsets['extra_image_formset'] = self.extra_product_image_formset
         self.formsets['video_formset'] = self.video_formset
+        self.formsets['stockrecord_formset'] = self.stockrecord_formset
 
     def clean(self, form, formsets):
         self.object.site = get_current_site(self.request)
@@ -148,12 +151,14 @@ class CategoryUpdateView(OscarCategoryUpdateView):
 
 
 class ProductListView(SiteMultipleObjectMixin, OscarProductListView):
+    template_name = 'shop/dashboard/catalogue/product_list.html'
     productclass_form_class = ProductClassSelectForm
 
     def get_context_data(self, **kwargs):
         ctx = super(ProductListView, self).get_context_data(**kwargs)
         site = get_current_site(self.request)
         ctx['productclass_form'] = self.productclass_form_class(site=site)
+        ctx['product_items'] = self.get_queryset()
         return ctx
 
 
