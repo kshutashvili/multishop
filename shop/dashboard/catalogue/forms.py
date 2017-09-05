@@ -180,7 +180,7 @@ class ProductAttributesForm(OscarProductAttributes):
     class Meta:
         model = ProductAttribute
         fields = ["name_ru", "name_uk", "code", "type", "option_group",
-                  "required"]
+                  "required", "order"]
 
 
 class ProductClassForm(OscarProductClassForm):

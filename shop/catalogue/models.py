@@ -160,6 +160,15 @@ class Category(AbstractCategory):
 
 
 class ProductAttribute(AbstractProductAttribute):
+    order = models.PositiveIntegerField(_("Порядковый номер"),
+                                        default=0)
+
+    class Meta:
+        app_label = 'catalogue'
+        ordering = ['order']
+        verbose_name = _('Product attribute')
+        verbose_name_plural = _('Product attributes')
+
     def __unicode__(self):
         return '{} - {}'.format(self.name, self.product_class.name)
 

@@ -96,6 +96,7 @@
                                             <th>{% trans "Name" %} (українською)</th>
                                             <th>{% trans "Code" %}</th>
                                             <th>{% trans "Type" %}</th>
+                                            <th>{% trans "Порядок" %}</th>
                                             <th>{% trans "Required" %}</th>
                                             <th>{% trans "Delete?" %}</th>
                                         </tr>
@@ -114,6 +115,7 @@
 
                                                     {% include 'dashboard/partials/form_field.html' with field=attribute_form.option_group nolabel=True %}
                                                 </td>
+                                                <td>{% include 'dashboard/partials/form_field.html' with field=attribute_form.order nolabel=True %}</td>
                                                 <td>{% include 'dashboard/partials/form_field.html' with field=attribute_form.required nolabel=True %}</td>
                                                 <td>{% include 'dashboard/partials/form_field.html' with field=attribute_form.DELETE nolabel=True %}</td>
                                             </tr>
