@@ -139,6 +139,7 @@ class PaginateByForm(forms.Form):
         (12, "12"),
         (8, "8"),
         (6, "6"),
+        (24, "24"),
     ]
 
     paginate_by = forms.ChoiceField(

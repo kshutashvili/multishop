@@ -110,9 +110,8 @@
             <div class="catalog_item_info">
                 {% for av in product.attribute_values.all %}
                     <p>{{ av.attribute.name }}:
-                        <span>{% if av.value_option %}
-                            {{ av.value_option.option }}{% else %}
-                            {{ av.value_as_html }}{% endif %}</span>.
+                        <span>
+                            {{ av.value_as_html }}</span>.
                     </p>
                 {% endfor %}
             </div>

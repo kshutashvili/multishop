@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-from collections import Iterable
+from collections import Iterable, OrderedDict
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
@@ -335,7 +335,8 @@ class CompareCategoryView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                                               categories=category)
         context['products'] = products
         attrs = ProductAttributeValue.objects.filter(product__in=products)
-        attr_vals = {}
+        #attr_vals = {}
+        attr_vals = OrderedDict()
         for val in attrs:
             temp = []
             for product in products:

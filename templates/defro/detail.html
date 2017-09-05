@@ -367,11 +367,7 @@
                                                         <tr>
                                                             <th>{{ av.attribute.name }}</th>
                                                             <td>
-                                                                {% if av.value_option %}
-                                                                    {{ av.value_option.option }}
-                                                                {% else %}
-                                                                    {{ av.value_as_html|safe }}
-                                                                {% endif %}
+                                                                {{ av.value_as_html|safe }}
                                                             </td>
                                                         </tr>
                                                     {% endfor %}
@@ -875,11 +871,7 @@
                                                 <tr>
                                                     <th>{{ av.attribute.name }}</th>
                                                     <td>
-                                                    {% if av.value_option %}
-                                                        {{ av.value_option.option }}
-                                                    {% else %}
                                                         {{ av.value_as_html|safe }}
-                                                    {% endif %}
                                                     </td>
                                                 </tr>
                                             {% endfor %}
