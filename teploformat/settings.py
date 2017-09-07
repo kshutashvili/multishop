@@ -246,68 +246,75 @@ OSCAR_DASHBOARD_NAVIGATION[0]['label'] = _('Главная')
 # append group after Dashboard
 OSCAR_DASHBOARD_NAVIGATION.insert(
     1, {
-         'label': _('Настройки'),
-         'icon': 'icon-th-list',
-         'children': [
-             {
-                 'label': _('Редактировать сайт'),
-                 'url_name': 'dashboard:site-detail-current',
-             },
-             {
-                 'label': _('Контакты главные'),
-                 'url_name': 'dashboard:sitecontact-edit',
-             },
-             {
-                 'label': _('Контакты по городам'),
-                 'url_name': 'dashboard:city-list',
-             },
-             {
-                 'label': _('Ссылки на соц сети'),
-                 'url_name': 'dashboard:socialref-list',
-             },
-             {
-                 'label': _('Шаблоны мета данных'),
-                 'url_name': 'dashboard:metatag-list',
-             },
-             {
-                 'label': _('Timetables'),
-                 'url_name': 'dashboard:timetable-list',
-             },
-             {
-                 'label': _('Email templates'),
-                 'url_name': 'dashboard:comms-list',
-             },
-             {
+        'label': _('Настройки'),
+        'icon': 'icon-th-list',
+        'children': [
+            {
+                'label': _('Редактировать сайт'),
+                'url_name': 'dashboard:site-detail-current',
+            },
+            {
+                'label': _('Контакты главные'),
+                'url_name': 'dashboard:sitecontact-edit',
+            },
+            {
+                'label': _('Контакты по городам'),
+                'url_name': 'dashboard:city-list',
+            },
+            {
+                'label': _('Ссылки на соц сети'),
+                'url_name': 'dashboard:socialref-list',
+            },
+            {
+                'label': _('Шаблоны мета данных'),
+                'url_name': 'dashboard:metatag-list',
+            },
+            {
+                'label': _('Timetables'),
+                'url_name': 'dashboard:timetable-list',
+            },
+            {
+                'label': _('Email templates'),
+                'url_name': 'dashboard:comms-list',
+            },
+            {
                 'label': _('Статические страницы'),
                 'url_name': 'dashboard:flatpage-list',
-             },
-             {
+            },
+            {
                 'label': _('Категории меню'),
                 'url_name': 'dashboard:menucategory-list',
-             },
-             {
+            },
+            {
                 'label': _('Верхнее меню'),
                 'url_name': 'dashboard:headermenu-list',
-             },
-             {
+            },
+            {
                 'label': _('Нижнее меню'),
                 'url_name': 'dashboard:footermenu-list',
-             },
-             {
+            },
+            {
                 'label': _('Боковое меню'),
                 'url_name': 'dashboard:sidemenu-list',
-             },
-             {
+            },
+            {
                 'label': _('Пользователи'),
                 'url_name': 'dashboard:user-list',
-             },
-             {
+            },
+            {
                 'label': _('Удаление сайтов'),
-                'url_name': 'dashboard:site-list'
-             }
-         ],
+                'url_name': 'dashboard:site-list',
+            },
+            {
+                'label': _('Перевод'),
+                'url_name': 'rosetta-home',
+                'access_fn':
+                    lambda user, url_name, url_args, url_kwargs: user.is_staff,
+            },
+        ],
     }
 )
+
 
 # append to Catalogue
 OSCAR_DASHBOARD_NAVIGATION[2]['children'] += [
