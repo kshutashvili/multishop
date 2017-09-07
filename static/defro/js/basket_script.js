@@ -72,7 +72,7 @@ change_numbers();
 function modal_item_factory(img, upc, name, price, id, quantity) {
     var $container = $('<div class="modal_basket_elem" id="' + id + '"></div>');
     var $img = $('<img src="' + img + '" />');
-    var $modal_article = $('<p class="modal_article">Артикул: <span>' + upc + '</span></p>');
+    var $modal_article = $('<p class="modal_article">' gettext('Артикул:') + ' <span>' + upc + '</span></p>');
     var $name = $('<p class="modal_item_name">' + name + '</p>');
     var $many_block = $('<div class="how many many_block"></div>');
     var $plusminus = $('<div class="plusminus"></div>');
@@ -115,8 +115,8 @@ function update_modal_lines_info() {
     $modal_lines_price.map(function (idx, elem) {
         total += parseInt($(elem).val());
     });
-    $modal_line_count.text($basket_items.length + ' товар');
-    $dropdown_line_count.text($basket_items.length + ' товаров');
+    $modal_line_count.text($basket_items.length + gettext(' товар'));
+    $dropdown_line_count.text($basket_items.length + gettext(' товаров'));
     $total_sum.text(parseInt(total));
     $total_sum_bottom.text(parseInt(total));
     $total_in_dropdown.text(parseInt(total) + ' грн.');
@@ -218,7 +218,7 @@ $(document).ready(function () {
         }).fail(function (xhr) {
             if (parseInt(xhr.status) == 409) {
                 var $errors = $('#basket_error');
-                $errors.text('Вы можете оставить только один отзыв!');
+                $errors.text(gettext('Вы можете оставить только один отзыв!'));
                 $errors.addClass('show');
                 setTimeout(function () {
                     $errors.removeClass("show");
@@ -236,7 +236,7 @@ $(document).ready(function () {
         }).fail(function (xhr) {
             if (parseInt(xhr.status) == 409) {
                 var $errors = $('#basket_error');
-                $errors.text('Вы можете оставить только один отзыв!');
+                $errors.text(gettext('Вы можете оставить только один отзыв!'));
                 $errors.addClass('show');
                 setTimeout(function () {
                     $errors.removeClass("show");
@@ -388,13 +388,13 @@ $(document).ready(function () {
     });
 
     $('#submit_installment').click(function (e) {
-        $(this).text('Отправка...');
+        $(this).text(gettext('Отправка...'));
         e.preventDefault();
         var outer_this = this;
         $.post($('#installment_form').attr('action'), $('#installment_form').serialize(), function () {
             $('div.' + $(outer_this).attr("data-rel")).fadeIn(500);
             $('.shadow').show();
-            $(outer_this).text('Оформить рассрочку');
+            $(outer_this).text(gettext('Оформить рассрочку'));
             return false;
         });
     });

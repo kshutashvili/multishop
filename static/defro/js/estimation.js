@@ -3,18 +3,18 @@ const estimate_power = () => {
 	if (square < 0) { 
 		$('#t_power').html('0')
 		$('#t_season').html('0')	
-		return $('#t_square').val('Площадь < 0')}
+		return $('#t_square').val(gettext('Площадь < 0'))}
 	const lose = ($('#t_lose').val() === $('#lose_warm').val()) ? 1 : 1.1
 	const period = $('#t_period').val()
 	if (period < 0) { 
 		$('#t_power').html('0')
 		$('#t_season').html('0')	
-		return $('#t_period').val('Период < 0')}
+		return $('#t_period').val(gettext('Период < 0'))}
 	const heigth = $('#t_heigth').val()
 	if (heigth < 0) { 
 		$('#t_power').html('0')
 		$('#t_season').html('0')	
-		return $('#t_heigth').val('Высота < 0')}
+		return $('#t_heigth').val(gettext('Высота < 0'))}
 	let region = 0
 	if ($('#t_location').val() === 'zone1') {
 		region = 1.2

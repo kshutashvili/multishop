@@ -20,15 +20,18 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemap_view
 from django.contrib.staticfiles import views
+from django.views.i18n import JavaScriptCatalog
 
 from shop.app import application
 from shop.basket.views import delete_item_from_basket, update_items_quantity
-from shop.catalogue.reviews.views import ProductQuestionView, AddVoteView, CreateReviewAnswer, AddVoteAnswerView
+from shop.catalogue.reviews.views import ProductQuestionView, AddVoteView, \
+    CreateReviewAnswer, AddVoteAnswerView
 from shop.catalogue.views import get_search_count, \
     OneClickOrderCreateView, CompareView, remove_item_from_compare_list, \
     remove_category_from_compare_list, CompareCategoryView, \
     UpdateFilterCatalogueView
-from shop.order.views import CallRequestCreateView, InstallmentPaymentCreateView
+from shop.order.views import CallRequestCreateView, \
+    InstallmentPaymentCreateView
 from contacts.views import FlatPageView
 from website.sitemaps import base_sitemaps, html_sitemap
 from teploformat.views import page_not_found_with_site_templates
@@ -42,6 +45,7 @@ urlpatterns = [
     url(r'^basket/delete_item_from_basket/(?P<id>[0-9]+)/$',
         delete_item_from_basket,
         name='delete_item_from_basket'),
+    url(r'^rosetta/', include('rosetta.urls')),
 
     # include a basic sitemap
     url(r'^sitemap\.xml$', sitemap_view.index,
@@ -52,16 +56,14 @@ urlpatterns = [
     url(r'^sitemap/', html_sitemap),
 ]
 
+
 urlpatterns += [
     url(r'^static/(?P<path>.*)$', views.serve),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if 'rosetta' in settings.INSTALLED_APPS:
-    urlpatterns += [
-        url(r'^rosetta/', include('rosetta.urls')),
-    ]
 
 urlpatterns += i18n_patterns(
+    url(r'^jsi18n/$', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     url(r'^contacts/', include('contacts.urls')),
     url(r'^catalugue/get_search_count/$', get_search_count,
         name='get_search_count'),

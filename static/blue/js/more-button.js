@@ -14,13 +14,13 @@ $(document).ready(function () {
             $('.read-next').addClass("read-next-arrow");
             $('#short_desc').hide();
             t.addClass('fulltext');
-            $(this).text('Свернуть');
+            $(this).text(gettext('Свернуть'));
             scoreA = 1;
         } else {
             $('.read-next').removeClass("read-next-arrow");
             $('#short_desc').show();
             t.removeClass('fulltext');
-            $(this).text('Подробнее');
+            $(this).text(gettext('Подробнее'));
             scoreA = 0;
         }
         return false
@@ -33,11 +33,11 @@ $(document).ready(function () {
         blok = is_parent.find('.comment_range');
         if(blok.css('max-height') != 'none'){
            blok.css('max-height','');
-           $(this).text('Свернуть');
+           $(this).text(gettext('Свернуть'));
            $(this).addClass("read-next-arrow");
         } else {
            blok.css('max-height','522px');    
-           $(this).text('Читать все отзывы');
+           $(this).text(gettext('Читать все отзывы'));
            $(this).removeClass("read-next-arrow");
         }
          
@@ -50,11 +50,11 @@ $(document).ready(function () {
         blok = is_parent.find('.user_comment');
         if(blok.css('max-height') != 'none'){
            blok.css('max-height','');
-           $(this).text('Свернуть');
+           $(this).text(gettext('Свернуть'));
            $(this).addClass("read-next-arrow");
         } else {
            blok.css('max-height','53px');    
-           $(this).text('Читать далее');
+           $(this).text(gettext('Читать далее'));
            $(this).removeClass("read-next-arrow");
         }
          
@@ -67,11 +67,11 @@ $(document).ready(function () {
         blok = is_parent.find('.user_comment');
         if(blok.css('max-height') != 'none'){
            blok.css('max-height','');
-           $(this).text('Свернуть');
+           $(this).text(gettext('Свернуть'));
            $(this).addClass("read-next-arrow");
         } else {
            blok.css('max-height','50px');    
-           $(this).text('Читать далее');
+           $(this).text(gettext('Читать далее'));
            $(this).removeClass("read-next-arrow");
         }
          

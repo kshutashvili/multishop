@@ -126,16 +126,16 @@ $(document).ready(function(){
                 $('#filters').html(data['result']);
                 initPrice();
                 if (desktop === true) {
-                    var result = '<div class="label_after"><p>Товаров: <span>' + data['products_count'] + '</span></p>' +
-                        '<button type="submit">Посмотреть</button></div>'
+                    var result = '<div class="label_after"><p>'+ gettext('Товаров:') + '<span>' + data['products_count'] + '</span></p>' +
+                        '<button type="submit">' + gettext('Посмотреть') + '</button></div>'
                     $('.label_after').remove();
                     $('#' + input_id).next().append(result);
                     $('.label_after').fadeIn();
                 }else {
                   var result = '<div class="parameters clear_fix">' +
-                    '<p class="filter_labels">Найдено товаров: <span>' + data['products_count'] + '</span></p>' +
-                    '<button class="filter_submit" type="submit">Посмотреть</button>' +
-                    '<a href="#" id="mobile_reset" class="filter_labels float_right">Скинуть фильтр</a>' +
+                    '<p class="filter_labels">' gettext('Найдено товаров:') + ' <span>' + data['products_count'] + '</span></p>' +
+                    '<button class="filter_submit" type="submit">' + gettext('Посмотреть') + '</button>' +
+                    '<a href="#" id="mobile_reset" class="filter_labels float_right">' gettext('Скинуть фильтр') + '</a>' +
                   '</div>';
                   $('#filters form').append(result);
 

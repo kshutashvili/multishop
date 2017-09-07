@@ -50,6 +50,7 @@
         {# Main content goes in this 'layout' block #}
         {% block layout %}{% endblock %}
 
+        <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
         {# Scripts loaded from a CDN. #}
         {% block cdn_scripts %}
             <!-- jQuery -->

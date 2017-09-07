@@ -74,12 +74,12 @@ $('.buy_button').click(function() {
             if(more_block.hasClass('info_show'))
             {
                 more_block.hide().removeClass('info_show');
-                $(this).find('p').text('Подробнее');
+                $(this).find('p').text(gettext('Подробнее'));
             }
             else
             {
                 more_block.show().addClass('info_show');
-                $(this).find('p').text('Свернуть');
+                $(this).find('p').text(gettext('Свернуть'));
             }
     });
     $('.list_more').click(function (e) {
@@ -87,12 +87,12 @@ $('.buy_button').click(function() {
         if(more_block.hasClass('info_show'))
         {
             more_block.hide().removeClass('info_show');
-            $(this).find('p').text('Подробнее');
+            $(this).find('p').text(gettext('Подробнее'));
         }
         else
         {
             more_block.show().addClass('info_show');
-            $(this).find('p').text('Свернуть');
+            $(this).find('p').text(gettext('Свернуть'));
         }
     });
     $('.list_more_second').click(function (e) {
@@ -100,12 +100,12 @@ $('.buy_button').click(function() {
         if(more_block.hasClass('info_show'))
         {
             more_block.hide().removeClass('info_show');
-            $(this).find('p').text('Подробнее');
+            $(this).find('p').text(gettext('Подробнее'));
         }
         else
         {
             more_block.show().addClass('info_show');
-            $(this).find('p').text('Свернуть');
+            $(this).find('p').text(gettext('Свернуть'));
         }
     });
     $('.footer_close').click(function () {
@@ -229,10 +229,10 @@ function headerScroll () {
 
 function resizeCatalogButton() {
   if ($(window).width()>992) {
-    $('.head_menu').text('Каталог товаров');
+    $('.head_menu').text(gettext('Каталог товаров'));
     $('.head_menu').css('width', '264px');
   } else {
-    $('.head_menu').text('Каталог');
+    $('.head_menu').text(gettext('Каталог'));
     $('.head_menu').css('width', '150px');
   }
 }
