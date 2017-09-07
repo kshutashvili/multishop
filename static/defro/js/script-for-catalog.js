@@ -133,9 +133,9 @@ $(document).ready(function(){
                     $('.label_after').fadeIn();
                 }else {
                   var result = '<div class="parameters clear_fix">' +
-                    '<p class="filter_labels">' gettext('Найдено товаров:') + ' <span>' + data['products_count'] + '</span></p>' +
+                    '<p class="filter_labels">' + gettext('Найдено товаров:') + ' <span>' + data['products_count'] + '</span></p>' +
                     '<button class="filter_submit" type="submit">' + gettext('Посмотреть') + '</button>' +
-                    '<a href="#" id="mobile_reset" class="filter_labels float_right">' gettext('Скинуть фильтр') + '</a>' +
+                    '<a href="#" id="mobile_reset" class="filter_labels float_right">' + gettext('Скинуть фильтр') + '</a>' +
                   '</div>';
                   $('#filters form').append(result);
 

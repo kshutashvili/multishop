@@ -72,7 +72,7 @@ change_numbers();
 function modal_item_factory(img, upc, name, price, id, quantity) {
     var $container = $('<div class="modal_basket_elem" id="' + id + '"></div>');
     var $img = $('<img src="' + img + '" />');
-    var $modal_article = $('<p class="modal_article">' gettext('Артикул:') + ' <span>' + upc + '</span></p>');
+    var $modal_article = $('<p class="modal_article">' + gettext('Артикул:') + ' <span>' + upc + '</span></p>');
     var $name = $('<p class="modal_item_name">' + name + '</p>');
     var $many_block = $('<div class="how many many_block"></div>');
     var $plusminus = $('<div class="plusminus"></div>');
