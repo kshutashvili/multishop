@@ -91,6 +91,12 @@ class ProductForm(OscarProductForm):
             'structure': forms.HiddenInput(),
         }
 
+    def __init__(self, site, *args, **kwargs):
+        super(ProductForm, self).__init__(*args, **kwargs)
+        self.site = site
+        if self.site:
+            self.fields['product_class'].queryset = ProductClass.objects.filter(site=self.site)
+
     def add_attribute_fields(self, product_class, is_parent=False):
         """
         For each attribute specified by the product class, this method

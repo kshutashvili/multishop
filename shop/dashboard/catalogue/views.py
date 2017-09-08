@@ -48,6 +48,11 @@ class ProductCreateUpdateView(OscarProductCreateUpdateView):
         self.object.save()
         return super(ProductCreateUpdateView, self).clean(form, formsets)
 
+    def get_form_kwargs(self):
+        kwargs = super( ProductCreateUpdateView, self ).get_form_kwargs()
+        kwargs['site'] = get_current_site(self.request)
+        return kwargs
+
     def get_context_data(self, **kwargs):
         cxt = super(ProductCreateUpdateView, self).get_context_data(**kwargs)
         if self.object:
