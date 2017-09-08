@@ -196,6 +196,16 @@ class ProductAttributeValue(AbstractProductAttributeValue):
     _localizable = ["text",
                     "richtext"]  # types of fields, that need to be localized
 
+    order = models.PositiveIntegerField(_("Порядковый номер"),
+                                        default=0)
+
+    class Meta:
+        app_label = 'catalogue'
+        ordering = ['order']
+        unique_together = ('attribute', 'product')
+        verbose_name = _('Product attribute value')
+        verbose_name_plural = _('Product attribute values')
+
     def _get_value(self):
         if self.attribute.type in ProductAttributeValue._localizable:
             return getattr(self, 'value_%s_ru' % self.attribute.type), getattr(

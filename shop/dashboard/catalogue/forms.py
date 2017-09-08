@@ -182,6 +182,18 @@ class ProductAttributesForm(OscarProductAttributes):
         fields = ["name_ru", "name_uk", "code", "type", "option_group",
                   "required", "order"]
 
+    def save(self, commit=True):
+        instance = super(ProductAttributesForm, self).save(commit=False)
+        prs = Product.objects.filter(product_class=instance.product_class)
+        for p in prs:
+            for av in p.attribute_values.all():
+                p_av = ProductAttributeValue.objects.get(id=av.id)
+                if p_av.attribute.id == instance.id:
+                    p_av.order = instance.order
+                    p_av.save()
+        instance.save()
+        return instance
+
 
 class ProductClassForm(OscarProductClassForm):
     name_uk = forms.CharField(label='Назва (українською)')
