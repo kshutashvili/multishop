@@ -47,7 +47,7 @@ class FilterForm(forms.Form):
                     product_count = self.product_count(attr.code, i)
                     if product_count > 0:
                         widget_choices.append((
-                            '%s_%s' % (i[0], i[1]),
+                            '%s-%s' % (i[0], i[1]),
                             '%s - %s' % (i[0], i[1]),
                             {
                                 'product_count': product_count,
