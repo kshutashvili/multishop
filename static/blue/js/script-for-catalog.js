@@ -126,7 +126,7 @@ $(document).ready(function(){
                 $('#filters').html(data['result']);
                 initPrice();
                 if (desktop === true) {
-                    var result = '<div class="label_after"><p>'gettext('Товаров:') + ' <span>' + data['products_count'] + '</span></p>' +
+                    var result = '<div class="label_after"><p>' + gettext('Товаров:') + ' <span>' + data['products_count'] + '</span></p>' +
                         '<button type="submit">' + gettext('Посмотреть') + '</button></div>'
                     $('.label_after').remove();
                     $('#' + input_id).next().append(result);
