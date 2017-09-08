@@ -521,8 +521,10 @@ a.under_left_menu_more:hover{
 	width: 150px;
 }
 .second_block .owl-carousel .item p{
-	margin: 15px 0;
-	font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    height: 36px;
 }
 .second_block .owl-carousel {
     padding: 0 50px;
