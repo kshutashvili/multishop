@@ -26,3 +26,33 @@
         {% include 'dashboard/partials/form.html' with includes_files=includes_files %}
     </div>
 {% endblock dashboard_content %}
+
+
+{% block extrascripts %}
+    {{ block.super }}
+
+    <script type="text/javascript">
+        $('select#id_attributes').find('option').remove();
+        $('select#id_attributes').select2();
+        console.log('lalalal');
+
+        $('select#id_product_class').change(function () {
+            var procudtClassId = $('select#id_product_class').val();
+            jQuery.ajax({
+                'url': "{% url 'dashboard:portation-get-attributes' %}",
+                'data': 'p_class_id=' + procudtClassId,
+                'success': function (data) {
+                    attributes = data['attributes']
+                    for (var i = 0; i < attributes.length; i++) {
+                        $('select#id_attributes').append($('<option>', {
+                            // value: attributes[i].code,
+                            value: attributes[i].id,
+                            text: attributes[i].name,
+                        }));
+                        $('select#id_attributes').select2();
+                    }
+                },
+            });
+        });
+    </script>
+{% endblock extrascripts %}

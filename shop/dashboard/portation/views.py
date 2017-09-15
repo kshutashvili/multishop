@@ -1,5 +1,8 @@
 from django.views.generic import FormView
+from django.views.generic import ListView
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext as _
 from django.contrib import messages
@@ -10,6 +13,7 @@ from .forms import ImportForm
 from .forms import ExportForm
 from .exporters import CatelogueExporter
 from .importers import CatalogueImporter
+from shop.catalogue.models import ProductClass
 
 
 class ImportView(FormView):
@@ -61,3 +65,24 @@ class ExportView(FormView):
         context['title'] = _('Catalogue Export')
         context['includes_files'] = False
         return context
+
+
+class AttrubitesListView(ListView):
+    """ A view that returns attributes list based on selected product class """
+    def get(self, request, *args, **kwargs):
+        p_class_id = request.GET.get('p_class_id')
+        self.product_class = get_object_or_404(ProductClass, id=p_class_id)
+        data = {
+            'attributes': [],
+        }
+        attributes = self.get_queryset()
+        for attribute in attributes:
+            data['attributes'].append({
+                'id': attribute.id,
+                'code': attribute.code,
+                'name': attribute.name,
+            })
+        return JsonResponse(data, status=200, safe=False)
+
+    def get_queryset(self):
+        return self.product_class.attributes.all()
