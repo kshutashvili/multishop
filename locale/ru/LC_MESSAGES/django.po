@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-16 09:02+0000\n"
+"POT-Creation-Date: 2017-09-16 09:28+0000\n"
 "PO-Revision-Date: 2017-09-16 07:01+0000\n"
 "Last-Translator:   <dmyutro@ukr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2236,7 +2236,9 @@ msgstr ""
 #: templates/defro/detail.html:951 templates/defro/detail.html:1039
 #: templates/defro/detail.html:1068 templates/defro/detail.html:1480
 #: templates/defro/detail.html:1511 templates/defro/detail.html:1632
-#: templates/defro/detail.html:1765
+#: templates/defro/detail.html:1765 templates/defro/partials/products.html:78
+#: templates/defro/partials/products.html:83
+#: templates/defro/partials/products.html:105
 #: templates/defro/recently_viewed_products.html:67
 #: templates/defro/search/results.html:192
 #: templates/defro/search/results.html:217
@@ -2441,7 +2443,8 @@ msgstr ""
 #: templates/defro/compare.html:56 templates/defro/compare_table.html:96
 #: templates/defro/detail.html:159 templates/defro/detail.html:791
 #: templates/defro/detail.html:903 templates/defro/detail.html:1021
-#: templates/defro/detail.html:1462 templates/defro/search/results.html:156
+#: templates/defro/detail.html:1462 templates/defro/partials/products.html:47
+#: templates/defro/search/results.html:156
 msgid "голосов"
 msgstr ""
 
@@ -2610,7 +2613,9 @@ msgstr ""
 #: templates/blue/search/results.html:211 templates/defro/detail.html:239
 #: templates/defro/detail.html:243 templates/defro/detail.html:825
 #: templates/defro/detail.html:937 templates/defro/detail.html:1055
-#: templates/defro/detail.html:1497 templates/defro/search/results.html:184
+#: templates/defro/detail.html:1497 templates/defro/partials/products.html:74
+#: templates/defro/partials/products.html:100
+#: templates/defro/search/results.html:184
 #: templates/defro/search/results.html:211
 msgid "Сравнить"
 msgstr ""
@@ -2832,7 +2837,9 @@ msgstr ""
 #: templates/blue/search/results.html:178
 #: templates/blue/search/results.html:204 templates/defro/detail.html:820
 #: templates/defro/detail.html:932 templates/defro/detail.html:1050
-#: templates/defro/detail.html:1491 templates/defro/search/results.html:178
+#: templates/defro/detail.html:1491 templates/defro/partials/products.html:68
+#: templates/defro/partials/products.html:95
+#: templates/defro/search/results.html:178
 #: templates/defro/search/results.html:204
 msgid "В сравнении"
 msgstr ""
