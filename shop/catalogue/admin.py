@@ -56,7 +56,7 @@ class ProductAdmin(OscarProductAdmin):
     form = ProductAdminForm
     inlines = [AttributeInline, CategoryInline, ProductRecommendationInline,
                ExtraImageInline, VideoInline]
-    save_as =True
+    save_as = True
 
 
 CategoryAdminForm = movenodeform_factory(

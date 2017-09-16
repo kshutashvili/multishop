@@ -2,8 +2,9 @@
 
 {% load site_static %}
 {% load lang_url %}
+{% load i18n %}
 
-{% block title %}Контакты{% endblock %}
+{% block title %}{% trans "Контакты" %}{% endblock %}
 
 {% block content %}
 
@@ -18,12 +19,12 @@
                     <a href="/"><img src="{% get_static 'img/home.png' %}"
                                      alt="" class="solo_img"></a>
                 </li>
-                <li class="active">Контакты</li>
+                <li class="active">{% trans "Контакты" %}</li>
             </ol>
 
             <div class="main_content contact_content">
                 <div class="row">
-                    <h1>Выберите представительство компании наиболее подходящее для Вас:</h1>
+                    <h1>{% trans "Выберите представительство компании наиболее подходящее для Вас:" %}</h1>
                     {% for city in cities %}
                     <div class="contacts_short col-lg-6 col-md-6  col-sm-10  col-xs-10">
                         <p>{{ city.city_name }}</p>
@@ -53,7 +54,11 @@
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
-                            <li><a class="contacts_more" href="{% url 'contact_by_city' %}?city={{ city.slug }}">Подробнее</a></li>
+                            <li>
+                                <a class="contacts_more" href="{% url 'contact_by_city' %}?city={{ city.slug }}">
+                                    {% trans "Подробнее" %}
+                                </a>
+                            </li>
                         </ul>
                         <iframe src="https://www.google.com/maps/embed/v1/place?q=г.{{ city.city_name }}_{{ city.address|cut:' ' }}&key={{ city.google_maps_api_key }}"
                                 width="250" height="200"
@@ -62,7 +67,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <p class="contacts_delivery">Доставка в любой населенный пункт Украины</p>
+                <p class="contacts_delivery">{% trans "Доставка в любой населенный пункт Украины" %}</p>
             </div>
         </div>
     </div>
@@ -74,13 +79,13 @@
 {% endblock %}
 
 {% block extrascripts %}
-<script>
-$(document).ready(function(){
-    side_hover();
-    $(window).resize(function() {
-        side_hover();
-    });
-});
-</script>
-{{ block.super }}
+    <script>
+        $(document).ready(function(){
+            side_hover();
+            $(window).resize(function() {
+                side_hover();
+            });
+        });
+    </script>
+    {{ block.super }}
 {% endblock %}

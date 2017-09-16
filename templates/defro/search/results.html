@@ -25,14 +25,14 @@
             <ol class="breadcrumb">
                 <li><a href="/"><img src="{% get_static 'img/home.png' %}"
                                      alt="" class="solo_img"></a></li>
-                <li class="active">Поиск</li>
+                <li class="active">{% trans "Поиск" %}</li>
             </ol>
             <div class="main_content">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-3 cold-lg-3">
                         <div class="left_filter">
                             <div class="parameters search_parameters">
-                                <p class="caption">Все результаты
+                                <p class="caption">{% trans "Все результаты" %}
                                     <span>({{ paginator.count }})</span></p>
                             </div>
                             {% for root, leaf_count in categories_count.items %}
@@ -106,12 +106,12 @@
                                         </p>
                                     {% endif %}
                                     <div class="sort_vid">
-                                        <span>Сортировать:</span>
+                                        <span>{% trans "Сортировать:" %}</span>
                                         <div class="custom_select">
                                             {% include "partials/form_field.html" with field=search_form.sort_by nolabel=True %}
                                         </div>
                                         <div class="search_look_float">
-                                            <span>Вид:</span>
+                                            <span>{% trans "Вид:" %}</span>
                                             <span class="change_look plitka plitka_red"></span>
                                             <span class="change_look spisok"></span>
                                         </div>
@@ -153,7 +153,7 @@
                                                         <p class="rating_number"><span>{% if product.rating %}
                                                             {{ result.object.rating|floatformat }}{% else %}
                                                             0{% endif %}
-                                                            /</span>5 ( голосов
+                                                            /</span>5 ( {% trans "голосов" %}
                                                             <span>{{ result.object.num_approved_reviews }}</span>)
                                                         </p>
                                                         <hr>
@@ -174,22 +174,23 @@
                                                                     {{ session.price.excl_tax|currency:session.price.currency }}
                                                                 {% endif %}</p>
                                                             {% if request.session.compare_list and result.object.id in request.session.compare_list %}
-                                                                <a href="#!"
-                                                                   class="compare_button compare_button_added">В
-                                                                    сравнении</a>
+                                                                <a href="#!" class="compare_button compare_button_added">
+                                                                    {% trans "В сравнении" %}
+                                                                </a>
                                                             {% else %}
                                                                 <a href="#!"
                                                                    data-compare-url="{% url 'compare' %}"
                                                                    class="compare_button"
-                                                                   data-product-id="{{ result.object.id }}">Сравнить</a>
+                                                                   data-product-id="{{ result.object.id }}">{% trans "Сравнить" %}</a>
 
 
                                                             {% endif %}
                                                             <a href="#"
                                                                class="buy_button show_popup"
                                                                data-product-id="{{ result.object.id }}"
-                                                               data-rel="buy_button_modal">Нет
-                                                                в наличии</a>
+                                                               data-rel="buy_button_modal">
+                                                               {% trans "Нет в наличии" %}
+                                                            </a>
                                                         {% else %}
                                                             <p class="catalog_item_price not_active_price">
                                                                 {% if session.price.is_tax_known %}
@@ -199,20 +200,21 @@
                                                                 {% endif %}</p>
                                                             {% if request.session.compare_list and result.object.id in request.session.compare_list %}
                                                                 <a href="#!"
-                                                                   class="compare_button compare_button_added">В
-                                                                    сравнении</a>
+                                                                   class="compare_button compare_button_added">
+                                                                   {% trans "В сравнении" %}
+                                                                </a>
                                                             {% else %}
                                                                 <a href="#!"
                                                                    data-compare-url="{% url 'compare' %}"
                                                                    class="compare_button"
-                                                                   data-product-id="{{ result.object.id }}">Сравнить</a>
+                                                                   data-product-id="{{ result.object.id }}">
+                                                                   {% trans "Сравнить" %}
+                                                                </a>
 
 
                                                             {% endif %}
                                                             <a href="#"
-                                                               class="buy_button but_button_sold">Нет
-                                                                в
-                                                                наличии</a>
+                                                               class="buy_button but_button_sold">{% trans "Нет в наличии" %}</a>
                                                         {% endif %}
                                                     </div>
                                                     <div class="catalog_item_info">
@@ -228,14 +230,11 @@
                                     </ul>
                                 </div>
                             {% else %}
-
                                 <p class="category_block_caption">
                                     “{{ query }}”</p>
-                                <p class="search_nothing_here">По запросу
-                                    “{{ query }}” ничего не найдено, попробуйте
-                                    изменить запрос</p>
+                                <p class="search_nothing_here">{% trans "По запросу" %}
+                                    “{{ query }}” {% trans "ничего не найдено, попробуйте изменить запрос" %}</p>
                             {% endif %}
-
 
                             {% if paginator.num_pages > 1 %}
                                 <nav aria-label="Page navigation"
@@ -303,8 +302,7 @@
 
     <div id="scrollup"><img alt="Прокрутить вверх"
                             src="{% get_static 'img/button_up.png' %}"></div>
-    <div class="snackbar" id="compare_success" style="display: none;">Товар добавлен в список
-        сравнения
+    <div class="snackbar" id="compare_success" style="display: none;">{% trans "Товар добавлен в список сравнения" %}
     </div>
 
     {{ block.super }}

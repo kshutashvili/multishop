@@ -4,7 +4,7 @@
 {% block object-tools-items %}
     {% if cl.opts.label_lower == 'sites.site' %}
     <li>
-        <a href="{% url 'admin:sites_site_change' site_id %}" class="btn btn-high btn-success">Редактировать сайт</a>
+        <a href="{% url 'admin:sites_site_change' site_id %}" class="btn btn-high btn-success">{% trans "Редактировать сайт" %}</a>
     </li>
     {% endif %}
 {{ block.super }}

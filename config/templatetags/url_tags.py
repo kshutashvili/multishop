@@ -36,4 +36,3 @@ def url_format(context, url):
 def phone_number_filter(phone):
     phone_with_minus = "-".join([phone[0:3], phone[4:6], phone[6:8]])
     return phone_with_minus
-

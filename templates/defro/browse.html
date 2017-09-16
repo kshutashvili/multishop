@@ -42,7 +42,7 @@
 
 {% block mobile_menu %}
     {{ block.super }}
-    <p class="name_page">Каталог</p>
+    <p class="name_page">{% trans "Каталог" %}</p>
 {% endblock %}
 
 {% block content %}
@@ -66,7 +66,7 @@
                     {% endif %}
                 {% endfor %}
                 {% else %}
-                <li {% if not category %}class="active"{% endif %}>Каталог товаров</li>
+                <li {% if not category %}class="active"{% endif %}>{% trans "Каталог товаров" %}</li>
                 {% endif %}
             </ul>
 
@@ -76,11 +76,10 @@
                     <div class="col-xs-12 col-sm-12 col-md-3 cold-lg-3">
                         <div class="left_filter">
                             <div class="parameters">
-                                <p class="caption">Выбор параметров</p>
+                                <p class="caption">{% trans "Выбор параметров" %}</p>
                                 <div class="parameters_block clear_fix"
                                      id="applied_filters">
-                                    <p class="filter_labels">Найдено
-                                        товаров:
+                                    <p class="filter_labels">{% trans "Найдено товаров:" %}
                                         <span>{{ paginator.count }}</span>
                                     </p>
                                     {% comment %}
@@ -123,8 +122,7 @@
                                     {% if filter_form.has_changed %}
                                         <a href="{{ filter_reset_url }}"
                                            class="filter_labels float_right"
-                                           id="reset_filters">Сбросить
-                                            все фильтры</a>
+                                           id="reset_filters">{% trans "Сбросить все фильтры" %}</a>
                                     {% endif %}
                                 </div>
                             </div>
@@ -232,9 +230,9 @@
                             {% endif %}
                             </p>
                             <div class="sort_vid">
-                                <div class="filter_media">Фильтр<i class="fa fa-filter" aria-hidden="true"></i></div>
+                                <div class="filter_media">{% trans "Фильтр" %}<i class="fa fa-filter" aria-hidden="true"></i></div>
                                 {% if form %}
-                                    <span class="sort">Сортировать:</span>
+                                    <span class="sort">{% trans "Сортировать:" %}</span>
                                     <div class="custom_select">
                                         <form method="get">
                                             {% include "partials/form_field.html" with field=form.sort_by nolabel=True %}
@@ -243,17 +241,17 @@
                                 {% endif %}
                                 {% if paginate_form %}
                                     <div class="number_of_elems">
-                                        <span>Показывать по</span>
+                                        <span>{% trans "Показывать по" %}</span>
                                         <div class="custom_select">
                                             <form method="get">
                                                 {% include "partials/form_field.html" with field=paginate_form.paginate_by nolabel=True %}
                                             </form>
                                         </div>
-                                        <span>на странице</span>
+                                        <span>{% trans "на странице" %}</span>
                                     </div>
                                 {% endif %}
                                 <span class='vid'>
-                                    <span>Вид:</span>
+                                    <span>{% trans "Вид:" %}</span>
                                     <span class="change_look plitka plitka_red"></span>
                                     <span class="change_look spisok"></span>
                                 </span>
@@ -266,15 +264,14 @@
                                     </ul>
 
                                 {% else %}
-                                    <p class="search_nothing_here">Ничего не
-                                        найдено</p>
+                                    <p class="search_nothing_here">{% trans "Ничего не найдено" %}</p>
                                 {% endif %}
 
                             </div>
 
                             {% if paginator.num_pages > 1 %}
                                 {%  if page_obj.has_next %}
-                                    <a href="#" class="look_more">Смотреть еще <img src="{% get_static 'img/catalog/more.png' %}" alt=""></a>
+                                    <a href="#" class="look_more">{% trans "Смотреть еще" %} <img src="{% get_static 'img/catalog/more.png' %}" alt=""></a>
                                 {% endif %}
                                 <nav aria-label="Page navigation"
                                      class="page_nav">
@@ -334,8 +331,8 @@
                 </div>
                 {% if similar_products %}
                     <p class="category_block_caption before_owl">
-                        Вас
-                        также могут заинтересовать</p>
+                        {% trans "Вас также могут заинтересовать" %}
+                    </p>
                     <div class="owl-carousel owl-theme catalog_owl">
                         {% for product in similar_products %}
                             <div class="item">
@@ -375,7 +372,7 @@
                                                         value="{{ forloop.counter0 }}">{{ forloop.counter0 }}</option>
                                             {% endfor %}
                                         </select>
-                                        <p class="rating_number">Отзывов:
+                                        <p class="rating_number">{% trans "Отзывов:" %}
                                             <span>{{ product.num_approved_reviews }}</span>
                                         </p>
                                         <hr>
@@ -388,12 +385,13 @@
                                             <a href="{{ product.get_absolute_url }}"
                                                class="buy_button show_popup"
                                                data-rel="buy_button_modal"
-                                               data-product-id="{{ product.id }}">Купить</a>
+                                               data-product-id="{{ product.id }}">{% trans "Купить" %}</a>
                                         {% else %}
                                             <a href="{{ product.get_absolute_url }}"
                                                class="buy_button show_popup"
-                                               data-rel="buy_button_modal">Нет в
-                                                наличии</a>
+                                               data-rel="buy_button_modal">
+                                               {% trans "Нет в наличии" %}
+                                            </a>
                                         {% endif %}
                                     </a>
                                 </div>
@@ -413,7 +411,7 @@
                         <div id="tovar_desc">
                             {{ filter_descr.description|safe }}
                         </div>
-                        <a class="read-next" href="#">Подробнее</a>
+                        <a class="read-next" href="#">{% trans "Подробнее" %}</a>
                     </div>
                 {% elif category %}
                     <p class="category_block_caption before_owl">
@@ -427,7 +425,7 @@
                         <div id="tovar_desc">
                             {{ category.description|safe }}
                         </div>
-                        <a class="read-next" href="#">Подробнее</a>
+                        <a class="read-next" href="#">{% trans "Подробнее" %}</a>
                     </div>
                 {% endif %}
 
@@ -442,15 +440,15 @@
 
 {% block shadow %}
     <div class='modal_mobile_sort'>
-        <h2>Сортировать:<span class="close"></span></h2>
+        <h2>{% trans "Сортировать:" %}<span class="close"></span></h2>
         <ul>
-            <li {% if current_sort == "relevancy" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:relevancy">по релевантности</a></li>
-            <li {% if current_sort == "rating" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:rating">по рейтингу</a></li>
-            <li {% if current_sort == "newest" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:newest">по дате, сначала новые</a></li>
-            <li {% if current_sort == "price_desc" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:price_desc">по цене, сначала дорогие</a></li>
-            <li {% if current_sort == "price_asc" %}class="active"{% endif %}><a href="{{ current_path}}/sort_by:price_asc">по цене, сначала дешевые</a></li>
-            <li {% if current_sort == "title_asc" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:title_asc">по названию от А до Я</a></li>
-            <li {% if current_sort == "title_desc" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:title_desc">по названию от Я до А</a></li>
+            <li {% if current_sort == "relevancy" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:relevancy">{% trans "по релевантности" %}</a></li>
+            <li {% if current_sort == "rating" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:rating">{% trans "по рейтингу" %}</a></li>
+            <li {% if current_sort == "newest" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:newest">{% trans "по дате, сначала новые" %}</a></li>
+            <li {% if current_sort == "price_desc" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:price_desc">{% trans "по цене, сначала дорогие" %}</a></li>
+            <li {% if current_sort == "price_asc" %}class="active"{% endif %}><a href="{{ current_path}}/sort_by:price_asc">{% trans "по цене, сначала дешевые" %}</a></li>
+            <li {% if current_sort == "title_asc" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:title_asc">{% trans "по названию от А до Я" %}</a></li>
+            <li {% if current_sort == "title_desc" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:title_desc">{% trans "по названию от Я до А" %}</a></li>
         </ul>
     </div>
     {{ block.super }}

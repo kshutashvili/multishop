@@ -11,8 +11,7 @@
 
 
 <p class="category_block_caption before_owl">
-    Недавно
-    просмотренные</p>
+    {% trans "Недавно просмотренные" %}</p>
 <div class="owl-carousel owl-theme catalog_owl">
     {% with products_sliced=recently_viewed_products|slice:":6" %}
         {% if products_sliced %}
@@ -49,7 +48,7 @@
                                 {% endfor %}
                             </select>
                             <p class="rating_number">
-                                Отзывов:
+                                {% trans "Отзывов:" %}
                                 <span>{{ p.num_approved_reviews }}</span>
                             </p>
                             <hr>
@@ -62,11 +61,10 @@
                                 <a href="#"
                                    class="buy_button show_popup"
                                    data-rel="buy_button_modal"
-                                   data-product-id="{{ p.id }}">Купить</a>
+                                   data-product-id="{{ p.id }}">{% trans "Купить" %}</a>
                             {% else %}
                                 <a href="#"
-                                   class="buy_button but_button_sold">Нет
-                                    в наличии</a>
+                                   class="buy_button but_button_sold">{% trans "Нет в наличии" %}</a>
                             {% endif %}
                         </a>
                     </div>

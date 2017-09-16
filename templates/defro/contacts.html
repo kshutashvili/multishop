@@ -1,8 +1,9 @@
 {% extends 'defro/base.html' %}
 
 {% load site_static %}
+{% load i18n %}
 
-{% block title %}Контакты{% endblock %}
+{% block title %}{% trans "Контакты" %}{% endblock %}
 
 {% block content %}
     <div class="container main_container  compare_container default_container">
@@ -15,11 +16,11 @@
                 <li><a href="/"><img src="{% get_static 'img/home.png' %}"
                                      alt=""
                                      class="solo_img"></a></li>
-                <li class="active">Контакты</li>
+                <li class="active">{% trans "Контакты" %}</li>
             </ol>
             <div class="main_content contact_content">
                 <div class="row">
-                    <h1>Наши контакты</h1>
+                    <h1>{% trans "Наши контакты" %}</h1>
                     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                         <ul class="nav nav-tabs contact_tab" role="tablist">
                             {% for city in cities %}
@@ -36,14 +37,13 @@
                             {% for city in cities %}
                             <div role="tabpanel" class="tab-pane {% if current_city == city.slug %}active{% endif %}" id="{{ city.slug }}">
                                 <div class="contacts_info_block col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <p class="contacts_info_caption">Адрес
-                                        нашего
-                                        офиса</p>
+                                    <p class="contacts_info_caption">{% trans "Адрес нашего офиса" %}</p>
                                     <p class="contacts_info_text contacts_adress">
                                         г. {{ city.city_name }}, {{ city.address }}
                                     </p>
                                     <p class="contacts_info_caption phone_caption">
-                                        Наши телефоны</p>
+                                        {% trans "Наши телефоны" %}
+                                    </p>
                                     <ul class="contacts contacts_info_phone">
                                         {% if city.phones %}
                                             {% for phone in city.phones.all %}
@@ -70,35 +70,32 @@
                                             {% endfor %}
                                         {% endif %}
                                     </ul>
-                                    <p class="contacts_info_caption">График
-                                        работы</p>
+                                    <p class="contacts_info_caption">
+                                        {% trans "График работы" %}
+                                    </p>
                                     <p class="contacts_info_text contacts_grafik">
                                         {% if city.timetables %}
                                             {% for timetable in city.timetables.all %}
                                                 {{ timetable.weekdays }}: <span>{{ timetable.daytime }}</span><br />
                                             {% endfor %}
                                         {% else %}
-                                            <p>Пн.-Пт.:
-                                                <span> с 9:00 до 18:00</span>
+                                            <p>{% trans "Пн.-Пт.:" %}
+                                                <span> {% trans "с 9:00 до 18:00" %}</span>
                                             </p>
-                                            <p>Сб:<span> с 9:00 до 15:00</span>
+                                            <p>{% trans "Сб:" %}<span> {% trans "с 9:00 до 15:00" %}</span>
                                             </p>
                                         {% endif %}
                                     </p>
-                                    <p class="contacts_info_caption">Заказ через
-                                        корзину 24/7/365:</p>
+                                    <p class="contacts_info_caption">{% trans "Заказ через корзину 24/7/365:" %}</p>
                                     <p class="fast_delivery_text">
-                                        Ночные заказы обрабатываются с 9:00 до
-                                        11:00
+                                        {% trans "Ночные заказы обрабатываются с 9:00 до 11:00" %}
                                     </p>
                                 </div>
                                 <div class="contacts_form col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <p class="contacts_info_caption">Форма
-                                        обратной
-                                        связи</p>
+                                    <p class="contacts_info_caption">{% trans "Форма обратной связи" %}</p>
                                     <form action="{% url 'contact_message' %}"
                                           method="post">{% csrf_token %}
-                                        <label>Ваше имя <span
+                                        <label>{% trans "Ваше имя" %} <span
                                                 class="red_star">*</span></label>
                                         {% if form.name.errors %}
                                             <p>
@@ -106,7 +103,7 @@
                                             </p>
                                         {% endif %}
                                         <input type="text" name="name">
-                                        <label>Ваш email <span
+                                        <label>{% trans "Ваш email" %} <span
                                                 class="red_star">*</span></label>
                                         {% if form.email.errors %}
                                             <p>
@@ -114,7 +111,7 @@
                                             </p>
                                         {% endif %}
                                         <input type="email" name="email">
-                                        <label>Ваш телефон <span
+                                        <label>{% trans "Ваш телефон" %} <span
                                                 class="red_star">*</span></label>
                                         {% if form.phone.errors %}
                                             <p>
@@ -122,7 +119,7 @@
                                             </p>
                                         {% endif %}
                                         <input type="text" name="phone">
-                                        <label>Сообщение <span
+                                        <label>{% trans "Сообщение" %} <span
                                                 class="red_star">*</span></label>
                                         {% if form.message.errors %}
                                             <p>
@@ -130,18 +127,19 @@
                                             </p>
                                         {% endif %}
                                         <textarea name="message"></textarea>
-                                        <p class="contact_comment_pole"><span
-                                                class="red_star">*</span> -поля
-                                            обязательные для заполнения</p>
-                                        <input type="submit"
-                                               value="Отправить сообщение">
+                                        <p class="contact_comment_pole">
+                                            <span class="red_star">*</span> - {% trans "поля обязательные для заполнения" %}</p>
+                                        <input type="submit" value="{% trans "Отправить сообщение" %}">
                                     </form>
                                 </div>
                                 <div class="contacts_map col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <p>Доставка в любой город Украины
-                                        перевозчиком
-                                        "Интайм" или "Новая почта", оплата после
-                                        получения!</p>
+                                    <p>
+                                        {% blocktrans %}
+                                            Доставка в любой город Украины
+                                            перевозчиком "Интайм" или "Новая почта", оплата после
+                                            получения!
+                                        {% endblocktrans %}
+                                    </p>
                                     <iframe src="https://www.google.com/maps/embed/v1/place?q=г.{{ city.city_name }}_{{ city.address|cut:' ' }}&key={{ city.google_maps_api_key }}"
                                             width="880" height="580"
                                             style="border:0"

@@ -1,22 +1,31 @@
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Новый заказ в один клик!</title>
+    <title>{% trans "Новый заказ в один клик!" %}</title>
 </head>
 <body>
 
 {% if instance.product %}
-    <p>Заказ в один клик- {{ instance.id }}, на
-        товар {{ instance.product.get_title }},
-        артикул: {{ instance.product.upc }}</p>
-    <p>Номер клиента: {{ instance.phone }}</p>
+    <p>
+        {% blocktrans %}
+            Заказ в один клик- {{ instance.id }}, на
+            товар {{ instance.product.get_title }},
+            артикул: {{ instance.product.upc }}
+        {% endblocktrans %}
+    </p>
+    <p>{% trans "Номер клиента: {{ instance.phone }}" %}</p>
 {% elif instance.basket %}
-    <p>Заказ в один клик- {{ instance.id }}, на товары
-        {% for line in instance.basket.lines.all %}{{ line.product.get_title }}
-            (артикул: {{ line.product.upc }}) - {{ line.quantity }}
-            шт, {% endfor %}</p>
-    <p>Номер клиента: {{ instance.phone }}</p>
+    <p>
+        {% trans "Заказ в один клик- {{ instance.id }}, на товары" %}
+        {% for line in instance.basket.lines.all %}
+            {{ line.product.get_title }}
+            ({% trans "артикул:" %} {{ line.product.upc }}) - {{ line.quantity }} {% trans "шт" %}, 
+        {% endfor %}
+    </p>
+    <p>{% trans "Номер клиента:" %} {{ instance.phone }}</p>
 {% endif %}
 
 </body>

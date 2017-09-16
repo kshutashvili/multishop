@@ -78,7 +78,7 @@ class PhoneNumber(models.Model):
     )
 
     city = models.ForeignKey(City,
-                             verbose_name='Город',
+                             verbose_name=_('Город'),
                              related_name="phones",
                              blank=True,
                              null=True)
@@ -146,7 +146,7 @@ class Timetable(models.Model):
         max_length=100
     )
     city = models.ForeignKey(City,
-                             verbose_name='Город',
+                             verbose_name=_('Город'),
                              related_name="timetables",
                              blank=True,
                              null=True)
@@ -185,7 +185,7 @@ class WorkSchedule(models.Model):
         related_name='workschedules'
     )
     city = models.ForeignKey(City,
-                             verbose_name='Город',
+                             verbose_name=_('Город'),
                              related_name="schedules",
                              blank=True,
                              null=True)
@@ -229,8 +229,8 @@ class FlatPage(models.Model):
                                   null=True, related_name='flatpages')
 
     class Meta:
-        verbose_name = 'Статическая страница'
-        verbose_name_plural = 'Статические страницы'
+        verbose_name = _('Статическая страница')
+        verbose_name_plural = _('Статические страницы')
         db_table = 'contacts_flatpages'
 
     def __unicode__(self):

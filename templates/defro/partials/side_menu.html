@@ -1,12 +1,14 @@
+{% load i18n %}
+
 {% if is_main_page %}
 <a class="left_side_caption" id="permanentCollapse">
-    Каталог товаров
+    {% trans "Каталог товаров" %}
 </a>
 {% else %}
 <a class="left_side_caption catalog_left_side_caption" role="button" data-toggle="collapse"
    href="#collapseExample" aria-expanded="false"
    aria-controls="collapseExample">
-    Каталог товаров
+    {% trans "Каталог товаров" %}
 </a>
 {% endif %}
 

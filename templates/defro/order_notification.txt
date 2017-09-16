@@ -1,12 +1,14 @@
-Здравствуйте, {{ order.user.get_full_name }}!
+{% load i18n %}
 
-Спасибо, Ваш заказ принят!
+{% trans "Здравствуйте," %} {{ order.user.get_full_name }}!
 
-Наш менеджер обязательно свяжется с Вами для уточнения всех деталей и
-подтверждения заказа.
+{% trans "Спасибо, Ваш заказ принят!" %}
+
+{% trans "Наш менеджер обязательно свяжется с Вами для уточнения всех деталей и
+подтверждения заказа." %}
 
 
-Детали заказа № {{ order.number }}
+{% trans "етали заказа №" %} {{ order.number }}
 
 {% for line in lines %}
 
@@ -20,30 +22,30 @@
 
 {% endfor %}
 
-Итого: {{ order.total_price  }} {{ order.currency }}
+{% trans "Итого:" %} {{ order.total_price  }} {{ order.currency }}
 
 
-Контактные данные
+{% trans "Контактные данные" %}
 
-Имя: {{ order.name }}
-Адрес: {{ order.city }}
-E-mail: {{ order.guest_email }}
+{% trans "Имя:" %} {{ order.name }}
+{% trans "Адрес:" %} {{ order.city }}
+{% trans "E-mail:" %} {{ order.guest_email }}
 
 
-Доставка и оплата
+{% trans "Доставка и оплата" %}
 
-Способ оплаты: {{ order.sources.source_type.name }}
-Способ доставки: {{ order.shipping_method }}
+{% trans "Способ оплаты:" %} {{ order.sources.source_type.name }}
+{% trans "Способ доставки:" %} {{ order.shipping_method }}
 {% if order.notes.message %}
-    Комментарий к заказу: {{ order.notes.message }}
+    {% trans "Комментарий к заказу:" %} {{ order.notes.message }}
 {% else %}
-    Комментарий к заказу: Нет
+    {% trans "Комментарий к заказу: Нет" %}
 {% endif %}
 
 
-Наши контакты:
+{% trans "Наши контакты:" %}
 {% for city in cities %}
-г. {{ city.city_name }}, {{ city.address }}
+{% trans "г." %} {{ city.city_name }}, {{ city.address }}
 {% if city.phones %}
 {% for phone in city.phones.all %} ({{ phone.get_national_format|slice:':3' }}) {{ phone.get_national_format|slice:'4:' }}{% if not forloop.last %},{% endif %}{% endfor %}
 {% endif %}
@@ -51,7 +53,7 @@ E-mail: {{ order.guest_email }}
 {{ site_email }}
 
 
-Мы в сети. Присоединяйтесь!
+{% trans "Мы в сети. Присоединяйтесь!" %}
 {{ social_networks_refs.facebook|first }}
 {{ social_networks_refs.vkontakte|first }}
 {{ social_networks_refs.mailru|first }}
@@ -59,4 +61,4 @@ E-mail: {{ order.guest_email }}
 {{ social_networks_refs.pinterest|first }}
 {{ social_networks_refs.google|first }}
 
-Это письмо создано автоматически, пожалуйста, не отвечайте на него.
+{% trans "Это письмо создано автоматически, пожалуйста, не отвечайте на него." %}

@@ -33,16 +33,16 @@ order_placed = get_class('order.signals', 'order_placed')
 
 
 class Product(AbstractProduct):
-    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True,
+    site = models.ForeignKey(Site, verbose_name=_('Сайт'), blank=True, null=True,
                              on_delete=models.CASCADE)
 
-    new = models.BooleanField(verbose_name='Новинка', default=False)
-    top_sale = models.BooleanField(verbose_name='Хит продаж', default=False)
-    recommended = models.BooleanField(verbose_name='Рекомендуем', default=False)
-    super_price = models.BooleanField(verbose_name='Суперцена', default=False)
-    special_offer = models.BooleanField(verbose_name='Акция', default=False)
-    gift = models.BooleanField(verbose_name='+Подарок', default=False)
-    free_shipping = models.BooleanField(verbose_name='Бесплатная доставка',
+    new = models.BooleanField(verbose_name=_('Новинка'), default=False)
+    top_sale = models.BooleanField(verbose_name=_('Хит продаж'), default=False)
+    recommended = models.BooleanField(verbose_name=_('Рекомендуем'), default=False)
+    super_price = models.BooleanField(verbose_name=_('Суперцена'), default=False)
+    special_offer = models.BooleanField(verbose_name=_('Акция'), default=False)
+    gift = models.BooleanField(verbose_name=_('+Подарок'), default=False)
+    free_shipping = models.BooleanField(verbose_name=_('Бесплатная доставка'),
                                         default=False)
 
     description = RichTextField(_('Description'), blank=True)
@@ -141,12 +141,27 @@ class ProductCategory(AbstractProductCategory):
 
 
 class Category(AbstractCategory):
-    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True,
-                             on_delete=models.CASCADE)
-    description_title = models.CharField(verbose_name='Название статьи (описания)', max_length=255, blank=True)
-    description = RichTextField(_('Description'), blank=True)
-    name_in_side_menu = models.CharField(_('Название в боковом меню'), max_length=255,
-                                          blank=True)
+    site = models.ForeignKey(
+        Site,
+        verbose_name=_('Сайт'),
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE
+    )
+    description_title = models.CharField(
+        verbose_name=_('Название статьи (описания)'),
+        max_length=255,
+        blank=True
+    )
+    description = RichTextField(
+        _('Description'),
+        blank=True
+    )
+    name_in_side_menu = models.CharField(
+        _('Название в боковом меню'),
+        max_length=255,
+        blank=True
+    )
 
     objects = MP_NodeManager()
 
@@ -160,8 +175,10 @@ class Category(AbstractCategory):
 
 
 class ProductAttribute(AbstractProductAttribute):
-    order = models.PositiveIntegerField(_("Порядковый номер"),
-                                        default=0)
+    order = models.PositiveIntegerField(
+        _("Порядковый номер"),
+        default=0
+    )
 
     class Meta:
         app_label = 'catalogue'
@@ -236,16 +253,16 @@ class ProductAttributeValue(AbstractProductAttributeValue):
 
 class ExtraImage(models.Model):
     class Meta:
-        verbose_name = 'Изображение'
-        verbose_name_plural = 'Изображения'
+        verbose_name = _('Изображение')
+        verbose_name_plural = _('Изображения')
 
     image = models.ImageField(
-        'Изображение',
+        _('Изображение'),
         upload_to='products/images'
     )
     product = models.ForeignKey(
         Product,
-        verbose_name='Товар',
+        verbose_name=_('Товар'),
         related_name='extra_images'
     )
 
@@ -255,13 +272,13 @@ class ExtraImage(models.Model):
 
 class Video(models.Model):
     class Meta:
-        verbose_name = 'Видео'
-        verbose_name_plural = 'Видео'
+        verbose_name = _('Видео')
+        verbose_name_plural = _('Видео')
 
-    video = models.URLField('Видео', help_text='Вставьте url')
+    video = models.URLField(_('Видео'), help_text=_('Вставьте url'))
     product = models.ForeignKey(
         Product,
-        verbose_name='Товар',
+        verbose_name=_('Товар'),
         related_name='videos'
     )
 
@@ -270,7 +287,7 @@ class Video(models.Model):
 
 
 class AttributeOptionGroup(AbstractAttributeOptionGroup):
-    site = models.ForeignKey(Site, verbose_name='Сайт', blank=True, null=True,
+    site = models.ForeignKey(Site, verbose_name=_('Сайт'), blank=True, null=True,
                              on_delete=models.SET_NULL)
 
     def __unicode__(self):

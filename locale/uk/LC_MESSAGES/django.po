@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-07 09:19+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2017-09-16 09:02+0000\n"
+"PO-Revision-Date: 2017-09-16 07:01+0000\n"
+"Last-Translator:   <dmyutro@ukr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,98 +19,165 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Translated-Using: django-rosetta 0.7.13\n"
 
-#: config/models.py:98
+#: config/models.py:27
+msgid "шаблон"
+msgstr ""
+
+#: config/models.py:34 config/models.py:97
+msgid "сайт"
+msgstr ""
+
+#: config/models.py:37
+msgid "email адрес"
+msgstr ""
+
+#: config/models.py:44
+msgid "Favicon"
+msgstr ""
+
+#: config/models.py:45
+msgid "Логотип"
+msgstr ""
+
+#: config/models.py:50
+msgid "Атрибут мощности котла"
+msgstr ""
+
+#: config/models.py:56
+msgid "Атрибут бренда котла"
+msgstr ""
+
+#: config/models.py:60
+msgid "Код подтверждения для Google"
+msgstr ""
+
+#: config/models.py:67
+msgid "Код подтверждения для Яндекс.Вебмастер"
+msgstr ""
+
+#: config/models.py:74
+msgid "Скрипт Google Tag Manager"
+msgstr ""
+
+#: config/models.py:79
+msgid "Iframe для Google Tag Manager"
+msgstr ""
+
+#: config/models.py:102
+msgid "Основное изображение"
+msgstr ""
+
+#: config/models.py:106
+msgid "Основная фраза"
+msgstr ""
+
+#: config/models.py:111
+msgid "Дополнительная фраза"
+msgstr ""
+
+#: config/models.py:116
 msgid "Ссылка под каталогом"
 msgstr ""
 
-#: config/models.py:101
+#: config/models.py:121
 msgid "Отображать калькулятор котлов?"
 msgstr ""
 
-#: config/models.py:103
+#: config/models.py:125
 msgid "Отображать блок 'Преимуществ'?"
 msgstr ""
 
-#: config/models.py:105
+#: config/models.py:129
 msgid "Отображать блок 'Кредит'?"
 msgstr ""
 
-#: config/models.py:107
+#: config/models.py:133
 msgid "Текст для блока 'Кредит'"
 msgstr ""
 
-#: config/models.py:110
+#: config/models.py:138
 msgid "Отображать блок 'Обзоры и отзывы'?"
 msgstr ""
 
-#: config/models.py:112
+#: config/models.py:142
 msgid "Отображать блок 'Дополнительные услуги'?"
 msgstr ""
 
-#: config/models.py:114
+#: config/models.py:146
 msgid "Отображать блок 'Доставка/Оплата'"
 msgstr ""
 
-#: config/models.py:117
+#: config/models.py:151
 msgid "Карта в футере для"
 msgstr ""
 
-#: config/models.py:131
-msgid "Дрова"
-msgstr ""
-
-#: config/models.py:132
-msgid "Пеллеты"
-msgstr ""
-
-#: config/models.py:133
-msgid "Каменный уголь"
-msgstr ""
-
-#: config/models.py:134
-msgid "Бурый уголь"
-msgstr ""
-
-#: config/models.py:135
-msgid "Газ"
-msgstr ""
-
-#: config/models.py:136
-msgid "Электроэнергия"
-msgstr ""
-
-#: config/models.py:137
-msgid "Дизельное топливо"
-msgstr ""
-
-#: config/models.py:140 config/models.py:160 config/models.py:178
-#: config/models.py:193 config/models.py:218
+#: config/models.py:158 config/models.py:175 config/models.py:195
+#: config/models.py:213 config/models.py:228 config/models.py:253
 msgid "Настройки главной страницы"
 msgstr ""
 
-#: config/models.py:142
+#: config/models.py:166 templates/blue/index.html:192
+#: templates/defro/index.html:192
+msgid "Дрова"
+msgstr ""
+
+#: config/models.py:167 templates/blue/index.html:212
+#: templates/defro/index.html:212
+msgid "Пеллеты"
+msgstr ""
+
+#: config/models.py:168 templates/blue/index.html:232
+#: templates/defro/index.html:232
+msgid "Каменный уголь"
+msgstr ""
+
+#: config/models.py:169 templates/blue/index.html:252
+#: templates/defro/index.html:252
+msgid "Бурый уголь"
+msgstr ""
+
+#: config/models.py:170
+msgid "Газ"
+msgstr ""
+
+#: config/models.py:171 templates/blue/index.html:292
+#: templates/defro/index.html:292
+msgid "Электроэнергия"
+msgstr ""
+
+#: config/models.py:172 templates/blue/index.html:312
+#: templates/defro/index.html:312
+msgid "Дизельное топливо"
+msgstr ""
+
+#: config/models.py:177 templates/blue/index.html:182
+#: templates/defro/index.html:182
 msgid "Вид топлива"
 msgstr ""
 
-#: config/models.py:146 shop/catalogue/forms.py:131
+#: config/models.py:181 shop/catalogue/forms.py:131
+#: templates/blue/partials/filters.html:9
+#: templates/defro/partials/filters.html:9
 #: templates/shop/dashboard/site/fuelconfiguration_list.html:41
 msgid "Цена"
 msgstr ""
 
-#: config/models.py:151
+#: config/models.py:186
 msgid "Объем и цена топлива"
 msgstr ""
 
-#: config/models.py:152
+#: config/models.py:187
 msgid "Объемы и цены топлива"
 msgstr ""
 
-#: config/models.py:162 config/models.py:224
+#: config/models.py:197 config/models.py:259 shop/catalogue/models.py:256
+#: shop/catalogue/models.py:260
 msgid "Изображение"
 msgstr ""
 
-#: config/models.py:165 config/models.py:304
+#: config/models.py:200 config/models.py:342
 #: templates/shop/dashboard/site/benefit_list.html:40
 #: templates/shop/dashboard/site/deliverypay_list.html:42
 #: templates/shop/dashboard/site/review_list.html:41
@@ -118,99 +185,267 @@ msgstr ""
 msgid "Текст"
 msgstr ""
 
-#: config/models.py:169
+#: config/models.py:204
 msgid "Преимущество"
 msgstr ""
 
-#: config/models.py:170 templates/shop/dashboard/site/benefit_list.html:5
+#: config/models.py:205 templates/shop/dashboard/site/benefit_list.html:5
 #: templates/shop/dashboard/site/benefit_list.html:13
 #: templates/shop/dashboard/site/benefit_list.html:20
-#: teploformat/settings.py:409
+#: teploformat/settings.py:416
 msgid "Преимущества"
 msgstr ""
 
-#: config/models.py:180
+#: config/models.py:215
 msgid "Ссылка на обзор"
 msgstr ""
 
-#: config/models.py:184
+#: config/models.py:219
 msgid "Обзор"
 msgstr ""
 
-#: config/models.py:185 templates/shop/dashboard/site/overview_delete.html:10
+#: config/models.py:220 templates/blue/index.html:459
+#: templates/defro/index.html:459
+#: templates/shop/dashboard/site/overview_delete.html:10
 #: templates/shop/dashboard/site/overview_detail.html:15
 #: templates/shop/dashboard/site/overview_list.html:5
 #: templates/shop/dashboard/site/overview_list.html:13
 #: templates/shop/dashboard/site/overview_list.html:20
-#: teploformat/settings.py:413
+#: teploformat/settings.py:420
 msgid "Обзоры"
 msgstr ""
 
-#: config/models.py:195
+#: config/models.py:230
 msgid "Фото"
 msgstr ""
 
-#: config/models.py:198
+#: config/models.py:233
 msgid "Имя оставившего отзыв"
 msgstr ""
 
-#: config/models.py:200
+#: config/models.py:235
 msgid "Текст отзыва"
 msgstr ""
 
-#: config/models.py:201
+#: config/models.py:236
 msgid "Дата создания"
 msgstr ""
 
-#: config/models.py:205
+#: config/models.py:240
 msgid "Отзыв"
 msgstr ""
 
-#: config/models.py:206 templates/shop/dashboard/site/review_delete.html:10
+#: config/models.py:241 templates/blue/detail.html:103
+#: templates/blue/detail.html:393 templates/blue/detail.html:1094
+#: templates/defro/detail.html:103 templates/defro/detail.html:393
+#: templates/defro/detail.html:1094
+#: templates/shop/dashboard/site/review_delete.html:10
 #: templates/shop/dashboard/site/review_detail.html:15
 #: templates/shop/dashboard/site/review_list.html:5
 #: templates/shop/dashboard/site/review_list.html:13
 #: templates/shop/dashboard/site/review_list.html:20
-#: teploformat/settings.py:417
+#: teploformat/settings.py:424
 msgid "Отзывы"
 msgstr ""
 
-#: config/models.py:214
+#: config/models.py:249
 msgid "Для блока 'Доставка'"
 msgstr ""
 
-#: config/models.py:215
+#: config/models.py:250
 msgid "Для блока 'Оплата'"
 msgstr ""
 
-#: config/models.py:220 templates/shop/dashboard/site/deliverypay_list.html:40
+#: config/models.py:255 templates/shop/dashboard/site/deliverypay_list.html:40
 msgid "Для блока"
 msgstr ""
 
-#: config/models.py:227 shop/catalogue/models.py:284
+#: config/models.py:262 config/models.py:405 config/models.py:440
+#: shop/catalogue/models.py:311
 #: templates/shop/dashboard/site/deliverypay_list.html:41
 msgid "Заголовок"
 msgstr ""
 
-#: config/models.py:232
+#: config/models.py:267
 msgid "Блок 'Доставка/Оплата'"
 msgstr ""
 
-#: config/models.py:233
+#: config/models.py:268
 #: templates/shop/dashboard/site/deliverypay_delete.html:10
 #: templates/shop/dashboard/site/deliverypay_detail.html:15
 msgid "Блоки 'Доставка/Оплата'"
 msgstr ""
 
-#: config/models.py:305 contacts/models.py:29 contacts/models.py:75
-#: contacts/models.py:127 contacts/models.py:184 contacts/models.py:218
+#: config/models.py:275 config/models.py:322
+#: templates/shop/dashboard/catalogue/attributeoptiongroup_list.html:40
+#: templates/shop/dashboard/site/flatpage_list.html:40
+#: templates/shop/dashboard/site/footermenu_list.html:40
+#: templates/shop/dashboard/site/headermenu_list.html:40
+#: templates/shop/dashboard/site/menucategory_list.html:40
+#: templates/shop/dashboard/site/sidemenu_list.html:40
+#: templates/shop/dashboard/site/site_list.html:39
+msgid "Название"
+msgstr ""
+
+#: config/models.py:276 config/models.py:324
+#: templates/shop/dashboard/catalogue/product_class_form.html:100
+msgid "Порядок"
+msgstr ""
+
+#: config/models.py:279
+msgid "Категория меню"
+msgstr ""
+
+#: config/models.py:280
+#: templates/shop/dashboard/site/menucategory_delete.html:10
+#: templates/shop/dashboard/site/menucategory_detail.html:15
+#: templates/shop/dashboard/site/menucategory_list.html:5
+#: templates/shop/dashboard/site/menucategory_list.html:13
+#: templates/shop/dashboard/site/menucategory_list.html:20
+#: teploformat/settings.py:285
+msgid "Категории меню"
+msgstr ""
+
+#: config/models.py:306
+msgid "Пункт меню"
+msgstr ""
+
+#: config/models.py:307
+msgid "Пункты меню"
+msgstr ""
+
+#: config/models.py:314
+msgid "Header"
+msgstr ""
+
+#: config/models.py:315
+msgid "Footer"
+msgstr ""
+
+#: config/models.py:316 teploformat/settings.py:297
+msgid "Боковое меню"
+msgstr ""
+
+#: config/models.py:319
+msgid "Расположение"
+msgstr ""
+
+#: config/models.py:323 contacts/models.py:124
+#: templates/shop/dashboard/site/footermenu_list.html:42
+#: templates/shop/dashboard/site/headermenu_list.html:41
+#: templates/shop/dashboard/site/overview_list.html:40
+#: templates/shop/dashboard/site/sidemenu_list.html:41
+#: templates/shop/dashboard/site/socialref_list.html:41
+msgid "Ссылка"
+msgstr ""
+
+#: config/models.py:325 config/models.py:396
+#: templates/shop/dashboard/site/footermenu_list.html:41
+msgid "Категория"
+msgstr ""
+
+#: config/models.py:328 config/models.py:343 contacts/models.py:29
+#: contacts/models.py:75 contacts/models.py:127 contacts/models.py:184
+#: contacts/models.py:218 shop/catalogue/models.py:36
+#: shop/catalogue/models.py:146 shop/catalogue/models.py:290
 msgid "Сайт"
 msgstr ""
 
-#: config/models.py:308 templates/shop/dashboard/site/footermenu_list.html:43
+#: config/models.py:331 config/models.py:346
+#: templates/shop/dashboard/site/footermenu_list.html:43
 #: templates/shop/dashboard/site/headermenu_list.html:42
 #: templates/shop/dashboard/site/sidemenu_list.html:42
 msgid "Отображается на сайте"
+msgstr ""
+
+#: config/models.py:360 teploformat/settings.py:392
+msgid "Текст 1"
+msgstr ""
+
+#: config/models.py:361
+msgid "Тексты 1"
+msgstr ""
+
+#: config/models.py:366 teploformat/settings.py:396
+msgid "Текст 2"
+msgstr ""
+
+#: config/models.py:367
+msgid "Тексты 2"
+msgstr ""
+
+#: config/models.py:372 teploformat/settings.py:400
+msgid "Текст 3"
+msgstr ""
+
+#: config/models.py:373
+msgid "Тексты 3"
+msgstr ""
+
+#: config/models.py:378 teploformat/settings.py:404
+msgid "Текст 4"
+msgstr ""
+
+#: config/models.py:379
+msgid "Тексты 4"
+msgstr ""
+
+#: config/models.py:393
+msgid "Главная страница"
+msgstr ""
+
+#: config/models.py:394
+msgid "Раздел"
+msgstr ""
+
+#: config/models.py:395
+msgid "Подраздел"
+msgstr ""
+
+#: config/models.py:397
+msgid "Бренд"
+msgstr ""
+
+#: config/models.py:398
+msgid "Бренд + фильтр"
+msgstr ""
+
+#: config/models.py:400
+msgid "Статистическая страница"
+msgstr ""
+
+#: config/models.py:410 config/models.py:444
+#, fuzzy
+#| msgid "Meta Tag %(title)s"
+msgid "Meta title"
+msgstr "Meta тег %(title)s"
+
+#: config/models.py:414 config/models.py:447
+msgid "Meta description"
+msgstr ""
+
+#: config/models.py:419 config/models.py:451
+msgid "H1 заголовок"
+msgstr ""
+
+#: config/models.py:424 templates/shop/dashboard/site/metatag_list.html:40
+msgid "Тип страницы"
+msgstr ""
+
+#: config/models.py:429
+msgid "Мета тег"
+msgstr ""
+
+#: config/models.py:430
+msgid "Мета теги"
+msgstr ""
+
+#: config/models.py:465
+msgid "Мета тегы для обьекта"
+msgstr ""
+
+#: config/models.py:466
+msgid "Мета тегы для обьектов"
 msgstr ""
 
 #: contacts/models.py:18
@@ -221,7 +456,8 @@ msgstr ""
 msgid "Цветной значок"
 msgstr ""
 
-#: contacts/models.py:24 contacts/models.py:36
+#: contacts/models.py:24 contacts/models.py:36 contacts/models.py:81
+#: contacts/models.py:149 contacts/models.py:188
 msgid "Город"
 msgstr ""
 
@@ -313,14 +549,6 @@ msgstr ""
 msgid "YouTube"
 msgstr ""
 
-#: contacts/models.py:124 templates/shop/dashboard/site/footermenu_list.html:42
-#: templates/shop/dashboard/site/headermenu_list.html:41
-#: templates/shop/dashboard/site/overview_list.html:40
-#: templates/shop/dashboard/site/sidemenu_list.html:41
-#: templates/shop/dashboard/site/socialref_list.html:41
-msgid "Ссылка"
-msgstr ""
-
 #: contacts/models.py:132
 msgid "Ссылка на социальную сеть"
 msgstr ""
@@ -337,7 +565,9 @@ msgstr ""
 msgid "Время дня"
 msgstr ""
 
-#: contacts/models.py:155 templates/shop/dashboard/site/timetable_list.html:40
+#: contacts/models.py:155 templates/blue/contacts.html:74
+#: templates/defro/contacts.html:74
+#: templates/shop/dashboard/site/timetable_list.html:40
 msgid "График работы"
 msgstr ""
 
@@ -373,7 +603,49 @@ msgstr "Расписание работы компании"
 msgid "Рассписания работы компании"
 msgstr "Расписания работы компании"
 
-#: shop/catalogue/models.py:48 shop/catalogue/models.py:147
+#: contacts/models.py:232
+msgid "Статическая страница"
+msgstr ""
+
+#: contacts/models.py:233 templates/shop/dashboard/site/flatpage_delete.html:10
+#: templates/shop/dashboard/site/flatpage_detail.html:15
+#: templates/shop/dashboard/site/flatpage_list.html:5
+#: templates/shop/dashboard/site/flatpage_list.html:13
+#: templates/shop/dashboard/site/flatpage_list.html:20
+#: teploformat/settings.py:281
+msgid "Статические страницы"
+msgstr ""
+
+#: shop/catalogue/models.py:39
+msgid "Новинка"
+msgstr ""
+
+#: shop/catalogue/models.py:40
+msgid "Хит продаж"
+msgstr ""
+
+#: shop/catalogue/models.py:41
+msgid "Рекомендуем"
+msgstr ""
+
+#: shop/catalogue/models.py:42
+msgid "Суперцена"
+msgstr ""
+
+#: shop/catalogue/models.py:43
+msgid "Акция"
+msgstr ""
+
+#: shop/catalogue/models.py:44
+msgid "+Подарок"
+msgstr ""
+
+#: shop/catalogue/models.py:45
+msgid "Бесплатная доставка"
+msgstr ""
+
+#: shop/catalogue/models.py:48 shop/catalogue/models.py:157
+#: shop/dashboard/portation/forms.py:28
 msgid "Description"
 msgstr ""
 
@@ -389,48 +661,79 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: shop/catalogue/models.py:148
+#: shop/catalogue/models.py:152
+#, fuzzy
+#| msgid "Рассписание работы компании"
+msgid "Название статьи (описания)"
+msgstr "Расписание работы компании"
+
+#: shop/catalogue/models.py:161
 #, fuzzy
 #| msgid "Рассписание работы компании"
 msgid "Название в боковом меню"
 msgstr "Расписание работы компании"
 
-#: shop/catalogue/models.py:163
+#: shop/catalogue/models.py:179 shop/catalogue/models.py:216
 msgid "Порядковый номер"
 msgstr ""
 
-#: shop/catalogue/models.py:169
+#: shop/catalogue/models.py:186
 msgid "Product attribute"
 msgstr ""
 
-#: shop/catalogue/models.py:170
+#: shop/catalogue/models.py:187
 #: templates/shop/dashboard/catalogue/product_class_form.html:40
 #: templates/shop/dashboard/catalogue/product_class_form.html:85
 msgid "Product attributes"
 msgstr ""
 
-#: shop/catalogue/models.py:182
+#: shop/catalogue/models.py:199
 #, python-format
 msgid "%(attr)s attribute cannot be blank"
 msgstr ""
 
-#: shop/catalogue/models.py:190
+#: shop/catalogue/models.py:207
 msgid "Must be str or unicode"
 msgstr ""
 
-#: shop/catalogue/models.py:285
+#: shop/catalogue/models.py:223
+msgid "Product attribute value"
+msgstr ""
+
+#: shop/catalogue/models.py:224
+msgid "Product attribute values"
+msgstr ""
+
+#: shop/catalogue/models.py:257
+msgid "Изображения"
+msgstr ""
+
+#: shop/catalogue/models.py:265 shop/catalogue/models.py:281
+msgid "Товар"
+msgstr ""
+
+#: shop/catalogue/models.py:275 shop/catalogue/models.py:276
+#: shop/catalogue/models.py:278
+msgid "Видео"
+msgstr ""
+
+#: shop/catalogue/models.py:278
+msgid "Вставьте url"
+msgstr ""
+
+#: shop/catalogue/models.py:312
 msgid "Описание"
 msgstr ""
 
-#: shop/catalogue/models.py:288
+#: shop/catalogue/models.py:315
 msgid "Статья для фильтров"
 msgstr ""
 
-#: shop/catalogue/models.py:289
+#: shop/catalogue/models.py:316
 msgid "Статьи для фильтров"
 msgstr ""
 
-#: shop/catalogue/models.py:316
+#: shop/catalogue/models.py:343
 msgid "Order notification"
 msgstr ""
 
@@ -493,17 +796,17 @@ msgstr ""
 msgid "This flag indicates if this product can be used in an offer or not"
 msgstr ""
 
-#: shop/dashboard/catalogue/forms.py:261
+#: shop/dashboard/catalogue/forms.py:279
 msgid "-- root --"
 msgstr ""
 
-#: shop/dashboard/catalogue/forms.py:416
+#: shop/dashboard/catalogue/forms.py:434
 msgid ""
 "At least one stock record must be set to a partner that you're associated "
 "with."
 msgstr ""
 
-#: shop/dashboard/catalogue/tables.py:15
+#: shop/dashboard/catalogue/tables.py:15 shop/dashboard/portation/forms.py:27
 #: templates/shop/dashboard/catalogue/product_update.html:299
 msgid "Title"
 msgstr ""
@@ -552,23 +855,23 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: shop/dashboard/catalogue/views.py:186
+#: shop/dashboard/catalogue/views.py:191
 msgid "Create Object Meta Tag"
 msgstr "Создать Мета Тег объект"
 
-#: shop/dashboard/catalogue/views.py:190
+#: shop/dashboard/catalogue/views.py:195
 msgid "Meta tag for \"{}\" was created successfully"
 msgstr "Мета тег для \"{}\" успешно создан"
 
-#: shop/dashboard/catalogue/views.py:206
+#: shop/dashboard/catalogue/views.py:211
 msgid "Update Object Meta Tag"
 msgstr "Обновить Мета Тег объект"
 
-#: shop/dashboard/catalogue/views.py:210
+#: shop/dashboard/catalogue/views.py:215
 msgid "Meta tag for \"{}\" was updated successfully"
 msgstr "Мета тег для \"{}\" успешно обновлен"
 
-#: shop/dashboard/catalogue/views.py:257 shop/dashboard/site/views.py:216
+#: shop/dashboard/catalogue/views.py:262 shop/dashboard/site/views.py:216
 msgid "Your submitted data was not valid - please correct the errors below"
 msgstr "Вы ввели неверные данные - пожалуйста, исправьте ошибки ниже"
 
@@ -855,31 +1158,66 @@ msgstr "Удаление заявки на звонок"
 msgid "Call request deleted successfully"
 msgstr "Город успешно удален"
 
+#: shop/dashboard/portation/base.py:6
+msgid "ID"
+msgstr ""
+
+#: shop/dashboard/portation/base.py:7 shop/dashboard/portation/forms.py:34
+msgid "Product class"
+msgstr ""
+
 #: shop/dashboard/portation/config.py:8
 msgid "Poration (import/export) dashboard"
 msgstr ""
 
-#: shop/dashboard/portation/forms.py:11
+#: shop/dashboard/portation/forms.py:13
 msgid "File with backup"
 msgstr ""
 
-#: shop/dashboard/portation/forms.py:19
-msgid "Product class"
+#: shop/dashboard/portation/forms.py:20
+#, python-brace-format
+msgid ""
+"The server just exportes products data on your current language: \"{lang}\". "
+"Please, don`t change the language mark in the file, as when you import this "
+"file, the server will not know what language to use."
 msgstr ""
 
-#: shop/dashboard/portation/views.py:22 teploformat/settings.py:369
+#: shop/dashboard/portation/forms.py:26
+#: templates/shop/dashboard/orders/order_detail.html:110
+msgid "UPC"
+msgstr ""
+
+#: shop/dashboard/portation/forms.py:29
+#: templates/shop/dashboard/catalogue/category_form.html:9
+#: templates/shop/dashboard/catalogue/category_form.html:18
+#: templates/shop/dashboard/catalogue/product_update.html:89
+msgid "Categories"
+msgstr ""
+
+#: shop/dashboard/portation/forms.py:38
+msgid "Fields"
+msgstr ""
+
+#: shop/dashboard/portation/forms.py:42
+#: templates/shop/dashboard/catalogue/product_update.html:94
+#: templates/shop/dashboard/catalogue/product_update.html:185
+#: templates/shop/dashboard/catalogue/product_update.html:300
+msgid "Attributes"
+msgstr ""
+
+#: shop/dashboard/portation/views.py:26 teploformat/settings.py:376
 msgid "Import"
 msgstr ""
 
-#: shop/dashboard/portation/views.py:29
+#: shop/dashboard/portation/views.py:33
 msgid "Updated: {}; Created: {}."
 msgstr ""
 
-#: shop/dashboard/portation/views.py:34
+#: shop/dashboard/portation/views.py:38
 msgid "Errors on rows: {}"
 msgstr ""
 
-#: shop/dashboard/portation/views.py:61
+#: shop/dashboard/portation/views.py:65
 msgid "Catalogue Export"
 msgstr ""
 
@@ -890,7 +1228,7 @@ msgstr ""
 #: templates/dashboard/reviews/review_list.html:16
 #: templates/dashboard/reviews/review_list.html:22
 #: templates/dashboard/reviews/review_update.html:17
-#: teploformat/settings.py:351
+#: teploformat/settings.py:358
 msgid "Reviews"
 msgstr ""
 
@@ -1538,145 +1876,1731 @@ msgstr ""
 msgid "Previous Price"
 msgstr ""
 
-#: templates/blue/browse.html:224 templates/defro/browse.html:224
+#: templates/404.html:26 templates/404.html:31
+msgid "Страница не найдена"
+msgstr ""
+
+#: templates/404.html:32
+msgid "Возможно, она была удалена или Вы ввели неверный адрес"
+msgstr ""
+
+#: templates/404.html:36
+msgid ""
+"\n"
+"                                Попробуйте <a href=\"/\">перейти на главную</"
+"a> или<br> воспользоваться поиском.\n"
+"                            "
+msgstr ""
+
+#: templates/404.html:41
+msgid "Можете перейти в раздел который Вам интересен:"
+msgstr ""
+
+#: templates/admin/change_list.html:7 teploformat/settings.py:253
+msgid "Редактировать сайт"
+msgstr ""
+
+#: templates/blue/base.html:66 templates/blue/browse.html:69
+#: templates/blue/partials/side_menu.html:5
+#: templates/blue/partials/side_menu.html:11 templates/defro/base.html:66
+#: templates/defro/browse.html:69 templates/defro/partials/side_menu.html:5
+#: templates/defro/partials/side_menu.html:11
+msgid "Каталог товаров"
+msgstr "Каталог товарів"
+
+#: templates/blue/base.html:86 templates/defro/base.html:86
+msgid "Еще номера"
+msgstr ""
+
+#: templates/blue/base.html:127 templates/blue/base.html:474
+#: templates/defro/base.html:127 templates/defro/base.html:474
+msgid "Заказать звонок"
+msgstr ""
+
+#: templates/blue/base.html:139 templates/blue/base.html:146
+#: templates/defro/base.html:139 templates/defro/base.html:146
+msgid "Сравнение"
+msgstr ""
+
+#: templates/blue/base.html:163 templates/blue/compare.html:105
+#: templates/defro/base.html:163 templates/defro/compare.html:105
+msgid "Список сравнения пуст"
+msgstr ""
+
+#: templates/blue/base.html:174 templates/blue/checkout/order.html:46
+#: templates/defro/base.html:174 templates/defro/checkout/order.html:46
+msgid "Корзина"
+msgstr ""
+
+#: templates/blue/base.html:180 templates/defro/base.html:180
+msgid "Вашей корзине"
+msgstr ""
+
+#: templates/blue/base.html:181 templates/defro/base.html:181
+#, fuzzy
+#| msgid "Каталог товаров"
+msgid "товаров:"
+msgstr "Каталог товарів"
+
+#: templates/blue/base.html:191 templates/blue/checkout/order.html:64
+#: templates/blue/checkout/order_success.html:71
+#: templates/blue/order_notification.html:350
+#: templates/blue/order_notification.txt:25 templates/defro/base.html:191
+#: templates/defro/checkout/order.html:64
+#: templates/defro/checkout/order_success.html:71
+#: templates/defro/order_notification.html:350
+#: templates/defro/order_notification.txt:25
+msgid "Итого:"
+msgstr ""
+
+#: templates/blue/base.html:192 templates/blue/checkout/order.html:58
+#: templates/blue/checkout/order.html:65
+#: templates/blue/checkout/order_success.html:65
+#: templates/blue/checkout/order_success.html:72
+#: templates/blue/partials/filters.html:18 templates/defro/base.html:192
+#: templates/defro/checkout/order.html:58
+#: templates/defro/checkout/order.html:65
+#: templates/defro/checkout/order_success.html:65
+#: templates/defro/checkout/order_success.html:72
+#: templates/defro/partials/filters.html:18
+msgid "грн."
+msgstr ""
+
+#: templates/blue/base.html:200 templates/blue/base.html:246
+#: templates/defro/base.html:200 templates/defro/base.html:246
+msgid "Оформить заказ"
+msgstr ""
+
+#: templates/blue/base.html:203 templates/defro/base.html:203
+msgid "Перейти в корзину"
+msgstr ""
+
+#: templates/blue/base.html:214 templates/blue/base.html:269
+#: templates/blue/detail.html:1650 templates/blue/detail.html:1674
+#: templates/blue/detail.html:1684 templates/blue/detail.html:1719
+#: templates/defro/base.html:214 templates/defro/base.html:269
+#: templates/defro/detail.html:1650 templates/defro/detail.html:1674
+#: templates/defro/detail.html:1684 templates/defro/detail.html:1719
+#: templates/shop/dashboard/orders/order_list.html:72
+msgid "Close"
+msgstr ""
+
+#: templates/blue/base.html:219 templates/blue/detail.html:1721
+#: templates/defro/base.html:219 templates/defro/detail.html:1721
+msgid "товар"
+msgstr ""
+
+#: templates/blue/base.html:220 templates/blue/detail.html:1722
+#: templates/defro/base.html:220 templates/defro/detail.html:1722
+msgid "на сумму"
+msgstr ""
+
+#: templates/blue/base.html:228 templates/defro/base.html:228
+msgid "Общая стоимость:"
+msgstr ""
+
+#: templates/blue/base.html:232 templates/blue/detail.html:1724
+#: templates/blue/index.html:203 templates/blue/index.html:223
+#: templates/blue/index.html:243 templates/defro/base.html:232
+#: templates/defro/detail.html:1724 templates/defro/index.html:203
+#: templates/defro/index.html:223 templates/defro/index.html:243
+msgid "грн"
+msgstr ""
+
+#: templates/blue/base.html:240 templates/defro/base.html:240
+msgid "Продолжить покупки"
+msgstr ""
+
+#: templates/blue/base.html:261 templates/blue/detail.html:199
+#: templates/blue/detail.html:224 templates/defro/base.html:261
+#: templates/defro/detail.html:199 templates/defro/detail.html:224
+msgid "Заказать в один клик"
+msgstr ""
+
+#: templates/blue/base.html:270 templates/defro/base.html:270
+msgid "Спасибо, Ваш заказ получен!"
+msgstr ""
+
+#: templates/blue/base.html:279 templates/defro/base.html:279
+msgid "Спасибо за Ваше обращение"
+msgstr ""
+
+#: templates/blue/base.html:282 templates/defro/base.html:282
+msgid "Наш менеджер обязательно свяжется с Вами"
+msgstr ""
+
+#: templates/blue/base.html:287 templates/blue/search/results.html:305
+#: templates/defro/base.html:287 templates/defro/search/results.html:305
+msgid "Товар добавлен в список сравнения"
+msgstr ""
+
+#: templates/blue/base.html:312 templates/blue/index.html:696
+#: templates/defro/base.html:312 templates/defro/index.html:696
+msgid "Как связаться"
+msgstr ""
+
+#: templates/blue/base.html:332 templates/blue/index.html:715
+#: templates/defro/base.html:332 templates/defro/index.html:715
+msgid "Наши представительства"
+msgstr ""
+
+#: templates/blue/base.html:342 templates/blue/base.html:376
+#: templates/blue/contacts.html:82 templates/blue/index.html:725
+#: templates/blue/index.html:758 templates/defro/base.html:342
+#: templates/defro/base.html:376 templates/defro/contacts.html:82
+#: templates/defro/index.html:725 templates/defro/index.html:758
+msgid "Пн.-Пт.:"
+msgstr ""
+
+#: templates/blue/base.html:343 templates/blue/base.html:377
+#: templates/blue/contacts.html:83 templates/blue/index.html:726
+#: templates/blue/index.html:759 templates/defro/base.html:343
+#: templates/defro/base.html:377 templates/defro/contacts.html:83
+#: templates/defro/index.html:726 templates/defro/index.html:759
+msgid "с 9:00 до 18:00"
+msgstr ""
+
+#: templates/blue/base.html:345 templates/blue/base.html:378
+#: templates/blue/contacts.html:85 templates/blue/index.html:727
+#: templates/blue/index.html:760 templates/defro/base.html:345
+#: templates/defro/base.html:378 templates/defro/contacts.html:85
+#: templates/defro/index.html:727 templates/defro/index.html:760
+msgid "Сб:"
+msgstr ""
+
+#: templates/blue/base.html:345 templates/blue/base.html:378
+#: templates/blue/contacts.html:85 templates/blue/index.html:727
+#: templates/blue/index.html:760 templates/defro/base.html:345
+#: templates/defro/base.html:378 templates/defro/contacts.html:85
+#: templates/defro/index.html:727 templates/defro/index.html:760
+msgid "с 9:00 до 15:00"
+msgstr ""
+
+#: templates/blue/base.html:358 templates/blue/index.html:739
+#: templates/defro/base.html:358 templates/defro/index.html:739
+msgid "Принимаем к оплате"
+msgstr ""
+
+#: templates/blue/base.html:369 templates/blue/index.html:751
+#: templates/defro/base.html:369 templates/defro/index.html:751
+msgid "График работы call-центра"
+msgstr ""
+
+#: templates/blue/base.html:379 templates/defro/base.html:379
+msgid "Вс: "
+msgstr ""
+
+#: templates/blue/base.html:379 templates/blue/index.html:761
+#: templates/defro/base.html:379 templates/defro/index.html:761
+msgid "выходной"
+msgstr ""
+
+#: templates/blue/base.html:384 templates/blue/index.html:766
+#: templates/defro/base.html:384 templates/defro/index.html:766
+msgid "Заказ через корзину 24/7/365"
+msgstr ""
+
+#: templates/blue/base.html:385 templates/blue/index.html:767
+#: templates/defro/base.html:385 templates/defro/index.html:767
+msgid "Ночные заказы обрабатываются"
+msgstr ""
+
+#: templates/blue/base.html:392 templates/blue/index.html:774
+#: templates/defro/base.html:392 templates/defro/index.html:774
+msgid "с 9:00 до 11:00"
+msgstr ""
+
+#: templates/blue/base.html:419 templates/defro/base.html:419
+msgid ""
+"\n"
+"                                    © 2017 интернет-магазин <br> "
+"твердотопливных котлов Defro тм\n"
+"                                "
+msgstr ""
+
+#: templates/blue/base.html:426 templates/defro/base.html:426
+msgid "Мы в соцсетях, <br> присоединяйтесь!"
+msgstr ""
+
+#: templates/blue/base.html:478 templates/blue/contacts.html:98
+#: templates/blue/detail.html:689 templates/blue/detail.html:1362
+#: templates/blue/detail.html:1661 templates/blue/detail.html:1688
+#: templates/defro/base.html:478 templates/defro/contacts.html:98
+#: templates/defro/detail.html:689 templates/defro/detail.html:1362
+#: templates/defro/detail.html:1661 templates/defro/detail.html:1688
+msgid "Ваше имя"
+msgstr ""
+
+#: templates/blue/base.html:480 templates/blue/contacts.html:114
+#: templates/blue/detail.html:1665 templates/defro/base.html:480
+#: templates/defro/contacts.html:114 templates/defro/detail.html:1665
+msgid "Ваш телефон"
+msgstr ""
+
+#: templates/blue/base.html:484 templates/blue/detail.html:1669
+#: templates/defro/base.html:484 templates/defro/detail.html:1669
+msgid "Отправить"
+msgstr ""
+
+#: templates/blue/browse.html:45 templates/defro/browse.html:45
+#, fuzzy
+#| msgid "Каталог товаров"
+msgid "Каталог"
+msgstr "Каталог товарів"
+
+#: templates/blue/browse.html:79 templates/defro/browse.html:79
+msgid "Выбор параметров"
+msgstr ""
+
+#: templates/blue/browse.html:82 templates/defro/browse.html:82
+#, fuzzy
+#| msgid "Каталог товаров"
+msgid "Найдено товаров:"
+msgstr "Каталог товарів"
+
+#: templates/blue/browse.html:126 templates/defro/browse.html:126
+msgid "Сбросить все фильтры"
+msgstr ""
+
+#: templates/blue/browse.html:222 templates/defro/browse.html:222
 msgid "Цена:"
 msgstr ""
 
-#: templates/blue/detail.html:480 templates/blue/detail.html:494
-#: templates/blue/detail.html:548 templates/blue/detail.html:562
-#: templates/blue/detail.html:616 templates/blue/detail.html:630
-#: templates/blue/detail.html:1171 templates/blue/detail.html:1185
-#: templates/blue/detail.html:1241 templates/blue/detail.html:1255
-#: templates/blue/detail.html:1311 templates/blue/detail.html:1325
-#: templates/defro/detail.html:480 templates/defro/detail.html:494
-#: templates/defro/detail.html:548 templates/defro/detail.html:562
-#: templates/defro/detail.html:616 templates/defro/detail.html:630
-#: templates/defro/detail.html:1171 templates/defro/detail.html:1185
-#: templates/defro/detail.html:1241 templates/defro/detail.html:1255
-#: templates/defro/detail.html:1311 templates/defro/detail.html:1325
+#: templates/blue/browse.html:235 templates/defro/browse.html:235
+msgid "Фильтр"
+msgstr ""
+
+#: templates/blue/browse.html:237 templates/blue/browse.html:445
+#: templates/blue/search/results.html:109 templates/defro/browse.html:237
+#: templates/defro/browse.html:445 templates/defro/search/results.html:109
+msgid "Сортировать:"
+msgstr ""
+
+#: templates/blue/browse.html:246 templates/defro/browse.html:246
+msgid "Показывать по"
+msgstr ""
+
+#: templates/blue/browse.html:252 templates/defro/browse.html:252
+msgid "на странице"
+msgstr ""
+
+#: templates/blue/browse.html:256 templates/blue/search/results.html:114
+#: templates/defro/browse.html:256 templates/defro/search/results.html:114
+msgid "Вид:"
+msgstr ""
+
+#: templates/blue/browse.html:269 templates/defro/browse.html:269
+msgid "Ничего не найдено"
+msgstr ""
+
+#: templates/blue/browse.html:276 templates/defro/browse.html:276
+msgid "Смотреть еще"
+msgstr ""
+
+#: templates/blue/browse.html:336 templates/blue/detail.html:1574
+#: templates/defro/browse.html:336 templates/defro/detail.html:1574
+msgid "Вас также могут заинтересовать"
+msgstr ""
+
+#: templates/blue/browse.html:377 templates/blue/detail.html:1611
+#: templates/blue/recently_viewed_products.html:51
+#: templates/defro/browse.html:377 templates/defro/detail.html:1611
+#: templates/defro/recently_viewed_products.html:51
+msgid "Отзывов:"
+msgstr ""
+
+#: templates/blue/browse.html:390 templates/blue/compare_table.html:123
+#: templates/blue/detail.html:1629
+#: templates/blue/recently_viewed_products.html:64
+#: templates/defro/browse.html:390 templates/defro/compare_table.html:123
+#: templates/defro/detail.html:1629
+#: templates/defro/recently_viewed_products.html:64
+msgid "Купить"
+msgstr ""
+
+#: templates/blue/browse.html:395 templates/blue/compare.html:79
+#: templates/blue/compare_table.html:127 templates/blue/detail.html:205
+#: templates/blue/detail.html:227 templates/blue/detail.html:228
+#: templates/blue/detail.html:809 templates/blue/detail.html:839
+#: templates/blue/detail.html:921 templates/blue/detail.html:951
+#: templates/blue/detail.html:1039 templates/blue/detail.html:1068
+#: templates/blue/detail.html:1480 templates/blue/detail.html:1511
+#: templates/blue/detail.html:1632 templates/blue/detail.html:1765
+#: templates/blue/recently_viewed_products.html:67
+#: templates/blue/search/results.html:192
+#: templates/blue/search/results.html:217 templates/defro/browse.html:395
+#: templates/defro/compare.html:79 templates/defro/compare_table.html:127
+#: templates/defro/detail.html:205 templates/defro/detail.html:227
+#: templates/defro/detail.html:228 templates/defro/detail.html:809
+#: templates/defro/detail.html:839 templates/defro/detail.html:921
+#: templates/defro/detail.html:951 templates/defro/detail.html:1039
+#: templates/defro/detail.html:1068 templates/defro/detail.html:1480
+#: templates/defro/detail.html:1511 templates/defro/detail.html:1632
+#: templates/defro/detail.html:1765
+#: templates/defro/recently_viewed_products.html:67
+#: templates/defro/search/results.html:192
+#: templates/defro/search/results.html:217
+msgid "Нет в наличии"
+msgstr ""
+
+#: templates/blue/browse.html:416 templates/blue/browse.html:430
+#: templates/blue/category.html:66 templates/blue/contacts_main.html:59
+#: templates/blue/detail.html:325 templates/blue/index.html:340
+#: templates/blue/index.html:451 templates/blue/index.html:549
+#: templates/blue/index.html:567 templates/blue/index.html:619
+#: templates/defro/browse.html:416 templates/defro/browse.html:430
+#: templates/defro/category.html:66 templates/defro/contacts_main.html:59
+#: templates/defro/detail.html:325 templates/defro/index.html:340
+#: templates/defro/index.html:451 templates/defro/index.html:549
+#: templates/defro/index.html:567 templates/defro/index.html:619
+msgid "Подробнее"
+msgstr ""
+
+#: templates/blue/browse.html:447 templates/defro/browse.html:447
+msgid "по релевантности"
+msgstr ""
+
+#: templates/blue/browse.html:448 templates/defro/browse.html:448
+msgid "по рейтингу"
+msgstr ""
+
+#: templates/blue/browse.html:449 templates/defro/browse.html:449
+msgid "по дате, сначала новые"
+msgstr ""
+
+#: templates/blue/browse.html:450 templates/defro/browse.html:450
+msgid "по цене, сначала дорогие"
+msgstr ""
+
+#: templates/blue/browse.html:451 templates/defro/browse.html:451
+msgid "по цене, сначала дешевые"
+msgstr ""
+
+#: templates/blue/browse.html:452 templates/defro/browse.html:452
+msgid "по названию от А до Я"
+msgstr ""
+
+#: templates/blue/browse.html:453 templates/defro/browse.html:453
+msgid "по названию от Я до А"
+msgstr ""
+
+#: templates/blue/checkout/order.html:44 templates/defro/checkout/order.html:44
+msgid "Оформление заказа"
+msgstr ""
+
+#: templates/blue/checkout/order.html:56
+#: templates/blue/checkout/order_success.html:63
+#: templates/defro/checkout/order.html:56
+#: templates/defro/checkout/order_success.html:63
+msgid "шт."
+msgstr ""
+
+#: templates/blue/checkout/order.html:68 templates/defro/checkout/order.html:68
+msgid "Редактировать заказ"
+msgstr ""
+
+#: templates/blue/checkout/order.html:74
+#: templates/blue/checkout/order_success.html:78
+#: templates/blue/order_notification.html:354
+#: templates/blue/order_notification.txt:28
+#: templates/defro/checkout/order.html:74
+#: templates/defro/checkout/order_success.html:78
+#: templates/defro/order_notification.html:354
+#: templates/defro/order_notification.txt:28
+msgid "Контактные данные"
+msgstr ""
+
+#: templates/blue/checkout/order.html:89
+#: templates/blue/checkout/order_success.html:92
+#: templates/blue/order_notification.html:362
+#: templates/blue/order_notification.txt:35
+#: templates/defro/checkout/order.html:89
+#: templates/defro/checkout/order_success.html:92
+#: templates/defro/order_notification.html:362
+#: templates/defro/order_notification.txt:35
+msgid "Доставка и оплата"
+msgstr ""
+
+#: templates/blue/checkout/order.html:103
+#: templates/defro/checkout/order.html:103
+msgid "Заказ подтверждаю"
+msgstr ""
+
+#: templates/blue/checkout/order_success.html:44
+#: templates/blue/order_notification.html:333
+#: templates/blue/order_notification.txt:5
+#: templates/defro/checkout/order_success.html:44
+#: templates/defro/order_notification.html:333
+#: templates/defro/order_notification.txt:5
+msgid "Спасибо, Ваш заказ принят!"
+msgstr ""
+
+#: templates/blue/checkout/order_success.html:46
+#: templates/defro/checkout/order_success.html:46
+msgid ""
+"\n"
+"                    Наш менеджер обязательно свяжется с Вами\n"
+"                    для уточнения всех деталей и подтверждения заказа.\n"
+"                "
+msgstr ""
+
+#: templates/blue/checkout/order_success.html:52
+#: templates/defro/checkout/order_success.html:52
+msgid "Детали заказа № {{ order.number }}"
+msgstr ""
+
+#: templates/blue/checkout/order_success.html:53
+#: templates/blue/order_notification.html:336
+#: templates/defro/checkout/order_success.html:53
+#: templates/defro/order_notification.html:336
+msgid "Распечатать"
+msgstr ""
+
+#: templates/blue/checkout/order_success.html:80
+#: templates/blue/order_notification.html:356
+#: templates/blue/order_notification.txt:30
+#: templates/defro/checkout/order_success.html:80
+#: templates/defro/order_notification.html:356
+#: templates/defro/order_notification.txt:30
+msgid "Имя:"
+msgstr ""
+
+#: templates/blue/checkout/order_success.html:81
+#: templates/blue/order_notification.html:357
+#: templates/blue/order_notification.txt:31
+#: templates/defro/checkout/order_success.html:81
+#: templates/defro/order_notification.html:357
+#: templates/defro/order_notification.txt:31
+msgid "Адрес:"
+msgstr ""
+
+#: templates/blue/checkout/order_success.html:84
+#: templates/defro/checkout/order_success.html:84
+msgid "Телефон:"
+msgstr ""
+
+#: templates/blue/checkout/order_success.html:86
+#: templates/blue/order_notification.html:358
+#: templates/blue/order_notification.txt:32
+#: templates/defro/checkout/order_success.html:86
+#: templates/defro/order_notification.html:358
+#: templates/defro/order_notification.txt:32
+#, fuzzy
+#| msgid "Email"
+msgid "E-mail:"
+msgstr "email адрес"
+
+#: templates/blue/checkout/order_success.html:94
+#: templates/blue/order_notification.html:364
+#: templates/blue/order_notification.txt:37
+#: templates/defro/checkout/order_success.html:94
+#: templates/defro/order_notification.html:364
+#: templates/defro/order_notification.txt:37
+msgid "Способ оплаты:"
+msgstr ""
+
+#: templates/blue/checkout/order_success.html:97
+#: templates/blue/order_notification.html:365
+#: templates/blue/order_notification.txt:38
+#: templates/defro/checkout/order_success.html:97
+#: templates/defro/order_notification.html:365
+#: templates/defro/order_notification.txt:38
+msgid "Способ доставки:"
+msgstr ""
+
+#: templates/blue/checkout/order_success.html:100
+#: templates/blue/order_notification.html:367
+#: templates/blue/order_notification.html:369
+#: templates/blue/order_notification.txt:40
+#: templates/defro/checkout/order_success.html:100
+#: templates/defro/order_notification.html:367
+#: templates/defro/order_notification.html:369
+#: templates/defro/order_notification.txt:40
+msgid "Комментарий к заказу:"
+msgstr ""
+
+#: templates/blue/compare.html:16 templates/defro/compare.html:16
+msgid "Список сравнений"
+msgstr ""
+
+#: templates/blue/compare.html:28 templates/blue/compare_table.html:32
+#: templates/defro/compare.html:28 templates/defro/compare_table.html:32
+#, fuzzy
+#| msgid "Каталог товаров"
+msgid "Сравнение товаров"
+msgstr "Каталог товарів"
+
+#: templates/blue/compare.html:33 templates/defro/compare.html:33
+msgid "Списки сравнений"
+msgstr ""
+
+#: templates/blue/compare.html:56 templates/blue/compare_table.html:96
+#: templates/blue/detail.html:159 templates/blue/detail.html:791
+#: templates/blue/detail.html:903 templates/blue/detail.html:1021
+#: templates/blue/detail.html:1462 templates/blue/search/results.html:156
+#: templates/defro/compare.html:56 templates/defro/compare_table.html:96
+#: templates/defro/detail.html:159 templates/defro/detail.html:791
+#: templates/defro/detail.html:903 templates/defro/detail.html:1021
+#: templates/defro/detail.html:1462 templates/defro/search/results.html:156
+msgid "голосов"
+msgstr ""
+
+#: templates/blue/compare.html:101 templates/defro/compare.html:101
+msgid "Сравнить эти товары"
+msgstr ""
+
+#: templates/blue/compare_table.html:15 templates/defro/compare_table.html:15
+msgid "Таблица сравнений"
+msgstr ""
+
+#: templates/blue/compare_table.html:37 templates/defro/compare_table.html:37
+msgid "Вы сравниваете"
+msgstr ""
+
+#: templates/blue/compare_table.html:40 templates/defro/compare_table.html:40
+#, fuzzy
+#| msgid "Каталог товаров"
+msgid "Добавлено товаров:"
+msgstr "Каталог товарів"
+
+#: templates/blue/compare_table.html:43 templates/defro/compare_table.html:43
+msgid "Добавить еще один товар"
+msgstr ""
+
+#: templates/blue/compare_table.html:47 templates/defro/compare_table.html:47
+msgid "Очистить все"
+msgstr ""
+
+#: templates/blue/compare_table.html:54 templates/defro/compare_table.html:54
+msgid "Все параметры"
+msgstr ""
+
+#: templates/blue/compare_table.html:58 templates/defro/compare_table.html:58
+msgid "Только отличия"
+msgstr ""
+
+#: templates/blue/compare_table.html:118 templates/blue/detail.html:182
+#: templates/blue/detail.html:208 templates/defro/compare_table.html:118
+#: templates/defro/detail.html:182 templates/defro/detail.html:208
+msgid "В корзине"
+msgstr ""
+
+#: templates/blue/contacts.html:6 templates/blue/contacts.html:19
+#: templates/blue/contacts_main.html:7 templates/blue/contacts_main.html:22
+#: templates/defro/contacts.html:6 templates/defro/contacts.html:19
+#: templates/defro/contacts_main.html:7 templates/defro/contacts_main.html:22
+msgid "Контакты"
+msgstr ""
+
+#: templates/blue/contacts.html:23 templates/defro/contacts.html:23
+msgid "Наши контакты"
+msgstr ""
+
+#: templates/blue/contacts.html:40 templates/defro/contacts.html:40
+msgid "Адрес нашего офиса"
+msgstr ""
+
+#: templates/blue/contacts.html:45 templates/defro/contacts.html:45
+msgid "Наши телефоны"
+msgstr ""
+
+#: templates/blue/contacts.html:89 templates/defro/contacts.html:89
+msgid "Заказ через корзину 24/7/365:"
+msgstr ""
+
+#: templates/blue/contacts.html:91 templates/defro/contacts.html:91
+msgid "Ночные заказы обрабатываются с 9:00 до 11:00"
+msgstr ""
+
+#: templates/blue/contacts.html:95 templates/defro/contacts.html:95
+msgid "Форма обратной связи"
+msgstr ""
+
+#: templates/blue/contacts.html:106 templates/defro/contacts.html:106
+msgid "Ваш email"
+msgstr ""
+
+#: templates/blue/contacts.html:122 templates/defro/contacts.html:122
+msgid "Сообщение"
+msgstr ""
+
+#: templates/blue/contacts.html:131 templates/blue/detail.html:1714
+#: templates/defro/contacts.html:131 templates/defro/detail.html:1714
+msgid "поля обязательные для заполнения"
+msgstr ""
+
+#: templates/blue/contacts.html:132 templates/defro/contacts.html:132
+msgid "Отправить сообщение"
+msgstr ""
+
+#: templates/blue/contacts.html:137 templates/defro/contacts.html:137
+msgid ""
+"\n"
+"                                            Доставка в любой город Украины\n"
+"                                            перевозчиком \"Интайм\" или "
+"\"Новая почта\", оплата после\n"
+"                                            получения!\n"
+"                                        "
+msgstr ""
+
+#: templates/blue/contacts_main.html:27 templates/defro/contacts_main.html:27
+msgid "Выберите представительство компании наиболее подходящее для Вас:"
+msgstr ""
+
+#: templates/blue/contacts_main.html:70 templates/defro/contacts_main.html:70
+msgid "Доставка в любой населенный пункт Украины"
+msgstr ""
+
+#: templates/blue/detail.html:75 templates/defro/detail.html:75
+msgid "Артикул:"
+msgstr ""
+
+#: templates/blue/detail.html:86 templates/blue/detail.html:311
+#: templates/defro/detail.html:86 templates/defro/detail.html:311
+#, fuzzy
+#| msgid "Каталог товаров"
+msgid "Все о товаре"
+msgstr "Каталог товарів"
+
+#: templates/blue/detail.html:91 templates/defro/detail.html:91
+msgid "Характеристики"
+msgstr ""
+
+#: templates/blue/detail.html:97 templates/blue/detail.html:338
+#: templates/blue/detail.html:975 templates/defro/detail.html:97
+#: templates/defro/detail.html:338 templates/defro/detail.html:975
+msgid "Фото и видео"
+msgstr ""
+
+#: templates/blue/detail.html:111 templates/blue/detail.html:1525
+#: templates/defro/detail.html:111 templates/defro/detail.html:1525
+msgid "Доставка"
+msgstr ""
+
+#: templates/blue/detail.html:164 templates/blue/detail.html:797
+#: templates/blue/detail.html:909 templates/blue/detail.html:1027
+#: templates/blue/detail.html:1468 templates/defro/detail.html:164
+#: templates/defro/detail.html:797 templates/defro/detail.html:909
+#: templates/defro/detail.html:1027 templates/defro/detail.html:1468
+msgid "Есть в наличии"
+msgstr ""
+
+#: templates/blue/detail.html:179 templates/blue/detail.html:833
+#: templates/blue/detail.html:945 templates/blue/detail.html:1062
+#: templates/blue/detail.html:1505 templates/defro/detail.html:179
+#: templates/defro/detail.html:833 templates/defro/detail.html:945
+#: templates/defro/detail.html:1062 templates/defro/detail.html:1505
+msgid "В корзину"
+msgstr ""
+
+#: templates/blue/detail.html:186 templates/blue/detail.html:211
+#: templates/blue/detail.html:845 templates/blue/detail.html:958
+#: templates/blue/detail.html:1075 templates/blue/detail.html:1517
+#: templates/blue/detail.html:1726 templates/defro/detail.html:186
+#: templates/defro/detail.html:211 templates/defro/detail.html:845
+#: templates/defro/detail.html:958 templates/defro/detail.html:1075
+#: templates/defro/detail.html:1517 templates/defro/detail.html:1726
+msgid "Купить в кредит"
+msgstr ""
+
+#: templates/blue/detail.html:239 templates/blue/detail.html:243
+#: templates/blue/detail.html:825 templates/blue/detail.html:937
+#: templates/blue/detail.html:1055 templates/blue/detail.html:1497
+#: templates/blue/search/results.html:184
+#: templates/blue/search/results.html:211 templates/defro/detail.html:239
+#: templates/defro/detail.html:243 templates/defro/detail.html:825
+#: templates/defro/detail.html:937 templates/defro/detail.html:1055
+#: templates/defro/detail.html:1497 templates/defro/search/results.html:184
+#: templates/defro/search/results.html:211
+msgid "Сравнить"
+msgstr ""
+
+#: templates/blue/detail.html:249 templates/blue/detail.html:848
+#: templates/blue/detail.html:962 templates/blue/detail.html:1080
+#: templates/blue/detail.html:1520 templates/blue/detail.html:1651
+#: templates/defro/detail.html:249 templates/defro/detail.html:848
+#: templates/defro/detail.html:962 templates/defro/detail.html:1080
+#: templates/defro/detail.html:1520 templates/defro/detail.html:1651
+msgid "Задать вопрос"
+msgstr ""
+
+#: templates/blue/detail.html:268 templates/defro/detail.html:268
+msgid "Быстрая доставка"
+msgstr ""
+
+#: templates/blue/detail.html:271 templates/defro/detail.html:271
+msgid ""
+"\n"
+"                                        В любой уголок Украины: <br>\n"
+"                                        - Самовывоз из нашего магазина, "
+"<br>\n"
+"                                        - Самовывоз со службы доставки <br>\n"
+"                                        - Доставка по адресу\n"
+"                                    "
+msgstr ""
+
+#: templates/blue/detail.html:279 templates/defro/detail.html:279
+msgid "14 ДНЕЙ НА ОБМЕН"
+msgstr ""
+
+#: templates/blue/detail.html:282 templates/defro/detail.html:282
+msgid "Обмен/возврат товара в течении <br> 14 дней"
+msgstr ""
+
+#: templates/blue/detail.html:285 templates/defro/detail.html:285
+msgid "ОФИЦИАЛЬНАЯ ГАРАНТИЯ"
+msgstr ""
+
+#: templates/blue/detail.html:288 templates/defro/detail.html:288
+msgid "Гарантия от производителя"
+msgstr ""
+
+#: templates/blue/detail.html:290 templates/defro/detail.html:290
+msgid "Оплата"
+msgstr ""
+
+#: templates/blue/detail.html:292 templates/defro/detail.html:292
+msgid ""
+"\n"
+"                                        Наличными, безналичными, <br> "
+"кредит, Visa/MasterCard\n"
+"                                    "
+msgstr ""
+
+#: templates/blue/detail.html:368 templates/blue/detail.html:860
+#: templates/defro/detail.html:368 templates/defro/detail.html:860
+msgid "Основные характеристики"
+msgstr ""
+
+#: templates/blue/detail.html:398 templates/defro/detail.html:398
+msgid "Оставить отзыв"
+msgstr ""
+
+#: templates/blue/detail.html:411 templates/defro/detail.html:411
+msgid "У этого товара еще нет отзывов."
+msgstr ""
+
+#: templates/blue/detail.html:426 templates/blue/detail.html:1119
+#: templates/defro/detail.html:426 templates/defro/detail.html:1119
+msgid "Вы"
+msgstr ""
+
+#: templates/blue/detail.html:458 templates/blue/detail.html:1138
+#: templates/defro/detail.html:458 templates/defro/detail.html:1138
+msgid "Достоинства"
+msgstr ""
+
+#: templates/blue/detail.html:465 templates/blue/detail.html:1145
+#: templates/defro/detail.html:465 templates/defro/detail.html:1145
+msgid "Недостатки"
+msgstr ""
+
+#: templates/blue/detail.html:472 templates/defro/detail.html:472
+msgid "Читать далее"
+msgstr ""
+
+#: templates/blue/detail.html:475 templates/blue/detail.html:543
+#: templates/blue/detail.html:611 templates/blue/detail.html:1154
+#: templates/blue/detail.html:1224 templates/blue/detail.html:1294
+#: templates/defro/detail.html:475 templates/defro/detail.html:543
+#: templates/defro/detail.html:611 templates/defro/detail.html:1154
+#: templates/defro/detail.html:1224 templates/defro/detail.html:1294
+msgid "Отзыв полезен?"
+msgstr ""
+
+#: templates/blue/detail.html:487 templates/blue/detail.html:501
+#: templates/blue/detail.html:555 templates/blue/detail.html:569
+#: templates/blue/detail.html:623 templates/blue/detail.html:637
+#: templates/blue/detail.html:1166 templates/blue/detail.html:1180
+#: templates/blue/detail.html:1236 templates/blue/detail.html:1250
+#: templates/blue/detail.html:1306 templates/blue/detail.html:1320
+#: templates/defro/detail.html:487 templates/defro/detail.html:501
+#: templates/defro/detail.html:555 templates/defro/detail.html:569
+#: templates/defro/detail.html:623 templates/defro/detail.html:637
+#: templates/defro/detail.html:1166 templates/defro/detail.html:1180
+#: templates/defro/detail.html:1236 templates/defro/detail.html:1250
+#: templates/defro/detail.html:1306 templates/defro/detail.html:1320
 #: templates/shop/dashboard/catalogue/product_list.html:37
 #: templates/shop/dashboard/orders/order_list.html:109
 msgid "Submitting..."
 msgstr ""
 
-#: templates/blue/index.html:94 templates/defro/index.html:94
+#: templates/blue/detail.html:489 templates/blue/detail.html:510
+#: templates/blue/detail.html:557 templates/blue/detail.html:578
+#: templates/blue/detail.html:625 templates/blue/detail.html:646
+#: templates/blue/detail.html:1168 templates/blue/detail.html:1189
+#: templates/blue/detail.html:1238 templates/blue/detail.html:1259
+#: templates/blue/detail.html:1308 templates/blue/detail.html:1329
+#: templates/defro/detail.html:489 templates/defro/detail.html:510
+#: templates/defro/detail.html:557 templates/defro/detail.html:578
+#: templates/defro/detail.html:625 templates/defro/detail.html:646
+#: templates/defro/detail.html:1168 templates/defro/detail.html:1189
+#: templates/defro/detail.html:1238 templates/defro/detail.html:1259
+#: templates/defro/detail.html:1308 templates/defro/detail.html:1329
+msgid "Да"
+msgstr ""
+
+#: templates/blue/detail.html:503 templates/blue/detail.html:515
+#: templates/blue/detail.html:571 templates/blue/detail.html:583
+#: templates/blue/detail.html:639 templates/blue/detail.html:651
+#: templates/blue/detail.html:1182 templates/blue/detail.html:1194
+#: templates/blue/detail.html:1252 templates/blue/detail.html:1264
+#: templates/blue/detail.html:1322 templates/blue/detail.html:1334
+#: templates/blue/order_notification.html:369 templates/defro/detail.html:503
+#: templates/defro/detail.html:515 templates/defro/detail.html:571
+#: templates/defro/detail.html:583 templates/defro/detail.html:639
+#: templates/defro/detail.html:651 templates/defro/detail.html:1182
+#: templates/defro/detail.html:1194 templates/defro/detail.html:1252
+#: templates/defro/detail.html:1264 templates/defro/detail.html:1322
+#: templates/defro/detail.html:1334 templates/defro/order_notification.html:369
+msgid "Нет"
+msgstr ""
+
+#: templates/blue/detail.html:519 templates/blue/detail.html:587
+#: templates/blue/detail.html:655 templates/blue/detail.html:1198
+#: templates/blue/detail.html:1268 templates/blue/detail.html:1338
+#: templates/defro/detail.html:519 templates/defro/detail.html:587
+#: templates/defro/detail.html:655 templates/defro/detail.html:1198
+#: templates/defro/detail.html:1268 templates/defro/detail.html:1338
+msgid "Ответов:"
+msgstr ""
+
+#: templates/blue/detail.html:524 templates/blue/detail.html:592
+#: templates/blue/detail.html:661 templates/blue/detail.html:1203
+#: templates/blue/detail.html:1273 templates/blue/detail.html:1343
+#: templates/defro/detail.html:524 templates/defro/detail.html:592
+#: templates/defro/detail.html:661 templates/defro/detail.html:1203
+#: templates/defro/detail.html:1273 templates/defro/detail.html:1343
+msgid "Ответить"
+msgstr ""
+
+#: templates/blue/detail.html:676 templates/defro/detail.html:676
+msgid "Читать все отзывы"
+msgstr ""
+
+#: templates/blue/detail.html:683 templates/blue/detail.html:1357
+#: templates/defro/detail.html:683 templates/defro/detail.html:1357
+msgid "Добавьте свой отзыв"
+msgstr ""
+
+#: templates/blue/detail.html:694 templates/blue/detail.html:1367
+#: templates/blue/detail.html:1663 templates/blue/detail.html:1692
+#: templates/defro/detail.html:694 templates/defro/detail.html:1367
+#: templates/defro/detail.html:1663 templates/defro/detail.html:1692
+msgid "Ваш Email"
+msgstr ""
+
+#: templates/blue/detail.html:700 templates/blue/detail.html:1373
+#: templates/defro/detail.html:700 templates/defro/detail.html:1373
+msgid "Оцените этот товар:"
+msgstr ""
+
+#: templates/blue/detail.html:712 templates/blue/detail.html:1385
+#: templates/blue/detail.html:1699 templates/defro/detail.html:712
+#: templates/defro/detail.html:1385 templates/defro/detail.html:1699
+msgid "Получать уведомления об ответах"
+msgstr ""
+
+#: templates/blue/detail.html:720 templates/blue/detail.html:1395
+#: templates/blue/detail.html:1695 templates/defro/detail.html:720
+#: templates/defro/detail.html:1395 templates/defro/detail.html:1695
+msgid "Комментарий"
+msgstr ""
+
+#: templates/blue/detail.html:728 templates/blue/detail.html:1404
+#: templates/defro/detail.html:728 templates/defro/detail.html:1404
+msgid "Достоинства:"
+msgstr ""
+
+#: templates/blue/detail.html:735 templates/blue/detail.html:1411
+#: templates/defro/detail.html:735 templates/defro/detail.html:1411
+msgid "Недостатки:"
+msgstr ""
+
+#: templates/blue/detail.html:747 templates/blue/detail.html:1423
+#: templates/defro/detail.html:747 templates/defro/detail.html:1423
+msgid "Добавить отзыв"
+msgstr ""
+
+#: templates/blue/detail.html:751 templates/blue/detail.html:1427
+#: templates/defro/detail.html:751 templates/defro/detail.html:1427
+msgid "- поля обязательные для заполнения"
+msgstr ""
+
+#: templates/blue/detail.html:820 templates/blue/detail.html:932
+#: templates/blue/detail.html:1050 templates/blue/detail.html:1491
+#: templates/blue/search/results.html:178
+#: templates/blue/search/results.html:204 templates/defro/detail.html:820
+#: templates/defro/detail.html:932 templates/defro/detail.html:1050
+#: templates/defro/detail.html:1491 templates/defro/search/results.html:178
+#: templates/defro/search/results.html:204
+msgid "В сравнении"
+msgstr ""
+
+#: templates/blue/detail.html:943 templates/blue/detail.html:949
+#: templates/defro/detail.html:943 templates/defro/detail.html:949
+msgid "Добавляем"
+msgstr ""
+
+#: templates/blue/detail.html:1098 templates/defro/detail.html:1098
+msgid "Оставить отзыв о товаре"
+msgstr ""
+
+#: templates/blue/detail.html:1101 templates/defro/detail.html:1101
+msgid "Этот товар еще не имеет отзывов."
+msgstr ""
+
+#: templates/blue/detail.html:1526 templates/defro/detail.html:1526
+msgid "Доставка товаров по Киеву и пригородам:"
+msgstr ""
+
+#: templates/blue/detail.html:1529 templates/defro/detail.html:1529
+msgid ""
+"\n"
+"                                    — товар можно получить\n"
+"                                    самостоятельно по адресу: г. Киев, ул.\n"
+"                                    Ярославская, 57 после предварительного\n"
+"                                    согласования заказа с менеджером; <br>\n"
+"                                    — товары весом более 150 кг доставляются "
+"к\n"
+"                                    адресу получателя без заноса; <br>\n"
+"                                    — доставка заказов на сумму свыше 1500 "
+"гривен по\n"
+"                                    Киеву и соседним населенным пунктам\n"
+"                                    бесплатная, стоимость доставки до 1500 "
+"грн\n"
+"                                    составляет 35 гривен;</p>\n"
+"                                "
+msgstr ""
+
+#: templates/blue/detail.html:1543 templates/defro/detail.html:1543
+msgid ""
+"\n"
+"                                    (Список населенных\n"
+"                                    пунктов с бесплатной доставкой) <br>\n"
+"                                    — время и условия доставки Вы можете "
+"согласовать\n"
+"                                    с сотрудниками нашего магазина; <br>\n"
+"                                    — подъем габаритных грузов вручную "
+"оплачивается\n"
+"                                    отдельно. Стоимость подъёма: 20–100\n"
+"                                    грн./этаж в зависимости от размеров, "
+"веса товара\n"
+"                                    и сложности подъема; <br>\n"
+"                                    — стоимость доставки за пределы Киева от "
+"5 до 7\n"
+"                                    грн/км в зависимости от удаленности,\n"
+"                                    доставка малогабаритной техники - 50 "
+"грн; <br>\n"
+"                                    — при получении покупаемого Вами товара\n"
+"                                    убедитесь в его полной комплектности и\n"
+"                                    отсутствии механических повреждений; "
+"<br>\n"
+"                                    — прежде чем начать эксплуатацию, "
+"убедительно\n"
+"                                    рекомендуем Вам внимательно ознакомиться "
+"с\n"
+"                                    руководством по эксплуатации; <br>\n"
+"                                    — стоимость доставки малогабаритной "
+"бытовой\n"
+"                                    техники по Киевской области составляет "
+"50\n"
+"                                    грн.\n"
+"                                "
+msgstr ""
+
+#: templates/blue/detail.html:1652 templates/defro/detail.html:1652
+msgid "Спасибо за Ваш вопрос!"
+msgstr ""
+
+#: templates/blue/detail.html:1654 templates/defro/detail.html:1654
+msgid ""
+"\n"
+"                Наш менеджер обязательно свяжется с Вами\n"
+"            "
+msgstr ""
+
+#: templates/blue/detail.html:1667 templates/defro/detail.html:1667
+msgid "Ваш вопрос"
+msgstr ""
+
+#: templates/blue/detail.html:1675 templates/defro/detail.html:1675
+msgid "Спасибо за Ваш отзыв!"
+msgstr ""
+
+#: templates/blue/detail.html:1677 templates/defro/detail.html:1677
+msgid ""
+"\n"
+"                Он будет опубликован после проверки <br> администратором\n"
+"            "
+msgstr ""
+
+#: templates/blue/detail.html:1685 templates/defro/detail.html:1685
+msgid "Добавьте ответ"
+msgstr ""
+
+#: templates/blue/detail.html:1713 templates/defro/detail.html:1713
+msgid "Добавить ответ"
+msgstr ""
+
+#: templates/blue/detail.html:1729 templates/defro/detail.html:1729
+msgid "Банк"
+msgstr ""
+
+#: templates/blue/detail.html:1730 templates/defro/detail.html:1730
+msgid "Вид кредита"
+msgstr ""
+
+#: templates/blue/detail.html:1731 templates/defro/detail.html:1731
+msgid "Срок, мес."
+msgstr ""
+
+#: templates/blue/detail.html:1732 templates/defro/detail.html:1732
+msgid "Ежемес.платеж"
+msgstr ""
+
+#: templates/blue/detail.html:1737 templates/defro/detail.html:1737
+msgid "Приватбанк"
+msgstr ""
+
+#: templates/blue/detail.html:1738 templates/blue/detail.html:1772
+#: templates/defro/detail.html:1738 templates/defro/detail.html:1772
+msgid "Мгновенная рассрочка"
+msgstr ""
+
+#: templates/blue/detail.html:1741 templates/defro/detail.html:1741
+msgid "Комиссия"
+msgstr ""
+
+#: templates/blue/detail.html:1742 templates/defro/detail.html:1742
+#, python-format
+msgid "1-6 мес - 2,9%%"
+msgstr ""
+
+#: templates/blue/detail.html:1743 templates/defro/detail.html:1743
+msgid "Без страховки"
+msgstr ""
+
+#: templates/blue/detail.html:1748 templates/defro/detail.html:1748
+msgid "6 платежей на"
+msgstr ""
+
+#: templates/blue/detail.html:1759 templates/defro/detail.html:1759
+msgid "месяцев"
+msgstr ""
+
+#: templates/blue/email/oneclick_order.html:7
+#: templates/defro/email/oneclick_order.html:7
+msgid "Новый заказ в один клик!"
+msgstr ""
+
+#: templates/blue/email/oneclick_order.html:13
+#: templates/defro/email/oneclick_order.html:13
+#, python-format
+msgid ""
+"\n"
+"            Заказ в один клик- %(instance.id)s, на\n"
+"            товар %(instance.product.get_title)s,\n"
+"            артикул: %(instance.product.upc)s\n"
+"        "
+msgstr ""
+
+#: templates/blue/email/oneclick_order.html:19
+#: templates/defro/email/oneclick_order.html:19
+msgid "Номер клиента: {{ instance.phone }}"
+msgstr ""
+
+#: templates/blue/email/oneclick_order.html:22
+#: templates/defro/email/oneclick_order.html:22
+msgid "Заказ в один клик- {{ instance.id }}, на товары"
+msgstr ""
+
+#: templates/blue/email/oneclick_order.html:25
+#: templates/defro/email/oneclick_order.html:25
+msgid "артикул:"
+msgstr ""
+
+#: templates/blue/email/oneclick_order.html:25
+#: templates/defro/email/oneclick_order.html:25
+msgid "шт"
+msgstr ""
+
+#: templates/blue/email/oneclick_order.html:28
+#: templates/defro/email/oneclick_order.html:28
+msgid "Номер клиента:"
+msgstr ""
+
+#: templates/blue/index.html:37 templates/defro/index.html:37
+msgid "Узнать подробнее"
+msgstr ""
+
+#: templates/blue/index.html:49 templates/defro/index.html:49
+msgid "Наши"
+msgstr ""
+
+#: templates/blue/index.html:49 templates/defro/index.html:49
+msgid "продукты"
+msgstr ""
+
+#: templates/blue/index.html:72 templates/defro/index.html:72
+msgid "Сравнительный РАСЧЕТ"
+msgstr ""
+
+#: templates/blue/index.html:75 templates/defro/index.html:75
+msgid ""
+"\n"
+"\t\t\t\t\t\tСЕЗОННЫХ ЗАТРАТ НА ОТОПЛЕНИЕ газом, электричеством и твердым "
+"топливом\n"
+"\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:80 templates/defro/index.html:80
+msgid ""
+"\n"
+"\t\t\t\t\t\tВведите в калькулятор данные по площади, высоте потолка, "
+"утепленности вашего жилья и узнайте, <br> сколько ваших денег сбережет "
+"установка котла DEFRO\n"
+"\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:86 templates/defro/index.html:86
+msgid "Исходные данные"
+msgstr ""
+
+#: templates/blue/index.html:90 templates/defro/index.html:90
+msgid "Отапливаемая площадь"
+msgstr ""
+
+#: templates/blue/index.html:97 templates/defro/index.html:97
+msgid "Теплопотери здания"
+msgstr ""
+
+#: templates/blue/index.html:101 templates/defro/index.html:101
 msgid "Утепленный"
 msgstr ""
 
-#: templates/blue/index.html:95 templates/defro/index.html:95
+#: templates/blue/index.html:102 templates/defro/index.html:102
 msgid "Неутепленный"
 msgstr ""
 
-#: templates/blue/index.html:121 templates/defro/index.html:121
-msgid "Киевская"
+#: templates/blue/index.html:109 templates/defro/index.html:109
+msgid "Длительность отопительного сезона"
 msgstr ""
 
-#: templates/blue/index.html:122 templates/defro/index.html:122
-msgid "Черкасская"
+#: templates/blue/index.html:110 templates/defro/index.html:110
+msgid "для Украины 187"
 msgstr ""
 
-#: templates/blue/index.html:123 templates/defro/index.html:123
-msgid "Кирововградская"
+#: templates/blue/index.html:112 templates/defro/index.html:112
+msgid "суток"
+msgstr ""
+
+#: templates/blue/index.html:117 templates/defro/index.html:117
+msgid "Высота потолка"
 msgstr ""
 
 #: templates/blue/index.html:124 templates/defro/index.html:124
-msgid "Винницкая"
-msgstr ""
-
-#: templates/blue/index.html:125 templates/defro/index.html:125
-msgid "Хмельницкая"
-msgstr ""
-
-#: templates/blue/index.html:126 templates/defro/index.html:126
-msgid "Тернопольская"
-msgstr ""
-
-#: templates/blue/index.html:127 templates/defro/index.html:127
-msgid "Ровенская"
+msgid "Месторасположение дома"
 msgstr ""
 
 #: templates/blue/index.html:128 templates/defro/index.html:128
-msgid "Житомирская"
+msgid "Киевская"
 msgstr ""
 
 #: templates/blue/index.html:129 templates/defro/index.html:129
-msgid "Черниговская"
+msgid "Черкасская"
 msgstr ""
 
 #: templates/blue/index.html:130 templates/defro/index.html:130
-msgid "Полтавская"
+msgid "Кирововградская"
 msgstr ""
 
 #: templates/blue/index.html:131 templates/defro/index.html:131
-msgid "Сумская"
+msgid "Винницкая"
 msgstr ""
 
 #: templates/blue/index.html:132 templates/defro/index.html:132
-msgid "Харковская"
+msgid "Хмельницкая"
 msgstr ""
 
 #: templates/blue/index.html:133 templates/defro/index.html:133
-msgid "Луганская"
+msgid "Тернопольская"
 msgstr ""
 
 #: templates/blue/index.html:134 templates/defro/index.html:134
-msgid "Донецкая"
+msgid "Ровенская"
 msgstr ""
 
 #: templates/blue/index.html:135 templates/defro/index.html:135
-msgid "Волынская"
+msgid "Житомирская"
 msgstr ""
 
 #: templates/blue/index.html:136 templates/defro/index.html:136
-msgid "Львовская"
+msgid "Черниговская"
 msgstr ""
 
 #: templates/blue/index.html:137 templates/defro/index.html:137
-msgid "Запорожская"
+msgid "Полтавская"
 msgstr ""
 
 #: templates/blue/index.html:138 templates/defro/index.html:138
-msgid "Черновецкая"
+msgid "Сумская"
 msgstr ""
 
 #: templates/blue/index.html:139 templates/defro/index.html:139
-msgid "Ивано-Франковская"
+msgid "Харковская"
 msgstr ""
 
 #: templates/blue/index.html:140 templates/defro/index.html:140
-msgid "Днепропетровская"
+msgid "Луганская"
 msgstr ""
 
 #: templates/blue/index.html:141 templates/defro/index.html:141
-msgid "Закарпатская"
+msgid "Донецкая"
 msgstr ""
 
 #: templates/blue/index.html:142 templates/defro/index.html:142
-msgid "Николаевская"
+msgid "Волынская"
 msgstr ""
 
 #: templates/blue/index.html:143 templates/defro/index.html:143
-msgid "Херсонская"
+msgid "Львовская"
 msgstr ""
 
 #: templates/blue/index.html:144 templates/defro/index.html:144
-msgid "Одесская"
+msgid "Запорожская"
 msgstr ""
 
 #: templates/blue/index.html:145 templates/defro/index.html:145
-msgid "АРК(центральна i пiвнiчна частина)"
+msgid "Черновецкая"
 msgstr ""
 
 #: templates/blue/index.html:146 templates/defro/index.html:146
+msgid "Ивано-Франковская"
+msgstr ""
+
+#: templates/blue/index.html:147 templates/defro/index.html:147
+msgid "Днепропетровская"
+msgstr ""
+
+#: templates/blue/index.html:148 templates/defro/index.html:148
+msgid "Закарпатская"
+msgstr ""
+
+#: templates/blue/index.html:149 templates/defro/index.html:149
+msgid "Николаевская"
+msgstr ""
+
+#: templates/blue/index.html:150 templates/defro/index.html:150
+msgid "Херсонская"
+msgstr ""
+
+#: templates/blue/index.html:151 templates/defro/index.html:151
+msgid "Одесская"
+msgstr ""
+
+#: templates/blue/index.html:152 templates/defro/index.html:152
+msgid "АРК(центральна i пiвнiчна частина)"
+msgstr ""
+
+#: templates/blue/index.html:153 templates/defro/index.html:153
 msgid "АРК(пiвденне узбережжя)"
 msgstr ""
 
-#: templates/blue/index.html:158 templates/defro/index.html:158
+#: templates/blue/index.html:156 templates/defro/index.html:156
+msgid "область"
+msgstr ""
+
+#: templates/blue/index.html:161 templates/defro/index.html:161
+msgid "Система отопления дома"
+msgstr ""
+
+#: templates/blue/index.html:165 templates/defro/index.html:165
 msgid "Старая"
 msgstr ""
 
-#: templates/blue/index.html:159 templates/defro/index.html:159
+#: templates/blue/index.html:166 templates/defro/index.html:166
 msgid "Нового образца"
+msgstr ""
+
+#: templates/blue/index.html:173 templates/defro/index.html:173
+msgid "Итого на весь сезон необходимо:"
+msgstr ""
+
+#: templates/blue/index.html:173 templates/defro/index.html:173
+msgid "кВт/ч тепла"
+msgstr ""
+
+#: templates/blue/index.html:178 templates/defro/index.html:178
+msgid "Стоимость различных видов топлива"
+msgstr ""
+
+#: templates/blue/index.html:183 templates/defro/index.html:183
+msgid "Необходимый объём"
+msgstr ""
+
+#: templates/blue/index.html:184 templates/defro/index.html:184
+#: templates/shop/dashboard/site/fuelconfiguration_list.html:13
+msgid "Цена на топливо"
+msgstr ""
+
+#: templates/blue/index.html:185 templates/defro/index.html:185
+msgid "Затраты на отопление"
+msgstr ""
+
+#: templates/blue/index.html:195 templates/blue/index.html:235
+#: templates/defro/index.html:195 templates/defro/index.html:235
+msgid "скл.м"
+msgstr ""
+
+#: templates/blue/index.html:199 templates/defro/index.html:199
+msgid "грн/скл.м"
+msgstr ""
+
+#: templates/blue/index.html:299 templates/defro/index.html:299
+msgid "грн/кВт.ч"
+msgstr ""
+
+#: templates/blue/index.html:337 templates/defro/index.html:337
+msgid "Подобрать котел согласно введенным данным"
+msgstr ""
+
+#: templates/blue/index.html:348 templates/defro/index.html:348
+msgid "Преимущества котлов"
+msgstr ""
+
+#: templates/blue/index.html:348 templates/defro/index.html:348
+msgid "DEFRO:"
+msgstr ""
+
+#: templates/blue/index.html:365 templates/defro/index.html:365
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tФирменная гарантия 4 года на герметичность водяной рубашки и 2 "
+"года на исправную работу котла.\n"
+"\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:373 templates/defro/index.html:373
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tТеплообменник котла выполнен из сертифицированной котельной "
+"стали /тип. P265GH/ толщиной 6 мм. Сварка швов осуществлена на "
+"роботизированных станках.\n"
+"\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:381 templates/blue/index.html:389
+#: templates/defro/index.html:381 templates/defro/index.html:389
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tВысокая эффективность котла (КПД до 85%%) гарантирует "
+"эффективное сгорание топлива, высокую экономичность и экологичность "
+"горения.\n"
+"\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:397 templates/defro/index.html:397
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tКонтроллер управляет работой котла и системы отопления, "
+"нагревом горячей воды (подключение к 2 насосам и комнатному регулятору).\n"
+"\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:404 templates/defro/index.html:404
+msgid "Большая камера загрузки."
+msgstr ""
+
+#: templates/blue/index.html:409 templates/defro/index.html:409
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tДва режима работы - при разжигании и засыпании сверху "
+"(угольный штыб - время горения до 20 час.) или «традиционный» снизу (уголь, "
+"смесь угля и штыба, древесины, стружки);\n"
+"\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:417 templates/defro/index.html:417
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tМноготочковая система подачи воздуха в топку и система очистки "
+"воздуха.\n"
+"\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:431 templates/defro/index.html:431
+msgid "Нужна рассрочка? - это не проблема"
+msgstr ""
+
+#: templates/blue/index.html:447 templates/defro/index.html:447
+msgid "Оформить рассрочку"
+msgstr ""
+
+#: templates/blue/index.html:459 templates/defro/index.html:459
+msgid "отзывы"
+msgstr ""
+
+#: templates/blue/index.html:534 templates/defro/index.html:534
+msgid "ДОПОЛНИТЕЛЬНЫЕ"
+msgstr ""
+
+#: templates/blue/index.html:534 templates/defro/index.html:534
+msgid "УСЛУГИ"
+msgstr ""
+
+#: templates/blue/index.html:537 templates/defro/index.html:537
+msgid ""
+"\n"
+"\t\t\t\t\t\tКроме продажи оборудования мы можем предложить так же <br> его "
+"монтаж и запуск\n"
+"\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:542 templates/defro/index.html:542
+msgid "Заявка на сайте или звонок"
+msgstr ""
+
+#: templates/blue/index.html:543 templates/defro/index.html:543
+msgid "Выезд мастера"
+msgstr ""
+
+#: templates/blue/index.html:544 templates/defro/index.html:544
+msgid "Составление договора"
+msgstr ""
+
+#: templates/blue/index.html:545 templates/defro/index.html:545
+msgid "Монтаж котла"
+msgstr ""
+
+#: templates/blue/index.html:546 templates/defro/index.html:546
+msgid "Запуск системы отопления"
+msgstr ""
+
+#: templates/blue/index.html:557 templates/defro/index.html:557
+msgid "схема"
+msgstr ""
+
+#: templates/blue/index.html:557 templates/defro/index.html:557
+msgid "доставки"
+msgstr ""
+
+#: templates/blue/index.html:557 templates/defro/index.html:557
+msgid "оплаты:"
+msgstr ""
+
+#: templates/blue/index.html:559 templates/defro/index.html:559
+msgid ""
+"\n"
+"\t\t\t\t\tДоставка товара осуществляется по всей территории Украины\n"
+"\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:566 templates/defro/index.html:566
+msgid "Доставка товара может быть осуществлена следующим образом:"
+msgstr ""
+
+#: templates/blue/index.html:581 templates/defro/index.html:581
+msgid "СПОСОБЫ ДОСТАВКИ"
+msgstr ""
+
+#: templates/blue/index.html:583 templates/defro/index.html:583
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\tДоставка товара осуществляется по всей территории Украины и "
+"может быть произведена с помощью следующих транспортных компаний: "
+"<span>Новая <span>Почта</span>, <span>Интайм</span>, <span>Деливери</span>, "
+"Мист Экспресс</span>. По согласованию с покупателем возможна доставка нашим "
+"транспортом или \"попутным грузом\". Также есть возможность самовывоза "
+"товара.\n"
+"\t\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:589 templates/defro/index.html:589
+msgid "ОПЛАТА"
+msgstr ""
+
+#: templates/blue/index.html:591 templates/defro/index.html:591
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\tВсе расходы, связанные с доставкой товара и оплатой "
+"наложенного платежа, оплачиваются непосредственно покупателем.\n"
+"\t\t\t\t\t\t\t\tТовары с акционной отметкой «Бесплатная доставка» "
+"отправляются бесплатно в любую точку Украины. Сроки действия акции уточняйте "
+"у менеджеров.\n"
+"\t\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:598 templates/defro/index.html:598
+msgid "СРОКИ"
+msgstr ""
+
+#: templates/blue/index.html:600 templates/defro/index.html:600
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\tС момента подтверждения заказа сроки его доставки в среднем "
+"составляют от 24 до 72 часов.\n"
+"\t\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:606 templates/defro/index.html:606
+msgid "СТОИМОСТЬ"
+msgstr ""
+
+#: templates/blue/index.html:608 templates/defro/index.html:608
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\tРасчет стоимости доставки осуществляется при оформлении "
+"заказа и в среднем составляет 4,5%%-7%% от общей стоимости товара. Ее "
+"величина зависит от типа продукции и адреса доставки.\n"
+"\t\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:618 templates/defro/index.html:618
+msgid "Оплата товара может быть произведена следующими способами:"
+msgstr ""
+
+#: templates/blue/index.html:633 templates/defro/index.html:633
+msgid "БЕЗНАЛИЧНЫЙ РАСЧЕТ"
+msgstr ""
+
+#: templates/blue/index.html:635 templates/defro/index.html:635
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tПосле оформления заказа на Ваш электронный адрес будет выслан "
+"счет-фактура. Совершить оплату по нему Вы можете в отделении любого банка на "
+"территории Украины или с помощью интернет-банкинга <span>Приват 24</span>, "
+"<span>UniCredit Online</span> и т.д. Дополнительная комиссия здесь "
+"отсутствует.\n"
+"\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:641 templates/defro/index.html:641
+msgid "НАЛИЧНЫЙ РАСЧЕТ"
+msgstr ""
+
+#: templates/blue/index.html:642 templates/defro/index.html:642
+msgid ""
+"Наличный расчет позволяет без дополнительных комиссий произвести оплату:"
+msgstr ""
+
+#: templates/blue/index.html:643 templates/defro/index.html:643
+msgid "в кассе при покупке товара непосредственно в магазине;"
+msgstr ""
+
+#: templates/blue/index.html:644 templates/defro/index.html:644
+msgid "курьеру в момент доставки товара по адресу;"
+msgstr ""
+
+#: templates/blue/index.html:645 templates/defro/index.html:645
+msgid "при самовывозе со склада."
+msgstr ""
+
+#: templates/blue/index.html:650 templates/defro/index.html:650
+msgid "VISA / MASTERCARD"
+msgstr ""
+
+#: templates/blue/index.html:652 templates/defro/index.html:652
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tОплата товара при помощи карты <span>Visa</span> или "
+"<span>Mastеrcard</span> позволяет совершать покупки в режиме реального "
+"времени. Выбирая данный метод оплаты, стоит учесть, что комиссия за перевод "
+"средств составляет 2%% от стоимости заказа. Если на карте стоит ограничение "
+"на перевод средств, то общую сумму нужно разделить так, чтобы каждый платеж "
+"не превышал 2000 грн.\n"
+"\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:658 templates/defro/index.html:658
+msgid "НАЛОЖЕННЫЙ ПЛАТЕЖ"
+msgstr ""
+
+#: templates/blue/index.html:660 templates/defro/index.html:660
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\t\t\tСовершить оплату за товар Вы можете в национальной валюте в "
+"пункте выдачи транспортной компании. В таком случае к сумме оплаты будет "
+"добавлена комиссия в размере 3%% от общей стоимости заказа.\n"
+"\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/blue/index.html:671 templates/defro/index.html:671
+msgid "Как с нами связаться"
+msgstr ""
+
+#: templates/blue/index.html:761 templates/defro/index.html:761
+msgid "Вс:"
+msgstr ""
+
+#: templates/blue/order_notification.html:332
+#: templates/defro/order_notification.html:332
+msgid "Здравствуйте"
+msgstr ""
+
+#: templates/blue/order_notification.html:334
+#: templates/defro/order_notification.html:334
+msgid ""
+"Наш менеджер обязательно свяжется с Вами для уточнения всех деталей и "
+"подтверждения заказа."
+msgstr ""
+
+#: templates/blue/order_notification.html:336
+#: templates/defro/order_notification.html:336
+msgid "Детали заказа №"
+msgstr ""
+
+#: templates/blue/order_notification.html:394
+#: templates/blue/order_notification.txt:56
+#: templates/defro/order_notification.html:394
+#: templates/defro/order_notification.txt:56
+msgid "Мы в сети. Присоединяйтесь!"
+msgstr ""
+
+#: templates/blue/order_notification.html:402
+#: templates/blue/order_notification.txt:64
+#: templates/defro/order_notification.html:402
+#: templates/defro/order_notification.txt:64
+msgid "Это письмо создано автоматически, пожалуйста, не отвечайте на него."
+msgstr ""
+
+#: templates/blue/order_notification.txt:3
+#: templates/defro/order_notification.txt:3
+msgid "Здравствуйте,"
+msgstr ""
+
+#: templates/blue/order_notification.txt:11
+#: templates/defro/order_notification.txt:11
+msgid "етали заказа №"
+msgstr ""
+
+#: templates/blue/order_notification.txt:42
+#: templates/defro/order_notification.txt:42
+msgid "Комментарий к заказу: Нет"
+msgstr ""
+
+#: templates/blue/order_notification.txt:46
+#: templates/defro/order_notification.txt:46
+msgid "Наши контакты:"
+msgstr ""
+
+#: templates/blue/order_notification.txt:48
+#: templates/defro/order_notification.txt:48
+msgid "г."
+msgstr ""
+
+#: templates/blue/partials/filters.html:13
+#: templates/defro/partials/filters.html:13
+msgid "от"
+msgstr ""
+
+#: templates/blue/partials/filters.html:15
+#: templates/defro/partials/filters.html:15
+msgid "до"
 msgstr ""
 
 #: templates/blue/partials/search.html:7
@@ -1688,6 +3612,19 @@ msgstr ""
 #: templates/shop/dashboard/orders/order_list.html:51
 #: templates/shop/dashboard/orders/order_list.html:73
 msgid "Search"
+msgstr ""
+
+#: templates/blue/recently_viewed_products.html:14
+#: templates/defro/recently_viewed_products.html:14
+msgid "Недавно просмотренные"
+msgstr ""
+
+#: templates/blue/search/results.html:28 templates/defro/search/results.html:28
+msgid "Поиск"
+msgstr ""
+
+#: templates/blue/search/results.html:35 templates/defro/search/results.html:35
+msgid "Все результаты"
 msgstr ""
 
 #: templates/blue/search/results.html:70 templates/defro/search/results.html:70
@@ -1748,6 +3685,16 @@ msgid ""
 "q=%(suggestion)s\">\"%(suggestion)s\"</a>\n"
 "                                                    ?\n"
 "                                                "
+msgstr ""
+
+#: templates/blue/search/results.html:235
+#: templates/defro/search/results.html:235
+msgid "По запросу"
+msgstr ""
+
+#: templates/blue/search/results.html:236
+#: templates/defro/search/results.html:236
+msgid "ничего не найдено, попробуйте изменить запрос"
 msgstr ""
 
 #: templates/dashboard/layout.html:50
@@ -1867,7 +3814,7 @@ msgstr "Панель"
 #: templates/dashboard/reviews/productquestion_list.html:5
 #: templates/dashboard/reviews/productquestion_list.html:13
 #: templates/dashboard/reviews/productquestion_list.html:19
-#: teploformat/settings.py:347
+#: teploformat/settings.py:354
 msgid "Вопросы о товаре"
 msgstr ""
 
@@ -2326,7 +4273,7 @@ msgstr ""
 #: templates/dashboard/reviews/reviewanswer_list.html:16
 #: templates/dashboard/reviews/reviewanswer_list.html:22
 #: templates/dashboard/reviews/reviewanswer_update.html:17
-#: teploformat/settings.py:355
+#: teploformat/settings.py:362
 msgid "Ответы на отзывы"
 msgstr ""
 
@@ -2361,7 +4308,7 @@ msgstr ""
 msgid "Build"
 msgstr ""
 
-#: templates/oscar/base.html:75
+#: templates/oscar/base.html:76
 msgid "Version:"
 msgstr ""
 
@@ -2370,7 +4317,7 @@ msgstr ""
 #: templates/shop/dashboard/catalogue/attributeoptiongroup_list.html:5
 #: templates/shop/dashboard/catalogue/attributeoptiongroup_list.html:13
 #: templates/shop/dashboard/catalogue/attributeoptiongroup_list.html:20
-#: teploformat/settings.py:319
+#: teploformat/settings.py:326
 msgid "Группы опций атрибутов"
 msgstr ""
 
@@ -2401,28 +4348,12 @@ msgstr ""
 msgid "Все группы опций атрибутов"
 msgstr ""
 
-#: templates/shop/dashboard/catalogue/attributeoptiongroup_list.html:40
-#: templates/shop/dashboard/site/flatpage_list.html:40
-#: templates/shop/dashboard/site/footermenu_list.html:40
-#: templates/shop/dashboard/site/headermenu_list.html:40
-#: templates/shop/dashboard/site/menucategory_list.html:40
-#: templates/shop/dashboard/site/sidemenu_list.html:40
-#: templates/shop/dashboard/site/site_list.html:39
-msgid "Название"
-msgstr ""
-
 #: templates/shop/dashboard/catalogue/attributeoptiongroup_list.html:41
 msgid "Список опций"
 msgstr ""
 
 #: templates/shop/dashboard/catalogue/attributeoptiongroup_list.html:66
 msgid "Еще не было создано ни одной группы опций атрибутов."
-msgstr ""
-
-#: templates/shop/dashboard/catalogue/category_form.html:9
-#: templates/shop/dashboard/catalogue/category_form.html:18
-#: templates/shop/dashboard/catalogue/product_update.html:89
-msgid "Categories"
 msgstr ""
 
 #: templates/shop/dashboard/catalogue/category_form.html:34
@@ -2463,10 +4394,6 @@ msgstr ""
 #: templates/shop/dashboard/orders/order_detail.html:556
 #: templates/shop/dashboard/orders/order_detail.html:606
 msgid "Type"
-msgstr ""
-
-#: templates/shop/dashboard/catalogue/product_class_form.html:100
-msgid "Порядок"
 msgstr ""
 
 #: templates/shop/dashboard/catalogue/product_class_form.html:101
@@ -2531,12 +4458,6 @@ msgstr ""
 #: templates/shop/dashboard/catalogue/product_update.html:85
 #: templates/shop/dashboard/catalogue/product_update.html:142
 msgid "Product details"
-msgstr ""
-
-#: templates/shop/dashboard/catalogue/product_update.html:94
-#: templates/shop/dashboard/catalogue/product_update.html:185
-#: templates/shop/dashboard/catalogue/product_update.html:300
-msgid "Attributes"
 msgstr ""
 
 #: templates/shop/dashboard/catalogue/product_update.html:99
@@ -2648,7 +4569,7 @@ msgstr ""
 #: templates/shop/dashboard/orders/callrequest_list.html:5
 #: templates/shop/dashboard/orders/callrequest_list.html:13
 #: templates/shop/dashboard/orders/callrequest_list.html:19
-#: teploformat/settings.py:339
+#: teploformat/settings.py:346
 msgid "Call Requests"
 msgstr "Заявки на звонок"
 
@@ -2834,10 +4755,6 @@ msgstr ""
 
 #: templates/shop/dashboard/orders/order_detail.html:107
 msgid "Line ID"
-msgstr ""
-
-#: templates/shop/dashboard/orders/order_detail.html:110
-msgid "UPC"
 msgstr ""
 
 #: templates/shop/dashboard/orders/order_detail.html:112
@@ -3128,10 +5045,6 @@ msgstr ""
 msgid "Advanced Search"
 msgstr ""
 
-#: templates/shop/dashboard/orders/order_list.html:72
-msgid "Close"
-msgstr ""
-
 #: templates/shop/dashboard/orders/order_list.html:101
 #: templates/shop/dashboard/orders/order_list.html:185
 msgid "Order Search Results"
@@ -3208,7 +5121,7 @@ msgstr ""
 #: templates/shop/dashboard/site/fuelconfiguration_detail.html:15
 #: templates/shop/dashboard/site/fuelconfiguration_list.html:5
 #: templates/shop/dashboard/site/fuelconfiguration_list.html:20
-#: teploformat/settings.py:405
+#: teploformat/settings.py:412
 msgid "Цены на топливо"
 msgstr ""
 
@@ -3293,7 +5206,7 @@ msgstr "Города не найдены."
 #: templates/shop/dashboard/site/contactmessage_list.html:5
 #: templates/shop/dashboard/site/contactmessage_list.html:13
 #: templates/shop/dashboard/site/contactmessage_list.html:19
-#: teploformat/settings.py:343
+#: teploformat/settings.py:350
 msgid "Contact Messages"
 msgstr "Контактные сообщения"
 
@@ -3378,7 +5291,7 @@ msgstr ""
 #: templates/shop/dashboard/site/filterdescription_list.html:5
 #: templates/shop/dashboard/site/filterdescription_list.html:13
 #: templates/shop/dashboard/site/filterdescription_list.html:20
-#: teploformat/settings.py:315
+#: teploformat/settings.py:322
 msgid "Описания фильтров"
 msgstr ""
 
@@ -3416,15 +5329,6 @@ msgstr ""
 
 #: templates/shop/dashboard/site/filterdescription_list.html:63
 msgid "Еще не было создано ни одного описания фильтров."
-msgstr ""
-
-#: templates/shop/dashboard/site/flatpage_delete.html:10
-#: templates/shop/dashboard/site/flatpage_detail.html:15
-#: templates/shop/dashboard/site/flatpage_list.html:5
-#: templates/shop/dashboard/site/flatpage_list.html:13
-#: templates/shop/dashboard/site/flatpage_list.html:20
-#: teploformat/settings.py:281
-msgid "Статические страницы"
 msgstr ""
 
 #: templates/shop/dashboard/site/flatpage_delete.html:12
@@ -3493,10 +5397,6 @@ msgstr ""
 msgid "Все пункты нижнего меню"
 msgstr ""
 
-#: templates/shop/dashboard/site/footermenu_list.html:41
-msgid "Категория"
-msgstr ""
-
 #: templates/shop/dashboard/site/footermenu_list.html:75
 msgid "Еще не было создано ни одного пункта нижнего меню."
 msgstr ""
@@ -3518,10 +5418,6 @@ msgstr ""
 #: templates/shop/dashboard/site/fuelconfiguration_detail.html:22
 #, python-format
 msgid "Цена для %(fuel_type)s"
-msgstr ""
-
-#: templates/shop/dashboard/site/fuelconfiguration_list.html:13
-msgid "Цена на топливо"
 msgstr ""
 
 #: templates/shop/dashboard/site/fuelconfiguration_list.html:19
@@ -3580,7 +5476,7 @@ msgstr ""
 #: templates/shop/dashboard/site/installment_list.html:5
 #: templates/shop/dashboard/site/installment_list.html:13
 #: templates/shop/dashboard/site/installment_list.html:20
-#: teploformat/settings.py:331
+#: teploformat/settings.py:338
 msgid "Заявки на рассрочку"
 msgstr ""
 
@@ -3612,15 +5508,6 @@ msgstr ""
 
 #: templates/shop/dashboard/site/landingconfig_edit.html:14
 msgid "Landing Config"
-msgstr ""
-
-#: templates/shop/dashboard/site/menucategory_delete.html:10
-#: templates/shop/dashboard/site/menucategory_detail.html:15
-#: templates/shop/dashboard/site/menucategory_list.html:5
-#: templates/shop/dashboard/site/menucategory_list.html:13
-#: templates/shop/dashboard/site/menucategory_list.html:20
-#: teploformat/settings.py:285
-msgid "Категории меню"
 msgstr ""
 
 #: templates/shop/dashboard/site/menucategory_delete.html:12
@@ -3680,10 +5567,6 @@ msgstr "Добавить новый meta тег"
 #: templates/shop/dashboard/site/metatag_list.html:62
 msgid "All Meta Tags"
 msgstr "Все meta теги"
-
-#: templates/shop/dashboard/site/metatag_list.html:40
-msgid "Тип страницы"
-msgstr ""
 
 #: templates/shop/dashboard/site/metatag_list.html:64
 msgid "No meta tags found."
@@ -3979,6 +5862,7 @@ msgstr ""
 #: templates/shop/dashboard/site/user_list.html:5
 #: templates/shop/dashboard/site/user_list.html:13
 #: templates/shop/dashboard/site/user_list.html:20 teploformat/settings.py:301
+#: users/models.py:12
 msgid "Пользователи"
 msgstr ""
 
@@ -4028,10 +5912,6 @@ msgstr ""
 msgid "Настройки"
 msgstr ""
 
-#: teploformat/settings.py:253
-msgid "Редактировать сайт"
-msgstr ""
-
 #: teploformat/settings.py:257
 msgid "Контакты главные"
 msgstr ""
@@ -4060,52 +5940,40 @@ msgstr ""
 msgid "Нижнее меню"
 msgstr ""
 
-#: teploformat/settings.py:297
-msgid "Боковое меню"
-msgstr ""
-
 #: teploformat/settings.py:305
 msgid "Удаление сайтов"
 msgstr ""
 
-#: teploformat/settings.py:327
+#: teploformat/settings.py:309
+msgid "Перевод"
+msgstr ""
+
+#: teploformat/settings.py:334
 msgid "Заказы в один клик"
 msgstr ""
 
-#: teploformat/settings.py:365
+#: teploformat/settings.py:372
 msgid "Import/export"
 msgstr ""
 
-#: teploformat/settings.py:373
+#: teploformat/settings.py:380
 msgid "Export"
 msgstr ""
 
-#: teploformat/settings.py:381
+#: teploformat/settings.py:388
 msgid "Настройки лэндинга"
 msgstr ""
 
-#: teploformat/settings.py:385
-msgid "Текст 1"
-msgstr ""
-
-#: teploformat/settings.py:389
-msgid "Текст 2"
-msgstr ""
-
-#: teploformat/settings.py:393
-msgid "Текст 3"
-msgstr ""
-
-#: teploformat/settings.py:397
-msgid "Текст 4"
-msgstr ""
-
-#: teploformat/settings.py:401
+#: teploformat/settings.py:408
 msgid "Лэндинг"
 msgstr ""
 
-#: teploformat/settings.py:421
+#: teploformat/settings.py:428
 msgid "Блок Доставка и оплата"
+msgstr ""
+
+#: users/models.py:11
+msgid "Пользователь"
 msgstr ""
 
 #~ msgid "Add a new flat page"

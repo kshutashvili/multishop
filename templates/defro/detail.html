@@ -72,36 +72,44 @@
             </ul>
 
             <div class="main_content">
-                <p class="acticle_tov">Артикул: <span>{{ product.upc }}</span>
+                <p class="acticle_tov">{% trans "Артикул:" %} <span>{{ product.upc }}</span>
                 </p>
                 <p class="category_block_caption often_caption">
                     <span>{{ product.product_class.name }}</span> {{ product.title }}
                 </p>
                 <ul class="nav nav-tabs tovar_tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#tovar"
-                                                              aria-controls="tovar"
-                                                              role="tab"
-                                                              data-toggle="tab">Все
-                        о товаре</a></li>
-                    <li role="presentation"><a href="#desc" aria-controls="desc"
-                                               role="tab"
-                                               data-toggle="tab">Характеристики</a>
+                    <li role="presentation" class="active">
+                        <a href="#tovar"
+                            aria-controls="tovar"
+                            role="tab"
+                            data-toggle="tab">
+                            {% trans "Все о товаре" %}
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#desc" aria-controls="desc" role="tab" data-toggle="tab">
+                            {% trans "Характеристики" %}
+                        </a>
                     </li>
                     {% if product.extra_images.exists or product.videos.exists %}
-                        <li role="presentation"><a href="#photo"
-                                                   aria-controls="photo"
-                                                   role="tab"
-                                                   data-toggle="tab">Фото и
-                            видео</a></li>
+                        <li role="presentation">
+                            <a href="#photo" aria-controls="photo" role="tab" data-toggle="tab">
+                                {% trans "Фото и видео" %}
+                            </a>
+                        </li>
                     {% endif %}
-                    <li role="presentation"><a href="#review"
-                                               aria-controls="review" role="tab"
-                                               data-toggle="tab">Отзывы
-                        <span class="otzivi_after">{{ product.num_approved_reviews }}</span></a>
+                    <li role="presentation">
+                        <a href="#review" aria-controls="review" role="tab" data-toggle="tab">
+                            {% trans "Отзывы" %}
+                            <span class="otzivi_after">
+                                {{ product.num_approved_reviews }}
+                            </span>
+                        </a>
                     </li>
-                    <li role="presentation"><a href="#delivery"
-                                               aria-controls="delivery"
-                                               role="tab" data-toggle="tab">Доставка</a>
+                    <li role="presentation">
+                        <a href="#delivery" aria-controls="delivery" role="tab" data-toggle="tab">
+                            {% trans "Доставка" %}
+                        </a>
                     </li>
                 </ul>
 
@@ -148,12 +156,12 @@
                                 </select>
                                 <p class="rating_number"><span>{% if product.rating %}
                                     {{ product.rating|floatformat }}{% else %}
-                                    0{% endif %}</span>/5 ( голосов
+                                    0{% endif %}</span>/5 ( {% trans "голосов" %}
                                     <span>{{ product.num_approved_reviews }}</span>)
                                 </p>
                                 {% purchase_info_for_product request product as session %}
                                 {% if session.availability.is_available_to_buy %}
-                                    <p class="nalichie ">Есть в наличии</p>
+                                    <p class="nalichie ">{% trans "Есть в наличии" %}</p>
                                     <p class="line_through">
                                     {% if session.price.previous %}
                                         {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span></p>
@@ -164,19 +172,19 @@
                                         {% else %}
                                             {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
-                                    <a href="#"
-                                            id="submit_btn"
-                                            class="basket_button show_popup"
-                                            data-loading-text="Добавляем"
-                                            data-rel="buy_button_modal"
-                                            data-product-id="{{ product.id }}">В
-                                        корзину
+                                    <a href="#" id="submit_btn" class="basket_button show_popup"
+                                        data-loading-text="Добавляем"
+                                        data-rel="buy_button_modal"
+                                        data-product-id="{{ product.id }}">
+                                        {% trans "В корзину" %}
                                     </a>
-                                    <a href="#" class="basket_button_in dpn">В
-                                        корзине</a>
+                                    <a href="#" class="basket_button_in dpn">
+                                        {% trans "В корзине" %}
+                                    </a>
                                     <a href="#" class="buy_credit show_popup"
-                                       data-rel="credit_button_modal">Купить в
-                                        кредит</a>
+                                       data-rel="credit_button_modal">
+                                        {% trans "Купить в кредит" %}
+                                    </a>
 
                                     <form id="buy_one_click" method="POST"
                                           action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
@@ -188,22 +196,20 @@
                                                 id="one_click_btn"
                                                 rel="request_button_modal_third"
                                                 data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
-                                            Заказать в
-                                            один
-                                            клик
+                                            {% trans "Заказать в один клик" %}
                                         </button>
                                     </form>
                                 {% else %}
                                     <br>
-                                    <button
-                                            class="basket_button_sold">
-                                        Нет в наличии
+                                    <button class="basket_button_sold">
+                                        {% trans "Нет в наличии" %}
                                     </button>
-                                    <a href="#" class="basket_button_in dpn">В
-                                        корзине</a>
+                                    <a href="#" class="basket_button_in dpn">
+                                        {% trans "В корзине" %}</a>
                                     <a href="#" class="buy_credit show_popup"
-                                       data-rel="credit_button_modal">Купить в
-                                        кредит</a>
+                                       data-rel="credit_button_modal">
+                                        {% trans "Купить в кредит" %}
+                                    </a>
 
                                     <form id="buy_one_click" method="POST"
                                           action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
@@ -215,16 +221,11 @@
                                                 id="one_click_btn"
                                                 rel="request_button_modal_third"
                                                 data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
-                                            Заказать в
-                                            один
-                                            клик
+                                            {% trans "Заказать в один клик" %}
                                         </button>
                                     </form>
-                                    <p class="nalichie dpn naliche_net">Нет в
-                                        наличии</p>
-                                    <a href="#" class="basket_button_none dpn">Нет
-                                        в
-                                        наличии</a>
+                                    <p class="nalichie dpn naliche_net">{% trans "Нет в наличии" %}</p>
+                                    <a href="#" class="basket_button_none dpn">{% trans "Нет в наличии" %}</a>
                                     <p class="catalog_item_price naliche_net dpn">
                                         {% if session.price.is_tax_known %}
                                             {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
@@ -235,17 +236,18 @@
                                 {% endif %}
                                 {% if request.session.compare_list and product.id in request.session.compare_list %}
                                     <a href="#"
-                                       class="elipse_button">Сравнить</a>
+                                       class="elipse_button">{% trans "Сравнить" %}</a>
                                 {% else %}
                                     <a href="#" class="elipse_button" id="comp"
                                        data-compare-url="{% url 'compare' %}"
-                                       data-product-id="{{ product.id }}">Сравнить</a>
+                                       data-product-id="{{ product.id }}">{% trans "Сравнить" %}</a>
                                 {% endif %}
 
                                 <a href="#"
                                    class="elipse_button_question show_popup"
-                                   data-rel="ask_button_modal">Задать
-                                    вопрос</a>
+                                   data-rel="ask_button_modal">
+                                   {% trans "Задать вопрос" %}
+                                </a>
 
                                 <div class="social_block">
                                     <a href="#" id="share_fb"></a>
@@ -262,28 +264,34 @@
                             </div>
 
                             <div class="fast_delivery_block">
-                                <p class="fast_delivery_caption">Быстрая
-                                    доставка</p>
-                                <p class="fast_delivery_text">
-                                    В любой уголок Украины: <br>
-                                    - Самовывоз из нашего магазина, <br>
-                                    - Самовывоз со службы доставки <br>
-                                    - Доставка по адресу
+                                <p class="fast_delivery_caption">
+                                    {% trans "Быстрая доставка" %}
                                 </p>
-                                <p class="fast_delivery_caption">14 ДНЕЙ НА
-                                    ОБМЕН</p>
                                 <p class="fast_delivery_text">
-                                    Обмен/возврат товара в течении <br> 14 дней
+                                    {% blocktrans %}
+                                        В любой уголок Украины: <br>
+                                        - Самовывоз из нашего магазина, <br>
+                                        - Самовывоз со службы доставки <br>
+                                        - Доставка по адресу
+                                    {% endblocktrans %}
                                 </p>
-                                <p class="fast_delivery_caption">ОФИЦИАЛЬНАЯ
-                                    ГАРАНТИЯ</p>
-                                <p class="fast_delivery_text">
-                                    Гарантия от производителя
+                                <p class="fast_delivery_caption">
+                                    {% trans "14 ДНЕЙ НА ОБМЕН" %}
                                 </p>
-                                <p class="fast_delivery_caption">Оплата</p>
                                 <p class="fast_delivery_text">
-                                    Наличными, безналичными, <br> кредит,
-                                    Visa/MasterCard
+                                    {% trans "Обмен/возврат товара в течении <br> 14 дней" %}
+                                </p>
+                                <p class="fast_delivery_caption">
+                                    {% trans "ОФИЦИАЛЬНАЯ ГАРАНТИЯ" %}
+                                </p>
+                                <p class="fast_delivery_text">
+                                    {% trans "Гарантия от производителя" %}
+                                </p>
+                                <p class="fast_delivery_caption">{% trans "Оплата" %}</p>
+                                <p class="fast_delivery_text">
+                                    {% blocktrans %}
+                                        Наличными, безналичными, <br> кредит, Visa/MasterCard
+                                    {% endblocktrans %}
                                 </p>
                             </div>
 
@@ -300,7 +308,7 @@
                                            href="#collapseFilter1"
                                            aria-expanded="false"
                                            aria-controls="collapseFilter1">
-                                            Все о товаре
+                                            {% trans "Все о товаре" %}
                                         </a>
                                         <div class="collapse in"
                                              id="collapseFilter1">
@@ -314,7 +322,7 @@
                                                         {{ product.description|safe }}
                                                     </div>
                                                     <a class="read-next"
-                                                       href="#">Подробнее</a>
+                                                       href="#">{% trans "Подробнее" %}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -327,7 +335,7 @@
                                                href="#collapseFilter3"
                                                aria-expanded="false"
                                                aria-controls="collapseFilter3">
-                                                Фото и видео
+                                                {% trans "Фото и видео" %}
                                             </a>
                                             <div class="collapse in"
                                                  id="collapseFilter3">
@@ -357,7 +365,7 @@
                                            href="#collapseFilter2"
                                            aria-expanded="false"
                                            aria-controls="collapseFilter2">
-                                            Основные характеристики
+                                            {% trans "Основные характеристики" %}
                                         </a>
                                         <div class="collapse in"
                                              id="collapseFilter2">
@@ -382,12 +390,13 @@
                                            href="#collapseFilter5"
                                            aria-expanded="false"
                                            aria-controls="collapseFilter5">
-                                            Отзывы <span
+                                            {% trans "Отзывы" %} <span
                                                 class="otzivi_after">{{ product.num_approved_reviews }}</span>
                                         </a>
                                         <a href="#add_review"
-                                           class="comment_button_uniq">Оставить
-                                            отзыв</a>
+                                           class="comment_button_uniq">
+                                            {% trans "Оставить отзыв" %}
+                                        </a>
                                         <div class="collapse in"
                                              id="collapseFilter5">
                                             <div class="well">
@@ -398,10 +407,9 @@
 
                                                         {% block product_review %}
                                                                 {% if product.num_approved_reviews == 0 %}
-                                                                    <p>У этого
-                                                                        твара
-                                                                        еще нет
-                                                                        отзывов.</p>
+                                                                    <p>
+                                                                        {% trans "У этого товара еще нет отзывов." %}
+                                                                    </p>
                                                                 {% else %}
                                                                     <ol class="list-unstyled review-list">
                                                                         {% for review in product.reviews.approved.all|slice:":2" %}
@@ -415,7 +423,7 @@
                                                                                 </select>
                                                                                 <span class="user_name">
                                                                                     {% if review.user == user %}
-                                                                                        Вы
+                                                                                        {% trans "Вы" %}
                                                                                     {% else %}
                                                                                         {% if review.user %}
                                                                                             {{ review.user.username }}
@@ -447,25 +455,24 @@
                                                                                             {% if review.advantage %}
                                                                                                 <p class="positive_comment">
                                                                                                     <span>+</span>
-                                                                                                    Достоинства;
+                                                                                                    {% trans "Достоинства" %};
                                                                                                 </p>
                                                                                                 <p>{{ review.advantage|striptags }}.</p>
                                                                                             {% endif %}
                                                                                             {% if review.disadvantage %}
                                                                                                 <p class="negative_comment">
                                                                                                     <span>-</span>
-                                                                                                    Недостатки;
+                                                                                                    {% trans "Недостатки" %};
                                                                                                 </p>
                                                                                                 <p>{{ review.disadvantage|striptags }}.</p>
                                                                                             {% endif %}
                                                                                         </div>
                                                                                     </div>
                                                                                     <a class="read-next-comment"
-                                                                                       onclick="show_full(this, {{ review.id }});">Читать
-                                                                                        далее</a>
+                                                                                       onclick="show_full(this, {{ review.id }});">{% trans "Читать далее" %}</a>
                                                                                 </div>
                                                                                 <div class="user_comment_bottom">
-                                                                                    <span class="otziv_polezen">Отзыв полезен?</span>
+                                                                                    <span class="otziv_polezen">{% trans "Отзыв полезен?" %}</span>
                                                                                     {% if review|may_vote:user %}
                                                                                         <form style="display: inline-table"
                                                                                               action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
@@ -479,7 +486,7 @@
                                                                                                     class="otziv_polezen_da"
                                                                                                     data-loading-text="{% trans 'Submitting...' %}"
                                                                                                     style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                                Да<span>{{ review.num_up_votes }}</span>
+                                                                                                {% trans "Да" %}<span>{{ review.num_up_votes }}</span>
                                                                                             </button>
                                                                                         </form>
                                                                                         <form style="display: inline-table"
@@ -493,28 +500,28 @@
                                                                                                     class="otziv_polezen_net"
                                                                                                     data-loading-text="{% trans 'Submitting...' %}"
                                                                                                     style="border: none; background-color: transparent;">
-                                                                                                Нет<span>{{ review.num_down_votes }}</span>
+                                                                                                {% trans "Нет" %}<span>{{ review.num_down_votes }}</span>
                                                                                             </button>
                                                                                         </form>
                                                                                     {% else %}
                                                                                         <button type="button"
                                                                                                 class="otziv_polezen_da"
                                                                                                 style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                            Да<span>{{ review.num_up_votes }}</span>
+                                                                                            {% trans "Да" %}<span>{{ review.num_up_votes }}</span>
                                                                                         </button>
                                                                                         <button type="submit"
                                                                                                 class="otziv_polezen_net"
                                                                                                 style="border: none; background-color: transparent;">
-                                                                                            Нет<span>{{ review.num_down_votes }}</span>
+                                                                                            {% trans "Нет" %}<span>{{ review.num_down_votes }}</span>
                                                                                         </button>
                                                                                     {% endif %}
                                                                                     <p class="otvetilo">
-                                                                                        Ответов:
+                                                                                        {% trans "Ответов:" %}
                                                                                         <span>{{ review.answers.all|length }}</span>
                                                                                     </p>
                                                                                     <a href="#"
                                                                                        class="otvetit show_popup"
-                                                                                       data-rel="answer_button_modal">Ответить</a>
+                                                                                       data-rel="answer_button_modal">{% trans "Ответить" %}</a>
                                                                                 </div>
                                                                             </li>
                                                                             {% if review.answers %}
@@ -533,7 +540,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="user_comment_bottom">
-                                                                                            <span class="otziv_polezen">Отзыв полезен?</span>
+                                                                                            <span class="otziv_polezen">{% trans "Отзыв полезен?" %}</span>
                                                                                             {% if answer|may_vote_answer:user %}
                                                                                                 <form style="display: inline-table"
                                                                                                       action="{% url 'vote_answer' product_slug=product.slug product_pk=product.pk pk=answer.pk %}"
@@ -547,7 +554,7 @@
                                                                                                             class="otziv_polezen_da"
                                                                                                             data-loading-text="{% trans 'Submitting...' %}"
                                                                                                             style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                                        Да<span>{{ answer.num_up_votes }}</span>
+                                                                                                        {% trans "Да" %}<span>{{ answer.num_up_votes }}</span>
                                                                                                     </button>
                                                                                                 </form>
                                                                                                 <form style="display: inline-table"
@@ -561,28 +568,28 @@
                                                                                                             class="otziv_polezen_net"
                                                                                                             data-loading-text="{% trans 'Submitting...' %}"
                                                                                                             style="border: none; background-color: transparent;">
-                                                                                                        Нет<span>{{ answer.num_down_votes }}</span>
+                                                                                                        {% trans "Нет" %}<span>{{ answer.num_down_votes }}</span>
                                                                                                     </button>
                                                                                                 </form>
                                                                                             {% else %}
                                                                                                 <button type="submit"
                                                                                                         class="otziv_polezen_da"
                                                                                                         style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                                    Да<span>{{ answer.num_up_votes }}</span>
+                                                                                                    {% trans "Да" %}<span>{{ answer.num_up_votes }}</span>
                                                                                                 </button>
                                                                                                 <button type="submit"
                                                                                                         class="otziv_polezen_net"
                                                                                                         style="border: none; background-color: transparent;">
-                                                                                                    Нет<span>{{ answer.num_down_votes }}</span>
+                                                                                                    {% trans "Нет" %}<span>{{ answer.num_down_votes }}</span>
                                                                                                 </button>
                                                                                             {% endif %}
                                                                                             <p class="otvetilo">
-                                                                                                Ответов:
+                                                                                                {% trans "Ответов:" %}
                                                                                                 <span>{{ answer.answer_to_answer.all|length }}</span>
                                                                                             </p>
                                                                                             <a href="#"
                                                                                                class="otvetit show_popup"
-                                                                                               data-rel="answer_button_modal">Ответить</a>
+                                                                                               data-rel="answer_button_modal">{% trans "Ответить" %}</a>
                                                                                         </div>
                                                                                     </li>
                                                                                     {% if answer.answer_to_answer %}
@@ -601,7 +608,7 @@
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div class="user_comment_bottom">
-                                                                                                    <span class="otziv_polezen">Отзыв полезен?</span>
+                                                                                                    <span class="otziv_polezen">{% trans "Отзыв полезен?" %}</span>
                                                                                                     {% if replied_answer|may_vote_answer:user %}
                                                                                                         <form style="display: inline-table"
                                                                                                               action="{% url 'vote_answer' product_slug=product.slug product_pk=product.pk pk=replied_answer.pk %}"
@@ -615,7 +622,7 @@
                                                                                                                     class="otziv_polezen_da"
                                                                                                                     data-loading-text="{% trans 'Submitting...' %}"
                                                                                                                     style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                                                Да<span>{{ replied_answer.num_up_votes }}</span>
+                                                                                                                {% trans "Да" %}<span>{{ replied_answer.num_up_votes }}</span>
                                                                                                             </button>
                                                                                                         </form>
                                                                                                         <form style="display: inline-table"
@@ -629,28 +636,30 @@
                                                                                                                     class="otziv_polezen_net"
                                                                                                                     data-loading-text="{% trans 'Submitting...' %}"
                                                                                                                     style="border: none; background-color: transparent;">
-                                                                                                                Нет<span>{{ replied_answer.num_down_votes }}</span>
+                                                                                                                {% trans "Нет" %}<span>{{ replied_answer.num_down_votes }}</span>
                                                                                                             </button>
                                                                                                         </form>
                                                                                                     {% else %}
                                                                                                         <button type="submit"
                                                                                                                 class="otziv_polezen_da"
                                                                                                                 style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                                            Да<span>{{ replied_answer.num_up_votes }}</span>
+                                                                                                            {% trans "Да" %}<span>{{ replied_answer.num_up_votes }}</span>
                                                                                                         </button>
                                                                                                         <button type="submit"
                                                                                                                 class="otziv_polezen_net"
                                                                                                                 style="border: none; background-color: transparent;">
-                                                                                                            Нет<span>{{ replied_answer.num_down_votes }}</span>
+                                                                                                            {% trans "Нет" %}<span>{{ replied_answer.num_down_votes }}</span>
                                                                                                         </button>
                                                                                                     {% endif %}
                                                                                                     <p class="otvetilo">
-                                                                                                        Ответов:
+                                                                                                        {% trans "Ответов:" %}
                                                                                                         <span>{{ replied_answer.answer_to_answer.all|length }}</span>
                                                                                                     </p>
                                                                                                     <a href="#"
                                                                                                        class="otvetit show_popup"
-                                                                                                       data-rel="answer_button_modal">Ответить</a>
+                                                                                                       data-rel="answer_button_modal">
+                                                                                                       {% trans "Ответить" %}
+                                                                                                    </a>
                                                                                                 </div>
                                                                                             </div>
                                                                                         {% endfor %}
@@ -664,35 +673,32 @@
                                                     </div>
                                                     {% if product.num_approved_reviews > 0 %}
                                                         <a class="read-next-fullcomment"
-                                                           href="#">Читать все
-                                                            отзывы</a>
+                                                           href="#">{% trans "Читать все отзывы" %}</a>
                                                     {% endif %}
                                                 </div>
 
                                                 <div class="add_own_comment">
                                                     <p class="add_own_comment_caption"
                                                        id="add_review">
-                                                        Добавьте свой отзыв</p>
+                                                        {% trans "Добавьте свой отзыв" %}</p>
                                                     <form action="{% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.pk %}"
                                                           method="POST"
                                                           id="review_form">{% csrf_token %}
                                                         <div class="add_own_comment_input">
-                                                            <label>Ваше
-                                                                имя <span
-                                                                        class="red_star">*</span>:</label>
-                                                            <input type="text"
-                                                                   name="name">
-                                                            <label>Ваш
-                                                                Email <span
-                                                                        class="red_star">*</span>:</label>
-                                                            <input type="text"
-                                                                   name="email">
+                                                            <label>
+                                                                {% trans "Ваше имя" %}
+                                                                <span class="red_star">*</span>:
+                                                            </label>
+                                                            <input type="text" name="name">
+
+                                                            <label>{% trans "Ваш Email" %}
+                                                                <span class="red_star">*</span>:
+                                                            </label>
+                                                            <input type="text" name="email">
                                                         </div>
                                                         <div class="add_own_comment_rate">
-                                                            <p>Оцените этот
-                                                                товар:</p>
-                                                            <select name="score"
-                                                                    class="rating_photo">
+                                                            <p>{% trans "Оцените этот товар:" %}</p>
+                                                            <select name="score" class="rating_photo">
                                                                 {% for i in "012345" %}
                                                                     <option value={{ forloop.counter0 }} {% if score == forloop.counter0 %}selected="selected"{% endif %}>{{ forloop.counter0 }}</option>
                                                                 {% endfor %}
@@ -703,33 +709,30 @@
                                                                        type="checkbox"
                                                                        name="get_notification">
                                                                 <label for="id_get_notification2">-
-                                                                    Получать
-                                                                    уведомления
-                                                                    об
-                                                                    ответах</label>
+                                                                    {% trans "Получать уведомления об ответах" %}
+                                                                </label>
                                                             </div>
                                                         </div>
 
                                                         <div class="add_own_comment_text">
-                                                            <input type='hidden'
-                                                                   name="site"
-                                                                   value="{{ product.site.id }}"/>
-                                                            <label>Комментарий
-                                                                <span
-                                                                        class="red_star">*</span>:</label>
+                                                            <input type='hidden' name="site" value="{{ product.site.id }}"/>
+                                                            <label>
+                                                                {% trans "Комментарий" %}
+                                                                <span class="red_star">*</span>:
+                                                            </label>
                                                             <textarea
                                                                     name="body"
                                                                     cols="30"
                                                                     rows="10"
                                                                     form="review_form">{{ body }}</textarea>
-                                                            <label>Достоинства:</label>
+                                                            <label>{% trans "Достоинства:" %}</label>
                                                             <textarea
                                                                     name="advantage"
                                                                     cols="30"
                                                                     rows="10"
                                                                     form="review_form">{{ advantage }}</textarea>
 
-                                                            <label>Недостатки:</label>
+                                                            <label>{% trans "Недостатки:" %}</label>
                                                             <textarea
                                                                     name="disadvantage"
                                                                     cols="30"
@@ -741,13 +744,11 @@
                                                                     class="add_own_new_comment"
                                                                     rel="request_button_modal_second"
                                                                     style="display: inline-block; color: #fff; padding: 10px 50px; text-decoration: none; margin-top: 20px; border: none;">
-                                                                Добавить отзыв
+                                                                {% trans "Добавить отзыв" %}
                                                             </button>
                                                             <p class="add_own_comment_pole"><span
                                                                     class="red_star">*</span>
-                                                                - поля
-                                                                обязательные для
-                                                                заполнения</p>
+                                                                {% trans "- поля обязательные для заполнения" %}</p>
                                                         </div>
                                                     </form>
 
@@ -787,13 +788,13 @@
                                 </select>
                                 <p class="rating_number"><span>{% if product.rating %}
                                     {{ product.rating|floatformat }}{% else %}
-                                    0{% endif %}</span>/5 ( голосов
+                                    0{% endif %}</span>/5 ( {% trans "голосов" %}
                                     <span>{{ product.num_approved_reviews }}</span>)
                                 </p>
                                 <hr>
                                 {% purchase_info_for_product request product as session %}
                                 {% if session.availability.is_available_to_buy %}
-                                    <p class="nalichie ">Есть в наличии</p>
+                                    <p class="nalichie ">{% trans "Есть в наличии" %}</p>
                                     <p class="line_through">
                                     {% if session.price.previous %}
                                         {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span></p>
@@ -805,8 +806,7 @@
                                             {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
                                 {% else %}
-                                    <p class="nalichie dpn naliche_net">Нет в
-                                        наличии</p>
+                                    <p class="nalichie dpn naliche_net">{% trans "Нет в наличии" %}</p>
                                     <p class="catalog_item_price naliche_net dpn">
                                         {% if session.price.is_tax_known %}
                                             {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
@@ -817,13 +817,12 @@
                                 {% endif %}
                                 {% if request.session.compare_list and product.id in request.session.compare_list %}
                                     <a href="#!"
-                                       class="compare_button compare_button_added">В
-                                        сравнении</a>
+                                       class="compare_button compare_button_added">{% trans "В сравнении" %}</a>
                                 {% else %}
                                     <a href="#!"
                                        data-compare-url="{% url 'compare' %}"
                                        class="compare_button"
-                                       data-product-id="{{ product.id }}">Сравнить</a>
+                                       data-product-id="{{ product.id }}">{% trans "Сравнить" %}</a>
 
 
                                 {% endif %}
@@ -831,24 +830,22 @@
                                 <a class="buy_button show_popup"
                                    data-loading-text="Добавляем"
                                    data-rel="buy_button_modal" href="#!"
-                                   data-product-id="{{ product.id }}">В корзину
+                                   data-product-id="{{ product.id }}">{% trans "В корзину" %}
                                 </a>
                                 {% else %}
                                 <a class="buy_button but_button_sold"
                                    data-loading-text="Добавляем"
                                     href="#!"
-                                   data-product-id="{{ product.id }}">Нет в наличии
+                                   data-product-id="{{ product.id }}">{% trans "Нет в наличии" %}
                                 </a>
                                 {% endif %}
 
                                 <a href="#"
                                    class="elipse_button elipse_button_kred show_popup"
-                                   data-rel="credit_button_modal">Купить
-                                    в кредит</a>
+                                   data-rel="credit_button_modal">{% trans "Купить в кредит" %}</a>
                                 <a href="#"
                                    class="elipse_button_question show_popup"
-                                   data-rel="ask_button_modal">Задать
-                                    вопрос</a>
+                                   data-rel="ask_button_modal">{% trans "Задать вопрос" %}</a>
                             </div>
 
 
@@ -860,7 +857,7 @@
                                    href="#collapseFilter6"
                                    aria-expanded="false"
                                    aria-controls="collapseFilter6">
-                                    Основные характеристики
+                                    {% trans "Основные характеристики" %}
                                 </a>
                                 <div class="collapse in" id="collapseFilter6">
                                     <div class="well">
@@ -903,13 +900,13 @@
                                 </select>
                                 <p class="rating_number"><span>{% if product.rating %}
                                     {{ product.rating|floatformat }}{% else %}
-                                    0{% endif %}</span>/5 ( голосов
+                                    0{% endif %}</span>/5 ( {% trans "голосов" %}
                                     <span>{{ product.num_approved_reviews }}</span>)
                                 </p>
                                 <hr>
                                 {% purchase_info_for_product request product as session %}
                                 {% if session.availability.is_available_to_buy %}
-                                    <p class="nalichie ">Есть в наличии</p>
+                                    <p class="nalichie ">{% trans "Есть в наличии" %}</p>
                                     <p class="line_through">
                                     {% if session.price.previous %}
                                         {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span></p>
@@ -921,8 +918,7 @@
                                             {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
                                 {% else %}
-                                    <p class="nalichie dpn naliche_net">Нет в
-                                        наличии</p>
+                                    <p class="nalichie dpn naliche_net">{% trans "Нет в наличии" %}</p>
                                     <p class="catalog_item_price naliche_net dpn">
                                         {% if session.price.is_tax_known %}
                                             {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
@@ -933,38 +929,38 @@
                                 {% endif %}
                                 {% if request.session.compare_list and product.id in request.session.compare_list %}
                                     <a href="#!"
-                                       class="compare_button compare_button_added">В
-                                        сравнении</a>
+                                       class="compare_button compare_button_added">{% trans "В сравнении" %}</a>
                                 {% else %}
                                     <a href="#!"
                                        data-compare-url="{% url 'compare' %}"
                                        class="compare_button"
-                                       data-product-id="{{ product.id }}">Сравнить</a>
+                                       data-product-id="{{ product.id }}">{% trans "Сравнить" %}</a>
 
 
                                 {% endif %}
                                 {% if session.availability.is_available_to_buy %}
                                 <a class="buy_button show_popup"
-                                   data-loading-text="Добавляем"
+                                   data-loading-text="{% trans "Добавляем" %}"
                                    data-rel="buy_button_modal" href="#!"
-                                   data-product-id="{{ product.id }}">В корзину
+                                   data-product-id="{{ product.id }}">{% trans "В корзину" %}
                                 </a>
                                 {% else %}
                                 <a class="buy_button but_button_sold"
-                                   data-loading-text="Добавляем"
+                                   data-loading-text="{% trans "Добавляем" %}"
                                     href="#!"
-                                   data-product-id="{{ product.id }}">Нет в наличии
+                                   data-product-id="{{ product.id }}">{% trans "Нет в наличии" %}
                                 </a>
                                 {% endif %}
 
                                 <a href="#"
                                    class="elipse_button elipse_button_kred show_popup"
-                                   data-rel="credit_button_modal">Купить
-                                    в кредит</a>
+                                   data-rel="credit_button_modal">
+                                   {% trans "Купить в кредит" %}</a>
                                 <a href="#"
                                    class="elipse_button_question show_popup"
-                                   data-rel="ask_button_modal">Задать
-                                    вопрос</a>
+                                   data-rel="ask_button_modal">
+                                    {% trans "Задать вопрос" %}
+                                </a>
                             </div>
 
 
@@ -976,7 +972,7 @@
                                    href="#collapseFilter7"
                                    aria-expanded="false"
                                    aria-controls="collapseFilter7">
-                                    Фото и видео
+                                    {% trans "Фото и видео" %}
                                 </a>
                                 <div class="collapse in" id="collapseFilter7">
                                     <div class="well">
@@ -1022,13 +1018,13 @@
                                 </select>
                                 <p class="rating_number"><span>{% if product.rating %}
                                     {{ product.rating|floatformat }}{% else %}
-                                    0{% endif %}</span>/5 ( голосов
+                                    0{% endif %}</span>/5 ( {% trans "голосов" %}
                                     <span>{{ product.num_approved_reviews }}</span>)
                                 </p>
                                 <hr>
                                 {% purchase_info_for_product request product as session %}
                                 {% if session.availability.is_available_to_buy %}
-                                    <p class="nalichie ">Есть в наличии</p>
+                                    <p class="nalichie ">{% trans "Есть в наличии" %}</p>
                                     <p class="line_through">
                                     {% if session.price.previous %}
                                         {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span></p>
@@ -1040,8 +1036,7 @@
                                             {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
                                 {% else %}
-                                    <p class="nalichie dpn naliche_net">Нет в
-                                        наличии</p>
+                                    <p class="nalichie dpn naliche_net">{% trans "Нет в наличии" %}</p>
                                     <p class="catalog_item_price naliche_net dpn">
                                         {% if session.price.is_tax_known %}
                                             {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
@@ -1052,38 +1047,38 @@
                                 {% endif %}
                                 {% if request.session.compare_list and product.id in request.session.compare_list %}
                                     <a href="#!"
-                                       class="compare_button compare_button_added">В
-                                        сравнении</a>
+                                       class="compare_button compare_button_added">{% trans "В сравнении" %}</a>
                                 {% else %}
                                     <a href="#!"
                                        data-compare-url="{% url 'compare' %}"
                                        class="compare_button"
-                                       data-product-id="{{ product.id }}">Сравнить</a>
-
-
+                                       data-product-id="{{ product.id }}">{% trans "Сравнить" %}</a>
                                 {% endif %}
+
                                 {% if session.availability.is_available_to_buy %}
                                 <a class="buy_button show_popup"
                                    data-loading-text="Добавляем"
                                    data-rel="buy_button_modal" href="#!"
-                                   data-product-id="{{ product.id }}">В корзину
+                                   data-product-id="{{ product.id }}">{% trans "В корзину" %}
                                 </a>
                                 {% else %}
                                 <a class="buy_button but_button_sold"
                                    data-loading-text="Добавляем"
                                     href="#!"
-                                   data-product-id="{{ product.id }}">Нет в наличии
+                                   data-product-id="{{ product.id }}">{% trans "Нет в наличии" %}
                                 </a>
                                 {% endif %}
 
                                 <a href="#"
                                    class="elipse_button elipse_button_kred show_popup"
-                                   data-rel="credit_button_modal">Купить
-                                    в кредит</a>
+                                   data-rel="credit_button_modal">
+                                    {% trans "Купить в кредит" %}
+                                </a>
                                 <a href="#"
                                    class="elipse_button_question show_popup"
-                                   data-rel="ask_button_modal">Задать
-                                    вопрос</a>
+                                   data-rel="ask_button_modal">
+                                   {% trans "Задать вопрос" %}
+                                </a>
                             </div>
 
 
@@ -1096,14 +1091,14 @@
                                    style="border: 1px solid #e0e0e0; background-color: #f8f8f8; padding: 7px 25px; font-size: 24px;"
                                    href="#collapseFilter4" aria-expanded="false"
                                    aria-controls="collapseFilter4">
-                                    Отзывы <span
-                                        class="otzivi_after">{{ product.num_approved_reviews }}</span>
+                                    {% trans "Отзывы" %}
+                                    <span class="otzivi_after">{{ product.num_approved_reviews }}</span>
                                 </a>
-                                <a href="#add_review2" class="comment_button_uniq">Оставить
-                                    отзыв о товаре</a>
+
+                                <a href="#add_review2" class="comment_button_uniq">{% trans "Оставить отзыв о товаре" %}</a>
                                 <div class="collapse in" id="collapseFilter4">
                                     {% if product.num_approved_reviews == 0 %}
-                                        <p>Этот товар еще не имеет отзывов.</p>
+                                        <p>{% trans "Этот товар еще не имеет отзывов." %}</p>
                                     {% else %}
                                         <ol class="list-unstyled review-list"
                                             style="margin-bottom: 0px">
@@ -1121,7 +1116,7 @@
                                                     </select>
                                                     <span class="user_name">
                                                         {% if review.user == user %}
-                                                            Вы
+                                                            {% trans "Вы" %}
                                                         {% else %}
                                                             {% if review.user %}
                                                                 {{ review.user.username }}
@@ -1140,14 +1135,14 @@
                                                             {% if review.advantage %}
                                                                 <p class="positive_comment">
                                                                     <span>+</span>
-                                                                    Достоинства;
+                                                                    {% trans "Достоинства" %};
                                                                 </p>
                                                                 <p>{{ review.advantage|striptags }}.</p>
                                                             {% endif %}
                                                             {% if review.disadvantage %}
                                                                 <p class="negative_comment">
                                                                     <span>-</span>
-                                                                    Недостатки;
+                                                                    {% trans "Недостатки" %};
                                                                 </p>
                                                                 <p>{{ review.disadvantage|striptags }}.</p>
                                                             {% endif %}
@@ -1156,7 +1151,7 @@
                                                         {# href="#">Читать далее</a>#}
                                                     </div>
                                                     <div class="user_comment_bottom">
-                                                        <span class="otziv_polezen">Отзыв полезен?</span>
+                                                        <span class="otziv_polezen">{% trans "Отзыв полезен?" %}</span>
                                                             {% if review|may_vote:user %}
                                                                 <form style="display: inline-table"
                                                                       action="{% url 'vote_review' product_slug=product.slug product_pk=product.pk pk=review.pk %}"
@@ -1170,7 +1165,7 @@
                                                                             class="otziv_polezen_da"
                                                                             data-loading-text="{% trans 'Submitting...' %}"
                                                                             style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                        Да<span>{{ review.num_up_votes }}</span>
+                                                                        {% trans "Да" %}<span>{{ review.num_up_votes }}</span>
                                                                     </button>
                                                                 </form>
                                                                 <form style="display: inline-table"
@@ -1184,28 +1179,28 @@
                                                                             class="otziv_polezen_net"
                                                                             data-loading-text="{% trans 'Submitting...' %}"
                                                                             style="border: none; background-color: transparent;">
-                                                                        Нет<span>{{ review.num_down_votes }}</span>
+                                                                        {% trans "Нет" %}<span>{{ review.num_down_votes }}</span>
                                                                     </button>
                                                                 </form>
                                                             {% else %}
                                                                 <button type="button"
                                                                         class="otziv_polezen_da"
                                                                         style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                    Да<span>{{ review.num_up_votes }}</span>
+                                                                    {% trans "Да" %}<span>{{ review.num_up_votes }}</span>
                                                                 </button>
                                                                 <button type="submit"
                                                                         class="otziv_polezen_net"
                                                                         style="border: none; background-color: transparent;">
-                                                                    Нет<span>{{ review.num_down_votes }}</span>
+                                                                    {% trans "Нет" %}<span>{{ review.num_down_votes }}</span>
                                                                 </button>
                                                             {% endif %}
                                                             <p class="otvetilo">
-                                                                Ответов:
+                                                                {% trans "Ответов:" %}
                                                                 <span>{{ review.answers.all|length }}</span>
                                                             </p>
                                                             <a href="#"
                                                                class="otvetit show_popup"
-                                                               data-rel="answer_button_modal">Ответить</a>
+                                                               data-rel="answer_button_modal">{% trans "Ответить" %}</a>
                                                     </div>
                                                 </li>
                                                 {% if review.answers %}
@@ -1226,7 +1221,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="user_comment_bottom">
-                                                                <span class="otziv_polezen">Отзыв полезен?</span>
+                                                                <span class="otziv_polezen">{% trans "Отзыв полезен?" %}</span>
                                                                 {% if answer|may_vote_answer:user %}
                                                                     <form style="display: inline-table"
                                                                           action="{% url 'vote_answer' product_slug=product.slug product_pk=product.pk pk=answer.pk %}"
@@ -1240,7 +1235,7 @@
                                                                                 class="otziv_polezen_da"
                                                                                 data-loading-text="{% trans 'Submitting...' %}"
                                                                                 style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                            Да<span>{{ answer.num_up_votes }}</span>
+                                                                            {% trans "Да" %}<span>{{ answer.num_up_votes }}</span>
                                                                         </button>
                                                                     </form>
                                                                     <form style="display: inline-table"
@@ -1254,28 +1249,28 @@
                                                                                 class="otziv_polezen_net"
                                                                                 data-loading-text="{% trans 'Submitting...' %}"
                                                                                 style="border: none; background-color: transparent;">
-                                                                            Нет<span>{{ answer.num_down_votes }}</span>
+                                                                            {% trans "Нет" %}<span>{{ answer.num_down_votes }}</span>
                                                                         </button>
                                                                     </form>
                                                                 {% else %}
                                                                     <button type="submit"
                                                                             class="otziv_polezen_da"
                                                                             style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                        Да<span>{{ answer.num_up_votes }}</span>
+                                                                        {% trans "Да" %}<span>{{ answer.num_up_votes }}</span>
                                                                     </button>
                                                                     <button type="submit"
                                                                             class="otziv_polezen_net"
                                                                             style="border: none; background-color: transparent;">
-                                                                        Нет<span>{{ answer.num_down_votes }}</span>
+                                                                        {% trans "Нет" %}<span>{{ answer.num_down_votes }}</span>
                                                                     </button>
                                                                 {% endif %}
                                                                 <p class="otvetilo">
-                                                                    Ответов:
+                                                                    {% trans "Ответов:" %}
                                                                     <span>{{ answer.answer_to_answer.all|length }}</span>
                                                                 </p>
                                                                 <a href="#"
                                                                    class="otvetit show_popup"
-                                                                   data-rel="answer_button_modal">Ответить</a>
+                                                                   data-rel="answer_button_modal">{% trans "Ответить" %}</a>
                                                             </div>
                                                         </li>
                                                         {% if answer.answer_to_answer %}
@@ -1296,7 +1291,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="user_comment_bottom">
-                                                                        <span class="otziv_polezen">Отзыв полезен?</span>
+                                                                        <span class="otziv_polezen">{% trans "Отзыв полезен?" %}</span>
                                                                         {% if replied_answer|may_vote_answer:user %}
                                                                             <form style="display: inline-table"
                                                                                   action="{% url 'vote_answer' product_slug=product.slug product_pk=product.pk pk=replied_answer.pk %}"
@@ -1310,7 +1305,7 @@
                                                                                         class="otziv_polezen_da"
                                                                                         data-loading-text="{% trans 'Submitting...' %}"
                                                                                         style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                    Да<span>{{ replied_answer.num_up_votes }}</span>
+                                                                                    {% trans "Да" %}<span>{{ replied_answer.num_up_votes }}</span>
                                                                                 </button>
                                                                             </form>
                                                                             <form style="display: inline-table"
@@ -1324,28 +1319,28 @@
                                                                                         class="otziv_polezen_net"
                                                                                         data-loading-text="{% trans 'Submitting...' %}"
                                                                                         style="border: none; background-color: transparent;">
-                                                                                    Нет<span>{{ replied_answer.num_down_votes }}</span>
+                                                                                    {% trans "Нет" %}<span>{{ replied_answer.num_down_votes }}</span>
                                                                                 </button>
                                                                             </form>
                                                                         {% else %}
                                                                             <button type="button"
                                                                                     class="otziv_polezen_da"
                                                                                     style="border-left: none; border-bottom: none; border-top:none; background-color: transparent;">
-                                                                                Да<span>{{ replied_answer.num_up_votes }}</span>
+                                                                                {% trans "Да" %}<span>{{ replied_answer.num_up_votes }}</span>
                                                                             </button>
                                                                             <button type="submit"
                                                                                     class="otziv_polezen_net"
                                                                                     style="border: none; background-color: transparent;">
-                                                                                Нет<span>{{ replied_answer.num_down_votes }}</span>
+                                                                                {% trans "Нет" %}<span>{{ replied_answer.num_down_votes }}</span>
                                                                             </button>
                                                                         {% endif %}
                                                                         <p class="otvetilo">
-                                                                            Ответов:
+                                                                            {% trans "Ответов:" %}
                                                                             <span>{{ replied_answer.answer_to_answer.all|length }}</span>
                                                                         </p>
                                                                         <a href="#"
                                                                            class="otvetit show_popup"
-                                                                           data-rel="answer_button_modal">Ответить</a>
+                                                                           data-rel="answer_button_modal">{% trans "Ответить" %}</a>
                                                                     </div>
                                                                 </li>
                                                             {% endfor %}
@@ -1359,27 +1354,24 @@
                                     <div class="add_own_comment" style="margin-top: 16px; padding:0px 18px;">
                                         <p class="add_own_comment_caption"
                                            id="add_review2">
-                                            Добавьте свой отзыв</p>
+                                            {% trans "Добавьте свой отзыв" %}</p>
                                         <form action="{% url 'catalogue:reviews-add' product_slug=product.slug product_pk=product.pk %}"
                                               method="POST"
                                               id="review_form2">{% csrf_token %}
                                             <div class="add_own_comment_input">
-                                                <label>Ваше
-                                                    имя <span
-                                                            class="red_star">*</span>:</label>
-                                                <input type="text"
-                                                       name="name">
-                                                <label>Ваш
-                                                    Email <span
-                                                            class="red_star">*</span>:</label>
-                                                <input type="text"
-                                                       name="email">
+                                                <label>{% trans "Ваше имя" %}
+                                                    <span class="red_star">*</span>:
+                                                </label>
+                                                <input type="text" name="name">
+
+                                                <label>{% trans "Ваш Email" %}
+                                                    <span class="red_star">*</span>:
+                                                </label>
+                                                <input type="text" name="email">
                                             </div>
                                             <div class="add_own_comment_rate">
-                                                <p>Оцените этот
-                                                    товар:</p>
-                                                <select name="score"
-                                                        class="rating_photo">
+                                                <p>{% trans "Оцените этот товар:" %}</p>
+                                                <select name="score" class="rating_photo">
                                                     {% for i in "012345" %}
                                                         <option value={{ forloop.counter }} {% if score == forloop.counter %}selected="selected"{% endif %}>{{ forloop.counter }}</option>
                                                     {% endfor %}
@@ -1390,10 +1382,8 @@
                                                            type="checkbox"
                                                            name="get_notification">
                                                     <label for="id_get_notification">-
-                                                        Получать
-                                                        уведомления
-                                                        об
-                                                        ответах</label>
+                                                        {% trans "Получать уведомления об ответах" %}
+                                                    </label>
                                                 </div>
                                             </div>
 
@@ -1401,22 +1391,24 @@
                                                 <input type='hidden'
                                                        name="site"
                                                        value="{{ product.site.id }}"/>
-                                                <label>Комментарий
-                                                    <span
-                                                            class="red_star">*</span>:</label>
+                                                <label>
+                                                    {% trans "Комментарий" %}
+                                                    <span class="red_star">*</span>:
+                                                </label>
+
                                                 <textarea
                                                         name="body"
                                                         cols="30"
                                                         rows="10"
                                                         form="review_form2">{{ body }}</textarea>
-                                                <label>Достоинства:</label>
+                                                <label>{% trans "Достоинства:" %}</label>
                                                 <textarea
                                                         name="advantage"
                                                         cols="30"
                                                         rows="10"
                                                         form="review_form2">{{ advantage }}</textarea>
 
-                                                <label>Недостатки:</label>
+                                                <label>{% trans "Недостатки:" %}</label>
                                                 <textarea
                                                         name="disadvantage"
                                                         cols="30"
@@ -1428,13 +1420,12 @@
                                                         class="add_own_new_comment"
                                                         rel="request_button_modal_second"
                                                         style="display: inline-block; color: #fff; background-color: #ed1b24; padding: 10px 50px; text-decoration: none; margin-top: 20px; border: none">
-                                                    Добавить отзыв
+                                                    {% trans "Добавить отзыв" %}
                                                 </button>
                                                 <p class="add_own_comment_pole"><span
                                                         class="red_star">*</span>
-                                                    - поля
-                                                    обязательные для
-                                                    заполнения</p>
+                                                    {% trans "- поля обязательные для заполнения" %}
+                                                    </p>
                                             </div>
                                         </form>
 
@@ -1468,13 +1459,13 @@
                                 </select>
                                 <p class="rating_number"><span>{% if product.rating %}
                                     {{ product.rating|floatformat }}{% else %}
-                                    0{% endif %}</span>/5 ( голосов
+                                    0{% endif %}</span>/5 ( {% trans "голосов" %}
                                     <span>{{ product.num_approved_reviews }}</span>)
                                 </p>
                                 <hr>
                                 {% purchase_info_for_product request product as session %}
                                 {% if session.availability.is_available_to_buy %}
-                                    <p class="nalichie ">Есть в наличии</p>
+                                    <p class="nalichie ">{% trans "Есть в наличии" %}</p>
                                     <p class="line_through">
                                     {% if session.price.previous %}
                                         {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span></p>
@@ -1486,8 +1477,7 @@
                                             {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
                                 {% else %}
-                                    <p class="nalichie dpn naliche_net">Нет в
-                                        наличии</p>
+                                    <p class="nalichie dpn naliche_net">{% trans "Нет в наличии" %}</p>
                                     <p class="catalog_item_price naliche_net dpn">
                                         {% if session.price.is_tax_known %}
                                             {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
@@ -1498,13 +1488,13 @@
                                 {% endif %}
                                 {% if request.session.compare_list and product.id in request.session.compare_list %}
                                     <a href="#!"
-                                       class="compare_button compare_button_added">В
-                                        сравнении</a>
+                                       class="compare_button compare_button_added">{% trans "В сравнении" %}
+                                    </a>
                                 {% else %}
                                     <a href="#!"
                                        data-compare-url="{% url 'compare' %}"
                                        class="compare_button"
-                                       data-product-id="{{ product.id }}">Сравнить</a>
+                                       data-product-id="{{ product.id }}">{% trans "Сравнить" %}</a>
 
 
                                 {% endif %}
@@ -1512,63 +1502,67 @@
                                 <a class="buy_button show_popup"
                                    data-loading-text="Добавляем"
                                    data-rel="buy_button_modal" href="#!"
-                                   data-product-id="{{ product.id }}">В корзину
+                                   data-product-id="{{ product.id }}">{% trans "В корзину" %}
                                 </a>
                                 {% else %}
                                 <a class="buy_button but_button_sold"
                                    data-loading-text="Добавляем"
                                    href="#!"
-                                   data-product-id="{{ product.id }}">Нет в наличии
+                                   data-product-id="{{ product.id }}">{% trans "Нет в наличии" %}
                                 </a>
                                 {% endif %}
 
                                 <a href="#"
                                    class="elipse_button elipse_button_kred show_popup"
-                                   data-rel="credit_button_modal">Купить
-                                    в кредит</a>
+                                   data-rel="credit_button_modal">{% trans "Купить в кредит" %}</a>
                                 <a href="#"
                                    class="elipse_button_question show_popup"
-                                   data-rel="ask_button_modal">Задать
-                                    вопрос</a>
+                                   data-rel="ask_button_modal">{% trans "Задать вопрос" %}</a>
                             </div>
                         </div>
 
                         <div class="tovar_buy_block">
-                            <p class="category_block_caption">Доставка</p>
-                            <p class="delivery_text_p">Доставка товаров по Киеву
-                                и пригородам:</p>
+                            <p class="category_block_caption">{% trans "Доставка" %}</p>
+                            <p class="delivery_text_p">{% trans "Доставка товаров по Киеву и пригородам:" %}</p>
 
-                            <p class="delivery_text_p">— товар можно получить
-                                самостоятельно по адресу: г. Киев, ул.
-                                Ярославская, 57 после предварительного
-                                согласования заказа с менеджером; <br>
-                                — товары весом более 150 кг доставляются к
-                                адресу получателя без заноса; <br>
-                                — доставка заказов на сумму свыше 1500 гривен по
-                                Киеву и соседним населенным пунктам
-                                бесплатная, стоимость доставки до 1500 грн
-                                составляет 35 гривен;</p>
+                            <p class="delivery_text_p">
+                                {% blocktrans %}
+                                    — товар можно получить
+                                    самостоятельно по адресу: г. Киев, ул.
+                                    Ярославская, 57 после предварительного
+                                    согласования заказа с менеджером; <br>
+                                    — товары весом более 150 кг доставляются к
+                                    адресу получателя без заноса; <br>
+                                    — доставка заказов на сумму свыше 1500 гривен по
+                                    Киеву и соседним населенным пунктам
+                                    бесплатная, стоимость доставки до 1500 грн
+                                    составляет 35 гривен;</p>
+                                {% endblocktrans %}
 
-                            <p class="delivery_text_p">(Список населенных
-                                пунктов с бесплатной доставкой) <br>
-                                — время и условия доставки Вы можете согласовать
-                                с сотрудниками нашего магазина; <br>
-                                — подъем габаритных грузов вручную оплачивается
-                                отдельно. Стоимость подъёма: 20–100
-                                грн./этаж в зависимости от размеров, веса товара
-                                и сложности подъема; <br>
-                                — стоимость доставки за пределы Киева от 5 до 7
-                                грн/км в зависимости от удаленности,
-                                доставка малогабаритной техники - 50 грн; <br>
-                                — при получении покупаемого Вами товара
-                                убедитесь в его полной комплектности и
-                                отсутствии механических повреждений; <br>
-                                — прежде чем начать эксплуатацию, убедительно
-                                рекомендуем Вам внимательно ознакомиться с
-                                руководством по эксплуатации; <br>
-                                — стоимость доставки малогабаритной бытовой
-                                техники по Киевской области составляет 50
-                                грн. </p>
+                            <p class="delivery_text_p">
+                                {% blocktrans %}
+                                    (Список населенных
+                                    пунктов с бесплатной доставкой) <br>
+                                    — время и условия доставки Вы можете согласовать
+                                    с сотрудниками нашего магазина; <br>
+                                    — подъем габаритных грузов вручную оплачивается
+                                    отдельно. Стоимость подъёма: 20–100
+                                    грн./этаж в зависимости от размеров, веса товара
+                                    и сложности подъема; <br>
+                                    — стоимость доставки за пределы Киева от 5 до 7
+                                    грн/км в зависимости от удаленности,
+                                    доставка малогабаритной техники - 50 грн; <br>
+                                    — при получении покупаемого Вами товара
+                                    убедитесь в его полной комплектности и
+                                    отсутствии механических повреждений; <br>
+                                    — прежде чем начать эксплуатацию, убедительно
+                                    рекомендуем Вам внимательно ознакомиться с
+                                    руководством по эксплуатации; <br>
+                                    — стоимость доставки малогабаритной бытовой
+                                    техники по Киевской области составляет 50
+                                    грн.
+                                {% endblocktrans %}
+                            </p>
                         </div>
 
                     </div>
@@ -1576,8 +1570,9 @@
                 </div>
 
                 {% if similar_products %}
-                    <p class="category_block_caption before_owl margin_fix">Вас
-                        также могут заинтересовать</p>
+                    <p class="category_block_caption before_owl margin_fix">
+                        {% trans "Вас также могут заинтересовать" %}
+                    </p>
                     <div class="owl-carousel owl-theme catalog_owl">
                         {% for product in similar_products %}
                             <div class="item">
@@ -1613,7 +1608,7 @@
                                                     value="{{ num }}">{{ num }}</option>
                                         {% endfor %}
                                     </select>
-                                    <p class="rating_number">Отзывов:
+                                    <p class="rating_number">{% trans "Отзывов:" %}
                                         <span>{{ product.num_approved_reviews }}</span>
                                     </p>
                                     <hr>
@@ -1631,12 +1626,10 @@
                                         <a href="{{ product.get_absolute_url }}"
                                            class="buy_button show_popup"
                                            data-rel="buy_button_modal"
-                                           data-product-id="{{ product.id }}">Купить</a>
+                                           data-product-id="{{ product.id }}">{% trans "Купить" %}</a>
                                     {% else %}
                                         <a href="{{ product.get_absolute_url }}"
-                                           class="buy_button but_button_sold">Нет
-                                            в
-                                            наличии</a>
+                                           class="buy_button but_button_sold">{% trans "Нет в наличии" %}</a>
                                     {% endif %}
                                 </div>
                             </div>
@@ -1654,51 +1647,56 @@
 
 
     <div class="popup ask_button_modal">
-        <a class="close" href="#">Close</a>
-        <p class="modal_ask_quest">Задать вопрос</p>
-        <p id="q_result1" class="modal_ask_quest">Спасибо за Ваш вопрос!</p>
+        <a class="close" href="#">{% trans "Close" %}</a>
+        <p class="modal_ask_quest">{% trans "Задать вопрос" %}</p>
+        <p id="q_result1" class="modal_ask_quest">{% trans "Спасибо за Ваш вопрос!" %}</p>
         <p id="q_result2" class="modal_form">
-        Наш менеджер обязательно свяжется с Вами
+            {% blocktrans %}
+                Наш менеджер обязательно свяжется с Вами
+            {% endblocktrans %}
         </p>
         <form id="question"
               action="{% url 'question' product_slug=product.slug pk=product.pk %}"
               class="modal_form">
-            <label>Ваше имя<span id="name-err">*</span>:</label>
+            <label>{% trans "Ваше имя" %}<span id="name-err">*</span>:</label>
             <input id="name" name="name" type="text">
-            <label>Ваш Email<span id="email-err"></span>:</label>
+            <label>{% trans "Ваш Email" %}<span id="email-err"></span>:</label>
             <input id="email" name="email" type="text">
-            <label>Ваш телефон<span id="phone-err">*</span>:</label>
+            <label>{% trans "Ваш телефон" %}<span id="phone-err">*</span>:</label>
             <input id="phone" name="phone" type="text">
-            <label>Ваш вопрос<span id="text-err">*</span>:</label>
+            <label>{% trans "Ваш вопрос" %}<span id="text-err">*</span>:</label>
             <textarea id="text" name="text" cols="30" rows="10"></textarea>
-            <a href="#" id="submit">Отправить</a>
+            <a href="#" id="submit">{% trans "Отправить" %}</a>
         </form>
     </div>
 
     <div class="popup request_button_modal_second" id="review_modal">
-        <a class="close" href="#">Close</a>
-        <p class="modal_caption">Спасибо за Ваш отзыв!</p>
-        <p class="modal_text">Он будет опубликован после проверки <br>
-            администратором </p>
+        <a class="close" href="#">{% trans "Close" %}</a>
+        <p class="modal_caption">{% trans "Спасибо за Ваш отзыв!" %}</p>
+        <p class="modal_text">
+            {% blocktrans %}
+                Он будет опубликован после проверки <br> администратором
+            {% endblocktrans %}
+        </p>
     </div>
 
     <div class="popup answer_button_modal">
-        <a class="close" href="#">Close</a>
-        <p class="modal_caption_uniq">Добавьте ответ</p>
+        <a class="close" href="#">{% trans "Close" %}</a>
+        <p class="modal_caption_uniq">{% trans "Добавьте ответ" %}</p>
         <form action="{% url 'review_answer' product_slug=product.slug product_pk=product.pk pk=11 %}" class="modal_form" method="POST">
             <div class="modal_lebel_input">
-                <label>Ваше имя<span>*</span>:</label>
+                <label>{% trans "Ваше имя" %}<span>*</span>:</label>
                 <input type="text" name="name">
             </div>
             <div class="modal_lebel_input">
-                <label>Ваш Email<span>*</span>:</label>
+                <label>{% trans "Ваш Email" %}<span>*</span>:</label>
                 <input type="text" name="email">
             </div>
-            <label>Комментарий<span>*</span>:</label>
+            <label>{% trans "Комментарий" %}<span>*</span>:</label>
             <textarea name="body" cols="30" rows="10"></textarea>
             <div class="checkbox_check">
                 <input id="check2" type="checkbox" name="get_notification" value="check2">
-                <label for="check2">- Получать уведомления об ответах</label>
+                <label for="check2">- {% trans "Получать уведомления об ответах" %}</label>
             </div>
             <input type='hidden'
                    name="site"
@@ -1712,44 +1710,42 @@
                    id='answer_for_answer'
                    value=""/>
             {% csrf_token %}
-            <button class="modal_button_answer" type="submit">Добавить ответ</button>
-            <p class="modal_pole"><span>*</span> - поля обязательные для
-                заполнения</p>
+            <button class="modal_button_answer" type="submit">{% trans "Добавить ответ" %}</button>
+            <p class="modal_pole"><span>*</span> - {% trans "поля обязательные для заполнения" %}</p>
         </form>
     </div>
 
     <div class="popup credit_button_modal">
-        <a class="close" href="#">Close</a>
+        <a class="close" href="#">{% trans "Close" %}</a>
         <p class="buy_button_howmuch"><span
-                class="modal_red_elem">{{ request.basket.num_lines }} товар</span>
-            на сумму
+                class="modal_red_elem">{{ request.basket.num_lines }} {% trans "товар" %}</span>
+            {% trans "на сумму" %}
             <span>{{ request.basket.total_incl_tax }}</span><span
-                    class="grn"> грн</span>
+                    class="grn"> {% trans "грн" %}</span>
         </p>
-        <p class="credit_modal_caption">Купить в
-            кредит {{ product.product_class.name }}
+        <p class="credit_modal_caption">{% trans "Купить в кредит" %} {{ product.product_class.name }}
             <span>{{ product.title }}</span></p>
         <div class="table_caption_modal">
-            <span>Банк</span>
-            <span>Вид кредита</span>
-            <span>Срок, мес.</span>
-            <span>Ежемес.платеж</span>
+            <span>{% trans "Банк" %}</span>
+            <span>{% trans "Вид кредита" %}</span>
+            <span>{% trans "Срок, мес." %}</span>
+            <span>{% trans "Ежемес.платеж" %}</span>
         </div>
         <div class="table_cell_modal">
             <img src="{% get_static 'img/tovar/privat.png' %}" alt="">
             <div class="table_cell_name_modal">
-                <p class="table_cell_name_modal_first">Приватбанк</p>
-                <p>Мгновенная рассрочка</p>
+                <p class="table_cell_name_modal_first">{% trans "Приватбанк" %}</p>
+                <p>{% trans "Мгновенная рассрочка" %}</p>
             </div>
             <div class="table_cell_sail">
-                <p>Комиссия</p>
-                <p>1-6 мес - 2,9%</p>
-                <p>Без страховки</p>
+                <p>{% trans "Комиссия" %}</p>
+                <p>{% trans "1-6 мес - 2,9%" %}</p>
+                <p>{% trans "Без страховки" %}</p>
             </div>
             <div class="table_cell_karetka_modal">
                 <form class="reservation">
                     <div class="number_of_elems">
-                        <span>6 платежей на </span>
+                        <span>{% trans "6 платежей на" %} </span>
                         <div class="custom_select">
                             <select name="minbeds" id="minbeds">
                                 <option>1</option>
@@ -1760,20 +1756,20 @@
                                 <option>6</option>
                             </select>
                         </div>
-                        <span>месяцев</span>
+                        <span>{% trans "месяцев" %}</span>
                     </div>
                     <div id="slider_month"></div>
                 </form>
             </div>
             <p class="credit_price_modal">900 грн</p>
-            <a href="#" class="buy_button">Нет в наличии</a>
+            <a href="#" class="buy_button">{% trans "Нет в наличии" %}</a>
         </div>
 
         <div class="table_cell_modal">
             <img src="{% get_static 'img/tovar/otp.png' %}" alt="">
             <div class="table_cell_name_modal">
                 <p class="table_cell_name_modal_first">ОТР Банк</p>
-                <p>Мгновенная рассрочка</p>
+                <p>{% trans "Мгновенная рассрочка" %}</p>
             </div>
             <div class="table_cell_sail">
                 <p>Комиссия</p>

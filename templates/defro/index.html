@@ -34,7 +34,7 @@
 					{% endif %}
 				</ul>
 				{% if text_url %}
-					<a href="{{ text_url }}" class="under_left_menu_more">Узнать подробнее</a>
+					<a href="{{ text_url }}" class="under_left_menu_more">{% trans "Узнать подробнее" %}</a>
 				{% endif %}
 			</div>
 			<div class="right_side">
@@ -46,7 +46,7 @@
 
 	<div class="second_block">
 		<div class="container">
-			<h2><span>Наши</span> продукты</h2>
+			<h2><span>{% trans "Наши" %}</span> {% trans "продукты" %}</h2>
 			<div class="owl-carousel owl-theme">
 				{% if side_menu_categories %}
 					{% for category in side_menu_categories %}
@@ -69,25 +69,32 @@
 {% if site_config.show_calculator %}
 	<div class="third_block">
 		<div class="container">
-			<h3>Сравнительный РАСЧЕТ</h3>
+			<h3>{% trans "Сравнительный РАСЧЕТ" %}</h3>
 			<div class="more_info">
-				<p class="under_caption">СЕЗОННЫХ ЗАТРАТ НА ОТОПЛЕНИЕ газом, электричеством и твердым топливом</p>
-				<p class="desc">Введите в калькулятор данные по площади, высоте потолка, утепленности вашего жилья и узнайте, <br>
-				сколько ваших денег сбережет установка котла DEFRO</p>
+				<p class="under_caption">
+					{% blocktrans %}
+						СЕЗОННЫХ ЗАТРАТ НА ОТОПЛЕНИЕ газом, электричеством и твердым топливом
+					{% endblocktrans %}
+				</p>
+				<p class="desc">
+					{% blocktrans %}
+						Введите в калькулятор данные по площади, высоте потолка, утепленности вашего жилья и узнайте, <br> сколько ваших денег сбережет установка котла DEFRO
+					{% endblocktrans %}
+				</p>
 				<div class="calculator first_calc">
 					<div class="top_and_bot_block">
-						<p class="cpecial">Исходные данные</p>
+						<p class="cpecial">{% trans "Исходные данные" %}</p>
 					</div>
 
 					<div class="other_blocks">
-						<p>Отапливаемая площадь</p>
+						<p>{% trans "Отапливаемая площадь" %}</p>
 						<div class="right_side">
 							<input id="t_square" type="text" value="100"> <span>м.кв</span>
 						</div>
 					</div>
 
 					<div class="other_blocks">
-						<p>Теплопотери здания</p>
+						<p>{% trans "Теплопотери здания" %}</p>
 						<div class="right_side">
 							<label class="select_box">
 								<select id="t_lose">
@@ -99,22 +106,22 @@
 					</div>
 
 					<div class="other_blocks" id="season">
-						<p class="cpecial">Длительность отопительного сезона</p>
-						<p class="for_ua">для Украины 187</p>
+						<p class="cpecial">{% trans "Длительность отопительного сезона" %}</p>
+						<p class="for_ua">{% trans "для Украины 187" %}</p>
 						<div class="right_side">
-							<input id="t_period" type="text" value="187"> <span>суток</span>
+							<input id="t_period" type="text" value="187"> <span>{% trans "суток" %}</span>
 						</div>
 					</div>
 
 					<div class="other_blocks">
-						<p>Высота потолка</p>
+						<p>{% trans "Высота потолка" %}</p>
 						<div class="right_side">
 							<input id="t_heigth" type="text" value="3"> <span>м</span>
 						</div>
 					</div>
 
 					<div class="other_blocks">
-						<p>Месторасположение дома</p>
+						<p>{% trans "Месторасположение дома" %}</p>
 						<div class="right_side">
 							<label class="select_box">
 								<select id="t_location">
@@ -146,12 +153,12 @@
 									<option value='zone4'>{% trans "АРК(пiвденне узбережжя)" %}</option>
 								</select>
 							</label>
-							 <span>область</span>
+							 <span>{% trans "область" %}</span>
 						</div>
 					</div>
 
 					<div class="other_blocks">
-						<p>Система отопления дома</p>
+						<p>{% trans "Система отопления дома" %}</p>
 						<div class="right_side">
 							<label class="select_box">
 								<select id="t_system">
@@ -163,37 +170,37 @@
 					</div>
 
 					<div class="top_and_bot_block">
-							<p>Итого на весь сезон необходимо:</p><p><span id="t_season" class="calculating">20 550,50</span>кВт/ч тепла</p><br>
+							<p>{% trans "Итого на весь сезон необходимо:" %}</p><p><span id="t_season" class="calculating">20 550,50</span>{% trans "кВт/ч тепла" %}</p><br>
 							<p>Необходимая мощность котла:</p> <p><span id="t_power" class="calculating">8,50</span>кВт</p>
 					</div>
 				</div>
 
-				<p class="stoimost">Стоимость различных видов топлива</p>
+				<p class="stoimost">{% trans "Стоимость различных видов топлива" %}</p>
 				<div class="scrollbar-inner">
 					<div class="calculator calculator_second">
 						<div class="top_and_bot_block">
-							<p class="cpecial">Вид топлива</p>
-							<p class="cpecial">Необходимый объём</p>
-							<p class="cpecial">Цена на топливо</p>
-							<p class="cpecial">Затраты на отопление</p>
+							<p class="cpecial">{% trans "Вид топлива" %}</p>
+							<p class="cpecial">{% trans "Необходимый объём" %}</p>
+							<p class="cpecial">{% trans "Цена на топливо" %}</p>
+							<p class="cpecial">{% trans "Затраты на отопление" %}</p>
 						</div>
 					{% for fuel in site_config.fuels.all %}
 						{% if fuel.fuel_type == 'wood' %}
 							<div class="other_blocks">
 								<div class="other_blocks_cell">
 									<img src="{% get_static 'img/table/1.png' %}" alt="">
-									<p>Дрова</p>
+									<p>{% trans "Дрова" %}</p>
 								</div>
 								<div class="other_blocks_cell">
-									<p id="wood_volume"> скл.м</p>
+									<p id="wood_volume"> {% trans "скл.м" %}</p>
 								</div>
 								<div class="other_blocks_cell">
 									<div class="right_side">
-										<input id="wood_cost" type="number" value="{{ fuel.fuel_cost|floatformat:'0' }}"> <span>грн/скл.м</span>
+										<input id="wood_cost" type="number" value="{{ fuel.fuel_cost|floatformat:'0' }}"> <span>{% trans "грн/скл.м" %}</span>
 									</div>
 								</div>
 								<div class="other_blocks_cell">
-									<p><span id="wood_sum" class="calculating">8 626,80</span> грн</p>
+									<p><span id="wood_sum" class="calculating">8 626,80</span> {% trans "грн" %}</p>
 								</div>
 							</div>
 						{% endif %}
@@ -202,7 +209,7 @@
 							<div class="other_blocks">
 								<div class="other_blocks_cell">
 									<img src="{% get_static 'img/table/2.png' %}" alt="">
-									<p>Пеллеты</p>
+									<p>{% trans "Пеллеты" %}</p>
 								</div>
 								<div class="other_blocks_cell">
 									<p id="pellets_volume"> скл.м</p>
@@ -213,7 +220,7 @@
 									</div>
 								</div>
 								<div class="other_blocks_cell">
-									<p><span id="pellets_sum" class="calculating">8 626,80</span> грн</p>
+									<p><span id="pellets_sum" class="calculating">8 626,80</span> {% trans "грн" %}</p>
 								</div>
 							</div>
 						{% endif %}
@@ -222,10 +229,10 @@
 							<div class="other_blocks">
 								<div class="other_blocks_cell">
 									<img src="{% get_static 'img/table/3.png' %}" alt="">
-									<p>Каменный уголь</p>
+									<p>{% trans "Каменный уголь" %}</p>
 								</div>
 								<div class="other_blocks_cell">
-									<p id="coal_volume"> скл.м</p>
+									<p id="coal_volume"> {% trans "скл.м" %}</p>
 								</div>
 								<div class="other_blocks_cell">
 									<div class="right_side">
@@ -233,7 +240,7 @@
 									</div>
 								</div>
 								<div class="other_blocks_cell">
-									<p><span id="coal_sum" class="calculating">8 626,80</span> грн</p>
+									<p><span id="coal_sum" class="calculating">8 626,80</span> {% trans "грн" %}</p>
 								</div>
 							</div>
 						{% endif %}
@@ -242,7 +249,7 @@
 							<div class="other_blocks">
 								<div class="other_blocks_cell">
 									<img src="{% get_static 'img/table/4.png' %}" alt="">
-									<p>Бурый уголь</p>
+									<p>{% trans "Бурый уголь" %}</p>
 								</div>
 								<div class="other_blocks_cell">
 									<p id="brown_coal_volume"> скл.м</p>
@@ -282,14 +289,14 @@
 							<div class="other_blocks">
 								<div class="other_blocks_cell">
 									<img src="{% get_static 'img/table/6.png' %}" alt="">
-									<p>Электроэнергия</p>
+									<p>{% trans "Электроэнергия" %}</p>
 								</div>
 								<div class="other_blocks_cell">
 									<p id="electricity_volume"> скл.м</p>
 								</div>
 								<div class="other_blocks_cell">
 									<div class="right_side">
-										<input id="electricity_cost" type="number" value="{{ fuel.fuel_cost|floatformat:'0' }}"> <span>грн/кВт.ч</span>
+										<input id="electricity_cost" type="number" value="{{ fuel.fuel_cost|floatformat:'0' }}"> <span>{% trans "грн/кВт.ч" %}</span>
 									</div>
 								</div>
 								<div class="other_blocks_cell">
@@ -302,7 +309,7 @@
 							<div class="other_blocks">
 								<div class="other_blocks_cell">
 									<img src="{% get_static 'img/table/7.png' %}" alt="">
-									<p>Дизельное топливо</p>
+									<p>{% trans "Дизельное топливо" %}</p>
 								</div>
 								<div class="other_blocks_cell">
 									<p id="diesel_volume"> скл.м</p>
@@ -321,12 +328,16 @@
 
 					</div>
 				</div>
-				<a href="" class="choose_kotel"
-							id="choose_kotel_btn"
-							data-filter-param="{{ power_attribute.code }}"
-							data-catalogue-url="{% url 'catalogue:index' %}">Подобрать котел согласно введенным данным</a>
+				<a href=""
+					class="choose_kotel"
+					id="choose_kotel_btn"
+					data-filter-param="{{ power_attribute.code }}"
+					data-catalogue-url="{% url 'catalogue:index' %}"
+				>
+					{% trans "Подобрать котел согласно введенным данным" %}
+				</a>
 			</div>
-			<div class="more_block"><p>Подробнее</p><i></i></div>
+			<div class="more_block"><p>{% trans "Подробнее" %}</p><i></i></div>
 		</div>
 	</div>
 {% endif %}
@@ -334,7 +345,7 @@
 {% if site_config.show_benefits %}
 	<div class="fourth_block">
 		<div class="container">
-			<h4><span>Преимущества котлов</span> DEFRO:</h4>
+			<h4><span>{% trans "Преимущества котлов" %}</span> {% trans "DEFRO:" %}</h4>
 			<ul>
 			{% if site_config.benefits %}
 				{% for benefit in site_config.benefits.all %}
@@ -350,35 +361,63 @@
 			{% else %}
 				<li class="clear_fix">
 					<img src="{% get_static 'img/icons/1.png' %}" alt="">
-					<p>Фирменная гарантия 4 года на герметичность водяной рубашки и 2 года на исправную работу котла.</p>
+					<p>
+						{% blocktrans %}
+							Фирменная гарантия 4 года на герметичность водяной рубашки и 2 года на исправную работу котла.
+						{% endblocktrans %}
+					</p>
 				</li>
 				<li class="clear_fix">
 					<img src="{% get_static 'img/icons/2.png' %}" alt="">
-					<p>Теплообменник котла выполнен из сертифицированной котельной стали /тип. P265GH/ толщиной 6 мм. Сварка швов осуществлена на роботизированных станках.</p>
+					<p>
+						{% blocktrans %}
+							Теплообменник котла выполнен из сертифицированной котельной стали /тип. P265GH/ толщиной 6 мм. Сварка швов осуществлена на роботизированных станках.
+						{% endblocktrans %}
+					</p>
 				</li>
 				<li class="clear_fix">
 					<img src="{% get_static 'img/icons/3.png' %}" alt="">
-					<p>Высокая эффективность котла (КПД до 85%) гарантирует эффективное сгорание топлива, высокую экономичность и экологичность горения.</p>
+					<p>
+						{% blocktrans %}
+							Высокая эффективность котла (КПД до 85%) гарантирует эффективное сгорание топлива, высокую экономичность и экологичность горения.
+						{% endblocktrans %}
+					</p>
 				</li>
 				<li class="clear_fix">
 					<img src="{% get_static 'img/icons/4.png' %}" alt="">
-					<p>Высокая эффективность котла (КПД до 85%) гарантирует эффективное сгорание топлива, высокую экономичность и экологичность горения.</p>
+					<p>
+						{% blocktrans %}
+							Высокая эффективность котла (КПД до 85%) гарантирует эффективное сгорание топлива, высокую экономичность и экологичность горения.
+						{% endblocktrans %}
+					</p>
 				</li>
 				<li class="clear_fix">
 					<img src="{% get_static 'img/icons/5.png' %}" alt="">
-					<p>Контроллер управляет работой котла и системы отопления, нагревом горячей воды (подключение к 2 насосам и комнатному регулятору).</p>
+					<p>
+						{% blocktrans %}
+							Контроллер управляет работой котла и системы отопления, нагревом горячей воды (подключение к 2 насосам и комнатному регулятору).
+						{% endblocktrans %}
+					</p>
 				</li>
 				<li class="clear_fix">
 					<img src="{% get_static 'img/icons/6.png' %}" alt="">
-					<p>Большая камера загрузки.</p>
+					<p>{% trans "Большая камера загрузки." %}</p>
 				</li>
 				<li class="clear_fix">
 					<img src="{% get_static 'img/icons/7.png' %}" alt="">
-					<p>Два режима работы - при разжигании и засыпании сверху (угольный штыб - время горения до 20 час.) или «традиционный» снизу (уголь, смесь угля и штыба, древесины, стружки);</p>
+					<p>
+						{% blocktrans %}
+							Два режима работы - при разжигании и засыпании сверху (угольный штыб - время горения до 20 час.) или «традиционный» снизу (уголь, смесь угля и штыба, древесины, стружки);
+						{% endblocktrans %}
+					</p>
 				</li>
 				<li class="clear_fix">
 					<img src="{% get_static 'img/icons/8.png' %}" alt="">
-					<p>Многоточковая система подачи воздуха в топку и система очистки воздуха.</p>
+					<p>
+						{% blocktrans %}
+							Многоточковая система подачи воздуха в топку и система очистки воздуха.
+						{% endblocktrans %}
+					</p>
 				</li>
 			{% endif %}
 			</ul>
@@ -389,7 +428,7 @@
 {% if site_config.show_credit %}
 	<div class="fifth_block">
 		<div class="container">
-			<h5>Нужна рассрочка? - это не проблема</h5>
+			<h5>{% trans "Нужна рассрочка? - это не проблема" %}</h5>
 			<div class="more_info">
 				<div class="banks">
 					<div class="banks_logos">
@@ -404,10 +443,12 @@
 				<form action="{% url 'installment_pay' %}" method="POST" id="installment_form">
 					{% csrf_token %}
 					{{ installment_form.phone }}
-					<button type="submit" id="submit_installment" data-rel="request_button_modal">Оформить рассрочку</button>
+					<button type="submit" id="submit_installment" data-rel="request_button_modal">
+						{% trans "Оформить рассрочку" %}
+					</button>
 				</form>
 			</div>
-			<div class="more_block"><p>Подробнее</p><i></i></div>
+			<div class="more_block"><p>{% trans "Подробнее" %}</p><i></i></div>
 		</div>
 	</div>
 {% endif %}
@@ -415,7 +456,7 @@
 {% if site_config.show_reviews %}
 	<div class="sixth_block">
 		<div class="container">
-			<h6>Обзоры <span>и</span> отзывы:</h6>
+			<h6>{% trans "Обзоры" %} <span>и</span> {% trans "отзывы" %}:</h6>
 			<div class="youtube_videos">
 				{% if site_config.overviews %}
 					{% for overview in site_config.overviews.all %}
@@ -490,18 +531,22 @@
 {% if site_config.show_advanced %}
 	<div class="seventh_block">
 		<div class="container">
-			<p class="caption"><span>ДОПОЛНИТЕЛЬНЫЕ</span> УСЛУГИ</p>
+			<p class="caption"><span>{% trans "ДОПОЛНИТЕЛЬНЫЕ" %}</span> {% trans "УСЛУГИ" %}</p>
 			<div class="more_info">
-				<p class="desc">Кроме продажи оборудования мы можем предложить так же <br> его монтаж и запуск</p>
+				<p class="desc">
+					{% blocktrans %}
+						Кроме продажи оборудования мы можем предложить так же <br> его монтаж и запуск
+					{% endblocktrans %}
+				</p>
 				<ul>
-					<li>Заявка на сайте или звонок</li>
-					<li>Выезд мастера</li>
-					<li>Составление договора</li>
-					<li>Монтаж котла</li>
-					<li>Запуск системы отопления</li>
+					<li>{% trans "Заявка на сайте или звонок" %}</li>
+					<li>{% trans "Выезд мастера" %}</li>
+					<li>{% trans "Составление договора" %}</li>
+					<li>{% trans "Монтаж котла" %}</li>
+					<li>{% trans "Запуск системы отопления" %}</li>
 				</ul>
 			</div>
-			<div class="more_block"><p>Подробнее</p><i></i></div>
+			<div class="more_block"><p>{% trans "Подробнее" %}</p><i></i></div>
 		</div>
 	</div>
 {% endif %}
@@ -509,13 +554,17 @@
 {% if site_config.show_delivery %}
 	<div class="eighth_block">
 		<div class="container">
-			<p class="caption"><span>схема</span> доставки <span>и</span> оплаты:</p>
-			<p class="desc">Доставка товара осуществляется по всей территории Украины</p>
+			<p class="caption"><span>{% trans "схема" %}</span> {% trans "доставки" %} <span>и</span> {% trans "оплаты:" %}</p>
+			<p class="desc">
+				{% blocktrans %}
+					Доставка товара осуществляется по всей территории Украины
+				{% endblocktrans %}
+			</p>
 
 			<img src="{% get_static 'img/delivery/car.png' %}" alt="">
 			<div class="list_caption">
-				Доставка товара может быть осуществлена следующим образом:
-				<div class="list_more"><p>Подробнее</p><i></i></div>
+				{% trans "Доставка товара может быть осуществлена следующим образом:" %}
+				<div class="list_more"><p>{% trans "Подробнее" %}</p><i></i></div>
 			</div>
 			<ul class="main_ul first_ul">
 				{% if site_config.pay_block %}
@@ -529,29 +578,45 @@
 					{% endfor %}
 				{% else %}
 					<li>
-						<p class="list_name">СПОСОБЫ ДОСТАВКИ</p>
-						<p class="list_text">Доставка товара осуществляется по всей территории Украины и может быть произведена с помощью следующих транспортных компаний: <span>Новая <span>Почта</span>, <span>Интайм</span>, <span>Деливери</span>, Мист Экспресс</span>. По согласованию с покупателем возможна доставка нашим транспортом или "попутным грузом". Также есть возможность самовывоза товара.</p>
+						<p class="list_name">{% trans "СПОСОБЫ ДОСТАВКИ" %}</p>
+						<p class="list_text">
+							{% blocktrans %}
+								Доставка товара осуществляется по всей территории Украины и может быть произведена с помощью следующих транспортных компаний: <span>Новая <span>Почта</span>, <span>Интайм</span>, <span>Деливери</span>, Мист Экспресс</span>. По согласованию с покупателем возможна доставка нашим транспортом или "попутным грузом". Также есть возможность самовывоза товара.
+							{% endblocktrans %}
+						</p>
 					</li>
 					<li>
-						<p class="list_name">ОПЛАТА</p>
-						<p class="list_text">Все расходы, связанные с доставкой товара и оплатой наложенного платежа, оплачиваются непосредственно покупателем.
-						Товары с акционной отметкой «Бесплатная доставка» отправляются бесплатно в любую точку Украины. Сроки действия акции уточняйте у менеджеров.</p>
+						<p class="list_name">{% trans "ОПЛАТА" %}</p>
+						<p class="list_text">
+							{% blocktrans %}
+								Все расходы, связанные с доставкой товара и оплатой наложенного платежа, оплачиваются непосредственно покупателем.
+								Товары с акционной отметкой «Бесплатная доставка» отправляются бесплатно в любую точку Украины. Сроки действия акции уточняйте у менеджеров.
+							{% endblocktrans %}
+						</p>
 					</li>
 					<li>
-						<p class="list_name">СРОКИ</p>
-						<p class="list_text">С момента подтверждения заказа сроки его доставки в среднем составляют от 24 до 72 часов.</p>
+						<p class="list_name">{% trans "СРОКИ" %}</p>
+						<p class="list_text">
+							{% blocktrans %}
+								С момента подтверждения заказа сроки его доставки в среднем составляют от 24 до 72 часов.
+							{% endblocktrans %}
+						</p>
 					</li>
 					<li>
-						<p class="list_name">СТОИМОСТЬ</p>
-						<p class="list_text">Расчет стоимости доставки осуществляется при оформлении заказа и в среднем составляет 4,5%-7% от общей стоимости товара. Ее величина зависит от типа продукции и адреса доставки.</p>
+						<p class="list_name">{% trans "СТОИМОСТЬ" %}</p>
+						<p class="list_text">
+							{% blocktrans %}
+								Расчет стоимости доставки осуществляется при оформлении заказа и в среднем составляет 4,5%-7% от общей стоимости товара. Ее величина зависит от типа продукции и адреса доставки.
+							{% endblocktrans %}
+						</p>
 					</li>
 				{% endif %}
 			</ul>
 
 			<img src="{% get_static 'img/delivery/money.png' %}" alt="">
 			<div class="list_caption">
-				Оплата товара может быть произведена следующими способами:
-				<div class="list_more"><p>Подробнее</p><i></i></div>
+				{% trans "Оплата товара может быть произведена следующими способами:" %}
+				<div class="list_more"><p>{% trans "Подробнее" %}</p><i></i></div>
 			</div>
 			<ul class="main_ul second_ul">
 			{% if site_config.pay_block %}
@@ -565,25 +630,37 @@
 				{% endfor %}
 			{% else %}
 				<li>
-					<p class="list_name">БЕЗНАЛИЧНЫЙ РАСЧЕТ</p>
-					<p class="list_text">После оформления заказа на Ваш электронный адрес будет выслан счет-фактура. Совершить оплату по нему Вы можете в отделении любого банка на территории Украины или с помощью интернет-банкинга <span>Приват 24</span>, <span>UniCredit Online</span> и т.д. Дополнительная комиссия здесь отсутствует.</p>
+					<p class="list_name">{% trans "БЕЗНАЛИЧНЫЙ РАСЧЕТ" %}</p>
+					<p class="list_text">
+						{% blocktrans %}
+							После оформления заказа на Ваш электронный адрес будет выслан счет-фактура. Совершить оплату по нему Вы можете в отделении любого банка на территории Украины или с помощью интернет-банкинга <span>Приват 24</span>, <span>UniCredit Online</span> и т.д. Дополнительная комиссия здесь отсутствует.
+						{% endblocktrans %}
+					</p>
 				</li>
 				<li>
-					<p class="list_name">НАЛИЧНЫЙ РАСЧЕТ</p>
-					<p class="list_text">Наличный расчет позволяет без дополнительных комиссий произвести оплату:
-						<span class="red_dot">в кассе при покупке товара непосредственно в магазине;</span>
-						<span class="red_dot">курьеру в момент доставки товара по адресу;</span>
-						<span class="red_dot">при самовывозе со склада.</span>
+					<p class="list_name">{% trans "НАЛИЧНЫЙ РАСЧЕТ" %}</p>
+					<p class="list_text">{% trans "Наличный расчет позволяет без дополнительных комиссий произвести оплату:" %}
+						<span class="red_dot">{% trans "в кассе при покупке товара непосредственно в магазине;" %}</span>
+						<span class="red_dot">{% trans "курьеру в момент доставки товара по адресу;" %}</span>
+						<span class="red_dot">{% trans "при самовывозе со склада." %}</span>
 					</p>
 
 				</li>
 				<li>
-					<p class="list_name">VISA / MASTERCARD</p>
-					<p class="list_text">Оплата товара при помощи карты <span>Visa</span> или <span>Mastеrcard</span> позволяет совершать покупки в режиме реального времени. Выбирая данный метод оплаты, стоит учесть, что комиссия за перевод средств составляет 2% от стоимости заказа. Если на карте стоит ограничение на перевод средств, то общую сумму нужно разделить так, чтобы каждый платеж не превышал 2000 грн.</p>
+					<p class="list_name">{% trans "VISA / MASTERCARD" %}</p>
+					<p class="list_text">
+						{% blocktrans %}
+							Оплата товара при помощи карты <span>Visa</span> или <span>Mastеrcard</span> позволяет совершать покупки в режиме реального времени. Выбирая данный метод оплаты, стоит учесть, что комиссия за перевод средств составляет 2% от стоимости заказа. Если на карте стоит ограничение на перевод средств, то общую сумму нужно разделить так, чтобы каждый платеж не превышал 2000 грн.
+						{% endblocktrans %}
+					</p>
 				</li>
 				<li>
-					<p class="list_name">НАЛОЖЕННЫЙ ПЛАТЕЖ</p>
-					<p class="list_text">Совершить оплату за товар Вы можете в национальной валюте в пункте выдачи транспортной компании. В таком случае к сумме оплаты будет добавлена комиссия в размере 3% от общей стоимости заказа.</p>
+					<p class="list_name">{% trans "НАЛОЖЕННЫЙ ПЛАТЕЖ" %}</p>
+					<p class="list_text">
+						{% blocktrans %}
+							Совершить оплату за товар Вы можете в национальной валюте в пункте выдачи транспортной компании. В таком случае к сумме оплаты будет добавлена комиссия в размере 3% от общей стоимости заказа.
+						{% endblocktrans %}
+					</p>
 				</li>
 			{% endif %}
 			</ul>
@@ -591,7 +668,7 @@
 	</div>
 {% endif %}
 	<div class="ninth_block">
-		<p class="caption">Как с нами связаться</p>
+		<p class="caption">{% trans "Как с нами связаться" %}</p>
 		<div id="map" style="width: 100%; height:750px; border: 0; box-shadow: 0px -3px 10px -7px #000;">
 			<iframe src="https://www.google.com/maps/embed/v1/place?q=г.{{ site_config.footer_map_for.city_name }}_{{ site_config.footer_map_for.address|cut:' ' }}&key={{ site_config.footer_map_for.google_maps_api_key }}"
                                             width="880" height="580"
@@ -616,7 +693,7 @@
 			{% endfor %}
 
 				<div class="menu_block">
-					<p class="menu_block_caption">Как связаться</p>
+					<p class="menu_block_caption">{% trans "Как связаться" %}</p>
 					<div class="footer_close"></div>
 					<div class="footer_info">
 			            <ul class="contact_ul">
@@ -635,8 +712,7 @@
 			                        <a href="tel:+38{{ phone_numbers.life|first|cut:" " }}">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:'|phone_number_filter }}</a>
 			                    </li>
 			                {% endif %}
-			                <li><a href="#" class="predstav">Наши
-			                    представительства</a></li>
+			                <li><a href="#" class="predstav">{% trans "Наши представительства" %}</a></li>
 			            </ul>
 
 			            <div class="time_work">
@@ -646,9 +722,9 @@
 			                        </p>
 			                    {% endfor %}
 			                {% else %}
-			                    <p>Пн.-Пт.:
-			                        <span> с 9:00 до 18:00</span></p>
-			                    <p>Сб:<span> с 9:00 до 15:00</span></p>
+			                    <p>{% trans "Пн.-Пт.:" %}
+			                        <span> {% trans "с 9:00 до 18:00" %}</span></p>
+			                    <p>{% trans "Сб:" %}<span> {% trans "с 9:00 до 15:00" %}</span></p>
 			                {% endif %}
 			                {% if site_email %}
 			                    <a href="mailto:{{ site_email }}">{{ site_email }}</a>
@@ -660,8 +736,7 @@
 				</div>
 
 				<div class="menu_block">
-		            <p class="menu_block_caption">Принимаем к
-		                оплате</p>
+		            <p class="menu_block_caption">{% trans "Принимаем к оплате" %}</p>
 		            <div class="footer_close"></div>
 		            <div class="footer_info">
 			            <img src="{% get_static 'img/footer/master.png' %}"
@@ -673,33 +748,30 @@
 
 				<div class="grafik">
 					<div class="time_work">
-						<p class="grafik_caption">График работы
-							call-центра</p>
+						<p class="grafik_caption">{% trans "График работы call-центра" %}</p>
 						{% if schedule.callcenter %}
 							{% for timetable in schedule.callcenter %}
 								<p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span>
 								</p>
 							{% endfor %}
 						{% else %}
-							<p>Пн.-Пт.:
-								<span> с 9:00 до 18:00</span></p>
-							<p>Сб:<span> с 9:00 до 15:00</span></p>
-							<p>Вс: <span> выходной</span></p>
+							<p>{% trans "Пн.-Пт.:" %}
+								<span> {% trans "с 9:00 до 18:00" %}</span></p>
+							<p>{% trans "Сб:" %}<span> {% trans "с 9:00 до 15:00" %}</span></p>
+							<p>{% trans "Вс:" %} <span> {% trans "выходной" %}</span></p>
 						{% endif %}
 					</div>
 
 					<div class="time_work">
-						<p class="grafik_caption">Заказ через
-							корзину 24/7/365</p>
-						<p class="grafik_special">Ночные заказы
-							обрабатываются</p>
+						<p class="grafik_caption">{% trans "Заказ через корзину 24/7/365" %}</p>
+						<p class="grafik_special">{% trans "Ночные заказы обрабатываются" %}</p>
 						{% if schedule.nightorders %}
 							{% for timetable in schedule.nightorders %}
 								<p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span>
 								</p>
 							{% endfor %}
 						{% else %}
-							<p>с 9:00 до 11:00</p>
+							<p>{% trans "с 9:00 до 11:00" %}</p>
 						{% endif %}
 					</div>
 				</div>

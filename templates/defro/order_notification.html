@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 {% load url_tags %}
 {% load currency_tags %}
 
@@ -328,11 +329,11 @@
                     <img class="letter_logo" src="{{ order.site.domain }}{% static 'defro/img/logo.png' %}" alt="">
                 {% endif %}
                 <div class="letter_content">
-                    <p class="letter_caption">Здравствуйте, <span>{{ order.name }}</span>!</p>
-                    <p class="letter_thx">Спасибо, Ваш заказ принят!</p>
-                    <p class="letter_confirm">Наш менеджер обязательно свяжется с Вами для уточнения всех деталей и подтверждения заказа.</p>
+                    <p class="letter_caption">{% trans "Здравствуйте" %}, <span>{{ order.name }}</span>!</p>
+                    <p class="letter_thx">{% trans "Спасибо, Ваш заказ принят!" %}</p>
+                    <p class="letter_confirm">{% trans "Наш менеджер обязательно свяжется с Вами для уточнения всех деталей и подтверждения заказа." %}</p>
                     <div class="letter_details">
-                        <p class="letter_details_caption">Детали заказа № {{ order.number }} <a href="#">Распечатать</a></p>
+                        <p class="letter_details_caption">{% trans "Детали заказа №" %} {{ order.number }} <a href="#">{% trans "Распечатать" %}</a></p>
                         <div class="letter_details_tovar">
                             <ul>
                             {% for line in lines %}
@@ -346,26 +347,26 @@
                                 </li>
                             {% endfor %}
                             </ul>
-                            <p class="letter_details_sum">Итого: <span>{{ order.total_price  }} {{ order.currency|format_currency }}</span></p>
+                            <p class="letter_details_sum">{% trans "Итого:" %} <span>{{ order.total_price  }} {{ order.currency|format_currency }}</span></p>
                         </div>
                     </div>
                     <div class="letter_details">
-                        <p class="letter_details_caption letter_details_caption_contact">Контактные данные</p>
+                        <p class="letter_details_caption letter_details_caption_contact">{% trans "Контактные данные" %}</p>
                         <div class="letter_icon_info">
-                            <p>Имя: <span>{{ order.name }}</span></p>
-                            <p>Адрес: <span>{{ order.city }}</span></p>
-                            <p>E-mail: <span>{{ order.guest_email }}</span></p>
+                            <p>{% trans "Имя:" %} <span>{{ order.name }}</span></p>
+                            <p>{% trans "Адрес:" %} <span>{{ order.city }}</span></p>
+                            <p>{% trans "E-mail:" %} <span>{{ order.guest_email }}</span></p>
                         </div>
                     </div>
                     <div class="letter_details">
-                        <p class="letter_details_caption letter_details_caption_delivery">Доставка и оплата</p>
+                        <p class="letter_details_caption letter_details_caption_delivery">{% trans "Доставка и оплата" %}</p>
                         <div class="letter_icon_info letter_icon_second">
-                            <p>Способ оплаты: <span>{{ order.payment_method.name }} </span></p>
-                            <p>Способ доставки: <span>{{ order.shipping_method }}</span></p>
+                            <p>{% trans "Способ оплаты:" %} <span>{{ order.payment_method.name }} </span></p>
+                            <p>{% trans "Способ доставки:" %} <span>{{ order.shipping_method }}</span></p>
                             {% if order.comment %}
-                                <p>Комментарий к заказу: <span>{{ order.comment }}</span></p>
+                                <p>{% trans "Комментарий к заказу:" %} <span>{{ order.comment }}</span></p>
                             {% else %}
-                                <p>Комментарий к заказу: <span>Нет</span></p>
+                                <p>{% trans "Комментарий к заказу:" %} <span>{% trans "Нет" %}</span></p>
                             {% endif %}
                         </div>
                     </div>
@@ -390,7 +391,7 @@
                     <p><a href="mailto:{{ site_email }}">{{ site_email }}</a></p>
                 </div>
                 <div class="letter_social_groups">
-                    <p class="letter_social_groups_caption">Мы в сети. Присоединяйтесь!</p>
+                    <p class="letter_social_groups_caption">{% trans "Мы в сети. Присоединяйтесь!" %}</p>
                     <a href="{{ social_networks_refs.facebook|first }}"></a>
                     <a href="{{ social_networks_refs.vkontakte|first }}"></a>
                     <a href="{{ social_networks_refs.mailru|first }}"></a>
@@ -398,7 +399,7 @@
                     <a href="{{ social_networks_refs.odnoklassniki|first }}"></a>
                     <a href="{{ social_networks_refs.pinterest|first }}"></a>
                     <a href="{{ social_networks_refs.google|first }}"></a>
-                    <p class="letter_avto">Это письмо создано автоматически, пожалуйста, не отвечайте на него.</p>
+                    <p class="letter_avto">{% trans "Это письмо создано автоматически, пожалуйста, не отвечайте на него." %}</p>
                 </div>
             </div>
         </div>

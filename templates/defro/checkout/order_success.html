@@ -2,6 +2,7 @@
 
 {% load site_static %}
 {% load url_tags %}
+{% load i18n %}
 
 {% block header %}
     <div class="header header_for_zakaz">
@@ -40,12 +41,16 @@
 {% block content %}
     <div class="container">
         <div class="make_zakaz_container clear_fix made_zakaz_container">
-            <p class="category_block_caption">Спасибо, Ваш заказ принят!</p>
-            <p class="made_zakaz_desc">Наш менеджер обязательно свяжется с Вами
-                для уточнения всех деталей и подтверждения заказа.</p>
+            <p class="category_block_caption">{% trans "Спасибо, Ваш заказ принят!" %}</p>
+            <p class="made_zakaz_desc">
+                {% blocktrans %}
+                    Наш менеджер обязательно свяжется с Вами
+                    для уточнения всех деталей и подтверждения заказа.
+                {% endblocktrans %}
+            </p>
             <div class="letter_details bottom_border_details">
-                <p class="letter_details_caption">Детали заказа № {{ order.number }}
-                    <a href="#" id="print">Распечатать</a></p>
+                <p class="letter_details_caption">{% trans "Детали заказа № {{ order.number }}" %}
+                    <a href="#" id="print">{% trans "Распечатать" %}</a></p>
                 <div class="letter_details_tovar zakaz_letter_details_inline">
                     <ul>
                         {% for line in order.basket.lines.all %}
@@ -55,44 +60,44 @@
                                 <div class="letter_details_name_number">
                                     <p class="letter_details_name">
                                         {{ line.product.product_class.name }} {{ line.product.title }}</p>
-                                    <span>{{ line.quantity }} шт.</span>
+                                    <span>{{ line.quantity }} {% trans "шт." %}</span>
                                     <p class="letter_details_price">{{ line.line_price_excl_tax_incl_discounts }}
-                                        грн.</p>
+                                        {% trans "грн." %}</p>
                                 </div>
 
                             </li>
                         {% endfor %}
                     </ul>
-                    <p class="letter_details_sum">Итого:
-                        <span>{{ order.total_price }} грн.</span></p>
+                    <p class="letter_details_sum">{% trans "Итого:" %}
+                        <span>{{ order.total_price }} {% trans "грн." %}</span></p>
                 </div>
 
                 <div class="zakaz_letter_details_container">
                     <div class="letter_details">
                         <p class="letter_details_caption letter_details_caption_contact">
-                            Контактные данные</p>
+                            {% trans "Контактные данные" %}</p>
                         <div class="letter_icon_info">
-                            <p>Имя: <span>{{ order.name }}</span></p>
-                            <p>Адрес:
+                            <p>{% trans "Имя:" %} <span>{{ order.name }}</span></p>
+                            <p>{% trans "Адрес:" %}
                                 <span>{{ order.city }}</span>
                             </p>
-                            <p>Телефон: <span>{{ order.phone }}</span></p>
+                            <p>{% trans "Телефон:" %} <span>{{ order.phone }}</span></p>
                             {% if order.guest_email %}
-                                <p>E-mail: <span>{{ order.guest_email }}</span></p>
+                                <p>{% trans "E-mail:" %} <span>{{ order.guest_email }}</span></p>
                             {% endif %}
                         </div>
                     </div>
                     <div class="letter_details">
                         <p class="letter_details_caption letter_details_caption_delivery">
-                            Доставка и оплата</p>
+                            {% trans "Доставка и оплата" %}</p>
                         <div class="letter_icon_info letter_icon_second">
-                            <p>Способ оплаты:
+                            <p>{% trans "Способ оплаты:" %}
                                 <span>{{ order.payment_method.name }} </span>
                             </p>
-                            <p>Способ доставки:
+                            <p>{% trans "Способ доставки:" %}
                                 <span>{{ order.shipping_method.name }}</span>
                             </p>
-                            <p>Комментарий к заказу:
+                            <p>{% trans "Комментарий к заказу:" %}
                                 <span>{{ order.comment|default:"Нет" }}</span></p>
                         </div>
                     </div>

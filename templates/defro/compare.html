@@ -1,4 +1,5 @@
 {% extends 'defro/base.html' %}
+
 {% load thumbnail %}
 {% load site_static %}
 {% load history_tags %}
@@ -12,7 +13,7 @@
 {% load purchase_info_tags %}
 {% load basket_tags %}
 
-{% block title %}Список сравнений{% endblock %}
+{% block title %}{% trans "Список сравнений" %}{% endblock %}
 
 {% block content %}
     <div class="container compare_container default_container">
@@ -24,12 +25,12 @@
                 <li>
                     <a href="/"><img src="{% get_static 'img/home.png' %}"
                                      alt="" class="solo_img"></a>
-                <li class="active">Сравнение товаров</li>
+                <li class="active">{% trans "Сравнение товаров" %}</li>
                 </li>
             </ul>
 
             <div class="category_block compare_block">
-                <p class="category_block_caption">Списки сравнений</p>
+                <p class="category_block_caption">{% trans "Списки сравнений" %}</p>
                 {% if compare_categories %}
                     {% for category in compare_categories %}
                         <div class="category_block compare_block">
@@ -52,7 +53,7 @@
                                             </select>
                                             <p class="rating_number"><span>{% if product.rating %}
                                                 {{ product.rating|floatformat }}{% else %}
-                                                0{% endif %}</span>/5 ( голосов
+                                                0{% endif %}</span>/5 ( {% trans "голосов" %}
                                                 <span>{{ product.num_approved_reviews }}</span>)
                                             </p>
 
@@ -75,9 +76,8 @@
                                                     {% endif %}</p>
                                             {% else %}
                                                 <p class="sold_out">
-                                                    Нет
-                                                    в
-                                                    наличии</p>
+                                                    {% trans "Нет в наличии" %}
+                                                </p>
                                                 <p class="catalog_item_price naliche_net dpn">
                                                     {% if session.price.is_tax_known %}
                                                         {{ session.price.incl_tax|floatformat|humanize_price }}
@@ -98,12 +98,11 @@
                             </ul>
                             <a href="{% url 'compare_category' category=category.pk %}"
                                class="compare_button_list"
-                               data-category-pk="{{ category.pk }}">Сравнить эти
-                                товары</a>
+                               data-category-pk="{{ category.pk }}">{% trans "Сравнить эти товары" %}</a>
                         </div>
                     {% endfor %}
                 {% else %}
-                    <h2>Список сравнения пуст</h2>
+                    <h2>{% trans "Список сравнения пуст" %}</h2>
                 {% endif %}
             </div>
 

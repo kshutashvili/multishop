@@ -1,4 +1,5 @@
 {% extends 'oscar/base.html' %}
+
 {% load site_static %}
 {% load i18n %}
 {% load lang_url %}
@@ -62,7 +63,7 @@
 
                     <div class="mobile_menu" role="button"></div>
                     <!--<p class="name_page">Каталог</p>-->
-                    <div class="head_menu" role="button">Каталог товаров</div>
+                    <div class="head_menu" role="button">{% trans "Каталог товаров" %}</div>
                     <div class="header_scroll_catalog"></div>
                     <div class="header_right header_main_right">
                         <div class="lang">{% get_current_language as LANGUAGE_CODE %}
@@ -82,7 +83,7 @@
                                 <span>({{ phone_numbers.kievstar|first|slice:':3' }})</span>{{ phone_numbers.kievstar|first|slice:'4:'|phone_number_filter }}
                             </a>
                         {% endif %}
-                        <span class='more' role="button">Еще номера</span>
+                        <span class='more' role="button">{% trans "Еще номера" %}</span>
                         <div class="more_contacts">
                             {% if phone_numbers.vodafone %}
                                 <a href='tel:+38{{ phone_numbers.vodafone|first|cut:" " }}'>
@@ -123,7 +124,7 @@
                                 </a>
                             {% endif %}
                             <a href="#" class="zakaz_zvon show_popup"
-                               data-rel="modal_zakaz_zvon">Заказать звонок</a>
+                               data-rel="modal_zakaz_zvon">{% trans "Заказать звонок" %}</a>
                         </div>
                     </div>
 
@@ -135,14 +136,14 @@
                                    id="dropdownMenu1" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="true"
                                    data-content="{{ compare_products|length }}">
-                                    Сравнение
+                                    {% trans "Сравнение" %}
                                 </a>
                             {% else %}
                                 <a href="#" class="btn btn-default dropdown-toggle"
                                    id="dropdownMenu1" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="true"
                                    data-content="{{ compare_products|length }}">
-                                    Сравнение
+                                    {% trans "Сравнение" %}
                                 </a>
                             {% endif %}
                             <ul class="dropdown-menu"
@@ -159,8 +160,7 @@
                                     {% endfor %}
                                 {% else %}
                                     <li>
-                                        <a href="#" class="sravn_items">Список
-                                            сравнения пуст</a>
+                                        <a href="#" class="sravn_items">{% trans "Список сравнения пуст" %}</a>
                                     </li>
                                 {% endif %}
                             </ul>
@@ -171,14 +171,14 @@
                                id="dropdownMenu2" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="true"
                                data-content="{{ request.basket.num_lines }}">
-                                Корзина
+                                {% trans "Корзина" %}
                             </a>
                             <ul class="dropdown-menu"
                                 aria-labelledby="dropdownMenu2">
                                 <li>
                                     <p class="basket_how_many">В <span
-                                            class="red">Вашей корзине</span>
-                                        товаров: <span
+                                            class="red">{% trans "Вашей корзине" %}</span>
+                                        {% trans "товаров:" %} <span
                                                 class=""
                                                 id="dropdown_line_count">{{ request.basket.num_lines }}</span>
                                     </p>
@@ -188,19 +188,19 @@
 
                                 </li>
                                 <li>
-                                    <p class="basket_how_much">Итого: <span
-                                            id="total_in_dropdown">{{ request.basket.total_incl_tax }} грн.</span>
+                                    <p class="basket_how_much">{% trans "Итого:" %} <span
+                                            id="total_in_dropdown">{{ request.basket.total_incl_tax }} {% trans "грн." %}</span>
                                     </p>
                                 </li>
                                 <li>
                                     <a href="#" id="checkout_dropdown"
                                        class="basket_button_zakaz"
                                        data-checkout-url="{% url 'order:create_order' %}"
-                                       data-update-url="{% url 'update_items_quantity' %}">Оформить
-                                        заказ</a>
+                                       data-update-url="{% url 'update_items_quantity' %}">
+                                        {% trans "Оформить заказ" %}
+                                    </a>
                                     <a href="#" class="basket_goto show_popup"
-                                       data-rel="buy_button_modal">Перейти в
-                                        корзину</a>
+                                       data-rel="buy_button_modal">{% trans "Перейти в корзину" %}</a>
                                 </li>
                             </ul>
                         </div>
@@ -211,34 +211,40 @@
 
         {% block content %}
             <div class="popup buy_button_modal" id="basket_modal">
-                <a class="close" href="#">Close</a>
+                <a class="close" href="#">{% trans "Close" %}</a>
                 <ul>
                     <li>
                         <p class="buy_button_howmuch"><span
                                 class="modal_red_elem"
-                                id="modal_line_count">{{ request.basket.num_lines }} товар</span>
-                            на сумму
+                                id="modal_line_count">{{ request.basket.num_lines }} {% trans "товар" %}</span>
+                            {% trans "на сумму" %}
                             <span id="total_sum">{{ request.basket.total_incl_tax }}</span><span
                                     class="grn"> грн</span></p>
                     </li>
                     <li id="basket_items">
                     </li>
                     <li>
-                        <p class="basket_how_much">Общая стоимость:
-                            <span id="total_sum_bottom">{{ request.basket.total_incl_tax }}</span><span
-                                    class="grn"> грн</span></p>
+                        <p class="basket_how_much">
+                            {% trans "Общая стоимость:" %}
+                            <span id="total_sum_bottom">
+                                {{ request.basket.total_incl_tax }}
+                            </span>
+                            <span class="grn"> {% trans "грн" %}</span>
+                        </p>
                     </li>
                     <li>
                         <a href="#" class="modal_basket_goback"
                            id="continue_shopping"
                            data-update-url="{% url 'update_items_quantity' %}"
-                           data-catalogue-url="{% url 'catalogue:index' %}">Продолжить
-                            покупки</a>
+                           data-catalogue-url="{% url 'catalogue:index' %}">
+                           {% trans "Продолжить покупки" %}
+                        </a>
                         <a href="{% url 'basket:summary' %}"
                            class="modal_basket_button_zakaz" id="make_order"
                            data-update-url="{% url 'update_items_quantity' %}"
-                           data-checkout-url="{% url 'order:create_order' %}">Оформить
-                            заказ</a>
+                           data-checkout-url="{% url 'order:create_order' %}">
+                           {% trans "Оформить заказ" %}
+                        </a>
 
                     </li>
                     <li>
@@ -251,33 +257,34 @@
                                data-rel="request_button_modal_third"
                                type="submit" 
                                id="one_click_btn_modal"
-                               data-oneclick-url="{% url 'oneclick_basket' %}">Заказать
-                                в один клик</button>
+                               data-oneclick-url="{% url 'oneclick_basket' %}">
+                               {% trans "Заказать в один клик" %}
+                            </button>
                         </form>
                     </li>
                 </ul>
             </div>
 
             <div class="popup request_button_modal_third">
-                <a class="close" href="#">Close</a>
-                <p class="modal_caption">Спасибо, Ваш заказ получен!</p>
-                <p class="modal_text">Наш менеджер обязательно свяжется с
-                    Вами</p>
+                <a class="close" href="#">{% trans "Close" %}</a>
+                <p class="modal_caption">{% trans "Спасибо, Ваш заказ получен!" %}</p>
+                <p class="modal_text">{% trans "Наш менеджер обязательно свяжется с
+                    Вами" %}</p>
             </div>
 
 
             <div class="popup request_button_modal">
                 <a class="close" href="#">Close</a>
-                <p id="question_result1" class="modal_caption">Спасибо за Ваше
-                    обращение</p>
-                <p id="question_result2" class="modal_text">Наш менеджер
-                    обязательно
-                    свяжется с Вами</p>
+                <p id="question_result1" class="modal_caption">
+                    {% trans "Спасибо за Ваше обращение" %}
+                </p>
+                <p id="question_result2" class="modal_text">
+                    {% trans "Наш менеджер обязательно свяжется с Вами" %}
+                </p>
             </div>
 
             <div class="snackbar" id="compare_success" style="display: none">
-                Товар добавлен в список
-                сравнения
+                {% trans "Товар добавлен в список сравнения" %}
             </div>
             <div class="snackbar" id="basket_error" style="display: none"></div>
         {% endblock %}
@@ -302,7 +309,7 @@
                                 </div>
                             {% endfor %}
                             <div class="menu_block">
-                                <p class="menu_block_caption">Как связаться</p>
+                                <p class="menu_block_caption">{% trans "Как связаться" %}</p>
                                 <div class="footer_close"></div>
                                 <div class="footer_info">
                                     <ul class="contact_ul">
@@ -322,8 +329,7 @@
                                             </li>
                                         {% endif %}
                                         <li><a href="{% url 'contacts' %}"
-                                               class="predstav">Наши
-                                            представительства</a></li>
+                                               class="predstav">{% trans "Наши представительства" %}</a></li>
                                     </ul>
 
                                     <div class="time_work">
@@ -333,10 +339,10 @@
                                                 </p>
                                             {% endfor %}
                                         {% else %}
-                                            <p>Пн.-Пт.:
-                                                <span> с 9:00 до 18:00</span>
+                                            <p>{% trans "Пн.-Пт.:" %}
+                                                <span> {% trans "с 9:00 до 18:00" %}</span>
                                             </p>
-                                            <p>Сб:<span> с 9:00 до 15:00</span>
+                                            <p>{% trans "Сб:" %}<span> {% trans "с 9:00 до 15:00" %}</span>
                                             </p>
                                         {% endif %}
                                         {% if site_email %}
@@ -349,8 +355,7 @@
                                 </div>
                             </div>
                             <div class="menu_block">
-                                <p class="menu_block_caption">Принимаем к
-                                    оплате</p>
+                                <p class="menu_block_caption">{% trans "Принимаем к оплате" %}</p>
                                 <div class="footer_close"></div>
                                 <div class="footer_info">
                                     <img src="{% get_static 'img/footer/master.png' %}"
@@ -361,33 +366,30 @@
                             </div>
                             <div class="grafik">
                                 <div class="time_work">
-                                    <p class="grafik_caption">График работы
-                                        call-центра</p>
+                                    <p class="grafik_caption">{% trans "График работы call-центра" %}</p>
                                     {% if schedule.callcenter %}
                                         {% for timetable in schedule.callcenter %}
                                             <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span>
                                             </p>
                                         {% endfor %}
                                     {% else %}
-                                        <p>Пн.-Пт.:
-                                            <span> с 9:00 до 18:00</span></p>
-                                        <p>Сб:<span> с 9:00 до 15:00</span></p>
-                                        <p>Вс: <span> выходной</span></p>
+                                        <p>{% trans "Пн.-Пт.:" %}
+                                            <span> {% trans "с 9:00 до 18:00" %}</span></p>
+                                        <p>{% trans "Сб:" %}<span> {% trans "с 9:00 до 15:00" %}</span></p>
+                                        <p>{% trans "Вс: " %}<span> {% trans "выходной" %}</span></p>
                                     {% endif %}
 
                                 </div>
                                 <div class="time_work">
-                                    <p class="grafik_caption">Заказ через
-                                        корзину 24/7/365</p>
-                                    <p class="grafik_special">Ночные заказы
-                                        обрабатываются</p>
+                                    <p class="grafik_caption">{% trans "Заказ через корзину 24/7/365" %}</p>
+                                    <p class="grafik_special">{% trans "Ночные заказы обрабатываются" %}</p>
                                     {% if schedule.nightorders %}
                                         {% for timetable in schedule.nightorders %}
                                             <p>{{ timetable.weekdays }}:<span>{{ timetable.daytime }}</span>
                                             </p>
                                         {% endfor %}
                                     {% else %}
-                                        <p>с 9:00 до 11:00</p>
+                                        <p>{% trans "с 9:00 до 11:00" %}</p>
                                     {% endif %}
 
                                 </div>
@@ -413,13 +415,15 @@
                         {% if site_copyright %}
                             <p>© {{ site_copyright }}</p>
                         {% else %}
-                            <p>© 2017 интернет-магазин <br> твердотопливных котлов
-                                Defro
-                                тм</p>
+                            <p>
+                                {% blocktrans %}
+                                    © 2017 интернет-магазин <br> твердотопливных котлов Defro тм
+                                {% endblocktrans %}
+                            </p>
                         {% endif %}
                     </div>
                     <div class="social">
-                        <p>Мы в соцсетях, <br> присоединяйтесь!</p>
+                        <p>{% trans "Мы в соцсетях, <br> присоединяйтесь!" %}</p>
                         {% if social_networks_refs.facebook %}
                             <a href="{{ social_networks_refs.facebook|first }}"><img
                                 src="{% get_static 'img/footer/fb.png' %}"
@@ -467,17 +471,17 @@
         {% endblock %}
     </div>
     <div class="modal_zakaz_zvon">
-         <h2>Заказать звонок<span class="close"></span></h2>
+         <h2>{% trans "Заказать звонок" %}<span class="close"></span></h2>
         <form id="call_request_form"
               action="{% url 'call_request' %}"
               class="modal_form">
-            <label>Ваше имя<span class="red_star">*</span>:</label>
+            <label>{% trans "Ваше имя" %}<span class="red_star">*</span>:</label>
             <input id="name1" name="name" type="text">
-            <label>Ваш телефон<span class="red_star">*</span>:</label>
+            <label>{% trans "Ваш телефон" %}<span class="red_star">*</span>:</label>
             <input id="phone1" name="phone" type="text">
             {% csrf_token %}<br><br>
             <a href="#" id="submit_call_request"
-               data-rel="request_button_modal">Отправить</a>
+               data-rel="request_button_modal">{% trans "Отправить" %}</a>
         </form>
     </div>
 

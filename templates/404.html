@@ -23,17 +23,23 @@
                 </div>
                 <ol class="breadcrumb">
                     <li><a href="/"><img src="{% get_static 'img/home.png' %}" alt=""></a></li>
-                    <li class="active">Страница не найдена</li>
+                    <li class="active">{% trans "Страница не найдена" %}</li>
                 </ol>
                 <br>
                 <div class="error_block">
                     <div class="error_img">
-                        <h4 class="error_msg">Страница не найдена</h4>
-                        <p class="error_submsg">Возможно, она была удалена или Вы ввели неверный адрес</p>
+                        <h4 class="error_msg">{% trans "Страница не найдена" %}</h4>
+                        <p class="error_submsg">{% trans "Возможно, она была удалена или Вы ввели неверный адрес" %}</p>
                     </div>
                     <div class="error_info_block">
-                        <p class="error_info_block__title">Попробуйте <a href="/">перейти на главную</a> или<br> воспользоваться поиском.</p>
-                        <p class="error_info_block__text">Можете перейти в раздел который Вам интересен:</p>
+                        <p class="error_info_block__title">
+                            {% blocktrans %}
+                                Попробуйте <a href="/">перейти на главную</a> или<br> воспользоваться поиском.
+                            {% endblocktrans %}
+                        </p>
+                        <p class="error_info_block__text">
+                            {% trans "Можете перейти в раздел который Вам интересен:" %}
+                        </p>
                         <div class="well">
                             <ul class="left_menu">
                                 <li>

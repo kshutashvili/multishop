@@ -12,7 +12,7 @@
 {% load purchase_info_tags %}
 {% load basket_tags %}
 
-{% block title %}Таблица сравнений{% endblock %}
+{% block title %}{% trans "Таблица сравнений" %}{% endblock %}
 
 {% block header_class %}
 <div class="header fixed">
@@ -29,33 +29,34 @@
                     <li>
                         <a href="/"><img src="{% get_static 'img/home.png' %}"
                                          alt="" class="solo_img"></a>
-                    <li class="active">Сравнение товаров</li>
+                    <li class="active">{% trans "Сравнение товаров" %}</li>
                     </li>
                 </ul>
 
                 <div class="compare_block_table">
-                    <p class="category_block_caption">Вы сравниваете {{ category.name }}</p>
+                    <p class="category_block_caption">{% trans "Вы сравниваете" %} {{ category.name }}</p>
 
                     <div class="compare_table_add">
-                        <p class="compare_table_number">Добавлено
-                            товаров:
+                        <p class="compare_table_number">{% trans "Добавлено товаров:" %}
                             <span>{{ products|length }}</span></p>
                         <a href="{{ category.get_absolute_url }}"
-                           class="compare_table_add_button">Добавить
-                            еще один товар</a>
+                           class="compare_table_add_button">{% trans "Добавить еще один товар" %}</a>
                         <a href="#" class="compare_table_clean_button"
                            data-category-pk="{{ category.pk }}"
-                           data-remove-url="{% url 'remove_category_from_compare_list' %}">Очистить
-                            все</a>
+                           data-remove-url="{% url 'remove_category_from_compare_list' %}">
+                           {% trans "Очистить все" %}
+                        </a>
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a
                                     href="#all_parame"
                                     aria-controls="all_parame"
                                     role="tab"
-                                    data-toggle="tab">Все параметры</a>
+                                    data-toggle="tab">{% trans "Все параметры" %}</a>
                             </li>
                             <li role="presentation">
-                                <a href="#only_dif" aria-controls="only_dif" role="tab" data-toggle="tab">Только отличия</a>
+                                <a href="#only_dif" aria-controls="only_dif" role="tab" data-toggle="tab">
+                                    {% trans "Только отличия" %}
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -92,7 +93,7 @@
                                         </select>
                                         <p class="rating_number"><span>{% if product.rating %}
                                             {{ product.rating|floatformat }}{% else %}
-                                            0{% endif %}</span>/5 ( голосов
+                                            0{% endif %}</span>/5 ( {% trans "голосов" %}
                                             <span>{{ product.num_approved_reviews }}</span>)
                                         </p>
                                         <hr>
@@ -114,16 +115,17 @@
                                                 {% endif %}</p>
 
                                            {% if product.id in basket_product_ids %}
-                                                <a href="#" class="buy_button buy_button_bougth">В корзине</a>
+                                                <a href="#" class="buy_button buy_button_bougth">{% trans "В корзине" %}</a>
                                             {% else %}
                                                 <a href="#"
                                                    class="buy_button show_popup"
                                                    data-rel="buy_button_modal"
-                                                   data-product-id="{{ product.id }}">Купить</a>
+                                                   data-product-id="{{ product.id }}">{% trans "Купить" %}</a>
                                             {% endif %}
                                         {% else %}
                                             <p class="sold_out">
-                                                Нет в наличии</p>
+                                                {% trans "Нет в наличии" %}
+                                            </p>
                                             <p class="catalog_item_price naliche_net dpn">
                                                 {% if session.price.is_tax_known %}
                                                     {{ session.price.incl_tax|floatformat|humanize_price}}

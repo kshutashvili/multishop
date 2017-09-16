@@ -16,7 +16,6 @@ from shop.catalogue.models import ProductAttribute
 from contacts.models import City
 
 
-
 class SiteConfig(models.Model):
     class TEMPLATES:
         DEFRO = 'defro'
@@ -25,52 +24,61 @@ class SiteConfig(models.Model):
                     (BLUE, 'Blue'),
                     )
 
-    template = models.CharField(verbose_name='шаблон',
+    template = models.CharField(verbose_name=_('шаблон'),
                                 max_length=20,
                                 null=True,
                                 blank=True,
                                 choices=TEMPLATES._CHOICES,
                                 default=TEMPLATES.DEFRO)
 
-    site = models.OneToOneField(Site, verbose_name='сайт',
+    site = models.OneToOneField(Site, verbose_name=_('сайт'),
                                 on_delete=models.CASCADE,
                                 related_name='config')
-    email = models.EmailField('email адрес')
+    email = models.EmailField(_('email адрес'))
 
     copyright = models.CharField(verbose_name='Copyright',
                                  max_length=100,
                                  null=True,
                                  blank=True)
 
-    favicon = models.ImageField('Favicon', blank=True, null=True)
-    logo = models.ImageField('Логотип', blank=True, null=True)
+    favicon = models.ImageField(_('Favicon'), blank=True, null=True)
+    logo = models.ImageField(_('Логотип'), blank=True, null=True)
 
-    power_attribute = models.ForeignKey(ProductAttribute,
-                                        on_delete=models.SET_NULL,
-                                        verbose_name='Атрибут мощности котла',
-                                        null=True)
+    power_attribute = models.ForeignKey(
+        ProductAttribute,
+        on_delete=models.SET_NULL,
+        verbose_name=_('Атрибут мощности котла'),
+        null=True)
 
     brand_attribute = models.ForeignKey(ProductAttribute,
                                         related_name='brand_config',
                                         on_delete=models.SET_NULL,
-                                        verbose_name="Атрибут бренда котла",
+                                        verbose_name=_("Атрибут бренда котла"),
                                         null=True)
 
-    code_webmaster_google = models.CharField("Код подтверждения для Google",
-                                             blank=True,
-                                             null=True,
-                                             max_length=128)
+    code_webmaster_google = models.CharField(
+        _("Код подтверждения для Google"),
+        blank=True,
+        null=True,
+        max_length=128
+    )
 
-    code_webmaster_yandex = models.CharField("Код подтверждения для Яндекс.Вебмастер",
-                                             blank=True,
-                                             null=True,
-                                             max_length=128)
+    code_webmaster_yandex = models.CharField(
+        _("Код подтверждения для Яндекс.Вебмастер"),
+        blank=True,
+        null=True,
+        max_length=128
+    )
 
-    google_tag_manager_script = models.TextField("Скрипт Google Tag Manager",
-                                                 blank=True)
+    google_tag_manager_script = models.TextField(
+        _("Скрипт Google Tag Manager"),
+        blank=True
+    )
 
-    google_tag_manager_noscript = models.TextField("Iframe для Google Tag Manager",
-                                                   blank=True)
+    google_tag_manager_noscript = models.TextField(
+        _("Iframe для Google Tag Manager"),
+        blank=True
+    )
 
     def __unicode__(self):
         return self.site.domain
@@ -84,43 +92,70 @@ def create_or_update_site_config(sender, instance, created, **kwargs):
 
 
 class Configuration(models.Model):
-    site = models.OneToOneField(Site, verbose_name='сайт',
-                                on_delete=models.CASCADE,
-                                related_name='landing_config')
-    main_image = models.ImageField("Основное изображение",
-                                   blank=True)
-    general_phrase = models.CharField("Основная фраза",
-                                      max_length=30,
-                                      blank=True)
-    additional_phrase = models.CharField("Дополнительная фраза",
-                                         max_length=30,
-                                         blank=True)
-    undercat_block_url = models.CharField(_('Ссылка под каталогом'),
-                                            max_length=128,
-                                            blank=True)
-    show_calculator = models.BooleanField(_("Отображать калькулятор котлов?"),
-                                            default=False)
-    show_benefits = models.BooleanField(_("Отображать блок 'Преимуществ'?"),
-                                          default=False)
-    show_credit = models.BooleanField(_("Отображать блок 'Кредит'?"),
-                                        default=False)
-    credit_block_text = models.TextField(_("Текст для блока 'Кредит'"),
-                                           max_length=220,
-                                           blank=True)
-    show_reviews = models.BooleanField(_("Отображать блок 'Обзоры и отзывы'?"),
-                                         default=False)
-    show_advanced = models.BooleanField(_("Отображать блок 'Дополнительные услуги'?"),
-                                          default=False)
-    show_delivery = models.BooleanField(_("Отображать блок 'Доставка/Оплата'"),
-                                        default=False)
-    footer_map_for = models.OneToOneField(City,
-                                          verbose_name=_("Карта в футере для"),
-                                          related_name='footer_map',
-                                          blank=True,
-                                          null=True)
+    site = models.OneToOneField(
+        Site,
+        verbose_name=_('сайт'),
+        on_delete=models.CASCADE,
+        related_name='landing_config'
+    )
+    main_image = models.ImageField(
+        _("Основное изображение"),
+        blank=True
+    )
+    general_phrase = models.CharField(
+        _("Основная фраза"),
+        max_length=30,
+        blank=True
+    )
+    additional_phrase = models.CharField(
+        _("Дополнительная фраза"),
+        max_length=30,
+        blank=True
+    )
+    undercat_block_url = models.CharField(
+        _('Ссылка под каталогом'),
+        max_length=128,
+        blank=True
+    )
+    show_calculator = models.BooleanField(
+        _("Отображать калькулятор котлов?"),
+        default=False
+    )
+    show_benefits = models.BooleanField(
+        _("Отображать блок 'Преимуществ'?"),
+        default=False
+    )
+    show_credit = models.BooleanField(
+        _("Отображать блок 'Кредит'?"),
+        default=False
+    )
+    credit_block_text = models.TextField(
+        _("Текст для блока 'Кредит'"),
+        max_length=220,
+        blank=True
+    )
+    show_reviews = models.BooleanField(
+        _("Отображать блок 'Обзоры и отзывы'?"),
+        default=False
+    )
+    show_advanced = models.BooleanField(
+        _("Отображать блок 'Дополнительные услуги'?"),
+        default=False
+    )
+    show_delivery = models.BooleanField(
+        _("Отображать блок 'Доставка/Оплата'"),
+        default=False
+    )
+    footer_map_for = models.OneToOneField(
+        City,
+        verbose_name=_("Карта в футере для"),
+        related_name='footer_map',
+        blank=True,
+        null=True
+    )
 
     class Meta:
-        verbose_name='Настройки главной страницы'
+        verbose_name = _('Настройки главной страницы')
 
     def __unicode__(self):
         return self.site.domain
@@ -178,7 +213,7 @@ class OverviewItem(models.Model):
                                verbose_name=_("Настройки главной страницы"),
                                related_name="overviews")
     link = models.CharField(_("Ссылка на обзор"),
-                             max_length=200)
+                            max_length=200)
 
     class Meta:
         verbose_name = _('Обзор')
@@ -193,8 +228,8 @@ class ReviewItem(models.Model):
                                verbose_name=_("Настройки главной страницы"),
                                related_name="reviews")
     photo = models.ImageField(_("Фото"),
-                             blank=True,
-                             upload_to='review_images')
+                              blank=True,
+                              upload_to='review_images')
     name = models.CharField(_("Имя оставившего отзыв"),
                             max_length=50)
     text = models.TextField(_("Текст отзыва"))
@@ -237,11 +272,12 @@ class DeliveryAndPay(models.Model):
 
 
 class MenuCategory(models.Model):
+    name = models.CharField(_('Название'), max_length=50)
+    order = models.IntegerField(_('Порядок'), default=0)
+
     class Meta:
-        verbose_name = 'Категория меню'
-        verbose_name_plural = 'Категории меню'
-    name = models.CharField('Название', max_length=50)
-    order = models.IntegerField('Порядок', default=0)
+        verbose_name = _('Категория меню')
+        verbose_name_plural = _('Категории меню')
 
     def __unicode__(self):
         return self.name
@@ -267,30 +303,32 @@ class MenuItemQuerySet(models.QuerySet):
 
 class MenuItem(models.Model):
     class Meta:
-        verbose_name = 'Пункт меню'
-        verbose_name_plural = 'Пункты меню'
+        verbose_name = _('Пункт меню')
+        verbose_name_plural = _('Пункты меню')
 
     class POSITION:
         HEADER = 'header'
         FOOTER = 'footer'
         SIDE = 'side'
-        _CHOICES = ((HEADER, 'Header'),
-                    (FOOTER, 'Footer'),
-                    (SIDE, 'Боковое меню'))
+        _CHOICES = (
+            (HEADER, _('Header')),
+            (FOOTER, _('Footer')),
+            (SIDE, _('Боковое меню')),
+        )
 
-    position = models.CharField('Расположение', max_length=128,
+    position = models.CharField(_('Расположение'), max_length=128,
                                 default=POSITION.HEADER,
                                 choices=POSITION._CHOICES)
-    name = models.CharField('Название', max_length=50)
-    link = models.CharField('Ссылка', max_length=255, blank=True)
-    order = models.IntegerField('Порядок', default=0)
-    category = models.ForeignKey(MenuCategory, verbose_name='Категория',
+    name = models.CharField(_('Название'), max_length=50)
+    link = models.CharField(_('Ссылка'), max_length=255, blank=True)
+    order = models.IntegerField(_('Порядок'), default=0)
+    category = models.ForeignKey(MenuCategory, verbose_name=_('Категория'),
                                  on_delete=models.CASCADE,
                                  max_length=255, blank=True, null=True)
-    site = models.ForeignKey(Site, verbose_name='Сайт',
+    site = models.ForeignKey(Site, verbose_name=_('Сайт'),
                              on_delete=models.CASCADE,
                              max_length=255, blank=True, null=True)
-    is_active = models.BooleanField('Отображается на сайте', default=True)
+    is_active = models.BooleanField(_('Отображается на сайте'), default=True)
 
     objects = MenuItemQuerySet.as_manager()
 
@@ -319,26 +357,26 @@ class UndercatText(models.Model):
 
 class TextOne(UndercatText):
     class Meta:
-        verbose_name = 'Текст 1'
-        verbose_name_plural = 'Тексты 1'
+        verbose_name = _('Текст 1')
+        verbose_name_plural = _('Тексты 1')
 
 
 class TextTwo(UndercatText):
     class Meta:
-        verbose_name = 'Текст 2'
-        verbose_name_plural = 'Тексты 2'
+        verbose_name = _('Текст 2')
+        verbose_name_plural = _('Тексты 2')
 
 
 class TextThree(UndercatText):
     class Meta:
-        verbose_name = 'Текст 3'
-        verbose_name_plural = 'Тексты 3'
+        verbose_name = _('Текст 3')
+        verbose_name_plural = _('Тексты 3')
 
 
 class TextFour(UndercatText):
     class Meta:
-        verbose_name = 'Текст 4'
-        verbose_name_plural = 'Тексты 4'
+        verbose_name = _('Текст 4')
+        verbose_name_plural = _('Тексты 4')
 
 
 class MetaTag(models.Model):
@@ -352,44 +390,44 @@ class MetaTag(models.Model):
     FLAT_PAGE = 'FP'
 
     META_TYPE_CHOICES = (
-        (MAIN_PAGE, 'Главная страница'),
-        (SECTION, 'Раздел'),
-        (SUB_SECTION, 'Подраздел'),
-        (CATEGORY, 'Категория'),
-        (BRAND, 'Бренд'),
-        (BRAND_FILTER, 'Бренд + фильтр'),
+        (MAIN_PAGE, _('Главная страница')),
+        (SECTION, _('Раздел')),
+        (SUB_SECTION, _('Подраздел')),
+        (CATEGORY, _('Категория')),
+        (BRAND, _('Бренд')),
+        (BRAND_FILTER, _('Бренд + фильтр')),
         (PRODUCT, 'Товар'),
-        (FLAT_PAGE, 'Статистическая страница')
+        (FLAT_PAGE, _('Статистическая страница'))
     )
     title = models.CharField(
         max_length=250,
         default='[title]',
-        verbose_name='Заголовок',
+        verbose_name=_('Заголовок'),
     )
     title_meta = models.CharField(
         max_length=250,
         default='[title]',
-        verbose_name='Meta title',
+        verbose_name=_('Meta title'),
     )
     description_meta = models.TextField(
         default='[title]',
-        verbose_name='Meta description'
+        verbose_name=_('Meta description')
     )
     h1 = models.CharField(
         max_length=250,
         default='[title]',
-        verbose_name='H1 заголовок',
+        verbose_name=_('H1 заголовок'),
     )
     type = models.CharField(
         max_length=2,
         choices=META_TYPE_CHOICES,
-        verbose_name='Тип страницы',
+        verbose_name=_('Тип страницы'),
         unique=True,
     )
 
     class Meta:
-        verbose_name = "Мета тег"
-        verbose_name_plural = "Мета теги"
+        verbose_name = _("Мета тег")
+        verbose_name_plural = _("Мета теги")
 
     def __unicode__(self):
         return u"{} - {}".format(self.get_type_display(), self.title)
@@ -399,18 +437,18 @@ class ModelMetaTag(models.Model):
 
     title = models.CharField(
         max_length=250,
-        verbose_name='Заголовок',
+        verbose_name=_('Заголовок'),
     )
     title_meta = models.CharField(
         max_length=250,
-        verbose_name='Meta title',
+        verbose_name=_('Meta title'),
     )
     description_meta = models.TextField(
-        verbose_name='Meta description'
+        verbose_name=_('Meta description')
     )
     h1 = models.CharField(
         max_length=250,
-        verbose_name='H1 заголовок',
+        verbose_name=_('H1 заголовок'),
     )
     content_type = models.ForeignKey(
         ContentType,
@@ -424,8 +462,8 @@ class ModelMetaTag(models.Model):
 
     class Meta:
         unique_together = (('content_type', 'object_id'))
-        verbose_name = 'Мета тегы для обьекта'
-        verbose_name_plural = 'Мета тегы для обьектов'
+        verbose_name = _('Мета тегы для обьекта')
+        verbose_name_plural = _('Мета тегы для обьектов')
 
     def __unicode__(self):
         return '{} - {}'.format(self.content_object, self.title)
