@@ -1,6 +1,7 @@
 {% load basket_tags %}
 {% load currency_tags %}
 {% load thumbnail %}
+{% load i18n %}
 {% load purchase_info_tags %}
 
 {% for product in products %}
@@ -43,7 +44,7 @@
                 <p class="rating_number"><span>{% if product.rating %}
                     {{ product.rating|floatformat }}{% else %}
                     0{% endif %}
-                    /</span>5 ( голосов
+                    /</span>5 ( {% trans "голосов" %}
                     <span>{{ product.num_approved_reviews }}</span>)
                 </p>
                 <hr>
@@ -63,23 +64,23 @@
                         {% endif %}</p>
                     {% if request.session.compare_list and product.id in request.session.compare_list %}
                         <a href="#!"
-                           class="compare_button compare_button_added">В
-                            сравнении</a>
+                           class="compare_button compare_button_added">
+                           {% trans "В сравнении" %}
+                        </a>
                     {% else %}
                         <a href="#!"
                            data-compare-url="{% url 'compare' %}"
                            class="compare_button"
-                           data-product-id="{{ product.id }}">Сравнить</a>
+                           data-product-id="{{ product.id }}">{% trans "Сравнить" %}</a>
                     {% endif %}
 
                     {% if product.id in basket_product_ids %}
-                        <a href="#" class="buy_button buy_button_bougth">Нет в наличии</a>
+                        <a href="#" class="buy_button buy_button_bougth">{% trans "Нет в наличии" %}</a>
                     {% else %}
                         <a href="#"
                            class="buy_button show_popup"
                            data-rel="buy_button_modal"
-                           data-product-id="{{ product.id }}">Нет
-                            в наличии</a>
+                           data-product-id="{{ product.id }}">{% trans "Нет в наличии" %}</a>
                     {% endif %}
 
                 {% else %}
@@ -91,20 +92,17 @@
                         {% endif %}</p>
                     {% if request.session.compare_list and product.id in request.session.compare_list %}
                         <a href="#!"
-                           class="compare_button compare_button_added">В
-                            сравнении</a>
+                           class="compare_button compare_button_added">{% trans "В сравнении" %}</a>
                     {% else %}
                         <a href="#!"
                            data-compare-url="{% url 'compare' %}"
                            class="compare_button"
-                           data-product-id="{{ product.id }}">Сравнить</a>
+                           data-product-id="{{ product.id }}">{% trans "Сравнить" %}</a>
 
 
                     {% endif %}
                     <a href="#"
-                       class="buy_button but_button_sold">Нет
-                        в
-                        наличии</a>
+                       class="buy_button but_button_sold">{% trans "Нет в наличии" %}</a>
                 {% endif %}
             </div>
             <div class="catalog_item_info">
