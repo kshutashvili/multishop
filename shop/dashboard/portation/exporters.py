@@ -94,7 +94,7 @@ class CatelogueExporter(Base):
             if field_code == 'categories':
                 value = self.get_categories(product)
             else:
-                value = str(getattr(product, field_code))
+                value = unicode(getattr(product, field_code))
             result.append(value)
 
         for attr in self.attributes_to_export:
