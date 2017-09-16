@@ -1,5 +1,9 @@
 from openpyxl import Workbook
+from openpyxl.styles import PatternFill
+from openpyxl.styles import Alignment
+
 from django.utils.translation import get_language
+from django.utils.translation import ugettext as _
 
 from shop.catalogue.models import Product
 from shop.catalogue.models import AttributeOption
@@ -10,6 +14,7 @@ from .base import Base
 class CatelogueExporter(Base):
 
     attributes_to_export = {}
+    data_rows_count = None
 
     def __init__(self, data, *args, **kwargs):
         self.form_data = data
@@ -31,6 +36,7 @@ class CatelogueExporter(Base):
     def handle(self):
         product_class = self.form_data['product_class']
         products = self.get_products_for_export(product_class)
+        self.data_rows_count = len(products) + 3
         self.get_attributes_to_export()
         self.get_fields_to_export()
         result = self.export(products)
@@ -42,7 +48,7 @@ class CatelogueExporter(Base):
         """
         wb = Workbook()
         ws = wb.active
-        ws = self.create_first_line(ws)
+        ws = self.create_heading(ws)
 
         for i, product in enumerate(products):
             data = self.get_product_data(product)
@@ -51,20 +57,34 @@ class CatelogueExporter(Base):
 
         return wb
 
-    def create_first_line(self, ws):
+    def create_heading(self, ws):
         i = 1
+        heading_fill = PatternFill("solid", fgColor="00ffc269")
+        codes_fill = PatternFill("solid", fgColor="00ded6d6")
+        danger_fill = PatternFill("solid", fgColor="00ff6969")
+
         for key, value in self.FIELDS:
-            ws.cell(row=1, column=i, value=unicode(value))
-            ws.cell(row=2, column=i, value=key)
+            ws.cell(row=1, column=i, value=unicode(value)) \
+                .fill = heading_fill
+            ws.cell(row=2, column=i, value=key) \
+                .fill = codes_fill
             i += 1
 
         colomn = i
         for attr in self.attributes_to_export:
-            ws.cell(row=1, column=colomn, value=attr.name)
-            ws.cell(row=2, column=colomn, value=attr.code)
+            ws.cell(row=1, column=colomn, value=attr.name) \
+                .fill = heading_fill
+            ws.cell(row=2, column=colomn, value=attr.code) \
+                .fill = codes_fill
             colomn += 1
 
+        cell = ws.cell(row=1, column=colomn + 1, value=get_language().upper())
+        cell.alignment = Alignment(horizontal='center')
+        cell.fill = danger_fill
+
         self.adjust_colomn_width(ws)
+
+        ws.row_dimensions[1].height = 20
         return ws
 
     def get_product_data(self, product):

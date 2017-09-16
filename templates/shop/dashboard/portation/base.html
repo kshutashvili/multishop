@@ -22,6 +22,12 @@
     <div class="table-header">
         <h2>{{ title }}</h2>
     </div>
+        <div class="alert alert-warning">
+            <div class="alertinner wicon">
+                {{ form.HELP_TEXT }}
+                <i class="icon-warning-sign"></i>
+            </div>
+        </div>
     <div class="well">
         {% include 'dashboard/partials/form.html' with includes_files=includes_files %}
     </div>
@@ -34,7 +40,6 @@
     <script type="text/javascript">
         $('select#id_attributes').find('option').remove();
         $('select#id_attributes').select2();
-        console.log('lalalal');
 
         $('select#id_product_class').change(function () {
             var procudtClassId = $('select#id_product_class').val();
@@ -45,7 +50,6 @@
                     attributes = data['attributes']
                     for (var i = 0; i < attributes.length; i++) {
                         $('select#id_attributes').append($('<option>', {
-                            // value: attributes[i].code,
                             value: attributes[i].id,
                             text: attributes[i].name,
                         }));

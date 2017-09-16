@@ -1,6 +1,6 @@
 from io import BytesIO
 from openpyxl import load_workbook
-from django.utils.translation import get_language
+from django.utils import translation
 
 from .base import Base
 from shop.catalogue.models import Product
@@ -27,19 +27,28 @@ class CatalogueImporter(Base):
 
     def _import(self):
         self.max_row = self.ws.max_row
+        self.get_codes()
+        self.get_language()
         for row in self.ws:
             if row[0].row > 3:
                 try:
-                    self.create_update_product(row)
+                    self.create_update_product(row[:self.data_colomns_len])
                 except():
                     self.statistics['errors'].append(str(row[0].row))
 
     def get_codes(self):
-        return [i.value for i in list(self.ws.rows)[1]]
+        rows = self.ws.rows
+        self.codes = [i.value for i in list(rows)[1] if i.value is not None]
+        self.data_colomns_len = len(self.codes)
+
+    def get_language(self):
+        position = self.data_colomns_len + 1
+        self.lang = list(self.ws.rows)[0][position].value.lower()
+        translation.activate(self.lang)
 
     def create_update_product(self, data):
         values = [item.value for item in data]
-        values = dict(zip(self.get_codes(), values))
+        values = dict(zip(self.codes, values))
         try:
             product = Product.objects.get(id=values['id'])
             self.statistics['updated'] += 1
@@ -70,7 +79,7 @@ class CatalogueImporter(Base):
                 if isinstance(p_value.value, tuple):
                     attribute = 'value_{}_{}'.format(
                         p_value.attribute.type,
-                        get_language()
+                        self.lang,
                     )
                     setattr(p_value, attribute, value)
                 else:

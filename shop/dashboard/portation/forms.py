@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import get_language
 
 from shop.catalogue.models import ProductClass
 from shop.catalogue.models import ProductAttribute
@@ -14,6 +15,13 @@ class ImportForm(forms.Form):
 
 
 class ExportForm(forms.Form):
+
+    HELP_TEXT = _(
+        'The server just exportes products data on your current language: '
+        '"{lang}". Please, don`t change the language mark in the file, as when'
+        ' you import this file, the server will not know what language to use.'
+    ).format(lang=get_language())
+
     FIELDS = (
         ('upc', _('UPC')),
         ('title', _('Title')),
