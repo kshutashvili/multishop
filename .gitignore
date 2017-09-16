@@ -5,3 +5,4 @@ local_settings.py
 media/
 .DS_Store
 django.mo
+djangojs.mo
