@@ -18,7 +18,6 @@ class LandingView(SiteTemplateResponseMixin, TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
-        print 'lLALALAL!!!!!!!!!!!!!!!!!!!!!!!!!!'
         context = super(LandingView, self).get_context_data()
         context['installment_form'] = InstallmentPaymentForm()
         return context

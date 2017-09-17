@@ -18,5 +18,4 @@ class HomeView(LandingView, CompareAndMenuContextMixin, OscarHomeView):
         context['our_products'] = Product.objects.filter(site=site)
         context['power_attribute'] = SiteConfig.objects.get(site=site) \
             .power_attribute
-        print context['power_attribute']
         return context

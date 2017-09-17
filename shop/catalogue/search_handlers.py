@@ -55,6 +55,8 @@ class SolrProductSearchHandler(OscarSolrProductSearchHandler):
                                 })
                 if k.startswith('group_filter_') and self.options[k]:
                     group_attributes += self.options[k]
+                if k == 'product_class' and self.options[k]:
+                    sqs = sqs.filter(product_class__in=self.options[k])
             if attributes:
                 i = 0
                 for attribute in attributes:

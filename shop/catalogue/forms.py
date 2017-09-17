@@ -6,6 +6,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from shop.catalogue.models import AttributeOptionGroup, ProductAttribute
+from shop.catalogue.models import ProductClass
 from shop.catalogue.widgets import CustomFilterCheckboxSelectMultiple
 from shop.catalogue.fields import CustomFilterMultipleChoiceField
 from shop.catalogue.fields import NonValidationMultipleChoiceField
@@ -26,6 +27,29 @@ class FilterForm(forms.Form):
         self.make_filter()
 
     def make_filter(self):
+
+        # Product class filter
+        widget_choices = []
+        p_clases = ProductClass.objects.filter(site=self.site)
+        for p_class in p_clases:
+            product_count = self.product_count_class(p_class)
+            if product_count > 0:
+                widget_choices.append((
+                    '%s' % p_class.id,
+                    '%s' % p_class.name,
+                    {
+                        'product_count': product_count,
+                        'attrs': {},
+                    }
+                ))
+        self.fields['product_class'] = NonValidationMultipleChoiceField(
+            widget=CustomFilterCheckboxSelectMultiple(),
+            label=ProductClass._meta.verbose_name.title(),
+            required=False,
+            choices=widget_choices,
+        )
+
+        # Filter by attributes
         for attr in ProductAttribute.objects.filter(
                 product_class__site=self.site, type__in=self.attr_fields):
             code = 'filter_%s' % attr.code
@@ -44,7 +68,7 @@ class FilterForm(forms.Form):
                     first = first + number
 
                 for i in choices:
-                    product_count = self.product_count(attr.code, i)
+                    product_count = self.product_count_attr(attr.code, i)
                     if product_count > 0:
                         widget_choices.append((
                             '%s-%s' % (i[0], i[1]),
@@ -63,6 +87,7 @@ class FilterForm(forms.Form):
                     choices=widget_choices,
                 )
 
+        # Filter by groups
         for group in AttributeOptionGroup.objects.filter(site=self.site):
             code = group.get_filter_param()
 
@@ -98,7 +123,7 @@ class FilterForm(forms.Form):
             options=options, categories=self.categories)
         return handler.get_search_queryset()
 
-    def product_count(self, code, option):
+    def product_count_attr(self, code, option):
         sqs = self.query(without='filter_%s' % code)
         values = range(int(option[0]), int(option[1]) + 1)
         sqs = sqs.filter(
@@ -111,6 +136,13 @@ class FilterForm(forms.Form):
         sqs = self.query(without=code)
         sqs = sqs.filter(
             attribute_option_values__in=[option.id],
+        )
+        return sqs.count()
+
+    def product_count_class(self, product_class_value):
+        sqs = self.query(without='product_class')
+        sqs = sqs.filter(
+            product_class__in=[product_class_value.id],
         )
         return sqs.count()
 

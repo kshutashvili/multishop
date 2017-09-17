@@ -20,6 +20,7 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
 
     # Fields for faceting
     product_class = indexes.CharField(null=True, faceted=True)
+    product_class_id = indexes.CharField(null=True, faceted=True)
     category = indexes.MultiValueField(null=True, faceted=True)
     price = indexes.FloatField(null=True, faceted=True)
     num_in_stock = indexes.IntegerField(null=True, faceted=True)
@@ -68,7 +69,7 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
         return self.get_model().browsable.base_queryset()
 
     def prepare_product_class(self, obj):
-        return obj.get_product_class().name
+        return obj.get_product_class().id
 
     def prepare_category(self, obj):
         categories = obj.categories.all()
