@@ -28,6 +28,7 @@
                            aria-expanded="true">
                             {{ category.side_menu_name }}
                         </a>
+                        {% if descendants %}
                         <ul class="dropdown-menu"
                             aria-labelledby="dropdownMenu{{ forloop.counter0|add:"3" }}">
                             {% for descendant in descendants %}
@@ -47,6 +48,7 @@
                                 </li>
                             {% endfor %}
                         </ul>
+                        {% endif %}
                     </div>
                   {% endfor %}
                 {% endif %}
