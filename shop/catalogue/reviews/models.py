@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.mail import send_mail
 from django.db import models
@@ -48,10 +50,10 @@ def on_review_create(sender, instance, created, **kwargs):
     except ObjectDoesNotExist:
         return
     to_email = review.email or review.user.email
-    message = 'Your review has been commented, please follow the reference' \
-              'to see the the comment http://{0}/{1}'.format(
+    message = 'Кто-то оставил коментарий на ваш отзыв. Что бы просмотреть этот коментарий ' \
+              'перейдите, пожалуйста, по ссылке http://{0}/{1}'.format(
         instance.site.domain, instance.product.get_absolute_url())
-    send_mail('Notification about your review',
+    send_mail('Оповещение об ответе на ваш отзыв',
               message,
               settings.DEFAULT_FROM_EMAIL,
               [to_email],
@@ -160,10 +162,10 @@ def on_review_answer_create(sender, instance, created, **kwargs):
     except ObjectDoesNotExist:
         return
     to_email = review.email or review.user.email
-    message = 'Your review has been commented, please follow the reference' \
-              'to see the the comment http://{0}/{1}'.format(
+    message = 'Кто-то оставил коментарий на ваш отзыв. Что бы просмотреть этот коментарий ' \
+              'перейдите, пожалуйста, по ссылке http://{0}/{1}'.format(
         instance.site.domain, instance.review.product.get_absolute_url())
-    send_mail('Notification about your review',
+    send_mail('Оповещение об ответе на ваш отзыв',
               message,
               settings.DEFAULT_FROM_EMAIL,
               [to_email],
@@ -180,10 +182,10 @@ def on_answer_to_answer_create(sender, instance, created, **kwargs):
     except ObjectDoesNotExist:
         return
     to_email = answer.email or answer.user.email
-    message = 'Your review has been commented, please follow the reference' \
-              'to see the the comment http://{0}/{1}'.format(
+    message = 'Кто-то оставил коментарий на ваш отзыв. Что бы просмотреть этот коментарий ' \
+              'перейдите, пожалуйста, по ссылке http://{0}/{1}'.format(
         instance.site.domain, instance.reply_to.review.product.get_absolute_url())
-    send_mail('Notification about your review',
+    send_mail('Оповещение об ответе на ваш отзыв',
               message,
               settings.DEFAULT_FROM_EMAIL,
               [to_email],
