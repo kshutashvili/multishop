@@ -20,7 +20,7 @@ from contacts.models import (City, PhoneNumber,
                              FlatPage, ContactMessage,
                              WorkSchedule)
 from shop.catalogue.models import FilterDescription
-from shop.order.models import InstallmentPayment
+from shop.order.models import InstallmentPayment, ShippingMethod, PaymentMethod
 from users.models import User
 
 
@@ -283,6 +283,18 @@ class InstallmentPaymentForm(forms.ModelForm):
     class Meta:
         model = InstallmentPayment
         exclude = ('site',)
+
+
+class ShippingMethodForm(forms.ModelForm):
+    class Meta:
+        model = ShippingMethod
+        fields = '__all__'
+
+
+class PaymentMethodForm(forms.ModelForm):
+    class Meta:
+        model = PaymentMethod
+        fields = '__all__'
 
 
 class UserForm(forms.ModelForm):

@@ -1,0 +1,69 @@
+{% extends 'dashboard/layout.html' %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Методы доставки" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        </li>
+        <li class="active">{% trans "Методы доставки" %}</li>
+    </ul>
+{% endblock %}
+
+{% block header %}
+    <div class="page-header">
+        <a href="{% url 'dashboard:shippingmethod-create' %}" class="btn btn-primary btn-lg pull-right"><i class="icon-plus"></i> {% trans "Создать новый метод доставки" %}</a>
+        <h1>{% trans "Методы доставки" %}</h1>
+    </div>
+{% endblock header %}
+
+{% block dashboard_content %}
+
+    {% if shipping_methods %}
+        <form action="." method="post" class="order_table" id="orders_form">
+            {% csrf_token %}
+
+            {% block benefits_list %}
+            <table class="table table-striped table-bordered table-hover">
+                <caption>
+                    <h3 class="pull-left"><i class="icon-large"></i>
+                        {% trans "Все методы доставки" %}
+                    </h3>
+                </caption>
+
+                <thead>
+                    <tr>
+                        <th>{% trans "Метод доставки" %}</th>
+                        <th>{% trans "Стоимость доставки" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in shipping_methods %}
+                    <tr>
+                        <td><a href="{% url 'dashboard:shippingmethod-detail' pk=item.id %}">{{ item }}</a></td>
+                        <td>{{ item.shipping_price }}</td>
+                        <td>
+                          {% include 'shop/dashboard/site/row_actions.html' with url_name_edit='dashboard:shippingmethod-detail' url_name_delete='dashboard:shippingmethod-delete' record=item %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endblock benefits_list %}
+
+            {% include "dashboard/partials/pagination.html" %}
+        </form>
+    {% else %}
+        <table class="table table-striped table-bordered">
+            <caption><i class="icon-large"></i>
+               {% trans "Все методы доставки" %}
+            </caption>
+            <tr><td>{% trans "Еще не было создано ни одного метода доставки." %}</td></tr>
+        </table>
+    {% endif %}
+
+    {% endblock dashboard_content %}
