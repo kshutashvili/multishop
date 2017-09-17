@@ -40,10 +40,6 @@
                                     <div class="menu_item_links">
                                         <a href="{{ descendant.get_absolute_url }}"
                                            class="menu_item_caption">{{ descendant.side_menu_name }}</a>
-                                        {% for product in descendant.product_set.all %}
-                                            <a href="{{ product.get_absolute_url }}"
-                                               class="menu_item_list">{{ product.title }}</a>
-                                        {% endfor %}
                                     </div>
                                 </li>
                             {% endfor %}
