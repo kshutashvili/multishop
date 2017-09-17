@@ -43,7 +43,7 @@ def change_lang(context, lang=None, *args, **kwargs):
             elif view_type == "category":
                 model = Category
 
-            current_site = Site.objects.get_current()
+            current_site = Site.objects.get_current(context['request'])
             obj = model.objects.get(slug=last_slug, site=current_site)
             activate(lang)
 
