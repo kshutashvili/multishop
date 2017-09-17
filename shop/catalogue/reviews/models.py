@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
+from django.core.mail.backends.smtp import EmailBackend
 from django.db import models
 from django.conf import settings
 from django.db.models import Count, Sum
@@ -50,14 +51,26 @@ def on_review_create(sender, instance, created, **kwargs):
     except ObjectDoesNotExist:
         return
     to_email = review.email or review.user.email
+    conf = Site.objects.get(pk=instance.site.pk).config
+    backend = EmailBackend(
+            host=conf.email_host,
+            port=conf.email_port,
+            username=conf.email_username,
+            password=conf.email_password,
+            use_tls=conf.email_use_tls,
+            fail_silently=True
+        )
     message = 'Кто-то оставил коментарий на ваш отзыв. Что бы просмотреть этот коментарий ' \
               'перейдите, пожалуйста, по ссылке http://{0}/{1}'.format(
         instance.site.domain, instance.product.get_absolute_url())
-    send_mail('Оповещение об ответе на ваш отзыв',
-              message,
-              settings.DEFAULT_FROM_EMAIL,
-              [to_email],
-              fail_silently=True)
+    email = EmailMessage(
+            subject='Оповещение об ответе на ваш отзыв',
+            body=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[to_email],
+            connection=backend
+        )
+    email.send()
 
 
 class ProductQuestion(models.Model):
@@ -162,14 +175,26 @@ def on_review_answer_create(sender, instance, created, **kwargs):
     except ObjectDoesNotExist:
         return
     to_email = review.email or review.user.email
+    conf = Site.objects.get(pk=instance.site.pk).config
+    backend = EmailBackend(
+            host=conf.email_host,
+            port=conf.email_port,
+            username=conf.email_username,
+            password=conf.email_password,
+            use_tls=conf.email_use_tls,
+            fail_silently=True
+        )
     message = 'Кто-то оставил коментарий на ваш отзыв. Что бы просмотреть этот коментарий ' \
               'перейдите, пожалуйста, по ссылке http://{0}/{1}'.format(
         instance.site.domain, instance.review.product.get_absolute_url())
-    send_mail('Оповещение об ответе на ваш отзыв',
-              message,
-              settings.DEFAULT_FROM_EMAIL,
-              [to_email],
-              fail_silently=True)
+    email = EmailMessage(
+            subject='Оповещение об ответе на ваш отзыв',
+            body=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[to_email],
+            connection=backend
+        )
+    email.send()
 
 
 @receiver(post_save, sender=ReviewAnswer)
@@ -182,14 +207,26 @@ def on_answer_to_answer_create(sender, instance, created, **kwargs):
     except ObjectDoesNotExist:
         return
     to_email = answer.email or answer.user.email
+    conf = Site.objects.get(pk=instance.site.pk).config
+    backend = EmailBackend(
+            host=conf.email_host,
+            port=conf.email_port,
+            username=conf.email_username,
+            password=conf.email_password,
+            use_tls=conf.email_use_tls,
+            fail_silently=True
+        )
     message = 'Кто-то оставил коментарий на ваш отзыв. Что бы просмотреть этот коментарий ' \
               'перейдите, пожалуйста, по ссылке http://{0}/{1}'.format(
         instance.site.domain, instance.reply_to.review.product.get_absolute_url())
-    send_mail('Оповещение об ответе на ваш отзыв',
-              message,
-              settings.DEFAULT_FROM_EMAIL,
-              [to_email],
-              fail_silently=True)
+    email = EmailMessage(
+            subject='Оповещение об ответе на ваш отзыв',
+            body=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[to_email],
+            connection=backend
+        )
+    email.send()
 
 
 class VoteAnswer(models.Model):
