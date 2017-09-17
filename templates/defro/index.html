@@ -712,7 +712,7 @@
 			                        <a href="tel:+38{{ phone_numbers.life|first|cut:" " }}">({{ phone_numbers.life|first|slice:':3' }}) {{ phone_numbers.life|first|slice:'4:'|phone_number_filter }}</a>
 			                    </li>
 			                {% endif %}
-			                <li><a href="#" class="predstav">{% trans "Наши представительства" %}</a></li>
+			                <li><a href="{% url 'contacts' %}" class="predstav">{% trans "Наши представительства" %}</a></li>
 			            </ul>
 
 			            <div class="time_work">
