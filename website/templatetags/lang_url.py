@@ -1,6 +1,8 @@
 from django.core.urlresolvers import resolve, reverse
 from django.template import Library
 from django.utils.translation import activate, get_language
+from django.contrib.sites.models import Site
+
 from shop.catalogue.utils import get_view_type
 from shop.catalogue.models import Product, Category
 from contacts.models import FlatPage
@@ -41,7 +43,8 @@ def change_lang(context, lang=None, *args, **kwargs):
             elif view_type == "category":
                 model = Category
 
-            obj = model.objects.get(slug=last_slug)
+            current_site = Site.objects.get_current()
+            obj = model.objects.get(slug=last_slug, site=current_site)
             activate(lang)
 
             url_parts.kwargs['slug'] = getattr(obj, attr)
