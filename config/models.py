@@ -80,6 +80,18 @@ class SiteConfig(models.Model):
         blank=True
     )
 
+    email_host = models.CharField(_("Email host (smtp-сервер)"),
+                                  max_length=128,
+                                  help_text="Например smtp.gmail.com")
+    email_port = models.PositiveIntegerField(_("Email port"),
+                                             default=587)
+    email_username = models.CharField(_("Email host user"),
+                                      max_length=128)
+    email_password = models.CharField(_("Email host password"),
+                                      max_length=128)
+    email_use_tls = models.BooleanField(_("Использовать TLS?"),
+                                        default=True)
+
     def __unicode__(self):
         return self.site.domain
 

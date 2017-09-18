@@ -30,10 +30,11 @@ from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
                                        DeliveryAndPayForm, MenuItemForm,
                                        FooterMenuItemForm, MenuCategoryForm,
                                        InstallmentPaymentForm, UserForm,
+                                       ShippingMethodForm, PaymentMethodForm,
                                        UserCreateForm, UserPasswordChangeForm)
 from shop.catalogue.models import (FilterDescription, Product, ProductCategory,
                                    ProductAttributeValue)
-from shop.order.models import InstallmentPayment
+from shop.order.models import InstallmentPayment, ShippingMethod, PaymentMethod
 from config.models import (MetaTag, TextOne, TextTwo, TextThree, TextFour,
                            Configuration, FuelConfiguration, BenefitItem,
                            OverviewItem, ReviewItem, DeliveryAndPay,
@@ -1761,6 +1762,130 @@ class InstallmentPaymentDeleteView(DeleteView):
         messages.success(
             self.request, _("Пункт меню '%s' удален") % self.object)
         return reverse('dashboard:installment-list')
+
+
+class ShippingMethodListView(ListView):
+    model = ShippingMethod
+    template_name = "shop/dashboard/site/shippingmethod_list.html"
+    context_object_name = "shipping_methods"
+
+
+class ShippingMethodCreateView(CreateView):
+    model = ShippingMethod
+    form_class = ShippingMethodForm
+    template_name = "shop/dashboard/site/shippingmethod_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ShippingMethodCreateView, self).get_context_data(**kwargs)
+        context['title'] = _('Создать новый метод дотавки')
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, _("Новый метод доставки создан"))
+        return reverse('dashboard:shippingmethod-list')
+
+    def get_object(self):
+        return None
+
+
+class ShippingMethodUpdateView(UpdateView):
+    model = ShippingMethod
+    form_class = ShippingMethodForm
+    template_name = "shop/dashboard/site/shippingmethod_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ShippingMethodUpdateView, self).get_context_data(**kwargs)
+        context['title'] = self.object
+        return context
+
+    def get_object(self):
+        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Метод доставки успешно обновлен"))
+        return reverse("dashboard:shippingmethod-list")
+
+
+class ShippingMethodDeleteView(DeleteView):
+    model = ShippingMethod
+    template_name = "shop/dashboard/site/shippingmethod_delete.html"
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(ShippingMethodDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Удаление метода доставки '%s'") % self.object
+
+        return ctx
+
+    def get_success_url(self):
+        messages.success(
+            self.request, _("Метод доставки '%s' удален") % self.object)
+        return reverse('dashboard:shippingmethod-list')
+
+
+class PaymentMethodListView(ListView):
+    model = PaymentMethod
+    template_name = "shop/dashboard/site/paymentmethod_list.html"
+    context_object_name = "payment_methods"
+
+
+class PaymentMethodCreateView(CreateView):
+    model = PaymentMethod
+    form_class = PaymentMethodForm
+    template_name = "shop/dashboard/site/paymentmethod_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(PaymentMethodCreateView, self).get_context_data(**kwargs)
+        context['title'] = _('Создать новый метод оплаты')
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, _("Новый метод оплаты создан"))
+        return reverse('dashboard:paymentmethod-list')
+
+    def get_object(self):
+        return None
+
+
+class PaymentMethodUpdateView(UpdateView):
+    model = PaymentMethod
+    form_class = PaymentMethodForm
+    template_name = "shop/dashboard/site/paymentmethod_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(PaymentMethodUpdateView, self).get_context_data(**kwargs)
+        context['title'] = self.object
+        return context
+
+    def get_object(self):
+        obj = get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Метод оплаты успешно обновлен"))
+        return reverse("dashboard:paymentmethod-list")
+
+
+class PaymentMethodDeleteView(DeleteView):
+    model = PaymentMethod
+    template_name = "shop/dashboard/site/paymentmethod_delete.html"
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(PaymentMethodDeleteView, self).get_context_data(
+            *args,
+            **kwargs)
+
+        ctx['title'] = _("Удаление метода оплаты '%s'") % self.object
+
+        return ctx
+
+    def get_success_url(self):
+        messages.success(
+            self.request, _("Метод оплаты '%s' удален") % self.object)
+        return reverse('dashboard:paymentmethod-list')
 
 
 class UserListView(ListView):

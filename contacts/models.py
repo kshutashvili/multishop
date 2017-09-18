@@ -22,7 +22,7 @@ SIGN_TYPE = (
 
 class City(models.Model):
     city_name = models.CharField(_('Город'), max_length=50)
-    slug = models.SlugField(_('Название-метка для URL'), max_length=80, unique=True)
+    slug = models.SlugField(_('Название-метка для URL'), max_length=80)
     address = models.CharField(_('Адрес'), max_length=70,
                                default=_('ул. Смелянская 159/3'))
     site = models.ForeignKey(Site,
@@ -35,6 +35,7 @@ class City(models.Model):
     class Meta:
         verbose_name = _('Город')
         verbose_name_plural = _('Города')
+        unique_together = ('site', 'slug')
 
     def __unicode__(self):
         return self.city_name

@@ -93,7 +93,15 @@ from shop.dashboard.site.views import (SiteCreateView, SiteUpdateView,
                                        UserUpdateView,
                                        UserDeleteView,
                                        UserPasswordChangeView,
-                                       CloneProductView)
+                                       CloneProductView,
+                                       ShippingMethodListView,
+                                       ShippingMethodCreateView,
+                                       ShippingMethodUpdateView,
+                                       ShippingMethodDeleteView,
+                                       PaymentMethodListView,
+                                       PaymentMethodCreateView,
+                                       PaymentMethodUpdateView,
+                                       PaymentMethodDeleteView,)
 
 
 class SiteDashboardApplication(Application):
@@ -195,6 +203,14 @@ class SiteDashboardApplication(Application):
     user_delete_view = UserDeleteView
     user_change_password_view = UserPasswordChangeView
     clone_product_view = CloneProductView
+    shippingmethod_list_view = ShippingMethodListView
+    shippingmethod_create_view = ShippingMethodCreateView
+    shippingmethod_update_view = ShippingMethodUpdateView
+    shippingmethod_delete_view = ShippingMethodDeleteView
+    paymentmethod_list_view = PaymentMethodListView
+    paymentmethod_create_view = PaymentMethodCreateView
+    paymentmethod_update_view = PaymentMethodUpdateView
+    paymentmethod_delete_view = PaymentMethodDeleteView
 
     def get_urls(self):
         urls = [
@@ -409,6 +425,24 @@ class SiteDashboardApplication(Application):
             # clone product
             url(r'cloneproduct/(?P<pk>[\d]+)/$', self.clone_product_view.as_view(),
                 name='clone-product'),
+            # Shipping method
+            url(r'^shippingmethod/$', self.shippingmethod_list_view.as_view(),
+                name='shippingmethod-list'),
+            url(r'^shippingmethod/add/$', self.shippingmethod_create_view.as_view(),
+                name='shippingmethod-create'),
+            url(r'^shippingmethod/edit/(?P<pk>[\d]+)/$', self.shippingmethod_update_view.as_view(),
+                name='shippingmethod-detail'),
+            url(r'^shippingmethod/delete/(?P<pk>[\d]+)/$', self.shippingmethod_delete_view.as_view(),
+                name='shippingmethod-delete'),
+            # Payment method
+            url(r'^paymentmethod/$', self.paymentmethod_list_view.as_view(),
+                name='paymentmethod-list'),
+            url(r'^paymentmethod/add/$', self.paymentmethod_create_view.as_view(),
+                name='paymentmethod-create'),
+            url(r'^paymentmethod/edit/(?P<pk>[\d]+)/$', self.paymentmethod_update_view.as_view(),
+                name='paymentmethod-detail'),
+            url(r'^paymentmethod/delete/(?P<pk>[\d]+)/$', self.paymentmethod_delete_view.as_view(),
+                name='paymentmethod-delete'),
         ]
         return self.post_process_urls(urls)
 

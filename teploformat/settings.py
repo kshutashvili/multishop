@@ -337,6 +337,14 @@ OSCAR_DASHBOARD_NAVIGATION[3]['children'] += [
     {
         'label': _('Заявки на рассрочку'),
         'url_name': 'dashboard:installment-list'
+    },
+    {
+        'label': _('Методы доставки'),
+        'url_name': 'dashboard:shippingmethod-list'
+    },
+    {
+        'label': _('Методы оплаты'),
+        'url_name': 'dashboard:paymentmethod-list'
     }
 ]
 
