@@ -136,6 +136,10 @@ class ProductForm(OscarProductForm):
         return self.FIELD_FACTORIES[attribute.type](attribute)
 
     def _post_clean(self):
+        if 'product_class' in self.changed_data:
+            # if product class has been changed then delete attributes of previous product_class
+            current_product = Product.objects.get(pk=self.instance.pk)
+            current_product.attributes.clear()
         self.instance.attr.initiate_attributes()
         for attribute in self.instance.attr.get_all_attributes():
             field_name = 'attr_%s' % attribute.code
