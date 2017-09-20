@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-16 09:28+0000\n"
-"PO-Revision-Date: 2017-09-18 11:20+0000\n"
+"PO-Revision-Date: 2017-09-20 08:07+0000\n"
 "Last-Translator:   <Vadim@localhost>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -41,11 +41,11 @@ msgstr "Логотип"
 
 #: config/models.py:50
 msgid "Атрибут мощности котла"
-msgstr ""
+msgstr "Атрибут потужності котла"
 
 #: config/models.py:56
 msgid "Атрибут бренда котла"
-msgstr ""
+msgstr "Атрибут бренда котла"
 
 #: config/models.py:60
 msgid "Код подтверждения для Google"
@@ -97,7 +97,7 @@ msgstr ""
 
 #: config/models.py:138
 msgid "Отображать блок 'Обзоры и отзывы'?"
-msgstr ""
+msgstr "Відображати блок \"Огляди та відгуки\"?"
 
 #: config/models.py:142
 msgid "Отображать блок 'Дополнительные услуги'?"
@@ -500,6 +500,8 @@ msgid ""
 "Номер телефона должен быть введен в формате:'+999999999999'. Допускается до "
 "15 цифр в номере"
 msgstr ""
+"Номер телефону має бути введений у форматі:'+999999999999'. Допускається до "
+"15 цифр в номері"
 
 #: contacts/models.py:67 contacts/models.py:119
 #: templates/shop/dashboard/site/socialref_list.html:40
@@ -579,7 +581,7 @@ msgstr "основне"
 
 #: contacts/models.py:168
 msgid "для call center"
-msgstr ""
+msgstr "для call center"
 
 #: contacts/models.py:169
 msgid "для ночных заказов"
@@ -646,11 +648,11 @@ msgstr "Безкоштовна доставка"
 #: shop/catalogue/models.py:48 shop/catalogue/models.py:157
 #: shop/dashboard/portation/forms.py:28
 msgid "Description"
-msgstr ""
+msgstr "Опис"
 
 #: shop/catalogue/models.py:55 shop/dashboard/catalogue/tables.py:23
 msgid "Product type"
-msgstr ""
+msgstr "Клас товару"
 
 #: shop/catalogue/models.py:56
 msgid "Choose what type of product this is"
@@ -658,7 +660,7 @@ msgstr ""
 
 #: shop/catalogue/models.py:129 shop/dashboard/catalogue/tables.py:19
 msgid "Image"
-msgstr ""
+msgstr "Зображення"
 
 #: shop/catalogue/models.py:152
 #, fuzzy
@@ -678,18 +680,18 @@ msgstr ""
 
 #: shop/catalogue/models.py:186
 msgid "Product attribute"
-msgstr ""
+msgstr "Атрибут товару"
 
 #: shop/catalogue/models.py:187
 #: templates/shop/dashboard/catalogue/product_class_form.html:40
 #: templates/shop/dashboard/catalogue/product_class_form.html:85
 msgid "Product attributes"
-msgstr ""
+msgstr "Атрибути товару"
 
 #: shop/catalogue/models.py:199
 #, python-format
 msgid "%(attr)s attribute cannot be blank"
-msgstr ""
+msgstr "%(attr)s атрибути не заповнені"
 
 #: shop/catalogue/models.py:207
 msgid "Must be str or unicode"
@@ -718,7 +720,7 @@ msgstr "Відео"
 
 #: shop/catalogue/models.py:278
 msgid "Вставьте url"
-msgstr ""
+msgstr "Вставте url"
 
 #: shop/catalogue/models.py:312
 msgid "Описание"
@@ -849,10 +851,10 @@ msgstr ""
 #, python-format
 msgid "%s Category"
 msgid_plural "%s Categories"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%s Категорія"
+msgstr[1] "%s Категорія"
+msgstr[2] "%s Категорії"
+msgstr[3] "%s Категорії"
 
 #: shop/dashboard/catalogue/views.py:191
 msgid "Create Object Meta Tag"
@@ -860,7 +862,7 @@ msgstr "Создать Мета Тег объект"
 
 #: shop/dashboard/catalogue/views.py:195
 msgid "Meta tag for \"{}\" was created successfully"
-msgstr "Мета тег для \"{}\" успешно создан"
+msgstr "Мета тег для \"{}\" успішно створений"
 
 #: shop/dashboard/catalogue/views.py:211
 msgid "Update Object Meta Tag"
@@ -868,11 +870,11 @@ msgstr "Обновить Мета Тег объект"
 
 #: shop/dashboard/catalogue/views.py:215
 msgid "Meta tag for \"{}\" was updated successfully"
-msgstr "Мета тег для \"{}\" успешно обновлен"
+msgstr "Мета тег для \"{}\" успішно оновлений"
 
 #: shop/dashboard/catalogue/views.py:262 shop/dashboard/site/views.py:216
 msgid "Your submitted data was not valid - please correct the errors below"
-msgstr "Вы ввели неверные данные - пожалуйста, исправьте ошибки ниже"
+msgstr "Ви ввели невірні дані - будь ласка, виправте помилки нижче"
 
 #: shop/dashboard/orders/views.py:239
 #, python-brace-format
@@ -1126,37 +1128,37 @@ msgstr ""
 #, fuzzy, python-format
 #| msgid "Update social reference '%s'"
 msgid "Update one-click order '%s'"
-msgstr "Обновление ссылки на социальную сеть '%s'"
+msgstr "Оновлення посилання на соціальну мережу '%s'"
 
 #: shop/dashboard/orders/views.py:851
 #, fuzzy
 #| msgid "Social reference updated successfully"
 msgid "One-click order updated successfully"
-msgstr "Ссылка на социальную сеть успешно обновлена"
+msgstr "Посилання на соціальну мережу успішно оновлена"
 
 #: shop/dashboard/orders/views.py:882
 #, fuzzy, python-format
 #| msgid "Delete One-Click Order"
 msgid "Delete One-click order '%s'"
-msgstr "Удаление заказа в один клик"
+msgstr "Виалення замовлення в один клік '%s'"
 
 #: shop/dashboard/orders/views.py:887
 #, fuzzy
 #| msgid "Social reference deleted successfully"
 msgid "One-click order deleted successfully"
-msgstr "Ссылка на социальную сеть успешно удалена"
+msgstr "Посилання на соціальну мережу успішно видалене"
 
 #: shop/dashboard/orders/views.py:908
 #, fuzzy, python-format
 #| msgid "Delete call request"
 msgid "Delete call request '%s'"
-msgstr "Удаление заявки на звонок"
+msgstr "Видалення заявок на дзвінок '%s'"
 
 #: shop/dashboard/orders/views.py:913
 #, fuzzy
 #| msgid "City deleted successfully"
 msgid "Call request deleted successfully"
-msgstr "Город успешно удален"
+msgstr "МІсто успішно видалене"
 
 #: shop/dashboard/portation/base.py:6
 msgid "ID"
@@ -1164,7 +1166,7 @@ msgstr ""
 
 #: shop/dashboard/portation/base.py:7 shop/dashboard/portation/forms.py:34
 msgid "Product class"
-msgstr ""
+msgstr "Клас товару"
 
 #: shop/dashboard/portation/config.py:8
 msgid "Poration (import/export) dashboard"
@@ -1192,7 +1194,7 @@ msgstr ""
 #: templates/shop/dashboard/catalogue/category_form.html:18
 #: templates/shop/dashboard/catalogue/product_update.html:89
 msgid "Categories"
-msgstr ""
+msgstr "Категорії"
 
 #: shop/dashboard/portation/forms.py:38
 msgid "Fields"
@@ -1203,7 +1205,7 @@ msgstr ""
 #: templates/shop/dashboard/catalogue/product_update.html:185
 #: templates/shop/dashboard/catalogue/product_update.html:300
 msgid "Attributes"
-msgstr ""
+msgstr "Атрибути"
 
 #: shop/dashboard/portation/views.py:26 teploformat/settings.py:376
 msgid "Import"
@@ -1211,7 +1213,7 @@ msgstr ""
 
 #: shop/dashboard/portation/views.py:33
 msgid "Updated: {}; Created: {}."
-msgstr ""
+msgstr "Оновити: {}; Створити: {}."
 
 #: shop/dashboard/portation/views.py:38
 msgid "Errors on rows: {}"
@@ -1230,7 +1232,7 @@ msgstr ""
 #: templates/dashboard/reviews/review_update.html:17
 #: teploformat/settings.py:358
 msgid "Reviews"
-msgstr ""
+msgstr "Огляди"
 
 #: shop/dashboard/reviews/forms.py:13
 msgid "Approved"
@@ -1252,24 +1254,24 @@ msgstr ""
 
 #: shop/dashboard/reviews/forms.py:40
 msgid "Keyword"
-msgstr ""
+msgstr "Ключове слово"
 
 #: shop/dashboard/reviews/forms.py:41
 msgid "Date from"
-msgstr ""
+msgstr "Дата від"
 
 #: shop/dashboard/reviews/forms.py:42
 msgid "to"
-msgstr ""
+msgstr "до"
 
 #: shop/dashboard/reviews/forms.py:43
 msgid "Customer name"
-msgstr ""
+msgstr "Ім'я клієнта"
 
 #: shop/dashboard/reviews/views.py:74
 #, python-format
 msgid "Изменение вопроса о товаре '%s'"
-msgstr ""
+msgstr "Зміна запитання про товар '%s'"
 
 #: shop/dashboard/reviews/views.py:77
 msgid "Вопрос о товаре успешно сохранен"
@@ -1278,7 +1280,7 @@ msgstr "Запитання про товар успішно збережено"
 #: shop/dashboard/reviews/views.py:105
 #, python-format
 msgid "Удаление вопроса о товаре '%s'"
-msgstr ""
+msgstr "Видалення питання про товар '%s'"
 
 #: shop/dashboard/reviews/views.py:110
 msgid "Вопрос о товаре успешно удален"
@@ -1287,7 +1289,7 @@ msgstr ""
 #: shop/dashboard/reviews/views.py:121
 #, python-format
 msgid "%(main_filter)s %(date_filter)s%(kw_filter)s %(name_filter)s"
-msgstr ""
+msgstr "%(main_filter)s %(date_filter)s%(kw_filter)s %(name_filter)s"
 
 #: shop/dashboard/reviews/views.py:150
 #, python-format
@@ -1306,21 +1308,21 @@ msgstr ""
 
 #: shop/dashboard/reviews/views.py:171
 msgid "All review answers"
-msgstr "Все ответы на отзывы"
+msgstr "Всі відповіді на відгуки"
 
 #: shop/dashboard/reviews/views.py:188
 #, python-format
 msgid " with keyword matching '%s'"
-msgstr ""
+msgstr "з ключовим словом, що відповідає '%s'"
 
 #: shop/dashboard/reviews/views.py:208
 #, python-format
 msgid " with customer name matching '%s'"
-msgstr ""
+msgstr "з ім'ям клієнта, що відповідає '%s'"
 
 #: shop/dashboard/site/views.py:86 templates/dashboard/layout.html:51
 msgid "Create Site"
-msgstr "Добавить сайт"
+msgstr "Додати сайт"
 
 #: shop/dashboard/site/views.py:117
 msgid "Изменение сайта"
@@ -1342,168 +1344,168 @@ msgstr ""
 #: shop/dashboard/site/views.py:247
 #, python-format
 msgid "Update city '%s'"
-msgstr "Обновление города '%s'"
+msgstr "Оновлення міста '%s'"
 
 #: shop/dashboard/site/views.py:250
 msgid "City updated successfully"
-msgstr "Город успешно обновлен"
+msgstr "Місто успішно оновлене"
 
 #: shop/dashboard/site/views.py:265
 msgid "Add a new city"
-msgstr "Добавить город"
+msgstr "Додати місто"
 
 #: shop/dashboard/site/views.py:268
 msgid "City created successfully"
-msgstr "Город успешно добавлен"
+msgstr "Місто успішно створено"
 
 #: shop/dashboard/site/views.py:280
 #, python-format
 msgid "Delete city '%s'"
-msgstr "Удаление города '%s'"
+msgstr "Видалення міста '%s'"
 
 #: shop/dashboard/site/views.py:284
 msgid "City deleted successfully"
-msgstr "Город успешно удален"
+msgstr "Місто успішно видалено"
 
 #: shop/dashboard/site/views.py:323
 #, python-format
 msgid "Update social reference '%s'"
-msgstr "Обновление ссылки на социальную сеть '%s'"
+msgstr "Оновлення посилання на соціальну мережу '%s'"
 
 #: shop/dashboard/site/views.py:326
 msgid "Social reference updated successfully"
-msgstr "Ссылка на социальную сеть успешно обновлена"
+msgstr "Посилання на соціальну мережу успішно оновлене"
 
 #: shop/dashboard/site/views.py:341
 msgid "Add a new social reference"
-msgstr "Добавить ссылку на социальную сеть"
+msgstr "Додати посилання на соціальну мережу"
 
 #: shop/dashboard/site/views.py:344
 msgid "Social reference created successfully"
-msgstr "Ссылка на социальную сеть успешно добавлена"
+msgstr "Посилання на соціальну мережу успішно додане"
 
 #: shop/dashboard/site/views.py:358
 #, python-format
 msgid "Delete social reference '%s'"
-msgstr "Удаление ссылки на социальную сеть '%s'"
+msgstr "Видалення посилання на соціальну мережу '%s'"
 
 #: shop/dashboard/site/views.py:363
 msgid "Social reference deleted successfully"
-msgstr "Ссылка на социальную сеть успешно удалена"
+msgstr "Посилання на соціальну мережу успішно видалене"
 
 #: shop/dashboard/site/views.py:390
 msgid "Flat page created successfully"
-msgstr "Статическая страница успешно добавлена"
+msgstr "Статична сторінка успішно додана"
 
 #: shop/dashboard/site/views.py:396
 msgid "Создать статическую страницу"
-msgstr ""
+msgstr "Створити статичну сторінку"
 
 #: shop/dashboard/site/views.py:407
 msgid "Flat page updated successfully"
-msgstr "Статическая страница успешно обновлена"
+msgstr "Статична сторінка успішно оновлена"
 
 #: shop/dashboard/site/views.py:436
 #, python-format
 msgid "Удаление статической страницы '%s'"
-msgstr ""
+msgstr "Видалення статичної сторінки '%s'"
 
 #: shop/dashboard/site/views.py:441
 msgid "Статическая страница успешно удалена"
-msgstr ""
+msgstr "Статична сторінка успішно видалена"
 
 #: shop/dashboard/site/views.py:459
 msgid "Contact message updated successfully"
-msgstr "Контакное сообщение успешно обновлено"
+msgstr "Контакное повідомлення успішно оновлене"
 
 #: shop/dashboard/site/views.py:473
 msgid "Contact message deleted successfully"
-msgstr "Контактное сообщение успешно удалено"
+msgstr "Контактне повідомлення успішно видалене"
 
 #: shop/dashboard/site/views.py:537
 #, fuzzy, python-format
 #| msgid "Delete timetable '%s'"
 msgid "Update timetable '%s'"
-msgstr "Удаление графика работы '%s'"
+msgstr "Видалення графіку роботи '%s'"
 
 #: shop/dashboard/site/views.py:540
 msgid "Timetable updated successfully"
-msgstr "График работы успешно обновлен"
+msgstr "Графік роботи успішно оновлений"
 
 #: shop/dashboard/site/views.py:554
 msgid "Add a new timetable"
-msgstr "Добавить график работы"
+msgstr "Додати графік роботи"
 
 #: shop/dashboard/site/views.py:557
 msgid "Timetable created successfully"
-msgstr "График работы успешно добавлен"
+msgstr "Графік роботи успішно доданий"
 
 #: shop/dashboard/site/views.py:571
 #, python-format
 msgid "Delete timetable '%s'"
-msgstr "Удаление графика работы '%s'"
+msgstr "Видалення графіку роботи '%s'"
 
 #: shop/dashboard/site/views.py:576
 msgid "Timetable deleted successfully"
-msgstr "Графи работы успешно удален"
+msgstr "Графік роботи успішно видалений"
 
 #: shop/dashboard/site/views.py:605
 #, fuzzy, python-format
 #| msgid "Update flat page '%s'"
 msgid "Update meta tag '%s'"
-msgstr "Обновление статической страницы '%s'"
+msgstr "Оновлення статичної сторінки '%s'"
 
 #: shop/dashboard/site/views.py:608
 #, fuzzy
 #| msgid "Flat page updated successfully"
 msgid "Meta tag updated successfully"
-msgstr "Статическая страница успешно обновлена"
+msgstr "Статична сторінка успішно оновлена"
 
 #: shop/dashboard/site/views.py:622
 #, fuzzy
 #| msgid "Create new meta tag"
 msgid "Add a new meta tag"
-msgstr "Добавить новый meta тег"
+msgstr "Додати новий meta тег"
 
 #: shop/dashboard/site/views.py:625
 #, fuzzy
 #| msgid "Flat page created successfully"
 msgid "Meta tag created successfully"
-msgstr "Статическая страница успешно добавлена"
+msgstr "Статична сторінка успішно додана"
 
 #: shop/dashboard/site/views.py:639
 #, fuzzy, python-format
 #| msgid "Delete meta tag"
 msgid "Delete meta tag '%s'"
-msgstr "Удаление meta тега"
+msgstr "Видалення meta tag '%s'"
 
 #: shop/dashboard/site/views.py:644
 #, fuzzy
 #| msgid "Flat page deleted successfully"
 msgid "Meta tag deleted successfully"
-msgstr "Статическая страница успешно удалена"
+msgstr "Статична сторінка успішно видалена"
 
 #: shop/dashboard/site/views.py:662
 msgid "Создать новое описание фильтра"
-msgstr ""
+msgstr "Створити новий опис фільтру"
 
 #: shop/dashboard/site/views.py:666
 msgid "Описание фильтра успешно создано"
-msgstr ""
+msgstr "Опис фільтру успішно створений"
 
 #: shop/dashboard/site/views.py:689
 msgid "Описание фильтра успешно изменено"
-msgstr ""
+msgstr "Опис фільтру успішно змінений"
 
 #: shop/dashboard/site/views.py:702
 #, python-format
 msgid "Удаление описания фильтра для '%s'"
-msgstr ""
+msgstr "Видалення опису фільтру для '%s'"
 
 #: shop/dashboard/site/views.py:708
 #, python-format
 msgid "Описание фильтра '%s' удалено"
-msgstr ""
+msgstr "Опис фільтра '%s' видалено"
 
 #: shop/dashboard/site/views.py:719 shop/dashboard/site/views.py:736
 msgid "Создать новый Текст 1"
@@ -1607,21 +1609,21 @@ msgstr ""
 
 #: shop/dashboard/site/views.py:1075
 msgid "Цена на топливо успешно создана"
-msgstr ""
+msgstr "Ціна на паливо успішно створена"
 
 #: shop/dashboard/site/views.py:1098
 msgid "Цена на топливо успешно изменена"
-msgstr ""
+msgstr "Ціна на паливо успішно змінена"
 
 #: shop/dashboard/site/views.py:1111
 #, python-format
 msgid "Удаление цены '%s'"
-msgstr ""
+msgstr "Видалення ціни '%s'"
 
 #: shop/dashboard/site/views.py:1117
 #, python-format
 msgid "Удалена цена для '%s'"
-msgstr ""
+msgstr "Видалена ціна для '%s'"
 
 #: shop/dashboard/site/views.py:1135
 msgid "Создать новое Преимущество"
@@ -1643,7 +1645,7 @@ msgstr ""
 #: shop/dashboard/site/views.py:1189
 #, python-format
 msgid "Удалено преимущество '%s'"
-msgstr ""
+msgstr "Видалена перевага '%s'"
 
 #: shop/dashboard/site/views.py:1207
 msgid "Создать новый Обзор"
@@ -1660,12 +1662,12 @@ msgstr ""
 #: shop/dashboard/site/views.py:1255
 #, python-format
 msgid "Удаление обзора '%s'"
-msgstr ""
+msgstr "Видалення огляду '%s'"
 
 #: shop/dashboard/site/views.py:1261
 #, python-format
 msgid "Обзор '%s' удален"
-msgstr ""
+msgstr "Огляд '%s' видалено"
 
 #: shop/dashboard/site/views.py:1279
 msgid "Создать новый Отзыв"
@@ -1682,12 +1684,12 @@ msgstr "Відгук успішно змінено"
 #: shop/dashboard/site/views.py:1327
 #, python-format
 msgid "Удаление отзыва '%s'"
-msgstr ""
+msgstr "Видалення відгука '%s'"
 
 #: shop/dashboard/site/views.py:1333
 #, python-format
 msgid "Отзыв '%s' удален"
-msgstr ""
+msgstr "Вігук '%s' видалений"
 
 #: shop/dashboard/site/views.py:1350
 msgid "Создать новую запись о Доставке/Оплате"
@@ -1890,10 +1892,12 @@ msgid ""
 "                                Попробуйте <a href=\"/\">перейти на главную</a> или<br> воспользоваться поиском.\n"
 "                            "
 msgstr ""
+"\n"
+"Спробуйте <a href=\"/\">перейти на головну</a> або<br> скристатись пошуком."
 
 #: templates/404.html:41
 msgid "Можете перейти в раздел который Вам интересен:"
-msgstr ""
+msgstr "Можете перейти в розділ який Вам цікавий:"
 
 #: templates/admin/change_list.html:7 teploformat/settings.py:253
 msgid "Редактировать сайт"
@@ -1928,7 +1932,6 @@ msgstr "Список порівняння пустий"
 
 #: templates/blue/base.html:174 templates/blue/checkout/order.html:46
 #: templates/defro/base.html:174 templates/defro/checkout/order.html:46
-#, fuzzy
 msgid "Корзина"
 msgstr "Кошик"
 
@@ -1940,7 +1943,7 @@ msgstr "Вашому кошику"
 #, fuzzy
 #| msgid "Каталог товаров"
 msgid "товаров:"
-msgstr "товарів"
+msgstr "товарів:"
 
 #: templates/blue/base.html:191 templates/blue/checkout/order.html:64
 #: templates/blue/checkout/order_success.html:71
@@ -1983,7 +1986,7 @@ msgstr "Перейти до кошика"
 #: templates/defro/detail.html:1684 templates/defro/detail.html:1719
 #: templates/shop/dashboard/orders/order_list.html:72
 msgid "Close"
-msgstr ""
+msgstr "Закрити"
 
 #: templates/blue/base.html:219 templates/blue/detail.html:1721
 #: templates/defro/base.html:219 templates/defro/detail.html:1721
@@ -2088,7 +2091,7 @@ msgstr "Графік роботи call-центра"
 
 #: templates/blue/base.html:379 templates/defro/base.html:379
 msgid "Вс: "
-msgstr "Нед.:"
+msgstr "Нд.:"
 
 #: templates/blue/base.html:379 templates/blue/index.html:761
 #: templates/defro/base.html:379 templates/defro/index.html:761
@@ -2116,6 +2119,8 @@ msgid ""
 "                                    © 2017 интернет-магазин <br> твердотопливных котлов Defro тм\n"
 "                                "
 msgstr ""
+"\n"
+"© 2017 інтернет-магазин <br> твердопаливних котлів Defro тм"
 
 #: templates/blue/base.html:426 templates/defro/base.html:426
 msgid "Мы в соцсетях, <br> присоединяйтесь!"
@@ -2155,7 +2160,7 @@ msgstr "Вибір параметрів"
 #, fuzzy
 #| msgid "Каталог товаров"
 msgid "Найдено товаров:"
-msgstr "Знайдено товарів"
+msgstr "Знайдено товарів:"
 
 #: templates/blue/browse.html:126 templates/defro/browse.html:126
 msgid "Сбросить все фильтры"
@@ -2242,7 +2247,7 @@ msgstr "Купити"
 #: templates/defro/search/results.html:192
 #: templates/defro/search/results.html:217
 msgid "Нет в наличии"
-msgstr "Немає в наяності"
+msgstr "Немає в наявності"
 
 #: templates/blue/browse.html:416 templates/blue/browse.html:430
 #: templates/blue/category.html:66 templates/blue/contacts_main.html:59
@@ -2327,7 +2332,7 @@ msgstr "Доставка та оплата"
 #: templates/blue/checkout/order.html:103
 #: templates/defro/checkout/order.html:103
 msgid "Заказ подтверждаю"
-msgstr "Замовення підтверджую"
+msgstr "Замовлення підтверджую"
 
 #: templates/blue/checkout/order_success.html:44
 #: templates/blue/order_notification.html:333
@@ -2393,7 +2398,7 @@ msgstr "Телефон"
 #, fuzzy
 #| msgid "Email"
 msgid "E-mail:"
-msgstr "email адреса"
+msgstr "email"
 
 #: templates/blue/checkout/order_success.html:94
 #: templates/blue/order_notification.html:364
@@ -2461,7 +2466,7 @@ msgstr "Таблиця порівнянь"
 
 #: templates/blue/compare_table.html:37 templates/defro/compare_table.html:37
 msgid "Вы сравниваете"
-msgstr "Ви порінюєте"
+msgstr "Ви порівнюєте"
 
 #: templates/blue/compare_table.html:40 templates/defro/compare_table.html:40
 #, fuzzy
@@ -2471,7 +2476,7 @@ msgstr "Додано товарів"
 
 #: templates/blue/compare_table.html:43 templates/defro/compare_table.html:43
 msgid "Добавить еще один товар"
-msgstr "Добавити ще один товар"
+msgstr "Додати ще один товар"
 
 #: templates/blue/compare_table.html:47 templates/defro/compare_table.html:47
 msgid "Очистить все"
@@ -2537,7 +2542,7 @@ msgstr "поля обов'язкові для заповнення"
 
 #: templates/blue/contacts.html:132 templates/defro/contacts.html:132
 msgid "Отправить сообщение"
-msgstr "Відправити повідмлення"
+msgstr "Відправити повідомлення"
 
 #: templates/blue/contacts.html:137 templates/defro/contacts.html:137
 msgid ""
@@ -2548,7 +2553,7 @@ msgid ""
 "                                        "
 msgstr ""
 "\n"
-"Доставка в будь-яке місто України перевізником \"Інайм\" чи \"Нова пошта\", оплата після отримання!"
+"Доставка в будь-яке місто України перевізником \"Інтайм\" чи \"Нова пошта\", оплата після отримання!"
 
 #: templates/blue/contacts_main.html:27 templates/defro/contacts_main.html:27
 msgid "Выберите представительство компании наиболее подходящее для Вас:"
@@ -2631,7 +2636,7 @@ msgstr "Порівняти"
 #: templates/defro/detail.html:962 templates/defro/detail.html:1080
 #: templates/defro/detail.html:1520 templates/defro/detail.html:1651
 msgid "Задать вопрос"
-msgstr "Задати питання"
+msgstr "Задати запитання"
 
 #: templates/blue/detail.html:268 templates/defro/detail.html:268
 msgid "Быстрая доставка"
@@ -2840,7 +2845,7 @@ msgstr "Додати відгук"
 #: templates/blue/detail.html:751 templates/blue/detail.html:1427
 #: templates/defro/detail.html:751 templates/defro/detail.html:1427
 msgid "- поля обязательные для заполнения"
-msgstr "- поляобов'язкові для заповнення"
+msgstr "- поля обов'язкові для заповнення"
 
 #: templates/blue/detail.html:820 templates/blue/detail.html:932
 #: templates/blue/detail.html:1050 templates/blue/detail.html:1491
@@ -2924,7 +2929,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"Наш менеджер обв'язково зв'яжеться з Вами"
+"Наш менеджер обов'язково зв'яжеться з Вами"
 
 #: templates/blue/detail.html:1667 templates/defro/detail.html:1667
 msgid "Ваш вопрос"
@@ -3253,7 +3258,7 @@ msgstr "Необхідний об'єм"
 #: templates/blue/index.html:184 templates/defro/index.html:184
 #: templates/shop/dashboard/site/fuelconfiguration_list.html:13
 msgid "Цена на топливо"
-msgstr "Цена на паливо"
+msgstr "Ціна на паливо"
 
 #: templates/blue/index.html:185 templates/defro/index.html:185
 msgid "Затраты на отопление"
@@ -3311,7 +3316,7 @@ msgid ""
 "\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"\t\t\t\t\t\t\tВисока ефективність котла (ККД до 85%%) гарантує ефективне згорання палива, високу економічність і екологічність горіння.\n"
+"Висока ефективність котла (ККД до 85%) гарантує ефективне згорання палива, високу економічність і екологічність горіння.\n"
 "\t\t\t\t\t\t"
 
 #: templates/blue/index.html:397 templates/defro/index.html:397
@@ -3430,7 +3435,7 @@ msgid ""
 "\t\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Доставка товару здійснюється по усій території України і може бути зроблена за допомогою наступних транспортних компаній: <span>Нова <span>Пошта</span>, <span>Інтайм</span>, <span>Делівері</span>, Міст Експрес</span>. За узгодженням з покупцем можлива доставка нашим транспортом або \"попутним вантажем\". Також є можливість самовивезення товару."
+"Доставка товару здійснюється по всій території України і може бути зроблена за допомогою наступних транспортних компаній: <span>Нова <span>Пошта</span>, <span>Інтайм</span>, <span>Делівері</span>, Міст Експрес</span>. За узгодженням з покупцем можлива доставка нашим транспортом або \"попутним вантажем\". Також є можливість самовивезення товару."
 
 #: templates/blue/index.html:589 templates/defro/index.html:589
 msgid "ОПЛАТА"
@@ -3498,7 +3503,8 @@ msgstr "Готівковий розрахунок"
 #: templates/blue/index.html:642 templates/defro/index.html:642
 msgid ""
 "Наличный расчет позволяет без дополнительных комиссий произвести оплату:"
-msgstr "Готівковий розрахунок дозволяєбез додаткви комісій здійснити оплату:"
+msgstr ""
+"Готівковий розрахунок дозволяє без додаткових комісій здійснити оплату:"
 
 #: templates/blue/index.html:643 templates/defro/index.html:643
 msgid "в кассе при покупке товара непосредственно в магазине;"
@@ -3604,7 +3610,7 @@ msgstr "Наші контакти:"
 #: templates/blue/order_notification.txt:48
 #: templates/defro/order_notification.txt:48
 msgid "г."
-msgstr "р."
+msgstr "м."
 
 #: templates/blue/partials/filters.html:13
 #: templates/defro/partials/filters.html:13
@@ -3657,6 +3663,15 @@ msgid ""
 "                                                </p>\n"
 "                                            "
 msgstr ""
+"\n"
+"<p class=\"category_block_caption search_text_smaller\">\n"
+"Found\n"
+"<strong>%(num_results)s</strong>\n"
+"results, showing\n"
+"<strong>%(start)s</strong>\n"
+"to\n"
+"<strong>%(end)s</strong>.\n"
+"</p>"
 
 #: templates/blue/search/results.html:81
 #: templates/defro/search/results.html:81
@@ -3678,14 +3693,26 @@ msgid_plural ""
 "                                                    товаров </p>\n"
 "                                            "
 msgstr[0] ""
+"\n"
+"<p class=\"category_block_caption search_text_smaller\">\n"
+"За запитом\n"
+"“%(query)s”\n"
+"знайдено %(num_results)s\n"
+"товар </p>"
 msgstr[1] ""
+"\n"
+"<p class=\"category_block_caption search_text_smaller\">\n"
+"За запитом\n"
+"“%(query)s”\n"
+"знайдено %(num_results)s\n"
+"товарів </p>"
 msgstr[2] ""
 msgstr[3] ""
 
 #: templates/blue/search/results.html:97
 #: templates/defro/search/results.html:97
 msgid "Found <strong>0</strong> results."
-msgstr ""
+msgstr "Found <strong>0</strong> results."
 
 #: templates/blue/search/results.html:100
 #: templates/defro/search/results.html:100
@@ -3697,6 +3724,10 @@ msgid ""
 "                                                    ?\n"
 "                                                "
 msgstr ""
+"\n"
+"Did you mean\n"
+"<a href=\"%(search_url)s?q=%(suggestion)s\">\"%(suggestion)s\"</a>\n"
+"?"
 
 #: templates/blue/search/results.html:235
 #: templates/defro/search/results.html:235
@@ -3726,7 +3757,7 @@ msgstr "Перейти на сайт"
 
 #: templates/dashboard/layout.html:59
 msgid "Account"
-msgstr "Аккаунт"
+msgstr "Акаунт"
 
 #: templates/dashboard/layout.html:60
 msgid "Log out"
@@ -3869,7 +3900,7 @@ msgstr ""
 #: templates/shop/dashboard/site/timetable_delete.html:31
 #: templates/shop/dashboard/site/user_delete.html:31
 msgid "Deleting..."
-msgstr "Удаление..."
+msgstr "Видалення..."
 
 #: templates/dashboard/reviews/productquestion_delete.html:31
 #: templates/dashboard/reviews/review_delete.html:47
@@ -3908,7 +3939,7 @@ msgstr "Удаление..."
 #, fuzzy
 #| msgid "Delete city"
 msgid "Delete"
-msgstr "Удаление города"
+msgstr "Видалити"
 
 #: templates/dashboard/reviews/productquestion_delete.html:32
 #: templates/dashboard/reviews/productquestion_detail.html:32
@@ -4026,7 +4057,7 @@ msgstr "чи"
 #: templates/shop/dashboard/site/user_delete.html:32
 #: templates/shop/dashboard/site/user_detail.html:32
 msgid "cancel"
-msgstr "отменить"
+msgstr "відмінити"
 
 #: templates/dashboard/reviews/productquestion_detail.html:6
 #: templates/dashboard/reviews/productquestion_detail.html:22
@@ -4068,7 +4099,7 @@ msgstr "Запитання про товар %(title)s"
 #, fuzzy
 #| msgid "Deleting..."
 msgid "Saving..."
-msgstr "Сохранение..."
+msgstr "Збереження..."
 
 #: templates/dashboard/reviews/productquestion_detail.html:31
 #: templates/dashboard/reviews/review_update.html:79
@@ -4101,7 +4132,7 @@ msgstr "Сохранение..."
 #: templates/shop/dashboard/site/timetable_detail.html:31
 #: templates/shop/dashboard/site/user_detail.html:31
 msgid "Save"
-msgstr "Сохранить"
+msgstr "Зберегти"
 
 #: templates/dashboard/reviews/productquestion_list.html:33
 #: templates/dashboard/reviews/productquestion_list.html:67
@@ -4148,19 +4179,19 @@ msgstr "Питання про товар не знайдені."
 #, fuzzy, python-format
 #| msgid "Delete city '%s'"
 msgid "Delete review '%(title)s'?"
-msgstr "Удаление города '%s'"
+msgstr "Видалити відгук '%(title)s'?"
 
 #: templates/dashboard/reviews/review_delete.html:19
 #: templates/dashboard/reviews/review_delete.html:24
 #, fuzzy, python-format
 #| msgid "Delete timetable?"
 msgid "Delete review \"%(title)s\"?"
-msgstr "Удалить график работы?"
+msgstr "Видалити відгук \"%(title)s\"?"
 
 #: templates/dashboard/reviews/review_delete.html:29
 #: templates/dashboard/reviews/reviewanswer_list.html:48
 msgid "Review"
-msgstr ""
+msgstr "Відгук"
 
 #: templates/dashboard/reviews/review_delete.html:38
 #: templates/dashboard/reviews/review_list.html:58
@@ -4168,7 +4199,7 @@ msgstr ""
 #: templates/dashboard/reviews/reviewanswer_list.html:49
 #: templates/shop/dashboard/orders/order_detail.html:605
 msgid "User"
-msgstr ""
+msgstr "Користувач"
 
 #: templates/dashboard/reviews/review_delete.html:39
 #: templates/dashboard/reviews/review_list.html:59
@@ -4251,22 +4282,22 @@ msgstr ""
 #, fuzzy
 #| msgid "No review answers found."
 msgid "No reviews found."
-msgstr "Ответы на отзывы не найдены."
+msgstr "Відповіді на відгуки не знайдені."
 
 #: templates/dashboard/reviews/review_update.html:8
 msgid "Update review"
-msgstr ""
+msgstr "Оновити відгук"
 
 #: templates/dashboard/reviews/review_update.html:19
 #: templates/dashboard/reviews/reviewanswer_update.html:19
 #, python-format
 msgid "Review #%(review.id)s"
-msgstr ""
+msgstr "Відгук #%(review.id)s"
 
 #: templates/dashboard/reviews/review_update.html:24
 #, python-format
 msgid "Review #%(review_id)s"
-msgstr ""
+msgstr "Відгук #%(review_id)s"
 
 #: templates/dashboard/reviews/review_update.html:31
 #: templates/dashboard/reviews/reviewanswer_update.html:31
@@ -4276,7 +4307,7 @@ msgstr ""
 #: templates/dashboard/reviews/reviewanswer_delete.html:8
 #, python-format
 msgid "Удалить ответ на отзыв '%(title)s'?"
-msgstr ""
+msgstr "Видалити відповідь на відгук '%(title)s'?"
 
 #: templates/dashboard/reviews/reviewanswer_delete.html:8
 #: templates/dashboard/reviews/reviewanswer_delete.html:17
@@ -4286,13 +4317,13 @@ msgstr ""
 #: templates/dashboard/reviews/reviewanswer_update.html:17
 #: teploformat/settings.py:362
 msgid "Ответы на отзывы"
-msgstr ""
+msgstr "Відповіді на відгуки"
 
 #: templates/dashboard/reviews/reviewanswer_delete.html:19
 #: templates/dashboard/reviews/reviewanswer_delete.html:24
 #, python-format
 msgid "Удалить ответ на отзыв \"%(title)s\"?"
-msgstr ""
+msgstr "Видалити відповідь на відгук '%(title)s'?"
 
 #: templates/dashboard/reviews/reviewanswer_delete.html:29
 msgid "Ответ на отзыв"
@@ -4300,11 +4331,11 @@ msgstr "Відповідь на відгук"
 
 #: templates/dashboard/reviews/reviewanswer_list.html:51
 msgid "Reply to"
-msgstr "Ответ на отзыв"
+msgstr "Відповідь на відгук"
 
 #: templates/dashboard/reviews/reviewanswer_list.html:99
 msgid "No review answers found."
-msgstr "Ответы на отзывы не найдены."
+msgstr "Відповіді на відгуки не знайдені."
 
 #: templates/dashboard/reviews/reviewanswer_update.html:8
 msgid "Изменить ответ на отзыв"
@@ -4321,7 +4352,7 @@ msgstr ""
 
 #: templates/oscar/base.html:76
 msgid "Version:"
-msgstr ""
+msgstr "Варіант:"
 
 #: templates/shop/dashboard/catalogue/attributeoptiongroup_delete.html:10
 #: templates/shop/dashboard/catalogue/attributeoptiongroup_detail.html:15
@@ -4369,17 +4400,17 @@ msgstr "Ще не було створено жодної групи опцій �
 
 #: templates/shop/dashboard/catalogue/category_form.html:34
 msgid "Update meta tags for this category"
-msgstr "Обновить мета теги для этой категории"
+msgstr "Оновити мета теги для цієї категорії"
 
 #: templates/shop/dashboard/catalogue/category_form.html:38
 msgid "Create meta tags for this category"
-msgstr "Создать мета теги для этой категории"
+msgstr "Створити мета теги для цієї категорії"
 
 #: templates/shop/dashboard/catalogue/product_class_form.html:5
 #, fuzzy
 #| msgid "Create Site"
 msgid "Create product type"
-msgstr "Добавить сайт"
+msgstr "Створити тип товару"
 
 #: templates/shop/dashboard/catalogue/product_class_form.html:16
 msgid "Product Type"
@@ -4416,7 +4447,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Delete city?"
 msgid "Delete?"
-msgstr "Удалить город?"
+msgstr "Видалити?"
 
 #: templates/shop/dashboard/catalogue/product_class_form.html:138
 #: templates/shop/dashboard/catalogue/product_update.html:408
@@ -4473,7 +4504,7 @@ msgstr ""
 
 #: templates/shop/dashboard/catalogue/product_update.html:99
 msgid "Images"
-msgstr ""
+msgstr "Зображення"
 
 #: templates/shop/dashboard/catalogue/product_update.html:104
 #: templates/shop/dashboard/catalogue/product_update.html:227
@@ -4488,13 +4519,13 @@ msgstr ""
 #, fuzzy
 #| msgid "Delete meta tag"
 msgid "Update meta tags"
-msgstr "Удаление meta тега"
+msgstr "Видалення meta тега"
 
 #: templates/shop/dashboard/catalogue/product_update.html:128
 #, fuzzy
 #| msgid "Create new meta tag"
 msgid "Create meta tags"
-msgstr "Добавить новый meta тег"
+msgstr "Додати новий meta тег"
 
 #: templates/shop/dashboard/catalogue/product_update.html:165
 msgid "Category"
@@ -4502,7 +4533,7 @@ msgstr "Категорія"
 
 #: templates/shop/dashboard/catalogue/product_update.html:187
 msgid "Product Type:"
-msgstr ""
+msgstr "Тип товару:"
 
 #: templates/shop/dashboard/catalogue/product_update.html:208
 #: templates/shop/dashboard/catalogue/product_update.html:363
@@ -4588,21 +4619,21 @@ msgstr "Заявки на дзвінок"
 #, fuzzy
 #| msgid "Delete call request"
 msgid "Delete call request?"
-msgstr "Удаление заявки на звонок"
+msgstr "Видалення заявки на дзвінок"
 
 #: templates/shop/dashboard/orders/callrequest_delete.html:22
 msgid "Delete call request"
-msgstr "Удаление заявки на звонок"
+msgstr "Видалення заявки на дзвінок"
 
 #: templates/shop/dashboard/orders/callrequest_delete.html:28
 #, python-format
 msgid "Delete call request <strong>%(name)s</strong> - are you sure?"
-msgstr "Удаление заявки на звонок <strong>%(name)s</strong> - вы уверены?"
+msgstr "Видалення заявки на дзвінок <strong>%(name)s</strong> - ви впевнені?"
 
 #: templates/shop/dashboard/orders/callrequest_list.html:33
 #: templates/shop/dashboard/orders/callrequest_list.html:77
 msgid "All call requests"
-msgstr "Все заявки на звонок"
+msgstr "Всі заявки на дзвінок"
 
 #: templates/shop/dashboard/orders/callrequest_list.html:39
 msgid "Client Name"
@@ -4633,7 +4664,8 @@ msgstr "Удаление заказа в один клик"
 #: templates/shop/dashboard/orders/oneclickorder_delete.html:28
 #, python-format
 msgid "Delete One-Click Order <strong>%(name)s</strong> - are you sure?"
-msgstr "Удаление заказа в один клик <strong>%(name)s</strong> - вы уверены?"
+msgstr ""
+"Видалення замовлення в один клік <strong>%(name)s</strong> - ви впевнені?"
 
 #: templates/shop/dashboard/orders/oneclickorder_detail.html:6
 #: templates/shop/dashboard/orders/oneclickorder_detail.html:22
@@ -4648,13 +4680,13 @@ msgstr ""
 #: templates/shop/dashboard/orders/oneclickorder_detail.html:46
 #: templates/shop/dashboard/orders/order_detail.html:108
 msgid "Quantity"
-msgstr ""
+msgstr "Кількість"
 
 #: templates/shop/dashboard/orders/oneclickorder_detail.html:47
 #, fuzzy
 #| msgid "Social References"
 msgid "Line Reference"
-msgstr "Ссылки на социальные сети"
+msgstr "Посилання на соціальні мережі"
 
 #: templates/shop/dashboard/orders/oneclickorder_detail.html:49
 #: templates/shop/dashboard/orders/order_detail.html:115
@@ -4690,7 +4722,7 @@ msgstr "Номера телефонів %(number)s"
 #: templates/shop/dashboard/orders/order_list.html:18
 #: templates/shop/dashboard/orders/order_list.html:24
 msgid "Orders"
-msgstr ""
+msgstr "Замовлення"
 
 #: templates/shop/dashboard/orders/order_detail.html:24
 #, fuzzy, python-format
@@ -4702,7 +4734,7 @@ msgstr "Номера телефонів #%(number)s"
 #, fuzzy
 #| msgid "Configuration"
 msgid "Customer Information"
-msgstr "Конфигурація"
+msgstr "Інформація Клієнта"
 
 #: templates/shop/dashboard/orders/order_detail.html:34
 #: templates/shop/dashboard/orders/order_detail.html:45
@@ -4873,7 +4905,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Change Site"
 msgid "Change status"
-msgstr "Перейти на сайт"
+msgstr "Змінити статус"
 
 #: templates/shop/dashboard/orders/order_detail.html:327
 #: templates/shop/dashboard/orders/order_list.html:173
@@ -4889,7 +4921,7 @@ msgstr ""
 #: templates/shop/dashboard/orders/order_detail.html:524
 #: templates/shop/dashboard/orders/order_detail.html:604
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: templates/shop/dashboard/orders/order_detail.html:343
 #: templates/shop/dashboard/orders/order_detail.html:389
@@ -4936,11 +4968,11 @@ msgstr "Аккаунт"
 
 #: templates/shop/dashboard/orders/order_detail.html:404
 msgid "Product:"
-msgstr ""
+msgstr "Товар:"
 
 #: templates/shop/dashboard/orders/order_detail.html:404
 msgid "quantity"
-msgstr ""
+msgstr "кількість"
 
 #: templates/shop/dashboard/orders/order_detail.html:414
 msgid "No payment events."
@@ -5028,7 +5060,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Contact Messages"
 msgid "Message"
-msgstr "Контактные сообщения"
+msgstr "Контактні повідомлення"
 
 #: templates/shop/dashboard/orders/order_detail.html:587
 msgid "No discounts were applied to this order."
@@ -5091,7 +5123,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Delete city"
 msgid "Deleted"
-msgstr "Удаление города"
+msgstr "Видалення"
 
 #: templates/shop/dashboard/orders/order_list.html:171
 msgid "Changing..."
@@ -5158,22 +5190,22 @@ msgstr "Міста"
 
 #: templates/shop/dashboard/site/city_delete.html:12
 msgid "Delete city?"
-msgstr "Удалить город?"
+msgstr "Видалити місто?"
 
 #: templates/shop/dashboard/site/city_delete.html:22
 msgid "Delete city"
-msgstr "Удаление города"
+msgstr "Видалення міста"
 
 #: templates/shop/dashboard/site/city_delete.html:28
 #, python-format
 msgid "Delete city <strong>%(name)s</strong> - are you sure?"
-msgstr "Удаление города <strong>%(name)s</strong> - вы уверены?"
+msgstr "Видалити місто <strong>%(name)s</strong> - ви впевнені?"
 
 #: templates/shop/dashboard/site/city_detail.html:5
 #: templates/shop/dashboard/site/city_detail.html:21
 #, python-format
 msgid "City %(city_name)s"
-msgstr "Город %(city_name)s"
+msgstr "Місто %(city_name)s"
 
 #: templates/shop/dashboard/site/city_detail.html:30
 msgid "Phone numbers"
@@ -5182,7 +5214,7 @@ msgstr "Номера телефонів"
 #: templates/shop/dashboard/site/city_detail.html:45
 #: templates/shop/dashboard/site/landingconfig_edit.html:11
 msgid "Configuration"
-msgstr "Конфигурація"
+msgstr "Конфігурація"
 
 #: templates/shop/dashboard/site/city_detail.html:55
 #: templates/shop/dashboard/site/timetable_delete.html:10
@@ -5234,14 +5266,14 @@ msgid ""
 "Delete contact message <strong>%(title)s %(created)s</strong> - are you "
 "sure?"
 msgstr ""
-"Удаление контактого сообщения <strong>%(title)s %(created)s</strong> - вы "
-"уверены?"
+"Видалити контактне повідомлення <strong>%(title)s %(created)s</strong> - ви "
+"впевнені?"
 
 #: templates/shop/dashboard/site/contactmessage_detail.html:6
 #: templates/shop/dashboard/site/contactmessage_detail.html:22
 #, python-format
 msgid "Contact message %(title)s %(created)s"
-msgstr "Контактное сообщение %(title)s %(created)s"
+msgstr "Контактне повідомлення %(title)s %(created)s"
 
 #: templates/shop/dashboard/site/contactmessage_list.html:33
 #: templates/shop/dashboard/site/contactmessage_list.html:67
@@ -5251,7 +5283,7 @@ msgstr "Всі контактні повідомлення"
 #: templates/shop/dashboard/site/contactmessage_list.html:42
 #: templates/shop/dashboard/site/user_list.html:40
 msgid "Email"
-msgstr "email адреса"
+msgstr "email"
 
 #: templates/shop/dashboard/site/contactmessage_list.html:69
 msgid "No contact messages found."
@@ -5497,12 +5529,13 @@ msgstr "Видалити заявку"
 
 #: templates/shop/dashboard/site/installment_delete.html:22
 msgid "Удаление заявки"
-msgstr ""
+msgstr "Видалення заявки"
 
 #: templates/shop/dashboard/site/installment_delete.html:28
 #, python-format
 msgid "Удаление заявки на рассрочку <strong>%(title)s</strong> - вы уверены?"
 msgstr ""
+"Видалити заявку на розстрочку <strong>%(title)s</strong> - ви впевнені?"
 
 #: templates/shop/dashboard/site/installment_list.html:19
 msgid "Создать новую заявку на рассрочку"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-07 09:49+0300\n"
-"PO-Revision-Date: 2017-09-18 07:27+0000\n"
+"PO-Revision-Date: 2017-09-20 06:20+0000\n"
 "Last-Translator:   <Vadim@localhost>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -46,7 +46,7 @@ msgstr "грн."
 #: static/blue/js/basket_script.js:223 static/blue/js/basket_script.js:241
 #: static/defro/js/basket_script.js:221 static/defro/js/basket_script.js:239
 msgid "Вы можете оставить только один отзыв!"
-msgstr "Ви можете залишити тільки один відкук!"
+msgstr "Ви можете залишити лише один відгук!"
 
 #: static/blue/js/basket_script.js:393 static/defro/js/basket_script.js:391
 msgid "Отправка..."
@@ -62,11 +62,11 @@ msgstr "Площа < 0"
 
 #: static/blue/js/estimation.js:12 static/defro/js/estimation.js:12
 msgid "Период < 0"
-msgstr ""
+msgstr "Період < 0"
 
 #: static/blue/js/estimation.js:17 static/defro/js/estimation.js:17
 msgid "Высота < 0"
-msgstr "Висота"
+msgstr "Висота < 0"
 
 #: static/blue/js/more-button.js:17 static/blue/js/more-button.js:36
 #: static/blue/js/more-button.js:53 static/blue/js/more-button.js:70
@@ -122,4 +122,4 @@ msgstr "Каталог товарів"
 
 #: static/blue/js/script.js:235
 msgid "Каталог"
-msgstr "Катталог"
+msgstr "Каталог"
