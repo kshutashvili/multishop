@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-16 09:28+0000\n"
+"POT-Creation-Date: 2017-09-21 06:58+0000\n"
 "PO-Revision-Date: 2017-09-16 07:01+0000\n"
 "Last-Translator:   <dmyutro@ukr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "шаблон"
 msgstr ""
 
-#: config/models.py:34 config/models.py:97
+#: config/models.py:34 config/models.py:109
 msgid "сайт"
 msgstr ""
 
@@ -65,119 +65,141 @@ msgstr ""
 msgid "Iframe для Google Tag Manager"
 msgstr ""
 
-#: config/models.py:102
+#: config/models.py:83
+msgid "Email host (smtp-сервер)"
+msgstr ""
+
+#: config/models.py:86
+#, fuzzy
+#| msgid "Email"
+msgid "Email port"
+msgstr "email адрес"
+
+#: config/models.py:88
+msgid "Email host user"
+msgstr ""
+
+#: config/models.py:90
+msgid "Email host password"
+msgstr ""
+
+#: config/models.py:92
+msgid "Использовать TLS?"
+msgstr ""
+
+#: config/models.py:114
 msgid "Основное изображение"
 msgstr ""
 
-#: config/models.py:106
+#: config/models.py:118
 msgid "Основная фраза"
 msgstr ""
 
-#: config/models.py:111
+#: config/models.py:123
 msgid "Дополнительная фраза"
 msgstr ""
 
-#: config/models.py:116
+#: config/models.py:128
 msgid "Ссылка под каталогом"
 msgstr ""
 
-#: config/models.py:121
+#: config/models.py:133
 msgid "Отображать калькулятор котлов?"
 msgstr ""
 
-#: config/models.py:125
+#: config/models.py:137
 msgid "Отображать блок 'Преимуществ'?"
 msgstr ""
 
-#: config/models.py:129
+#: config/models.py:141
 msgid "Отображать блок 'Кредит'?"
 msgstr ""
 
-#: config/models.py:133
+#: config/models.py:145
 msgid "Текст для блока 'Кредит'"
 msgstr ""
 
-#: config/models.py:138
+#: config/models.py:150
 msgid "Отображать блок 'Обзоры и отзывы'?"
 msgstr ""
 
-#: config/models.py:142
+#: config/models.py:154
 msgid "Отображать блок 'Дополнительные услуги'?"
 msgstr ""
 
-#: config/models.py:146
+#: config/models.py:158
 msgid "Отображать блок 'Доставка/Оплата'"
 msgstr ""
 
-#: config/models.py:151
+#: config/models.py:163
 msgid "Карта в футере для"
 msgstr ""
 
-#: config/models.py:158 config/models.py:175 config/models.py:195
-#: config/models.py:213 config/models.py:228 config/models.py:253
+#: config/models.py:170 config/models.py:187 config/models.py:207
+#: config/models.py:225 config/models.py:240 config/models.py:265
 msgid "Настройки главной страницы"
 msgstr ""
 
-#: config/models.py:166 templates/blue/index.html:192
+#: config/models.py:178 templates/blue/index.html:192
 #: templates/defro/index.html:192
 msgid "Дрова"
 msgstr ""
 
-#: config/models.py:167 templates/blue/index.html:212
+#: config/models.py:179 templates/blue/index.html:212
 #: templates/defro/index.html:212
 msgid "Пеллеты"
 msgstr ""
 
-#: config/models.py:168 templates/blue/index.html:232
+#: config/models.py:180 templates/blue/index.html:232
 #: templates/defro/index.html:232
 msgid "Каменный уголь"
 msgstr ""
 
-#: config/models.py:169 templates/blue/index.html:252
+#: config/models.py:181 templates/blue/index.html:252
 #: templates/defro/index.html:252
 msgid "Бурый уголь"
 msgstr ""
 
-#: config/models.py:170
+#: config/models.py:182
 msgid "Газ"
 msgstr ""
 
-#: config/models.py:171 templates/blue/index.html:292
+#: config/models.py:183 templates/blue/index.html:292
 #: templates/defro/index.html:292
 msgid "Электроэнергия"
 msgstr ""
 
-#: config/models.py:172 templates/blue/index.html:312
+#: config/models.py:184 templates/blue/index.html:312
 #: templates/defro/index.html:312
 msgid "Дизельное топливо"
 msgstr ""
 
-#: config/models.py:177 templates/blue/index.html:182
+#: config/models.py:189 templates/blue/index.html:182
 #: templates/defro/index.html:182
 msgid "Вид топлива"
 msgstr ""
 
-#: config/models.py:181 shop/catalogue/forms.py:131
+#: config/models.py:193 shop/catalogue/forms.py:163
 #: templates/blue/partials/filters.html:9
 #: templates/defro/partials/filters.html:9
 #: templates/shop/dashboard/site/fuelconfiguration_list.html:41
 msgid "Цена"
 msgstr ""
 
-#: config/models.py:186
+#: config/models.py:198
 msgid "Объем и цена топлива"
 msgstr ""
 
-#: config/models.py:187
+#: config/models.py:199
 msgid "Объемы и цены топлива"
 msgstr ""
 
-#: config/models.py:197 config/models.py:259 shop/catalogue/models.py:256
+#: config/models.py:209 config/models.py:271 shop/catalogue/models.py:256
 #: shop/catalogue/models.py:260
 msgid "Изображение"
 msgstr ""
 
-#: config/models.py:200 config/models.py:342
+#: config/models.py:212 config/models.py:354
 #: templates/shop/dashboard/site/benefit_list.html:40
 #: templates/shop/dashboard/site/deliverypay_list.html:42
 #: templates/shop/dashboard/site/review_list.html:41
@@ -185,57 +207,57 @@ msgstr ""
 msgid "Текст"
 msgstr ""
 
-#: config/models.py:204
+#: config/models.py:216
 msgid "Преимущество"
 msgstr ""
 
-#: config/models.py:205 templates/shop/dashboard/site/benefit_list.html:5
+#: config/models.py:217 templates/shop/dashboard/site/benefit_list.html:5
 #: templates/shop/dashboard/site/benefit_list.html:13
 #: templates/shop/dashboard/site/benefit_list.html:20
-#: teploformat/settings.py:416
+#: teploformat/settings.py:424
 msgid "Преимущества"
 msgstr ""
 
-#: config/models.py:215
+#: config/models.py:227
 msgid "Ссылка на обзор"
 msgstr ""
 
-#: config/models.py:219
+#: config/models.py:231
 msgid "Обзор"
 msgstr ""
 
-#: config/models.py:220 templates/blue/index.html:459
+#: config/models.py:232 templates/blue/index.html:459
 #: templates/defro/index.html:459
 #: templates/shop/dashboard/site/overview_delete.html:10
 #: templates/shop/dashboard/site/overview_detail.html:15
 #: templates/shop/dashboard/site/overview_list.html:5
 #: templates/shop/dashboard/site/overview_list.html:13
 #: templates/shop/dashboard/site/overview_list.html:20
-#: teploformat/settings.py:420
+#: teploformat/settings.py:428
 msgid "Обзоры"
 msgstr ""
 
-#: config/models.py:230
+#: config/models.py:242
 msgid "Фото"
 msgstr ""
 
-#: config/models.py:233
+#: config/models.py:245
 msgid "Имя оставившего отзыв"
 msgstr ""
 
-#: config/models.py:235
+#: config/models.py:247
 msgid "Текст отзыва"
 msgstr ""
 
-#: config/models.py:236
+#: config/models.py:248
 msgid "Дата создания"
 msgstr ""
 
-#: config/models.py:240
+#: config/models.py:252
 msgid "Отзыв"
 msgstr ""
 
-#: config/models.py:241 templates/blue/detail.html:103
+#: config/models.py:253 templates/blue/detail.html:103
 #: templates/blue/detail.html:393 templates/blue/detail.html:1094
 #: templates/defro/detail.html:103 templates/defro/detail.html:393
 #: templates/defro/detail.html:1094
@@ -244,39 +266,39 @@ msgstr ""
 #: templates/shop/dashboard/site/review_list.html:5
 #: templates/shop/dashboard/site/review_list.html:13
 #: templates/shop/dashboard/site/review_list.html:20
-#: teploformat/settings.py:424
+#: teploformat/settings.py:432
 msgid "Отзывы"
 msgstr ""
 
-#: config/models.py:249
+#: config/models.py:261
 msgid "Для блока 'Доставка'"
 msgstr ""
 
-#: config/models.py:250
+#: config/models.py:262
 msgid "Для блока 'Оплата'"
 msgstr ""
 
-#: config/models.py:255 templates/shop/dashboard/site/deliverypay_list.html:40
+#: config/models.py:267 templates/shop/dashboard/site/deliverypay_list.html:40
 msgid "Для блока"
 msgstr ""
 
-#: config/models.py:262 config/models.py:405 config/models.py:440
+#: config/models.py:274 config/models.py:417 config/models.py:452
 #: shop/catalogue/models.py:311
 #: templates/shop/dashboard/site/deliverypay_list.html:41
 msgid "Заголовок"
 msgstr ""
 
-#: config/models.py:267
+#: config/models.py:279
 msgid "Блок 'Доставка/Оплата'"
 msgstr ""
 
-#: config/models.py:268
+#: config/models.py:280
 #: templates/shop/dashboard/site/deliverypay_delete.html:10
 #: templates/shop/dashboard/site/deliverypay_detail.html:15
 msgid "Блоки 'Доставка/Оплата'"
 msgstr ""
 
-#: config/models.py:275 config/models.py:322
+#: config/models.py:287 config/models.py:334
 #: templates/shop/dashboard/catalogue/attributeoptiongroup_list.html:40
 #: templates/shop/dashboard/site/flatpage_list.html:40
 #: templates/shop/dashboard/site/footermenu_list.html:40
@@ -287,16 +309,16 @@ msgstr ""
 msgid "Название"
 msgstr ""
 
-#: config/models.py:276 config/models.py:324
+#: config/models.py:288 config/models.py:336
 #: templates/shop/dashboard/catalogue/product_class_form.html:100
 msgid "Порядок"
 msgstr ""
 
-#: config/models.py:279
+#: config/models.py:291
 msgid "Категория меню"
 msgstr ""
 
-#: config/models.py:280
+#: config/models.py:292
 #: templates/shop/dashboard/site/menucategory_delete.html:10
 #: templates/shop/dashboard/site/menucategory_detail.html:15
 #: templates/shop/dashboard/site/menucategory_list.html:5
@@ -306,31 +328,31 @@ msgstr ""
 msgid "Категории меню"
 msgstr ""
 
-#: config/models.py:306
+#: config/models.py:318
 msgid "Пункт меню"
 msgstr ""
 
-#: config/models.py:307
+#: config/models.py:319
 msgid "Пункты меню"
 msgstr ""
 
-#: config/models.py:314
+#: config/models.py:326
 msgid "Header"
 msgstr ""
 
-#: config/models.py:315
+#: config/models.py:327
 msgid "Footer"
 msgstr ""
 
-#: config/models.py:316 teploformat/settings.py:297
+#: config/models.py:328 teploformat/settings.py:297
 msgid "Боковое меню"
 msgstr ""
 
-#: config/models.py:319
+#: config/models.py:331
 msgid "Расположение"
 msgstr ""
 
-#: config/models.py:323 contacts/models.py:124
+#: config/models.py:335 contacts/models.py:125
 #: templates/shop/dashboard/site/footermenu_list.html:42
 #: templates/shop/dashboard/site/headermenu_list.html:41
 #: templates/shop/dashboard/site/overview_list.html:40
@@ -339,112 +361,112 @@ msgstr ""
 msgid "Ссылка"
 msgstr ""
 
-#: config/models.py:325 config/models.py:396
+#: config/models.py:337 config/models.py:408
 #: templates/shop/dashboard/site/footermenu_list.html:41
 msgid "Категория"
 msgstr ""
 
-#: config/models.py:328 config/models.py:343 contacts/models.py:29
-#: contacts/models.py:75 contacts/models.py:127 contacts/models.py:184
-#: contacts/models.py:218 shop/catalogue/models.py:36
+#: config/models.py:340 config/models.py:355 contacts/models.py:29
+#: contacts/models.py:76 contacts/models.py:128 contacts/models.py:185
+#: contacts/models.py:219 shop/catalogue/models.py:36
 #: shop/catalogue/models.py:146 shop/catalogue/models.py:290
 msgid "Сайт"
 msgstr ""
 
-#: config/models.py:331 config/models.py:346
+#: config/models.py:343 config/models.py:358
 #: templates/shop/dashboard/site/footermenu_list.html:43
 #: templates/shop/dashboard/site/headermenu_list.html:42
 #: templates/shop/dashboard/site/sidemenu_list.html:42
 msgid "Отображается на сайте"
 msgstr ""
 
-#: config/models.py:360 teploformat/settings.py:392
+#: config/models.py:372 teploformat/settings.py:400
 msgid "Текст 1"
 msgstr ""
 
-#: config/models.py:361
+#: config/models.py:373
 msgid "Тексты 1"
 msgstr ""
 
-#: config/models.py:366 teploformat/settings.py:396
+#: config/models.py:378 teploformat/settings.py:404
 msgid "Текст 2"
 msgstr ""
 
-#: config/models.py:367
+#: config/models.py:379
 msgid "Тексты 2"
 msgstr ""
 
-#: config/models.py:372 teploformat/settings.py:400
+#: config/models.py:384 teploformat/settings.py:408
 msgid "Текст 3"
 msgstr ""
 
-#: config/models.py:373
+#: config/models.py:385
 msgid "Тексты 3"
 msgstr ""
 
-#: config/models.py:378 teploformat/settings.py:404
+#: config/models.py:390 teploformat/settings.py:412
 msgid "Текст 4"
 msgstr ""
 
-#: config/models.py:379
+#: config/models.py:391
 msgid "Тексты 4"
 msgstr ""
 
-#: config/models.py:393
+#: config/models.py:405
 msgid "Главная страница"
 msgstr ""
 
-#: config/models.py:394
+#: config/models.py:406
 msgid "Раздел"
 msgstr ""
 
-#: config/models.py:395
+#: config/models.py:407
 msgid "Подраздел"
 msgstr ""
 
-#: config/models.py:397
+#: config/models.py:409
 msgid "Бренд"
 msgstr ""
 
-#: config/models.py:398
+#: config/models.py:410
 msgid "Бренд + фильтр"
 msgstr ""
 
-#: config/models.py:400
+#: config/models.py:412
 msgid "Статистическая страница"
 msgstr ""
 
-#: config/models.py:410 config/models.py:444
+#: config/models.py:422 config/models.py:456
 #, fuzzy
 #| msgid "Meta Tag %(title)s"
 msgid "Meta title"
 msgstr "Meta тег %(title)s"
 
-#: config/models.py:414 config/models.py:447
+#: config/models.py:426 config/models.py:459
 msgid "Meta description"
 msgstr ""
 
-#: config/models.py:419 config/models.py:451
+#: config/models.py:431 config/models.py:463
 msgid "H1 заголовок"
 msgstr ""
 
-#: config/models.py:424 templates/shop/dashboard/site/metatag_list.html:40
+#: config/models.py:436 templates/shop/dashboard/site/metatag_list.html:40
 msgid "Тип страницы"
 msgstr ""
 
-#: config/models.py:429
+#: config/models.py:441
 msgid "Мета тег"
 msgstr ""
 
-#: config/models.py:430
+#: config/models.py:442
 msgid "Мета теги"
 msgstr ""
 
-#: config/models.py:465
+#: config/models.py:477
 msgid "Мета тегы для обьекта"
 msgstr ""
 
-#: config/models.py:466
+#: config/models.py:478
 msgid "Мета тегы для обьектов"
 msgstr ""
 
@@ -456,8 +478,8 @@ msgstr ""
 msgid "Цветной значок"
 msgstr ""
 
-#: contacts/models.py:24 contacts/models.py:36 contacts/models.py:81
-#: contacts/models.py:149 contacts/models.py:188
+#: contacts/models.py:24 contacts/models.py:36 contacts/models.py:82
+#: contacts/models.py:150 contacts/models.py:189
 msgid "Город"
 msgstr ""
 
@@ -481,133 +503,133 @@ msgstr ""
 msgid "Города"
 msgstr ""
 
-#: contacts/models.py:52
+#: contacts/models.py:53
 msgid "Kievstar"
 msgstr ""
 
-#: contacts/models.py:53
+#: contacts/models.py:54
 msgid "Life"
 msgstr ""
 
-#: contacts/models.py:54
+#: contacts/models.py:55
 msgid "Vodafone"
 msgstr ""
 
-#: contacts/models.py:55
+#: contacts/models.py:56
 msgid "Городской номер"
 msgstr ""
 
-#: contacts/models.py:59 contacts/models.py:207
+#: contacts/models.py:60 contacts/models.py:208
 msgid ""
 "Номер телефона должен быть введен в формате:'+999999999999'. Допускается до "
 "15 цифр в номере"
 msgstr ""
 
-#: contacts/models.py:67 contacts/models.py:119
+#: contacts/models.py:68 contacts/models.py:120
 #: templates/shop/dashboard/site/socialref_list.html:40
 msgid "Оператор"
 msgstr ""
 
-#: contacts/models.py:87 shop/order/models.py:204
+#: contacts/models.py:88 shop/order/models.py:204
 #: templates/shop/dashboard/site/installment_list.html:40
 msgid "Номер телефона"
 msgstr ""
 
-#: contacts/models.py:88
+#: contacts/models.py:89
 msgid "Номера телефонов"
 msgstr ""
 
-#: contacts/models.py:109
+#: contacts/models.py:110
 msgid "facebook"
 msgstr ""
 
-#: contacts/models.py:110
+#: contacts/models.py:111
 msgid "ВКонтакте"
 msgstr ""
 
-#: contacts/models.py:111
+#: contacts/models.py:112
 msgid "mail.ru"
 msgstr ""
 
-#: contacts/models.py:112
+#: contacts/models.py:113
 msgid "Twitter"
 msgstr ""
 
-#: contacts/models.py:113
+#: contacts/models.py:114
 msgid "Одноклассники"
 msgstr ""
 
-#: contacts/models.py:114
+#: contacts/models.py:115
 msgid "Pinterest"
 msgstr ""
 
-#: contacts/models.py:115
+#: contacts/models.py:116
 msgid "Google+"
 msgstr ""
 
-#: contacts/models.py:116
+#: contacts/models.py:117
 msgid "YouTube"
 msgstr ""
 
-#: contacts/models.py:132
+#: contacts/models.py:133
 msgid "Ссылка на социальную сеть"
 msgstr ""
 
-#: contacts/models.py:133
+#: contacts/models.py:134
 msgid "Ссылки на социальные сети"
 msgstr ""
 
-#: contacts/models.py:141
+#: contacts/models.py:142
 msgid "Дни недели"
 msgstr ""
 
-#: contacts/models.py:145
+#: contacts/models.py:146
 msgid "Время дня"
 msgstr ""
 
-#: contacts/models.py:155 templates/blue/contacts.html:74
+#: contacts/models.py:156 templates/blue/contacts.html:74
 #: templates/defro/contacts.html:74
 #: templates/shop/dashboard/site/timetable_list.html:40
 msgid "График работы"
 msgstr ""
 
-#: contacts/models.py:156
+#: contacts/models.py:157
 msgid "Графики работы"
 msgstr ""
 
-#: contacts/models.py:167
+#: contacts/models.py:168
 msgid "основное"
 msgstr ""
 
-#: contacts/models.py:168
+#: contacts/models.py:169
 msgid "для call center"
 msgstr ""
 
-#: contacts/models.py:169
+#: contacts/models.py:170
 msgid "для ночных заказов"
 msgstr ""
 
-#: contacts/models.py:172
+#: contacts/models.py:173
 msgid "Тип рассписания"
 msgstr ""
 
-#: contacts/models.py:179
+#: contacts/models.py:180
 msgid "Графики"
 msgstr ""
 
-#: contacts/models.py:194
+#: contacts/models.py:195
 msgid "Рассписание работы компании"
 msgstr "Расписание работы компании"
 
-#: contacts/models.py:195
+#: contacts/models.py:196
 msgid "Рассписания работы компании"
 msgstr "Расписания работы компании"
 
-#: contacts/models.py:232
+#: contacts/models.py:233
 msgid "Статическая страница"
 msgstr ""
 
-#: contacts/models.py:233 templates/shop/dashboard/site/flatpage_delete.html:10
+#: contacts/models.py:234 templates/shop/dashboard/site/flatpage_delete.html:10
 #: templates/shop/dashboard/site/flatpage_detail.html:15
 #: templates/shop/dashboard/site/flatpage_list.html:5
 #: templates/shop/dashboard/site/flatpage_list.html:13
@@ -737,46 +759,46 @@ msgstr ""
 msgid "Order notification"
 msgstr ""
 
-#: shop/catalogue/reviews/models.py:26
+#: shop/catalogue/reviews/models.py:29
 #: templates/dashboard/reviews/review_delete.html:36
 #: templates/dashboard/reviews/reviewanswer_delete.html:36
 msgctxt "Product review title"
 msgid "Title"
 msgstr ""
 
-#: shop/catalogue/reviews/models.py:105
+#: shop/catalogue/reviews/models.py:120
 msgid "Total Votes"
 msgstr ""
 
-#: shop/catalogue/reviews/models.py:107
+#: shop/catalogue/reviews/models.py:122
 msgid "Delta Votes"
 msgstr ""
 
-#: shop/catalogue/reviews/models.py:144
+#: shop/catalogue/reviews/models.py:159
 msgid "Only signed in users can vote"
 msgstr ""
 
-#: shop/catalogue/reviews/models.py:204
+#: shop/catalogue/reviews/models.py:243
 msgid "Up"
 msgstr ""
 
-#: shop/catalogue/reviews/models.py:205
+#: shop/catalogue/reviews/models.py:244
 msgid "Down"
 msgstr ""
 
-#: shop/catalogue/reviews/models.py:207
+#: shop/catalogue/reviews/models.py:246
 msgid "Delta"
 msgstr ""
 
-#: shop/catalogue/reviews/models.py:214
+#: shop/catalogue/reviews/models.py:253
 msgid "Vote answer"
 msgstr ""
 
-#: shop/catalogue/reviews/models.py:215
+#: shop/catalogue/reviews/models.py:254
 msgid "Votes answer"
 msgstr ""
 
-#: shop/catalogue/reviews/models.py:224
+#: shop/catalogue/reviews/models.py:263
 msgid "You can only vote once on a answer"
 msgstr ""
 
@@ -796,11 +818,11 @@ msgstr ""
 msgid "This flag indicates if this product can be used in an offer or not"
 msgstr ""
 
-#: shop/dashboard/catalogue/forms.py:279
+#: shop/dashboard/catalogue/forms.py:283
 msgid "-- root --"
 msgstr ""
 
-#: shop/dashboard/catalogue/forms.py:434
+#: shop/dashboard/catalogue/forms.py:438
 msgid ""
 "At least one stock record must be set to a partner that you're associated "
 "with."
@@ -871,7 +893,7 @@ msgstr "Обновить Мета Тег объект"
 msgid "Meta tag for \"{}\" was updated successfully"
 msgstr "Мета тег для \"{}\" успешно обновлен"
 
-#: shop/dashboard/catalogue/views.py:262 shop/dashboard/site/views.py:216
+#: shop/dashboard/catalogue/views.py:262 shop/dashboard/site/views.py:217
 msgid "Your submitted data was not valid - please correct the errors below"
 msgstr "Вы ввели неверные данные - пожалуйста, исправьте ошибки ниже"
 
@@ -1205,7 +1227,7 @@ msgstr ""
 msgid "Attributes"
 msgstr ""
 
-#: shop/dashboard/portation/views.py:26 teploformat/settings.py:376
+#: shop/dashboard/portation/views.py:26 teploformat/settings.py:384
 msgid "Import"
 msgstr ""
 
@@ -1228,7 +1250,7 @@ msgstr ""
 #: templates/dashboard/reviews/review_list.html:16
 #: templates/dashboard/reviews/review_list.html:22
 #: templates/dashboard/reviews/review_update.html:17
-#: teploformat/settings.py:358
+#: teploformat/settings.py:366
 msgid "Reviews"
 msgstr ""
 
@@ -1318,490 +1340,535 @@ msgstr ""
 msgid " with customer name matching '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:86 templates/dashboard/layout.html:51
+#: shop/dashboard/site/views.py:87 templates/dashboard/layout.html:51
 msgid "Create Site"
 msgstr "Добавить сайт"
 
-#: shop/dashboard/site/views.py:117
+#: shop/dashboard/site/views.py:118
 msgid "Изменение сайта"
 msgstr ""
 
-#: shop/dashboard/site/views.py:137
+#: shop/dashboard/site/views.py:138
 msgid "Сайт успешно изменен"
 msgstr ""
 
-#: shop/dashboard/site/views.py:160
+#: shop/dashboard/site/views.py:161
 #, python-format
 msgid "Удаление сайта '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:164
+#: shop/dashboard/site/views.py:165
 msgid "Сайт успешно удален"
 msgstr ""
 
-#: shop/dashboard/site/views.py:247
+#: shop/dashboard/site/views.py:248
 #, python-format
 msgid "Update city '%s'"
 msgstr "Обновление города '%s'"
 
-#: shop/dashboard/site/views.py:250
+#: shop/dashboard/site/views.py:251
 msgid "City updated successfully"
 msgstr "Город успешно обновлен"
 
-#: shop/dashboard/site/views.py:265
+#: shop/dashboard/site/views.py:266
 msgid "Add a new city"
 msgstr "Добавить город"
 
-#: shop/dashboard/site/views.py:268
+#: shop/dashboard/site/views.py:269
 msgid "City created successfully"
 msgstr "Город успешно добавлен"
 
-#: shop/dashboard/site/views.py:280
+#: shop/dashboard/site/views.py:281
 #, python-format
 msgid "Delete city '%s'"
 msgstr "Удаление города '%s'"
 
-#: shop/dashboard/site/views.py:284
+#: shop/dashboard/site/views.py:285
 msgid "City deleted successfully"
 msgstr "Город успешно удален"
 
-#: shop/dashboard/site/views.py:323
+#: shop/dashboard/site/views.py:324
 #, python-format
 msgid "Update social reference '%s'"
 msgstr "Обновление ссылки на социальную сеть '%s'"
 
-#: shop/dashboard/site/views.py:326
+#: shop/dashboard/site/views.py:327
 msgid "Social reference updated successfully"
 msgstr "Ссылка на социальную сеть успешно обновлена"
 
-#: shop/dashboard/site/views.py:341
+#: shop/dashboard/site/views.py:342
 msgid "Add a new social reference"
 msgstr "Добавить ссылку на социальную сеть"
 
-#: shop/dashboard/site/views.py:344
+#: shop/dashboard/site/views.py:345
 msgid "Social reference created successfully"
 msgstr "Ссылка на социальную сеть успешно добавлена"
 
-#: shop/dashboard/site/views.py:358
+#: shop/dashboard/site/views.py:359
 #, python-format
 msgid "Delete social reference '%s'"
 msgstr "Удаление ссылки на социальную сеть '%s'"
 
-#: shop/dashboard/site/views.py:363
+#: shop/dashboard/site/views.py:364
 msgid "Social reference deleted successfully"
 msgstr "Ссылка на социальную сеть успешно удалена"
 
-#: shop/dashboard/site/views.py:390
+#: shop/dashboard/site/views.py:391
 msgid "Flat page created successfully"
 msgstr "Статическая страница успешно добавлена"
 
-#: shop/dashboard/site/views.py:396
+#: shop/dashboard/site/views.py:397
 msgid "Создать статическую страницу"
 msgstr ""
 
-#: shop/dashboard/site/views.py:407
+#: shop/dashboard/site/views.py:408
 msgid "Flat page updated successfully"
 msgstr "Статическая страница успешно обновлена"
 
-#: shop/dashboard/site/views.py:436
+#: shop/dashboard/site/views.py:437
 #, python-format
 msgid "Удаление статической страницы '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:441
+#: shop/dashboard/site/views.py:442
 msgid "Статическая страница успешно удалена"
 msgstr ""
 
-#: shop/dashboard/site/views.py:459
+#: shop/dashboard/site/views.py:460
 msgid "Contact message updated successfully"
 msgstr "Контакное сообщение успешно обновлено"
 
-#: shop/dashboard/site/views.py:473
+#: shop/dashboard/site/views.py:474
 msgid "Contact message deleted successfully"
 msgstr "Контактное сообщение успешно удалено"
 
-#: shop/dashboard/site/views.py:537
+#: shop/dashboard/site/views.py:538
 #, fuzzy, python-format
 #| msgid "Delete timetable '%s'"
 msgid "Update timetable '%s'"
 msgstr "Удаление графика работы '%s'"
 
-#: shop/dashboard/site/views.py:540
+#: shop/dashboard/site/views.py:541
 msgid "Timetable updated successfully"
 msgstr "График работы успешно обновлен"
 
-#: shop/dashboard/site/views.py:554
+#: shop/dashboard/site/views.py:555
 msgid "Add a new timetable"
 msgstr "Добавить график работы"
 
-#: shop/dashboard/site/views.py:557
+#: shop/dashboard/site/views.py:558
 msgid "Timetable created successfully"
 msgstr "График работы успешно добавлен"
 
-#: shop/dashboard/site/views.py:571
+#: shop/dashboard/site/views.py:572
 #, python-format
 msgid "Delete timetable '%s'"
 msgstr "Удаление графика работы '%s'"
 
-#: shop/dashboard/site/views.py:576
+#: shop/dashboard/site/views.py:577
 msgid "Timetable deleted successfully"
 msgstr "Графи работы успешно удален"
 
-#: shop/dashboard/site/views.py:605
+#: shop/dashboard/site/views.py:606
 #, fuzzy, python-format
 #| msgid "Update flat page '%s'"
 msgid "Update meta tag '%s'"
 msgstr "Обновление статической страницы '%s'"
 
-#: shop/dashboard/site/views.py:608
+#: shop/dashboard/site/views.py:609
 #, fuzzy
 #| msgid "Flat page updated successfully"
 msgid "Meta tag updated successfully"
 msgstr "Статическая страница успешно обновлена"
 
-#: shop/dashboard/site/views.py:622
+#: shop/dashboard/site/views.py:623
 #, fuzzy
 #| msgid "Create new meta tag"
 msgid "Add a new meta tag"
 msgstr "Добавить новый meta тег"
 
-#: shop/dashboard/site/views.py:625
+#: shop/dashboard/site/views.py:626
 #, fuzzy
 #| msgid "Flat page created successfully"
 msgid "Meta tag created successfully"
 msgstr "Статическая страница успешно добавлена"
 
-#: shop/dashboard/site/views.py:639
+#: shop/dashboard/site/views.py:640
 #, fuzzy, python-format
 #| msgid "Delete meta tag"
 msgid "Delete meta tag '%s'"
 msgstr "Удаление meta тега"
 
-#: shop/dashboard/site/views.py:644
+#: shop/dashboard/site/views.py:645
 #, fuzzy
 #| msgid "Flat page deleted successfully"
 msgid "Meta tag deleted successfully"
 msgstr "Статическая страница успешно удалена"
 
-#: shop/dashboard/site/views.py:662
+#: shop/dashboard/site/views.py:663
 msgid "Создать новое описание фильтра"
 msgstr ""
 
-#: shop/dashboard/site/views.py:666
+#: shop/dashboard/site/views.py:667
 msgid "Описание фильтра успешно создано"
 msgstr ""
 
-#: shop/dashboard/site/views.py:689
+#: shop/dashboard/site/views.py:690
 msgid "Описание фильтра успешно изменено"
 msgstr ""
 
-#: shop/dashboard/site/views.py:702
+#: shop/dashboard/site/views.py:703
 #, python-format
 msgid "Удаление описания фильтра для '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:708
+#: shop/dashboard/site/views.py:709
 #, python-format
 msgid "Описание фильтра '%s' удалено"
 msgstr ""
 
-#: shop/dashboard/site/views.py:719 shop/dashboard/site/views.py:736
+#: shop/dashboard/site/views.py:720 shop/dashboard/site/views.py:737
 msgid "Создать новый Текст 1"
 msgstr ""
 
-#: shop/dashboard/site/views.py:744
+#: shop/dashboard/site/views.py:745
 msgid "Текст 1 успешно создан"
 msgstr ""
 
-#: shop/dashboard/site/views.py:780
+#: shop/dashboard/site/views.py:781
 msgid "Текст 1 успешно изменен"
 msgstr ""
 
-#: shop/dashboard/site/views.py:793
+#: shop/dashboard/site/views.py:794
 #, python-format
 msgid "Удаление Текста 1 '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:802
+#: shop/dashboard/site/views.py:803
 #, python-format
 msgid "Текст 1 '%s' удален"
 msgstr ""
 
-#: shop/dashboard/site/views.py:811 shop/dashboard/site/views.py:825
+#: shop/dashboard/site/views.py:812 shop/dashboard/site/views.py:826
 msgid "Создать новый Текст 2"
 msgstr ""
 
-#: shop/dashboard/site/views.py:833
+#: shop/dashboard/site/views.py:834
 msgid "Текст 2 успешно создан"
 msgstr ""
 
-#: shop/dashboard/site/views.py:851
+#: shop/dashboard/site/views.py:852
 msgid "Текст 2 успешно изменен"
 msgstr ""
 
-#: shop/dashboard/site/views.py:864
+#: shop/dashboard/site/views.py:865
 #, python-format
 msgid "Удаление Текста 2 '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:873
+#: shop/dashboard/site/views.py:874
 #, python-format
 msgid "Текст 2 '%s' успешно удален"
 msgstr ""
 
-#: shop/dashboard/site/views.py:882 shop/dashboard/site/views.py:896
+#: shop/dashboard/site/views.py:883 shop/dashboard/site/views.py:897
 msgid "Создать новый Текст 3"
 msgstr ""
 
-#: shop/dashboard/site/views.py:904
+#: shop/dashboard/site/views.py:905
 msgid "Текст 3 успешно создан"
 msgstr ""
 
-#: shop/dashboard/site/views.py:922
+#: shop/dashboard/site/views.py:923
 msgid "Текст 3 успешно изменен"
 msgstr ""
 
-#: shop/dashboard/site/views.py:935
+#: shop/dashboard/site/views.py:936
 #, python-format
 msgid "Удаление Текста 3 '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:944
+#: shop/dashboard/site/views.py:945
 #, python-format
 msgid "Текст 3 '%s' удален"
 msgstr ""
 
-#: shop/dashboard/site/views.py:953
+#: shop/dashboard/site/views.py:954
 msgid "Создать новый Текст 4"
 msgstr ""
 
-#: shop/dashboard/site/views.py:967
+#: shop/dashboard/site/views.py:968
 msgid "создать новый текст 4"
 msgstr ""
 
-#: shop/dashboard/site/views.py:975
+#: shop/dashboard/site/views.py:976
 msgid "Текст 4 успешно создан"
 msgstr ""
 
-#: shop/dashboard/site/views.py:993
+#: shop/dashboard/site/views.py:994
 msgid "Текст 4 успешно обновлен"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1006
+#: shop/dashboard/site/views.py:1007
 #, python-format
 msgid "Удаление Текста 4 '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1015
+#: shop/dashboard/site/views.py:1016
 #, python-format
 msgid "Текст 4 удален '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1045
+#: shop/dashboard/site/views.py:1046
 msgid "Лэндинг обновлен"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1063
+#: shop/dashboard/site/views.py:1064
 msgid "Создать новую цену на топливо"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1075
+#: shop/dashboard/site/views.py:1076
 msgid "Цена на топливо успешно создана"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1098
+#: shop/dashboard/site/views.py:1099
 msgid "Цена на топливо успешно изменена"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1111
+#: shop/dashboard/site/views.py:1112
 #, python-format
 msgid "Удаление цены '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1117
+#: shop/dashboard/site/views.py:1118
 #, python-format
 msgid "Удалена цена для '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1135
+#: shop/dashboard/site/views.py:1136
 msgid "Создать новое Преимущество"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1147
+#: shop/dashboard/site/views.py:1148
 msgid "Преимущество успешно создана"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1170
+#: shop/dashboard/site/views.py:1171
 msgid "Преимущество успешно изменено"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1183
+#: shop/dashboard/site/views.py:1184
 #, python-format
 msgid "Удаление преимущества '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1189
+#: shop/dashboard/site/views.py:1190
 #, python-format
 msgid "Удалено преимущество '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1207
+#: shop/dashboard/site/views.py:1208
 msgid "Создать новый Обзор"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1219
+#: shop/dashboard/site/views.py:1220
 msgid "Обзор успешно создана"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1242
+#: shop/dashboard/site/views.py:1243
 msgid "Обзор успешно изменен"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1255
+#: shop/dashboard/site/views.py:1256
 #, python-format
 msgid "Удаление обзора '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1261
+#: shop/dashboard/site/views.py:1262
 #, python-format
 msgid "Обзор '%s' удален"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1279
+#: shop/dashboard/site/views.py:1280
 msgid "Создать новый Отзыв"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1291
+#: shop/dashboard/site/views.py:1292
 msgid "Отзыв успешно создана"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1314
+#: shop/dashboard/site/views.py:1315
 msgid "Отзыв успешно изменен"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1327
+#: shop/dashboard/site/views.py:1328
 #, python-format
 msgid "Удаление отзыва '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1333
+#: shop/dashboard/site/views.py:1334
 #, python-format
 msgid "Отзыв '%s' удален"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1350
+#: shop/dashboard/site/views.py:1351
 msgid "Создать новую запись о Доставке/Оплате"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1361
+#: shop/dashboard/site/views.py:1362
 msgid "Запись о Доставке/Оплате успешно создана"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1383
+#: shop/dashboard/site/views.py:1384
 msgid "Запись о Доставке/Оплате успешно изменена"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1396
+#: shop/dashboard/site/views.py:1397
 #, python-format
 msgid "Удаление Записи '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1402
+#: shop/dashboard/site/views.py:1403
 #, python-format
 msgid "Запись '%s' удалена"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1420 shop/dashboard/site/views.py:1490
-#: shop/dashboard/site/views.py:1642
+#: shop/dashboard/site/views.py:1421 shop/dashboard/site/views.py:1491
+#: shop/dashboard/site/views.py:1643
 msgid "Создать новый пункт меню"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1431 shop/dashboard/site/views.py:1501
-#: shop/dashboard/site/views.py:1653
+#: shop/dashboard/site/views.py:1432 shop/dashboard/site/views.py:1502
+#: shop/dashboard/site/views.py:1654
 msgid "Новый пункт меню создан"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1453 shop/dashboard/site/views.py:1523
-#: shop/dashboard/site/views.py:1675
+#: shop/dashboard/site/views.py:1454 shop/dashboard/site/views.py:1524
+#: shop/dashboard/site/views.py:1676
 msgid "Пункт меню успешно изменен"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1466 shop/dashboard/site/views.py:1536
-#: shop/dashboard/site/views.py:1688
+#: shop/dashboard/site/views.py:1467 shop/dashboard/site/views.py:1537
+#: shop/dashboard/site/views.py:1689
 #, python-format
 msgid "Удаление пункта меню '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1472 shop/dashboard/site/views.py:1542
-#: shop/dashboard/site/views.py:1694 shop/dashboard/site/views.py:1762
+#: shop/dashboard/site/views.py:1473 shop/dashboard/site/views.py:1543
+#: shop/dashboard/site/views.py:1695 shop/dashboard/site/views.py:1763
 #, python-format
 msgid "Пункт меню '%s' удален"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1559
+#: shop/dashboard/site/views.py:1560
 #: templates/shop/dashboard/site/menucategory_list.html:19
 msgid "Создать новую категорию меню"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1569
+#: shop/dashboard/site/views.py:1570
 msgid "Новая категория меню создана"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1591
+#: shop/dashboard/site/views.py:1592
 msgid "Категория меню успешно изменена"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1604
+#: shop/dashboard/site/views.py:1605
 #, python-format
 msgid "Удаление категории меню '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1610
+#: shop/dashboard/site/views.py:1611
 #, python-format
 msgid "Категория меню '%s' удалена"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1711
+#: shop/dashboard/site/views.py:1712
 msgid "Создать новую рассрочку"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1721
+#: shop/dashboard/site/views.py:1722
 msgid "Новый рассрочка создана"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1743
+#: shop/dashboard/site/views.py:1744
 msgid "Рассрочка успешно изменена"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1756
+#: shop/dashboard/site/views.py:1757
 #, python-format
 msgid "Удаление рассрочки '%s'"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1779
-#: templates/shop/dashboard/site/user_list.html:19
-msgid "Создать нового пользователя"
+#: shop/dashboard/site/views.py:1780
+msgid "Создать новый метод дотавки"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1783
-msgid "Новый пользователь создан"
+#: shop/dashboard/site/views.py:1784
+msgid "Новый метод доставки создан"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1805
-msgid "Данные пользователя успешно изменены"
-msgstr ""
-
-#: shop/dashboard/site/views.py:1815
-#, python-format
-msgid "Удаление пользователя '%s'"
+#: shop/dashboard/site/views.py:1806
+msgid "Метод доставки успешно обновлен"
 msgstr ""
 
 #: shop/dashboard/site/views.py:1819
 #, python-format
+msgid "Удаление метода доставки '%s'"
+msgstr ""
+
+#: shop/dashboard/site/views.py:1825
+#, python-format
+msgid "Метод доставки '%s' удален"
+msgstr ""
+
+#: shop/dashboard/site/views.py:1842
+#: templates/shop/dashboard/site/paymentmethod_list.html:19
+msgid "Создать новый метод оплаты"
+msgstr ""
+
+#: shop/dashboard/site/views.py:1846
+msgid "Новый метод оплаты создан"
+msgstr ""
+
+#: shop/dashboard/site/views.py:1868
+msgid "Метод оплаты успешно обновлен"
+msgstr ""
+
+#: shop/dashboard/site/views.py:1881
+#, python-format
+msgid "Удаление метода оплаты '%s'"
+msgstr ""
+
+#: shop/dashboard/site/views.py:1887
+#, python-format
+msgid "Метод оплаты '%s' удален"
+msgstr ""
+
+#: shop/dashboard/site/views.py:1904
+#: templates/shop/dashboard/site/user_list.html:19
+msgid "Создать нового пользователя"
+msgstr ""
+
+#: shop/dashboard/site/views.py:1908
+msgid "Новый пользователь создан"
+msgstr ""
+
+#: shop/dashboard/site/views.py:1930
+msgid "Данные пользователя успешно изменены"
+msgstr ""
+
+#: shop/dashboard/site/views.py:1940
+#, python-format
+msgid "Удаление пользователя '%s'"
+msgstr ""
+
+#: shop/dashboard/site/views.py:1944
+#, python-format
 msgid "Пользователь %s удален"
 msgstr ""
 
-#: shop/dashboard/site/views.py:1832
+#: shop/dashboard/site/views.py:1957
 msgid "Пароль успешно изменен"
 msgstr ""
 
@@ -1876,15 +1943,15 @@ msgstr ""
 msgid "Previous Price"
 msgstr ""
 
-#: templates/404.html:26 templates/404.html:31
+#: templates/404.html:27 templates/404.html:32
 msgid "Страница не найдена"
 msgstr ""
 
-#: templates/404.html:32
+#: templates/404.html:33
 msgid "Возможно, она была удалена или Вы ввели неверный адрес"
 msgstr ""
 
-#: templates/404.html:36
+#: templates/404.html:37
 msgid ""
 "\n"
 "                                Попробуйте <a href=\"/\">перейти на главную</"
@@ -1892,7 +1959,7 @@ msgid ""
 "                            "
 msgstr ""
 
-#: templates/404.html:41
+#: templates/404.html:42
 msgid "Можете перейти в раздел который Вам интересен:"
 msgstr ""
 
@@ -3238,6 +3305,10 @@ msgstr ""
 msgid "кВт/ч тепла"
 msgstr ""
 
+#: templates/blue/index.html:174 templates/defro/index.html:174
+msgid "Необходимая мощность котла:"
+msgstr ""
+
 #: templates/blue/index.html:178 templates/defro/index.html:178
 msgid "Стоимость различных видов топлива"
 msgstr ""
@@ -3791,9 +3862,15 @@ msgstr "Выйти"
 #: templates/shop/dashboard/site/overview_delete.html:7
 #: templates/shop/dashboard/site/overview_detail.html:12
 #: templates/shop/dashboard/site/overview_list.html:11
+#: templates/shop/dashboard/site/paymentmethod_delete.html:7
+#: templates/shop/dashboard/site/paymentmethod_detail.html:12
+#: templates/shop/dashboard/site/paymentmethod_list.html:11
 #: templates/shop/dashboard/site/review_delete.html:7
 #: templates/shop/dashboard/site/review_detail.html:12
 #: templates/shop/dashboard/site/review_list.html:11
+#: templates/shop/dashboard/site/shippingmethod_delete.html:7
+#: templates/shop/dashboard/site/shippingmethod_detail.html:12
+#: templates/shop/dashboard/site/shippingmethod_list.html:11
 #: templates/shop/dashboard/site/sidemenu_delete.html:7
 #: templates/shop/dashboard/site/sidemenu_detail.html:12
 #: templates/shop/dashboard/site/sidemenu_list.html:11
@@ -3821,7 +3898,7 @@ msgstr "Панель"
 #: templates/dashboard/reviews/productquestion_list.html:5
 #: templates/dashboard/reviews/productquestion_list.html:13
 #: templates/dashboard/reviews/productquestion_list.html:19
-#: teploformat/settings.py:354
+#: teploformat/settings.py:362
 msgid "Вопросы о товаре"
 msgstr ""
 
@@ -3857,7 +3934,9 @@ msgstr ""
 #: templates/shop/dashboard/site/menucategory_delete.html:31
 #: templates/shop/dashboard/site/metatag_delete.html:31
 #: templates/shop/dashboard/site/overview_delete.html:31
+#: templates/shop/dashboard/site/paymentmethod_delete.html:31
 #: templates/shop/dashboard/site/review_delete.html:31
+#: templates/shop/dashboard/site/shippingmethod_delete.html:31
 #: templates/shop/dashboard/site/sidemenu_delete.html:31
 #: templates/shop/dashboard/site/site_delete.html:28
 #: templates/shop/dashboard/site/socialref_delete.html:31
@@ -3893,8 +3972,10 @@ msgstr "Удаление..."
 #: templates/shop/dashboard/site/menucategory_delete.html:31
 #: templates/shop/dashboard/site/metatag_delete.html:31
 #: templates/shop/dashboard/site/overview_delete.html:31
+#: templates/shop/dashboard/site/paymentmethod_delete.html:31
 #: templates/shop/dashboard/site/review_delete.html:31
 #: templates/shop/dashboard/site/row_actions.html:13
+#: templates/shop/dashboard/site/shippingmethod_delete.html:31
 #: templates/shop/dashboard/site/sidemenu_delete.html:31
 #: templates/shop/dashboard/site/site_delete.html:28
 #: templates/shop/dashboard/site/socialref_delete.html:31
@@ -3947,8 +4028,12 @@ msgstr "Удаление города"
 #: templates/shop/dashboard/site/metatag_detail.html:32
 #: templates/shop/dashboard/site/overview_delete.html:32
 #: templates/shop/dashboard/site/overview_detail.html:32
+#: templates/shop/dashboard/site/paymentmethod_delete.html:32
+#: templates/shop/dashboard/site/paymentmethod_detail.html:32
 #: templates/shop/dashboard/site/review_delete.html:32
 #: templates/shop/dashboard/site/review_detail.html:32
+#: templates/shop/dashboard/site/shippingmethod_delete.html:32
+#: templates/shop/dashboard/site/shippingmethod_detail.html:32
 #: templates/shop/dashboard/site/sidemenu_delete.html:32
 #: templates/shop/dashboard/site/sidemenu_detail.html:32
 #: templates/shop/dashboard/site/site.html:24
@@ -4005,8 +4090,12 @@ msgstr "или"
 #: templates/shop/dashboard/site/metatag_detail.html:32
 #: templates/shop/dashboard/site/overview_delete.html:32
 #: templates/shop/dashboard/site/overview_detail.html:32
+#: templates/shop/dashboard/site/paymentmethod_delete.html:32
+#: templates/shop/dashboard/site/paymentmethod_detail.html:32
 #: templates/shop/dashboard/site/review_delete.html:32
 #: templates/shop/dashboard/site/review_detail.html:32
+#: templates/shop/dashboard/site/shippingmethod_delete.html:32
+#: templates/shop/dashboard/site/shippingmethod_detail.html:32
 #: templates/shop/dashboard/site/sidemenu_delete.html:32
 #: templates/shop/dashboard/site/sidemenu_detail.html:32
 #: templates/shop/dashboard/site/site.html:24
@@ -4053,7 +4142,9 @@ msgstr ""
 #: templates/shop/dashboard/site/menucategory_detail.html:31
 #: templates/shop/dashboard/site/metatag_detail.html:31
 #: templates/shop/dashboard/site/overview_detail.html:31
+#: templates/shop/dashboard/site/paymentmethod_detail.html:31
 #: templates/shop/dashboard/site/review_detail.html:31
+#: templates/shop/dashboard/site/shippingmethod_detail.html:31
 #: templates/shop/dashboard/site/sidemenu_detail.html:31
 #: templates/shop/dashboard/site/site.html:23
 #: templates/shop/dashboard/site/site_detail.html:29
@@ -4088,7 +4179,9 @@ msgstr "Удаление..."
 #: templates/shop/dashboard/site/menucategory_detail.html:31
 #: templates/shop/dashboard/site/metatag_detail.html:31
 #: templates/shop/dashboard/site/overview_detail.html:31
+#: templates/shop/dashboard/site/paymentmethod_detail.html:31
 #: templates/shop/dashboard/site/review_detail.html:31
+#: templates/shop/dashboard/site/shippingmethod_detail.html:31
 #: templates/shop/dashboard/site/sidemenu_detail.html:31
 #: templates/shop/dashboard/site/site.html:23
 #: templates/shop/dashboard/site/site_detail.html:29
@@ -4280,7 +4373,7 @@ msgstr ""
 #: templates/dashboard/reviews/reviewanswer_list.html:16
 #: templates/dashboard/reviews/reviewanswer_list.html:22
 #: templates/dashboard/reviews/reviewanswer_update.html:17
-#: teploformat/settings.py:362
+#: teploformat/settings.py:370
 msgid "Ответы на отзывы"
 msgstr ""
 
@@ -4576,7 +4669,7 @@ msgstr ""
 #: templates/shop/dashboard/orders/callrequest_list.html:5
 #: templates/shop/dashboard/orders/callrequest_list.html:13
 #: templates/shop/dashboard/orders/callrequest_list.html:19
-#: teploformat/settings.py:346
+#: teploformat/settings.py:354
 msgid "Call Requests"
 msgstr "Заявки на звонок"
 
@@ -5128,7 +5221,7 @@ msgstr ""
 #: templates/shop/dashboard/site/fuelconfiguration_detail.html:15
 #: templates/shop/dashboard/site/fuelconfiguration_list.html:5
 #: templates/shop/dashboard/site/fuelconfiguration_list.html:20
-#: teploformat/settings.py:412
+#: teploformat/settings.py:420
 msgid "Цены на топливо"
 msgstr ""
 
@@ -5213,7 +5306,7 @@ msgstr "Города не найдены."
 #: templates/shop/dashboard/site/contactmessage_list.html:5
 #: templates/shop/dashboard/site/contactmessage_list.html:13
 #: templates/shop/dashboard/site/contactmessage_list.html:19
-#: teploformat/settings.py:350
+#: teploformat/settings.py:358
 msgid "Contact Messages"
 msgstr "Контактные сообщения"
 
@@ -5605,6 +5698,43 @@ msgstr ""
 msgid "Еще не было создано ни одного обзора."
 msgstr ""
 
+#: templates/shop/dashboard/site/paymentmethod_delete.html:10
+#: templates/shop/dashboard/site/paymentmethod_detail.html:15
+#: templates/shop/dashboard/site/paymentmethod_list.html:5
+#: templates/shop/dashboard/site/paymentmethod_list.html:13
+#: templates/shop/dashboard/site/paymentmethod_list.html:20
+#: teploformat/settings.py:346
+msgid "Методы оплаты"
+msgstr ""
+
+#: templates/shop/dashboard/site/paymentmethod_delete.html:12
+msgid "Удалить метод оплаты?"
+msgstr ""
+
+#: templates/shop/dashboard/site/paymentmethod_delete.html:22
+#, fuzzy
+#| msgid "Каталог товаров"
+msgid "Удаление метода оплаты"
+msgstr "Каталог товаров"
+
+#: templates/shop/dashboard/site/paymentmethod_delete.html:28
+#, python-format
+msgid "Удаление метода оплаты <strong>%(fuel_type)s</strong> - вы уверены?"
+msgstr ""
+
+#: templates/shop/dashboard/site/paymentmethod_list.html:34
+#: templates/shop/dashboard/site/paymentmethod_list.html:61
+msgid "Все методы оплаты"
+msgstr ""
+
+#: templates/shop/dashboard/site/paymentmethod_list.html:40
+msgid "Метод оплаты"
+msgstr ""
+
+#: templates/shop/dashboard/site/paymentmethod_list.html:63
+msgid "Еще не было создано ни одного метода оплаты."
+msgstr ""
+
 #: templates/shop/dashboard/site/review_delete.html:12
 msgid "Удалить отзыв?"
 msgstr ""
@@ -5632,6 +5762,51 @@ msgstr ""
 
 #: templates/shop/dashboard/site/review_list.html:65
 msgid "Еще не было создано ни одного отзыва."
+msgstr ""
+
+#: templates/shop/dashboard/site/shippingmethod_delete.html:10
+#: templates/shop/dashboard/site/shippingmethod_detail.html:15
+#: templates/shop/dashboard/site/shippingmethod_list.html:5
+#: templates/shop/dashboard/site/shippingmethod_list.html:13
+#: templates/shop/dashboard/site/shippingmethod_list.html:20
+#: teploformat/settings.py:342
+msgid "Методы доставки"
+msgstr ""
+
+#: templates/shop/dashboard/site/shippingmethod_delete.html:12
+msgid "Удалить метод доставки?"
+msgstr ""
+
+#: templates/shop/dashboard/site/shippingmethod_delete.html:22
+#, fuzzy
+#| msgid "Каталог товаров"
+msgid "Удаление метода доставки"
+msgstr "Каталог товаров"
+
+#: templates/shop/dashboard/site/shippingmethod_delete.html:28
+#, python-format
+msgid "Удаление метода доставки <strong>%(fuel_type)s</strong> - вы уверены?"
+msgstr ""
+
+#: templates/shop/dashboard/site/shippingmethod_list.html:19
+msgid "Создать новый метод доставки"
+msgstr ""
+
+#: templates/shop/dashboard/site/shippingmethod_list.html:34
+#: templates/shop/dashboard/site/shippingmethod_list.html:63
+msgid "Все методы доставки"
+msgstr ""
+
+#: templates/shop/dashboard/site/shippingmethod_list.html:40
+msgid "Метод доставки"
+msgstr ""
+
+#: templates/shop/dashboard/site/shippingmethod_list.html:41
+msgid "Стоимость доставки"
+msgstr ""
+
+#: templates/shop/dashboard/site/shippingmethod_list.html:65
+msgid "Еще не было создано ни одного метода доставки."
 msgstr ""
 
 #: templates/shop/dashboard/site/sidemenu_delete.html:10
@@ -5959,23 +6134,23 @@ msgstr ""
 msgid "Заказы в один клик"
 msgstr ""
 
-#: teploformat/settings.py:372
+#: teploformat/settings.py:380
 msgid "Import/export"
 msgstr ""
 
-#: teploformat/settings.py:380
+#: teploformat/settings.py:388
 msgid "Export"
 msgstr ""
 
-#: teploformat/settings.py:388
+#: teploformat/settings.py:396
 msgid "Настройки лэндинга"
 msgstr ""
 
-#: teploformat/settings.py:408
+#: teploformat/settings.py:416
 msgid "Лэндинг"
 msgstr ""
 
-#: teploformat/settings.py:428
+#: teploformat/settings.py:436
 msgid "Блок Доставка и оплата"
 msgstr ""
 
