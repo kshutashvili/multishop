@@ -105,6 +105,7 @@ function basket_dropdown_item_factory(img, name, quantity, price) {
 
 function update_modal_lines_info() {
     var $basket_items = $('.modal_basket_elem');
+    var $all_basket_items = $('.modal_basket_elem .many_block #input1');
     var $modal_line_count = $('#modal_line_count');
     var $modal_lines_price = $('.how.much input');
     var $total_sum = $('#total_sum');
@@ -112,10 +113,25 @@ function update_modal_lines_info() {
     var $total_in_dropdown = $('#total_in_dropdown');
     var $dropdown_line_count = $('#dropdown_line_count');
     var total = 0;
+    var count = 0;
     $modal_lines_price.map(function (idx, elem) {
         total += parseInt($(elem).val());
     });
-    $modal_line_count.text($basket_items.length + gettext(' товар'));
+    $all_basket_items.map(function (idx, elem) {
+        count += parseInt($(elem).val());
+    });
+    var count_str = count + '';
+    var cout_str_last_num = count_str.substr(count_str.length-1);
+    if (count > 10 && count < 20) {
+        $modal_line_count.text(count + gettext(' товаров'));
+    } else if (cout_str_last_num === '1') {
+        $modal_line_count.text(count + gettext(' товар'));
+    } else if (cout_str_last_num === '2' || cout_str_last_num === '3' || cout_str_last_num === '4') {
+        $modal_line_count.text(count + gettext(' товара'));
+    } else {
+        $modal_line_count.text(count + gettext(' товаров'));
+    }
+
     $dropdown_line_count.text($basket_items.length + gettext(' товаров'));
     $total_sum.text(parseInt(total));
     $total_sum_bottom.text(parseInt(total));
