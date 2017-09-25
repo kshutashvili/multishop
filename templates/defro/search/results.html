@@ -2,6 +2,7 @@
 
 
 {% load currency_filters %}
+{% load currency_tags %}
 {% load thumbnail %}
 {% load product_tags %}
 {% load i18n %}
@@ -138,19 +139,23 @@
                                                     {% if result.object.free_shipping %}
                                                         <div class="before_free"></div>
                                                     {% endif %}
-                                                    <img src="{{ result.object.primary_image.original.url }}"
-                                                         alt="">
+                                                    {% thumbnail result.object.primary_image.original "155" as thumb %}
+                                                        <a href="{{ result.object.get_absolute_url }}" style="line-height: 250px;">
+                                                            <img src="{{ thumb.url }}" style="max-width: 155px; max-height: 250px;">
+                                                        </a>
+                                                    {% endthumbnail %}
+                                                    <div class="block155h"></div>
                                                     <p class="catalog_item_block_caption">
                                                         <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
                                                     </p>
                                                     <div class="for_list_block">
                                                         <select class="rating_photo">
-                                                            {% for num in "12345" %}
-                                                                <option {% if result.object.rating == num %}selected="selected"{% endif %}
-                                                                        value="{{ num }}">{{ num }}</option>
+                                                            {% for num in "012345" %}
+                                                                <option {% if result.object.rating == forloop.counter0 %}selected="selected"{% endif %}
+                                                                        value="{{ forloop.counter0 }}">{{ forloop.counter0 }}</option>
                                                             {% endfor %}
                                                         </select>
-                                                        <p class="rating_number"><span>{% if product.rating %}
+                                                        <p class="rating_number"><span>{% if result.object.rating %}
                                                             {{ result.object.rating|floatformat }}{% else %}
                                                             0{% endif %}
                                                             /</span>5 ( {% trans "голосов" %}
@@ -162,16 +167,14 @@
 
                                                         {% if session.availability.is_available_to_buy %}
                                                             <p class="line_through">
-                                                                {% if session.price.is_tax_known %}
-                                                                    {{ session.price.incl_tax|currency:session.price.currency }}
-                                                                {% else %}
-                                                                    {{ session.price.excl_tax|currency:session.price.currency }}
-                                                                {% endif %} </p>
+                                                            {% if session.price.previous %}
+                                                                {{ session.price.previous|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span> </p>
+                                                            {% endif %}
                                                             <p class="catalog_item_price">
                                                                 {% if session.price.is_tax_known %}
-                                                                    {{ session.price.incl_tax|currency:session.price.currency }}
+                                                                    {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                                                 {% else %}
-                                                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                                                    {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</s
                                                                 {% endif %}</p>
                                                             {% if request.session.compare_list and result.object.id in request.session.compare_list %}
                                                                 <a href="#!" class="compare_button compare_button_added">
@@ -194,9 +197,9 @@
                                                         {% else %}
                                                             <p class="catalog_item_price not_active_price">
                                                                 {% if session.price.is_tax_known %}
-                                                                    {{ session.price.incl_tax|currency:session.price.currency }}
+                                                                    {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                                                 {% else %}
-                                                                    {{ session.price.excl_tax|currency:session.price.currency }}
+                                                                    {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                                                 {% endif %}</p>
                                                             {% if request.session.compare_list and result.object.id in request.session.compare_list %}
                                                                 <a href="#!"
@@ -310,17 +313,24 @@
 
 {% block extrascripts %}
     <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
+    <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
     <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
+    <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
-    <script src="{% get_static 'js/more-button.js' %}"></script>
     <script src="{% get_static 'js/popup.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.rating_photo').barrating({
                 theme: 'fontawesome-stars'
             });
+            $(".br-widget a:first-child").css( "display", "none" );
+            side_hover();
+            $(window).resize(function() {
+                side_hover();
+            });
         });
     </script>
+    <script src="{% get_static 'js/more-button.js' %}"></script>
 {% endblock %}
 
 {% block onbodyload %}
