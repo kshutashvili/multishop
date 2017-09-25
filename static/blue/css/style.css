@@ -2847,6 +2847,17 @@ table.table_teh_har {
 .tovar_second_info #tovar_desc{
     height: 0;
 }
+.tovar_second_info #tovar_desc ul, .tovar_second_info #tovar_desc ol,
+.tovar_second_info #short_desc ul, .tovar_second_info #short_desc ol {
+    margin: 1em 0;
+    padding: 0 0 0 40px;
+}
+.tovar_second_info #tovar_desc ul li, .tovar_second_info #short_desc ul li{
+    list-style-type: disc!important;
+}
+.tovar_second_info #tovar_desc ol li, .tovar_second_info #short_desc ol li{
+    list-style-type: decimal!important;
+}
 #category_descr #tovar_desc {
     height: 0;
 }
