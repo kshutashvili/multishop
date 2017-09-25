@@ -72,6 +72,10 @@ class CatalogueImporter(Base):
                     product_category.category = category
                     product_category._no_index = True
                     product_category.save()
+            elif code == 'partner_sku':
+                stock = product.stockrecords.first()
+                stock.partner_sku = value
+                stock.save()
             elif hasattr(product, code):
                 setattr(product, code, value)
             elif product.attributes.filter(code=code).exists():

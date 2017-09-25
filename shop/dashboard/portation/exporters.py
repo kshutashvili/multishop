@@ -25,8 +25,11 @@ class CatelogueExporter(Base):
 
     def get_fields_to_export(self):
         for field in self.form_data['fields']:
-            name = Product._meta.get_field(field).verbose_name
-            self.FIELDS = self.FIELDS + ((field, unicode(name)),)
+            if field == 'partner_sku':
+                self.FIELDS = self.FIELDS + ((field, unicode(_('SKU'))),)
+            else:
+                name = Product._meta.get_field(field).verbose_name
+                self.FIELDS = self.FIELDS + ((field, unicode(name)),)
         return self.FIELDS
 
     def get_attributes_to_export(self):
@@ -93,6 +96,8 @@ class CatelogueExporter(Base):
         for field_code, name in self.FIELDS:
             if field_code == 'categories':
                 value = self.get_categories(product)
+            elif field_code == 'partner_sku':
+                value = self.get_sku(product)
             else:
                 value = unicode(getattr(product, field_code))
             result.append(value)
@@ -121,11 +126,14 @@ class CatelogueExporter(Base):
         return result
 
     def get_categories(self, product):
-        return self.format_categorie(
+        return self.format_comma(
             list(product.categories.all().values_list('id', flat=True))
         )
 
-    def format_categorie(self, categories):
+    def get_sku(self, product):
+        return product.stockrecords.first().partner_sku
+
+    def format_comma(self, categories):
         categories = [str(category_id) for category_id in categories]
         return ', '.join(categories)
 

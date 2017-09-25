@@ -27,6 +27,7 @@ class ExportForm(forms.Form):
         ('title', _('Title')),
         ('description', _('Description')),
         ('categories', _('Categories')),
+        ('partner_sku', _('SKU')),
     )
 
     product_class = forms.ModelChoiceField(
