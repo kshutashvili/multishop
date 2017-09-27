@@ -22,6 +22,10 @@ class FilterForm(forms.Form):
     def __init__(self, site, categories, request, *args, **kwargs):
         self.site = site
         self.categories = categories
+        self.categories_products = []
+        for category in categories:
+            self.categories_products.extend(category.product_set.all())
+
         self.request = request
         super(FilterForm, self).__init__(*args, **kwargs)
         self.make_filter()
@@ -51,7 +55,10 @@ class FilterForm(forms.Form):
 
         # Filter by attributes
         for attr in ProductAttribute.objects.filter(
-                product_class__site=self.site, type__in=self.attr_fields):
+                product_class__site=self.site,
+                type__in=self.attr_fields,
+                product_class__products__in=self.categories_products,
+        ):
             code = 'filter_%s' % attr.code
             values = list(attr.productattributevalue_set.values_list(
                 'value_%s' % attr.type, flat=True))
