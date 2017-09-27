@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-27 20:00+0000\n"
+"POT-Creation-Date: 2017-09-27 20:12+0000\n"
 "PO-Revision-Date: 2017-09-27 11:47+0000\n"
 "Last-Translator:   <Vadim@localhost>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6248,3 +6248,24 @@ msgstr "Користувач"
 
 #~ msgid "Social Net Ref"
 #~ msgstr "Ссылки на социальные сети"
+
+#~ msgid "Relevancy"
+#~ msgstr "За релевантністю"
+
+#~ msgid "Customer rating"
+#~ msgstr "Клієнтський рейтинг"
+
+#~ msgid "Newest"
+#~ msgstr "Найновіші"
+
+#~ msgid "Price high to low"
+#~ msgstr "За ціною, спочатку дорожчі"
+
+#~ msgid "Price low to high"
+#~ msgstr "За ціною, спочатку дешевші"
+
+#~ msgid "Title A to Z"
+#~ msgstr "За назвою від А до Я"
+
+#~ msgid "Title Z to A"
+#~ msgstr "За назвою від Я до А"
