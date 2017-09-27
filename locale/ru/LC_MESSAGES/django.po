@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-27 10:25+0000\n"
+"POT-Creation-Date: 2017-09-27 20:00+0000\n"
 "PO-Revision-Date: 2017-09-16 07:01+0000\n"
 "Last-Translator:   <dmyutro@ukr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -479,7 +479,7 @@ msgid "Цветной значок"
 msgstr ""
 
 #: contacts/models.py:24 contacts/models.py:36 contacts/models.py:82
-#: contacts/models.py:150 contacts/models.py:189 shop/order/forms.py:62
+#: contacts/models.py:150 contacts/models.py:189 shop/order/forms.py:64
 msgid "Город"
 msgstr ""
 
@@ -1884,29 +1884,29 @@ msgid ""
 "allowed."
 msgstr ""
 
-#: shop/order/forms.py:44
-msgid "Телефон*"
+#: shop/order/forms.py:44 shop/order/models.py:191
+msgid "Телефон"
 msgstr ""
 
-#: shop/order/forms.py:49
+#: shop/order/forms.py:50
 #, fuzzy
 #| msgid "Каталог товаров"
 msgid "Способ доставки"
 msgstr "Каталог товаров"
 
-#: shop/order/forms.py:51
+#: shop/order/forms.py:53
 msgid "Способ оплаты"
 msgstr ""
 
-#: shop/order/forms.py:57
+#: shop/order/forms.py:59
 msgid "Имя и фамилия*"
 msgstr ""
 
-#: shop/order/forms.py:59
+#: shop/order/forms.py:61
 msgid "Комментарий к заказу"
 msgstr ""
 
-#: shop/order/forms.py:60
+#: shop/order/forms.py:62
 #, fuzzy
 #| msgid "Email"
 msgid "E-mail"
@@ -1938,10 +1938,6 @@ msgstr ""
 
 #: shop/order/models.py:188 templates/shop/dashboard/site/review_list.html:40
 msgid "Имя"
-msgstr ""
-
-#: shop/order/models.py:191
-msgid "Телефон"
 msgstr ""
 
 #: shop/order/models.py:194
@@ -3458,6 +3454,11 @@ msgstr ""
 
 #: templates/blue/index.html:447 templates/defro/index.html:447
 msgid "Оформить рассрочку"
+msgstr ""
+
+#: templates/blue/index.html:459 templates/blue/index.html:557
+#: templates/defro/index.html:459 templates/defro/index.html:557
+msgid "и"
 msgstr ""
 
 #: templates/blue/index.html:459 templates/defro/index.html:459
