@@ -3463,7 +3463,7 @@ msgstr "Оформити розстрочку"
 #: templates/blue/index.html:459 templates/blue/index.html:557
 #: templates/defro/index.html:459 templates/defro/index.html:557
 msgid "и"
-msgstr ""
+msgstr "і"
 
 #: templates/blue/index.html:459 templates/defro/index.html:459
 msgid "отзывы"
