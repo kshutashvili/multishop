@@ -60,7 +60,9 @@ class FilterForm(forms.Form):
                 product_class__products__in=self.categories_products,
         ):
             code = 'filter_%s' % attr.code
-            values = list(attr.productattributevalue_set.values_list(
+            values = list(attr.productattributevalue_set
+                .filter(product__in=self.categories_products)
+                .values_list(
                 'value_%s' % attr.type, flat=True))
             values.sort()
 
