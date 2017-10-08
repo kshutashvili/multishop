@@ -1139,7 +1139,7 @@ class BenefitItemCreateView(CreateView):
     def form_valid(self, form):
         obj = form.save(commit=False)
         curr_site = get_current_site(self.request)
-        obj.config = Configuration.object.get(site=curr_site)
+        obj.config = Configuration.objects.get(site=curr_site)
         obj.save()
 
         return HttpResponseRedirect(self.get_success_url())
