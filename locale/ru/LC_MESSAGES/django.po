@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-21 06:58+0000\n"
+"POT-Creation-Date: 2017-09-27 20:12+0000\n"
 "PO-Revision-Date: 2017-09-16 07:01+0000\n"
 "Last-Translator:   <dmyutro@ukr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -179,7 +179,7 @@ msgstr ""
 msgid "Вид топлива"
 msgstr ""
 
-#: config/models.py:193 shop/catalogue/forms.py:163
+#: config/models.py:193 shop/catalogue/forms.py:170
 #: templates/blue/partials/filters.html:9
 #: templates/defro/partials/filters.html:9
 #: templates/shop/dashboard/site/fuelconfiguration_list.html:41
@@ -479,7 +479,7 @@ msgid "Цветной значок"
 msgstr ""
 
 #: contacts/models.py:24 contacts/models.py:36 contacts/models.py:82
-#: contacts/models.py:150 contacts/models.py:189
+#: contacts/models.py:150 contacts/models.py:189 shop/order/forms.py:64
 msgid "Город"
 msgstr ""
 
@@ -1184,12 +1184,18 @@ msgstr "Город успешно удален"
 msgid "ID"
 msgstr ""
 
-#: shop/dashboard/portation/base.py:7 shop/dashboard/portation/forms.py:34
+#: shop/dashboard/portation/base.py:7 shop/dashboard/portation/forms.py:35
 msgid "Product class"
 msgstr ""
 
 #: shop/dashboard/portation/config.py:8
 msgid "Poration (import/export) dashboard"
+msgstr ""
+
+#: shop/dashboard/portation/exporters.py:29
+#: shop/dashboard/portation/forms.py:30
+#: templates/shop/dashboard/catalogue/product_update.html:233
+msgid "SKU"
 msgstr ""
 
 #: shop/dashboard/portation/forms.py:13
@@ -1216,11 +1222,11 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: shop/dashboard/portation/forms.py:38
+#: shop/dashboard/portation/forms.py:39
 msgid "Fields"
 msgstr ""
 
-#: shop/dashboard/portation/forms.py:42
+#: shop/dashboard/portation/forms.py:43
 #: templates/shop/dashboard/catalogue/product_update.html:94
 #: templates/shop/dashboard/catalogue/product_update.html:185
 #: templates/shop/dashboard/catalogue/product_update.html:300
@@ -1872,6 +1878,40 @@ msgstr ""
 msgid "Пароль успешно изменен"
 msgstr ""
 
+#: shop/order/forms.py:11
+msgid ""
+"Phone number must be entered in the format: '+999999999'. Up to 15 digits "
+"allowed."
+msgstr ""
+
+#: shop/order/forms.py:44 shop/order/models.py:191
+msgid "Телефон"
+msgstr ""
+
+#: shop/order/forms.py:50
+#, fuzzy
+#| msgid "Каталог товаров"
+msgid "Способ доставки"
+msgstr "Каталог товаров"
+
+#: shop/order/forms.py:53
+msgid "Способ оплаты"
+msgstr ""
+
+#: shop/order/forms.py:59
+msgid "Имя и фамилия*"
+msgstr ""
+
+#: shop/order/forms.py:61
+msgid "Комментарий к заказу"
+msgstr ""
+
+#: shop/order/forms.py:62
+#, fuzzy
+#| msgid "Email"
+msgid "E-mail"
+msgstr "email адрес"
+
 #: shop/order/models.py:130
 msgid "Order total (excl. tax)"
 msgstr ""
@@ -1898,10 +1938,6 @@ msgstr ""
 
 #: shop/order/models.py:188 templates/shop/dashboard/site/review_list.html:40
 msgid "Имя"
-msgstr ""
-
-#: shop/order/models.py:191
-msgid "Телефон"
 msgstr ""
 
 #: shop/order/models.py:194
@@ -2096,8 +2132,8 @@ msgstr ""
 msgid "Наш менеджер обязательно свяжется с Вами"
 msgstr ""
 
-#: templates/blue/base.html:287 templates/blue/search/results.html:305
-#: templates/defro/base.html:287 templates/defro/search/results.html:305
+#: templates/blue/base.html:287 templates/blue/search/results.html:308
+#: templates/defro/base.html:287 templates/defro/search/results.html:308
 msgid "Товар добавлен в список сравнения"
 msgstr ""
 
@@ -2238,8 +2274,8 @@ msgid "Фильтр"
 msgstr ""
 
 #: templates/blue/browse.html:237 templates/blue/browse.html:445
-#: templates/blue/search/results.html:109 templates/defro/browse.html:237
-#: templates/defro/browse.html:445 templates/defro/search/results.html:109
+#: templates/blue/search/results.html:110 templates/defro/browse.html:237
+#: templates/defro/browse.html:445 templates/defro/search/results.html:110
 msgid "Сортировать:"
 msgstr ""
 
@@ -2251,8 +2287,8 @@ msgstr ""
 msgid "на странице"
 msgstr ""
 
-#: templates/blue/browse.html:256 templates/blue/search/results.html:114
-#: templates/defro/browse.html:256 templates/defro/search/results.html:114
+#: templates/blue/browse.html:256 templates/blue/search/results.html:115
+#: templates/defro/browse.html:256 templates/defro/search/results.html:115
 msgid "Вид:"
 msgstr ""
 
@@ -2294,8 +2330,8 @@ msgstr ""
 #: templates/blue/detail.html:1480 templates/blue/detail.html:1511
 #: templates/blue/detail.html:1632 templates/blue/detail.html:1765
 #: templates/blue/recently_viewed_products.html:67
-#: templates/blue/search/results.html:192
-#: templates/blue/search/results.html:217 templates/defro/browse.html:395
+#: templates/blue/search/results.html:195
+#: templates/blue/search/results.html:220 templates/defro/browse.html:395
 #: templates/defro/compare.html:79 templates/defro/compare_table.html:127
 #: templates/defro/detail.html:205 templates/defro/detail.html:227
 #: templates/defro/detail.html:228 templates/defro/detail.html:809
@@ -2307,8 +2343,8 @@ msgstr ""
 #: templates/defro/partials/products.html:83
 #: templates/defro/partials/products.html:105
 #: templates/defro/recently_viewed_products.html:67
-#: templates/defro/search/results.html:192
-#: templates/defro/search/results.html:217
+#: templates/defro/search/results.html:195
+#: templates/defro/search/results.html:220
 msgid "Нет в наличии"
 msgstr ""
 
@@ -2379,19 +2415,23 @@ msgstr ""
 msgid "Контактные данные"
 msgstr ""
 
-#: templates/blue/checkout/order.html:89
+#: templates/blue/checkout/order.html:84 templates/defro/checkout/order.html:84
+msgid "Поля обязательные к заполнению"
+msgstr ""
+
+#: templates/blue/checkout/order.html:88
 #: templates/blue/checkout/order_success.html:92
 #: templates/blue/order_notification.html:362
 #: templates/blue/order_notification.txt:35
-#: templates/defro/checkout/order.html:89
+#: templates/defro/checkout/order.html:88
 #: templates/defro/checkout/order_success.html:92
 #: templates/defro/order_notification.html:362
 #: templates/defro/order_notification.txt:35
 msgid "Доставка и оплата"
 msgstr ""
 
-#: templates/blue/checkout/order.html:103
-#: templates/defro/checkout/order.html:103
+#: templates/blue/checkout/order.html:102
+#: templates/defro/checkout/order.html:102
 msgid "Заказ подтверждаю"
 msgstr ""
 
@@ -2506,12 +2546,12 @@ msgstr ""
 #: templates/blue/compare.html:56 templates/blue/compare_table.html:96
 #: templates/blue/detail.html:159 templates/blue/detail.html:791
 #: templates/blue/detail.html:903 templates/blue/detail.html:1021
-#: templates/blue/detail.html:1462 templates/blue/search/results.html:156
+#: templates/blue/detail.html:1462 templates/blue/search/results.html:161
 #: templates/defro/compare.html:56 templates/defro/compare_table.html:96
 #: templates/defro/detail.html:159 templates/defro/detail.html:791
 #: templates/defro/detail.html:903 templates/defro/detail.html:1021
 #: templates/defro/detail.html:1462 templates/defro/partials/products.html:47
-#: templates/defro/search/results.html:156
+#: templates/defro/search/results.html:161
 msgid "голосов"
 msgstr ""
 
@@ -2676,14 +2716,14 @@ msgstr ""
 #: templates/blue/detail.html:239 templates/blue/detail.html:243
 #: templates/blue/detail.html:825 templates/blue/detail.html:937
 #: templates/blue/detail.html:1055 templates/blue/detail.html:1497
-#: templates/blue/search/results.html:184
-#: templates/blue/search/results.html:211 templates/defro/detail.html:239
+#: templates/blue/search/results.html:187
+#: templates/blue/search/results.html:214 templates/defro/detail.html:239
 #: templates/defro/detail.html:243 templates/defro/detail.html:825
 #: templates/defro/detail.html:937 templates/defro/detail.html:1055
 #: templates/defro/detail.html:1497 templates/defro/partials/products.html:74
 #: templates/defro/partials/products.html:100
-#: templates/defro/search/results.html:184
-#: templates/defro/search/results.html:211
+#: templates/defro/search/results.html:187
+#: templates/defro/search/results.html:214
 msgid "Сравнить"
 msgstr ""
 
@@ -2901,13 +2941,13 @@ msgstr ""
 
 #: templates/blue/detail.html:820 templates/blue/detail.html:932
 #: templates/blue/detail.html:1050 templates/blue/detail.html:1491
-#: templates/blue/search/results.html:178
-#: templates/blue/search/results.html:204 templates/defro/detail.html:820
+#: templates/blue/search/results.html:181
+#: templates/blue/search/results.html:207 templates/defro/detail.html:820
 #: templates/defro/detail.html:932 templates/defro/detail.html:1050
 #: templates/defro/detail.html:1491 templates/defro/partials/products.html:68
 #: templates/defro/partials/products.html:95
-#: templates/defro/search/results.html:178
-#: templates/defro/search/results.html:204
+#: templates/defro/search/results.html:181
+#: templates/defro/search/results.html:207
 msgid "В сравнении"
 msgstr ""
 
@@ -3416,6 +3456,11 @@ msgstr ""
 msgid "Оформить рассрочку"
 msgstr ""
 
+#: templates/blue/index.html:459 templates/blue/index.html:557
+#: templates/defro/index.html:459 templates/defro/index.html:557
+msgid "и"
+msgstr ""
+
 #: templates/blue/index.html:459 templates/defro/index.html:459
 msgid "отзывы"
 msgstr ""
@@ -3697,15 +3742,15 @@ msgstr ""
 msgid "Недавно просмотренные"
 msgstr ""
 
-#: templates/blue/search/results.html:28 templates/defro/search/results.html:28
+#: templates/blue/search/results.html:29 templates/defro/search/results.html:29
 msgid "Поиск"
 msgstr ""
 
-#: templates/blue/search/results.html:35 templates/defro/search/results.html:35
+#: templates/blue/search/results.html:36 templates/defro/search/results.html:36
 msgid "Все результаты"
 msgstr ""
 
-#: templates/blue/search/results.html:70 templates/defro/search/results.html:70
+#: templates/blue/search/results.html:71 templates/defro/search/results.html:71
 #, python-format
 msgid ""
 "\n"
@@ -3724,7 +3769,7 @@ msgid ""
 "                                            "
 msgstr ""
 
-#: templates/blue/search/results.html:81 templates/defro/search/results.html:81
+#: templates/blue/search/results.html:82 templates/defro/search/results.html:82
 #, python-format
 msgid ""
 "\n"
@@ -3749,12 +3794,12 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: templates/blue/search/results.html:97 templates/defro/search/results.html:97
+#: templates/blue/search/results.html:98 templates/defro/search/results.html:98
 msgid "Found <strong>0</strong> results."
 msgstr ""
 
-#: templates/blue/search/results.html:100
-#: templates/defro/search/results.html:100
+#: templates/blue/search/results.html:101
+#: templates/defro/search/results.html:101
 #, python-format
 msgid ""
 "\n"
@@ -3765,13 +3810,13 @@ msgid ""
 "                                                "
 msgstr ""
 
-#: templates/blue/search/results.html:235
-#: templates/defro/search/results.html:235
+#: templates/blue/search/results.html:238
+#: templates/defro/search/results.html:238
 msgid "По запросу"
 msgstr ""
 
-#: templates/blue/search/results.html:236
-#: templates/defro/search/results.html:236
+#: templates/blue/search/results.html:239
+#: templates/defro/search/results.html:239
 msgid "ничего не найдено, попробуйте изменить запрос"
 msgstr ""
 
@@ -4596,10 +4641,6 @@ msgstr ""
 #: templates/shop/dashboard/catalogue/product_update.html:208
 #: templates/shop/dashboard/catalogue/product_update.html:363
 msgid "Upload, change or remove images"
-msgstr ""
-
-#: templates/shop/dashboard/catalogue/product_update.html:233
-msgid "SKU"
 msgstr ""
 
 #: templates/shop/dashboard/catalogue/product_update.html:235

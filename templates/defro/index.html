@@ -456,7 +456,7 @@
 {% if site_config.show_reviews %}
 	<div class="sixth_block">
 		<div class="container">
-			<h6>{% trans "Обзоры" %} <span>и</span> {% trans "отзывы" %}:</h6>
+			<h6>{% trans "Обзоры" %} <span>{% trans "и" %}</span> {% trans "отзывы" %}:</h6>
 			<div class="youtube_videos">
 				{% if site_config.overviews %}
 					{% for overview in site_config.overviews.all %}
@@ -554,7 +554,7 @@
 {% if site_config.show_delivery %}
 	<div class="eighth_block">
 		<div class="container">
-			<p class="caption"><span>{% trans "схема" %}</span> {% trans "доставки" %} <span>и</span> {% trans "оплаты:" %}</p>
+			<p class="caption"><span>{% trans "схема" %}</span> {% trans "доставки" %} <span>{% trans "и" %}</span> {% trans "оплаты:" %}</p>
 			<p class="desc">
 				{% blocktrans %}
 					Доставка товара осуществляется по всей территории Украины
