@@ -1766,7 +1766,7 @@ a.choose_kotel:hover{
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	height: 33px;
-	padding-left: 15px;
+	padding-left: 6px;
 	padding-right: 30px;
 	background: url("../img/catalog/selectbox.png") no-repeat center right 2px;
 	width: 100%;

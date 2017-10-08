@@ -234,9 +234,21 @@
                                 {% if form %}
                                     <span class="sort">{% trans "Сортировать:" %}</span>
                                     <div class="custom_select">
-                                        <form method="get">
-                                            {% include "partials/form_field.html" with field=form.sort_by nolabel=True %}
-                                        </form>
+    <form method="get">
+        <div class="form-group ">
+            <div>
+                <select class="form-control" id="id_sort_by" name="sort_by">
+                    <option value="relevancy" {% if current_sort == "relevancy" %}selected="selected"{% endif %}>{% trans "по релевантности" %}</option>
+                    <option value="rating" {% if current_sort == "rating" %}selected="selected"{% endif %}>{% trans "по рейтингу" %}</option>
+                    <option value="newest" {% if current_sort == "newest" %}selected="selected"{% endif %}>{% trans "по дате, сначала новые" %}</option>
+                    <option value="price-desc" {% if current_sort == "price-desc" %}selected="selected"{% endif %}>{% trans "по цене, сначала дорогие" %}</option>
+                    <option value="price-asc" {% if current_sort == "price-asc" %}selected="selected"{% endif %}>{% trans "по цене, сначала дешевые" %}</option>
+                    <option value="title-asc" {% if current_sort == "title-asc" %}selected="selected"{% endif %}>{% trans "по названию от А до Я" %}</option>
+                    <option value="title-desc" {% if current_sort == "title-desc" %}selected="selected"{% endif %}>{% trans "по названию от Я до А" %}</option>
+                </select>
+            </div>
+        </div>
+    </form>
                                     </div>
                                 {% endif %}
                                 {% if paginate_form %}

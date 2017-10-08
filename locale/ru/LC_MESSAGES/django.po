@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-27 20:12+0000\n"
+"POT-Creation-Date: 2017-10-08 16:35+0000\n"
 "PO-Revision-Date: 2017-09-16 07:01+0000\n"
 "Last-Translator:   <dmyutro@ukr.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -179,7 +179,7 @@ msgstr ""
 msgid "Вид топлива"
 msgstr ""
 
-#: config/models.py:193 shop/catalogue/forms.py:170
+#: config/models.py:193 shop/catalogue/forms.py:172
 #: templates/blue/partials/filters.html:9
 #: templates/defro/partials/filters.html:9
 #: templates/shop/dashboard/site/fuelconfiguration_list.html:41
@@ -2273,55 +2273,90 @@ msgstr ""
 msgid "Фильтр"
 msgstr ""
 
-#: templates/blue/browse.html:237 templates/blue/browse.html:445
+#: templates/blue/browse.html:237 templates/blue/browse.html:457
 #: templates/blue/search/results.html:110 templates/defro/browse.html:237
-#: templates/defro/browse.html:445 templates/defro/search/results.html:110
+#: templates/defro/browse.html:457 templates/defro/search/results.html:110
 msgid "Сортировать:"
 msgstr ""
 
-#: templates/blue/browse.html:246 templates/defro/browse.html:246
+#: templates/blue/browse.html:243 templates/blue/browse.html:459
+#: templates/defro/browse.html:243 templates/defro/browse.html:459
+msgid "по релевантности"
+msgstr ""
+
+#: templates/blue/browse.html:244 templates/blue/browse.html:460
+#: templates/defro/browse.html:244 templates/defro/browse.html:460
+msgid "по рейтингу"
+msgstr ""
+
+#: templates/blue/browse.html:245 templates/blue/browse.html:461
+#: templates/defro/browse.html:245 templates/defro/browse.html:461
+msgid "по дате, сначала новые"
+msgstr ""
+
+#: templates/blue/browse.html:246 templates/blue/browse.html:462
+#: templates/defro/browse.html:246 templates/defro/browse.html:462
+msgid "по цене, сначала дорогие"
+msgstr ""
+
+#: templates/blue/browse.html:247 templates/blue/browse.html:463
+#: templates/defro/browse.html:247 templates/defro/browse.html:463
+msgid "по цене, сначала дешевые"
+msgstr ""
+
+#: templates/blue/browse.html:248 templates/blue/browse.html:464
+#: templates/defro/browse.html:248 templates/defro/browse.html:464
+msgid "по названию от А до Я"
+msgstr ""
+
+#: templates/blue/browse.html:249 templates/blue/browse.html:465
+#: templates/defro/browse.html:249 templates/defro/browse.html:465
+msgid "по названию от Я до А"
+msgstr ""
+
+#: templates/blue/browse.html:258 templates/defro/browse.html:258
 msgid "Показывать по"
 msgstr ""
 
-#: templates/blue/browse.html:252 templates/defro/browse.html:252
+#: templates/blue/browse.html:264 templates/defro/browse.html:264
 msgid "на странице"
 msgstr ""
 
-#: templates/blue/browse.html:256 templates/blue/search/results.html:115
-#: templates/defro/browse.html:256 templates/defro/search/results.html:115
+#: templates/blue/browse.html:268 templates/blue/search/results.html:115
+#: templates/defro/browse.html:268 templates/defro/search/results.html:115
 msgid "Вид:"
 msgstr ""
 
-#: templates/blue/browse.html:269 templates/defro/browse.html:269
+#: templates/blue/browse.html:281 templates/defro/browse.html:281
 msgid "Ничего не найдено"
 msgstr ""
 
-#: templates/blue/browse.html:276 templates/defro/browse.html:276
+#: templates/blue/browse.html:288 templates/defro/browse.html:288
 msgid "Смотреть еще"
 msgstr ""
 
-#: templates/blue/browse.html:336 templates/blue/detail.html:1574
-#: templates/defro/browse.html:336 templates/defro/detail.html:1574
+#: templates/blue/browse.html:348 templates/blue/detail.html:1574
+#: templates/defro/browse.html:348 templates/defro/detail.html:1574
 msgid "Вас также могут заинтересовать"
 msgstr ""
 
-#: templates/blue/browse.html:377 templates/blue/detail.html:1611
+#: templates/blue/browse.html:389 templates/blue/detail.html:1611
 #: templates/blue/recently_viewed_products.html:51
-#: templates/defro/browse.html:377 templates/defro/detail.html:1611
+#: templates/defro/browse.html:389 templates/defro/detail.html:1611
 #: templates/defro/recently_viewed_products.html:51
 msgid "Отзывов:"
 msgstr ""
 
-#: templates/blue/browse.html:390 templates/blue/compare_table.html:123
+#: templates/blue/browse.html:402 templates/blue/compare_table.html:123
 #: templates/blue/detail.html:1629
 #: templates/blue/recently_viewed_products.html:64
-#: templates/defro/browse.html:390 templates/defro/compare_table.html:123
+#: templates/defro/browse.html:402 templates/defro/compare_table.html:123
 #: templates/defro/detail.html:1629
 #: templates/defro/recently_viewed_products.html:64
 msgid "Купить"
 msgstr ""
 
-#: templates/blue/browse.html:395 templates/blue/compare.html:79
+#: templates/blue/browse.html:407 templates/blue/compare.html:79
 #: templates/blue/compare_table.html:127 templates/blue/detail.html:205
 #: templates/blue/detail.html:227 templates/blue/detail.html:228
 #: templates/blue/detail.html:809 templates/blue/detail.html:839
@@ -2331,7 +2366,7 @@ msgstr ""
 #: templates/blue/detail.html:1632 templates/blue/detail.html:1765
 #: templates/blue/recently_viewed_products.html:67
 #: templates/blue/search/results.html:195
-#: templates/blue/search/results.html:220 templates/defro/browse.html:395
+#: templates/blue/search/results.html:220 templates/defro/browse.html:407
 #: templates/defro/compare.html:79 templates/defro/compare_table.html:127
 #: templates/defro/detail.html:205 templates/defro/detail.html:227
 #: templates/defro/detail.html:228 templates/defro/detail.html:809
@@ -2348,45 +2383,17 @@ msgstr ""
 msgid "Нет в наличии"
 msgstr ""
 
-#: templates/blue/browse.html:416 templates/blue/browse.html:430
+#: templates/blue/browse.html:428 templates/blue/browse.html:442
 #: templates/blue/category.html:66 templates/blue/contacts_main.html:59
 #: templates/blue/detail.html:325 templates/blue/index.html:340
 #: templates/blue/index.html:451 templates/blue/index.html:549
 #: templates/blue/index.html:567 templates/blue/index.html:619
-#: templates/defro/browse.html:416 templates/defro/browse.html:430
+#: templates/defro/browse.html:428 templates/defro/browse.html:442
 #: templates/defro/category.html:66 templates/defro/contacts_main.html:59
 #: templates/defro/detail.html:325 templates/defro/index.html:340
 #: templates/defro/index.html:451 templates/defro/index.html:549
 #: templates/defro/index.html:567 templates/defro/index.html:619
 msgid "Подробнее"
-msgstr ""
-
-#: templates/blue/browse.html:447 templates/defro/browse.html:447
-msgid "по релевантности"
-msgstr ""
-
-#: templates/blue/browse.html:448 templates/defro/browse.html:448
-msgid "по рейтингу"
-msgstr ""
-
-#: templates/blue/browse.html:449 templates/defro/browse.html:449
-msgid "по дате, сначала новые"
-msgstr ""
-
-#: templates/blue/browse.html:450 templates/defro/browse.html:450
-msgid "по цене, сначала дорогие"
-msgstr ""
-
-#: templates/blue/browse.html:451 templates/defro/browse.html:451
-msgid "по цене, сначала дешевые"
-msgstr ""
-
-#: templates/blue/browse.html:452 templates/defro/browse.html:452
-msgid "по названию от А до Я"
-msgstr ""
-
-#: templates/blue/browse.html:453 templates/defro/browse.html:453
-msgid "по названию от Я до А"
 msgstr ""
 
 #: templates/blue/checkout/order.html:44 templates/defro/checkout/order.html:44

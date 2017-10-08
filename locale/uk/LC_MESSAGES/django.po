@@ -8,17 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-27 20:12+0000\n"
-"PO-Revision-Date: 2017-09-27 11:47+0000\n"
-"Last-Translator:   <Vadim@localhost>\n"
+"POT-Creation-Date: 2017-10-08 16:35+0000\n"
+"PO-Revision-Date: 2017-10-08 17:38+0000\n"
+"Last-Translator:   <phonxis@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Translated-Using: django-rosetta 0.7.13\n"
 
 #: config/models.py:27
@@ -177,7 +175,7 @@ msgstr "Дизельне паливо"
 msgid "Вид топлива"
 msgstr "Вид палива"
 
-#: config/models.py:193 shop/catalogue/forms.py:170
+#: config/models.py:193 shop/catalogue/forms.py:172
 #: templates/blue/partials/filters.html:9
 #: templates/defro/partials/filters.html:9
 #: templates/shop/dashboard/site/fuelconfiguration_list.html:41
@@ -627,7 +625,8 @@ msgstr "Розклади роботи компанії"
 msgid "Статическая страница"
 msgstr "Статична сторінка"
 
-#: contacts/models.py:234 templates/shop/dashboard/site/flatpage_delete.html:10
+#: contacts/models.py:234
+#: templates/shop/dashboard/site/flatpage_delete.html:10
 #: templates/shop/dashboard/site/flatpage_detail.html:15
 #: templates/shop/dashboard/site/flatpage_list.html:5
 #: templates/shop/dashboard/site/flatpage_list.html:13
@@ -1086,7 +1085,8 @@ msgstr ""
 #: shop/dashboard/orders/views.py:648
 #, python-format
 msgid ""
-"Status of line #%(line_id)d changed from '%(old_status)s' to '%(new_status)s'"
+"Status of line #%(line_id)d changed from '%(old_status)s' to "
+"'%(new_status)s'"
 msgstr ""
 
 #: shop/dashboard/orders/views.py:665 shop/dashboard/orders/views.py:713
@@ -1190,9 +1190,9 @@ msgstr ""
 #: shop/dashboard/portation/forms.py:20
 #, python-brace-format
 msgid ""
-"The server just exportes products data on your current language: \"{lang}\". "
-"Please, don`t change the language mark in the file, as when you import this "
-"file, the server will not know what language to use."
+"The server just exportes products data on your current language: \"{lang}\"."
+" Please, don`t change the language mark in the file, as when you import this"
+" file, the server will not know what language to use."
 msgstr ""
 
 #: shop/dashboard/portation/forms.py:26
@@ -1960,8 +1960,7 @@ msgstr ""
 #: templates/404.html:37
 msgid ""
 "\n"
-"                                Попробуйте <a href=\"/\">перейти на главную</"
-"a> или<br> воспользоваться поиском.\n"
+"                                Попробуйте <a href=\"/\">перейти на главную</a> или<br> воспользоваться поиском.\n"
 "                            "
 msgstr ""
 "\n"
@@ -2186,8 +2185,7 @@ msgstr "з 9:00 до 11:00"
 #: templates/blue/base.html:419 templates/defro/base.html:419
 msgid ""
 "\n"
-"                                    © 2017 интернет-магазин <br> "
-"твердотопливных котлов Defro тм\n"
+"                                    © 2017 интернет-магазин <br> твердотопливных котлов Defro тм\n"
 "                                "
 msgstr ""
 "\n"
@@ -2241,55 +2239,90 @@ msgstr "Ціна:"
 msgid "Фильтр"
 msgstr "Фільтр"
 
-#: templates/blue/browse.html:237 templates/blue/browse.html:445
+#: templates/blue/browse.html:237 templates/blue/browse.html:457
 #: templates/blue/search/results.html:110 templates/defro/browse.html:237
-#: templates/defro/browse.html:445 templates/defro/search/results.html:110
+#: templates/defro/browse.html:457 templates/defro/search/results.html:110
 msgid "Сортировать:"
 msgstr "Сортувати:"
 
-#: templates/blue/browse.html:246 templates/defro/browse.html:246
+#: templates/blue/browse.html:243 templates/blue/browse.html:459
+#: templates/defro/browse.html:243 templates/defro/browse.html:459
+msgid "по релевантности"
+msgstr "за релевантністю"
+
+#: templates/blue/browse.html:244 templates/blue/browse.html:460
+#: templates/defro/browse.html:244 templates/defro/browse.html:460
+msgid "по рейтингу"
+msgstr "за рейтингом"
+
+#: templates/blue/browse.html:245 templates/blue/browse.html:461
+#: templates/defro/browse.html:245 templates/defro/browse.html:461
+msgid "по дате, сначала новые"
+msgstr "найновіші"
+
+#: templates/blue/browse.html:246 templates/blue/browse.html:462
+#: templates/defro/browse.html:246 templates/defro/browse.html:462
+msgid "по цене, сначала дорогие"
+msgstr "за ціною, спочатку дорожчі"
+
+#: templates/blue/browse.html:247 templates/blue/browse.html:463
+#: templates/defro/browse.html:247 templates/defro/browse.html:463
+msgid "по цене, сначала дешевые"
+msgstr "за ціною, спочатку дешевші"
+
+#: templates/blue/browse.html:248 templates/blue/browse.html:464
+#: templates/defro/browse.html:248 templates/defro/browse.html:464
+msgid "по названию от А до Я"
+msgstr "за назвою від А до Я"
+
+#: templates/blue/browse.html:249 templates/blue/browse.html:465
+#: templates/defro/browse.html:249 templates/defro/browse.html:465
+msgid "по названию от Я до А"
+msgstr "за назвою від Я до А"
+
+#: templates/blue/browse.html:258 templates/defro/browse.html:258
 msgid "Показывать по"
 msgstr "Показувати по:"
 
-#: templates/blue/browse.html:252 templates/defro/browse.html:252
+#: templates/blue/browse.html:264 templates/defro/browse.html:264
 msgid "на странице"
 msgstr "на сторінці"
 
-#: templates/blue/browse.html:256 templates/blue/search/results.html:115
-#: templates/defro/browse.html:256 templates/defro/search/results.html:115
+#: templates/blue/browse.html:268 templates/blue/search/results.html:115
+#: templates/defro/browse.html:268 templates/defro/search/results.html:115
 msgid "Вид:"
 msgstr "Вид:"
 
-#: templates/blue/browse.html:269 templates/defro/browse.html:269
+#: templates/blue/browse.html:281 templates/defro/browse.html:281
 msgid "Ничего не найдено"
 msgstr "Нічого не знайдено"
 
-#: templates/blue/browse.html:276 templates/defro/browse.html:276
+#: templates/blue/browse.html:288 templates/defro/browse.html:288
 msgid "Смотреть еще"
 msgstr "Дивитись далі"
 
-#: templates/blue/browse.html:336 templates/blue/detail.html:1574
-#: templates/defro/browse.html:336 templates/defro/detail.html:1574
+#: templates/blue/browse.html:348 templates/blue/detail.html:1574
+#: templates/defro/browse.html:348 templates/defro/detail.html:1574
 msgid "Вас также могут заинтересовать"
 msgstr "Вас також можуть зацікавити"
 
-#: templates/blue/browse.html:377 templates/blue/detail.html:1611
+#: templates/blue/browse.html:389 templates/blue/detail.html:1611
 #: templates/blue/recently_viewed_products.html:51
-#: templates/defro/browse.html:377 templates/defro/detail.html:1611
+#: templates/defro/browse.html:389 templates/defro/detail.html:1611
 #: templates/defro/recently_viewed_products.html:51
 msgid "Отзывов:"
 msgstr "Відгуків:"
 
-#: templates/blue/browse.html:390 templates/blue/compare_table.html:123
+#: templates/blue/browse.html:402 templates/blue/compare_table.html:123
 #: templates/blue/detail.html:1629
 #: templates/blue/recently_viewed_products.html:64
-#: templates/defro/browse.html:390 templates/defro/compare_table.html:123
+#: templates/defro/browse.html:402 templates/defro/compare_table.html:123
 #: templates/defro/detail.html:1629
 #: templates/defro/recently_viewed_products.html:64
 msgid "Купить"
 msgstr "Купити"
 
-#: templates/blue/browse.html:395 templates/blue/compare.html:79
+#: templates/blue/browse.html:407 templates/blue/compare.html:79
 #: templates/blue/compare_table.html:127 templates/blue/detail.html:205
 #: templates/blue/detail.html:227 templates/blue/detail.html:228
 #: templates/blue/detail.html:809 templates/blue/detail.html:839
@@ -2299,7 +2332,7 @@ msgstr "Купити"
 #: templates/blue/detail.html:1632 templates/blue/detail.html:1765
 #: templates/blue/recently_viewed_products.html:67
 #: templates/blue/search/results.html:195
-#: templates/blue/search/results.html:220 templates/defro/browse.html:395
+#: templates/blue/search/results.html:220 templates/defro/browse.html:407
 #: templates/defro/compare.html:79 templates/defro/compare_table.html:127
 #: templates/defro/detail.html:205 templates/defro/detail.html:227
 #: templates/defro/detail.html:228 templates/defro/detail.html:809
@@ -2316,12 +2349,12 @@ msgstr "Купити"
 msgid "Нет в наличии"
 msgstr "Немає в наявності"
 
-#: templates/blue/browse.html:416 templates/blue/browse.html:430
+#: templates/blue/browse.html:428 templates/blue/browse.html:442
 #: templates/blue/category.html:66 templates/blue/contacts_main.html:59
 #: templates/blue/detail.html:325 templates/blue/index.html:340
 #: templates/blue/index.html:451 templates/blue/index.html:549
 #: templates/blue/index.html:567 templates/blue/index.html:619
-#: templates/defro/browse.html:416 templates/defro/browse.html:430
+#: templates/defro/browse.html:428 templates/defro/browse.html:442
 #: templates/defro/category.html:66 templates/defro/contacts_main.html:59
 #: templates/defro/detail.html:325 templates/defro/index.html:340
 #: templates/defro/index.html:451 templates/defro/index.html:549
@@ -2329,35 +2362,8 @@ msgstr "Немає в наявності"
 msgid "Подробнее"
 msgstr "Детальніше"
 
-#: templates/blue/browse.html:447 templates/defro/browse.html:447
-msgid "по релевантности"
-msgstr "по релевантності"
-
-#: templates/blue/browse.html:448 templates/defro/browse.html:448
-msgid "по рейтингу"
-msgstr "по рейтингу"
-
-#: templates/blue/browse.html:449 templates/defro/browse.html:449
-msgid "по дате, сначала новые"
-msgstr "по даті, спочатку нові"
-
-#: templates/blue/browse.html:450 templates/defro/browse.html:450
-msgid "по цене, сначала дорогие"
-msgstr "по ціні, спочатку дорогі"
-
-#: templates/blue/browse.html:451 templates/defro/browse.html:451
-msgid "по цене, сначала дешевые"
-msgstr "по ціні, спочатку дешеві"
-
-#: templates/blue/browse.html:452 templates/defro/browse.html:452
-msgid "по названию от А до Я"
-msgstr "по назві від А до Я"
-
-#: templates/blue/browse.html:453 templates/defro/browse.html:453
-msgid "по названию от Я до А"
-msgstr "по назві від Я до А"
-
-#: templates/blue/checkout/order.html:44 templates/defro/checkout/order.html:44
+#: templates/blue/checkout/order.html:44
+#: templates/defro/checkout/order.html:44
 msgid "Оформление заказа"
 msgstr "Оформлення замовлення"
 
@@ -2368,7 +2374,8 @@ msgstr "Оформлення замовлення"
 msgid "шт."
 msgstr "шт."
 
-#: templates/blue/checkout/order.html:68 templates/defro/checkout/order.html:68
+#: templates/blue/checkout/order.html:68
+#: templates/defro/checkout/order.html:68
 msgid "Редактировать заказ"
 msgstr "Редагувати замовлення"
 
@@ -2383,7 +2390,8 @@ msgstr "Редагувати замовлення"
 msgid "Контактные данные"
 msgstr "Контактні дані"
 
-#: templates/blue/checkout/order.html:84 templates/defro/checkout/order.html:84
+#: templates/blue/checkout/order.html:84
+#: templates/defro/checkout/order.html:84
 msgid "Поля обязательные к заполнению"
 msgstr "Поля обов'язкові для заповнення"
 
@@ -2421,8 +2429,7 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"Наш менеджер обов'язково зв'яжеться з Вами для уточнення всіх деталей і "
-"підтвердження замовлення."
+"Наш менеджер обов'язково зв'яжеться з Вами для уточнення всіх деталей і підтвердження замовлення."
 
 #: templates/blue/checkout/order_success.html:52
 #: templates/defro/checkout/order_success.html:52
@@ -2612,14 +2619,12 @@ msgstr "Відправити повідомлення"
 msgid ""
 "\n"
 "                                            Доставка в любой город Украины\n"
-"                                            перевозчиком \"Интайм\" или "
-"\"Новая почта\", оплата после\n"
+"                                            перевозчиком \"Интайм\" или \"Новая почта\", оплата после\n"
 "                                            получения!\n"
 "                                        "
 msgstr ""
 "\n"
-"Доставка в будь-яке місто України перевізником \"Інтайм\" чи \"Нова пошта\", "
-"оплата після отримання!"
+"Доставка в будь-яке місто України перевізником \"Інтайм\" чи \"Нова пошта\", оплата після отримання!"
 
 #: templates/blue/contacts_main.html:27 templates/defro/contacts_main.html:27
 msgid "Выберите представительство компании наиболее подходящее для Вас:"
@@ -2710,8 +2715,7 @@ msgstr "Швидка доставка"
 msgid ""
 "\n"
 "                                        В любой уголок Украины: <br>\n"
-"                                        - Самовывоз из нашего магазина, "
-"<br>\n"
+"                                        - Самовывоз из нашего магазина, <br>\n"
 "                                        - Самовывоз со службы доставки <br>\n"
 "                                        - Доставка по адресу\n"
 "                                    "
@@ -2745,8 +2749,7 @@ msgstr "Оплата"
 #: templates/blue/detail.html:292 templates/defro/detail.html:292
 msgid ""
 "\n"
-"                                        Наличными, безналичными, <br> "
-"кредит, Visa/MasterCard\n"
+"                                        Наличными, безналичными, <br> кредит, Visa/MasterCard\n"
 "                                    "
 msgstr ""
 "\n"
@@ -2837,7 +2840,8 @@ msgstr "Так"
 #: templates/defro/detail.html:651 templates/defro/detail.html:1182
 #: templates/defro/detail.html:1194 templates/defro/detail.html:1252
 #: templates/defro/detail.html:1264 templates/defro/detail.html:1322
-#: templates/defro/detail.html:1334 templates/defro/order_notification.html:369
+#: templates/defro/detail.html:1334
+#: templates/defro/order_notification.html:369
 msgid "Нет"
 msgstr "Ні"
 
@@ -2948,14 +2952,11 @@ msgid ""
 "                                    самостоятельно по адресу: г. Киев, ул.\n"
 "                                    Ярославская, 57 после предварительного\n"
 "                                    согласования заказа с менеджером; <br>\n"
-"                                    — товары весом более 150 кг доставляются "
-"к\n"
+"                                    — товары весом более 150 кг доставляются к\n"
 "                                    адресу получателя без заноса; <br>\n"
-"                                    — доставка заказов на сумму свыше 1500 "
-"гривен по\n"
+"                                    — доставка заказов на сумму свыше 1500 гривен по\n"
 "                                    Киеву и соседним населенным пунктам\n"
-"                                    бесплатная, стоимость доставки до 1500 "
-"грн\n"
+"                                    бесплатная, стоимость доставки до 1500 грн\n"
 "                                    составляет 35 гривен;</p>\n"
 "                                "
 msgstr ""
@@ -2965,33 +2966,23 @@ msgid ""
 "\n"
 "                                    (Список населенных\n"
 "                                    пунктов с бесплатной доставкой) <br>\n"
-"                                    — время и условия доставки Вы можете "
-"согласовать\n"
+"                                    — время и условия доставки Вы можете согласовать\n"
 "                                    с сотрудниками нашего магазина; <br>\n"
-"                                    — подъем габаритных грузов вручную "
-"оплачивается\n"
+"                                    — подъем габаритных грузов вручную оплачивается\n"
 "                                    отдельно. Стоимость подъёма: 20–100\n"
-"                                    грн./этаж в зависимости от размеров, "
-"веса товара\n"
+"                                    грн./этаж в зависимости от размеров, веса товара\n"
 "                                    и сложности подъема; <br>\n"
-"                                    — стоимость доставки за пределы Киева от "
-"5 до 7\n"
+"                                    — стоимость доставки за пределы Киева от 5 до 7\n"
 "                                    грн/км в зависимости от удаленности,\n"
-"                                    доставка малогабаритной техники - 50 "
-"грн; <br>\n"
+"                                    доставка малогабаритной техники - 50 грн; <br>\n"
 "                                    — при получении покупаемого Вами товара\n"
 "                                    убедитесь в его полной комплектности и\n"
-"                                    отсутствии механических повреждений; "
-"<br>\n"
-"                                    — прежде чем начать эксплуатацию, "
-"убедительно\n"
-"                                    рекомендуем Вам внимательно ознакомиться "
-"с\n"
+"                                    отсутствии механических повреждений; <br>\n"
+"                                    — прежде чем начать эксплуатацию, убедительно\n"
+"                                    рекомендуем Вам внимательно ознакомиться с\n"
 "                                    руководством по эксплуатации; <br>\n"
-"                                    — стоимость доставки малогабаритной "
-"бытовой\n"
-"                                    техники по Киевской области составляет "
-"50\n"
+"                                    — стоимость доставки малогабаритной бытовой\n"
+"                                    техники по Киевской области составляет 50\n"
 "                                    грн.\n"
 "                                "
 msgstr ""
@@ -3096,8 +3087,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"Замовлення в один клік- %(instance.id)s, на товар "
-"%(instance.product.get_title)s, артикул: %(instance.product.upc)s"
+"Замовлення в один клік- %(instance.id)s, на товар %(instance.product.get_title)s, артикул: %(instance.product.upc)s"
 
 #: templates/blue/email/oneclick_order.html:19
 #: templates/defro/email/oneclick_order.html:19
@@ -3143,8 +3133,7 @@ msgstr "Порівняльний розрахунок"
 #: templates/blue/index.html:75 templates/defro/index.html:75
 msgid ""
 "\n"
-"\t\t\t\t\t\tСЕЗОННЫХ ЗАТРАТ НА ОТОПЛЕНИЕ газом, электричеством и твердым "
-"топливом\n"
+"\t\t\t\t\t\tСЕЗОННЫХ ЗАТРАТ НА ОТОПЛЕНИЕ газом, электричеством и твердым топливом\n"
 "\t\t\t\t\t"
 msgstr ""
 "\n"
@@ -3153,14 +3142,11 @@ msgstr ""
 #: templates/blue/index.html:80 templates/defro/index.html:80
 msgid ""
 "\n"
-"\t\t\t\t\t\tВведите в калькулятор данные по площади, высоте потолка, "
-"утепленности вашего жилья и узнайте, <br> сколько ваших денег сбережет "
-"установка котла DEFRO\n"
+"\t\t\t\t\t\tВведите в калькулятор данные по площади, высоте потолка, утепленности вашего жилья и узнайте, <br> сколько ваших денег сбережет установка котла DEFRO\n"
 "\t\t\t\t\t"
 msgstr ""
 "\n"
-"Введіть в калькулятор дані по площі, висоті стелі, утеплення вашого житла і "
-"дізнайтесь, <br> скільки грошей збереже встановлення котла Defro"
+"Введіть в калькулятор дані по площі, висоті стелі, утеплення вашого житла і дізнайтесь, <br> скільки грошей збереже встановлення котла Defro"
 
 #: templates/blue/index.html:86 templates/defro/index.html:86
 msgid "Исходные данные"
@@ -3379,51 +3365,41 @@ msgstr "DEFRO:"
 #: templates/blue/index.html:365 templates/defro/index.html:365
 msgid ""
 "\n"
-"\t\t\t\t\t\t\tФирменная гарантия 4 года на герметичность водяной рубашки и 2 "
-"года на исправную работу котла.\n"
+"\t\t\t\t\t\t\tФирменная гарантия 4 года на герметичность водяной рубашки и 2 года на исправную работу котла.\n"
 "\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Фірмова гарантія 4 роки на герметичність водяної сорочки і 2 роки на справну "
-"роботу котла."
+"Фірмова гарантія 4 роки на герметичність водяної сорочки і 2 роки на справну роботу котла."
 
 #: templates/blue/index.html:373 templates/defro/index.html:373
 msgid ""
 "\n"
-"\t\t\t\t\t\t\tТеплообменник котла выполнен из сертифицированной котельной "
-"стали /тип. P265GH/ толщиной 6 мм. Сварка швов осуществлена на "
-"роботизированных станках.\n"
+"\t\t\t\t\t\t\tТеплообменник котла выполнен из сертифицированной котельной стали /тип. P265GH/ толщиной 6 мм. Сварка швов осуществлена на роботизированных станках.\n"
 "\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Теплообмінник котла виконаний з сертифікованої котельної стали /тип. P265GH/ "
-"завтовшки 6 мм Зварювання швів здійснене на роботизованих верстатах."
+"Теплообмінник котла виконаний з сертифікованої котельної стали /тип. P265GH/ завтовшки 6 мм Зварювання швів здійснене на роботизованих верстатах."
 
 #: templates/blue/index.html:381 templates/blue/index.html:389
 #: templates/defro/index.html:381 templates/defro/index.html:389
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\t\tВысокая эффективность котла (КПД до 85%%) гарантирует "
-"эффективное сгорание топлива, высокую экономичность и экологичность "
-"горения.\n"
+"\t\t\t\t\t\t\tВысокая эффективность котла (КПД до 85%%) гарантирует эффективное сгорание топлива, высокую экономичность и экологичность горения.\n"
 "\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Висока ефективність котла (ККД до 85%%) гарантує ефективне згорання палива, "
-"високу економічність і екологічність горіння.\n"
+"Висока ефективність котла (ККД до 85%%) гарантує ефективне згорання палива, високу економічність і екологічність горіння.\n"
 "\t\t\t\t\t\t"
 
 #: templates/blue/index.html:397 templates/defro/index.html:397
 msgid ""
 "\n"
-"\t\t\t\t\t\t\tКонтроллер управляет работой котла и системы отопления, "
-"нагревом горячей воды (подключение к 2 насосам и комнатному регулятору).\n"
+"\t\t\t\t\t\t\tКонтроллер управляет работой котла и системы отопления, нагревом горячей воды (подключение к 2 насосам и комнатному регулятору).\n"
 "\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Контролер управляє роботою котла і системи опалювання, нагрівом гарячої води "
-"(підключення до 2 насосів і кімнатного регулятора)"
+"Контролер управляє роботою котла і системи опалювання, нагрівом гарячої води (підключення до 2 насосів і кімнатного регулятора)"
 
 #: templates/blue/index.html:404 templates/defro/index.html:404
 msgid "Большая камера загрузки."
@@ -3432,21 +3408,16 @@ msgstr "Велика камера загрузки"
 #: templates/blue/index.html:409 templates/defro/index.html:409
 msgid ""
 "\n"
-"\t\t\t\t\t\t\tДва режима работы - при разжигании и засыпании сверху "
-"(угольный штыб - время горения до 20 час.) или «традиционный» снизу (уголь, "
-"смесь угля и штыба, древесины, стружки);\n"
+"\t\t\t\t\t\t\tДва режима работы - при разжигании и засыпании сверху (угольный штыб - время горения до 20 час.) или «традиционный» снизу (уголь, смесь угля и штыба, древесины, стружки);\n"
 "\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Два режими роботи - при розпалюванні і засипанні згори (вугільний штиб - час "
-"горіння до 20 год.) або \"традиційний\" знизу (вугілля, суміш вугілля і "
-"штибу, деревини, стружки);"
+"Два режими роботи - при розпалюванні і засипанні згори (вугільний штиб - час горіння до 20 год.) або \"традиційний\" знизу (вугілля, суміш вугілля і штибу, деревини, стружки);"
 
 #: templates/blue/index.html:417 templates/defro/index.html:417
 msgid ""
 "\n"
-"\t\t\t\t\t\t\tМноготочковая система подачи воздуха в топку и система очистки "
-"воздуха.\n"
+"\t\t\t\t\t\t\tМноготочковая система подачи воздуха в топку и система очистки воздуха.\n"
 "\t\t\t\t\t\t"
 msgstr ""
 "\n"
@@ -3480,13 +3451,11 @@ msgstr "послуги"
 #: templates/blue/index.html:537 templates/defro/index.html:537
 msgid ""
 "\n"
-"\t\t\t\t\t\tКроме продажи оборудования мы можем предложить так же <br> его "
-"монтаж и запуск\n"
+"\t\t\t\t\t\tКроме продажи оборудования мы можем предложить так же <br> его монтаж и запуск\n"
 "\t\t\t\t\t"
 msgstr ""
 "\n"
-"Окрім продажу устаткування ми можемо запропонувати так само <br> його монтаж "
-"і запуск"
+"Окрім продажу устаткування ми можемо запропонувати так само <br> його монтаж і запуск"
 
 #: templates/blue/index.html:542 templates/defro/index.html:542
 msgid "Заявка на сайте или звонок"
@@ -3540,20 +3509,11 @@ msgstr "СПОСОБИ ДОСТАВКИ"
 #: templates/blue/index.html:583 templates/defro/index.html:583
 msgid ""
 "\n"
-"\t\t\t\t\t\t\t\tДоставка товара осуществляется по всей территории Украины и "
-"может быть произведена с помощью следующих транспортных компаний: "
-"<span>Новая <span>Почта</span>, <span>Интайм</span>, <span>Деливери</span>, "
-"Мист Экспресс</span>. По согласованию с покупателем возможна доставка нашим "
-"транспортом или \"попутным грузом\". Также есть возможность самовывоза "
-"товара.\n"
+"\t\t\t\t\t\t\t\tДоставка товара осуществляется по всей территории Украины и может быть произведена с помощью следующих транспортных компаний: <span>Новая <span>Почта</span>, <span>Интайм</span>, <span>Деливери</span>, Мист Экспресс</span>. По согласованию с покупателем возможна доставка нашим транспортом или \"попутным грузом\". Также есть возможность самовывоза товара.\n"
 "\t\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Доставка товару здійснюється по всій території України і може бути зроблена "
-"за допомогою наступних транспортних компаній: <span>Нова <span>Пошта</span>, "
-"<span>Інтайм</span>, <span>Делівері</span>, Міст Експрес</span>. За "
-"узгодженням з покупцем можлива доставка нашим транспортом або \"попутним "
-"вантажем\". Також є можливість самовивезення товару."
+"Доставка товару здійснюється по всій території України і може бути зроблена за допомогою наступних транспортних компаній: <span>Нова <span>Пошта</span>, <span>Інтайм</span>, <span>Делівері</span>, Міст Експрес</span>. За узгодженням з покупцем можлива доставка нашим транспортом або \"попутним вантажем\". Також є можливість самовивезення товару."
 
 #: templates/blue/index.html:589 templates/defro/index.html:589
 msgid "ОПЛАТА"
@@ -3562,18 +3522,13 @@ msgstr "ОПЛАТА"
 #: templates/blue/index.html:591 templates/defro/index.html:591
 msgid ""
 "\n"
-"\t\t\t\t\t\t\t\tВсе расходы, связанные с доставкой товара и оплатой "
-"наложенного платежа, оплачиваются непосредственно покупателем.\n"
-"\t\t\t\t\t\t\t\tТовары с акционной отметкой «Бесплатная доставка» "
-"отправляются бесплатно в любую точку Украины. Сроки действия акции уточняйте "
-"у менеджеров.\n"
+"\t\t\t\t\t\t\t\tВсе расходы, связанные с доставкой товара и оплатой наложенного платежа, оплачиваются непосредственно покупателем.\n"
+"\t\t\t\t\t\t\t\tТовары с акционной отметкой «Бесплатная доставка» отправляются бесплатно в любую точку Украины. Сроки действия акции уточняйте у менеджеров.\n"
 "\t\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Усі витрати, пов'язані з доставкою товару і оплатою післяплати, оплачуються "
-"безпосередньо покупцем.\n"
-"Товари з акційною відміткою \"Безкоштовна доставка\" вирушають безкоштовно у "
-"будь-яку точку України. Терміни дії акції уточнюйте у менеджерів."
+"Усі витрати, пов'язані з доставкою товару і оплатою післяплати, оплачуються безпосередньо покупцем.\n"
+"Товари з акційною відміткою \"Безкоштовна доставка\" вирушають безкоштовно у будь-яку точку України. Терміни дії акції уточнюйте у менеджерів."
 
 #: templates/blue/index.html:598 templates/defro/index.html:598
 msgid "СРОКИ"
@@ -3582,13 +3537,11 @@ msgstr "ТЕРМІНИ"
 #: templates/blue/index.html:600 templates/defro/index.html:600
 msgid ""
 "\n"
-"\t\t\t\t\t\t\t\tС момента подтверждения заказа сроки его доставки в среднем "
-"составляют от 24 до 72 часов.\n"
+"\t\t\t\t\t\t\t\tС момента подтверждения заказа сроки его доставки в среднем составляют от 24 до 72 часов.\n"
 "\t\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"З моменту підтвердження замовлення терміни його доставки в середньому "
-"складають від 24 до 72 годин."
+"З моменту підтвердження замовлення терміни його доставки в середньому складають від 24 до 72 годин."
 
 #: templates/blue/index.html:606 templates/defro/index.html:606
 msgid "СТОИМОСТЬ"
@@ -3598,15 +3551,11 @@ msgstr "ВАРТІСТЬ"
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\t\t\tРасчет стоимости доставки осуществляется при оформлении "
-"заказа и в среднем составляет 4,5%%-7%% от общей стоимости товара. Ее "
-"величина зависит от типа продукции и адреса доставки.\n"
+"\t\t\t\t\t\t\t\tРасчет стоимости доставки осуществляется при оформлении заказа и в среднем составляет 4,5%%-7%% от общей стоимости товара. Ее величина зависит от типа продукции и адреса доставки.\n"
 "\t\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Розрахунок вартості доставки здійснюється при оформленні замовлення і в "
-"середньому складає 4,5%% - 7%% від загальної вартості товару. Її величина "
-"залежить від типу продукції і адреси доставки."
+"Розрахунок вартості доставки здійснюється при оформленні замовлення і в середньому складає 4,5%% - 7%% від загальної вартості товару. Її величина залежить від типу продукції і адреси доставки."
 
 #: templates/blue/index.html:618 templates/defro/index.html:618
 msgid "Оплата товара может быть произведена следующими способами:"
@@ -3619,19 +3568,11 @@ msgstr "Безготівковий розрахунок"
 #: templates/blue/index.html:635 templates/defro/index.html:635
 msgid ""
 "\n"
-"\t\t\t\t\t\t\tПосле оформления заказа на Ваш электронный адрес будет выслан "
-"счет-фактура. Совершить оплату по нему Вы можете в отделении любого банка на "
-"территории Украины или с помощью интернет-банкинга <span>Приват 24</span>, "
-"<span>UniCredit Online</span> и т.д. Дополнительная комиссия здесь "
-"отсутствует.\n"
+"\t\t\t\t\t\t\tПосле оформления заказа на Ваш электронный адрес будет выслан счет-фактура. Совершить оплату по нему Вы можете в отделении любого банка на территории Украины или с помощью интернет-банкинга <span>Приват 24</span>, <span>UniCredit Online</span> и т.д. Дополнительная комиссия здесь отсутствует.\n"
 "\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Після оформлення замовлення на Вашу електронну адресу буде вислано рахунок-"
-"фактуру. Здійснити оплату по ньому Ви можете у відділенні будь-якого банку "
-"на території України або за допомогою інтернет-банкінгу <span>Приват 24</"
-"span>, <span>UniCredit Online</span> і так далі. Додаткова комісія тут "
-"відсутня."
+"Після оформлення замовлення на Вашу електронну адресу буде вислано рахунок-фактуру. Здійснити оплату по ньому Ви можете у відділенні будь-якого банку на території України або за допомогою інтернет-банкінгу <span>Приват 24</span>, <span>UniCredit Online</span> і так далі. Додаткова комісія тут відсутня."
 
 #: templates/blue/index.html:641 templates/defro/index.html:641
 msgid "НАЛИЧНЫЙ РАСЧЕТ"
@@ -3663,20 +3604,11 @@ msgstr "VISA / MASTERCARD"
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\t\tОплата товара при помощи карты <span>Visa</span> или "
-"<span>Mastеrcard</span> позволяет совершать покупки в режиме реального "
-"времени. Выбирая данный метод оплаты, стоит учесть, что комиссия за перевод "
-"средств составляет 2%% от стоимости заказа. Если на карте стоит ограничение "
-"на перевод средств, то общую сумму нужно разделить так, чтобы каждый платеж "
-"не превышал 2000 грн.\n"
+"\t\t\t\t\t\t\tОплата товара при помощи карты <span>Visa</span> или <span>Mastеrcard</span> позволяет совершать покупки в режиме реального времени. Выбирая данный метод оплаты, стоит учесть, что комиссия за перевод средств составляет 2%% от стоимости заказа. Если на карте стоит ограничение на перевод средств, то общую сумму нужно разделить так, чтобы каждый платеж не превышал 2000 грн.\n"
 "\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Оплата товару за допомогою карти <span>Visa</span> чи <span>Mastеrcard</"
-"span> дозволяє здійснювати покупки в режимі реального часу. Вибираючи цей "
-"метод оплати, варто врахувати, що комісія за переказ коштів складає 2%% від "
-"вартості замовлення. Якщо на карті стоїть обмеження на переказ коштів, то "
-"загальну суму треба розділити так, щоб кожен платіж не перевищував 2000 грн."
+"Оплата товару за допомогою карти <span>Visa</span> чи <span>Mastеrcard</span> дозволяє здійснювати покупки в режимі реального часу. Вибираючи цей метод оплати, варто врахувати, що комісія за переказ коштів складає 2%% від вартості замовлення. Якщо на карті стоїть обмеження на переказ коштів, то загальну суму треба розділити так, щоб кожен платіж не перевищував 2000 грн."
 
 #: templates/blue/index.html:658 templates/defro/index.html:658
 msgid "НАЛОЖЕННЫЙ ПЛАТЕЖ"
@@ -3686,15 +3618,11 @@ msgstr "ПІСЛЯПЛАТА"
 #, python-format
 msgid ""
 "\n"
-"\t\t\t\t\t\t\tСовершить оплату за товар Вы можете в национальной валюте в "
-"пункте выдачи транспортной компании. В таком случае к сумме оплаты будет "
-"добавлена комиссия в размере 3%% от общей стоимости заказа.\n"
+"\t\t\t\t\t\t\tСовершить оплату за товар Вы можете в национальной валюте в пункте выдачи транспортной компании. В таком случае к сумме оплаты будет добавлена комиссия в размере 3%% от общей стоимости заказа.\n"
 "\t\t\t\t\t\t"
 msgstr ""
 "\n"
-"Здійснити плату за товар Ви можете в національній валюті в пункті видачі "
-"транспортної компанії. У такому разі до суми оплати буде додана комісія у "
-"розмірі 3%% від загальної вартості замовлення."
+"Здійснити плату за товар Ви можете в національній валюті в пункті видачі транспортної компанії. У такому разі до суми оплати буде додана комісія у розмірі 3%% від загальної вартості замовлення."
 
 #: templates/blue/index.html:671 templates/defro/index.html:671
 msgid "Как с нами связаться"
@@ -3788,29 +3716,28 @@ msgstr "Пошук"
 msgid "Недавно просмотренные"
 msgstr "Нещодавно переглянуті"
 
-#: templates/blue/search/results.html:29 templates/defro/search/results.html:29
+#: templates/blue/search/results.html:29
+#: templates/defro/search/results.html:29
 msgid "Поиск"
 msgstr "Пошук"
 
-#: templates/blue/search/results.html:36 templates/defro/search/results.html:36
+#: templates/blue/search/results.html:36
+#: templates/defro/search/results.html:36
 msgid "Все результаты"
 msgstr "Всі результати"
 
-#: templates/blue/search/results.html:71 templates/defro/search/results.html:71
+#: templates/blue/search/results.html:71
+#: templates/defro/search/results.html:71
 #, python-format
 msgid ""
 "\n"
-"                                                <p class="
-"\"category_block_caption search_text_smaller\">\n"
+"                                                <p class=\"category_block_caption search_text_smaller\">\n"
 "                                                    Found\n"
-"                                                    <strong>%(num_results)s</"
-"strong>\n"
+"                                                    <strong>%(num_results)s</strong>\n"
 "                                                    results, showing\n"
-"                                                    <strong>%(start)s</"
-"strong>\n"
+"                                                    <strong>%(start)s</strong>\n"
 "                                                    to\n"
-"                                                    <strong>%(end)s</"
-"strong>.\n"
+"                                                    <strong>%(end)s</strong>.\n"
 "                                                </p>\n"
 "                                            "
 msgstr ""
@@ -3824,12 +3751,12 @@ msgstr ""
 "<strong>%(end)s</strong>.\n"
 "</p>"
 
-#: templates/blue/search/results.html:82 templates/defro/search/results.html:82
+#: templates/blue/search/results.html:82
+#: templates/defro/search/results.html:82
 #, python-format
 msgid ""
 "\n"
-"                                                <p class="
-"\"category_block_caption search_text_smaller\">\n"
+"                                                <p class=\"category_block_caption search_text_smaller\">\n"
 "                                                    По запросу\n"
 "                                                    “%(query)s”\n"
 "                                                    найден %(num_results)s\n"
@@ -3837,8 +3764,7 @@ msgid ""
 "                                            "
 msgid_plural ""
 "\n"
-"                                                <p class="
-"\"category_block_caption search_text_smaller\">\n"
+"                                                <p class=\"category_block_caption search_text_smaller\">\n"
 "                                                    По запросу\n"
 "                                                    “%(query)s”\n"
 "                                                    найдено %(num_results)s\n"
@@ -3873,7 +3799,8 @@ msgstr[3] ""
 "знайдено %(num_results)s\n"
 "товари</p>"
 
-#: templates/blue/search/results.html:98 templates/defro/search/results.html:98
+#: templates/blue/search/results.html:98
+#: templates/defro/search/results.html:98
 msgid "Found <strong>0</strong> results."
 msgstr "Found <strong>0</strong> results."
 
@@ -3883,8 +3810,7 @@ msgstr "Found <strong>0</strong> results."
 msgid ""
 "\n"
 "                                                    Did you mean\n"
-"                                                    <a href=\"%(search_url)s?"
-"q=%(suggestion)s\">\"%(suggestion)s\"</a>\n"
+"                                                    <a href=\"%(search_url)s?q=%(suggestion)s\">\"%(suggestion)s\"</a>\n"
 "                                                    ?\n"
 "                                                "
 msgstr ""
@@ -5070,8 +4996,7 @@ msgstr "Посилання"
 #, python-format
 msgid ""
 "\n"
-"                                                                %(title)s "
-"(quantity %(event_qty)s/%(total_qty)s)\n"
+"                                                                %(title)s (quantity %(event_qty)s/%(total_qty)s)\n"
 "                                                            "
 msgstr ""
 
@@ -5370,7 +5295,8 @@ msgstr "Удаление контактного сообщения"
 #: templates/shop/dashboard/site/contactmessage_delete.html:28
 #, python-format
 msgid ""
-"Delete contact message <strong>%(title)s %(created)s</strong> - are you sure?"
+"Delete contact message <strong>%(title)s %(created)s</strong> - are you "
+"sure?"
 msgstr ""
 "Видалити контактне повідомлення <strong>%(title)s %(created)s</strong> - ви "
 "впевнені?"
@@ -5913,8 +5839,8 @@ msgstr "Назва в меню (uk)"
 
 #: templates/shop/dashboard/site/sidemenu_list.html:126
 msgid ""
-"Переименованные категории в боковом меню не найдены. Вы можете переименовать "
-"их на странице редактирования категорий"
+"Переименованные категории в боковом меню не найдены. Вы можете переименовать"
+" их на странице редактирования категорий"
 msgstr ""
 
 #: templates/shop/dashboard/site/site.html:11
@@ -6205,7 +6131,14 @@ msgstr ""
 msgid "Пользователь"
 msgstr "Користувач"
 
-#~| msgid "Телефон"
+#, fuzzy
+#~ msgid "Релеванси"
+#~ msgstr "за релевантністю"
+
+#, fuzzy
+#~ msgid "Ратинг"
+#~ msgstr "по рейтингу"
+
 #~ msgid "Телефон*"
 #~ msgstr "Телефон*"
 
