@@ -1,7 +1,7 @@
 from modeltranslation.translator import translator, TranslationOptions
 
 from shop.catalogue.models import ProductAttribute, ProductClass, Category, \
-    ProductAttributeValue, FilterDescription
+    ProductAttributeValue, FilterDescription, AttributeOption
 from .models import Product
 
 
@@ -30,9 +30,14 @@ class FilterDescriptionTranslationOptions(TranslationOptions):
     fields = ('title', 'description')
 
 
+class AttributeOptionTranslationOptions(TranslationOptions):
+    fields = ('option',)
+
+
 translator.register(Product, ProductTranslationOptions)
 translator.register(ProductAttribute, ProductAttributeTranslationOptions)
 translator.register(ProductClass, ProductClassTranslationOptions)
 translator.register(Category, CategoryTranslationOptions)
 translator.register(ProductAttributeValue, ProductAttributeValueTranslationOptions)
 translator.register(FilterDescription, FilterDescriptionTranslationOptions)
+translator.register(AttributeOption, AttributeOptionTranslationOptions)
