@@ -2,7 +2,7 @@ from modeltranslation.translator import translator, TranslationOptions
 
 from shop.catalogue.models import ProductAttribute, ProductClass, Category, \
     ProductAttributeValue, FilterDescription, AttributeOption
-from shop.order.models import PaymentMethod
+from shop.order.models import PaymentMethod, ShippingMethod
 from .models import Product
 
 
@@ -38,6 +38,10 @@ class AttributeOptionTranslationOptions(TranslationOptions):
 class PaymentMethodTranslationOptions(TranslationOptions):
     fields = ('name',)
 
+
+class ShippingMethodTranslationOptions(TranslationOptions):
+    fields = ('name',)
+
 translator.register(Product, ProductTranslationOptions)
 translator.register(ProductAttribute, ProductAttributeTranslationOptions)
 translator.register(ProductClass, ProductClassTranslationOptions)
@@ -46,3 +50,4 @@ translator.register(ProductAttributeValue, ProductAttributeValueTranslationOptio
 translator.register(FilterDescription, FilterDescriptionTranslationOptions)
 translator.register(AttributeOption, AttributeOptionTranslationOptions)
 translator.register(PaymentMethod, PaymentMethodTranslationOptions)
+translator.register(ShippingMethod, ShippingMethodTranslationOptions)
