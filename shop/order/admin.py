@@ -19,9 +19,14 @@ class CallRequestAdmin(admin.ModelAdmin):
 class InstallmentPaymentAdmin(admin.ModelAdmin):
     list_display = ('phone', 'created', 'site')
 
+class ShippingMethodAdmin(admin.ModelAdmin):
+    fields = ('name_ru', 'name_uk', 'shipping_price')
 
-admin.site.register(ShippingMethod)
-admin.site.register(PaymentMethod)
+class PaymentMethodAdmin(admin.ModelAdmin):
+    fields = ('name_ru', 'name_uk', )
+
+admin.site.register(ShippingMethod, ShippingMethodAdmin)
+admin.site.register(PaymentMethod, PaymentMethodAdmin)
 admin.site.register(OneClickOrder, OneClickAdmin)
 
 admin.site.register(CallRequest, CallRequestAdmin)
