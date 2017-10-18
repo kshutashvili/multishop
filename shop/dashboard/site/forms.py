@@ -289,13 +289,14 @@ class ShippingMethodForm(forms.ModelForm):
     class Meta:
         model = ShippingMethod
         fields = '__all__'
+        exclude = ('name',)
 
 
 class PaymentMethodForm(forms.ModelForm):
     class Meta:
         model = PaymentMethod
         fields = '__all__'
-
+        exclude = ('name',)
 
 class UserForm(forms.ModelForm):
     class Meta:
