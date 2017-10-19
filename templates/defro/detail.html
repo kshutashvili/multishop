@@ -1772,15 +1772,15 @@
                 <p>{% trans "Мгновенная рассрочка" %}</p>
             </div>
             <div class="table_cell_sail">
-                <p>Комиссия</p>
-                <p>4-36 мес - 1,5%</p>
-                <p>Без страховки</p>
-                <p>Разовая комиссия 0-3%</p>
+                <p>{% trans "Комиссия" %}</p>
+                <p>{% trans "4-36 мес - 1,5%" %}</p>
+                <p>{% trans "Без страховки" %}</p>
+                <p>{% trans "Разовая комиссия 0-3%" %}</p>
             </div>
             <div class="table_cell_karetka_modal">
                 <form class="reservation">
                     <div class="number_of_elems">
-                        <span>6 платежей на </span>
+                        <span>{% trans "6 платежей на" %}</span>
                         <div class="custom_select">
                             <select name="minbeds2" id="minbeds2">
                                 <option>1</option>
@@ -1791,32 +1791,32 @@
                                 <option>6</option>
                             </select>
                         </div>
-                        <span>месяцев</span>
+                        <span>{% trans "месяцев" %}</span>
                     </div>
                     <div id="slider_month2"></div>
                 </form>
 
             </div>
             <p class="credit_price_modal">900 грн</p>
-            <a href="#" class="buy_button">Нет в наличии</a>
+            <a href="#" class="buy_button">{% trans "Нет в наличии" %}</a>
         </div>
 
         <div class="table_cell_modal">
             <img src="{% get_static 'img/tovar/ukrsib.png' %}" alt="">
             <div class="table_cell_name_modal">
                 <p class="table_cell_name_modal_first">УкрсибБанк</p>
-                <p>Кредит - до 30 000 грн.</p>
+                <p>{% trans "Кредит - до 30 000 грн." %}</p>
             </div>
             <div class="table_cell_sail">
-                <p>Комиссия</p>
-                <p>4-36 мес - 1,5%</p>
-                <p>Без страховки</p>
-                <p>Разовая комиссия 0-1,7%</p>
+                <p>{% trans "Комиссия" %}</p>
+                <p>{% trans "4-36 мес - 1,5%" %}</p>
+                <p>{% trans "Без страховки" %}</p>
+                <p>{% trans "Разовая комиссия 0-1,7%" %}</p>
             </div>
             <div class="table_cell_karetka_modal">
                 <form class="reservation">
                     <div class="number_of_elems">
-                        <span>6 платежей на </span>
+                        <span>{% trans "6 платежей на" %}</span>
                         <div class="custom_select">
                             <select name="minbeds3" id="minbeds3">
                                 <option>1</option>
@@ -1827,18 +1827,18 @@
                                 <option>6</option>
                             </select>
                         </div>
-                        <span>месяцев</span>
+                        <span>{% trans "месяцев" %}</span>
                     </div>
                     <div id="slider_month3"></div>
                 </form>
 
             </div>
             <p class="credit_price_modal">900 грн</p>
-            <a href="#" class="buy_button">Нет в наличии</a>
+            <a href="#" class="buy_button">{% trans "Нет в наличии" %}</a>
         </div>
     </div>
 
-    <div id="snackbar" class="snackbar" style="display: none">Укажите правильный номер!</div>
+    <div id="snackbar" class="snackbar" style="display: none">{% trans "Укажите правильный номер!" %}</div>
 
     {{ block.super }}
 
