@@ -113,7 +113,7 @@ class TextFourAdmin(admin.ModelAdmin):
 
 @admin.register(MenuCategory)
 class MenuCategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'order')
+    fields = ('name_ru', 'name_uk', 'order')
 
 
 @admin.register(MenuItem)

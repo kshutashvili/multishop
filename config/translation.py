@@ -1,7 +1,7 @@
 from modeltranslation.translator import translator, TranslationOptions
 
 from .models import (MenuItem, MetaTag, BenefitItem, TextOne, TextTwo, TextThree,
-                     TextFour, ReviewItem, DeliveryAndPay, Configuration)
+                     TextFour, ReviewItem, DeliveryAndPay, Configuration, MenuCategory)
 
 
 class MenuItemTranslationOptions(TranslationOptions):
@@ -64,3 +64,8 @@ class ConfigurationTranslationOptions(TranslationOptions):
     fields = ('general_phrase', 'additional_phrase', 'credit_block_text')
 
 translator.register(Configuration, ConfigurationTranslationOptions)
+
+class MenuCategoryTranslationOptions(TranslationOptions):
+    fields = ('name',)
+
+translator.register(MenuCategory, MenuCategoryTranslationOptions)

@@ -276,7 +276,7 @@ class FooterMenuItemForm(forms.ModelForm):
 class MenuCategoryForm(forms.ModelForm):
     class Meta:
         model = MenuCategory
-        fields = '__all__'
+        fields = ('name_ru', 'name_uk', 'order')
 
 
 class InstallmentPaymentForm(forms.ModelForm):
