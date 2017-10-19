@@ -5,7 +5,6 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
 from contacts.models import FlatPage
 
-
 register = template.Library()
 
 
@@ -30,7 +29,6 @@ def url_format(context, url):
         return "/%s/%s/" % (current_lang, formatted_url)
 
     return "/%s/" % formatted_url
-
 
 @register.filter
 def phone_number_filter(phone):

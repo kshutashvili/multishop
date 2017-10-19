@@ -61,7 +61,7 @@ translator.register(DeliveryAndPay, DeliveryAndPayTranslationOptions)
 
 
 class ConfigurationTranslationOptions(TranslationOptions):
-    fields = ('general_phrase', 'additional_phrase', 'credit_block_text')
+    fields = ('general_phrase', 'additional_phrase', 'credit_block_text', 'undercat_block_url')
 
 translator.register(Configuration, ConfigurationTranslationOptions)
 

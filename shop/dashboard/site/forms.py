@@ -222,7 +222,7 @@ class TextFourForm(forms.ModelForm):
 class LandingConfigForm(forms.ModelForm):
     class Meta:
         model = Configuration
-        exclude = ('site', 'general_phrase', 'additional_phrase', 'credit_block_text')
+        exclude = ('site', 'general_phrase', 'additional_phrase', 'credit_block_text', 'undercat_block_url')
 
 
 class FuelConfigurationForm(forms.ModelForm):
