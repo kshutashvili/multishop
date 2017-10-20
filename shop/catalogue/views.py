@@ -139,7 +139,8 @@ class CatalogueView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
         self.site = get_current_site(request)
         try:
             slug = kwargs.get('category_slug') or kwargs['slug']
-            self.category = Category.objects.get(slug=slug)
+            self.category = Category.objects.get(slug=slug,
+                                                 site=self.site)
         except (KeyError, Category.DoesNotExist):
             self.category = None
             categories = Category.objects.none()
