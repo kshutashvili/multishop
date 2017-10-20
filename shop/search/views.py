@@ -31,8 +31,8 @@ class FacetedSearchView(OscarFacetedSearchView):
         for p in self.results.all():
             cats.extend(p.object.categories.all())
 
-        leafs = [x for x in cats if x.is_leaf()]
-        roots = [x if x.is_root() else x.get_root() for x in cats]
+        leafs = set(x for x in cats if x.is_leaf())
+        roots = set(x if x.is_root() else x.get_root() for x in cats)
 
         categories_count = {
             root: [(leaf, self.results.filter(category=leaf.pk).count())
