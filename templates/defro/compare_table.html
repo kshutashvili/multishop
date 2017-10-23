@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="scrollbar-inner compare_scroll">
-                        <ul class="compare_ul">
+                        <ul class="owl-carousel owl-theme catalog_owl">
                             {% for product in products %}
                                 {% basket_form request product as basket_form %}
                                 <form id="add_to_basket_form_{{ product.id }}"
@@ -151,9 +151,9 @@
                                     <table class="table_main_har">
                                         {% for attr_name, attr_values in attributes %}
                                             <tr>
-                                                <th style="width:300px !important; display: inline-block; float: left">{{ attr_name }} </th>
+                                                <th style="width:120px !important; display: inline-block; float: left">{{ attr_name }} </th>
                                                 {% for value in attr_values %}
-                                                    <th style="width:260px; display: inline-block; float: left">{{ value }}</th>
+                                                    <th style="width:80px; display: inline-block; float: left">{{ value }}</th>
                                                 {% endfor %}
                                             </tr>
                                         {% endfor %}
