@@ -1923,6 +1923,7 @@ a.buy_button.but_button_sold{
 	color: #fff;
 	cursor: default;
 	border: 1px solid #dfdede;
+	font-size: 12px;
 }
 a.buy_button.but_button_sold:hover{
 	background: #828081;

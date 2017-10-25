@@ -33,7 +33,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-3 cold-lg-3">
                         <div class="left_filter">
                             <div class="parameters search_parameters">
-                                <p class="caption">{% trans "Все результаты" %}
+                                <p class="caption" style="bottom: 5px">{% trans "Все результаты" %}
                                     <span>({{ paginator.count }})</span></p>
                             </div>
                             {% for root, leaf_count in categories_count.items %}
@@ -111,7 +111,7 @@
                                         <div class="custom_select">
                                             {% include "partials/form_field.html" with field=search_form.sort_by nolabel=True %}
                                         </div>
-                                        <div class="search_look_float">
+                                        <div class="search_look_float" style="bottom: 5px">
                                             <span>{% trans "Вид:" %}</span>
                                             <span class="change_look plitka plitka_red"></span>
                                             <span class="change_look spisok"></span>

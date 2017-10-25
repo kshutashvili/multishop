@@ -399,11 +399,13 @@
                                                data-rel="buy_button_modal"
                                                data-product-id="{{ product.id }}">{% trans "Купить" %}</a>
                                         {% else %}
+
                                             <a href="{{ product.get_absolute_url }}"
                                                class="buy_button show_popup"
                                                data-rel="buy_button_modal">
                                                {% trans "Нет в наличии" %}
                                             </a>
+
                                         {% endif %}
                                     </a>
                                 </div>
