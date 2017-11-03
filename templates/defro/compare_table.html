@@ -61,7 +61,7 @@
                         </ul>
                     </div>
 
-                    <div class="scrollbar-inner compare_scroll">
+
                         <ul class="compare_ul">
                             {% for product in products %}
                                 {% basket_form request product as basket_form %}
@@ -74,64 +74,106 @@
                                     {% include "partials/form_fields.html" with form=basket_form %}
                                 </form>
                                 <li>
+                                <div class="catalog_item_block">
+                                    {% thumbnail product.primary_image.original "155" as thumb %}
+                                        <a href="{{ product.get_absolute_url }}">
+                                            <img src="{{ thumb.url }}" alt="" style="width: 155px; height: 155px;">
+                                        </a>
+                                    {% endthumbnail %}
+                                    <div class="block155h"></div>
+                                    <p class="catalog_item_block_caption">
+                                        <a href="{{ product.get_absolute_url }}">{{ product.product_class.name }} {{ product.title }}</a>
+                                    </p>
+                                    <div class="for_list_block">
+                                        <select class="rating_photo">
+                                            {% for num in "012345" %}
+                                                <option {% if product.rating == forloop.counter0 %}selected="selected"{% endif %}
+                                                        value="{{ forloop.counter0 }}">{{ forloop.counter0 }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <p class="rating_number"><span>{% if product.rating %}
+                                            {{ product.rating|floatformat }}{% else %}
+                                            0{% endif %}</span>/5 ( {% trans "голосов" %}
+                                            <span>{{ product.num_approved_reviews }}</span>)
+                                        </p>
+                                        <hr>
+                                        {% purchase_info_for_product request product as session %}
+                                        {% if session.availability.is_available_to_buy %}
+                                            <p class="line_through">
+                                                {% if session.price.previous %}
+                                                {{ session.price.previous|floatformat|humanize_price }}
+                                                <span>{{session.price.currency|format_currency }}</span>
+                                                {% endif %}
+                                            </p>
+                                            <p class="catalog_item_price">
+                                                {% if session.price.is_tax_known %}
+                                                    {{ session.price.incl_tax|floatformat|humanize_price}}
+                                                    <span>{{session.price.currency|format_currency }}</span>
+                                                {% else %}
+                                                    {{ session.price.excl_tax|floatformat|humanize_price }}
+                                                    <span>{{session.price.currency|format_currency }}</span>
+                                                {% endif %}</p>
 
+                                           {% if product.id in basket_product_ids %}
+                                                <a href="#" class="buy_button buy_button_bougth">{% trans "В корзине" %}</a>
+                                            {% else %}
+                                                <a href="#"
+                                                   class="buy_button show_popup"
+                                                   data-rel="buy_button_modal"
+                                                   data-product-id="{{ product.id }}">{% trans "Купить" %}</a>
+                                            {% endif %}
+                                        {% else %}
+                                            <p class="sold_out">
+                                                {% trans "Нет в наличии" %}
+                                            </p>
+                                            <p class="catalog_item_price naliche_net dpn">
+                                                {% if session.price.is_tax_known %}
+                                                    {{ session.price.incl_tax|floatformat|humanize_price}}
+                                                    <span>{{session.price.currency|format_currency }}</span>
+                                                {% else %}
+                                                    {{ session.price.excl_tax|floatformat|humanize_price}}
+                                                    <span>{{session.price.currency|format_currency }}</span>
+                                                {% endif %}</p>
+
+                                        {% endif %}
+                                    </div>
+                                    <a href="#" class="close_compare"
+                                       data-product-id="{{ product.id }}"
+                                       data-remove-url="{% url 'remove_from_compare_list' %}"></a>
+                                </div>
                                 </li>
                             {% endfor %}
                         </ul>
 
                         <div class="compare_table_tab_content">
                             <div class="tab-content">
-                                <div class="owl-carousel owl-theme catalog_owl" style="margin-top: 350px;">
                                 <div role="tabpanel" class="tab-pane active" id="all_parame">
-
                                     <table class="table_main_har">
-                                    <tr>
-                                        <th style="width:120px !important; display: inline-block; float: left">{% trans "Имя" %}</th>
-                                                {% for product in products %}
-                                                    <th style="width:155px; display: inline-block; float: left">
-                                                        <img src="{{ thumb.url }}" alt="" style="width: 155px; height: 155px;">
-                                                     </a>
-                                                    <a href="{{ product.get_absolute_url }}">{{ product.product_class.name }} {{ product.title }}</a>
-                                                    </th>
-                                                {% endfor %}
-                                    </tr>
                                         {% for attr_name, attr_values in attributes %}
                                             <tr>
-                                                <th style="width:120px !important; display: inline-block; float: left">{{ attr_name }} </th>
+                                                <th style="width:300px !important; display: inline-block; float: left">{{ attr_name }} </th>
                                                 {% for value in attr_values %}
-                                                    <th style="width:155px; display: inline-block; float: left">{{ value }}</th>
+                                                    <th style="width:260px; display: inline-block; float: left">{{ value }}</th>
                                                 {% endfor %}
                                             </tr>
                                         {% endfor %}
                                     </table>
-
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="only_dif">
                                     <table class="table_main_har">
-                                        <tr>
-                                        <th style="width:120px !important; display: inline-block; float: left">{% trans "Имя" %}</th>
-                                                {% for product in products %}
-                                                    <th style="width:155px; display: inline-block; float: left">
-                                                        <img src="{{ thumb.url }}" alt="" style="width: 155px; height: 155px;">
-                                                     </a>
-                                                    <a href="{{ product.get_absolute_url }}">{{ product.product_class.name }} {{ product.title }}</a>
-                                        </th>
-                                                {% endfor %}
-                                        </tr>
                                         {% for attr_name, attr_values in unique_attributes %}
                                             <tr>
-                                                <th style="width:120px !important; display: inline-block; float: left">{{ attr_name }} </th>
+                                                <th style="width:300px">{{ attr_name }} </th>
                                                 {% for value in attr_values %}
-                                                    <th style="width:155px; display: inline-block; float: left">{{ value }}</th>
+                                                    <th {% if forloop.counter == 1 %}style="width:260px"{% endif %}>{{ value }}</th>
                                                 {% endfor %}
                                             </tr>
                                         {% endfor %}
                                     </table>
                                 </div>
                             </div>
-                         </div>
                         </div>
-                    </div>
+
                 </div>
             </div>
         </div>

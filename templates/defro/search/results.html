@@ -33,7 +33,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-3 cold-lg-3">
                         <div class="left_filter">
                             <div class="parameters search_parameters">
-                                <p class="caption" style="bottom: 5px">{% trans "Все результаты" %}
+                                <p class="caption" style="bottom: 5px;width: 102px;height: 33px; font-size: 10px">{% trans "Все результаты" %}
                                     <span>({{ paginator.count }})</span></p>
                             </div>
                             {% for root, leaf_count in categories_count.items %}
@@ -107,16 +107,34 @@
                                         </p>
                                     {% endif %}
                                     <div class="sort_vid">
-                                        <span>{% trans "Сортировать:" %}</span>
+                                        <span class="sort" style="width: 97px;height: 33px;top: auto;bottom: 5px;">{% trans "Сортировать:" %}</span>
+                                        <div class="custom_select">
+    <form method="get">
+        <div class="form-group ">
+            <div>
+                <select class="form-control" id="id_sort_by" name="sort_by">
+                    <option value="relevancy" {% if current_sort == "relevancy" %}selected="selected"{% endif %}>{% trans "по релевантности" %}</option>
+                    <option value="rating" {% if current_sort == "rating" %}selected="selected"{% endif %}>{% trans "по рейтингу" %}</option>
+                    <option value="newest" {% if current_sort == "newest" %}selected="selected"{% endif %}>{% trans "по дате, сначала новые" %}</option>
+                    <option value="price-desc" {% if current_sort == "price-desc" %}selected="selected"{% endif %}>{% trans "по цене, сначала дорогие" %}</option>
+                    <option value="price-asc" {% if current_sort == "price-asc" %}selected="selected"{% endif %}>{% trans "по цене, сначала дешевые" %}</option>
+                    <option value="title-asc" {% if current_sort == "title-asc" %}selected="selected"{% endif %}>{% trans "по названию от А до Я" %}</option>
+                    <option value="title-desc" {% if current_sort == "title-desc" %}selected="selected"{% endif %}>{% trans "по названию от Я до А" %}</option>
+                </select>
+            </div>
+        </div>
+    </form>
+                                    </div>
                                         <div class="custom_select">
                                             {% include "partials/form_field.html" with field=search_form.sort_by nolabel=True %}
                                         </div>
-                                        <div class="search_look_float" style="bottom: 5px">
+                                        <div class="search_look_float" style="bottom: 5px;width: 90px;height: 31px;">
                                             <span>{% trans "Вид:" %}</span>
                                             <span class="change_look plitka plitka_red"></span>
                                             <span class="change_look spisok"></span>
                                         </div>
                                     </div>
+
                                 </form>
 
                                 <div class="catalog_items">
@@ -302,6 +320,22 @@
         </div>
     </div>
 
+
+{% block shadow %}
+    <div class='modal_mobile_sort'>
+        <h2>{% trans "Сортировать:" %}<span class="close"></span></h2>
+        <ul>
+            <li {% if current_sort == "relevancy" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:relevancy">{% trans "по релевантности" %}</a></li>
+            <li {% if current_sort == "rating" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:rating">{% trans "по рейтингу" %}</a></li>
+            <li {% if current_sort == "newest" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:newest">{% trans "по дате, сначала новые" %}</a></li>
+            <li {% if current_sort == "price_desc" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:price_desc">{% trans "по цене, сначала дорогие" %}</a></li>
+            <li {% if current_sort == "price_asc" %}class="active"{% endif %}><a href="{{ current_path}}/sort_by:price_asc">{% trans "по цене, сначала дешевые" %}</a></li>
+            <li {% if current_sort == "title_asc" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:title_asc">{% trans "по названию от А до Я" %}</a></li>
+            <li {% if current_sort == "title_desc" %}class="active"{% endif %}><a href="{{ current_path }}/sort_by:title_desc">{% trans "по названию от Я до А" %}</a></li>
+        </ul>
+    </div>
+    {{ block.super }}
+{% endblock %}
 
     <div id="scrollup"><img alt="Прокрутить вверх"
                             src="{% get_static 'img/button_up.png' %}"></div>
