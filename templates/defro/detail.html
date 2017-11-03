@@ -201,7 +201,13 @@
                                     </form>
                                 {% else %}
                                     <br>
-                                    <button class="basket_button_sold" style="margin-top: 20px;">
+                                    <p class="catalog_item_price not_active_price" style="margin-bottom: 0px">
+                        {% if session.price.is_tax_known %}
+                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
+                        {% else %}
+                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
+                        {% endif %}</p>
+                                    <button class="basket_button_sold" style="margin-top: 10px;">
                                         {% trans "Нет в наличии" %}
                                     </button>
                                     <a href="#" class="basket_button_in dpn">
@@ -226,14 +232,10 @@
                                     </form>
                                     <p class="nalichie dpn naliche_net">{% trans "Нет в наличии" %}</p>
                                     <a href="#" class="basket_button_none dpn">{% trans "Нет в наличии" %}</a>
-                                    <p class="catalog_item_price naliche_net dpn">
-                                        {% if session.price.is_tax_known %}
-                                            {{ session.price.incl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
-                                        {% else %}
-                                            {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
-                                        {% endif %}</p>
+
 
                                 {% endif %}
+
                                 {% if request.session.compare_list and product.id in request.session.compare_list %}
                                     <a href="#!"
                                        class="compare_button compare_button_added">{% trans "В сравнении" %}</a>
