@@ -221,8 +221,10 @@
                                           action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
                                         <input type="text"
                                                class="zakaz_one_click"
-                                               placeholder="(0XX) XXX - XX - XX"
+                                               placeholder="(XXX) XXX - XXX - XXX"
                                                name="phone">
+
+
                                         <button class="zakaz_one_click"
                                                 id="one_click_btn"
                                                 rel="request_button_modal_third"
@@ -1849,6 +1851,7 @@
 
 {% block extrascripts %}
     <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
     <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
     <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
@@ -1973,5 +1976,8 @@
     </script>
     <script type="text/javascript" async defer
             src="//assets.pinterest.com/js/pinit.js"></script>
+    <script type="text/javascript">
+        $('.zakaz_one_click').mask('(099)999-99-99');
+    </script>
     {{ block.super }}
 {% endblock %}
