@@ -32,7 +32,7 @@
             {% endthumbnail %}
             <div class="block155h"></div>
             <p class="catalog_item_block_caption">
-                <a href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+                <a href="{{ product.get_absolute_url }}"><span style="font-size: 20px">{{ product.product_class.name }}</span> {{ product.title }}</a>
             </p>
             <div class="for_list_block">
                 <select class="rating_photo">
