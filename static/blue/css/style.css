@@ -2198,7 +2198,7 @@ a.look_more:hover{
 .owl-carousel.catalog_owl .owl-item img{
     display: inline-block;
     width: 155px;
-    height: 155px;
+    height: 250px;
 }
 .owl-carousel.catalog_owl .catalog_item_block{
     max-width: 100%;
