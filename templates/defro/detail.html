@@ -173,8 +173,7 @@
                                             {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
                                     {% if product.id in basket_product_ids %}
-                                        <a href="#" class="basket_button_in dpn">
-                                        {% trans "В корзине" %}
+                                        <a href="#" class="buy_button buy_button_bougth">{% trans "В корзине" %}</a>
                                         </a>
                                         {% else %}
                                         <a href="#" id="submit_btn" class="basket_button show_popup"
