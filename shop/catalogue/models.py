@@ -26,10 +26,36 @@ from oscar.apps.catalogue.abstract_models import (
 from oscar.core.loading import get_class
 from redis.exceptions import ConnectionError
 from treebeard.mp_tree import MP_NodeManager
-
+from solo.models import SingletonModel
 from contacts.models import PhoneNumber, SocialNetRef
 
 order_placed = get_class('order.signals', 'order_placed')
+
+
+class EmailOnOrder(SingletonModel):
+
+    message = models.CharField(
+        max_length=250,
+        verbose_name=_('Сообщение'),
+        default='Кто-то оставил коментарий на ваш отзыв. Что бы просмотреть этот коментарий \n перейдите, пожалуйста, по ссылке http://{0}/{1}'
+    )
+    email_subject = models.CharField(
+        max_length=250,
+        verbose_name=_('Оповещение'),
+        default='Оповещение об ответе на ваш отзыв'
+    )
+    subject_order = models.CharField(
+        max_length=250,
+        verbose_name=_('Оповещение заказа'),
+        default='Order notification'
+    )
+
+    class Meta:
+        verbose_name = _("Текст емеил")
+
+    def __unicode__(self):
+        return u"{}".format(self.message)
+
 
 
 class Product(AbstractProduct):
@@ -340,7 +366,7 @@ def on_order_create(order, user, **kwargs):
             site_id=order_site.id
         )
     })
-    subject = _('Order notification')
+    subject = _(EmailOnOrder.objects.first().subject_order)
     from_email = settings.DEFAULT_FROM_EMAIL
     to = order.guest_email
     text_content = plaintext.render(context)

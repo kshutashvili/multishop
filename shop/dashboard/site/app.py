@@ -101,7 +101,7 @@ from shop.dashboard.site.views import (SiteCreateView, SiteUpdateView,
                                        PaymentMethodListView,
                                        PaymentMethodCreateView,
                                        PaymentMethodUpdateView,
-                                       PaymentMethodDeleteView,)
+                                       PaymentMethodDeleteView, EmailOnOrderCreateView, EmailOnOrderUpdateView, EmailOnOrderDeleteView)
 
 
 class SiteDashboardApplication(Application):
@@ -211,6 +211,9 @@ class SiteDashboardApplication(Application):
     paymentmethod_create_view = PaymentMethodCreateView
     paymentmethod_update_view = PaymentMethodUpdateView
     paymentmethod_delete_view = PaymentMethodDeleteView
+    emailonorder_create_view = EmailOnOrderCreateView
+    emailonorder_update_view = EmailOnOrderUpdateView
+    emailonorder_delete_view = EmailOnOrderDeleteView
 
     def get_urls(self):
         urls = [
@@ -443,6 +446,13 @@ class SiteDashboardApplication(Application):
                 name='paymentmethod-detail'),
             url(r'^paymentmethod/delete/(?P<pk>[\d]+)/$', self.paymentmethod_delete_view.as_view(),
                 name='paymentmethod-delete'),
+            # emailonorder
+            url(r'^emailonorder/add/$', self.emailonorder_create_view.as_view(),
+                name='emailonorder-create'),
+            url(r'^emailonorder/edit/(?P<pk>[\d]+)/$', self.emailonorder_update_view.as_view(),
+                name='emailonorder-detail'),
+            url(r'^emailonorder/delete/(?P<pk>[\d]+)/$', self.emailonorder_delete_view.as_view(),
+                name='emailonorder-delete'),
         ]
         return self.post_process_urls(urls)
 

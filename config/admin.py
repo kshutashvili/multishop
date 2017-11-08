@@ -6,11 +6,11 @@ from django.contrib.sites.models import Site
 from django.utils.html import format_html
 from solo.admin import SingletonModelAdmin
 
+from shop.catalogue.models import EmailOnOrder
 from .models import (SiteConfig, Configuration, MenuItem, MenuCategory,
                      TextOne, TextTwo, TextThree, TextFour, MetaTag, ModelMetaTag,
                      FuelConfiguration, BenefitItem, OverviewItem, ReviewItem,
                      DeliveryAndPay)
-
 
 admin.site.register(ModelMetaTag)
 
@@ -161,3 +161,8 @@ class DeliveryAndPayAdminForm(forms.ModelForm):
 @admin.register(DeliveryAndPay)
 class DeliveryAndPayAdmin(admin.ModelAdmin):
     list_display = ('for_block', 'title')
+
+
+@admin.register(EmailOnOrder)
+class EmailOnOrderAdmin(SingletonModelAdmin):
+    list_display = ('message', 'email_subject', 'subject_order')

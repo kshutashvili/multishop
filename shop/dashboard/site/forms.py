@@ -19,7 +19,7 @@ from contacts.models import (City, PhoneNumber,
                              Timetable, SocialNetRef,
                              FlatPage, ContactMessage,
                              WorkSchedule)
-from shop.catalogue.models import FilterDescription
+from shop.catalogue.models import FilterDescription, EmailOnOrder
 from shop.order.models import InstallmentPayment, ShippingMethod, PaymentMethod
 from users.models import User
 
@@ -312,3 +312,8 @@ class UserCreateForm(UserCreationForm):
 
 class UserPasswordChangeForm(PasswordChangeForm):
     pass
+
+class EmailOnOrderForm(forms.ModelForm):
+    class Meta:
+        model = EmailOnOrder
+        fields = '__all__'

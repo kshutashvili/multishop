@@ -15,7 +15,7 @@ from oscar.apps.catalogue.reviews.abstract_models import AbstractProductReview
 from django.contrib.sites.models import Site
 from oscar.core import validators
 from oscar.core.compat import AUTH_USER_MODEL, user_is_authenticated
-from shop.catalogue.models import Product
+from shop.catalogue.models import Product, EmailOnOrder
 
 
 def preview_text(value, length=116, ending='...'):
@@ -60,11 +60,10 @@ def on_review_create(sender, instance, created, **kwargs):
             use_tls=conf.email_use_tls,
             fail_silently=True
         )
-    message = 'Кто-то оставил коментарий на ваш отзыв. Что бы просмотреть этот коментарий ' \
-              'перейдите, пожалуйста, по ссылке http://{0}/{1}'.format(
+    message = EmailOnOrder.objects.first().message.format(
         instance.site.domain, instance.product.get_absolute_url())
     email = EmailMessage(
-            subject='Оповещение об ответе на ваш отзыв',
+            subject=EmailOnOrder.objects.first().email_subject,
             body=message,
             from_email=settings.DEFAULT_FROM_EMAIL,
             to=[to_email],

@@ -258,6 +258,10 @@ OSCAR_DASHBOARD_NAVIGATION.insert(
                 'url_name': 'dashboard:sitecontact-edit',
             },
             {
+                'label': _('Изменение текста емеил'),
+                'url_name': 'dashboard:emailonorder-edit',
+            },
+            {
                 'label': _('Контакты по городам'),
                 'url_name': 'dashboard:city-list',
             },

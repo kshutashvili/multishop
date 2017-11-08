@@ -31,9 +31,9 @@ from shop.dashboard.site.forms import (SiteForm, SiteConfigForm,
                                        FooterMenuItemForm, MenuCategoryForm,
                                        InstallmentPaymentForm, UserForm,
                                        ShippingMethodForm, PaymentMethodForm,
-                                       UserCreateForm, UserPasswordChangeForm)
+                                       UserCreateForm, UserPasswordChangeForm, EmailOnOrderForm)
 from shop.catalogue.models import (FilterDescription, Product, ProductCategory,
-                                   ProductAttributeValue)
+                                   ProductAttributeValue, EmailOnOrder)
 from shop.order.models import InstallmentPayment, ShippingMethod, PaymentMethod
 from config.models import (MetaTag, TextOne, TextTwo, TextThree, TextFour,
                            Configuration, FuelConfiguration, BenefitItem,
@@ -2004,3 +2004,88 @@ class CloneProductView(View):
                 attr_value_obj.save()
             obj.save()
         return HttpResponseRedirect(reverse('dashboard:catalogue-product-list'))
+
+
+class EmailOnOrderCreateView(CreateView):
+    model = EmailOnOrder
+    form_class = EmailOnOrderForm
+    template_name = 'shop/dashboard/site/EmailOnOrder.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EmailOnOrderCreateView, self).get_context_data(**kwargs)
+        context['title'] = _('Create Email On Order')
+        context['EmailOnOrder_form'] = EmailOnOrderForm()
+
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        site_config = context['EmailOnOrder_form']
+        self.object = form.save()
+        site_config.instance = self.object.config
+
+        if site_config.is_valid():
+            site_config.save()
+
+        return super(EmailOnOrderCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('dashboard:index')
+
+
+class EmailOnOrderUpdateView(UpdateView):
+    template_name = 'shop/dashboard/site/EmailOnOrder_detail.html'
+    model = EmailOnOrder
+    form_class = EmailOnOrderForm
+
+    def get_context_data(self, **kwargs):
+        context = super(EmailOnOrderUpdateView, self).get_context_data(**kwargs)
+        context['title'] = _("Изменение Email On Order")
+        if self.request.POST:
+            context['site_config_form'] = SiteConfigForm(self.request.POST,
+                                                         self.request.FILES)
+        else:
+            current_site = get_current_site(self.request)
+            current_site_config = SiteConfig.objects.get(site=current_site)
+            context['site_config_form'] = SiteConfigForm(instance=current_site_config)
+        return context
+
+    def get_object(self):
+        if self.kwargs.get('is_current', False):
+            pk = get_current_site(self.request).pk
+        else:
+            pk = self.kwargs['pk']
+
+        obj = get_object_or_404(self.model, pk=pk)
+        return obj
+
+    def get_success_url(self):
+        messages.success(self.request, _("Email On Order успешно изменен"))
+        return reverse('dashboard:index')
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        site_config = context['site_config_form']
+        self.object = form.save()
+        site_config.instance = self.object.config
+
+        if site_config.is_valid():
+            site_config.save()
+
+        return super(EmailOnOrderUpdateView, self).form_valid(form)
+
+
+class EmailOnOrderDeleteView(DeleteView):
+    template_name = 'shop/dashboard/site/EmailOnOrder_delete.html'
+    model = SiteConfig
+    form_class = SiteForm
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(EmailOnOrderDeleteView, self).get_context_data(*args,
+                                                           **kwargs)
+        ctx['title'] = _("Удаление сайта '%s'") % self.object
+        return ctx
+
+    def get_success_url(self):
+        messages.info(self.request, _("Сайт успешно удален"))
+        return reverse("dashboard:index")
