@@ -172,15 +172,19 @@
                                         {% else %}
                                             {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                                         {% endif %}</p>
-                                    <a href="#" id="submit_btn" class="basket_button show_popup"
+                                    {% if product.id in basket_product_ids %}
+                                        <a href="#" class="basket_button_in dpn">
+                                        {% trans "В корзине" %}
+                                        </a>
+                                        {% else %}
+                                        <a href="#" id="submit_btn" class="basket_button show_popup"
                                         data-loading-text="Добавляем"
                                         data-rel="buy_button_modal"
                                         data-product-id="{{ product.id }}">
                                         {% trans "В корзину" %}
-                                    </a>
-                                    <a href="#" class="basket_button_in dpn">
-                                        {% trans "В корзине" %}
-                                    </a>
+                                        </a>
+                                    {% endif %}
+
                                     <a href="#" class="buy_credit show_popup"
                                        data-rel="credit_button_modal">
                                         {% trans "Купить в кредит" %}
@@ -239,13 +243,12 @@
                                 {% endif %}
 
                                 {% if request.session.compare_list and product.id in request.session.compare_list %}
-                                    <a href="#!"
-                                       class="compare_button compare_button_added">{% trans "В сравнении" %}</a>
+                                    <a href="#"
+-                                       class="elipse_button">{% trans "Сравнить" %}</a>
                                 {% else %}
                                     <a href="#!"
-                                       data-compare-url="{% url 'compare' %}"
-                                       class="compare_button"
-                                       data-product-id="{{ product.id }}">{% trans "Сравнить" %}</a>
++                                       class="compare_button compare_button_added">{% trans "В сравнении" %}</a>
+
                                 {% endif %}
                                 <a href="#"
                                    class="elipse_button_question show_popup"
