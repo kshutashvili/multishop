@@ -211,11 +211,14 @@
                         {% else %}
                             {{ session.price.excl_tax|floatformat|humanize_price }} <span>{{ session.price.currency|format_currency }}</span>
                         {% endif %}</p>
+                                    {% if product.id in basket_product_ids %}
+                                    <a href="#" class="basket_button_in dpn">
+                                        {% trans "В корзине" %}</a>
+                                    {% else %}
                                     <button class="basket_button_sold" style="margin-top: 10px;">
                                         {% trans "Нет в наличии" %}
                                     </button>
-                                    <a href="#" class="basket_button_in dpn">
-                                        {% trans "В корзине" %}</a>
+                                    {% endif %}
                                     <a href="#" class="buy_credit show_popup"
                                        data-rel="credit_button_modal">
                                         {% trans "Купить в кредит" %}
