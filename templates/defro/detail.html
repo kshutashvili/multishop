@@ -176,11 +176,10 @@
                                         <a href="#" class="buy_button buy_button_bougth">{% trans "В корзине" %}</a>
                                         </a>
                                         {% else %}
-                                        <a href="#" id="submit_btn" class="basket_button show_popup"
-                                        data-loading-text="Добавляем"
-                                        data-rel="buy_button_modal"
-                                        data-product-id="{{ product.id }}">
-                                        {% trans "В корзину" %}
+                                        <a href="#"
+                           class="buy_button show_popup"
+                           data-rel="buy_button_modal"
+                           data-product-id="{{ product.id }}" style="width: 220px">{% trans "Нет в наличии" %}</a>
                                         </a>
                                     {% endif %}
 
