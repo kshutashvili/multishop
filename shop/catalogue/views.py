@@ -89,6 +89,7 @@ class ProductDetailView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,
                               self.request.basket.lines.all()]
         context['already_in_basket'] = current_product in products_in_basket
         context['similar_products'] = similar_products
+        context['delivery_text'] = SiteConfig.objects.get(site=self.request.site).delivery_text
         context.update(self.get_meta_tokens())
         return context
 

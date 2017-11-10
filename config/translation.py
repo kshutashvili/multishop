@@ -1,7 +1,7 @@
 from modeltranslation.translator import translator, TranslationOptions
 
 from .models import (MenuItem, MetaTag, BenefitItem, TextOne, TextTwo, TextThree,
-                     TextFour, ReviewItem, DeliveryAndPay, Configuration, MenuCategory)
+                     TextFour, ReviewItem, DeliveryAndPay, Configuration, MenuCategory, SiteConfig)
 
 
 class MenuItemTranslationOptions(TranslationOptions):
@@ -68,4 +68,8 @@ translator.register(Configuration, ConfigurationTranslationOptions)
 class MenuCategoryTranslationOptions(TranslationOptions):
     fields = ('name',)
 
+class SiteConfigTranslationOptions(TranslationOptions):
+    fields = ('delivery_text',)
+
 translator.register(MenuCategory, MenuCategoryTranslationOptions)
+translator.register(SiteConfig, SiteConfigTranslationOptions)

@@ -91,6 +91,7 @@ class SiteConfig(models.Model):
                                       max_length=128)
     email_use_tls = models.BooleanField(_("Использовать TLS?"),
                                         default=True)
+    delivery_text = models.TextField("Текст доставки", blank=True, null=True,)
 
     def __unicode__(self):
         return self.site.domain
