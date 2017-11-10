@@ -245,11 +245,13 @@
                                 {% endif %}
 
                                 {% if request.session.compare_list and product.id in request.session.compare_list %}
-                                    <a href="#"
--                                       class="elipse_button">{% trans "Сравнить" %}</a>
-                                {% else %}
                                     <a href="#!"
-+                                       class="compare_button compare_button_added">{% trans "В сравнении" %}</a>
+-                                       class="compare_button compare_button_added">{% trans "В сравнении" %}</a>
+
+                                {% else %}
+                                    <a href="#" class="elipse_button" id="comp"
+                                        data-compare-url="{% url 'compare' %}"
+                                        data-product-id="{{ product.id }}">{% trans "Сравнить" %}</a>
 
                                 {% endif %}
                                 <a href="#"
