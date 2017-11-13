@@ -218,9 +218,9 @@ function hover_side_menu() {
 }
 
 function scrolbar_on() {
-    if($(window).width()<=672) {
-        $('.scrollbar-inner').scrollbar();
-    }
+    // if($(window).width()<=672) {
+        $('.compare_scroll').scrollbar();
+    // }
 }
 function searchAppend() {
             if($(window).width()<=992) {
