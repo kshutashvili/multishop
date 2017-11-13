@@ -46,12 +46,7 @@ class FilterForm(forms.Form):
                         'attrs': {},
                     }
                 ))
-        self.fields['product_class'] = NonValidationMultipleChoiceField(
-            widget=CustomFilterCheckboxSelectMultiple(),
-            label=ProductClass._meta.verbose_name.title(),
-            required=False,
-            choices=widget_choices,
-        )
+        
 
         # Filter by attributes
         for attr in ProductAttribute.objects.filter(
