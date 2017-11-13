@@ -6,6 +6,15 @@ $('#myTabs a').click(function (e) {
     $(this).tab('show')
   });
 
+$('#only_dif_tab').click(function(e) {
+    $('#all_parame').hide();
+    $('#only_dif').show();
+});
+$('#all_parame_tab').click(function(e) {
+    $('#all_parame').show();
+    $('#only_dif').hide();
+});
+
 $('.owl-carousel').owlCarousel({
     items:3,
     autoWidth: true,
@@ -209,9 +218,9 @@ function hover_side_menu() {
 }
 
 function scrolbar_on() {
-    if($(window).width()<=672) {
-        $('.scrollbar-inner').scrollbar();
-    }
+    // if($(window).width()<=672) {
+        $('.compare_scroll').scrollbar();
+    // }
 }
 function searchAppend() {
             if($(window).width()<=992) {

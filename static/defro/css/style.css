@@ -5590,3 +5590,6 @@ a + .for_list_block {
 #submit_comment, #submit_comment1 {
     background-color: #ed1b24;
 }
+.compare_ul, .compare_table_tab_content {
+    white-space: nowrap;
+}
