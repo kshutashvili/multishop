@@ -5625,3 +5625,6 @@ a + .for_list_block {
     margin: 5px 0 0;
     text-align: center;
 }
+.compare_ul, .compare_table_tab_content {
+    white-space: nowrap;
+}

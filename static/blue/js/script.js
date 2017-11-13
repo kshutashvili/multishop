@@ -6,6 +6,15 @@ $('#myTabs a').click(function (e) {
     $(this).tab('show')
   });
 
+$('#only_dif_tab').click(function(e) {
+    $('#all_parame').hide();
+    $('#only_dif').show();
+});
+$('#all_parame_tab').click(function(e) {
+    $('#all_parame').show();
+    $('#only_dif').hide();
+});
+
 $('.owl-carousel').owlCarousel({
     items:3,
     autoWidth: true,
