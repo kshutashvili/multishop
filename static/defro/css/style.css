@@ -5593,3 +5593,6 @@ a + .for_list_block {
 .compare_ul, .compare_table_tab_content {
     white-space: nowrap;
 }
+.compare_block_table ul li {
+	white-space: initial!important;
+}
