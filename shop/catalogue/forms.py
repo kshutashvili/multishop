@@ -46,7 +46,7 @@ class FilterForm(forms.Form):
                         'attrs': {},
                     }
                 ))
-        
+
 
         # Filter by attributes
         for attr in ProductAttribute.objects.filter(
