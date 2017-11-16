@@ -47,39 +47,38 @@
                            {% trans "Очистить все" %}
                         </a>
                         <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a
+                            <li class="active">
+                                <a
                                     href="#all_parame"
-                                    aria-controls="all_parame"
                                     role="tab"
-                                    data-toggle="tab">{% trans "Все параметры" %}</a>
+                                    data-toggle="tab"
+                                    id="all_parame_tab">{% trans "Все параметры" %}</a>
                             </li>
-                            <li role="presentation">
-                                <a href="#only_dif" aria-controls="only_dif" role="tab" data-toggle="tab">
+                            <li>
+                                <a href="#only_dif" role="tab" data-toggle="tab" id="only_dif_tab">
                                     {% trans "Только отличия" %}
                                 </a>
                             </li>
                         </ul>
-                        <div class="compare_table_tab_content" style="width: 270px; margin-top:51px;">
+
+                        <div class="compare_table_tab_content" style="width: 270px; margin-top:50px;">
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="all_parame">
+                                <div role="tabpanel" class="tab-pane active" id="all_parame1">
                                     <table class="table_main_har">
-                                        <tr>
-                                            <th style="width:260px !important; display: inline-block;">power11 </th>
-                                        </tr>
-                                    
-                                        <tr>
-                                            <th style="width:260px !important; display: inline-block; float: left">Attribute11 </th>
-                                        </tr>
+                                        {% for attr_name, attr_values in attributes %}
+                                            <tr>
+                                                <th style="width:270px !important; display: inline-block; float: left">{{ attr_name }} </th>
+                                            </tr>
+                                        {% endfor %}
                                     </table>
                                 </div>
-                                <div role="tabpanel" class="tab-pane" id="only_dif">
+                                <div role="tabpanel" class="tab-pane" id="only_dif1">
                                     <table class="table_main_har">
-                                        <tr>
-                                            <th style="width:260px">Attribute1 </th>
-                                        </tr>
-                                        <tr>
-                                            <th style="width:260px">power1 </th>
-                                        </tr>
+                                        {% for attr_name, attr_values in unique_attributes %}
+                                            <tr>
+                                                <th style="width:270px">{{ attr_name }} </th>
+                                            </tr>
+                                        {% endfor %}
                                     </table>
                                 </div>
                             </div>
@@ -87,6 +86,7 @@
                     </div>
 
 
+                    <div class="scrollbar-inner compare_scroll">
                         <ul class="compare_ul">
                             {% for product in products %}
                                 {% basket_form request product as basket_form %}
@@ -198,7 +198,7 @@
                                 </div>
                             </div>
                         </div>
-
+                    </div>
                 </div>
             </div>
         </div>
@@ -226,16 +226,8 @@
             $(".br-widget a:first-child").css( "display", "none" );
             side_hover();
             compare_scrolbar_on();
-            // $(window).resize(function() {
-            //     side_hover();
-            // });
         });
         $(window).resize(function() {compare_scrolbar_on();side_hover();});
-        function compare_scrolbar_on() {
-            if($(window).width()<=992) {
-               $('.scrollbar-inner').scrollbar();        
-           }
-        }
     </script>
     {{ block.super }}
 {% endblock %}

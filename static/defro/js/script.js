@@ -7,12 +7,16 @@ $('#myTabs a').click(function (e) {
 	});
 
 $('#only_dif_tab').click(function(e) {
-    $('#all_parame').hide();
-    $('#only_dif').show();
+    $('#all_parame1').hide();
+    $('#all_parame2').hide();
+    $('#only_dif1').show();
+    $('#only_dif2').show();
 });
 $('#all_parame_tab').click(function(e) {
-    $('#all_parame').show();
-    $('#only_dif').hide();
+    $('#all_parame1').show();
+    $('#all_parame2').show();
+    $('#only_dif1').hide();
+    $('#only_dif2').hide();
 });
 
 $('.owl-carousel').owlCarousel({
