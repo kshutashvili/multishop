@@ -96,11 +96,12 @@
 					<div class="other_blocks">
 						<p>{% trans "Теплопотери здания" %}</p>
 						<div class="right_side">
-							<label class="select_box">
-								<select id="t_lose">
+							<label class="select_box" >
+								<select id="t_lose" style = "background: url({%  static 'defro/img/arrow_select.png' %}) no-repeat right , white;">
 									<option id="lose_warm">{% trans "Утепленный" %}</option>
 									<option id="lose_cold">{% trans "Неутепленный" %}</option>
 								</select>
+
 							</label>
 						</div>
 					</div>
@@ -124,7 +125,7 @@
 						<p>{% trans "Месторасположение дома" %}</p>
 						<div class="right_side">
 							<label class="select_box">
-								<select id="t_location">
+								<select id="t_location" style = "background: url({%  static 'defro/img/arrow_select.png' %}) no-repeat right , white;">
 									<option value='zone1'>{% trans "Киевская" %}</option>
 									<option value='zone1'>{% trans "Черкасская" %}</option>
 									<option value='zone1'>{% trans "Кирововградская" %}</option>
@@ -161,7 +162,7 @@
 						<p>{% trans "Система отопления дома" %}</p>
 						<div class="right_side">
 							<label class="select_box">
-								<select id="t_system">
+								<select id="t_system" style = "background: url({%  static 'defro/img/arrow_select.png' %}) no-repeat right , white;">
 									<option id="system_old">{% trans "Старая" %}</option>
 									<option id="system_new">{% trans "Нового образца" %}</option>
 								</select>

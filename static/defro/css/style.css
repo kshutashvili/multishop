@@ -683,18 +683,18 @@ label.select_box {
 	margin-bottom: 0;
 }
 label.select_box:after {
-    content:'';
-	background: url("../img/arrow_select.png") no-repeat center center;
+    /*content:'';*/
+	/*background: url("../img/arrow_select.png") no-repeat center center;*/
     right:8px; top:5px;
     padding:0 0 2px;
     width: 32px;
     height: 32px;
-    border-radius: 4px;
-    border:2px solid #c65e55;
+    /*border-radius: 4px;*/
+    /*border:2px solid #c65e55;*/
     position:absolute;
 }
 label.select_box:before {
-    content:'';
+    /*content:'';*/
     right:6px; top:0px;
     width:20px; height:20px;
     background:#f8f8f8;
