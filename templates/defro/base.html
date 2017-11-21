@@ -208,7 +208,7 @@
         {% endblock %}
 
         {% block content %}
-            <div class="popup buy_button_modal" id="basket_modal" style="top: 100px;">
+            <div class="popup buy_button_modal" id="basket_modal">
                 <a class="close" href="#">{% trans "Close" %}</a>
                 <ul>
                     <li>
@@ -246,7 +246,7 @@
 
                     </li>
                     <li>
-                        <form id="buy_one_click_modal">
+                        <form id="buy_one_click_modal" >
                             <input type="text"
                                    placeholder="(0XX) XXX - XX - XX"
                                    class="modal_input_goto" name="phone">

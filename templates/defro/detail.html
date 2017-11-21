@@ -222,21 +222,21 @@
                                         {% trans "Купить в кредит" %}
                                     </a>
 
-                                    <form id="buy_one_click" method="POST"
-                                          action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
-                                        <input type="text"
-                                               class="zakaz_one_click"
-                                               placeholder="(XXX) XXX - XXX - XXX"
-                                               name="phone">
+                                    <!--<form id="buy_one_click" method="POST"-->
+                                          <!--action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">-->
+                                        <!--<input type="text"-->
+                                               <!--class="zakaz_one_click"-->
+                                               <!--placeholder="(XXX) XXX - XXX - XXX"-->
+                                               <!--name="phone">-->
 
 
-                                        <button class="zakaz_one_click"
-                                                id="one_click_btn"
-                                                rel="request_button_modal_third"
-                                                data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
-                                            {% trans "Заказать в один клик" %}
-                                        </button>
-                                    </form>
+                                        <!--<button class="zakaz_one_click"-->
+                                                <!--id="one_click_btn"-->
+                                                <!--rel="request_button_modal_third"-->
+                                                <!--data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">-->
+                                            <!--{% trans "Заказать в один клик" %}-->
+                                        <!--</button>-->
+                                    <!--</form>-->
                                     <p class="nalichie dpn naliche_net">{% trans "Нет в наличии" %}</p>
                                     <a href="#" class="basket_button_none dpn">{% trans "Нет в наличии" %}</a>
 

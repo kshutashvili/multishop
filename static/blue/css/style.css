@@ -3288,7 +3288,7 @@ a.add_own_new_comment{
 /**********All styles popup**********/
 .popup {
     position:fixed;
-    top:36px;
+    top:60px;
     left:50%;
     display:none;
     /*overflow:hidden;*/
@@ -5565,7 +5565,7 @@ a + .block155h, img + .block155h {
     height: 32px;
 }
 .compare_block_table .nav-tabs > li > a {
-    font-size: 14px;
+    font-size: 12px;
 }
 .compare_block_table .catalog_item_block_caption {
     height: 46px;

@@ -268,8 +268,7 @@ class OneClickOrderCreateView(CreateView):
             self.product = get_object_or_404(
                 self.product_model, pk=kwargs['pk'])
         self.basket = self.request.basket
-        return super(OneClickOrderCreateView, self).dispatch(request, *args,
-                                                             **kwargs)
+        return super(OneClickOrderCreateView, self).dispatch(request, *args,**kwargs)
 
     def form_valid(self, form):
         instance = form.save(commit=False)

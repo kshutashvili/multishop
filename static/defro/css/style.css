@@ -3227,7 +3227,7 @@ a.add_own_new_comment{
 /**********All styles popup**********/
 .popup {
     position:fixed;
-    top:36px;
+    top:40px;
     left:50%;
     display:none;
     border:1px solid #ccc;
