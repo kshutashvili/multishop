@@ -3243,8 +3243,8 @@ a.add_own_new_comment{
     display:block;
     text-indent:-9999px;
     position:absolute;
-    top: -14px;
-	right: -40px;
+    /*top: -14px;*/
+	right: -60px;
     background:url(../img/tovar/close_modal.png) no-repeat;
     z-index: 10000;
     margin: -25px 0 0 -25px;
