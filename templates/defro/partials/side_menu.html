@@ -1,5 +1,7 @@
 {% load i18n %}
 
+{% load site_static %}
+
 {% if is_main_page %}
 <a class="left_side_caption" id="permanentCollapse">
     {% trans "Каталог товаров" %}
@@ -21,8 +23,8 @@
                   {% for category, descendants in side_menu_categories.items %}
                     <div class="dropdown side-menu">
                         <a href="{{ category.get_absolute_url }}"
-                           class="btn btn-default dropdown-toggle"
-                           id="dropdownMenu{{ forloop.counter0|add:"3" }}"
+                           class="btn btn-default dropdown-toggle open"
+                           id="dropdownMenu{{ forloop.counter0|add:'3' }}"
                            data-toggle="dropdown"
                            aria-haspopup="true"
                            aria-expanded="true">
@@ -30,7 +32,7 @@
                         </a>
                         {% if descendants %}
                         <ul class="dropdown-menu"
-                            aria-labelledby="dropdownMenu{{ forloop.counter0|add:"3" }}">
+                            aria-labelledby="dropdownMenu{{ forloop.counter0|add:'3' }}">
                             {% for descendant in descendants %}
                                 <li class="clear_fix">
                                     {% if descendant.image %}
@@ -59,3 +61,5 @@
         </ul>
     </div>
 </div>
+
+<script src  = "{% get_static 'js/side_menu.js' %}"></script>

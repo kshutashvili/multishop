@@ -258,7 +258,7 @@ ul{
 .dropdown-menu {
     left: auto;
     right: 0;
-    top: 95%;
+    top: 100%;
     z-index: 1;
     border-radius: 0;
     padding: 0;

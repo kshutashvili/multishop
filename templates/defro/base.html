@@ -166,15 +166,13 @@
                             </ul>
                         </div>
 
-                        <div class="dropdown dropdown_2">
-                            <a href="#" class="btn btn-default dropdown-toggle"
-                               id="dropdownMenu2" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="true"
+                        <div class="dropdown dropdown_2" id = "addclass">
+                            <a href="#" class="btn btn-default "
+                               id="dropdownMenu2"
                                data-content="{{ request.basket.num_lines }}">
                                 {% trans "Корзина" %}
                             </a>
-                            <ul class="dropdown-menu"
-                                aria-labelledby="dropdownMenu2">
+                            <ul class="dropdown-menu" id = "show">
                                 <li>
                                     <p class="basket_how_many">В <span
                                             class="red">{% trans "Вашей корзине" %}</span>
@@ -519,6 +517,67 @@
         hide_mobile_side_menu();
     });
     </script>
+
+<script>
+
+// var show = $('#show');
+// var timeoutId;
+//$('#dropdownMenu2').hover(
+//    function () {
+//    clearTimeout(timeoutId);
+//    show.show();
+//    //$('#addclass').addClass("open");
+////    $('#addclass').addClass('open');
+//},
+//    function () {
+//        timeoutId = setTimeout($.proxy(show , 'hide') , 1000);
+//    });
+//
+//$('#show').mouseleave(function () {
+//    $(this).hide();
+//})
+
+$('#addclass').hover(function () {
+    $(this).addClass('open');
+
+}, function () {
+    $(this).removeClass('open');
+
+});
+
+
+
+/*
+*
+* var linc2 = $('.linc2'),
+    timeoutId;
+$('.link').hover(function(){
+    clearTimeout(timeoutId);
+    linc2.show();
+}, function(){
+    timeoutId = setTimeout($.proxy(linc2,'hide'), 1000)
+});
+linc2.mouseenter(function(){
+    clearTimeout(timeoutId);
+}).mouseleave(function(){
+    linc2.hide();
+});
+* */
+
+
+//$('#place').hover(function(){
+//$('.linc2').show();
+//},
+//function(){
+//$('.linc2').hide();
+//});
+
+
+//     $("#dropdownMenu2").mouseout(function(){
+//        $('#show').hide();
+//        $('#dropdown_2').removeClass('open');
+//    });
+</script>
 {% endblock %}
 
 {# Block for body onload functions #}
@@ -527,3 +586,10 @@
         {% block onbodyload %}{% endblock %}
     });
 </script>
+
+
+{% comment%}
+
+Добавить класс опен к dropdown_2 при наведении на dropdownMenu2 показівать show
+
+{% endcomment %}
