@@ -3227,7 +3227,7 @@ a.add_own_new_comment{
 /**********All styles popup**********/
 .popup {
     position:fixed;
-    top:40px;
+    top:100px;
     left:50%;
     display:none;
     border:1px solid #ccc;
@@ -3243,7 +3243,7 @@ a.add_own_new_comment{
     display:block;
     text-indent:-9999px;
     position:absolute;
-    /*top: -14px;*/
+    top: 35px;
 	right: -60px;
     background:url(../img/tovar/close_modal.png) no-repeat;
     z-index: 10000;
