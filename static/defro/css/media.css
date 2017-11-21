@@ -336,7 +336,7 @@
     .lang
     {
         position: absolute;
-        right: 13%;
+        right: 0%;
         top: 0;
     }
     .header_right
@@ -351,7 +351,7 @@
     }
     .basket
     {
-        position: absolute;
+        /*position: absolute;*/
         top: 45px;
         right: 13%;
     }
@@ -1074,7 +1074,7 @@
         margin: 20px auto 0 auto;
     }
     .contacts a.zakaz_zvon {
-        position: absolute;
+        /*position: absolute;*/
         top: 18px;
         right: 0;
         font-size: 14px;
@@ -1106,7 +1106,7 @@
 
     .logo {
         position: relative;
-        top: -50px;
+        /*top: -50px;*/
     }
 
     .basket {
@@ -1117,7 +1117,7 @@
     .contacts {
         width: 84%;
         float: left;
-        margin-top: -30px;
+        margin-top: 15px;
     }
 
     /*.contacts a {       
