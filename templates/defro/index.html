@@ -47,10 +47,10 @@
 	<div class="second_block">
 		<div class="container">
 			<h2><span>{% trans "Наши" %}</span> {% trans "продукты" %}</h2>
-			<div class="owl-carousel owl-theme">
+			<div class="owl-carousel owl-theme col-md-5 col-md-offset-3 col-sm-8 col-sm-offset-2">
 				{% if side_menu_categories %}
 					{% for category in side_menu_categories %}
-						<div class="item" style="width: 260px;">
+						<div class="item" style="width: 180px;">
 							<a href="{{ category.get_absolute_url }}" style="line-height:150px;">
 								<p>{{ category.name }}</p>
 								{% if category.image %}
