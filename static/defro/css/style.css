@@ -5487,6 +5487,11 @@ a + .block155h, img + .block155h {
 	margin: 15px 74px;
 	color: #fff;
 }
+
+.error_block
+{
+	font-size:15px !important;
+}
 .contacts_info_text.contacts_grafik {
 	margin-bottom: 0px!important;
 	height: 75px;
@@ -5514,8 +5519,9 @@ a + .block155h, img + .block155h {
     text-transform: uppercase;
 }
 .error_block .error_submsg{
+
     font-family: "ArialRegular";
-    font-size: 18px;
+    font-size: 14px;
     color: #777;
     margin: 14px 0 0 65px;
 }

@@ -5639,3 +5639,7 @@ a + .for_list_block {
 }
 
 
+.error_block{
+    font-size:15px !important;
+}
+
