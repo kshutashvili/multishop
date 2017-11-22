@@ -41,7 +41,7 @@
                                         <li>
                                             {% thumbnail product.primary_image.original "155" as thumb %}
                                                 <img src="{{ thumb.url }}"
-                                                     alt="" style="width: 155px; height: 155px;">
+                                                     alt="" style="width: 155px; ">
                                             {% endthumbnail %}
                                             <div class="block155h"></div>
                                             <p class="compare_item_caption"><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></p>
