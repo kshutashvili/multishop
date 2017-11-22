@@ -239,11 +239,15 @@
                     </li>
                     <li>
                         <a href="#" class="modal_basket_goback"
-                           id="continue_shopping"
+                            id="continue_shopping"
                            data-update-url="{% url 'update_items_quantity' %}"
-                           data-catalogue-url="{% url 'catalogue:index' %}">
+                           data-catalogue-url="{% url 'catalogue:index' %}"
+                          >
                            {% trans "Продолжить покупки" %}
                         </a>
+
+
+
                         <a href="{% url 'basket:summary' %}"
                            class="modal_basket_button_zakaz" id="make_order"
                            data-update-url="{% url 'update_items_quantity' %}"
@@ -526,6 +530,15 @@
         hide_mobile_side_menu();
     });
     </script>
+
+
+<script>
+    $('#continue_shopping').click(function () {
+        $('#basket_modal').css('display' , "none");
+        $('.shadow').css('display' , 'none');
+
+    })
+</script>
 
 <script>
 

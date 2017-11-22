@@ -639,6 +639,12 @@ a.under_left_menu_more:hover{
     padding-left: 10px;
     border: 0;
 }
+
+.third_block .calculator .other_blocks input[type='number']
+{
+
+}
+
 .third_block .calculator .other_blocks span{
     margin-left: 15px;
     font-size: 18px;
@@ -5631,3 +5637,5 @@ a + .for_list_block {
 .compare_block_table ul li {
     white-space: initial!important;
 }
+
+

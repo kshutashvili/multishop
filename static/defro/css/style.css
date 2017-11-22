@@ -632,6 +632,28 @@ a.under_left_menu_more:hover{
 	padding-left: 10px;
 	border: 0;
 }
+
+/*input#t_heigth::-webkit-inner-spin-button,*/
+/*input#t_heigth::-webkit-outer-spin-button*/
+/*{*/
+	/*-webkit-appearance: none !important;*/
+    /*margin:0 !important;*/
+/*}*/
+
+input#t_heigth::-webkit-inner-spin-button,
+input#t_heigth::-webkit-outer-spin-button{
+	/*-webkit-border-radius: 2px;*/
+	/*-moz-border-radius: 2px;*/
+	/*border-radius: 2px;*/
+
+
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+	margin:0 !important;
+
+}
+
+
 .third_block .calculator .other_blocks span{
 	margin-left: 15px;
 	font-size: 18px;
