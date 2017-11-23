@@ -121,8 +121,10 @@
                             <div class="slider_two">
                                 <ul class="bxslider_two">
                                     {% for img in product.images.all %}
-                                        <li class="{% if product.is_discountable or product.special_offer %}before_akcia {% elif product.new %}before_new {% elif product.top_sale %} before_hit{% elif product.recommended %} before_rec{% elif product.super_price %} before_superprice{% endif %} free_shipping"
+                                        <li class="{% if product.is_discountable or product.special_offer %}before_akcia
+                                        {% elif product.new %}{% if LANGUAGE_CODE == 'uk' %} before_new_uk {%else%} before_new{%endif%}{% elif product.top_sale %} before_hit{% elif product.recommended %} before_rec{% elif product.super_price %} before_superprice{% endif %} free_shipping"
                                         >
+                                            {% if LANGUAGE_CODE == 'ru' %}
                                         {% if product.gift %}
                                             <div class="before_gift"></div>
                                         {% endif %}

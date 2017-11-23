@@ -8,15 +8,15 @@
 </a>
 {% else %}
 <a class="left_side_caption catalog_left_side_caption" role="button" data-toggle="collapse"
-   href="#collapseExample" aria-expanded="false"
+   href="#collapseExample" aria-expanded="true"
    aria-controls="collapseExample">
     {% trans "Каталог товаров" %}
 </a>
 {% endif %}
 
 
-<div class="collapse {% if is_main_page %}in{% endif %}" id="collapseExample">
-    <div class="well" {% if is_main_page %}id="landingCollapse"{% endif %}>
+<div class="collapse in" id="collapseExample">
+    <div class="well" id="landingCollapse">
         <ul class="left_menu {% if is_main_page %}main_left_menu{% endif %}">
             <li>
                 {% if side_menu_categories %}
