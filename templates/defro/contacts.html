@@ -39,7 +39,8 @@
                                 <div class="contacts_info_block col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <p class="contacts_info_caption">{% trans "Адрес нашего офиса" %}</p>
                                     <p class="contacts_info_text contacts_adress">
-                                        г. {{ city.city_name }}, {{ city.address }}
+                                        {% if LANGUAGE_CODE == 'uk' %} м.{%else%}
+                                        г.{% endif%} {{ city.city_name }}, {{ city.address }}
                                     </p>
                                     <p class="contacts_info_caption phone_caption">
                                         {% trans "Наши телефоны" %}
