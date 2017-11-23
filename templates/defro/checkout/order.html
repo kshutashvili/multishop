@@ -99,11 +99,106 @@
 
                     </div>
                 </div>
-                <button type="submit" class="make_zakaz_button">{% trans "Заказ подтверждаю" %}
+                <button type="submit" id = "zakaz_submit" class="make_zakaz_button">{% trans "Заказ подтверждаю" %}
                 </button>
             </form>
         </div>
     </div>
+
+
+{% block scripts %}
+    <!-- Oscar -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% get_static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% get_static 'js/jquery.bxslider.min.js' %}"></script>
+    <script src="{% get_static 'js/jquery.scrollbar.js' %}"></script>
+    <script src="{% get_static 'js/headhesive.min.js' %}"></script>
+    <script src="{% get_static 'js/script.js' %}"></script>
+    <script src="{% get_static 'js/estimation.js' %}"></script>
+    <script src="{% get_static 'js/script-full-short.js' %}"></script>
+    <script src="{% get_static 'js/side-menu.js' %}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+{% block extrascripts %}
+{% if LANGUAGE_CODE == 'uk' %}
+    <script>
+
+//        if(a == 0){
+//            alert(a);
+//        }
+       $('#zakaz_submit').click(function () {
+             var name =  $('#id_name').val();
+             var phone =  $('#id_phone').val();
+             var payment  = $('#id_payment_method').val();
+             var shipping  = $('#id_shipping_method').val();
+             if(name != 0)
+             {
+                 $('#id_name').get(0).setCustomValidity("");
+             }
+           if(name == 0) {
+               $('#id_name').get(0).setCustomValidity("Будь ласка , введіть своє ім'я і прізвище");
+
+           }
+            if(phone  != 0)
+           {
+                $('#id_phone').get(0).setCustomValidity("");
+           }
+            if(phone  == 0)
+           {
+               $('#id_phone').get(0).setCustomValidity("Будь ласка , введіть cвій телефон");
+           }
+           if(payment != 0)
+           {
+               $('#id_payment_method').get(0).setCustomValidity('');
+           }
+            if(payment == 0)
+           {
+               $('#id_payment_method').get(0).setCustomValidity('Виберіть один варіант із списку');
+           }
+           if(shipping != 0) {
+               $('#id_shipping_method').get(0).setCustomValidity('');
+           }
+           if(shipping == 0) {
+               $('#id_payment_method').get(0).setCustomValidity('Виберіть один варіант із списку');
+           }
+       });
+//        var input  = document.getElementById('id_name');
+//        var btn    = document.getElementById('zakaz_submit');
+//        btn.onclick  = function(){
+//            if (input.value.length  == 0)
+//            {
+//                alert(input.value.length);
+//                input.setAttribute('oninvalid' ,setCustomValidity("Будь ласка , заповніть це поле." ));
+//            }
+//
+//        }
+//        $('#zakaz_submit').click(function () {
+//             $("#id_name").invalid(function () {
+//                     $('#id_name').setCustomValidity("Будь ласка , заповніть це поле.");
+//                 })
+//        {
+//            alert('adfs');
+//             $('#id_name').setCustomValidity("Будь ласка , заповніть це поле.");
+//        }
+//        });
+
+
+
+//        $('#id_phone').oninvalid.setCustomValidity('Будь ласка , введіть номер телефону.');
+    </script>
+<!--{% else %}-->
+    <!--<script>-->
+        <!--$('#id_name').setCustomValidity("Пожалуйста  , введите свое имя.");-->
+        <!--$('#id_phone').setCustomValidity('Пожалуйста  ,введите свой телефонный номер.');-->
+    <!--</script>-->
+{% endif %}
+{% endblock %}
+
+
 
     {{ block.super }}
 {% endblock %}
