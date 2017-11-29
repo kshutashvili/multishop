@@ -2125,11 +2125,11 @@ a.buy_button:hover{
     background-size: 85%;
 }
 .buy_button.buy_button_bougth{
-    background: #fff url("../img/catalog/in_basket.png") no-repeat top -3px center !important;
+    background: #fff url("../img/catalog/in_basket.png") no-repeat top -1px center !important;
     border: 1px solid #229fff;
 }
 .buy_button.buy_button_bougth:hover{
-    background: #fff url("../img/catalog/in_basket.png") no-repeat top -3px center;
+    background: #fff url("../img/catalog/in_basket.png") no-repeat top -1px center;
     border: 1px solid #229fff;
 }
 .line_through{
