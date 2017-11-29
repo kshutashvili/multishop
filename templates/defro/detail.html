@@ -109,6 +109,10 @@
                     <li role="presentation">
                         <a href="#delivery" aria-controls="delivery" role="tab" data-toggle="tab">
                             {% trans "Доставка" %}
+
+
+
+                            <!--<span>Lorem1aasdsadadsasd</span>-->
                         </a>
                     </li>
                 </ul>
@@ -121,8 +125,29 @@
                             <div class="slider_two">
                                 <ul class="bxslider_two">
                                     {% for img in product.images.all %}
-                                        <li class="{% if product.is_discountable or product.special_offer %}before_akcia
-                                        {% elif product.new %}{% if LANGUAGE_CODE == 'uk' %} before_new_uk {%else%} before_new{%endif%}{% elif product.top_sale %} before_hit{% elif product.recommended %} before_rec{% elif product.super_price %} before_superprice{% endif %} free_shipping"
+                                        <li class=" {% if product.is_discountable or product.special_offer %}
+                                        {% if LANGUAGE_CODE == 'uk'%}
+                                         before_akcia_uk
+
+                                           {% endif %}
+                                        {% elif product.new %}
+                                            {% if LANGUAGE_CODE == 'uk' %}
+                                            before_new_uk
+                                            {%else%}
+                                            before_new
+                                            {%endif%}
+                                        {% elif product.top_sale %}
+                                            before_hit
+                                        {% elif product.recommended %}
+                                        {% if LANGUAGE_CODE == 'uk' %}
+                                            before_rec_uk
+                                            {% else %}
+                                            before_rec
+                                        {% endif %}
+
+                                        {% elif product.super_price %}
+                                         before_superprice
+                                         {% endif %} free_shipping"
                                         >
                                             {% if LANGUAGE_CODE == 'ru' %}
                                         {% if product.gift %}

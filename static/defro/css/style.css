@@ -2125,6 +2125,13 @@ a.look_more:hover{
 	width: 50px;
 	color: transparent;
 }
+
+
+
+.table_main_har tr {
+	height: 50px !important;
+	background: black;
+}
 .marker_next{
 	background: url("../img/catalog/marker_prev.png") no-repeat left 16px top 1px;
 	display: inline-block;

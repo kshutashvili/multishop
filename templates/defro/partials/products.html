@@ -8,7 +8,35 @@
 
     {% basket_form request product as basket_form %}
     <li>
-        <div class="catalog_item_block {% if product.is_discountable or product.special_offer %}before_akcia {% elif product.new %}before_new {% elif product.top_sale %} before_hit{% elif product.recommended %} before_rec{% elif product.super_price %} before_superprice{% endif %} free_shipping">
+        <div class="catalog_item_block
+        {% if product.is_discountable or product.special_offer %}
+            {% if LANGUAGE_CODE == 'uk' %}
+                before_akcia_uk
+                {% else %}
+                before_akcia
+            {% endif %}
+        {% elif product.new %}
+            before_new
+        {% elif product.top_sale %}
+         {% if LANGUAGE_CODE == 'uk' %}
+                before_hit_uk
+            {% else %}
+                before_hit
+            {% endif %}
+        {% elif product.recommended %}
+            {% if LANGUAGE_CODE == 'uk' %}
+                before_rec_uk
+            {%else%}
+                before_rec
+            {%endif%}
+        {% elif product.super_price %}
+            {% if LANGUAGE_CODE == 'uk' %}
+                before_superprice_uk
+            {% else %}
+                before_superprice
+            {% endif %}
+        {% endif %}
+        free_shipping">
 
             <form id="add_to_basket_form_{{ product.id }}"
                   name="add_to_basket_form"
@@ -20,7 +48,7 @@
             </form>
 
             {% if product.gift %}
-                <div class="before_gift"></div>
+                <div class="{% if LANGUAGE_CODE == 'uk' %}before_gift_uk{% else %}  before_gift {% endif %}"></div>
             {% endif %}
             {% if product.free_shipping %}
                 <div class="before_free"></div>

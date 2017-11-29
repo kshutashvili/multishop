@@ -2029,12 +2029,45 @@ a.buy_button:hover{
     width: 63px;
     height: 63px;
 }
+
+.free_shipping .before_gift_uk:before{
+    content: "";
+    position: absolute;
+    top: 70px;
+    right: 17px;
+    background: url("../img/catalog/gift_uk.png") no-repeat left top;
+    width: 63px;
+    height: 63px;
+}
+
+
 .before_akcia:before{
     content: "";
     position: absolute;
     top: 12px;
     left: 17px;
     background: url("../img/catalog/akcia.png") no-repeat left top;
+    width: 130px;
+    height: 25px;
+}
+
+.before_akcia_uk:before{
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 17px;
+    background: url("../img/catalog/akcia_uk.png") no-repeat left top;
+    width: 130px;
+    height: 25px;
+}
+
+
+.before_rec_uk:before{
+     content: "";
+    position: absolute;
+    top: 12px;
+    left: 17px;
+    background: url("../img/catalog/reccomend_uk.png") no-repeat left top;
     width: 130px;
     height: 25px;
 }
@@ -2047,6 +2080,18 @@ a.buy_button:hover{
     width: 130px;
     height: 25px;
 }
+
+
+.before_hit_uk:before{
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 17px;
+    background: url("../img/catalog/hit_uk.png") no-repeat left top;
+    width: 130px;
+    height: 25px;
+}
+
 .before_rec:before{
     content: "";
     position: absolute;
@@ -2071,6 +2116,17 @@ a.buy_button:hover{
     top: 12px;
     left: 17px;
     background: url("../img/catalog/superprice.png") no-repeat left top;
+    width: 130px;
+    height: 25px;
+}
+
+
+.before_superprice_uk:before{
+          content: "";
+    position: absolute;
+    top: 12px;
+    left: 17px;
+    background: url("../img/catalog/superprice_uk.png") no-repeat left top;
     width: 130px;
     height: 25px;
 }
@@ -2880,9 +2936,34 @@ table.table_teh_har {
   margin-bottom: 50px;
   width: 100%;
 }
+
+/*.tab-pane*/
+/*{*/
+    /*margin-top:147px;*/
+/*}*/
+.compare_table_tab_content
+{
+    margin-top:147px !important;
+}
+
+.tab-pane
+{
+    margin-top: -147px;
+}
+
+.tab-content
+{
+    margin-top:147px;
+}
+
+.table_main_har tr
+{
+    height:40px;
+}
 .table_main_har th {
-  padding: 10px;
-  font-size: 15px;
+    padding: 10px;
+    font-size: 15px;
+    height: 30px;
 }
 .table_main_har tr:nth-child(3) td {
   line-height: 25px;
