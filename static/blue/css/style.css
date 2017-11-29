@@ -2020,6 +2020,17 @@ a.buy_button:hover{
     width: 67px;
     height: 43px;
 }
+
+.free_shipping .before_free_uk:before{
+    content: "";
+    position: absolute;
+    top: 140px;
+    right: 17px;
+    background: url("../img/catalog/free_uk.png") no-repeat left top;
+    width: 67px;
+    height: 43px;
+}
+
 .free_shipping .before_gift:before{
     content: "";
     position: absolute;
