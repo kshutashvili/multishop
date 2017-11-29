@@ -36,12 +36,16 @@ class InstallmentPaymentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(InstallmentPaymentForm, self).__init__(*args, **kwargs)
-        self.fields['phone'].widget.attrs = {'placeholder': u'+380(__)_______'}
+        self.fields['phone'].widget.attrs = {
+            'placeholder': u'+380(__)_______',
+            'pattern' :  "/d{6,12}/"
+
+        }
 
 
 class OrderForm(forms.ModelForm):
     phone = forms.RegexField(
-        widget=forms.TextInput(attrs={'placeholder': _(u'Телефон')}),
+        widget=forms.TextInput(attrs={'placeholder': _(u'380(__)_______'),}),
         regex=r'^\+?1?\d{9,15}$',
         error_message=PHONE_ERROR_MESSAGE,
     )
