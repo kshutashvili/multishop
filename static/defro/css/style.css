@@ -348,6 +348,21 @@ ul{
 	width: 160px;
 	margin: 0 auto;
 }
+
+
+.well
+{
+	background: none !important;
+}
+
+.dropdown-menu > li > a.basket_button_zakaz:hover{
+	color: #fff !important;
+	font-size: 16px;
+	padding: 5px 18px;
+	background-color: #ed1b24 !important;
+	width: 160px;
+	margin: 0 auto;
+}
 .dropdown-menu > li > a.basket_goto{
 	text-decoration: underline;
 	padding-left: 26px;
