@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-10-08 16:35+0000\n"
-"PO-Revision-Date: 2017-11-22 14:01+0000\n"
+"PO-Revision-Date: 2018-01-07 13:57+0000\n"
 "Last-Translator:   <Vadim@localhost>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -3079,7 +3079,7 @@ msgstr "Нове замовлення в один клік!"
 
 #: templates/blue/email/oneclick_order.html:13
 #: templates/defro/email/oneclick_order.html:13
-#, python-format
+#, python-format, fuzzy
 msgid ""
 "\n"
 "            Заказ в один клик- %(instance.id)s, на\n"
@@ -3097,6 +3097,7 @@ msgstr "Номер клієнта: {{ instance.phone }}"
 
 #: templates/blue/email/oneclick_order.html:22
 #: templates/defro/email/oneclick_order.html:22
+#, fuzzy
 msgid "Заказ в один клик- {{ instance.id }}, на товары"
 msgstr "Замовлення в один клік- {{ instance.id }}, на товари"
 

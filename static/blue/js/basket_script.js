@@ -274,6 +274,7 @@ $(document).ready(function () {
 
     $('#one_click_btn').click(function (e) {
         e.preventDefault();
+      
         var outer_this = this;
         $.post($(this).attr('data-oneclick-url'), $('#buy_one_click').serialize(), function () {
             $('div.' + $(outer_this).attr("rel")).fadeIn(500);

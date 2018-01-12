@@ -1976,7 +1976,7 @@ a.compare_button{
     margin-right: 5px;
 }
 a.buy_button{
-    background: #229fff url("../img/catalog/buy.png") no-repeat center center;
+    background: #0087ea url("../img/catalog/buy.png") no-repeat center center;
     height: 42px;
     padding: 12px 0;
     width: 110px;
@@ -1993,6 +1993,7 @@ a.buy_button.but_button_sold{
     color: #fff;
     cursor: default;
     border: 1px solid #dfdede;
+    font-size: 12px;
 }
 a.buy_button.but_button_sold:hover{
     background: #828081;
@@ -2009,7 +2010,7 @@ a.buy_button.but_button_sold:hover{
     max-width: 100%;
 }
 a.buy_button:hover{
-    background-color: #f8545b;
+    background-color: #0087ea;
 }
 .free_shipping .before_free:before{
     content: "";

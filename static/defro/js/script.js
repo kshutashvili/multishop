@@ -240,15 +240,15 @@ function headerScroll () {
     $('.well .left_menu').clone().appendTo('.header_scroll_catalog');
 }
 
-function resizeCatalogButton() {
-  if ($(window).width()>992) {
-    $('.head_menu').text('Каталог товаров');
-    $('.head_menu').css('width', '264px');
-  } else {
-    $('.head_menu').text('Каталог');
-    $('.head_menu').css('width', '150px');
-  }
-}
+// function resizeCatalogButton() {
+//   if ($(window).width()>992) {
+//     $('.head_menu').text('Каталог товаров11111');
+//     $('.head_menu').css('width', '264px');
+//   } else {
+//     $('.head_menu').text('Каталог');
+//     $('.head_menu').css('width', '150px');
+//   }
+// }
 
 $(window).scroll(function() {
   $('.header_scroll_catalog').hide();

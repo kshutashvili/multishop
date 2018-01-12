@@ -257,7 +257,7 @@
 
                     </li>
                     <li>
-                        <form id="buy_one_click_modal" >
+                        <form act id="buy_one_click_modal">
                             <input type="text"
                                    placeholder="(0XX) XXX - XX - XX"
                                    class="modal_input_goto" name="phone">
@@ -277,8 +277,12 @@
             <div class="popup request_button_modal_third">
                 <a class="close" href="#">{% trans "Close" %}</a>
                 <p class="modal_caption">{% trans "Спасибо, Ваш заказ получен!" %}</p>
-                <p class="modal_text">{% trans "Наш менеджер обязательно свяжется с
-                    Вами" %}</p>
+                <p class="modal_text">{% if LANGUAGE_CODE == 'ru'%}
+                                        Наш менеджер обязательно свяжется с Вами
+                                        {% elif LANGUAGE_CODE == 'uk'%}
+                                        Наш менеджер обов'язково зв'яжеться з Вами
+                                        {% endif %}
+                                        </p>
             </div>
 
 
@@ -522,7 +526,7 @@
 
 {# Additional JS scripts #}
 {% block extrascripts %}
-    <script src="{% get_static 'js/basket_script.js' %}"></script>
+    
     <script src="{% get_static 'js/popup.js' %}"></script>
     <script>
     $(document).ready(function () {
@@ -539,7 +543,7 @@
 
     })
 </script>
-
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <script>
 
 // var show = $('#show');
@@ -608,6 +612,7 @@ linc2.mouseenter(function(){
         {% block onbodyload %}{% endblock %}
     });
 </script>
+
 
 
 {% comment%}

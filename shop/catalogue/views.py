@@ -33,6 +33,10 @@ from website.views import SiteTemplateResponseMixin
 from .forms import FilterForm, PaginateByForm
 from .utils import get_view_type, dict_to_query, query_to_dict
 
+
+from smtplib import SMTPException
+from django.core.mail import send_mail
+
 MetaTag = apps.get_model('config', 'MetaTag')
 SiteConfig = apps.get_model('config', 'SiteConfig')
 MenuItem = apps.get_model('config', 'MenuItem')
@@ -263,39 +267,91 @@ class OneClickOrderCreateView(CreateView):
     product_model = Product
     success_url = '/'
 
+    def post(self, request, *args, **kwargs):
+        form  = self.form_class(request.POST)
+        print(form)
+        if form.is_valid():
+            # print("VALID!")
+            instance = form.save(commit=False)
+            if hasattr(self, 'product'):
+                # print(self.product)
+                instance.product = self.product
+                instance.product.id = self.product.id
+                self.success_url = self.product.get_absolute_url()
+            elif self.basket.num_lines:
+                print('basket',self.basket)
+                instance.basket = self.basket
+                self.request.basket.submit()
+            site_obj = get_current_site(self.request)
+            instance.site = site_obj
+            instance.save()
+
+            if instance.product:
+                print(instance.product)
+            print("ID" , instance.id)
+            print('INSTANCE phone ' , instance.phone)
+
+            template = os.path.join(get_current_site(self.request).config.template,
+                                    'email/oneclick_order.html')
+            message = get_template(template).render(
+                {'instance': instance})
+            print('id ' , instance.product.id)
+            subject = u'Заявка на заказ(в один клик) №%s' % instance.id
+            send_mail(subject , 
+                message,
+                settings.EMAIL_HOST_USER,
+                [settings.EMAIL_HOST_USER,],
+                 fail_silently=True)
+            print('OK!!!')
+            # msg = EmailMultiAlternatives(
+            #                              subject, message,
+            #                              settings.DEFAULT_FROM_EMAIL,
+            #                              [settings.DEFAULT_FROM_EMAIL, ]
+            #                              )
+            # msg.attach_alternative(message, "text/html")
+            # msg.send(fail_silently=True)
+            return HttpResponse(self.success_url)
+        else:
+            print('invalid!')
+        return HttpResponse(1)
+
+
+    # def form_valid(self, form):
+    #     print('VALID!!!!!!!!!!!!!!!!!')
+    #     instance = form.save(commit=False)
+    #     if hasattr(self, 'product'):
+    #         instance.product = self.product
+    #         self.success_url = self.product.get_absolute_url()
+    #     elif self.basket.num_lines:
+    #         instance.basket = self.basket
+    #         self.request.basket.submit()
+    #     site_obj = get_current_site(self.request)
+    #     instance.site = site_obj
+    #     instance.save()
+
+    #     template = os.path.join(get_current_site(self.request).config.template,
+    #                             'email/oneclick_order.html')
+    #     message = get_template(template).render(
+    #         {'instance': instance})
+    #     subject = u'Заявка на заказ(в один клик) №%s' % instance.id
+    #     msg = EmailMultiAlternatives(subject, message,
+    #                                  settings.DEFAULT_FROM_EMAIL,
+    #                                  [settings.DEFAULT_FROM_EMAIL, ])
+    #     msg.attach_alternative(message, "text/html")
+    #     msg.send(fail_silently=True)
+    #     return HttpResponse(self.success_url)
+
+    # def form_invalid(self, form):
+    #     print('asdasda')
+    #     return HttpResponseBadRequest(form.errors.as_json())
+
     def dispatch(self, request, *args, **kwargs):
         if kwargs.get('pk'):
             self.product = get_object_or_404(
-                self.product_model, pk=kwargs['pk'])
-        self.basket = self.request.basket
+                self.product_model, pk=kwargs['pk']
+            )
+            self.basket = self.request.basket
         return super(OneClickOrderCreateView, self).dispatch(request, *args,**kwargs)
-
-    def form_valid(self, form):
-        instance = form.save(commit=False)
-        if hasattr(self, 'product'):
-            instance.product = self.product
-            self.success_url = self.product.get_absolute_url()
-        elif self.basket.num_lines:
-            instance.basket = self.basket
-            self.request.basket.submit()
-        site_obj = get_current_site(self.request)
-        instance.site = site_obj
-        instance.save()
-
-        template = os.path.join(get_current_site(self.request).config.template,
-                                'email/oneclick_order.html')
-        message = get_template(template).render(
-            {'instance': instance})
-        subject = u'Заявка на заказ(в один клик) №%s' % instance.id
-        msg = EmailMultiAlternatives(subject, message,
-                                     settings.DEFAULT_FROM_EMAIL,
-                                     [settings.DEFAULT_FROM_EMAIL, ])
-        msg.attach_alternative(message, "text/html")
-        msg.send(fail_silently=True)
-        return HttpResponse(self.success_url)
-
-    def form_invalid(self, form):
-        return HttpResponseBadRequest(form.errors.as_json())
 
 
 class CompareView(CompareAndMenuContextMixin, SiteTemplateResponseMixin,

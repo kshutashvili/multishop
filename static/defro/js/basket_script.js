@@ -269,10 +269,10 @@ $(document).ready(function () {
         });
     }
 
-
-    $('#one_click_btn').click(function (e) {
+    $('#one_click_btn').click(function (e) {2
         e.preventDefault();
         var outer_this = this;
+        console.log(outer_this);
         $.post($(this).attr('data-oneclick-url'), $('#buy_one_click').serialize(), function () {
             $('div.' + $(outer_this).attr("rel")).fadeIn(500);
             //$("body").append("<div id='overlay'></div>");
@@ -291,6 +291,32 @@ $(document).ready(function () {
             }, 3000);
         });
     });
+
+
+/*
+    $('#buy_one_click').click(function (e) {
+        e.preventDefault();
+        alert('jkhgh');
+        var outer_this = this;
+        $.post($(this).attr('data-oneclick-url'), $('#buy_one_click').serialize(), function () {
+            $('div.' + $(outer_this).attr("rel")).fadeIn(500);
+            //$("body").append("<div id='overlay'></div>");
+            //$('#overlay').show().css({'filter': 'alpha(opacity=80)'});
+            $('.shadow').show();
+        }).fail(function () {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Add the "show" class to DIV
+            x.className += " show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        });
+    });*/
+
 
     $('#one_click_btn_modal').click(function (e) {
         e.preventDefault();

@@ -470,7 +470,14 @@ TEMPLATE_DIRS = (
     OSCAR_MAIN_TEMPLATE_DIR,
 )
 
-DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+# DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+# DEFAULT_FROM_EMAIL = 'kpi.study1@gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'kpi.study1@gmail.com'
+EMAIL_HOST_PASSWORD = 'kpistudy1'
+
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 

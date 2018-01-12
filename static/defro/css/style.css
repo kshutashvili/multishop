@@ -342,8 +342,8 @@ ul{
 }
 .dropdown-menu > li > a.basket_button_zakaz{
 	color: #fff;
-	font-size: 16px;
-	padding: 5px 18px;
+	font-size: 14px;
+	padding: 5px 5px;
 	background-color: #ed1b24;
 	width: 160px;
 	margin: 0 auto;
@@ -357,8 +357,8 @@ ul{
 
 .dropdown-menu > li > a.basket_button_zakaz:hover{
 	color: #fff !important;
-	font-size: 16px;
-	padding: 5px 18px;
+	font-size: 14px;
+	padding: 5px 5px;
 	background-color: #ed1b24 !important;
 	width: 160px;
 	margin: 0 auto;

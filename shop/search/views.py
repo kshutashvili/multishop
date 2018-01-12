@@ -42,6 +42,12 @@ class FacetedSearchView(OscarFacetedSearchView):
 
         context['categories_count'] = categories_count
 
+        side_menu_categories = {
+        cat: [descendant for descendant in cat.get_descendants()] for cat in
+        Category.objects.filter(site=site) if cat.is_root()}
+
+        context['side_menu_categories'] = side_menu_categories
+
         compare_list = self.request.session.get('compare_list')
         if compare_list:
             compare_products = Product.objects.filter(

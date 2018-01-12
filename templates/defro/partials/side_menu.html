@@ -50,16 +50,12 @@
                     </div>
                   {% endfor %}
                 {% endif %}
-                {% if side_menu %}
-                    {% for item in side_menu %}
-                      <div class ="side-menu">
-                        <a href="{{ item.link }}" class="btn btn-default">{{ item.name }}</a>
-                      </div>
-                  {% endfor %}
-                {% endif %}
+                          
             </li>
         </ul>
     </div>
 </div>
 
+{% block extrascripts %}
 <script src  = "{% get_static 'js/side_menu.js' %}"></script>
+{% endblock %}

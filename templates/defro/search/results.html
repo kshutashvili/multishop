@@ -10,7 +10,7 @@
 {% load purchase_info_tags %}
 {% load dict_filters %}
 {% load basket_tags %}
-
+{% load staticfiles %}
 {% block title %}
     "{{ query }}" | {{ block.super }}
 {% endblock %}
@@ -346,14 +346,36 @@
     {{ block.super }}
 {% endblock %}
 
+
+{% block scripts %}
+    <!-- Oscar -->
+    <script src="{% static "oscar/js/oscar/ui.js" %}" type="text/javascript"
+            charset="utf-8"></script>
+
+    <script src="{% get_static 'js/jquery-2-0-0.js' %}"></script>
+    <script src="{% get_static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% get_static 'js/jquery.bxslider.min.js' %}"></script>
+    <script src="{% get_static 'js/jquery.scrollbar.js' %}"></script>
+    <script src="{% get_static 'js/headhesive.min.js' %}"></script>
+    <script src="{% get_static 'js/script.js' %}"></script>
+    <script src="{% get_static 'js/estimation.js' %}"></script>
+    <script src="{% get_static 'js/script-full-short.js' %}"></script>
+    <script src="{% get_static 'js/side-menu.js' %}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      
+   
+
+{% endblock %}
+
 {% block extrascripts %}
-    <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
+
+   <script src="{% get_static 'js/jquery.ui-slider.js' %}"></script>
     <script src="{% get_static 'js/script-slider-UI.js' %}"></script>
     <script src="{% get_static 'js/script-for-catalog.js' %}"></script>
     <script src="{% get_static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
     <script src="{% get_static 'js/popup.js' %}"></script>
-    <script src="{% get_static 'js/side-menu.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.rating_photo').barrating({

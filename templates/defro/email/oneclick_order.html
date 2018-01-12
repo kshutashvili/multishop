@@ -1,32 +1,22 @@
 {% load i18n %}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% trans "Новый заказ в один клик!" %}</title>
-</head>
-<body>
-
+{% trans "Новый заказ в один клик!" %}
 {% if instance.product %}
-    <p>
-        {% blocktrans %}
-            Заказ в один клик- {{ instance.id }}, на
-            товар {{ instance.product.get_title }},
-            артикул: {{ instance.product.upc }}
-        {% endblocktrans %}
-    </p>
-    <p>{% trans "Номер клиента: {{ instance.phone }}" %}</p>
-{% elif instance.basket %}
-    <p>
-        {% trans "Заказ в один клик- {{ instance.id }}, на товары" %}
-        {% for line in instance.basket.lines.all %}
-            {{ line.product.get_title }}
-            ({% trans "артикул:" %} {{ line.product.upc }}) - {{ line.quantity }} {% trans "шт" %}, 
-        {% endfor %}
-    </p>
-    <p>{% trans "Номер клиента:" %} {{ instance.phone }}</p>
+{% if LANGUAGE_CODE == 'ru' %}
+Заказ в один клик- {%else %}Замовлення в один клік {% endif %} {{ instance.id }},
+на товар {{  instance.product.id }},
+артикул: {{ instance.product.upc }}
+{% if LANGUAGE_CODE == 'ru' %}
+Номер клиента{% else %}Номер клієнта{% endif %}: {{instance.phone}}
+ {% elif instance.basket %}
+
+{% trans "Заказ в один клик- {{ instance.id }}, на товары" %}
+{% for line in instance.basket.lines.all %}
+{{ line.product.get_title }}
+({% trans "артикул:" %} {{ line.product.upc }}) - {{ line.quantity }} {% trans "шт" %}, 
+{% endfor %}
+
+{% if instance.phone%}
+Номер клиента: {{instance.phone}}
 {% endif %}
 
-</body>
-</html>
+{% endif %}

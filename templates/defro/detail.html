@@ -125,11 +125,13 @@
                             <div class="slider_two">
                                 <ul class="bxslider_two">
                                     {% for img in product.images.all %}
-                                        <li class=" {% if product.is_discountable or product.special_offer %}
-                                        {% if LANGUAGE_CODE == 'uk'%}
-                                         before_akcia_uk
+                                        <li class=" 
+                                        {% if product.is_discountable or product.special_offer %}
+                                            {% if LANGUAGE_CODE == 'uk'%}
 
-                                           {% endif %}
+                                            before_akcia_uk
+
+                                            {% endif %}
                                         {% elif product.new %}
                                             {% if LANGUAGE_CODE == 'uk' %}
                                             before_new_uk
@@ -148,10 +150,12 @@
                                         {% elif product.super_price %}
                                          before_superprice
                                          {% endif %} free_shipping"
+
                                         >
                                             {% if LANGUAGE_CODE == 'ru' %}
                                         {% if product.gift %}
                                             <div class="before_gift"></div>
+                                        {% endif %}
                                         {% endif %}
                                         {% if product.free_shipping %}
                                             <div class="before_free"></div>
@@ -215,19 +219,36 @@
                                         {% trans "Купить в кредит" %}
                                     </a>
 
-                                    <form id="buy_one_click" method="POST"
-                                          action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
+                                   <!--  <form id="buy_one_click" method="POST"
+                                          action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">{% csrf_token %}
                                         <input type="text"
                                                class="zakaz_one_click"
-                                               placeholder="(0XX) XXX - XX - XX"
+                                               placeholder="(XXX) XXX-XX-XX"
                                                name="phone">
-                                        <button class="zakaz_one_click"
+                                        <button type="submit" 
+                                                class="zakaz_one_click"
+                                                id="one_click_btn"
+                                                rel="request_button_modal_third"
+                                                data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
+                                            {% trans "Заказать в один клик" %}
+                                        </button>
+                                    </form> -->
+
+                                     <form id="buy_one_click" action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}" method="POST">{% csrf_token %}
+                                        <input type="text"
+                                               class="zakaz_one_click"
+                                               placeholder="(XXX) XXX-XX-XX"
+                                               name="phone">
+                                        <button type="submit" 
+                                                class="zakaz_one_click"
                                                 id="one_click_btn"
                                                 rel="request_button_modal_third"
                                                 data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">
                                             {% trans "Заказать в один клик" %}
                                         </button>
                                     </form>
+
+
                                 {% else %}
                                     <br>
                                     <p class="catalog_item_price not_active_price" style="margin-bottom: 0px">
@@ -248,22 +269,6 @@
                                        data-rel="credit_button_modal">
                                         {% trans "Купить в кредит" %}
                                     </a>
-
-                                    <!--<form id="buy_one_click" method="POST"-->
-                                          <!--action="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">-->
-                                        <!--<input type="text"-->
-                                               <!--class="zakaz_one_click"-->
-                                               <!--placeholder="(XXX) XXX - XXX - XXX"-->
-                                               <!--name="phone">-->
-
-
-                                        <!--<button class="zakaz_one_click"-->
-                                                <!--id="one_click_btn"-->
-                                                <!--rel="request_button_modal_third"-->
-                                                <!--data-oneclick-url="{% url 'oneclick' product_slug=product.slug pk=product.pk %}">-->
-                                            <!--{% trans "Заказать в один клик" %}-->
-                                        <!--</button>-->
-                                    <!--</form>-->
                                     <p class="nalichie dpn naliche_net">{% trans "Нет в наличии" %}</p>
                                     <a href="#" class="basket_button_none dpn">{% trans "Нет в наличии" %}</a>
 
@@ -1860,6 +1865,7 @@
     <script src="{% get_static 'js/jquery.barrating.min.js' %}"></script>
     <script src="{% get_static 'js/more-button.js' %}"></script>
     <script src="{% get_static 'js/script_for_detail.js' %}"></script>
+    <script src="{% get_static 'js/basket_script.js' %}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.rating_photo').barrating({
@@ -1874,6 +1880,9 @@
             });
 
         });
+
+   
+
         $('#submit').on('click', function (e) {
 
             const validate_question = () =>{
@@ -1940,6 +1949,18 @@
         })
 
     </script>
+
+ <script type="text/javascript">
+        $(document).ready(function()
+            {
+             $('#test').on('click' , function(e){
+                      alert('asdasd');
+                    e.preventDefault();
+              
+                });
+            });
+    </script>
+
     <script>
         window.fbAsyncInit = function () {
             FB.init({
@@ -1978,9 +1999,9 @@
     })
     </script>
     <script type="text/javascript" async defer
-            src="//assets.pinterest.com/js/pinit.js"></script>
-    <script type="text/javascript">
+            src="//assets.pinterest.com/js/pinit.js"></script>    
+   <!--  <script type="text/javascript">
         $('.zakaz_one_click').mask('(099)999-99-99');
-    </script>
+    </script> -->
     {{ block.super }}
 {% endblock %}
