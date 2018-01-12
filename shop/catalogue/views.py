@@ -271,7 +271,7 @@ class OneClickOrderCreateView(CreateView):
         form  = self.form_class(request.POST)
         print(form)
         if form.is_valid():
-            # print("VALID!")
+            print("VALID!")
             instance = form.save(commit=False)
             if hasattr(self, 'product'):
                 # print(self.product)
@@ -297,6 +297,8 @@ class OneClickOrderCreateView(CreateView):
                 {'instance': instance})
             print('id ' , instance.product.id)
             subject = u'Заявка на заказ(в один клик) №%s' % instance.id
+            print(subject)
+            print(message)
             send_mail(subject , 
                 message,
                 settings.EMAIL_HOST_USER,

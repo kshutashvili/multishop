@@ -269,10 +269,11 @@ $(document).ready(function () {
         });
     }
 
-    $('#one_click_btn').click(function (e) {2
+    $('#one_click_btn').click(function (e) {
+        alert('click!');
         e.preventDefault();
         var outer_this = this;
-        console.log(outer_this);
+      
         $.post($(this).attr('data-oneclick-url'), $('#buy_one_click').serialize(), function () {
             $('div.' + $(outer_this).attr("rel")).fadeIn(500);
             //$("body").append("<div id='overlay'></div>");
